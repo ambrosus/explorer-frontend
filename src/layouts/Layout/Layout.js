@@ -6,11 +6,9 @@ import Footer from '../Footer';
 const Layout = (props) => {
   const { children } = props;
   return (
-    <div className="layout">
+    <div className="layout ">
       <Header />
-      <div className="content">
-        <div className="page">{children}</div>
-      </div>
+      <div className="page">{children}</div>
       <Footer />
     </div>
   );
