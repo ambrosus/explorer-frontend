@@ -1,24 +1,32 @@
 import React from 'react';
-import Home from './pages/Home';
-import About from './pages/About';
-import Layout from './layouts/Layout';
+import Developers from './pages/Developers';
+import Businesses from './pages/Businesses';
+import AboutAmbrosus from './pages/AboutAmbrosus';
 
 const routes = [
   {
     path: '/',
-    key: 'ROOT',
+    key: 'About Ambrosus',
     exact: true,
-    component: () => <Home />,
+    component: () => <AboutAmbrosus />,
   },
   {
-    path: '/about',
-    key: 'ROOT',
+    path: '/businesses',
+    key: 'Businesses',
     exact: true,
-    component: () => (
-      <Layout>
-        <About />
-      </Layout>
-    ),
+    component: () => <Businesses />,
+  },
+  {
+    path: '/developers',
+    key: 'Developers',
+    exact: true,
+    component: () => <Developers />,
+  },
+  {
+    path: '/community',
+    key: 'Community',
+    exact: true,
+    component: () => <Businesses />,
   },
 ];
 
