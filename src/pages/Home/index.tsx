@@ -3,6 +3,7 @@ import { Content } from '../../components/Content';
 
 export const Home = () => {
 	useEffect(() => {
+		//
 		fetch(`https://blockbook.ambrosus.io/api/v2/address/0xB500558a3886ecf07B4B4B31B54c4bd1ef378D34`, {
 			method: 'GET',
 			headers: {
