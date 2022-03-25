@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Content } from '../../../components/Content';
+import { Content } from '../../../components/Content/Content';
 import API from '../../../API/api';
 import storage from '../../../utils/storage';
 
@@ -37,7 +37,11 @@ export const Home = () => {
 	return (
 		<Content>
 			<Content.Header>
-				<h1>Ambrosus Network Explorer</h1>
+				<div className=''>
+					<div>
+						<h1>Ambrosus Network Explorer</h1>
+					</div>
+				</div>
 			</Content.Header>
 			<Content.Body>
 				<div>Lastest Blocks</div>

@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import routes from '../../routes';
+import { routesMenu } from '../../routes';
 import AmbrosusLogoSvg from './AmbrosusLogoSvg';
 
-const menu = routes.map((menuElement) => (
+const menu = routesMenu.map((menuElement) => (
 	<Link to={menuElement.path} key={menuElement.key} className='menu__item'>
 		{menuElement.key}
 	</Link>

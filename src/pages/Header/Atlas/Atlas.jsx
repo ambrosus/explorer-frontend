@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import { Content } from '../../../components/Content';
+import { Content } from '../../../components/Content/Content';
 
-export const Apollo = () => {
+export const Atlas = () => {
 	useEffect(() => {
 		fetch(`https://blockbook.ambrosus.io/api/v2/address/0xB500558a3886ecf07B4B4B31B54c4bd1ef378D34`, {
 			method: 'GET',
@@ -17,10 +17,10 @@ export const Apollo = () => {
 	return (
 		<Content>
 			<Content.Header>
-				<h1>Apollo</h1>
+				<h1>Atlas</h1>
 			</Content.Header>
 			<Content.Body>
-				<div>Apollo CONTENT</div>
+				<div>Atlas CONTENT</div>
 			</Content.Body>
 		</Content>
 	);
