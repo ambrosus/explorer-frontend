@@ -40,6 +40,7 @@ export const Home = () => {
 				<div className=''>
 					<div>
 						<h1>Ambrosus Network Explorer</h1>
+						<div>Search by Node, Address, Tx, Block, Token, Bundle</div>
 					</div>
 				</div>
 			</Content.Header>

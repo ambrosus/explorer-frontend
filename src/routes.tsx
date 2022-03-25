@@ -1,12 +1,12 @@
 import React from 'react';
-import { Home } from './pages/Header/Home/Home';
-import { Apollo } from './pages/Header/Apollo/Apollo';
-import { Atlas } from './pages/Header/Atlas/Atlas';
-import { Hermes } from './pages/Header/Hermes/Hermes';
-import { Addresses } from './pages/Header/Addresses/Addresses';
-import { Blocks } from './pages/Header/Blocks/Blocks';
-import { Transactions } from './pages/Header/Transactions/Transactions';
-import { Bundles } from './pages/Header/Bundles/Bundles';
+import { Home } from './pages/Header/Home';
+import { Apollo } from './pages/Header/Apollo';
+import { Atlas } from './pages/Header/Atlas';
+import { Hermes } from './pages/Header/Hermes';
+import { Addresses } from './pages/Header/Addresses';
+import { Blocks } from './pages/Header/Blocks';
+import { Transactions } from './pages/Header/Transactions';
+import { Bundles } from './pages/Header/Bundles';
 
 export const routes = [
 	{
