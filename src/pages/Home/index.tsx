@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Content } from '../../components/Content';
 import API from '../../API/api';
 import storage from '../../utils/storage';
+// import FindWide from '../../components/FindWide';
 
 export const Home = () => {
 	const getHomePageData = async () => {
@@ -29,6 +30,7 @@ export const Home = () => {
 		<Content>
 			<Content.Header>
 				<h1>Ambrosus Network Explorer</h1>
+				{/* <FindWide /> */}
 			</Content.Header>
 			<Content.Body>
 				<div>Lastest Blocks</div>
