@@ -1,17 +1,17 @@
 import React from 'react';
 import { Content } from '../../../components/Content';
 
-const AddressDetails = () => {
+const Transfers = () => {
 	return (
 		<Content>
 			<Content.Header>
-				<h1>AddressDetails</h1>
+				<h1>Transfers</h1>
 			</Content.Header>
 			<Content.Body>
-				<div>AddressDetails</div>
+				<div>Transfers</div>
 			</Content.Body>
 		</Content>
 	);
 };
 
-export default AddressDetails;
+export default Transfers;
