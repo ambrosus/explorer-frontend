@@ -6,7 +6,15 @@ export const RenderRoutes = (props: any) => {
 	const { routes } = props;
 	return (
 		<Routes>
-			{routes.map((route: any) => (
+			{routes.routes.map((route: any) => (
+				<Route
+					key={route.key}
+					path={route.path}
+					element={<route.component />}
+					{...route}
+				/>
+			))}
+			{routes.subRoutes.map((route: any) => (
 				<Route
 					key={route.key}
 					path={route.path}
