@@ -2,6 +2,7 @@
 	display: flex;
 	background: #ffffff;
 	border-radius: 16px;
+
 	margin: 30px auto;
 	&__input {
 		width: 1140px;
@@ -9,14 +10,15 @@
 		border: 0px;
 		border-radius: 16px;
 		flex: 20;
+		padding: 12px;
 	}
 	&__input::placeholder {
 		color: $secondary-medium;
-		padding-left: 12px;
 	}
+
 	&__filters {
 		display: flex;
-		// min-width: 120px;
+		min-width: 120px;
 		justify-content: center;
 		align-items: center;
 		flex: 2;

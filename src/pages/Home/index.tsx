@@ -2,7 +2,8 @@ import React, { useEffect } from 'react';
 import { Content } from '../../components/Content';
 import API from '../../API/api';
 import storage from '../../utils/storage';
-// import FindWide from '../../components/FindWide';
+import FindWide from '../../components/FindWide';
+import MainInfo from '../../components/MainInfo';
 
 export const Home = () => {
 	const getHomePageData = async () => {
@@ -28,13 +29,29 @@ export const Home = () => {
 
 	return (
 		<Content>
-			<Content.Header>
-				<h1>Ambrosus Network Explorer</h1>
-				{/* <FindWide /> */}
-			</Content.Header>
-			<Content.Body>
-				<div>Lastest Blocks</div>
-			</Content.Body>
+			<section className='home'>
+				<Content.Header>
+					<h1 className='home__h1'>Ambrosus Network Explorer</h1>
+					<FindWide />
+					<table className='tableInfo'>
+						<tbody className='tableInfo__tbody'>
+							<tr className='tableInfo__tr'>
+								<MainInfo />
+								<MainInfo />
+								<MainInfo />
+							</tr>
+							<tr className='tableInfo__tr'>
+								<MainInfo />
+								<MainInfo />
+								<MainInfo />
+							</tr>
+						</tbody>
+					</table>
+				</Content.Header>
+				<Content.Body>
+					<div className='container'>Lastest Blocks</div>
+				</Content.Body>
+			</section>
 		</Content>
 	);
 };
