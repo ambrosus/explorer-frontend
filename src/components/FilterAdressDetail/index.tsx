@@ -3,7 +3,7 @@ import React from 'react';
 const FilterAdressDetail = () => {
 	return (
 		<>
-			<div>Find</div>
+			<div>FilterAdressDetail</div>
 		</>
 	);
 };

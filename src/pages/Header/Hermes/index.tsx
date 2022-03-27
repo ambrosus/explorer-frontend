@@ -1,5 +1,5 @@
 import React from 'react';
-import { Content } from '../../../components/Content/Content';
+import { Content } from '../../../components/Content';
 
 export const Hermes = () => (
 	<Content>

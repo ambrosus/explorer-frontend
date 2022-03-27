@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Content } from '../../../components/Content/Content';
+import { Content } from '../../../components/Content';
 import API from '../../../API/api';
 import storage from '../../../utils/storage';
 
