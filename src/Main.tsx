@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { RenderRoutes } from './components/RenderRoutes/RenderRoutes';
 import { Layout } from './layouts/Layout';
-import { routes } from './routes';
+import routes from './routes';
 import API from './API/api';
 import storage from './utils/storage';
 
