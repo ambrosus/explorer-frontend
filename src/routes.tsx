@@ -7,8 +7,9 @@ import { Addresses } from './pages/Addresses';
 import { Blocks } from './pages/Blocks';
 import { Transactions } from './pages/Transactions';
 import { Bundles } from './pages/Bundles';
+import { AddressDetails } from './pages/Addresses/AddressDetails';
 
-const routes = [
+export const routes = [
 	{
 		path: '/',
 		key: 'home',
@@ -58,5 +59,13 @@ const routes = [
 		component: () => <Bundles />,
 	},
 ];
-
-export default routes;
+export const subRoutes=[
+	{
+		path: '/addresses/:address',
+		key: 'Address Details',
+		exact: true,
+		component: () => <AddressDetails />,
+	},
+]
+const appRoutes = { routes,subRoutes }
+export default appRoutes;

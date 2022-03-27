@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import routes from '../../routes';
+import { routes } from '../../routes';
 import AmbrosusLogoSvg from './AmbrosusLogoSvg';
 
 const menu = routes.map((menuElement) => (

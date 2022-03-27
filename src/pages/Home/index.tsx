@@ -4,24 +4,12 @@ import API from '../../API/api';
 import storage from '../../utils/storage';
 
 export const Home = () => {
-	// @ts-ignore
-	useEffect(async () => {
-		// fetch(`https://blockbook.ambrosus.io/api/v2/address/0xB500558a3886ecf07B4B4B31B54c4bd1ef378D34`, {
-		// 	method: 'GET',
-		// 	headers: {
-		// 		'Content-Type': 'application/json',
-		// 		accept: 'application/json',
-		// 	},
-		// })
-		// 	.then((response) => response.json())
-		// 	.then((json) => console.log(json));
 
+	const getHomePageData = async () => {
 		const latestBlocks = await API.getBlocks({ limit: 8 })
 		const latestTransactions = await API.getTransactions({ limit: 8 })
-
 		const netInfo = storage.get('netInfo');
 		const tokenInfo = storage.get('tokenInfo');
-
 		console.table([
 				['MARKET CAP', tokenInfo.market_cap_usd],
 				['BUNDLES', netInfo.totalBundles],
@@ -33,6 +21,10 @@ export const Home = () => {
 				['Latest transactions', latestTransactions.data],
 			],
 		);
+	}
+
+	useEffect(()=>{
+		getHomePageData()
 	}, []);
 
 	return (
