@@ -59,13 +59,15 @@ export const routes = [
 		component: () => <Bundles />,
 	},
 ];
-export const subRoutes=[
+
+export const subRoutes = [
 	{
 		path: '/addresses/:address',
 		key: 'Address Details',
 		exact: true,
 		component: () => <AddressDetails />,
 	},
-]
-const appRoutes = { routes,subRoutes }
+];
+
+const appRoutes = { routes, subRoutes };
 export default appRoutes;
