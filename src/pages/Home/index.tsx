@@ -4,7 +4,7 @@ import API from '../../API/api';
 import storage from '../../utils/storage';
 import FindWide from '../../components/FindWide';
 import MainInfo from '../../components/MainInfo';
-import LastestsInfo from '../../components/LastestsInfo/LastestsInfo';
+import LastestsInfo from '../../components/LastestsInfo';
 
 export const Home = () => {
 	const viewBlocks = () => console.log('viewBlocks');
@@ -62,16 +62,7 @@ export const Home = () => {
 									</tr>
 								</thead>
 								<tbody className='lastestsInfo__tbody'>
-									<tr className='lastestsInfo__tr'>
-										<LastestsInfo />
-										<LastestsInfo />
-										<LastestsInfo />
-									</tr>
-									<tr className='lastestsInfo__tr'>
-										<LastestsInfo />
-										<LastestsInfo />
-										<LastestsInfo />
-									</tr>
+									<LastestsInfo />
 								</tbody>
 							</table>
 							<button className='home__btn' onClick={viewBlocks}>
@@ -86,16 +77,7 @@ export const Home = () => {
 									</tr>
 								</thead>
 								<tbody className='lastestsInfo__tbody'>
-									<tr className='lastestsInfo__tr'>
-										<LastestsInfo />
-										<LastestsInfo />
-										<LastestsInfo />
-									</tr>
-									<tr className='lastestsInfo__tr'>
-										<LastestsInfo />
-										<LastestsInfo />
-										<LastestsInfo />
-									</tr>
+									<LastestsInfo />
 								</tbody>
 							</table>
 							<button className='home__btn' onClick={viewTransactions}>

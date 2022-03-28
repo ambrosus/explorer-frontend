@@ -18,9 +18,8 @@
 	}
 	&__td {
 		display: flex;
-		align-items: center;
-		justify-content: start;
-		width: 100%;
+		flex-direction: column;
+		justify-content: center;
 		height: 72px;
 		width: 190px;
 		border-top: 1px solid #eff2f5;
@@ -29,14 +28,10 @@
 	&__p {
 		flex-direction: row;
 		margin: 0px;
-		margin-left: 12px;
+		// margin-left: 12px;
 	}
 
-	&__circle-green {
-		margin-left: 15px;
-		width: 8px;
-		height: 8px;
-		background: #1acd8c;
-		border-radius: 50%;
+	&__circle {
+		margin-right: 8px;
 	}
 }
