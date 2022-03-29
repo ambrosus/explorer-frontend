@@ -46,4 +46,16 @@
 		height: 32px;
 		border-radius: 50%;
 	}
+	&__span-light {
+		font-weight: 400;
+		line-height: 0.88em;
+		color: #58667e;
+	}
+	&__span-dark {
+		font-style: normal;
+		font-weight: 600;
+		font-size: 1.28em;
+		line-height: 1.33em;
+		color: #05060f;
+	}
 }

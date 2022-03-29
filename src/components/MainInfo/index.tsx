@@ -9,8 +9,12 @@ const MainInfo = () => {
 					<MarketCap />
 				</div>
 				<div>
-					<p className='mainInfo__p'>MARKET CAP</p>
-					<p className='mainInfo__p'>17,895,744.27 USD</p>
+					<p className='mainInfo__p'>
+						<span className='mainInfo__span-light'>MARKET CAP</span>
+					</p>
+					<p className='mainInfo__p'>
+						<span className='mainInfo__span-dark'>17,895,744.27 USD</span>
+					</p>
 				</div>
 			</td>
 		</>
