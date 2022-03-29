@@ -3,6 +3,7 @@ import { Content } from '../../../components/Content';
 import { useParams } from 'react-router-dom';
 import ContentCopy from '../../../assets/icons/ContentCopy';
 import API from '../../../API/api';
+import OveralBalance from '../../../components/OveralBalance';
 
 const transactionFilters = [
 	{ title: 'All', value: '' },
@@ -49,12 +50,17 @@ export const AddressDetails = () => {
 						</button>
 					</h1>
 					<div>
+						<OveralBalance />
+						<div>Token</div>
+					</div>
+
+					{/* <div>
 						{transactionFilters.map(({ value, title }) => (
 							<button key={value} onClick={() => setTransactionType(value)}>
 								{title}
 							</button>
 						))}
-					</div>
+					</div> */}
 				</Content.Header>
 				<Content.Body>
 					<div>Addresses CONTENT</div>
