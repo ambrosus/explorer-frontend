@@ -1,35 +1,53 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Content } from '../../../components/Content';
 import { useParams } from 'react-router-dom';
+import API from '../../../API/api';
+
+const transactionFilters = [
+	{ title: 'All', value: '' },
+	{ title: 'Transfers', value: 'transfers' },
+	{ title: 'Block Rewards', value: 'block_rewards' },
+];
 
 export const AddressDetails = () => {
-	const { address }= useParams();
+	const [transactionType, setTransactionType] = useState('');
+	const { address } = useParams();
 
-	useEffect(()=>{
-		if (address){
-			console.log('id',address);
-			fetch(`https://blockbook.ambrosus.io/api/v2/address/${address}`, {
-				method: 'GET',
-				headers: {
-					'Content-Type': 'application/json',
-					accept: 'application/json',
-				},
-			})
-				.then((response) => response.json())
-				.then((json) => console.log(json));
 
+
+	// @ts-ignore
+	useEffect( () => {
+		const getTransactionsData = async (add: string, params: { limit: any; type: any; }) => {
+			const { limit, type } = params;
+			const transactionsData = await API.getAccountTx(add, { limit, type });
+
+			const blockBookApi = await fetch(`https://blockbook.ambrosus.io/api/v2/address/${address}`)
+				.then((response) => response.json());
+
+			console.log('blockBookApi', blockBookApi);
+			console.table([['Transactions data', transactionsData.data],['Tokens',blockBookApi.tokens]]);
+
+			return transactionsData;
+		};
+		if (address) {
+			getTransactionsData(address.trim(), { limit: 50, type: transactionType });
 		}
 
-	},[address])
+	}, [address, transactionType]);
 
 	return (
 		<Content>
 			<Content.Header>
 				<h1>Address Details {address}</h1>
+				<div>{transactionFilters.map(({ value, title }) =>
+					<button
+						key={value}
+						onClick={() => setTransactionType(value)}
+					>{title}</button>)}</div>
 			</Content.Header>
 			<Content.Body>
 				<div>Addresses CONTENT</div>
 			</Content.Body>
 		</Content>
 	);
-}
+};
