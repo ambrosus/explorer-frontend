@@ -1,0 +1,37 @@
+.lastestsInfo {
+	margin: 15px auto;
+	margin-top: 50px;
+	box-sizing: border-box;
+
+	background: #ffffff;
+
+	&__tbody {
+		display: flex;
+		flex-direction: column;
+		border-bottom: 1px solid #eff2f5;
+	}
+	&__tr {
+		display: flex;
+
+		align-items: center;
+		justify-content: flex-start;
+	}
+	&__td {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		height: 72px;
+		width: 190px;
+		border-top: 1px solid #eff2f5;
+		background: #ffffff;
+	}
+	&__p {
+		flex-direction: row;
+		margin: 0px;
+		// margin-left: 12px;
+	}
+
+	&__circle {
+		margin-right: 8px;
+	}
+}
