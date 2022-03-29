@@ -69,7 +69,7 @@ sup {
 img {
 	border-style: none;
 }
-button,
+
 input,
 optgroup,
 select,
@@ -79,11 +79,11 @@ textarea {
 	line-height: 1.15;
 	margin: 0;
 }
-button,
+
 input {
 	overflow: visible;
 }
-button,
+
 select {
 	text-transform: none;
 }
@@ -108,6 +108,8 @@ button:-moz-focusring,
 }
 button {
 	cursor: pointer;
+	border: 0;
+	background: #fff;
 }
 fieldset {
 	padding: 0.35em 0.75em 0.625em;

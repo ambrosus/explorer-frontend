@@ -4,11 +4,13 @@ import { useParams } from 'react-router-dom';
 import ContentCopy from '../../../assets/icons/ContentCopy';
 import API from '../../../API/api';
 import OveralBalance from '../../../components/OveralBalance';
+import ArrowDownSmall from '../../../assets/icons/ArrowDownSmall';
 
 const transactionFilters = [
 	{ title: 'All', value: '' },
 	{ title: 'Transfers', value: 'transfers' },
 	{ title: 'Block Rewards', value: 'block_rewards' },
+	{ title: 'ERC-20 Tx', value: 'ERC-20_Tx' },
 ];
 
 export const AddressDetails = () => {
@@ -49,21 +51,39 @@ export const AddressDetails = () => {
 							<ContentCopy />
 						</button>
 					</h1>
-					<div>
+					<div className='addressDetails__section'>
 						<OveralBalance />
-						<div>Token</div>
+						<div className='addressDetails__section-div'>Token</div>
 					</div>
-
-					{/* <div>
+				</Content.Header>
+				<Content.Body>
+					<section>
 						{transactionFilters.map(({ value, title }) => (
-							<button key={value} onClick={() => setTransactionType(value)}>
+							<button key={value} onClick={() => setTransactionType(value.toLowerCase())}>
 								{title}
 							</button>
 						))}
-					</div> */}
-				</Content.Header>
-				<Content.Body>
-					<div>Addresses CONTENT</div>
+					</section>
+					<section>
+						<table className='addressDetails__table'>
+							<thead>
+								<tr>
+									<td>txHash</td>
+									<td>
+										Method
+										<button>
+											<ArrowDownSmall />
+										</button>
+									</td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+							</thead>
+						</table>
+					</section>
 				</Content.Body>
 			</section>
 		</Content>
