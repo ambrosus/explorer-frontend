@@ -6,7 +6,8 @@
 @import './layout/header';
 @import './layout/footer';
 @import './pages/home';
-@import 'pages/businesses';
+@import './pages/businesses';
+@import './pages/addresses';
 @import './components/calendar';
 @import './components/content';
 @import './components/exportСsv';
@@ -15,4 +16,3 @@
 @import './components/lastestTransactions';
 @import './components/latestBlocks';
 @import './components/mainInfo';
-@import './components/lastestsInfo';

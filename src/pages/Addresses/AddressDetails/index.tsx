@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Content } from '../../../components/Content';
 import { useParams } from 'react-router-dom';
+import ContentCopy from '../../../assets/icons/ContentCopy';
 import API from '../../../API/api';
 
 const transactionFilters = [
@@ -10,44 +11,55 @@ const transactionFilters = [
 ];
 
 export const AddressDetails = () => {
-	const [transactionType, setTransactionType] = useState('');
 	const { address } = useParams();
+	const [transactionType, setTransactionType] = useState('');
 
-
+	const reciveAdress = '0xF977814e90dA44bFA03b6295A0616a897441aceC';
+	const copyConten = () => console.log(reciveAdress);
 
 	// @ts-ignore
-	useEffect( () => {
-		const getTransactionsData = async (add: string, params: { limit: any; type: any; }) => {
+	useEffect(() => {
+		const getTransactionsData = async (add: string, params: { limit: any; type: any }) => {
 			const { limit, type } = params;
 			const transactionsData = await API.getAccountTx(add, { limit, type });
 
-			const blockBookApi = await fetch(`https://blockbook.ambrosus.io/api/v2/address/${address}`)
-				.then((response) => response.json());
+			const blockBookApi = await fetch(`https://blockbook.ambrosus.io/api/v2/address/${address}`).then((response) => response.json());
 
 			console.log('blockBookApi', blockBookApi);
-			console.table([['Transactions data', transactionsData.data],['Tokens',blockBookApi.tokens]]);
+			console.table([
+				['Transactions data', transactionsData.data],
+				['Tokens', blockBookApi.tokens],
+			]);
 
 			return transactionsData;
 		};
 		if (address) {
 			getTransactionsData(address.trim(), { limit: 50, type: transactionType });
 		}
-
 	}, [address, transactionType]);
 
 	return (
 		<Content>
-			<Content.Header>
-				<h1>Address Details {address}</h1>
-				<div>{transactionFilters.map(({ value, title }) =>
-					<button
-						key={value}
-						onClick={() => setTransactionType(value)}
-					>{title}</button>)}</div>
-			</Content.Header>
-			<Content.Body>
-				<div>Addresses CONTENT</div>
-			</Content.Body>
+			<section className='addressDetails'>
+				<Content.Header>
+					<h1 className='addressDetails__h1'>
+						{address} <span className='addressDetails__h1-span'>{reciveAdress}</span>
+						<button className='addressDetails__h1-btn' onClick={copyConten}>
+							<ContentCopy />
+						</button>
+					</h1>
+					<div>
+						{transactionFilters.map(({ value, title }) => (
+							<button key={value} onClick={() => setTransactionType(value)}>
+								{title}
+							</button>
+						))}
+					</div>
+				</Content.Header>
+				<Content.Body>
+					<div>Addresses CONTENT</div>
+				</Content.Body>
+			</section>
 		</Content>
 	);
 };

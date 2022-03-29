@@ -4,7 +4,8 @@ import API from '../../API/api';
 import storage from '../../utils/storage';
 import FindWide from '../../components/FindWide';
 import MainInfo from '../../components/MainInfo';
-import LastestsInfo from '../../components/LastestsInfo';
+import LatestBlocks from '../../components/LatestBlocks';
+import LastestTransactions from '../../components/LastestTransactions';
 
 export const Home = () => {
 	const viewBlocks = () => console.log('viewBlocks');
@@ -55,31 +56,32 @@ export const Home = () => {
 				<Content.Body>
 					<section className='home__tables'>
 						<div className='home__content'>
-							<table className='lastestsInfo'>
+							<table className='latestBlocks'>
 								<thead>
 									<tr>
 										<td className='home__h2'>Lastest Blocks</td>
 									</tr>
 								</thead>
-								<tbody className='lastestsInfo__tbody'>
-									<LastestsInfo />
-								</tbody>
+								<LatestBlocks />
+								<LatestBlocks />
+								<LatestBlocks />
 							</table>
 							<button className='home__btn' onClick={viewBlocks}>
 								View all blocks
 							</button>
 						</div>
 						<div className='home__content'>
-							<table className='lastestsInfo'>
+							<table className='lastestTransactions'>
 								<thead>
 									<tr>
 										<td className='home__h2'>Lastest Transactions</td>
 									</tr>
 								</thead>
-								<tbody className='lastestsInfo__tbody'>
-									<LastestsInfo />
-								</tbody>
+								<LastestTransactions />
+								<LastestTransactions />
+								<LastestTransactions />
 							</table>
+
 							<button className='home__btn' onClick={viewTransactions}>
 								View all transactions
 							</button>

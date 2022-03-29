@@ -1,0 +1,21 @@
+// Address
+
+// AddressDetails
+
+.addressDetails {
+	&__h1 {
+		display: flex;
+		align-items: center;
+		&-span {
+			margin: 12px;
+			font-size: 2.3rem;
+			line-height: 2.2rem;
+			font-style: normal;
+			font-weight: 400;
+		}
+		&-btn {
+			border: 0px;
+			background: #e5e5e5;
+		}
+	}
+}
