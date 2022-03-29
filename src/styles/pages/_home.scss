@@ -1,4 +1,7 @@
 .home {
+	&__tables {
+		gap: 64px;
+	}
 	&__h1 {
 		margin: 30px auto;
 	}

@@ -32,7 +32,9 @@ const LastestTransactions = () => {
 				<td className='lastestTransactions__td'>
 					<div className='lastestTransactions__td-div'>
 						<p className='lastestTransactions__p' style={{ textAlign: 'right' }}>
-							<span className='lastestTransactions__span-light'>Amount</span>
+							<span className='lastestTransactions__span-light' style={{ display: 'flex', justifyContent: 'end', width: '100%' }}>
+								Amount
+							</span>
 						</p>
 						<p className='lastestTransactions__p'>
 							<span className='lastestTransactions__span-dark'>1.71139 AMB</span>

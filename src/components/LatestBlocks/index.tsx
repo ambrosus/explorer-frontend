@@ -30,9 +30,11 @@ const LatestBlocks = () => {
 					</div>
 				</td>
 				<td className='latestBlocks__td'>
-					<div className='latestBlocks__td-div'>
-						<p className='latestBlocks__p'>
-							<span className='latestBlocks__span-light'>Block Reward</span>
+					<div className='latestBlocks__td-div' style={{ alignSelf: 'flex-end' }}>
+						<p className='latestBlocks__p' style={{ alignSelf: 'flex-end' }}>
+							<span className='latestBlocks__span-light' style={{ display: 'flex', justifyContent: 'end', width: '100%' }}>
+								Block Reward
+							</span>
 						</p>
 						<p className='latestBlocks__p'>
 							<span className='latestBlocks__span-dark'>1.71139 AMB</span>
