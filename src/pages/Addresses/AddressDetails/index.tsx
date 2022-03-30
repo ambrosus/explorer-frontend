@@ -5,6 +5,8 @@ import ContentCopy from '../../../assets/icons/ContentCopy';
 import API from '../../../API/api';
 import OveralBalance from '../../../components/OveralBalance';
 import AddressBlock from '../../../components/AddressBlocks';
+import erc20Abi from '../../../utils/abis/ERC20.json';
+import { ethers, providers } from 'ethers';
 
 const transactionFilters = [
 	{ title: 'All', value: '' },
@@ -33,6 +35,18 @@ export const AddressDetails = () => {
 				['Transactions data', transactionsData.data],
 				['Tokens', blockBookApi.tokens],
 			]);
+			console.log('abi',erc20Abi)
+			// @ts-ignore
+			console.log('provider',new providers.Web3Provider(window.ethereum).getSigner());
+			console.log('blockBookApi.tokens[0].contract', blockBookApi.tokens[0].contract);
+			// @ts-ignore
+			const tokenContract = new ethers.Contract(
+				blockBookApi.tokens[0].contract,
+				erc20Abi,
+				// @ts-ignore
+				new providers.Web3Provider(window.ethereum).getSigner());
+			const balance = await tokenContract.balanceOf();
+			console.log('balance', balance);
 
 			return transactionsData;
 		};
@@ -65,7 +79,8 @@ export const AddressDetails = () => {
 						))}
 					</section>
 					<section className='addressDetails__section1'>
-						<AddressBlock txhash='txHash' method='Method' from='From' to='To' date='Date' block='Block' amount='Amount' txfee='txFee' />
+						<AddressBlock txhash='txHash' method='Method' from='From' to='To' date='Date' block='Block' amount='Amount'
+													txfee='txFee' />
 						<AddressBlock
 							txhash='0xfad804b6f81b...6aa121c5485b'
 							method='Transfer'
