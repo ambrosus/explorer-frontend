@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import ContentCopy from '../../../assets/icons/ContentCopy';
 import API from '../../../API/api';
 import OveralBalance from '../../../components/OveralBalance';
-import ArrowDownSmall from '../../../assets/icons/ArrowDownSmall';
+import AddressBlock from '../../../components/AddressBlocks';
 
 const transactionFilters = [
 	{ title: 'All', value: '' },
@@ -64,25 +64,28 @@ export const AddressDetails = () => {
 							</button>
 						))}
 					</section>
-					<section>
-						<table className='addressDetails__table'>
-							<thead>
-								<tr>
-									<td>txHash</td>
-									<td>
-										Method
-										<button>
-											<ArrowDownSmall />
-										</button>
-									</td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-							</thead>
-						</table>
+					<section className='addressDetails__section1'>
+						<AddressBlock txhash='txHash' method='Method' from='From' to='To' date='Date' block='Block' amount='Amount' txfee='txFee' />
+						<AddressBlock
+							txhash='0xfad804b6f81b...6aa121c5485b'
+							method='Transfer'
+							from='0x9012...328eb'
+							to='0x9012...328eb'
+							date='1 min ago'
+							block='10986508'
+							amount='1.33345 ETH'
+							txfee='Pending'
+						/>
+						<AddressBlock
+							txhash='0xfad804b6f81b...6aa121c5485b'
+							method='Transfer'
+							from='0x9012...328eb'
+							to='0x9012...328eb'
+							date='1 min ago'
+							block='10986508'
+							amount='1.33345 ETH'
+							txfee='0.000105 AMB'
+						/>
 					</section>
 				</Content.Body>
 			</section>

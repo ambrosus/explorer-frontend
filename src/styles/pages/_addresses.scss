@@ -45,4 +45,22 @@
 			line-height: 2.28em;
 		}
 	}
+	&__section1 {
+	}
+	&__thead-tr {
+		display: grid;
+		grid-template-columns: repeat(8, minmax(min-content, max-content));
+		grid-gap: 2vw;
+	}
+	&__tbody-tr {
+		display: grid;
+		grid-template-columns: repeat(8, minmax(min-content, max-content));
+		grid-gap: 2vw;
+
+		// grid-template-columns: repeat(auto-fill, 100px);
+		// grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+	}
+	&__tbody-td {
+		display: flex;
+	}
 }
