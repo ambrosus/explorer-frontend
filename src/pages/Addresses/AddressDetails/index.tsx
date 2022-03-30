@@ -7,6 +7,7 @@ import OveralBalance from '../../../components/OveralBalance';
 import AddressBlock from '../../../components/AddressBlocks';
 import erc20Abi from '../../../utils/abis/ERC20.json';
 import { ethers, providers } from 'ethers';
+import Web3 from 'web3';
 
 const transactionFilters = [
 	{ title: 'All', value: '' },
@@ -40,12 +41,16 @@ export const AddressDetails = () => {
 			console.log('provider',new providers.Web3Provider(window.ethereum).getSigner());
 			console.log('blockBookApi.tokens[0].contract', blockBookApi.tokens[0].contract);
 			// @ts-ignore
-			const tokenContract = new ethers.Contract(
-				blockBookApi.tokens[0].contract,
-				erc20Abi,
-				// @ts-ignore
-				new providers.Web3Provider(window.ethereum).getSigner());
-			const balance = await tokenContract.balanceOf();
+			// const web3 = new Web3(window.ethereum);
+			// const contract = new web3.eth.Contract(erc20Abi, 	blockBookApi.tokens[0].contract);
+			// @ts-ignore
+			// const balance = await contract.balanceOf();
+
+			// const tokenContract =await new ethers.Contract(
+			// 	blockBookApi.tokens[0].contract,
+			// 	erc20Abi,
+				// new providers.Web3Provider(window.ethereum).getSigner());
+			// const balance = await tokenContract.balanceOf();
 			console.log('balance', balance);
 
 			return transactionsData;
