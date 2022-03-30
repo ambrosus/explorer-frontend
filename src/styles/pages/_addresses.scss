@@ -46,6 +46,11 @@
 		}
 	}
 	&__section1 {
+		display: grid;
+		grid-template-columns: repeat(8, minmax(min-content, max-content));
+		grid-column-gap: 2vw;
+		grid-row-gap: 3vw;
+		margin-top: 16px;
 	}
 	&__thead-tr {
 		display: grid;
@@ -54,7 +59,6 @@
 	}
 	&__tbody-tr {
 		display: grid;
-		grid-template-columns: repeat(8, minmax(min-content, max-content));
 		grid-gap: 2vw;
 
 		// grid-template-columns: repeat(auto-fill, 100px);

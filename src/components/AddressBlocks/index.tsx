@@ -19,7 +19,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({ txhash, method, from, to, d
 	const online: any = txfee === 'Pending' ? <OrangeCircle /> : <GreenCircle />;
 
 	return (
-		<div className='addressDetails__tbody-tr'>
+		<>
 			<div className='addressDetails__tbody-td'>{txhash}</div>
 			<div className='addressDetails__tbody-td'>
 				{method === 'Method' ? (
@@ -58,7 +58,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({ txhash, method, from, to, d
 					</>
 				)}
 			</div>
-		</div>
+		</>
 	);
 };
 
