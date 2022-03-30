@@ -6,6 +6,8 @@
 	&__h1 {
 		display: flex;
 		align-items: center;
+		margin: 30px auto;
+
 		&-span {
 			margin: 12px;
 			font-size: 2.3rem;
@@ -17,5 +19,48 @@
 			border: 0px;
 			background: #e5e5e5;
 		}
+	}
+	&__section {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		margin-bottom: 32px;
+		&-div {
+			display: grid;
+			width: 100%;
+			justify-content: center;
+			align-content: center;
+			font-weight: 700;
+			font-size: 1.28em;
+			line-height: 2.28em;
+		}
+	}
+	&__div {
+		display: flex;
+		gap: 4px;
+
+		&-span {
+			font-style: normal;
+			font-weight: 400;
+			font-size: 1.28em;
+			line-height: 2.28em;
+		}
+	}
+	&__section1 {
+	}
+	&__thead-tr {
+		display: grid;
+		grid-template-columns: repeat(8, minmax(min-content, max-content));
+		grid-gap: 2vw;
+	}
+	&__tbody-tr {
+		display: grid;
+		grid-template-columns: repeat(8, minmax(min-content, max-content));
+		grid-gap: 2vw;
+
+		// grid-template-columns: repeat(auto-fill, 100px);
+		// grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+	}
+	&__tbody-td {
+		display: flex;
 	}
 }

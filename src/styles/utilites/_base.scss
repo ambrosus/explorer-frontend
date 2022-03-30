@@ -1,3 +1,12 @@
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	outline: none;
+	font-family: Proxima Nova, sans-serif;
+	font-size: 14px;
+	line-height: 18px;
+}
 html {
 	line-height: 1.15;
 	-webkit-text-size-adjust: 100%;
@@ -60,7 +69,7 @@ sup {
 img {
 	border-style: none;
 }
-button,
+
 input,
 optgroup,
 select,
@@ -70,11 +79,11 @@ textarea {
 	line-height: 1.15;
 	margin: 0;
 }
-button,
+
 input {
 	overflow: visible;
 }
-button,
+
 select {
 	text-transform: none;
 }
@@ -99,6 +108,8 @@ button:-moz-focusring,
 }
 button {
 	cursor: pointer;
+	border: 0;
+	background: #fff;
 }
 fieldset {
 	padding: 0.35em 0.75em 0.625em;

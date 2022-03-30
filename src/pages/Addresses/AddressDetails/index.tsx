@@ -3,11 +3,14 @@ import { Content } from '../../../components/Content';
 import { useParams } from 'react-router-dom';
 import ContentCopy from '../../../assets/icons/ContentCopy';
 import API from '../../../API/api';
+import OveralBalance from '../../../components/OveralBalance';
+import AddressBlock from '../../../components/AddressBlocks';
 
 const transactionFilters = [
 	{ title: 'All', value: '' },
 	{ title: 'Transfers', value: 'transfers' },
 	{ title: 'Block Rewards', value: 'block_rewards' },
+	{ title: 'ERC-20 Tx', value: 'ERC-20_Tx' },
 ];
 
 export const AddressDetails = () => {
@@ -48,16 +51,42 @@ export const AddressDetails = () => {
 							<ContentCopy />
 						</button>
 					</h1>
-					<div>
-						{transactionFilters.map(({ value, title }) => (
-							<button key={value} onClick={() => setTransactionType(value)}>
-								{title}
-							</button>
-						))}
+					<div className='addressDetails__section'>
+						<OveralBalance />
+						<div className='addressDetails__section-div'>Token</div>
 					</div>
 				</Content.Header>
 				<Content.Body>
-					<div>Addresses CONTENT</div>
+					<section>
+						{transactionFilters.map(({ value, title }) => (
+							<button key={value} onClick={() => setTransactionType(value.toLowerCase())}>
+								{title}
+							</button>
+						))}
+					</section>
+					<section className='addressDetails__section1'>
+						<AddressBlock txhash='txHash' method='Method' from='From' to='To' date='Date' block='Block' amount='Amount' txfee='txFee' />
+						<AddressBlock
+							txhash='0xfad804b6f81b...6aa121c5485b'
+							method='Transfer'
+							from='0x9012...328eb'
+							to='0x9012...328eb'
+							date='1 min ago'
+							block='10986508'
+							amount='1.33345 ETH'
+							txfee='Pending'
+						/>
+						<AddressBlock
+							txhash='0xfad804b6f81b...6aa121c5485b'
+							method='Transfer'
+							from='0x9012...328eb'
+							to='0x9012...328eb'
+							date='1 min ago'
+							block='10986508'
+							amount='1.33345 ETH'
+							txfee='0.000105 AMB'
+						/>
+					</section>
 				</Content.Body>
 			</section>
 		</Content>
