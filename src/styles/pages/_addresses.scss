@@ -22,13 +22,18 @@
 	}
 	&__section {
 		display: grid;
-		grid-template-columns: 1fr 1fr;
+		grid-template-columns: repeat(2, auto);
+		grid-row-gap: 3vw;
 		margin-bottom: 32px;
-		&-div {
-			display: grid;
-			width: 100%;
-			justify-content: center;
-			align-content: center;
+		&-token {
+			display: flex;
+			justify-content: end;
+		}
+
+		&-tokenName {
+			display: flex;
+			align-self: center;
+			margin-right: 10px;
 			font-weight: 700;
 			font-size: 1.28em;
 			line-height: 2.28em;

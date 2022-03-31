@@ -1,13 +1,19 @@
 import React from 'react';
 
-const OveralBalance = () => {
+type OveralBalanceProps = {
+	token: string | number;
+	amount: string | number;
+};
+
+const OveralBalance: React.FC<OveralBalanceProps> = ({ token, amount }) => {
 	return (
 		<div className='addressDetails__div'>
 			<span className='addressDetails__div-span universall__dark' style={{ fontWeight: 700 }}>
 				Balance
 			</span>
-			<span className='addressDetails__div-span universall__dark'>1,173,586.35 AMB /</span>
-			<span className='addressDetails__div-span universall__light2'>$ 21,067.61184460</span>
+			<span className='addressDetails__div-span universall__dark'>{`${token} AMB`} </span>
+			<span className='addressDetails__div-span universall__dark'>/</span>
+			<span className='addressDetails__div-span universall__light2'>{`$ ${amount}`}</span>
 		</div>
 	);
 };

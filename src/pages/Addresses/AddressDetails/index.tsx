@@ -7,6 +7,7 @@ import OveralBalance from '../../../components/OveralBalance';
 import AddressBlock from '../../../components/AddressBlocks';
 import AddressBlocksHeader from '../../../components/AddressBlocksHeader';
 import ViewMoreBtn from '../../../components/ViewMoreBtn';
+import TokenFiltered from '../../../components/TokenFiltered';
 
 const transactionFilters = [
 	{ title: 'All', value: '' },
@@ -54,8 +55,11 @@ export const AddressDetails = () => {
 						</button>
 					</h1>
 					<div className='addressDetails__section'>
-						<OveralBalance />
-						<div className='addressDetails__section-div'>Token</div>
+						<OveralBalance token={'1,173,586.35'} amount={'21,067.61184460'} />
+						<div className='addressDetails__section-token'>
+							<div className='addressDetails__section-tokenName'>Token</div>
+							<TokenFiltered />
+						</div>
 					</div>
 				</Content.Header>
 				<Content.Body>

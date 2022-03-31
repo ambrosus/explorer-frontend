@@ -2,10 +2,9 @@
 	display: flex;
 	background: #ffffff;
 	border-radius: 16px;
+	min-width: 320px;
 
-	margin: 30px auto;
 	&__input {
-		width: 1140px;
 		height: 48px;
 		border: 0px;
 		border-radius: 16px;

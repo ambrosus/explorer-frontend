@@ -2,7 +2,7 @@ import * as React from 'react';
 import { SVGProps, memo } from 'react';
 
 const AroowDown = (props: SVGProps<SVGSVGElement>) => (
-	<svg {...props} width='8' height='4' fill='none' xmlns='http://www.w3.org/2000/svg'>
+	<svg {...props} width='16' height='16' fill='none' xmlns='http://www.w3.org/2000/svg'>
 		<path d='m4 6 4 4 4-4' stroke='#808A9D' strokeWidth={2} strokeLinecap='round' strokeLinejoin='round' />
 	</svg>
 );
