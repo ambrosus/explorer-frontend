@@ -9,8 +9,9 @@ import AddressBlocksHeader from '../../../components/AddressBlocksHeader';
 import ViewMoreBtn from '../../../components/ViewMoreBtn';
 import TokenFiltered from '../../../components/TokenFiltered';
 import erc20Abi from '../../../utils/abis/ERC20.json';
-import { ethers, providers } from 'ethers';
-import Web3 from 'web3';
+import TokenModal from '../../../components/TokenModal';
+// import { ethers, providers } from 'ethers';
+// import Web3 from 'web3';
 
 const transactionFilters = [
 	{ title: 'All', value: '' },
@@ -74,11 +75,14 @@ export const AddressDetails = () => {
 						</button>
 					</h1>
 					<div className='addressDetails__section'>
-						<OveralBalance token={'1,173,586.35'} amount={'21,067.61184460'} />
-						<div className='addressDetails__section-token'>
-							<div className='addressDetails__section-tokenName'>Token</div>
-							<TokenFiltered />
+						<div className='addressDetails__info'>
+							<OveralBalance token={'1,173,586.35'} amount={'21,067.61184460'} />
+							<div className='addressDetails__info-token'>
+								<div className='addressDetails__info-tokenName'>Token</div>
+								<TokenFiltered />
+							</div>
 						</div>
+						<TokenModal />
 					</div>
 				</Content.Header>
 				<Content.Body>
