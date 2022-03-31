@@ -1,5 +1,5 @@
 import React from 'react';
-import ArrowDownSmall from '../../assets/icons/ArrowDownSmall';
+import ArrowDownSmall from '../../assets/icons/Arrows/ArrowDownSmall';
 
 type AddressBlockProps = {
 	txhash: string | number;

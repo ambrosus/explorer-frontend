@@ -1,5 +1,5 @@
 import React from 'react';
-import ArrowDownSmall from '../../assets/icons/ArrowDownSmall';
+import ArrowDownSmall from '../../assets/icons/Arrows/ArrowDownSmall';
 import Eth from '../../assets/icons/Cryptos/Eth';
 import GreenCircle from '../../assets/icons/GreenCircle';
 import OrangeCircle from '../../assets/icons/OrangeCircle';

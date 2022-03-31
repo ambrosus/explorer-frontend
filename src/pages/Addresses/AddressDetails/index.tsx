@@ -8,8 +8,13 @@ import AddressBlock from '../../../components/AddressBlocks';
 import AddressBlocksHeader from '../../../components/AddressBlocksHeader';
 import ViewMoreBtn from '../../../components/ViewMoreBtn';
 import erc20Abi from '../../../utils/abis/ERC20.json';
+
+import Token from '../../../components/Token';
+
+
 import { ethers, providers } from 'ethers';
 import { formatEther } from 'ethers/lib/utils';
+
 
 
 const transactionFilters = [
@@ -60,7 +65,40 @@ export const AddressDetails = () => {
 	};
 
 	useEffect(() => {
+
+		const getTransactionsData = async (add: string, params: { limit: any; type: any }) => {
+			const { limit, type } = params;
+			const transactionsData = await API.getAccountTx(add, { limit, type });
+
+			const blockBookApi = await fetch(`https://blockbook.ambrosus.io/api/v2/address/${address}`).then((response) => response.json());
+
+			console.log('blockBookApi', blockBookApi);
+			console.table([
+				['Transactions data', transactionsData.data],
+				['Tokens', blockBookApi.tokens],
+			]);
+			console.log('abi', erc20Abi);
+			// @ts-ignore
+			console.log('provider', new providers.Web3Provider(window.ethereum).getSigner());
+			console.log('blockBookApi.tokens[0].contract', blockBookApi.tokens[0].contract);
+			// @ts-ignore
+			// const web3 = new Web3(window.ethereum);
+			// const contract = new web3.eth.Contract(erc20Abi, 	blockBookApi.tokens[0].contract);
+			// @ts-ignore
+			// const balance = await contract.balanceOf();
+
+			// const tokenContract =await new ethers.Contract(
+			// 	blockBookApi.tokens[0].contract,
+			// 	erc20Abi,
+			// new providers.Web3Provider(window.ethereum).getSigner());
+			// const balance = await tokenContract.balanceOf();
+			console.log('balance', balance);
+
+			return transactionsData;
+		};
+
 		if (address && addressData === null) {
+
 			getTransactionsData(address.trim(), { limit: 50, type: transactionType });
 		}
 	}, [address, transactionType]);
@@ -77,8 +115,10 @@ export const AddressDetails = () => {
 						</button>
 					</h1>
 					<div className='addressDetails__section'>
-						<OveralBalance />
-						<div className='addressDetails__section-div'>Token</div>
+						<div className='addressDetails__info'>
+							<OveralBalance token={'1,173,586.35'} amount={'21,067.61184460'} />
+							<Token />
+						</div>
 					</div>
 				</Content.Header>
 				<Content.Body>
