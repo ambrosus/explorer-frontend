@@ -19,13 +19,13 @@ const AddressBlock: React.FC<AddressBlockProps> = ({ txhash, method, from, to, d
 	const online: any = txfee === 'Pending' ? <OrangeCircle /> : <GreenCircle />;
 
 	return (
-		<div className='addressDetails__tbody-tr'>
+		<>
 			<div className='addressDetails__tbody-td'>{txhash}</div>
 			<div className='addressDetails__tbody-td'>
 				{method === 'Method' ? (
 					<>
 						{method}
-						<button>
+						<button style={{ display: 'flex', alignItems: 'center' }}>
 							<ArrowDownSmall />
 						</button>
 					</>
@@ -49,16 +49,19 @@ const AddressBlock: React.FC<AddressBlockProps> = ({ txhash, method, from, to, d
 					</>
 				)}
 			</div>
-			<div className='addressDetails__tbody-td'>
+			<div className='addressDetails__tbody-td' style={{ padding: 0 }}>
 				{txfee === 'txFee' ? (
 					txfee
 				) : (
 					<>
-						{online} {txfee}
+						<span className='universall__indent-icon' style={{ display: 'flex', alignItems: 'center' }}>
+							{online}
+						</span>
+						{txfee}
 					</>
 				)}
 			</div>
-		</div>
+		</>
 	);
 };
 
