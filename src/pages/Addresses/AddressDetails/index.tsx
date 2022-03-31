@@ -8,9 +8,14 @@ import AddressBlock from '../../../components/AddressBlocks';
 import AddressBlocksHeader from '../../../components/AddressBlocksHeader';
 import ViewMoreBtn from '../../../components/ViewMoreBtn';
 import erc20Abi from '../../../utils/abis/ERC20.json';
+
 import Token from '../../../components/Token';
-// import { ethers, providers } from 'ethers';
-// import Web3 from 'web3';
+
+
+import { ethers, providers } from 'ethers';
+import { formatEther } from 'ethers/lib/utils';
+
+
 
 const transactionFilters = [
 	{ title: 'All', value: '' },
@@ -22,12 +27,45 @@ const transactionFilters = [
 export const AddressDetails = () => {
 	const { address } = useParams();
 	const [transactionType, setTransactionType] = useState('');
+	const [addressData, setAddressData] = useState<any>(null);
+
+	const { ethereum }: any = window;
 
 	const reciveAdress = '0xF977814e90dA44bFA03b6295A0616a897441aceC';
 	const copyConten = () => console.log(reciveAdress);
 
-	// @ts-ignore
+	const getTransactionsData = async (add: string, params: { limit: any; type: any }) => {
+		const { limit, type } = params;
+		const transactionsData = await API.getAccountTx(add, { limit, type });
+
+		const blockBookApi = await fetch(`https://blockbook.ambrosus.io/api/v2/address/${address}`).then(res => res.json());
+
+		const tokens: { name:string;balance: string; contract: string; transfers:number;type:string;}[] = [];
+
+		blockBookApi && blockBookApi.tokens && blockBookApi.tokens
+			.forEach((token: { name:string;balance: string; contract: string; transfers:number;type:string;}) => {
+			const tokenContract = new ethers.Contract(
+				token.contract,
+				erc20Abi,
+				new providers.Web3Provider(ethereum).getSigner());
+			tokenContract.balanceOf(address).then((result: any) => {
+				if (result) {
+					tokens.push({ ...token, balance: formatEther(`${result}`) });
+				}
+			});
+		});
+
+		console.table([
+			['Transactions data', transactionsData.data],
+			['Tokens', tokens],
+		]);
+		setAddressData({transactions:transactionsData.data , tokens})
+
+
+	};
+
 	useEffect(() => {
+
 		const getTransactionsData = async (add: string, params: { limit: any; type: any }) => {
 			const { limit, type } = params;
 			const transactionsData = await API.getAccountTx(add, { limit, type });
@@ -58,10 +96,13 @@ export const AddressDetails = () => {
 
 			return transactionsData;
 		};
-		if (address) {
+
+		if (address && addressData === null) {
+
 			getTransactionsData(address.trim(), { limit: 50, type: transactionType });
 		}
 	}, [address, transactionType]);
+	console.log('addressData', addressData);
 
 	return (
 		<Content>
