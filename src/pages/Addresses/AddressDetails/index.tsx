@@ -8,6 +8,9 @@ import AddressBlock from '../../../components/AddressBlocks';
 import AddressBlocksHeader from '../../../components/AddressBlocksHeader';
 import ViewMoreBtn from '../../../components/ViewMoreBtn';
 import TokenFiltered from '../../../components/TokenFiltered';
+import erc20Abi from '../../../utils/abis/ERC20.json';
+import { ethers, providers } from 'ethers';
+import Web3 from 'web3';
 
 const transactionFilters = [
 	{ title: 'All', value: '' },
@@ -36,6 +39,22 @@ export const AddressDetails = () => {
 				['Transactions data', transactionsData.data],
 				['Tokens', blockBookApi.tokens],
 			]);
+			console.log('abi', erc20Abi);
+			// @ts-ignore
+			console.log('provider', new providers.Web3Provider(window.ethereum).getSigner());
+			console.log('blockBookApi.tokens[0].contract', blockBookApi.tokens[0].contract);
+			// @ts-ignore
+			// const web3 = new Web3(window.ethereum);
+			// const contract = new web3.eth.Contract(erc20Abi, 	blockBookApi.tokens[0].contract);
+			// @ts-ignore
+			// const balance = await contract.balanceOf();
+
+			// const tokenContract =await new ethers.Contract(
+			// 	blockBookApi.tokens[0].contract,
+			// 	erc20Abi,
+			// new providers.Web3Provider(window.ethereum).getSigner());
+			// const balance = await tokenContract.balanceOf();
+			console.log('balance', balance);
 
 			return transactionsData;
 		};
@@ -70,6 +89,7 @@ export const AddressDetails = () => {
 							</button>
 						))}
 					</section>
+
 					<section className='addressDetails__table'>
 						<AddressBlocksHeader
 							txhash='txHash'
@@ -81,6 +101,7 @@ export const AddressDetails = () => {
 							amount='Amount'
 							txfee='txFee'
 						/>
+
 						<AddressBlock
 							txhash='0xfad804b6f81b...6aa121c5485b'
 							method='Transfer'
