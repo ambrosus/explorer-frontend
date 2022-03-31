@@ -1,0 +1,16 @@
+.token {
+	display: flex;
+	flex-direction: column;
+	&__info {
+		display: flex;
+		justify-content: end;
+		&-name {
+			display: flex;
+			align-self: center;
+			margin-right: 10px;
+			font-weight: 700;
+			font-size: 1.28em;
+			line-height: 2.28em;
+		}
+	}
+}

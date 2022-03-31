@@ -5,13 +5,14 @@ import TokenModal from '../TokenModal';
 
 const Token = () => {
 	return (
-		<div>
-			<div className='addressDetails__info-token'>
-				<span className='addressDetails__info-tokenName'>Token</span>
+		<div className='token'>
+			<div className='token__info'>
+				<span className='token__info-name'>Token</span>
 				<TokenFilter />
 			</div>
-
-			<TokenModal />
+			<div>
+				<TokenModal />
+			</div>
 		</div>
 	);
 };
