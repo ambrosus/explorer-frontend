@@ -5,6 +5,8 @@ import ContentCopy from '../../../assets/icons/ContentCopy';
 import API from '../../../API/api';
 import OveralBalance from '../../../components/OveralBalance';
 import AddressBlock from '../../../components/AddressBlocks';
+import AddressBlocksHeader from '../../../components/AddressBlocksHeader';
+import ViewMoreBtn from '../../../components/ViewMoreBtn';
 
 const transactionFilters = [
 	{ title: 'All', value: '' },
@@ -64,8 +66,17 @@ export const AddressDetails = () => {
 							</button>
 						))}
 					</section>
-					<section className='addressDetails__section1'>
-						<AddressBlock txhash='txHash' method='Method' from='From' to='To' date='Date' block='Block' amount='Amount' txfee='txFee' />
+					<section className='addressDetails__table'>
+						<AddressBlocksHeader
+							txhash='txHash'
+							method='Method'
+							from='From'
+							to='To'
+							date='Date'
+							block='Block'
+							amount='Amount'
+							txfee='txFee'
+						/>
 						<AddressBlock
 							txhash='0xfad804b6f81b...6aa121c5485b'
 							method='Transfer'
@@ -87,6 +98,9 @@ export const AddressDetails = () => {
 							txfee='0.000105 AMB'
 						/>
 					</section>
+					<div style={{ marginTop: '10px', display: 'flex', alignItems: 'center' }}>
+						<ViewMoreBtn nameBtn='Load More' />
+					</div>
 				</Content.Body>
 			</section>
 		</Content>
