@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import ArrowDownBig from '../../assets/icons/ArrowDownBig';
+
+import Eth from '../../assets/icons/Cryptos/Eth';
 
 const TokenModal = () => {
 	const [name, setName] = useState('');
@@ -16,14 +17,22 @@ const TokenModal = () => {
 
 	return (
 		<>
-			<div className='toggleMenu__modal'>
+			<div className='tokenModal'>
 				<input className='search__input' placeholder='0.00 USD' type='text' value={name} onChange={changeInput} />
 
 				<div>{`ERC-20 Tokens >20`}</div>
-				<div>
-					<div></div>
-					<div></div>
-					<div></div>
+				<div className='tokenModal_table'>
+					<div>
+						<Eth />
+					</div>
+					<div>
+						<div>DarkChain</div>
+						<div>7,810,914,244.011233 WEB 3.0</div>
+					</div>
+					<div>
+						<div>$ 292.72</div>
+						<div>@0.00</div>
+					</div>
 				</div>
 			</div>
 		</>

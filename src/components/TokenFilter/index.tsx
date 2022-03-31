@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import ArrowDownBig from '../../assets/icons/ArrowDownBig';
+import ArrowDownBig from '../../assets/icons/Arrows/ArrowDownBig';
 
 const TokenInput = () => {
 	const [name, setName] = useState('');
