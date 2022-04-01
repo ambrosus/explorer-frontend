@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
-import ArrowDownBig from '../../assets/icons/Arrows/ArrowDownBig';
+import React from 'react';
+
 import TokenFilter from '../TokenFilter';
 import TokenModal from '../TokenModal';
 
 const Token = () => {
+	const num = 0.0;
 	return (
 		<div className='token'>
 			<div className='token__info'>
@@ -11,7 +12,7 @@ const Token = () => {
 				<TokenFilter />
 			</div>
 			<div>
-				<TokenModal />
+				<TokenModal token={0} summary={num.toFixed(2)} selectedToken={''} icon={undefined} tokenName={''} />
 			</div>
 		</div>
 	);

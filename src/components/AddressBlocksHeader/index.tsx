@@ -1,5 +1,5 @@
 import React from 'react';
-import ArrowDownSmall from '../../assets/icons/Arrows/ArrowDownSmall';
+import ArrowDown from '../../assets/icons/Arrows/ArrowDown';
 
 type AddressBlockProps = {
 	txhash: string | number;
@@ -25,7 +25,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({ txhash, method, from, to, d
 					onClick={sortMethod}
 				>
 					{method}
-					<ArrowDownSmall />
+					<ArrowDown />
 				</button>
 			</div>
 			<div className='addressDetails__thead-td'>{from}</div>

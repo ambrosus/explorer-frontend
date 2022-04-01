@@ -2,7 +2,15 @@ import React, { useState } from 'react';
 
 import Eth from '../../assets/icons/Cryptos/Eth';
 
-const TokenModal = () => {
+type TokenModalProps = {
+	token: number;
+	summary: any;
+	selectedToken: string;
+	icon: any;
+	tokenName: string;
+};
+
+const TokenModal: React.FC<TokenModalProps> = ({ token, summary }) => {
 	const [name, setName] = useState('');
 	const handleSubmit = (e: any) => {
 		e.preventDefault();
@@ -17,7 +25,7 @@ const TokenModal = () => {
 
 	return (
 		<div className='tokenModal'>
-			<input className='search__input' placeholder='0.00 USD' type='text' value={name} onChange={changeInput} />
+			<input className='search__input' placeholder={`${summary} USD`} type='text' value={name} onChange={changeInput} />
 
 			<div>{`ERC-20 Tokens >20`}</div>
 			<div className='tokenModal_table'>
