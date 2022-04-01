@@ -1,5 +1,5 @@
 import React from 'react';
-import ArrowDownSmall from '../../assets/icons/Arrows/ArrowDownSmall';
+import ArrowDown from '../../assets/icons/Arrows/ArrowDown';
 import Eth from '../../assets/icons/Cryptos/Eth';
 import GreenCircle from '../../assets/icons/GreenCircle';
 import OrangeCircle from '../../assets/icons/OrangeCircle';
@@ -26,7 +26,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({ txhash, method, from, to, d
 					<>
 						{method}
 						<button style={{ display: 'flex', alignItems: 'center' }}>
-							<ArrowDownSmall />
+							<ArrowDown />
 						</button>
 					</>
 				) : (

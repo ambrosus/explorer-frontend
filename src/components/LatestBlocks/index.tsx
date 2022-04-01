@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import GreenCircle from '../../assets/icons/GreenCircle';
 import OrangeCircle from '../../assets/icons/OrangeCircle';
 
