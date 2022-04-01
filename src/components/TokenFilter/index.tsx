@@ -1,26 +1,33 @@
 import React, { useState } from 'react';
 import ArrowDownBig from '../../assets/icons/Arrows/ArrowDownBig';
+import TokenModal from '../TokenModal';
 
-const TokenInput = () => {
+const TokenFilter = () => {
 	const [name, setName] = useState('');
 	const handleSubmit = (e: any) => {
 		e.preventDefault();
 		console.log(name);
 	};
+	const num = 0.0;
 
-	const toggleMenu = () => console.log('hello');
+	const toggleMenu = () => setIsShow(!isShow);
+
+	const [isShow, setIsShow] = useState(false);
 
 	return (
 		<>
-			<form className='search' onSubmit={handleSubmit}>
-				<input className='search__input' placeholder='0.00 USD' type='text' value={name} onChange={(e) => setName(e.target.value)} />
-
-				<button className='search__btn' type='submit' onClick={toggleMenu}>
-					<ArrowDownBig />
-				</button>
-			</form>
+			<div className='tokenFilter' onSubmit={handleSubmit}>
+				<div className='tokenFilter__input'>
+					<span className='tokenFilter__input-rectangle'>4</span>
+					<span className='tokenFilter__input-text'>{`> $ 152.35 USD`}</span>
+					<button className='tokenFilter__input-btn' type='button' onClick={toggleMenu}>
+						<ArrowDownBig />
+					</button>
+				</div>
+				<div>{isShow && <TokenModal token={0} summary={num.toFixed(2)} selectedToken={''} icon={undefined} tokenName={''} />}</div>
+			</div>
 		</>
 	);
 };
 
-export default TokenInput;
+export default TokenFilter;

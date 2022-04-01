@@ -1,16 +1,76 @@
 .token {
 	display: flex;
-	flex-direction: column;
+	justify-content: end;
 	&__info {
 		display: flex;
-		justify-content: end;
+		position: absolute;
+		flex-direction: row;
+
 		&-name {
-			display: flex;
-			align-self: center;
 			margin-right: 10px;
 			font-weight: 700;
 			font-size: 1.28em;
 			line-height: 2.28em;
+			height: 100%;
 		}
+	}
+}
+
+// tokenModal
+
+.tokenModal {
+	display: flex;
+	flex-direction: column;
+}
+
+// tokenFilter
+
+.tokenFilter {
+	display: flex;
+	flex-direction: column;
+	background: #ffffff;
+	border-radius: 16px;
+	min-width: 320px;
+
+	&__input {
+		display: flex;
+		align-items: center;
+		height: 48px;
+		border: 0px;
+		border-radius: 16px;
+		flex: 20;
+
+		&-rectangle {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			margin: 8px;
+
+			color: #ffffff;
+			font-weight: 700;
+			font-size: 0.78em;
+			line-height: 1.33em;
+
+			width: 24px;
+			height: 24px;
+			background: #808a9d;
+			border-radius: 8px;
+		}
+		&-text {
+			line-height: 1.33 em;
+		}
+		&-btn {
+			display: flex;
+			justify-content: end;
+			margin-right: 17px;
+			background: #ffffff;
+			border-radius: 16px;
+			border: 0px;
+			flex: 1;
+			min-width: 50px;
+		}
+	}
+	&__input::placeholder {
+		color: $secondary-medium;
 	}
 }

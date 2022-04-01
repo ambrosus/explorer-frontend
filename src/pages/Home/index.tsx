@@ -9,9 +9,6 @@ import LastestTransactions from '../../components/LastestTransactions';
 import ViewMoreBtn from '../../components/ViewMoreBtn';
 
 export const Home = () => {
-	const viewBlocks = () => console.log('viewBlocks');
-	const viewTransactions = () => console.log('viewTransactions');
-
 	const getHomePageData = async () => {
 		const latestBlocks = await API.getBlocks({ limit: 8 });
 		const latestTransactions = await API.getTransactions({ limit: 8 });
