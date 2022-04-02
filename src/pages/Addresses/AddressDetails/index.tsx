@@ -6,7 +6,12 @@ import API from '../../../API/api';
 import OveralBalance from '../../../components/OveralBalance';
 
 import Token from '../../../components/Token';
+
 import Tabs from '../../../components/Tabs';
+import ExportCsv from '../../../components/ExportCsv';
+import { ethers, providers } from 'ethers';
+import { formatEther } from 'ethers/lib/utils';
+
 
 
 export const AddressDetails = () => {
@@ -43,7 +48,54 @@ const sybStringAddress = `${address && address.slice(0, 10)}...${address && addr
 					</div>
 				</Content.Header>
 				<Content.Body>
+
 					<Tabs data={addressData} setTransactionType={setTransactionType}/>
+					<section className='addressDetails__button'>
+						{transactionFilters.map(({ value, title }) => (
+							<button key={value} onClick={() => setTransactionType(value.toLowerCase())}>
+								{title}
+							</button>
+						))}
+						<ExportCsv />
+					</section>
+
+					<section className='addressDetails__table'>
+						<AddressBlocksHeader
+							txhash='txHash'
+							method='Method'
+							from='From'
+							to='To'
+							date='Date'
+							block='Block'
+							amount='Amount'
+							txfee='txFee'
+						/>
+
+						<AddressBlock
+							txhash='0xfad804b6f81b...6aa121c5485b'
+							method='Transfer'
+							from='0x9012...328eb'
+							to='0x9012...328eb'
+							date='1 min ago'
+							block='10986508'
+							amount='1.33345 ETH'
+							txfee='Pending'
+						/>
+						<AddressBlock
+							txhash='0xfad804b6f81b...6aa121c5485b'
+							method='Transfer'
+							from='0x9012...328eb'
+							to='0x9012...328eb'
+							date='1 min ago'
+							block='10986508'
+							amount='1.33345 ETH'
+							txfee='0.000105 AMB'
+						/>
+					</section>
+					<div style={{ marginTop: '10px', display: 'flex', alignItems: 'center' }}>
+						<ViewMoreBtn nameBtn='Load More' />
+					</div>
+
 				</Content.Body>
 			</section>
 		</Content>
