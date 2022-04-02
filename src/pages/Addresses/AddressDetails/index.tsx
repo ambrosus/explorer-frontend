@@ -4,32 +4,23 @@ import { useParams } from 'react-router-dom';
 import ContentCopy from '../../../assets/icons/ContentCopy';
 import API from '../../../API/api';
 import OveralBalance from '../../../components/OveralBalance';
-import AddressBlock from '../../../components/AddressBlocks';
-import AddressBlocksHeader from '../../../components/AddressBlocksHeader';
-import ViewMoreBtn from '../../../components/ViewMoreBtn';
 
 import Token from '../../../components/Token';
 
+import Tabs from '../../../components/Tabs';
 import ExportCsv from '../../../components/ExportCsv';
 import { ethers, providers } from 'ethers';
 import { formatEther } from 'ethers/lib/utils';
 
-const transactionFilters = [
-	{ title: 'All', value: '' },
-	{ title: 'Transfers', value: 'transfers' },
-	{ title: 'Block Rewards', value: 'block_rewards' },
-	{ title: 'ERC-20 Tx', value: 'ERC-20_Tx' },
-];
+
 
 export const AddressDetails = () => {
 	const { address } = useParams();
 	const [transactionType, setTransactionType] = useState('');
 	const [addressData, setAddressData] = useState<any>(null);
+const sybStringAddress = `${address && address.slice(0, 10)}...${address && address.slice(address.length - 10,)}`;
 
-	// const { ethereum }: any = window;
-
-	const reciveAdress = '0xF977814e90dA44bFA03b6295A0616a897441aceC';
-	const copyConten = () => console.log(reciveAdress);
+	const copyConten = () => console.log(sybStringAddress);
 
 
 	useEffect(() => {
@@ -44,7 +35,7 @@ export const AddressDetails = () => {
 			<section className='addressDetails'>
 				<Content.Header>
 					<h1 className='addressDetails__h1'>
-						{address} <span className='addressDetails__h1-span'>{reciveAdress}</span>
+						Address Details	 <span className='addressDetails__h1-span'>	{sybStringAddress}</span>
 						<button className='addressDetails__h1-btn' onClick={copyConten}>
 							<ContentCopy />
 						</button>
@@ -57,6 +48,8 @@ export const AddressDetails = () => {
 					</div>
 				</Content.Header>
 				<Content.Body>
+
+					<Tabs data={addressData} setTransactionType={setTransactionType}/>
 					<section className='addressDetails__button'>
 						{transactionFilters.map(({ value, title }) => (
 							<button key={value} onClick={() => setTransactionType(value.toLowerCase())}>
@@ -102,6 +95,7 @@ export const AddressDetails = () => {
 					<div style={{ marginTop: '10px', display: 'flex', alignItems: 'center' }}>
 						<ViewMoreBtn nameBtn='Load More' />
 					</div>
+
 				</Content.Body>
 			</section>
 		</Content>

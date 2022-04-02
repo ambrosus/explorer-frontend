@@ -67,6 +67,12 @@ export const subRoutes = [
 		exact: true,
 		component: () => <AddressDetails />,
 	},
+	{
+		path: '/addresses/:address/:type',
+		key: 'Address Details',
+		exact: true,
+		component: () => <AddressDetails />,
+	},
 ];
 
 const appRoutes = { routes, subRoutes };
