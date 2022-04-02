@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import TokenItem from '../TokenItem';
 
 type TokenModalProps = {
@@ -12,18 +12,26 @@ type TokenModalProps = {
 const TokenModal: React.FC<TokenModalProps> = ({ token, summary }) => {
 	const [name, setName] = useState('');
 
-	const changeInput = (e: any) => {
+	const changeInput = (e: ChangeEvent<HTMLInputElement>) => {
+		e.preventDefault();
 		setName(e.target.value);
-		console.log(name);
 	};
 
+	console.log(name);
 	return (
 		<div className='tokenModal'>
-			<input className='search__input' placeholder={`${summary} USD`} type='text' value={name} onChange={changeInput} />
+			<input className='tokenModal__search' placeholder='Search for Token Name' type='text' value={name} onChange={changeInput} />
 			<div>
-				<div className='tokenModal__tokens'>{`ERC-20 Tokens >20`}</div>
+				<div className='tokenModal__tokens'>
+					ERC-20 Tokens
+					<span className='universall__light2' style={{ marginLeft: 4 }}>
+						{'>'}20
+					</span>
+				</div>
 				<div className='tokenModal__arrows'></div>
 			</div>
+			<TokenItem />
+			<TokenItem />
 			<TokenItem />
 		</div>
 	);

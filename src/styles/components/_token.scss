@@ -21,6 +21,29 @@
 .tokenModal {
 	display: flex;
 	flex-direction: column;
+	&__search {
+		width: 300px;
+		height: 40px;
+		background: #f4f5f6;
+		border: 1px solid #eff2f5;
+		border-radius: 16px;
+		margin: 10px auto;
+		padding-left: 12px;
+	}
+	&__search::placeholder {
+		line-height: 1.33em;
+		color: #a6b0c3;
+	}
+	&__tokens {
+		display: flex;
+		align-items: center;
+		padding-left: 12px;
+		height: 32px;
+		border-top: 1px solid #eff2f5;
+		font-weight: 600;
+		line-height: 1.33em;
+		color: #05060f;
+	}
 }
 
 // tokenFilter
@@ -29,8 +52,11 @@
 	display: flex;
 	flex-direction: column;
 	background: #ffffff;
-	border-radius: 16px;
 	min-width: 320px;
+	background: #fff;
+	border: 1px solid #eff2f5;
+	box-shadow: 4px 8px 8px rgba(0, 0, 0, 0.25);
+	border-radius: 16px;
 
 	&__input {
 		display: flex;
@@ -58,6 +84,7 @@
 		}
 		&-text {
 			line-height: 1.33 em;
+			flex: 6;
 		}
 		&-btn {
 			display: flex;
@@ -67,10 +94,26 @@
 			border-radius: 16px;
 			border: 0px;
 			flex: 1;
-			min-width: 50px;
 		}
 	}
 	&__input::placeholder {
 		color: $secondary-medium;
+	}
+}
+
+// tokenItem
+
+.tokenItem {
+	display: grid;
+	grid-template-columns: repeat(3, auto);
+	padding: 15px;
+	border-top: 1px solid #eff2f5;
+
+	&__tokens {
+		line-height: 1.33em;
+	}
+	&__amount {
+		text-align: end;
+		line-height: 1.33em;
 	}
 }

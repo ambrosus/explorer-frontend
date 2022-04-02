@@ -6,17 +6,17 @@ type TokenItemProps = {};
 
 const TokenItem: React.FC<TokenItemProps> = () => {
 	return (
-		<div className='TokenItem_table'>
-			<div>
+		<div className='tokenItem'>
+			<div className='tokenItem__icon'>
 				<Eth />
 			</div>
-			<div>
+			<div className='tokenItem__tokens'>
 				<div>DarkChain</div>
-				<div>7,810,914,244.011233 WEB 3.0</div>
+				<div className='universall__light2'>7,810,914,244.011233 WEB 3.0</div>
 			</div>
-			<div>
+			<div className='tokenItem__amount'>
 				<div>$ 292.72</div>
-				<div>@0.00</div>
+				<div className='universall__light2 universall__line-height'>@0.00</div>
 			</div>
 		</div>
 	);
