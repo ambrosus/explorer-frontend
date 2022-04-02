@@ -9,7 +9,10 @@ import AddressBlocksHeader from '../../../components/AddressBlocksHeader';
 import ViewMoreBtn from '../../../components/ViewMoreBtn';
 
 import Token from '../../../components/Token';
-// import { formatEther } from 'ethers/lib/utils';
+
+import ExportCsv from '../../../components/ExportCsv';
+import { ethers, providers } from 'ethers';
+import { formatEther } from 'ethers/lib/utils';
 
 const transactionFilters = [
 	{ title: 'All', value: '' },
@@ -54,12 +57,13 @@ export const AddressDetails = () => {
 					</div>
 				</Content.Header>
 				<Content.Body>
-					<section>
+					<section className='addressDetails__button'>
 						{transactionFilters.map(({ value, title }) => (
 							<button key={value} onClick={() => setTransactionType(value.toLowerCase())}>
 								{title}
 							</button>
 						))}
+						<ExportCsv />
 					</section>
 
 					<section className='addressDetails__table'>
