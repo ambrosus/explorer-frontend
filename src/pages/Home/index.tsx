@@ -6,11 +6,9 @@ import FindWide from '../../components/FindWide';
 import MainInfo from '../../components/MainInfo';
 import LatestBlocks from '../../components/LatestBlocks';
 import LastestTransactions from '../../components/LastestTransactions';
+import ViewMoreBtn from '../../components/ViewMoreBtn';
 
 export const Home = () => {
-	const viewBlocks = () => console.log('viewBlocks');
-	const viewTransactions = () => console.log('viewTransactions');
-
 	const getHomePageData = async () => {
 		const latestBlocks = await API.getBlocks({ limit: 8 });
 		const latestTransactions = await API.getTransactions({ limit: 8 });
@@ -66,9 +64,7 @@ export const Home = () => {
 								<LatestBlocks />
 								<LatestBlocks />
 							</table>
-							<button className='home__btn' onClick={viewBlocks}>
-								View all blocks
-							</button>
+							<ViewMoreBtn nameBtn='View all blocks' />
 						</div>
 						<div className='home__content'>
 							<table className='lastestTransactions'>
@@ -81,10 +77,7 @@ export const Home = () => {
 								<LastestTransactions />
 								<LastestTransactions />
 							</table>
-
-							<button className='home__btn' onClick={viewTransactions}>
-								View all transactions
-							</button>
+							<ViewMoreBtn nameBtn='View all transactions' />
 						</div>
 					</section>
 				</Content.Body>

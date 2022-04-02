@@ -2,9 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { Content } from '../../../components/Content';
 import { useParams } from 'react-router-dom';
 import ContentCopy from '../../../assets/icons/ContentCopy';
+import API from '../../../API/api';
 import OveralBalance from '../../../components/OveralBalance';
 import AddressBlock from '../../../components/AddressBlocks';
-import API from '../../../API/api';
+import AddressBlocksHeader from '../../../components/AddressBlocksHeader';
+import ViewMoreBtn from '../../../components/ViewMoreBtn';
+
+import Token from '../../../components/Token';
+// import { formatEther } from 'ethers/lib/utils';
 
 const transactionFilters = [
 	{ title: 'All', value: '' },
@@ -16,7 +21,9 @@ const transactionFilters = [
 export const AddressDetails = () => {
 	const { address } = useParams();
 	const [transactionType, setTransactionType] = useState('');
-	const [addressData, setAddressData] = useState<Object | null>(null);
+	const [addressData, setAddressData] = useState<any>(null);
+
+	// const { ethereum }: any = window;
 
 	const reciveAdress = '0xF977814e90dA44bFA03b6295A0616a897441aceC';
 	const copyConten = () => console.log(reciveAdress);
@@ -31,8 +38,6 @@ export const AddressDetails = () => {
 
 	return (
 		<Content>
-			<div>{transactionFilters.map((adsa) => <div
-				onClick={() => setTransactionType(adsa.value)}>{adsa.title}</div>)}</div>
 			<section className='addressDetails'>
 				<Content.Header>
 					<h1 className='addressDetails__h1'>
@@ -42,8 +47,10 @@ export const AddressDetails = () => {
 						</button>
 					</h1>
 					<div className='addressDetails__section'>
-						<OveralBalance />
-						<div className='addressDetails__section-div'>Token</div>
+						<div className='addressDetails__info'>
+							<OveralBalance token={'1,173,586.35'} amount={'21,067.61184460'} />
+							<Token />
+						</div>
 					</div>
 				</Content.Header>
 				<Content.Body>
@@ -54,9 +61,19 @@ export const AddressDetails = () => {
 							</button>
 						))}
 					</section>
-					<section className='addressDetails__section1'>
-						<AddressBlock txhash='txHash' method='Method' from='From' to='To' date='Date' block='Block' amount='Amount'
-													txfee='txFee' />
+
+					<section className='addressDetails__table'>
+						<AddressBlocksHeader
+							txhash='txHash'
+							method='Method'
+							from='From'
+							to='To'
+							date='Date'
+							block='Block'
+							amount='Amount'
+							txfee='txFee'
+						/>
+
 						<AddressBlock
 							txhash='0xfad804b6f81b...6aa121c5485b'
 							method='Transfer'
@@ -78,9 +95,11 @@ export const AddressDetails = () => {
 							txfee='0.000105 AMB'
 						/>
 					</section>
+					<div style={{ marginTop: '10px', display: 'flex', alignItems: 'center' }}>
+						<ViewMoreBtn nameBtn='Load More' />
+					</div>
 				</Content.Body>
 			</section>
 		</Content>
 	);
 };
-

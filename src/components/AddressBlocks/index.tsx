@@ -1,5 +1,5 @@
 import React from 'react';
-import ArrowDownSmall from '../../assets/icons/ArrowDownSmall';
+import ArrowDown from '../../assets/icons/Arrows/ArrowDown';
 import Eth from '../../assets/icons/Cryptos/Eth';
 import GreenCircle from '../../assets/icons/GreenCircle';
 import OrangeCircle from '../../assets/icons/OrangeCircle';
@@ -19,14 +19,14 @@ const AddressBlock: React.FC<AddressBlockProps> = ({ txhash, method, from, to, d
 	const online: any = txfee === 'Pending' ? <OrangeCircle /> : <GreenCircle />;
 
 	return (
-		<div className='addressDetails__tbody-tr'>
+		<>
 			<div className='addressDetails__tbody-td'>{txhash}</div>
 			<div className='addressDetails__tbody-td'>
 				{method === 'Method' ? (
 					<>
 						{method}
-						<button>
-							<ArrowDownSmall />
+						<button style={{ display: 'flex', alignItems: 'center' }}>
+							<ArrowDown />
 						</button>
 					</>
 				) : (
@@ -49,16 +49,19 @@ const AddressBlock: React.FC<AddressBlockProps> = ({ txhash, method, from, to, d
 					</>
 				)}
 			</div>
-			<div className='addressDetails__tbody-td'>
+			<div className='addressDetails__tbody-td' style={{ padding: 0 }}>
 				{txfee === 'txFee' ? (
 					txfee
 				) : (
 					<>
-						{online} {txfee}
+						<span className='universall__indent-icon' style={{ display: 'flex', alignItems: 'center' }}>
+							{online}
+						</span>
+						{txfee}
 					</>
 				)}
 			</div>
-		</div>
+		</>
 	);
 };
 
