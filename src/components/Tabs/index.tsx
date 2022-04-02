@@ -4,6 +4,7 @@ import AddressBlocksHeader from '../AddressBlocksHeader';
 import AddressBlock from '../AddressBlocks';
 import ViewMoreBtn from '../ViewMoreBtn';
 import { formatEther } from 'ethers/lib/utils';
+import moment from 'moment';
 //create functional component Tabs without store  with the following tabs: 'All','Transfers','ERC-20 Tx','Block
 // Rewards' following the pattern of the Tabs component in the UI. The Tabs component is used to display the
 // different tabs in the UI. need to add the following props:"transfers","block_rewards" ," ERC-20_Tx"  props will
@@ -59,10 +60,10 @@ const Tabs = ({ data, setTransactionType }:any) => {
 								to={`${transaction.to.slice(0, 5)}...${transaction.to.slice(
 									transaction.to.length - 5,
 								)}`}
-								date='1 min ago'
-								block='10986508'
+								date={moment(transaction.timestamp * 1000).fromNow()}
+								block={transaction.blockNumber}
 								amount={`${Number(formatEther(transaction.value.wei)).toFixed(2)} ETH`}
-								txfee='0.000105 AMB'
+								txfee={`${Number(formatEther(transaction.gasCost.wei)).toFixed(5)} AMB`}
 							/>
 						);
 					})}
