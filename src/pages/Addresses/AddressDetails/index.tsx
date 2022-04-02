@@ -11,17 +11,24 @@ import Tabs from '../../../components/Tabs';
 import ExportCsv from '../../../components/ExportCsv';
 import { ethers, providers } from 'ethers';
 import { formatEther } from 'ethers/lib/utils';
+import AddressBlocksHeader from '../../../components/AddressBlocksHeader';
+import AddressBlock from '../../../components/AddressBlocksHeader';
+import ViewMoreBtn from '../../../components/ViewMoreBtn';
 
-
+const transactionFilters = [
+	{ title: 'All', value: '' },
+	{ title: 'Transfers', value: 'transfers' },
+	{ title: 'Block Rewards', value: 'block_rewards' },
+	{ title: 'ERC-20 Tx', value: 'ERC-20_Tx' },
+];
 
 export const AddressDetails = () => {
 	const { address } = useParams();
 	const [transactionType, setTransactionType] = useState('');
 	const [addressData, setAddressData] = useState<any>(null);
-const sybStringAddress = `${address && address.slice(0, 10)}...${address && address.slice(address.length - 10,)}`;
+	const sybStringAddress = `${address && address.slice(0, 10)}...${address && address.slice(address.length - 10)}`;
 
 	const copyConten = () => console.log(sybStringAddress);
-
 
 	useEffect(() => {
 		if (address) {
@@ -35,7 +42,7 @@ const sybStringAddress = `${address && address.slice(0, 10)}...${address && addr
 			<section className='addressDetails'>
 				<Content.Header>
 					<h1 className='addressDetails__h1'>
-						Address Details	 <span className='addressDetails__h1-span'>	{sybStringAddress}</span>
+						Address Details <span className='addressDetails__h1-span'> {sybStringAddress}</span>
 						<button className='addressDetails__h1-btn' onClick={copyConten}>
 							<ContentCopy />
 						</button>
@@ -48,54 +55,7 @@ const sybStringAddress = `${address && address.slice(0, 10)}...${address && addr
 					</div>
 				</Content.Header>
 				<Content.Body>
-
-					<Tabs data={addressData} setTransactionType={setTransactionType}/>
-					<section className='addressDetails__button'>
-						{transactionFilters.map(({ value, title }) => (
-							<button key={value} onClick={() => setTransactionType(value.toLowerCase())}>
-								{title}
-							</button>
-						))}
-						<ExportCsv />
-					</section>
-
-					<section className='addressDetails__table'>
-						<AddressBlocksHeader
-							txhash='txHash'
-							method='Method'
-							from='From'
-							to='To'
-							date='Date'
-							block='Block'
-							amount='Amount'
-							txfee='txFee'
-						/>
-
-						<AddressBlock
-							txhash='0xfad804b6f81b...6aa121c5485b'
-							method='Transfer'
-							from='0x9012...328eb'
-							to='0x9012...328eb'
-							date='1 min ago'
-							block='10986508'
-							amount='1.33345 ETH'
-							txfee='Pending'
-						/>
-						<AddressBlock
-							txhash='0xfad804b6f81b...6aa121c5485b'
-							method='Transfer'
-							from='0x9012...328eb'
-							to='0x9012...328eb'
-							date='1 min ago'
-							block='10986508'
-							amount='1.33345 ETH'
-							txfee='0.000105 AMB'
-						/>
-					</section>
-					<div style={{ marginTop: '10px', display: 'flex', alignItems: 'center' }}>
-						<ViewMoreBtn nameBtn='Load More' />
-					</div>
-
+					<Tabs data={addressData} setTransactionType={setTransactionType} />
 				</Content.Body>
 			</section>
 		</Content>
