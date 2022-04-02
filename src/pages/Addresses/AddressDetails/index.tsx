@@ -8,19 +8,6 @@ import OveralBalance from '../../../components/OveralBalance';
 import Token from '../../../components/Token';
 
 import Tabs from '../../../components/Tabs';
-import ExportCsv from '../../../components/ExportCsv';
-import { ethers, providers } from 'ethers';
-import { formatEther } from 'ethers/lib/utils';
-import AddressBlocksHeader from '../../../components/AddressBlocksHeader';
-import AddressBlock from '../../../components/AddressBlocksHeader';
-import ViewMoreBtn from '../../../components/ViewMoreBtn';
-
-const transactionFilters = [
-	{ title: 'All', value: '' },
-	{ title: 'Transfers', value: 'transfers' },
-	{ title: 'Block Rewards', value: 'block_rewards' },
-	{ title: 'ERC-20 Tx', value: 'ERC-20_Tx' },
-];
 
 export const AddressDetails = () => {
 	const { address } = useParams();
@@ -35,7 +22,6 @@ export const AddressDetails = () => {
 			API.getDataForAddress(address.trim(), { limit: 50, type: transactionType }, setAddressData);
 		}
 	}, [address, transactionType]);
-	console.log('addressData', addressData);
 
 	return (
 		<Content>

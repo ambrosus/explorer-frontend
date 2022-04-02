@@ -18,22 +18,24 @@ const transactionFilters = [
 	{ title: 'ERC-20 Tx', value: 'ERC-20_Tx' },
 ];
 
-const Tabs = ({ data, setTransactionType }:any) => {
+const Tabs = ({ data, setTransactionType }: any) => {
 	const { address } = useParams();
+	console.log(`It is ${data}`);
 
-	return	(
-		<>
+	return (
 		<div>
-			{transactionFilters.map(filter => (
-				<Link
-					key={filter.title}
-					to={`/addresses/${address}/${filter.value}`}
-					className="tabs__link"
-					onClick={() => setTransactionType(filter.value)}
-				>
-					{filter.title}
-				</Link>
-			))}
+			<div>
+				{transactionFilters.map((filter) => (
+					<Link
+						key={filter.title}
+						to={`/addresses/${address}/${filter.value}`}
+						className='tabs__link'
+						onClick={() => setTransactionType(filter.value)}
+					>
+						{filter.title}
+					</Link>
+				))}
+			</div>
 			<div>
 				<section className='addressDetails__table'>
 					<AddressBlocksHeader
@@ -46,20 +48,14 @@ const Tabs = ({ data, setTransactionType }:any) => {
 						amount='Amount'
 						txfee='txFee'
 					/>
-					{data?.transactions.map((transaction:any, index:number) => {
+					{data?.transactions.map((transaction: any, index: number) => {
 						return (
 							<AddressBlock
 								key={transaction.hash}
-								txhash={`${transaction.hash.slice(0, 10)}...${transaction.hash.slice(
-									transaction.hash.length - 10,
-								)}`}
+								txhash={`${transaction.hash.slice(0, 10)}...${transaction.hash.slice(transaction.hash.length - 10)}`}
 								method={transaction.type}
-								from={`${transaction.from.slice(0, 5)}...${transaction.from.slice(
-									transaction.from.length - 5,
-								)}`}
-								to={`${transaction.to.slice(0, 5)}...${transaction.to.slice(
-									transaction.to.length - 5,
-								)}`}
+								from={`${transaction.from.slice(0, 5)}...${transaction.from.slice(transaction.from.length - 5)}`}
+								to={`${transaction.to.slice(0, 5)}...${transaction.to.slice(transaction.to.length - 5)}`}
 								date={moment(transaction.timestamp * 1000).fromNow()}
 								block={transaction.blockNumber}
 								amount={`${Number(formatEther(transaction.value.wei)).toFixed(2)} ETH`}
@@ -71,10 +67,8 @@ const Tabs = ({ data, setTransactionType }:any) => {
 				<div style={{ marginTop: '10px', display: 'flex', alignItems: 'center' }}>
 					<ViewMoreBtn nameBtn='Load More' />
 				</div>
-
 			</div>
 		</div>
-		</>
-	)
-}
+	);
+};
 export default Tabs;
