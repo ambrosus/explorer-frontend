@@ -2,12 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Content } from '../../../components/Content';
 import { useParams } from 'react-router-dom';
 import ContentCopy from '../../../assets/icons/ContentCopy';
-import API from '../../../API/api';
 import OveralBalance from '../../../components/OveralBalance';
 import AddressBlock from '../../../components/AddressBlocks';
-import erc20Abi from '../../../utils/abis/ERC20.json';
-import { ethers, providers } from 'ethers';
-import { formatEther } from 'ethers/lib/utils';
+import API from '../../../API/api';
 
 const transactionFilters = [
 	{ title: 'All', value: '' },
@@ -19,52 +16,23 @@ const transactionFilters = [
 export const AddressDetails = () => {
 	const { address } = useParams();
 	const [transactionType, setTransactionType] = useState('');
-	const [addressData, setAddressData] = useState<any>(null);
-
-	const { ethereum }: any = window;
+	const [addressData, setAddressData] = useState<Object | null>(null);
 
 	const reciveAdress = '0xF977814e90dA44bFA03b6295A0616a897441aceC';
 	const copyConten = () => console.log(reciveAdress);
 
-	const getTransactionsData = async (add: string, params: { limit: any; type: any }) => {
-		const { limit, type } = params;
-		const transactionsData = await API.getAccountTx(add, { limit, type });
-
-		const blockBookApi = await fetch(`https://blockbook.ambrosus.io/api/v2/address/${address}`).then(res => res.json());
-
-		const tokens: { name:string;balance: string; contract: string; transfers:number;type:string;}[] = [];
-
-		blockBookApi && blockBookApi.tokens && blockBookApi.tokens
-			.forEach((token: { name:string;balance: string; contract: string; transfers:number;type:string;}) => {
-			const tokenContract = new ethers.Contract(
-				token.contract,
-				erc20Abi,
-				new providers.Web3Provider(ethereum).getSigner());
-			tokenContract.balanceOf(address).then((result: any) => {
-				if (result) {
-					tokens.push({ ...token, balance: formatEther(`${result}`) });
-				}
-			});
-		});
-
-		console.table([
-			['Transactions data', transactionsData.data],
-			['Tokens', tokens],
-		]);
-		setAddressData({transactions:transactionsData.data , tokens})
-
-
-	};
 
 	useEffect(() => {
-		if (address && addressData === null) {
-			getTransactionsData(address.trim(), { limit: 50, type: transactionType });
+		if (address) {
+			API.getDataForAddress(address.trim(), { limit: 50, type: transactionType }, setAddressData);
 		}
 	}, [address, transactionType]);
 	console.log('addressData', addressData);
 
 	return (
 		<Content>
+			<div>{transactionFilters.map((adsa) => <div
+				onClick={() => setTransactionType(adsa.value)}>{adsa.title}</div>)}</div>
 			<section className='addressDetails'>
 				<Content.Header>
 					<h1 className='addressDetails__h1'>
@@ -115,3 +83,4 @@ export const AddressDetails = () => {
 		</Content>
 	);
 };
+

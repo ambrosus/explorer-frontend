@@ -1,5 +1,9 @@
 /*eslint-disable*/
 import axios from 'axios';
+import { ethers, providers } from 'ethers';
+import erc20Abi from '../utils/abis/ERC20.json';
+import { formatEther } from 'ethers/lib/utils';
+import { ethereum } from '../utils/constants';
 
 const tokenApiUrl = process.env.REACT_APP_TOKEN_API_URL;
 
@@ -38,6 +42,38 @@ const getBlocks = async (params = {}) => {
 		params,
 	});
 };
+
+const getDataForAddress = async (address: string, params: { limit: any; type: any }, setAddressData : Function)  => {
+	const { limit, type } = params;
+	const transactionsData = await getAccountTx(address, { limit, type });
+
+	const blockBookApi = await fetch(`https://blockbook.ambrosus.io/api/v2/address/${address}`)
+		.then(res => res.json());
+
+	const tokens: { name:string;balance: string; contract: string; transfers:number;type:string;}[] = [];
+
+	blockBookApi && blockBookApi.tokens && blockBookApi.tokens
+		.forEach((token: { name:string;balance: string; contract: string; transfers:number;type:string;}) => {
+			const tokenContract = new ethers.Contract(
+				token.contract,
+				erc20Abi,
+				new providers.Web3Provider(ethereum).getSigner());
+			console.log(erc20Abi);
+			tokenContract.balanceOf(address).then((result: any) => {
+				if (result) {
+					tokens.push({ ...token, balance: formatEther(`${result}`) });
+				}
+			});
+		});
+
+	console.table([
+		['Transactions data', transactionsData.data],
+		['Tokens', tokens],
+	]);
+
+	setAddressData({transactions:transactionsData.data , tokens})
+};
+
 
 const getBlock = (hashOrNumber: any) => {
 	return API().get(`blocks/${hashOrNumber}`);
@@ -211,6 +247,7 @@ const followTheLinkRange = (fromDate: any, toDate: any, address: any) => {
 
 export default {
 	API: API(),
+	getDataForAddress,
 	getBlocks,
 	getBlockTransactions,
 	getTransactions,
