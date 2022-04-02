@@ -7,13 +7,12 @@ import OveralBalance from '../../../components/OveralBalance';
 import AddressBlock from '../../../components/AddressBlocks';
 import AddressBlocksHeader from '../../../components/AddressBlocksHeader';
 import ViewMoreBtn from '../../../components/ViewMoreBtn';
-import erc20Abi from '../../../utils/abis/ERC20.json';
 
 import Token from '../../../components/Token';
-import ExportCsv from '../../../components/ExportCsv';
 
-// import { ethers, providers } from 'ethers';
-// import { formatEther } from 'ethers/lib/utils';
+import ExportCsv from '../../../components/ExportCsv';
+import { ethers, providers } from 'ethers';
+import { formatEther } from 'ethers/lib/utils';
 
 const transactionFilters = [
 	{ title: 'All', value: '' },
@@ -32,66 +31,10 @@ export const AddressDetails = () => {
 	const reciveAdress = '0xF977814e90dA44bFA03b6295A0616a897441aceC';
 	const copyConten = () => console.log(reciveAdress);
 
-	// const getTransactionsData = async (add: string, params: { limit: any; type: any }) => {
-	// 	const { limit, type } = params;
-	// 	const transactionsData = await API.getAccountTx(add, { limit, type });
-
-	// 	const blockBookApi = await fetch(`https://blockbook.ambrosus.io/api/v2/address/${address}`).then((res) => res.json());
-
-	// 	const tokens: { name: string; balance: string; contract: string; transfers: number; type: string }[] = [];
-
-	// 	blockBookApi &&
-	// 		blockBookApi.tokens &&
-	// 		blockBookApi.tokens.forEach((token: { name: string; balance: string; contract: string; transfers: number; type: string }) => {
-	// 			const tokenContract = new ethers.Contract(token.contract, erc20Abi, new providers.Web3Provider(ethereum).getSigner());
-	// 			tokenContract.balanceOf(address).then((result: any) => {
-	// 				if (result) {
-	// 					tokens.push({ ...token, balance: formatEther(`${result}`) });
-	// 				}
-	// 			});
-	// 		});
-
-	// 	console.table([
-	// 		['Transactions data', transactionsData.data],
-	// 		['Tokens', tokens],
-	// 	]);
-	// 	setAddressData({ transactions: transactionsData.data, tokens });
-	// };
 
 	useEffect(() => {
-		const getTransactionsData = async (add: string, params: { limit: any; type: any }) => {
-			const { limit, type } = params;
-			const transactionsData = await API.getAccountTx(add, { limit, type });
-
-			const blockBookApi = await fetch(`https://blockbook.ambrosus.io/api/v2/address/${address}`).then((response) => response.json());
-
-			console.log('blockBookApi', blockBookApi);
-			console.table([
-				['Transactions data', transactionsData.data],
-				['Tokens', blockBookApi.tokens],
-			]);
-			console.log('abi', erc20Abi);
-			// @ts-ignore
-			console.log('provider', new providers.Web3Provider(window.ethereum).getSigner());
-			console.log('blockBookApi.tokens[0].contract', blockBookApi.tokens[0].contract);
-			// @ts-ignore
-			// const web3 = new Web3(window.ethereum);
-			// const contract = new web3.eth.Contract(erc20Abi, 	blockBookApi.tokens[0].contract);
-			// @ts-ignore
-			// const balance = await contract.balanceOf();
-
-			// const tokenContract =await new ethers.Contract(
-			// 	blockBookApi.tokens[0].contract,
-			// 	erc20Abi,
-			// new providers.Web3Provider(window.ethereum).getSigner());
-			// const balance = await tokenContract.balanceOf();
-			console.log('balance', balance);
-
-			return transactionsData;
-		};
-
-		if (address && addressData === null) {
-			getTransactionsData(address.trim(), { limit: 50, type: transactionType });
+		if (address) {
+			API.getDataForAddress(address.trim(), { limit: 50, type: transactionType }, setAddressData);
 		}
 	}, [address, transactionType]);
 	console.log('addressData', addressData);
