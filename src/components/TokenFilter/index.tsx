@@ -24,7 +24,7 @@ const TokenFilter = () => {
 						<ArrowDownBig />
 					</button>
 				</div>
-				<div>{isShow && <TokenModal token={0} summary={num.toFixed(2)} selectedToken={''} icon={undefined} tokenName={''} />}</div>
+				{isShow && <TokenModal token={0} summary={num.toFixed(2)} selectedToken={''} icon={undefined} tokenName={''} />}
 			</div>
 		</>
 	);

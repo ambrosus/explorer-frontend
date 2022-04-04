@@ -22,16 +22,16 @@ const API = () => {
 	}
 
 	api.interceptors.response.use(
-		response => {
+		(response) => {
 			if (response.data) {
 				return response.data;
 			}
 
 			return response;
 		},
-		error => {
+		(error) => {
 			handleNotFound(error);
-		},
+		}
 	);
 
 	return api;
@@ -43,21 +43,18 @@ const getBlocks = async (params = {}) => {
 	});
 };
 
-const getDataForAddress = async (address: string, params: { limit: any; type: any }, setAddressData : Function)  => {
+const getDataForAddress = async (address: string, params: { limit: any; type: any }, setAddressData: Function) => {
 	const { limit, type } = params;
 	const transactionsData = await getAccountTx(address, { limit, type });
 
-	const blockBookApi = await fetch(`https://blockbook.ambrosus.io/api/v2/address/${address}`)
-		.then(res => res.json());
+	const blockBookApi = await fetch(`https://blockbook.ambrosus.io/api/v2/address/${address}`).then((res) => res.json());
 
-	const tokens: { name:string;balance: string; contract: string; transfers:number;type:string;}[] = [];
+	const tokens: { name: string; balance: string; contract: string; transfers: number; type: string }[] = [];
 
-	blockBookApi && blockBookApi.tokens && blockBookApi.tokens
-		.forEach((token: { name:string;balance: string; contract: string; transfers:number;type:string;}) => {
-			const tokenContract = new ethers.Contract(
-				token.contract,
-				erc20Abi,
-				new providers.Web3Provider(ethereum).getSigner());
+	blockBookApi &&
+		blockBookApi.tokens &&
+		blockBookApi.tokens.forEach((token: { name: string; balance: string; contract: string; transfers: number; type: string }) => {
+			const tokenContract = new ethers.Contract(token.contract, erc20Abi, new providers.Web3Provider(ethereum).getSigner());
 			console.log(erc20Abi);
 			tokenContract.balanceOf(address).then((result: any) => {
 				if (result) {
@@ -71,9 +68,8 @@ const getDataForAddress = async (address: string, params: { limit: any; type: an
 		['Tokens', tokens],
 	]);
 
-	setAddressData({transactions:transactionsData.data , tokens})
+	setAddressData({ transactions: transactionsData.data, tokens });
 };
-
 
 const getBlock = (hashOrNumber: any) => {
 	return API().get(`blocks/${hashOrNumber}`);
@@ -120,7 +116,7 @@ const getTransactions = (params: any = {}) => {
 	const url = `transactions${type ? `/types/${type}` : ''}`;
 	return API().get(url, {
 		params,
-	})
+	});
 };
 
 const getTransactionEvent = (hash: any) => {
@@ -138,7 +134,6 @@ const getAccounts = (params = {}) => {
 };
 
 const getApollos = (params = {}) => {
-
 	return API().get(`apollos`, {
 		params,
 	});
@@ -173,21 +168,15 @@ const getBundleEvents = (bundleId: any, params = {}) => {
 };
 
 const getBundleWithEntries = (bundleId: any) => {
-	return axios
-		.all([
-			getBundle(bundleId),
-			getBundleAssets(bundleId),
-			getBundleEvents(bundleId),
-		])
-		.then(
-			axios.spread((bundle, assets, events) => {
-				return {
-					bundle,
-					assets,
-					events,
-				};
-			}),
-		);
+	return axios.all([getBundle(bundleId), getBundleAssets(bundleId), getBundleEvents(bundleId)]).then(
+		axios.spread((bundle, assets, events) => {
+			return {
+				bundle,
+				assets,
+				events,
+			};
+		})
+	);
 };
 
 const searchItem = (term: any) => {
@@ -210,23 +199,17 @@ const getToken = () => {
 };
 
 const getTokenHistory = () => {
-	return axios
-		.get(tokenApiUrl + '/history')
-		.then(({ data }) => data.data);
+	return axios.get(tokenApiUrl + '/history').then(({ data }) => data.data);
 };
 
 const getTokenMountPrice = () => {
-	return axios
-		.get(tokenApiUrl + '/price')
-		.then(({ data }) => data.data);
+	return axios.get(tokenApiUrl + '/price').then(({ data }) => data.data);
 };
 
 const getTokenTotalSupply = () => {
-	return axios
-		.get(`${process.env.REACT_APP_API_ENDPOINT}/blocks/total_supply`)
-		.then((response) => {
-			return response.data;
-		});
+	return axios.get(`${process.env.REACT_APP_API_ENDPOINT}/blocks/total_supply`).then((response) => {
+		return response.data;
+	});
 };
 
 // const followTheLink = (time, address) => {

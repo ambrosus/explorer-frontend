@@ -20,8 +20,8 @@ const LatestBlocks = () => {
 				<td className='latestBlocks__td'>
 					<div className='latestBlocks__td-div'>
 						<p className='latestBlocks__p'>
-							<span className='latestBlocks__span-light'>Miner</span>
-							<span className='latestBlocks__span-dark latestBlocks__margin-left'>MiningPoolHub</span>
+							<span className='latestBlocks__span-light'>Validator</span>
+							<span className='latestBlocks__span-dark latestBlocks__margin-left'>0x9012...328eb</span>
 						</p>
 						<p className='latestBlocks__p'>
 							<span className='latestBlocks__span-dark'>0 txns</span>
