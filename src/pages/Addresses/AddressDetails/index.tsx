@@ -11,6 +11,7 @@ import Tabs from '../../../components/Tabs';
 
 export const AddressDetails = () => {
 	const { address } = useParams();
+
 	const [transactionType, setTransactionType] = useState('');
 	const [addressData, setAddressData] = useState<any>(null);
 	const sybStringAddress = `${address && address.slice(0, 10)}...${address && address.slice(address.length - 10)}`;

@@ -43,7 +43,7 @@ const Tabs = ({ data, setTransactionType }: any) => {
 
 			<div>
 				<section className='addressDetails__table'>
-					<AddressBlocksHeader
+					{/* <AddressBlocksHeader
 						txhash='txHash'
 						method='Method'
 						from='From'
@@ -92,10 +92,10 @@ const Tabs = ({ data, setTransactionType }: any) => {
 						block={'10986508'}
 						amount={1.33345}
 						txfee={'0.000105 AMB'}
-					/>
+					/> */}
 
 					{/* ===> NEED FIX INPUT FROM API <=== */}
-					{/* {data?.transactions.map((transaction: any, index: number) => {
+					{data?.transactions.map((transaction: any, index: number) => {
 						return (
 							<AddressBlock
 								key={transaction.hash}
@@ -109,7 +109,7 @@ const Tabs = ({ data, setTransactionType }: any) => {
 								txfee={`${Number(formatEther(transaction.gasCost.wei)).toFixed(5)} AMB`}
 							/>
 						);
-					})} */}
+					})}
 				</section>
 				<div style={{ marginTop: '10px', display: 'flex', alignItems: 'center' }}>
 					<ViewMoreBtn nameBtn='Load More' />
