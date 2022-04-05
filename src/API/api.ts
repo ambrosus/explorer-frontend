@@ -44,6 +44,8 @@ const getBlocks = async (params = {}) => {
 };
 
 const getDataForAddress = async (address: string, params: { limit: any; type: any }, setAddressData: Function) => {
+	console.log(address);
+
 	const { limit, type } = params;
 	const transactionsData = await getAccountTx(address, { limit, type });
 
