@@ -7,6 +7,8 @@ import MainInfo from '../../components/MainInfo';
 import LatestBlocks from '../../components/LatestBlocks';
 import LastestTransactions from '../../components/LastestTransactions';
 import ViewMoreBtn from '../../components/ViewMoreBtn';
+import MarketCap from '../../assets/icons/MarketCap';
+import Chart from '../../components/Chart';
 
 export const Home = () => {
 	const getHomePageData = async () => {
@@ -38,16 +40,21 @@ export const Home = () => {
 					<FindWide />
 					<table className='mainInfo'>
 						<tbody className='mainInfo__tbody'>
-							<tr className='mainInfo__tr'>
-								<MainInfo />
-								<MainInfo />
-								<MainInfo />
-							</tr>
-							<tr className='mainInfo__tr'>
-								<MainInfo />
-								<MainInfo />
-								<MainInfo />
-							</tr>
+						<tr className='mainInfo__tr'>
+							<MainInfo />
+							<MainInfo />
+							<MainInfo />
+							<td rowSpan={2} style={{
+								height:200,
+							}}>
+								<Chart />
+							</td>
+						</tr>
+						<tr className='mainInfo__tr'>
+							<MainInfo />
+							<MainInfo />
+							<MainInfo />
+						</tr>
 						</tbody>
 					</table>
 				</Content.Header>
@@ -56,9 +63,9 @@ export const Home = () => {
 						<div className='home__content'>
 							<table className='latestBlocks'>
 								<thead>
-									<tr>
-										<td className='home__h2'>Lastest Blocks</td>
-									</tr>
+								<tr>
+									<td className='home__h2'>Lastest Blocks</td>
+								</tr>
 								</thead>
 								<LatestBlocks />
 								<LatestBlocks />
@@ -69,9 +76,9 @@ export const Home = () => {
 						<div className='home__content'>
 							<table className='lastestTransactions'>
 								<thead>
-									<tr>
-										<td className='home__h2'>Lastest Transactions</td>
-									</tr>
+								<tr>
+									<td className='home__h2'>Lastest Transactions</td>
+								</tr>
 								</thead>
 								<LastestTransactions />
 								<LastestTransactions />
