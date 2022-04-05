@@ -16,9 +16,7 @@ const Calendar = () => {
 
 	return (
 		<>
-			<div style={{ position: 'absolute' }}>
-				<DateRange editableDateInputs={true} onChange={changeData} moveRangeOnFirstSelection={false} ranges={dataRange} />
-			</div>
+			<DateRange editableDateInputs={true} onChange={changeData} moveRangeOnFirstSelection={false} ranges={dataRange} />
 		</>
 	);
 };
