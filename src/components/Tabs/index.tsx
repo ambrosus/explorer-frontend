@@ -24,8 +24,8 @@ const Tabs = ({ data, setTransactionType }: any) => {
 
 	return (
 		<>
-			<div className='test'>
-				<div className='tabs'>
+			<div className='tabs'>
+				<div className='tabs__filters'>
 					{transactionFilters.map((filter) => (
 						<Link
 							key={filter.title}
@@ -62,6 +62,26 @@ const Tabs = ({ data, setTransactionType }: any) => {
 						block={'10986508'}
 						amount={1.33345}
 						txfee={'Pending'}
+					/>
+					<AddressBlock
+						txhash={'0xfad804b6f81b...6aa121c5485b'}
+						method={'Transfer'}
+						from={'0x9012...328eb'}
+						to={'0x9012...328eb'}
+						date={'1 min ago'}
+						block={'10986508'}
+						amount={1.33345}
+						txfee={'0.000105 AMB'}
+					/>
+					<AddressBlock
+						txhash={'0xfad804b6f81b...6aa121c5485b'}
+						method={'Transfer'}
+						from={'0x9012...328eb'}
+						to={'0x9012...328eb'}
+						date={'1 min ago'}
+						block={'10986508'}
+						amount={1.33345}
+						txfee={'0.000105 AMB'}
 					/>
 					<AddressBlock
 						txhash={'0xfad804b6f81b...6aa121c5485b'}
