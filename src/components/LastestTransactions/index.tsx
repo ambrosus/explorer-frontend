@@ -21,11 +21,11 @@ const LastestTransactions = () => {
 					<div className='lastestTransactions__td-div'>
 						<p className='lastestTransactions__p'>
 							<span className='lastestTransactions__span-light'>From</span>
-							<span className='lastestTransactions__span-dark lastestTransactions__margin-left'>MiningPoolHub</span>
+							<span className='lastestTransactions__span-dark lastestTransactions__margin-left'>0x9012...328eb</span>
 						</p>
 						<p className='lastestTransactions__p'>
 							<span className='lastestTransactions__span-dark'>To</span>
-							<span className='lastestTransactions__span-light lastestTransactions__margin-left'>46 secs ago</span>
+							<span className='lastestTransactions__span-light lastestTransactions__margin-left'>0x7056...238eb</span>
 						</p>
 					</div>
 				</td>

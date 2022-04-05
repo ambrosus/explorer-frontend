@@ -5,6 +5,7 @@ import AddressBlock from '../AddressBlocks';
 import ViewMoreBtn from '../ViewMoreBtn';
 import { formatEther } from 'ethers/lib/utils';
 import moment from 'moment';
+import ExportCsv from '../ExportCsv';
 //create functional component Tabs without store  with the following tabs: 'All','Transfers','ERC-20 Tx','Block
 // Rewards' following the pattern of the Tabs component in the UI. The Tabs component is used to display the
 // different tabs in the UI. need to add the following props:"transfers","block_rewards" ," ERC-20_Tx"  props will
@@ -20,22 +21,26 @@ const transactionFilters = [
 
 const Tabs = ({ data, setTransactionType }: any) => {
 	const { address } = useParams();
-	console.log(`It is ${data}`);
 
 	return (
-		<div>
-			<div>
-				{transactionFilters.map((filter) => (
-					<Link
-						key={filter.title}
-						to={`/addresses/${address}/${filter.value}`}
-						className='tabs__link'
-						onClick={() => setTransactionType(filter.value)}
-					>
-						{filter.title}
-					</Link>
-				))}
+		<>
+			<div className='test'>
+				<div className='tabs'>
+					{transactionFilters.map((filter) => (
+						<Link
+							key={filter.title}
+							to={`/addresses/${address}/${filter.value}`}
+							tabIndex={0}
+							className='tabs__link'
+							onClick={() => setTransactionType(filter.value)}
+						>
+							{filter.title}
+						</Link>
+					))}
+				</div>
+				<ExportCsv />
 			</div>
+
 			<div>
 				<section className='addressDetails__table'>
 					<AddressBlocksHeader
@@ -48,7 +53,29 @@ const Tabs = ({ data, setTransactionType }: any) => {
 						amount='Amount'
 						txfee='txFee'
 					/>
-					{data?.transactions.map((transaction: any, index: number) => {
+					<AddressBlock
+						txhash={'0xfad804b6f81b...6aa121c5485b'}
+						method={'Transfer'}
+						from={'0x9012...328eb'}
+						to={'0x9012...328eb'}
+						date={'1 min ago'}
+						block={'10986508'}
+						amount={1.33345}
+						txfee={'Pending'}
+					/>
+					<AddressBlock
+						txhash={'0xfad804b6f81b...6aa121c5485b'}
+						method={'Transfer'}
+						from={'0x9012...328eb'}
+						to={'0x9012...328eb'}
+						date={'1 min ago'}
+						block={'10986508'}
+						amount={1.33345}
+						txfee={'0.000105 AMB'}
+					/>
+
+					{/* ===> NEED FIX INPUT FROM API <=== */}
+					{/* {data?.transactions.map((transaction: any, index: number) => {
 						return (
 							<AddressBlock
 								key={transaction.hash}
@@ -62,13 +89,13 @@ const Tabs = ({ data, setTransactionType }: any) => {
 								txfee={`${Number(formatEther(transaction.gasCost.wei)).toFixed(5)} AMB`}
 							/>
 						);
-					})}
+					})} */}
 				</section>
 				<div style={{ marginTop: '10px', display: 'flex', alignItems: 'center' }}>
 					<ViewMoreBtn nameBtn='Load More' />
 				</div>
 			</div>
-		</div>
+		</>
 	);
 };
 export default Tabs;
