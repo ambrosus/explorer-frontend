@@ -26,6 +26,8 @@ export const Home = () => {
 			['Latest blocks', latestBlocks.data],
 			['Latest transactions', latestTransactions.data],
 		]);
+		// console.log(tokenInfo);
+		// console.log(netInfo);
 	};
 
 	useEffect(() => {
@@ -38,34 +40,30 @@ export const Home = () => {
 				<Content.Header>
 					<h1 className='home__h1'>Ambrosus Network Explorer</h1>
 					<FindWide />
-					<table className='mainInfo'>
-						<tbody className='mainInfo__tbody'>
-						<tr className='mainInfo__tr'>
+					<div className='mainInfo'>
+						<div className='mainInfo__table'>
 							<MainInfo />
 							<MainInfo />
 							<MainInfo />
-							<td rowSpan={2} style={{
-								height:200,
-							}}>
-								<Chart />
-							</td>
-						</tr>
-						<tr className='mainInfo__tr'>
 							<MainInfo />
 							<MainInfo />
 							<MainInfo />
-						</tr>
-						</tbody>
-					</table>
+
+							{/* </div> */}
+						</div>
+						<div className='mainInfo__chart'>
+							<Chart />
+						</div>
+					</div>
 				</Content.Header>
 				<Content.Body>
 					<section className='home__tables'>
 						<div className='home__content'>
 							<table className='latestBlocks'>
 								<thead>
-								<tr>
-									<td className='home__h2'>Lastest Blocks</td>
-								</tr>
+									<tr>
+										<td className='home__h2'>Lastest Blocks</td>
+									</tr>
 								</thead>
 								<LatestBlocks />
 								<LatestBlocks />
@@ -76,9 +74,9 @@ export const Home = () => {
 						<div className='home__content'>
 							<table className='lastestTransactions'>
 								<thead>
-								<tr>
-									<td className='home__h2'>Lastest Transactions</td>
-								</tr>
+									<tr>
+										<td className='home__h2'>Lastest Transactions</td>
+									</tr>
 								</thead>
 								<LastestTransactions />
 								<LastestTransactions />

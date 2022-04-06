@@ -10,14 +10,15 @@ type AddressBlockProps = {
 	block: string | number;
 	amount: any;
 	txfee: string | number;
+	token: string;
 };
 
-const AddressBlock: React.FC<AddressBlockProps> = ({ txhash, method, from, to, date, block, amount, txfee }) => {
+const AddressBlock: React.FC<AddressBlockProps> = ({ txhash, method, from, to, date, block, amount, txfee, token }) => {
 	const sortMethod = () => console.log('clickMethod');
 
-	return (
-		<>
-			<div className='addressDetails__thead-td'>{txhash}</div>
+	const isTxHash = txhash === null ? null : <div className='addressDetails__thead-td'>{txhash}</div>;
+	const isMethod =
+		method === null ? null : (
 			<div className='addressDetails__thead-td'>
 				<button
 					className='universall__light2'
@@ -28,14 +29,26 @@ const AddressBlock: React.FC<AddressBlockProps> = ({ txhash, method, from, to, d
 					<ArrowDown />
 				</button>
 			</div>
-			<div className='addressDetails__thead-td'>{from}</div>
-			<div className='addressDetails__thead-td'>{to}</div>
-			<div className='addressDetails__thead-td'>{date}</div>
-			<div className='addressDetails__thead-td'>{block}</div>
-			<div className='addressDetails__thead-td'>{amount}</div>
-			<div className='addressDetails__thead-td' style={{ padding: 0 }}>
-				{txfee}
-			</div>
+		);
+	const isFrom = from === null ? null : <div className='addressDetails__thead-td'>{from}</div>;
+	const isTo = to === null ? null : <div className='addressDetails__thead-td'>{to}</div>;
+	const isDate = date === null ? null : <div className='addressDetails__thead-td'>{date}</div>;
+	const isBlock = block === null ? null : <div className='addressDetails__thead-td'>{block}</div>;
+	const isAmount = amount === null ? null : <div className='addressDetails__thead-td'>{amount}</div>;
+	const isTxFee = txfee === null ? null : <div className='addressDetails__thead-td'>{txfee}</div>;
+	const isToken = token === null ? null : <div className='addressDetails__thead-td'>{token}</div>;
+
+	return (
+		<>
+			{isTxHash}
+			{isMethod}
+			{isFrom}
+			{isTo}
+			{isDate}
+			{isBlock}
+			{isAmount}
+			{isTxFee}
+			{isToken}
 		</>
 	);
 };

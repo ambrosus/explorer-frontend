@@ -44,8 +44,6 @@ const getBlocks = async (params = {}) => {
 };
 
 const getDataForAddress = async (address: string, params: { limit: any; type: any }, setAddressData: Function) => {
-	console.log(address);
-
 	const { limit, type } = params;
 	const transactionsData = await getAccountTx(address, { limit, type });
 
@@ -57,7 +55,6 @@ const getDataForAddress = async (address: string, params: { limit: any; type: an
 		blockBookApi.tokens &&
 		blockBookApi.tokens.forEach((token: { name: string; balance: string; contract: string; transfers: number; type: string }) => {
 			const tokenContract = new ethers.Contract(token.contract, erc20Abi, new providers.Web3Provider(ethereum).getSigner());
-			console.log(erc20Abi);
 			tokenContract.balanceOf(address).then((result: any) => {
 				if (result) {
 					tokens.push({ ...token, balance: formatEther(`${result}`) });
@@ -65,10 +62,10 @@ const getDataForAddress = async (address: string, params: { limit: any; type: an
 			});
 		});
 
-	console.table([
-		['Transactions data', transactionsData.data],
-		['Tokens', tokens],
-	]);
+	// console.table([
+	// 	['Transactions data', transactionsData.data],
+	// 	['Tokens', tokens],
+	// ]);
 
 	setAddressData({ transactions: transactionsData.data, tokens });
 };

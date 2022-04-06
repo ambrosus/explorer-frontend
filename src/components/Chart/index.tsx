@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-	LineChart,
-	Line,
-	CartesianGrid,
-	XAxis,
-	YAxis,
-	Tooltip, Area, AreaChart,
-} from 'recharts';
+import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Area, AreaChart } from 'recharts';
 
 const data = [
 	{ name: 'Feb 18', Transactions: 4000, Price: 100000 },
@@ -25,25 +18,28 @@ type CustomTooltipProps = {
 };
 
 export const CustomTooltip = ({ payload, label, active }: CustomTooltipProps) => {
-	console.log('payload',payload)
-	console.log('label',label)
-	console.log('active',active)
+	// console.log('payload', payload);
+	// console.log('label', label);
+	// console.log('active', active);
 	if (active) {
 		return (
-			<div className='custom-tooltip' style={{
-				border: '1px solid #ccc',
-				padding: '10px',
-				display:"flex",
-				flexDirection:"column",
-				justifyContent:"flex-start",
-				alignItems:"flex-start",
-				backgroundColor: 'rgba(255, 255, 255, 0.7)',
-				borderRadius: '5px',
-				boxShadow: '0 0 5px #ccc',
-				width: '200px',
-				fontSize: '14px',
-				color: '#333',
-			}}>
+			<div
+				className='custom-tooltip'
+				style={{
+					border: '1px solid #ccc',
+					padding: '10px',
+					display: 'flex',
+					flexDirection: 'column',
+					justifyContent: 'flex-start',
+					alignItems: 'flex-start',
+					backgroundColor: 'rgba(255, 255, 255, 0.7)',
+					borderRadius: '5px',
+					boxShadow: '0 0 5px #ccc',
+					width: '200px',
+					fontSize: '14px',
+					color: '#333',
+				}}
+			>
 				<p className='intro'>{label}</p>
 				<p className='label'>Price : {`${payload[0].payload?.Price}`}</p>
 				<p className='label'>Transactions :{`${payload[0].payload?.Transactions}`}</p>
@@ -55,34 +51,30 @@ export const CustomTooltip = ({ payload, label, active }: CustomTooltipProps) =>
 };
 
 const Chart = () => (
-	<div style={{
-		display: 'flex',
-		flexDirection: 'column',
-		alignItems: 'center',
-		justifyContent: 'center',
-		width: '100%',
-		height: '100%',
-	}}>
-		<div style={{
+	<div
+		style={{
 			display: 'flex',
-			justifyContent: 'space-between',
+			flexDirection: 'column',
 			alignItems: 'center',
-			flexDirection: 'row',
-		}}>
+			justifyContent: 'center',
+			width: '100%',
+			height: '100%',
+		}}
+	>
+		<div
+			style={{
+				display: 'flex',
+				justifyContent: 'space-between',
+				alignItems: 'center',
+				flexDirection: 'row',
+			}}
+		>
 			<span>Transaction HISTORY</span>
 			<span>Last 7 days</span>
 		</div>
 		<div>
-			<AreaChart
-				width={318}
-				height={120}
-				data={data}
-			>
-				<Area
-					dataKey="Transactions"
-					stroke="#212121"
-					fill="url(#colorUv)"
-				/>
+			<AreaChart width={318} height={120} data={data}>
+				<Area dataKey='Transactions' stroke='#212121' fill='url(#colorUv)' />
 				<Line type='monotone' dataKey='Transactions' stroke='#8884d8' />
 				<XAxis
 					fontSize={12}
@@ -98,11 +90,10 @@ const Chart = () => (
 					lightingColor='#212121'
 					colorInterpolation='#212121'
 					stopColor='#212121'
-					dataKey='name' />
+					dataKey='name'
+				/>
 				<YAxis hide domain={['auto', 'auto']} />
-				<Tooltip
-					cursor={false}
-					content={<CustomTooltip />} />
+				<Tooltip cursor={false} content={<CustomTooltip />} />
 			</AreaChart>
 		</div>
 	</div>

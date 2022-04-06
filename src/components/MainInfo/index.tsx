@@ -4,7 +4,7 @@ import MarketCap from '../../assets/icons/MarketCap';
 const MainInfo = () => {
 	return (
 		<>
-			<td className='mainInfo__td'>
+			<div className='mainInfo__td'>
 				<div className='mainInfo__icon'>
 					<MarketCap />
 				</div>
@@ -16,7 +16,7 @@ const MainInfo = () => {
 						<span className='mainInfo__span-dark'>17,895,744.27 USD</span>
 					</p>
 				</div>
-			</td>
+			</div>
 		</>
 	);
 };

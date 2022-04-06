@@ -6,6 +6,7 @@ import ViewMoreBtn from '../ViewMoreBtn';
 import { formatEther } from 'ethers/lib/utils';
 import moment from 'moment';
 import ExportCsv from '../ExportCsv';
+
 //create functional component Tabs without store  with the following tabs: 'All','Transfers','ERC-20 Tx','Block
 // Rewards' following the pattern of the Tabs component in the UI. The Tabs component is used to display the
 // different tabs in the UI. need to add the following props:"transfers","block_rewards" ," ERC-20_Tx"  props will
@@ -13,14 +14,34 @@ import ExportCsv from '../ExportCsv';
 // passed to it.
 
 const transactionFilters = [
-	{ title: 'All', value: '' },
+	{ title: 'All', value: '/' },
 	{ title: 'Transfers', value: 'transfers' },
 	{ title: 'Block Rewards', value: 'block_rewards' },
 	{ title: 'ERC-20 Tx', value: 'ERC-20_Tx' },
 ];
 
 const Tabs = ({ data, setTransactionType }: any) => {
-	const { address } = useParams();
+	const { address, type } = useParams();
+
+	const headerBlock: any = type === 'ERC-20_Tx' ? null : 'Block';
+	const headerTxfee: any = type === 'ERC-20_Tx' ? null : 'txFee';
+	const headerToken: any = type === 'ERC-20_Tx' ? 'token' : null;
+
+	function style(item: any) {
+		let type: any = {
+			style,
+		};
+		switch (item) {
+			case '/':
+				return (type.style = { gridTemplateColumns: 'repeat(8, auto)' });
+
+			case 'ERC-20_Tx':
+				return (type.style = { gridTemplateColumns: 'repeat(7, auto)' });
+
+			default:
+				return (type.style = { gridTemplateColumns: 'repeat(8, auto)' });
+		}
+	}
 
 	return (
 		<>
@@ -42,59 +63,19 @@ const Tabs = ({ data, setTransactionType }: any) => {
 			</div>
 
 			<div>
-				<section className='addressDetails__table'>
-					{/* <AddressBlocksHeader
+				<section className='addressDetails__table' style={style(type)}>
+					<AddressBlocksHeader
 						txhash='txHash'
 						method='Method'
 						from='From'
 						to='To'
 						date='Date'
-						block='Block'
+						block={headerBlock}
 						amount='Amount'
-						txfee='txFee'
+						txfee={headerTxfee}
+						token={headerToken}
 					/>
-					<AddressBlock
-						txhash={'0xfad804b6f81b...6aa121c5485b'}
-						method={'Transfer'}
-						from={'0x9012...328eb'}
-						to={'0x9012...328eb'}
-						date={'1 min ago'}
-						block={'10986508'}
-						amount={1.33345}
-						txfee={'Pending'}
-					/>
-					<AddressBlock
-						txhash={'0xfad804b6f81b...6aa121c5485b'}
-						method={'Transfer'}
-						from={'0x9012...328eb'}
-						to={'0x9012...328eb'}
-						date={'1 min ago'}
-						block={'10986508'}
-						amount={1.33345}
-						txfee={'0.000105 AMB'}
-					/>
-					<AddressBlock
-						txhash={'0xfad804b6f81b...6aa121c5485b'}
-						method={'Transfer'}
-						from={'0x9012...328eb'}
-						to={'0x9012...328eb'}
-						date={'1 min ago'}
-						block={'10986508'}
-						amount={1.33345}
-						txfee={'0.000105 AMB'}
-					/>
-					<AddressBlock
-						txhash={'0xfad804b6f81b...6aa121c5485b'}
-						method={'Transfer'}
-						from={'0x9012...328eb'}
-						to={'0x9012...328eb'}
-						date={'1 min ago'}
-						block={'10986508'}
-						amount={1.33345}
-						txfee={'0.000105 AMB'}
-					/> */}
 
-					{/* ===> NEED FIX INPUT FROM API <=== */}
 					{data?.transactions.map((transaction: any, index: number) => {
 						return (
 							<AddressBlock
@@ -107,6 +88,7 @@ const Tabs = ({ data, setTransactionType }: any) => {
 								block={transaction.blockNumber}
 								amount={`${Number(formatEther(transaction.value.wei)).toFixed(2)} ETH`}
 								txfee={`${Number(formatEther(transaction.gasCost.wei)).toFixed(5)} AMB`}
+								token={`${Number(formatEther(transaction.value.wei)).toFixed(2)} ETH`}
 							/>
 						);
 					})}
