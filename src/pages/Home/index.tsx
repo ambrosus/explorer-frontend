@@ -26,6 +26,8 @@ export const Home = () => {
 			['Latest blocks', latestBlocks.data],
 			['Latest transactions', latestTransactions.data],
 		]);
+		// console.log(tokenInfo);
+		// console.log(netInfo);
 	};
 
 	useEffect(() => {
@@ -38,28 +40,21 @@ export const Home = () => {
 				<Content.Header>
 					<h1 className='home__h1'>Ambrosus Network Explorer</h1>
 					<FindWide />
-					<table className='mainInfo'>
-						<tbody className='mainInfo__tbody'>
-							<tr className='mainInfo__tr'>
-								<MainInfo />
-								<MainInfo />
-								<MainInfo />
-								<td
-									rowSpan={2}
-									style={{
-										height: 200,
-									}}
-								>
-									<Chart />
-								</td>
-							</tr>
-							<tr className='mainInfo__tr'>
-								<MainInfo />
-								<MainInfo />
-								<MainInfo />
-							</tr>
-						</tbody>
-					</table>
+					<div className='mainInfo'>
+						<div className='mainInfo__table'>
+							<MainInfo />
+							<MainInfo />
+							<MainInfo />
+							<MainInfo />
+							<MainInfo />
+							<MainInfo />
+
+							{/* </div> */}
+						</div>
+						<div className='mainInfo__chart'>
+							<Chart />
+						</div>
+					</div>
 				</Content.Header>
 				<Content.Body>
 					<section className='home__tables'>
