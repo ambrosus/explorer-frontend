@@ -40,21 +40,24 @@ export const Home = () => {
 					<FindWide />
 					<table className='mainInfo'>
 						<tbody className='mainInfo__tbody'>
-						<tr className='mainInfo__tr'>
-							<MainInfo />
-							<MainInfo />
-							<MainInfo />
-							<td rowSpan={2} style={{
-								height:200,
-							}}>
-								<Chart />
-							</td>
-						</tr>
-						<tr className='mainInfo__tr'>
-							<MainInfo />
-							<MainInfo />
-							<MainInfo />
-						</tr>
+							<tr className='mainInfo__tr'>
+								<MainInfo />
+								<MainInfo />
+								<MainInfo />
+								<td
+									rowSpan={2}
+									style={{
+										height: 200,
+									}}
+								>
+									<Chart />
+								</td>
+							</tr>
+							<tr className='mainInfo__tr'>
+								<MainInfo />
+								<MainInfo />
+								<MainInfo />
+							</tr>
 						</tbody>
 					</table>
 				</Content.Header>
@@ -63,9 +66,9 @@ export const Home = () => {
 						<div className='home__content'>
 							<table className='latestBlocks'>
 								<thead>
-								<tr>
-									<td className='home__h2'>Lastest Blocks</td>
-								</tr>
+									<tr>
+										<td className='home__h2'>Lastest Blocks</td>
+									</tr>
 								</thead>
 								<LatestBlocks />
 								<LatestBlocks />
@@ -76,9 +79,9 @@ export const Home = () => {
 						<div className='home__content'>
 							<table className='lastestTransactions'>
 								<thead>
-								<tr>
-									<td className='home__h2'>Lastest Transactions</td>
-								</tr>
+									<tr>
+										<td className='home__h2'>Lastest Transactions</td>
+									</tr>
 								</thead>
 								<LastestTransactions />
 								<LastestTransactions />
