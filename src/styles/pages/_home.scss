@@ -1,33 +1,16 @@
 .home {
-	&__tables {
-		gap: 64px;
-	}
-	&__h1 {
+	&__heading {
 		margin: 30px auto;
 	}
-	&__h2 {
-		font-family: 'Proxima Nova';
-		font-style: normal;
-		font-weight: 700;
-		font-size: 1.29em;
-		line-height: 1.78em;
-	}
-	&__tables {
-		display: flex;
-	}
+
 	&__content {
-		display: flex;
-		flex-direction: column;
+		width: 100%;
 	}
-	&__btn {
-		width: 180px;
-		height: 32px;
-		color: #808a9d;
-		margin: auto;
-		margin-bottom: 95px;
+	&__table {
+		display: flex;
+		width: 100%;
+		gap: 64px;
+		margin-top: 50px;
 		background: #ffffff;
-		border: 1px solid #eff2f5;
-		box-sizing: border-box;
-		border-radius: 16px;
 	}
 }
