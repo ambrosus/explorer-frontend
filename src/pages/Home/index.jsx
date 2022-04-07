@@ -5,7 +5,6 @@ import storage from '../../utils/storage';
 import FindWide from '../../components/FindWide';
 import MainInfo from '../../components/MainInfo';
 import LatestBlocks from '../../components/LatestBlocks';
-import LastestTransactions from '../../components/LastestTransactions';
 import ViewMoreBtn from '../../components/ViewMoreBtn';
 import Chart from '../../components/Chart';
 
