@@ -64,17 +64,13 @@ export const Home = () => {
 						<div className='home__content'>
 							<div className='latestBlocks__heading'>Lastest Blocks</div>
 							<LatestBlocks />
-							<div className='latestBlocks__btn'>
-								<ViewMoreBtn nameBtn='View all blocks' />
-							</div>
+							<ViewMoreBtn nameBtn='View all blocks' />
 						</div>
 
 						<div className='home__content'>
 							<div className='latestBlocks__heading'>Lastest Transactions</div>
 							<LatestBlocks />
-							<div className='latestBlocks__btn'>
-								<ViewMoreBtn nameBtn='View all blocks' />
-							</div>
+							<ViewMoreBtn nameBtn='View all transactions' />
 						</div>
 					</div>
 				</Content.Body>
