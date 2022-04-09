@@ -17,7 +17,6 @@ const API = () => {
 		if (err) {
 			console.error(err);
 		}
-		console.log('==========notfound============');
 		// window.location.replace('/notfound');
 	}
 

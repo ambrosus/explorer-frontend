@@ -1,0 +1,5 @@
+export enum actionTypes {
+    SET_APP_DATA__START = 'SET_APP_DATA__START',
+    SET_APP_DATA__SUCCESS = 'SET_APP_DATA__SUCCESS',
+    SET_APP_DATA__FAIL = 'SET_APP_DATA__FAIL'
+}

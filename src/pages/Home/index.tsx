@@ -7,9 +7,11 @@ import MainInfo from '../../components/MainInfo';
 import LatestBlocks from '../../components/LatestBlocks';
 import ViewMoreBtn from '../../components/ViewMoreBtn';
 import Chart from '../../components/Chart';
+import { useTypedSelector } from '../../hooks/useTypedSelector';
 
 export const Home = () => {
-	const [data, setData] = useState();
+	const [data, setData] = useState<any>();
+	const {loading, data : appData, error} = useTypedSelector((state: any) => state.app)
 
 	const getHomePageData = async () => {
 		const result = {
@@ -17,20 +19,19 @@ export const Home = () => {
 			latestBlocks: [],
 			latestTransactions: [],
 		};
+
 		const latestBlocks = await API.getBlocks({ limit: 8 });
 		const latestTransactions = await API.getTransactions({ limit: 8 });
-		const netInfo = storage.get('netInfo');
-		const tokenInfo = storage.get('tokenInfo');
 
-		const mainInfoHeader = [
-			{ name: 'MARKET CAP', value: tokenInfo.market_cap_usd },
-			{ name: 'TOTAL SUPPLY', value: netInfo.totalSupply },
-			{ name: 'TOTAL TRANSACTIONS', value: netInfo.transactions.total },
-			{ name: 'BUNDLES', value: netInfo.totalBundles },
-			{ name: 'NODES', value: netInfo.apollos.online + netInfo.atlases.total + netInfo.hermeses.total },
-			{ name: 'HOLDERS', value: netInfo.accounts.withBalance },
+		const mainInfoHeader =  [
+			{ name: 'MARKET CAP', value: appData.tokenInfo.market_cap_usd },
+			{ name: 'TOTAL SUPPLY', value: appData.netInfo.totalSupply },
+			{ name: 'TOTAL TRANSACTIONS', value: appData.netInfo.transactions.total },
+			{ name: 'BUNDLES', value: appData.netInfo.totalBundles },
+			{ name: 'NODES', value: appData.netInfo.apollos.online + appData.netInfo.atlases.total + appData.netInfo.hermeses.total },
+			{ name: 'HOLDERS', value: appData.netInfo.accounts.withBalance },
 		];
-
+		// @ts-ignore
 		result.header = mainInfoHeader;
 		result.latestBlocks = latestBlocks.data;
 		result.latestTransactions = latestTransactions.data;
@@ -39,10 +40,10 @@ export const Home = () => {
 	};
 
 	useEffect(() => {
-		getHomePageData().then((res) => setData(res));
-	}, []);
+		getHomePageData().then((res : any) => setData(res));
+	}, [appData]);
 
-	return (
+	return data ?  (
 		<Content>
 			<div className='home'>
 				<Content.Header>
@@ -50,7 +51,7 @@ export const Home = () => {
 					<FindWide />
 					<div className='mainInfo'>
 						<div className='mainInfo__table'>
-							{data?.header.map((item) => (
+							{data.header.map((item:any) => (
 								<MainInfo key={item.name} name={item.name} value={item.value} />
 							))}
 						</div>
@@ -76,5 +77,5 @@ export const Home = () => {
 				</Content.Body>
 			</div>
 		</Content>
-	);
+	): null;
 };
