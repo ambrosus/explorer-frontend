@@ -1,6 +1,20 @@
 import {applyMiddleware, createStore} from "redux";
 import thunk from "redux-thunk";
 import reducers from "./reducers/index";
-import logger from 'redux-logger';
+
+import { createLogger } from "redux-logger";
+
+const logger = createLogger({
+	collapsed: true,
+	diff: true,
+	duration: true,
+	timestamp: true,
+	colors: {
+		title: () => "#001da6",
+		prevState: () => "#de6f0d",
+		action: () => "#0050ff",
+		nextState: () => "#1a9134",
+	},
+});
 
 export const store = createStore(reducers, {}, applyMiddleware(thunk,logger))

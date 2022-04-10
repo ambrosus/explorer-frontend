@@ -1,11 +1,11 @@
 import {actionTypes} from "../action-types";
-import {Action} from "../actions";
+import { AppDataAction, PositionAction } from '../actions';
 import {Dispatch} from "redux";
 import API from '../../API/api';
 import { CLIENT_VERSION } from '../../utils/constants';
 
 export const setAppDataAsync = () => {
-    return async (dispatch: Dispatch<Action>) => {
+    return async (dispatch: Dispatch<AppDataAction>) => {
         dispatch({
             type: actionTypes.SET_APP_DATA__START
         })
@@ -37,3 +37,26 @@ export const setAppDataAsync = () => {
         }
     }
 }
+
+
+export const setPosition = (promiseFunc: (arg0: object) => any, ...params:any) => {
+    return async (dispatch: Dispatch<PositionAction>) => {
+        dispatch({
+            type: actionTypes.SET_POSITION__START
+        })
+        try {
+            // @ts-ignore
+            const result = await promiseFunc(...params);
+            dispatch({
+                type: actionTypes.SET_POSITION__SUCCESS,
+                payload: result,
+            })
+        } catch (error: any) {
+            dispatch({
+                type: actionTypes.SET_POSITION__FAIL,
+                payload: `Error in setPosition() ${error.message}`,
+            })
+        }
+    }
+}
+

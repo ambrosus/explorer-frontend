@@ -42,7 +42,7 @@ const getBlocks = async (params = {}) => {
 	});
 };
 
-const getDataForAddress = async (address: string, params: { limit: any; type: any }, setAddressData: Function) => {
+const getDataForAddress = async (address: string, params: { limit: any; type: any }) => {
 	const { limit, type } = params;
 	const transactionsData = await getAccountTx(address, { limit, type });
 
@@ -66,7 +66,7 @@ const getDataForAddress = async (address: string, params: { limit: any; type: an
 	// 	['Tokens', tokens],
 	// ]);
 
-	setAddressData({ transactions: transactionsData.data, tokens });
+	return { transactions: transactionsData.data, tokens };
 };
 
 const getBlock = (hashOrNumber: any) => {
