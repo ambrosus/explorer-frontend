@@ -5,6 +5,7 @@ import storage from '../../utils/storage';
 import FindWide from '../../components/FindWide';
 import MainInfo from '../../components/MainInfo';
 import LatestBlocks from '../../components/LatestBlocks';
+import LastestTransactions from '../../components/LastestTransactions';
 import ViewMoreBtn from '../../components/ViewMoreBtn';
 import Chart from '../../components/Chart';
 
@@ -12,11 +13,7 @@ export const Home = () => {
 	const [data, setData] = useState();
 
 	const getHomePageData = async () => {
-		const result = {
-			header: [],
-			latestBlocks: [],
-			latestTransactions: [],
-		};
+		const result = {};
 		const latestBlocks = await API.getBlocks({ limit: 8 });
 		const latestTransactions = await API.getTransactions({ limit: 8 });
 		const netInfo = storage.get('netInfo');
@@ -63,13 +60,33 @@ export const Home = () => {
 					<div className='home__table'>
 						<div className='home__content'>
 							<div className='latestBlocks__heading'>Lastest Blocks</div>
-							<LatestBlocks />
+							{data?.latestBlocks.map((item) => (
+								<LatestBlocks
+									key={item.number}
+									number={item.number}
+									timestamp={item.timestamp}
+									validator={item.miner}
+									totalTransactions={item.totalTransactions}
+									blockReward={item.blockRewards}
+								/>
+							))}
 							<ViewMoreBtn nameBtn='View all blocks' />
 						</div>
 
 						<div className='home__content'>
 							<div className='latestBlocks__heading'>Lastest Transactions</div>
-							<LatestBlocks />
+							{data?.latestTransactions.map((item) => (
+								<LastestTransactions
+									key={item._id}
+									status={item.status}
+									hash={item.hash}
+									timestamp={item.timestamp}
+									from={item.from}
+									to={item.to}
+									amount={item.value.ether}
+								/>
+							))}
+
 							<ViewMoreBtn nameBtn='View all transactions' />
 						</div>
 					</div>

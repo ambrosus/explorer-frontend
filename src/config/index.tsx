@@ -1,3 +1,4 @@
+import moment from 'moment';
 import Bundles from '../assets/icons/MainInfo/Bundles';
 import Holders from '../assets/icons/MainInfo/Holders';
 import MarketCap from '../assets/icons/MainInfo/MarketCap';
@@ -25,5 +26,26 @@ const getMainInfoIcon = (icon: string) => {
 			break;
 	}
 };
+
+moment.updateLocale('en', {
+	relativeTime: {
+		future: 'in %s',
+		past: '%s ago',
+		s: 'a seconds',
+		ss: '%d seconds',
+		m: 'a minute',
+		mm: '%d minutes',
+		h: 'an hour',
+		hh: '%d hours',
+		d: 'a day',
+		dd: '%d days',
+		w: 'a week',
+		ww: '%d weeks',
+		M: 'a month',
+		MM: '%d months',
+		y: 'a year',
+		yy: '%d years',
+	},
+});
 
 export default getMainInfoIcon;

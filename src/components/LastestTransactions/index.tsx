@@ -1,48 +1,58 @@
 import React from 'react';
 import GreenCircle from '../../assets/icons/GreenCircle';
 import OrangeCircle from '../../assets/icons/OrangeCircle';
+import { sliceData, calcTime } from '../../utils/helpers';
 
-const LastestTransactions = () => {
-	const online: boolean = true;
+type lastestTransactionsProps = {
+	hash: any;
+	status: string;
+	timestamp: number;
+	from: string;
+	to: string;
+	amount: number;
+};
+
+const LastestTransactions: React.FC<lastestTransactionsProps> = ({ hash, status, timestamp, from, to, amount }) => {
+	const isOnline = (status: string) => {
+		switch (status) {
+			case 'SUCCESS':
+				return <GreenCircle />;
+
+			case 'PENDING':
+				return <OrangeCircle />;
+			default:
+				return null;
+		}
+	};
+
 	return (
-		<tbody className='lastestTransactions__tbody'>
-			<tr className='lastestTransactions__tr'>
-				<td className='lastestTransactions__td'>
-					<p className='lastestTransactions__p '>
-						<span className='lastestTransactions__circle'>{online ? <GreenCircle /> : <OrangeCircle />}</span>
-						0x9012...328eb
-					</p>
+		<>
+			<div className='lastestTransactions__cells'>
+				<div className='lastestTransactions__cell'>
+					<div className='lastestTransactions__cell-content lastestTransactions__font-big'>
+						<span>{isOnline(status)}</span>
+						{sliceData(hash)}
+					</div>
 
-					<p className='lastestTransactions__p'>
-						<span className='lastestTransactions__span-light'>6 secs ago</span>
-					</p>
-				</td>
-				<td className='lastestTransactions__td'>
-					<div className='lastestTransactions__td-div'>
-						<p className='lastestTransactions__p'>
-							<span className='lastestTransactions__span-light'>From</span>
-							<span className='lastestTransactions__span-dark lastestTransactions__margin-left'>0x9012...328eb</span>
-						</p>
-						<p className='lastestTransactions__p'>
-							<span className='lastestTransactions__span-dark'>To</span>
-							<span className='lastestTransactions__span-light lastestTransactions__margin-left'>0x7056...238eb</span>
-						</p>
+					<div className='lastestTransactions__p lastestTransactions__font-small'>{calcTime(timestamp)}</div>
+				</div>
+
+				<div className='lastestTransactions__cell'>
+					<div className='lastestTransactions__cell-content'>
+						<div className='lastestTransactions__font-small'>From</div>
+						<div className='lastestTransactions__font-big lastestTransactions__margin-left'>{sliceData(from)}</div>
 					</div>
-				</td>
-				<td className='lastestTransactions__td'>
-					<div className='lastestTransactions__td-div'>
-						<p className='lastestTransactions__p' style={{ textAlign: 'right' }}>
-							<span className='lastestTransactions__span-light' style={{ display: 'flex', justifyContent: 'end', width: '100%' }}>
-								Amount
-							</span>
-						</p>
-						<p className='lastestTransactions__p'>
-							<span className='lastestTransactions__span-dark'>1.71139 AMB</span>
-						</p>
+					<div className='lastestTransactions__cell-content'>
+						<div className='lastestTransactions__font-small'>To</div>
+						<div className='lastestTransactions__font-big lastestTransactions__margin-left'>{sliceData(to)}</div>
 					</div>
-				</td>
-			</tr>
-		</tbody>
+				</div>
+				<div className='lastestTransactions__cell'>
+					<div className='lastestTransactions__cell-content lastestTransactions__font-small'>Block Reward</div>
+					<div className='lastestTransactions__cell-content lastestTransactions__font-big'>{`${amount.toFixed(5)} AMB`}</div>
+				</div>
+			</div>
+		</>
 	);
 };
 
