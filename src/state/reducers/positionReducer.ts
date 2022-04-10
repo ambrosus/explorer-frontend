@@ -1,5 +1,5 @@
 import {actionTypes} from "../action-types";
-import { AppDataAction, PositionAction } from '../actions';
+import {  PositionAction } from '../actions';
 
 interface PositionReducerState {
     loading: boolean;
