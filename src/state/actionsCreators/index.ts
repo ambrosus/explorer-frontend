@@ -42,7 +42,7 @@ export const setAppDataAsync = () => {
 export const setPosition = (promiseFunc: (arg0: object) => any, ...params:any) => {
     return async (dispatch: Dispatch<PositionAction>) => {
         dispatch({
-            type: actionTypes.SET_POSITION__START
+            type: actionTypes.SET_POSITION__START,
         })
         try {
             // @ts-ignore

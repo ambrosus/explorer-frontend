@@ -8,12 +8,10 @@ import ViewMoreBtn from '../../components/ViewMoreBtn';
 import Chart from '../../components/Chart';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import Loader from '../../components/Loader';
-import { useActions } from '../../hooks/useActions';
 
 export const Home = () => {
-	const {setPosition} = useActions();
-	const {data : appData} = useTypedSelector((state: any) => state.app)
-	const {data} = useTypedSelector((state: any) => state.position)
+	const [data, setData] = useState<any>();
+	const {loading, data : appData, error} = useTypedSelector((state: any) => state.app)
 
 	const getHomePageData = async () => {
 		const result = {
@@ -42,7 +40,7 @@ export const Home = () => {
 	};
 
 	useEffect(() => {
-		setPosition(getHomePageData,null)
+		getHomePageData().then((res : any) => setData(res));
 	}, [appData]);
 
 	return  (
