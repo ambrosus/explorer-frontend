@@ -8,24 +8,29 @@ import OveralBalance from '../../../components/OveralBalance';
 import Token from '../../../components/Token';
 
 import Tabs from '../../../components/Tabs';
+import { useActions } from '../../../hooks/useActions';
+import { useTypedSelector } from '../../../hooks/useTypedSelector';
 
 export const AddressDetails = () => {
 	const { address } = useParams();
+	const {setPosition} = useActions();
+
+	const {data : addressData} = useTypedSelector((state: any) => state.position)
 
 	const [transactionType, setTransactionType] = useState('');
-	const [addressData, setAddressData] = useState<any>(null);
 	const sybStringAddress = `${address && address.slice(0, 10)}...${address && address.slice(address.length - 10)}`;
 
 	const copyConten = () => console.log(sybStringAddress);
 
 	useEffect(() => {
 		if (address) {
-			API.getDataForAddress(address.trim(), { limit: 50, type: transactionType }, setAddressData);
+			// @ts-ignore
+			setPosition(API.getDataForAddress, address.trim(), { limit: 50, type: transactionType });
 		}
 	}, [address, transactionType]);
 
 	return (
-		<Content>
+		<Content >
 			<section className='addressDetails'>
 				<Content.Header>
 					<h1 className='addressDetails__h1'>
@@ -41,10 +46,12 @@ export const AddressDetails = () => {
 						</div>
 					</div>
 				</Content.Header>
-				<Content.Body>
+				<Content.Body isLoading={!!addressData}>
 					<Tabs data={addressData} setTransactionType={setTransactionType} />
 				</Content.Body>
 			</section>
 		</Content>
 	);
 };
+
+
