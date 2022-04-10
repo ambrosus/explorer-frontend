@@ -37,13 +37,13 @@
 	}
 	&__exportCsv {
 		display: flex;
-		justify-content: end;
+		justify-content: flex-end;
 		align-items: center;
 		flex: 1;
 
 		&-btn {
 			display: flex;
-			justify-content: end;
+			justify-content: flex-end;
 			align-items: center;
 			width: 139px;
 			height: 40px;
@@ -64,8 +64,8 @@
 	&__exportModal {
 		display: flex;
 		flex-direction: column;
-		justify-content: end;
-		align-items: end;
+		justify-content: flex-end;
+		align-items: flex-end;
 		margin: 8px 0px;
 	}
 }
