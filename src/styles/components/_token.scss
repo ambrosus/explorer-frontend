@@ -1,6 +1,6 @@
 .token {
 	display: flex;
-	justify-content: end;
+	justify-content: flex-end;
 	&__info {
 		display: flex;
 		position: absolute;
@@ -89,7 +89,7 @@
 		}
 		&-btn {
 			display: flex;
-			justify-content: end;
+			justify-content: flex-end;
 			margin-right: 17px;
 			background: #ffffff;
 			border-radius: 16px;
