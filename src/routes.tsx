@@ -7,8 +7,9 @@ import { Addresses } from './pages/Addresses';
 import { Blocks } from './pages/Blocks';
 import { Transactions } from './pages/Transactions';
 import { Bundles } from './pages/Bundles';
+import { AddressDetails } from './pages/Addresses/AddressDetails';
 
-const routes = [
+export const routes = [
 	{
 		path: '/',
 		key: 'home',
@@ -16,47 +17,63 @@ const routes = [
 		component: () => <Home />,
 	},
 	{
-		path: '/apollo',
+		path: 'apollo',
 		key: 'Apollo',
 		exact: true,
 		component: () => <Apollo />,
 	},
 	{
-		path: '/atlas',
+		path: 'atlas',
 		key: 'Atlas',
 		exact: true,
 		component: () => <Atlas />,
 	},
 	{
-		path: '/hermes',
+		path: 'hermes',
 		key: 'Hermes',
 		exact: true,
 		component: () => <Hermes />,
 	},
 	{
-		path: '/addresses',
+		path: 'addresses',
 		key: 'Addresses',
 		exact: true,
 		component: () => <Addresses />,
 	},
 	{
-		path: '/blocks',
+		path: 'blocks',
 		key: 'Blocks',
 		exact: true,
 		component: () => <Blocks />,
 	},
 	{
-		path: '/transactions',
+		path: 'transactions',
 		key: 'Transactions',
 		exact: true,
 		component: () => <Transactions />,
 	},
 	{
-		path: '/bundles',
+		path: 'bundles',
 		key: 'Bundles',
 		exact: true,
 		component: () => <Bundles />,
 	},
 ];
 
-export default routes;
+export const subRoutes = [
+	{
+		path: '/addresses/:address',
+		key: 'Address Details',
+		exact: true,
+		component: () => <AddressDetails />,
+	},
+	{
+		path: '/addresses/:address/:type',
+		key: 'Address Details',
+		exact: true,
+		component: () => <AddressDetails />,
+	},
+];
+
+const appRoutes = { routes, subRoutes };
+export default appRoutes;

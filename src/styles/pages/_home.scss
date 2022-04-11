@@ -1,0 +1,17 @@
+.home {
+	&__heading {
+		margin: 30px auto;
+	}
+
+	&__content {
+		width: 100%;
+		margin: 0 10px;
+	}
+	&__table {
+		display: flex;
+		width: 100%;
+		gap: 44px;
+		margin-top: 50px;
+		background: #ffffff;
+	}
+}

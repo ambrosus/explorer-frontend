@@ -1,0 +1,73 @@
+// Address
+
+// AddressDetails
+
+.addressDetails {
+	&__h1 {
+		display: flex;
+		align-items: center;
+		margin: 30px auto;
+
+		&-span {
+			margin: 12px;
+			font-size: 2.3rem;
+			line-height: 2.2rem;
+			font-style: normal;
+			font-weight: 400;
+		}
+		&-btn {
+			border: 0px;
+			background: #f6f6f6;
+		}
+	}
+
+	&__info {
+		display: grid;
+		grid-template-columns: repeat(2, auto);
+		grid-row-gap: 3vw;
+		margin-bottom: 32px;
+		&-token {
+			display: flex;
+			justify-content: flex-end;
+		}
+
+		&-tokenName {
+			display: flex;
+			align-self: center;
+			margin-right: 10px;
+			font-weight: 700;
+			font-size: 1.28em;
+			line-height: 2.28em;
+		}
+	}
+	&__div {
+		display: flex;
+		gap: 4px;
+
+		&-span {
+			font-style: normal;
+			font-weight: 400;
+			font-size: 1.28em;
+			line-height: 2.28em;
+		}
+	}
+	&__table {
+		display: grid;
+		grid-row-gap: 3vw;
+		margin-top: 16px;
+	}
+
+	&__thead-td {
+		font-weight: 700;
+		font-size: 0.86em;
+		line-height: 1.77em;
+	}
+	&__tbody-td {
+		display: flex;
+		border-bottom: 1px solid #eff2f5;
+	}
+	&__button {
+		display: flex;
+		border-bottom: 1px solid #eff2f5;
+	}
+}

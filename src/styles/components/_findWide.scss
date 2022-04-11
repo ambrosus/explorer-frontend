@@ -1,0 +1,41 @@
+.search {
+	display: flex;
+	background: #ffffff;
+	border-radius: 16px;
+	min-width: 320px;
+
+	&__input {
+		height: 48px;
+		border: 0px;
+		border-radius: 16px;
+		flex: 20;
+		padding: 12px;
+	}
+	&__input::placeholder {
+		color: $secondary-medium;
+	}
+
+	&__filters {
+		display: flex;
+		min-width: 120px;
+		justify-content: center;
+		align-items: center;
+		flex: 2;
+		color: $main-light;
+	}
+	&__btn {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background: #ffffff;
+		border-radius: 16px;
+		border: 0px;
+		flex: 1;
+		min-width: 50px;
+	}
+}
+.vl {
+	border-right: 1px solid #a6b0c3;
+	height: 24px;
+	margin: auto;
+}

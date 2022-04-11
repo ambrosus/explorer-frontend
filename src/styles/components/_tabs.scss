@@ -1,0 +1,71 @@
+.tabs {
+	display: grid;
+	height: 56px;
+	grid-template-columns: repeat(2, auto);
+	grid-row-gap: 3vw;
+	border-bottom: 1px solid #eff2f5;
+
+	&__filters {
+		display: flex;
+		height: 56px;
+		padding: 8px 0;
+	}
+
+	&__calendar {
+		margin-top: 8px;
+		z-index: 1;
+		border-radius: 12px;
+	}
+
+	&__link {
+		color: #808a9d;
+		text-decoration: none;
+		font-weight: 700;
+		font-size: 1.28em;
+		line-height: 1.78em;
+		margin-right: 32px;
+		display: flex;
+		align-items: center;
+	}
+	&__link:hover,
+	&__link:focus,
+	&__link:enabled,
+	&__link:active {
+		color: #05060f;
+		border-bottom: 4px solid #05060f;
+		border-collapse: collapse;
+	}
+	&__exportCsv {
+		display: flex;
+		justify-content: flex-end;
+		align-items: center;
+		flex: 1;
+
+		&-btn {
+			display: flex;
+			justify-content: flex-end;
+			align-items: center;
+			width: 139px;
+			height: 40px;
+			border: 1px solid #eff2f5;
+			box-sizing: border-box;
+			border-radius: 16px;
+		}
+		// &-btn:hover,
+		// :active {
+		// 	border: 1px solid #05060f;
+		// }
+		&-text {
+			font-weight: 600;
+			line-height: 1.33em;
+			margin: 8px 16px;
+		}
+	}
+	&__exportModal {
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-end;
+		align-items: flex-end;
+		margin: 8px 0px;
+	}
+}

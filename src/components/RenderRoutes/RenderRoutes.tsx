@@ -1,15 +1,27 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
-import { RouteWithSubRoutes } from './RouteWithSubRoutes';
+// @ts-ignore
+import { Route, Routes } from 'react-router-dom';
 
 export const RenderRoutes = (props: any) => {
 	const { routes } = props;
 	return (
-		<Switch>
-			{routes.map((route: any) => (
-				<RouteWithSubRoutes key={route.key} {...route} />
+		<Routes>
+			{routes.routes.map((route: any) => (
+				<Route
+					key={route.key}
+					path={route.path}
+					element={<route.component />}
+					{...route}
+				/>
 			))}
-			<Route component={() => <h1>Page not found!</h1>} />
-		</Switch>
+			{routes.subRoutes.map((route: any) => (
+				<Route
+					key={route.key}
+					path={route.path}
+					element={<route.component />}
+					{...route}
+				/>
+			))}
+		</Routes>
 	);
 };
