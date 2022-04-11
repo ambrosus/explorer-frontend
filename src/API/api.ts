@@ -50,24 +50,24 @@ const getDataForAddress = async (address: string, params: { limit: any; type: an
 
 	const tokens: { name: string; balance: string; contract: string; transfers: number; type: string }[] = [];
 
-	blockBookApi &&
-		blockBookApi.tokens &&
-		blockBookApi.tokens.forEach((token: { name: string; balance: string; contract: string; transfers: number; type: string }) => {
+		blockBookApi.tokens.forEach(async (token: { name: string; balance: string; contract: string; transfers: number; type: string }) => {
 			const tokenContract = new ethers.Contract(token.contract, erc20Abi, new providers.Web3Provider(ethereum).getSigner());
-			tokenContract.balanceOf(address).then((result: any) => {
-				if (result) {
-					tokens.push({ ...token, balance: formatEther(`${result}`) });
-				}
+			const tokenBalance = formatEther(await tokenContract.balanceOf(address));
+			const transfersTo:any = await tokenContract.filters.Transfer(null,address);
+			const transfersFrom:any = await tokenContract.filters.Transfer(address,null);
+			const tokenAprovals:any = await tokenContract.filters.Approval(address);
+			tokens.push({
+				...token,
+				// @ts-ignore
+				tokenBalance,
+				transfersTo,
+				transfersFrom,
+				 tokenAprovals,
 			});
+
 		});
-
-	// console.table([
-	// 	['Transactions data', transactionsData.data],
-	// 	['Tokens', tokens],
-	// ]);
-
 	return { transactions: transactionsData.data, tokens };
-};
+}
 
 const getBlock = (hashOrNumber: any) => {
 	return API().get(`blocks/${hashOrNumber}`);
