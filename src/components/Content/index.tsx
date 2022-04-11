@@ -1,15 +1,30 @@
 import React from 'react';
+import Loader from '../Loader';
+// react children nodes are not supported in typescript
+// @ts-ignore
+import { Children } from 'react';
 
-export const Content = ({ children }: any) => <div className='content'>{children}</div>;
+interface Props {
+	children: any;
+	isLoading?: boolean;
+}
 
-Content.Header = ({ children }: any) => (
+export const Content = ({ children, isLoading = true }: Props) =>
+	!isLoading
+		? <Loader />
+		: <div className='content'>{children}</div>;
+
+Content.Header = ({ children,isLoading = true }:  Props) => (
 	<div key='0' className='content__header'>
-		<div className='container'>{children}</div>
-	</div>
+		{!isLoading
+			? <Loader />
+			:<div className='container'>{children}</div>}	</div>
 );
 
-Content.Body = ({ children }: any) => (
+Content.Body = ({ children,isLoading = true }: Props) => (
 	<div key='1' className='content__body'>
-		<div className='container'>{children}</div>
+		{!isLoading
+			? <Loader />
+			:<div className='container'>{children}</div>}
 	</div>
 );

@@ -18,8 +18,6 @@ type CustomTooltipProps = {
 };
 
 export const CustomTooltip = ({ payload, label, active }: CustomTooltipProps) => {
-	// console.log('payload', payload);
-	// console.log('label', label);
 	// console.log('active', active);
 	if (active) {
 		return (

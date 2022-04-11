@@ -1,35 +1,26 @@
 import React, { useEffect } from 'react';
 import { RenderRoutes } from './components/RenderRoutes/RenderRoutes';
+
 import { Layout } from './layouts/Layout';
 import routes from './routes';
-import API from './API/api';
-import storage from './utils/storage';
 
 import './styles/Main.scss';
-import { CLIENT_VERSION } from './utils/constants';
+import { useActions } from './hooks/useActions';
+import { setAppDataAsync } from './state/actionsCreators';
+import { useTypedSelector } from './hooks/useTypedSelector';
 
-const Main = () => {
-	useEffect(() => {
-		API.getInfo().then((netInfo: any = {}) => {
-			storage.set('netInfo', netInfo);
-			storage.set('gitTagVersion', CLIENT_VERSION);
-		});
-		API.getToken().then(async (tokenInfo = {}) => {
-			const totalSupply = await API.getTokenTotalSupply().then((totalSupplyToken = {}) => {
-				return totalSupplyToken;
-			});
-			tokenInfo.total_supply = totalSupply;
-			storage.set('tokenInfo', tokenInfo);
-		});
+const Main: React.FC  = () => {
+	const {setAppDataAsync} = useActions();
+	const {data : appData} = useTypedSelector((state: any) => state.app)
 
-		API.getTokenMountPrice().then((totalPriceToken = {}) => {
-			storage.set('totalPriceToken', totalPriceToken);
-		});
+	// @ts-ignore
+	useEffect( () => {
+		setAppDataAsync()
 	}, []);
 
 	return (
 		<Layout>
-			<RenderRoutes routes={routes} />
+			{appData ?<RenderRoutes routes={routes} /> : null}
 		</Layout>
 	);
 };

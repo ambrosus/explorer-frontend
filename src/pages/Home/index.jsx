@@ -5,15 +5,19 @@ import storage from '../../utils/storage';
 import FindWide from '../../components/FindWide';
 import MainInfo from '../../components/MainInfo';
 import LatestBlocks from '../../components/LatestBlocks';
-import LastestTransactions from '../../components/LastestTransactions';
 import ViewMoreBtn from '../../components/ViewMoreBtn';
 import Chart from '../../components/Chart';
+import LastestTransactions from '../../components/LastestTransactions';
 
 export const Home = () => {
 	const [data, setData] = useState();
 
 	const getHomePageData = async () => {
-		const result = {};
+		const result = {
+			header: [],
+			latestBlocks: [],
+			latestTransactions: [],
+		};
 		const latestBlocks = await API.getBlocks({ limit: 8 });
 		const latestTransactions = await API.getTransactions({ limit: 8 });
 		const netInfo = storage.get('netInfo');

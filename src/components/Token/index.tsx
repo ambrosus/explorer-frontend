@@ -1,11 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import TokenFilter from '../TokenFilter';
-import TokenModal from '../TokenModal';
 
 const Token = () => {
-	const [isShow, setIsShow] = useState(true);
-
 	return (
 		<div className='token'>
 			<div className='token__info'>

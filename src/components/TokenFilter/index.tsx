@@ -3,10 +3,8 @@ import ArrowDownBig from '../../assets/icons/Arrows/ArrowDownBig';
 import TokenModal from '../TokenModal';
 
 const TokenFilter = () => {
-	const [name, setName] = useState('');
 	const handleSubmit = (e: any) => {
 		e.preventDefault();
-		console.log(name);
 	};
 	const num = 0.0;
 
