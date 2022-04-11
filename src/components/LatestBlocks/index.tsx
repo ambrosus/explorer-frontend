@@ -5,7 +5,7 @@ import { sliceData, calcTime } from '../../utils/helpers';
 
 type LatestBlocksProps = {
 	name: string;
-	number: number;
+	number: any;
 	timestamp: number;
 	validator: string;
 	totalTransactions: number;
