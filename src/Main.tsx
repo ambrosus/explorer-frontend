@@ -11,7 +11,6 @@ import { setAppDataAsync } from './state/actionsCreators';
 const Main: React.FC  = () => {
 	const {setAppDataAsync} = useActions();
 
-	// @ts-ignore
 	useEffect( () => {
 		setAppDataAsync()
 	}, []);

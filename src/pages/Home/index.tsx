@@ -7,19 +7,19 @@ import MainInfo from '../../components/MainInfo';
 import LatestBlocks from '../../components/LatestBlocks';
 import ViewMoreBtn from '../../components/ViewMoreBtn';
 import Chart from '../../components/Chart';
-import LastestTransactions from '../../components/LastestTransactions';
+import LatestTransactions from '../../components/LastestTransactions';
 
-export const Home = () => {
+export const Home :React.FC= () => {
 	const [data, setData] = useState<any>();
 	const { data: appData } = useTypedSelector((state: any) => state.app);
 
 	const getHomePageData = async () => {
-		const result = {
+		const result :{header?:Array<{name:string,value:any}>,latestBlocks:Array<any> ,latestTransactions:Array<any> }= {
 			latestBlocks: (await API.getBlocks({ limit: 8 })).data,
 			latestTransactions: (await API.getTransactions({ limit: 8 })).data,
 		};
 
-		const mainInfoHeader = [
+		result.header = [
 			{ name: 'MARKET CAP', value: appData.tokenInfo.market_cap_usd },
 			{ name: 'TOTAL SUPPLY', value: appData.netInfo.totalSupply },
 			{ name: 'TOTAL TRANSACTIONS', value: appData.netInfo.transactions.total },
@@ -30,8 +30,6 @@ export const Home = () => {
 			},
 			{ name: 'HOLDERS', value: appData.netInfo.accounts.withBalance },
 		];
-		// @ts-ignore
-		result.header = mainInfoHeader;
 		return result;
 	}
 
@@ -77,7 +75,7 @@ export const Home = () => {
 						<div className='home__content'>
 							<div className='latestBlocks__heading'>Lastest Transactions</div>
 							{data?.latestTransactions.map((item: { _id: React.Key | null | undefined; status: any; hash: any; timestamp: any; from: any; to: any; value: { ether: any; }; }) => (
-								<LastestTransactions
+								<LatestTransactions
 									key={item._id}
 									status={item.status}
 									hash={item.hash}
