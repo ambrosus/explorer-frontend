@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { Content } from '../../components/Content';
 import API from '../../API/api';
 import FindWide from '../../components/FindWide';
@@ -6,38 +7,39 @@ import MainInfo from '../../components/MainInfo';
 import LatestBlocks from '../../components/LatestBlocks';
 import ViewMoreBtn from '../../components/ViewMoreBtn';
 import Chart from '../../components/Chart';
-import { useTypedSelector } from '../../hooks/useTypedSelector';
-import Loader from '../../components/Loader';
 import LastestTransactions from '../../components/LastestTransactions';
 
 export const Home = () => {
 	const [data, setData] = useState<any>();
-	const {loading, data : appData, error} = useTypedSelector((state: any) => state.app)
+	const { data: appData } = useTypedSelector((state: any) => state.app);
 
 	const getHomePageData = async () => {
 		const result = {
-			latestBlocks:  (await API.getBlocks({ limit: 8 })).data,
-			latestTransactions:   (await API.getTransactions({ limit: 8 })).data,
-		}
+			latestBlocks: (await API.getBlocks({ limit: 8 })).data,
+			latestTransactions: (await API.getTransactions({ limit: 8 })).data,
+		};
 
-		const mainInfoHeader =  [
+		const mainInfoHeader = [
 			{ name: 'MARKET CAP', value: appData.tokenInfo.market_cap_usd },
 			{ name: 'TOTAL SUPPLY', value: appData.netInfo.totalSupply },
 			{ name: 'TOTAL TRANSACTIONS', value: appData.netInfo.transactions.total },
 			{ name: 'BUNDLES', value: appData.netInfo.totalBundles },
-			{ name: 'NODES', value: appData.netInfo.apollos.online + appData.netInfo.atlases.total + appData.netInfo.hermeses.total },
+			{
+				name: 'NODES',
+				value: appData.netInfo.apollos.online + appData.netInfo.atlases.total + appData.netInfo.hermeses.total,
+			},
 			{ name: 'HOLDERS', value: appData.netInfo.accounts.withBalance },
 		];
 		// @ts-ignore
 		result.header = mainInfoHeader;
 		return result;
-	};
+	}
 
 	useEffect(() => {
-		getHomePageData().then((res : any) => setData(res));
-	}, [appData]);
+		getHomePageData().then((res: any) => setData(res));
+	}, [appData, getHomePageData]);
 
-	return  (
+	return (
 		<Content isLoading={!!data}>
 			{data &&
 			<div className='home'>
@@ -67,7 +69,7 @@ export const Home = () => {
 									validator={item.miner}
 									totalTransactions={item.totalTransactions}
 									blockReward={item.blockRewards}
-								 name='name'/>
+									name='name' />
 							))}
 							<ViewMoreBtn nameBtn='View all blocks' />
 						</div>

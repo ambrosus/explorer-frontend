@@ -46,7 +46,7 @@ export const AddressDetails = () => {
 						</div>
 					</div>
 				</Content.Header>
-				<Content.Body isLoading={!!addressData}>
+				<Content.Body isLoading={addressData}>
 					<Tabs data={addressData} setTransactionType={setTransactionType} />
 				</Content.Body>
 			</section>
