@@ -1,11 +1,11 @@
 import React from 'react';
 
-const FilterAdressDetail = () => {
+const FilteredToken = () => {
 	return (
 		<>
-			<div>FilterAdressDetail</div>
+			<div>FilteredToken</div>
 		</>
 	);
 };
 
-export default FilterAdressDetail;
+export default FilteredToken;
