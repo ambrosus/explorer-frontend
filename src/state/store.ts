@@ -11,7 +11,7 @@ const middleware:Array<any>= [thunk];
 const persistConfig = {
 		key: 'root',
 		storage,
-		whitelist: ['position'],
+		whitelist: ['position,tokenFilters'],
 			blacklist: ['app']
 };
 const persistedReducer = persistReducer(persistConfig, reducers);
@@ -29,9 +29,9 @@ const logger = createLogger({
 	},
 });
 
-if (process.env.NODE_ENV === 'development') {
+// if (process.env.NODE_ENV === 'development') {
 	middleware.push(logger);
-}
+// }
 
 export const store = createStore(persistedReducer, {}, composeWithDevTools(applyMiddleware(...middleware)))
 export const persistor = persistStore(store);

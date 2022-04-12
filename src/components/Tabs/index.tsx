@@ -45,13 +45,14 @@ const Tabs = ({ data, setTransactionType }: any) => {
 
 	return (
 		<>
-			<div className='tabs'>
-				<div className='tabs__filters'>
-					{transactionFilters.map((filter) => (
+			<div className='tabs' tabIndex={-1}>
+				<div className='tabs__filters'tabIndex={-1}>
+					{transactionFilters && transactionFilters.map((filter) => (
 						<Link
+
 							key={filter.title}
 							to={`/addresses/${address}/${filter.value}`}
-							tabIndex={0}
+							tabIndex={-1}
 							className='tabs__link'
 							onClick={() => setTransactionType(filter.value)}
 						>
@@ -76,7 +77,7 @@ const Tabs = ({ data, setTransactionType }: any) => {
 						token={headerToken}
 					/>
 
-					{data?.transactions.map((transaction: any, index: number) => {
+					{data && data && data.transactions &&  data.transactions.map((transaction: any, index: number) => {
 						return (
 							<AddressBlock
 								key={transaction.hash}

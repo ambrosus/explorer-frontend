@@ -1,28 +1,44 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import ArrowDownBig from '../../assets/icons/Arrows/ArrowDownBig';
 import TokenModal from '../TokenModal';
+import { useActions } from '../../hooks/useActions';
+import { useTypedSelector } from '../../hooks/useTypedSelector';
+import { useOnClickOutside } from '../../hooks/useOnClickOutside';
 
-const TokenFilter = () => {
-	const handleSubmit = (e: any) => {
-		e.preventDefault();
-	};
-	const num = 0.0;
-
-	const toggleMenu = () => setIsShow(!isShow);
+const TokenFilter= ({onClick}:React.SetStateAction<any>) => {
+	const {addFilter, removeFilter} = useActions();
+	const {filters } = useTypedSelector((state: any) => state.tokenFilters)
 
 	const [isShow, setIsShow] = useState(false);
 
+	const handleSubmit = (e: any) => {
+		e.preventDefault();
+	};
+
+	const toggleMenu = () => setIsShow(!isShow);
+
+	const refTokensModal = useRef(null);
+
+	useOnClickOutside(refTokensModal, () => setIsShow(false));
+
+	const handleSelect = (token: { contract:string }) => {
+		onClick(token);
+		!filters.includes(token) ? addFilter(token): removeFilter(token);
+	};
+
 	return (
 		<>
-			<div className='tokenFilter' onSubmit={handleSubmit}>
+			<div ref={refTokensModal}
+					 tabIndex={0}
+					 className='tokenFilter' onSubmit={handleSubmit}>
 				<div className='tokenFilter__input'>
-					<span className='tokenFilter__input-rectangle'>4</span>
+					<span className='tokenFilter__input-rectangle'>{filters.length}</span>
 					<span className='tokenFilter__input-text'>{`> $ 152.35 USD`}</span>
 					<button className='tokenFilter__input-btn' type='button' onClick={toggleMenu}>
 						<ArrowDownBig />
 					</button>
 				</div>
-				{isShow && <TokenModal token={0} summary={num.toFixed(2)} selectedToken={''} icon={undefined} tokenName={''} />}
+				{isShow && <TokenModal setToken={handleSelect}  />}
 			</div>
 		</>
 	);
