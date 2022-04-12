@@ -11,7 +11,7 @@ const middleware:Array<any>= [thunk];
 const persistConfig = {
 		key: 'root',
 		storage,
-		whitelist: ['position'],
+		whitelist: ['position,tokenFilters'],
 			blacklist: ['app']
 };
 const persistedReducer = persistReducer(persistConfig, reducers);
