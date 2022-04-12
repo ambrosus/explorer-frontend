@@ -41,3 +41,25 @@ export type  PositionAction = SetPositionAction |
   SetPositionActionSuccess |
   SetPositionActionFailure
 
+
+// ***** Filters Token  Actions *****
+
+interface SetFiltersTokenAction {
+    type: actionTypes.ADD_FILTER;
+    payload: object | never;
+}
+
+interface RemoveFiltersTokenAction {
+    type: actionTypes.REMOVE_FILTER;
+    payload: object | never;
+}
+
+interface ClearFiltersTokenAction {
+    type: actionTypes.CLEAR_FILTERS;
+    payload: Array<any> | null;
+}
+
+export type  FiltersAction = SetFiltersTokenAction |
+  RemoveFiltersTokenAction |
+  ClearFiltersTokenAction
+

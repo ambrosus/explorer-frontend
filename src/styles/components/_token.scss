@@ -109,6 +109,16 @@
 	grid-template-columns: repeat(3, auto);
 	padding: 15px;
 	border-top: 1px solid #eff2f5;
+	cursor: pointer;
+	margin: 1px 0;
+
+	&:focus {
+		outline: none;
+	}
+
+	&:hover {
+		background-color: #EFF2F5;
+	}
 
 	&__tokens {
 		line-height: 1.33em;

@@ -1,5 +1,5 @@
 import {actionTypes} from "../action-types";
-import { AppDataAction, PositionAction } from '../actions';
+import { AppDataAction, FiltersAction, PositionAction } from '../actions';
 import {Dispatch} from "redux";
 import API from '../../API/api';
 import { CLIENT_VERSION } from '../../utils/constants';
@@ -39,7 +39,7 @@ export const setAppDataAsync = () => {
 }
 
 
-export const setPosition = (promiseFunc: (arg0: object) => any, ...params:any) => {
+export const setPosition:any = (promiseFunc:any, ...params:any) => {
     return async (dispatch: Dispatch<PositionAction>) => {
         dispatch({
             type: actionTypes.SET_POSITION__START,
@@ -57,6 +57,31 @@ export const setPosition = (promiseFunc: (arg0: object) => any, ...params:any) =
                 payload: `Error in setPosition() ${error.message}`,
             })
         }
+    }
+}
+
+export const addFilter:any = (filter:object) => {
+    return async (dispatch: Dispatch<FiltersAction>) => {
+        dispatch ({
+            type: actionTypes.ADD_FILTER,
+            payload: filter,
+        })
+    }
+}
+export const removeFilter:any = (filter:object) => {
+    return async (dispatch: Dispatch<FiltersAction>) => {
+        dispatch ({
+            type: actionTypes.REMOVE_FILTER,
+            payload: filter,
+        })
+    }
+}
+export const clearFilters:any = () => {
+    return async (dispatch: Dispatch<FiltersAction>) => {
+        dispatch ({
+            type: actionTypes.CLEAR_FILTERS,
+            payload: null
+        })
     }
 }
 
