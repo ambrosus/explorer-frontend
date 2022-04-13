@@ -12,7 +12,7 @@ const ExportCsv = () => {
 					<span className='tabs__exportCsv-text'>ExportCsv</span>
 				</button>
 			</div>
-			<div className='tabs__calendar'>{isShow && <Calendar />}</div>
+			{isShow && <Calendar />}
 		</div>
 	);
 };

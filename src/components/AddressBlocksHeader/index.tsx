@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
 import ArrowDown from '../../assets/icons/Arrows/ArrowDown';
 
-type AddressBlockProps = {
+interface AddressBlockProps {
 	txhash: string | number;
 	method: string | number;
 	from: string | number;
@@ -11,10 +12,27 @@ type AddressBlockProps = {
 	amount: any;
 	txfee: string | number;
 	token: string;
-};
+	methodFilters: any;
+	setTransactionType: any;
+}
 
-const AddressBlock: React.FC<AddressBlockProps> = ({ txhash, method, from, to, date, block, amount, txfee, token }) => {
-	const sortMethod = () => console.log('clickMethod');
+const AddressBlock: React.FC<AddressBlockProps> = ({
+	txhash,
+	method,
+	from,
+	to,
+	date,
+	block,
+	amount,
+	txfee,
+	token,
+	methodFilters,
+	setTransactionType,
+}) => {
+	const [isShow, setIsShow] = useState(false);
+	const { address } = useParams();
+
+	const sortMethod = () => setIsShow(!isShow);
 
 	const isTxHash = txhash === null ? null : <div className='addressDetails__thead-td'>{txhash}</div>;
 	const isMethod =
@@ -28,6 +46,20 @@ const AddressBlock: React.FC<AddressBlockProps> = ({ txhash, method, from, to, d
 					{method}
 					<ArrowDown />
 				</button>
+				<div className='methodModal__table'>
+					{isShow &&
+						methodFilters.map((filter: { title: string; value: any }) => (
+							<Link
+								key={filter.title}
+								to={`/addresses/${address}/${filter.value}`}
+								tabIndex={-1}
+								className='methodModal__link'
+								onClick={() => setTransactionType(filter.value)}
+							>
+								{filter.title}
+							</Link>
+						))}
+				</div>
 			</div>
 		);
 	const isFrom = from === null ? null : <div className='addressDetails__thead-td'>{from}</div>;
