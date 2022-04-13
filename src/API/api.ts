@@ -43,21 +43,39 @@ const getBlocks = async (params = {}) => {
 };
 
 const getDataForAddress = async (address: string, params:any) => {
-	const { limit, type } = params;
-	const transactionsData = await getAccountTx(address, { limit, type });
-	const blockBookApi = await fetch(`https://blockbook.ambrosus.io/api/v2/address/${address}`).then((res) => res.json());
-	const tokens: { name: string; balance: string; contract: string; transfers: number; type: string }[] = [];
-	blockBookApi &&  blockBookApi?.tokens.forEach(async (token: { name: string; balance: string; contract: string; transfers: number; type: string }) => {
-			const tokenContract = new ethers.Contract(token.contract, erc20Abi, new providers.Web3Provider(ethereum).getSigner());
-			const tokenBalance = formatEther(await tokenContract.balanceOf(address));
-			tokens.push({
-				...token,
-				// @ts-ignore
-				tokenBalance,
-			});
+	const { limit, type ,filters} = params;
 
-		});
-	return { transactions: transactionsData.data, tokens };
+	const transactionsData = await getAccountTx(address, { limit, type });
+	// TODO : add filters to query and update component accordingly
+	const blockBookApi = await fetch(`https://blockbook.ambrosus.io/api/v2/address/${address}?filter=`)
+		.then((res) => res.json());
+
+	// TODO get tokens names array from params ['token.name','token.name'] and filter it!
+	const filtersNames = blockBookApi && blockBookApi.tokens ? blockBookApi.tokens.map((token: any) => {
+		return token?.name;
+		// @ts-ignore
+	}) :null;
+
+	const blockBookApiTransactions = blockBookApi && blockBookApi?.txids.map(async (tx: string) => {
+		return await fetch(`https://blockbook.ambrosus.io/api/v2/tx/${tx}`).then((res) => res.json());
+	});
+	const blockBookApiTransactionsData = await Promise.all(blockBookApiTransactions);
+	// TODO: add filters and return only filtered data by tokens names
+	const filtered = filtersNames && filtersNames.length> 0 ? blockBookApiTransactionsData
+		// .filter((tx: any) => {
+		// 	return blockBookApi.tokens.map((filter: any) => {
+		// 		return filter.name;
+		// 	}).includes(tx?.tokenTransfers?.[0]?.name);
+		// })
+		.map((tx)=>{
+			// TODO create big transaction object
+			return tx
+		})
+		:blockBookApiTransactionsData
+
+	console.log('filtered', filtered);
+// TODO return  array from big transaction objects
+	return { transactions: transactionsData.data, tokens: blockBookApi.tokens };
 }
 
 const getBlock = (hashOrNumber: any) => {

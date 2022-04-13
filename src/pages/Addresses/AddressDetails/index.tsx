@@ -14,6 +14,8 @@ import { useTypedSelector } from '../../../hooks/useTypedSelector';
 export const AddressDetails = () => {
 	const { address } = useParams();
 	const {setPosition,clearFilters} = useActions();
+	const {filters } = useTypedSelector((state: any) => state.tokenFilters)
+
 	const {data : addressData,error:errorData} = useTypedSelector((state: any) => state.position)
 	const [transactionType, setTransactionType] = useState('');
 	const [selectedToken, setSelectedToken] = useState({});
@@ -28,16 +30,16 @@ export const AddressDetails = () => {
 			clearFilters();
 		}
 		if (address) {
-			setPosition(API.getDataForAddress, address.trim(), { limit: 50, type: transactionType });
+			setPosition(API.getDataForAddress, address.trim(), { limit: 50, type: transactionType,filters });
 			if (errorData) {
-				setPosition(API.getDataForAddress, address.trim(), { limit: 50, type: transactionType });
+				setPosition(API.getDataForAddress, address.trim(), { limit: 50, type: transactionType ,filters});
 			}
 		}
 	}, [address, transactionType]);
 
 	return (
-		<Content isLoading={addressData}>
-			{addressData !== null && addressData!==undefined && <section className='addressDetails'>
+		<Content>
+		<section className='addressDetails'>
 				<Content.Header>
 					<h1 className='addressDetails__h1'>
 						Address Details <span className='addressDetails__h1-span'> {sybStringAddress}</span>
@@ -53,9 +55,9 @@ export const AddressDetails = () => {
 					</div>
 				</Content.Header>
 				<Content.Body isLoading={addressData}>
-					{addressData &&	<Tabs data={addressData} setTransactionType={setTransactionType} /> }
+					{addressData !== null && addressData!==undefined && <Tabs data={addressData} setTransactionType={setTransactionType} /> }
 				</Content.Body>
-			</section>}
+			</section>
 		</Content>
 	);
 };
