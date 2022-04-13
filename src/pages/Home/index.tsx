@@ -37,6 +37,8 @@ export const Home: React.FC = () => {
 		getHomePageData().then((res: any) => setData(res));
 	}, [appData, getHomePageData]);
 
+	const numberArr = data ? data.latestBlocks.map((item: any) => item.number) : null;
+
 	return (
 		<Content isLoading={!!data}>
 			{data && (
@@ -70,6 +72,7 @@ export const Home: React.FC = () => {
 										<LatestBlocks
 											key={item.number}
 											number={item.number}
+											numberArr={numberArr}
 											timestamp={item.timestamp}
 											validator={item.miner}
 											totalTransactions={item.totalTransactions}
