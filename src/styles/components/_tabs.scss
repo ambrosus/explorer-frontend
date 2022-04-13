@@ -15,6 +15,16 @@
 		margin-top: 8px;
 		z-index: 1;
 		border-radius: 12px;
+		&-exportCsv {
+			position: relative;
+			left: 280px;
+			bottom: 50px;
+			height: 40px;
+			width: 100px;
+			background-color: #05060f;
+			color: #fff;
+			border-radius: 2px;
+		}
 	}
 
 	&__link {

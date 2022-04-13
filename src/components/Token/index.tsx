@@ -2,12 +2,17 @@ import React from 'react';
 
 import TokenFilter from '../TokenFilter';
 
-const Token = () => {
+export interface TokenProps {
+	selectedToken: Object;
+	onClick: (token: Object) => any;
+}
+
+const Token: React.FC<TokenProps> = ({ selectedToken, onClick }) => {
 	return (
-		<div className='token'>
+		<div className='token' tabIndex={1}>
 			<div className='token__info'>
 				<span className='token__info-name'>Token</span>
-				<TokenFilter />
+				<TokenFilter selectedToken={selectedToken} onClick={onClick} />
 			</div>
 		</div>
 	);

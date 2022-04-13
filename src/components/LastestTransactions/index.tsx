@@ -12,7 +12,7 @@ type lastestTransactionsProps = {
 	amount: number;
 };
 
-const LastestTransactions: React.FC<lastestTransactionsProps> = ({ hash, status, timestamp, from, to, amount }) => {
+const LatestTransactions: React.FC<lastestTransactionsProps> = ({ hash, status, timestamp, from, to, amount }) => {
 	const isOnline = (status: string) => {
 		switch (status) {
 			case 'SUCCESS':
@@ -56,4 +56,4 @@ const LastestTransactions: React.FC<lastestTransactionsProps> = ({ hash, status,
 	);
 };
 
-export default LastestTransactions;
+export default LatestTransactions;
