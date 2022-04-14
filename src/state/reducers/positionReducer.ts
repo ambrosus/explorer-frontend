@@ -15,11 +15,11 @@ const initialState = {
 const reducer = (state: PositionReducerState = initialState, action: PositionAction): PositionReducerState => {
     switch (action.type) {
         case actionTypes.SET_POSITION__START :
-            return {loading: true, error: null, data: null}
+            return {loading: true, error: null, data: []}
         case actionTypes.SET_POSITION__SUCCESS:
             return {loading: false, error: null, data: action.payload}
         case actionTypes.SET_POSITION__FAIL:
-            return {loading: false, error: action.payload, data: null}
+            return {loading: false, error: action.payload, data: []}
         default:
             return state;
     }

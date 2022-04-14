@@ -6,24 +6,25 @@ import { useActions } from '../../hooks/useActions';
 
 type TokenModalProps = {
 	setToken: any;
+	selectedToken:any
 };
 
-const TokenModal: React.FC<TokenModalProps> = ({ setToken }) => {
+const TokenModal: React.FC<TokenModalProps> = ({ selectedToken,setToken }) => {
 	const [name, setName] = useState('');
-	const {addFilter,removeFilter} = useActions();
+	// const {addFilter,removeFilter} = useActions();
 	const {data : addressData} = useTypedSelector((state: any) => state.position)
 	const {tokens} = addressData
 
 	const changeInput = (e: ChangeEvent<HTMLInputElement>) => {
 		e.preventDefault();
 		setName(e.target.value);
-		tokens.map((token: any) => {
-			if (token.name.includes(e.target.value)) {
-				addFilter(token);
-			}else{
-				removeFilter(token);
-			}
-		});
+		// tokens.map((token: any) => {
+		// 	if (token.name.includes(e.target.value)) {
+		// 		addFilter(token);
+		// 	}else{
+		// 		removeFilter(token);
+		// 	}
+		// });
 	};
 
 	return (
@@ -46,10 +47,13 @@ const TokenModal: React.FC<TokenModalProps> = ({ setToken }) => {
 					</div>
 					<div className='tokenModal__arrows'></div>
 				</div>
-				{tokens.map((token:any)=><div
-					onClick={()=>setToken(token)}
+				{tokens.map((token:any,index:number)=><div
+					onClick={()=>{
+						const searchParam =  token.filterName === 'All' || token.filterName === 'inputs' || token.filterName === 'outputs' || token.filterName === '0' ? token.filterName: index-3
+						setToken({ ...token, filterName: searchParam})
+					}}
 					key={token.contract}>
-					<TokenItem setToken={setToken} token={token} />
+					<TokenItem selectedToken={selectedToken} index={index + 1} setToken={setToken} token={token} />
 				</div>)}
 
 			</>

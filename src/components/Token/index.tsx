@@ -4,11 +4,10 @@ import TokenFilter from '../TokenFilter';
 
 export interface TokenProps {
 	selectedToken: Object
-	onClick: (token: Object) => any;
+	onClick: any;
 }
 
-const Token :React.FC<TokenProps>= ({selectedToken,
-																			onClick}) => {
+const Token :React.FC<TokenProps>= ({onClick,selectedToken}) => {
 	return (
 		<div className='token'
 				 tabIndex={1}

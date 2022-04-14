@@ -7,17 +7,16 @@ interface TokenFiltersReducerState {
 
 const initialState = {
 	filters: []
+
 }
 
 export const tokenFiltersReducer= (state :TokenFiltersReducerState= initialState, action:FiltersAction | any):TokenFiltersReducerState => {
 	switch (action.type) {
 		case actionTypes.ADD_FILTER:
 			// @ts-ignore
-			const newFilters = state.filters.includes(action.payload)? state.filters  : [...state.filters, action.payload];
 			return {
 				...state,
-
-				filters: newFilters
+				filters: action.payload
 			}
 		case actionTypes.REMOVE_FILTER: {
 			// @ts-ignore
@@ -33,4 +32,5 @@ export const tokenFiltersReducer= (state :TokenFiltersReducerState= initialState
 		default:
 			return state;
 	}
+	console.log('state.filters', state.filters);
 };

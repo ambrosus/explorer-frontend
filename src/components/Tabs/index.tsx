@@ -77,19 +77,19 @@ const Tabs = ({ data, setTransactionType }: any) => {
 						token={headerToken}
 					/>
 
-					{data && data && data.transactions &&  data.transactions.map((transaction: any, index: number) => {
+					{data && data.length &&  data.map((transaction: any, index: number) => {
 						return (
 							<AddressBlock
-								key={transaction.hash}
-								txhash={`${transaction.hash.slice(0, 10)}...${transaction.hash.slice(transaction.hash.length - 10)}`}
-								method={transaction.type}
-								from={`${transaction.from.slice(0, 5)}...${transaction.from.slice(transaction.from.length - 5)}`}
-								to={`${transaction.to.slice(0, 5)}...${transaction.to.slice(transaction.to.length - 5)}`}
-								date={moment(transaction.timestamp * 1000).fromNow()}
-								block={transaction.blockNumber}
-								amount={`${Number(formatEther(transaction.value.wei)).toFixed(2)} ETH`}
-								txfee={`${Number(formatEther(transaction.gasCost.wei)).toFixed(5)} AMB`}
-								token={`${Number(formatEther(transaction.value.wei)).toFixed(2)} ETH`}
+								key={transaction.txHash}
+								txhash={`${transaction.txHash.slice(0, 10)}...${transaction.txHash.slice(transaction.txHash.length - 10)}`}
+								method={transaction.method}
+								from={transaction.from}
+								to={transaction.to}
+								date={transaction.date}
+								block={transaction.block}
+								amount={`${transaction.amount} AMB`}
+								txfee={`${transaction.txFee}AMB`}
+								token={`${transaction?.token ? transaction?.token : null}`}
 							/>
 						);
 					})}
