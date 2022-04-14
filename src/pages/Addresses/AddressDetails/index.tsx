@@ -11,33 +11,45 @@ import Tabs from '../../../components/Tabs';
 import { useActions } from '../../../hooks/useActions';
 import { useTypedSelector } from '../../../hooks/useTypedSelector';
 import FilteredToken from '../../../components/FilteredToken';
+import { shallowEqual } from 'react-redux';
 
 export const AddressDetails = () => {
-	const { address }: any = useParams();
-	const { setPosition, clearFilters } = useActions();
-	const { data: addressData, error: errorData } = useTypedSelector((state: any) => state.position);
-	const [transactionType, setTransactionType] = useState('');
-	const [selectedToken, setSelectedToken] = useState({});
-
+		const { address, type }: any = useParams();
+		const { setPosition } = useActions();
+		const { filters } = useTypedSelector((state: any) => state.tokenFilters, shallowEqual);
+		const {
+			loading,
+			data: addressData,
+			error: errorData,
+		} = useTypedSelector((state: any) => state.position, shallowEqual);
+		const [transactionType, setTransactionType] = useState<any>(type);
+		const [selectedToken, setSelectedToken] = useState({name:'All',filterName:'All'});
+		const [tx, setTx] = useState([]);
 	const sybStringAddress = `${address && address.slice(0, 10)}...${address && address.slice(address.length - 10)}`;
+	console.log('selectedToken', selectedToken);
+	useEffect(() => {
+				if (!loading){
+					setPosition(API.getDataForAddress, address.trim(), {
+						filters : addressData && addressData.filters ? addressData.filters : [],
+						selectedTokenFilter : selectedToken.filterName,
+						limit: 200,
+						type: transactionType,
+					});
+				}
+		}, [filters, transactionType]);
+
+		useEffect(() => {
+			if (addressData && addressData?.transactions) {
+				setTx(addressData.transactions);
+			} else {
+				setTx([]);
+			}
+		}, [addressData]);
 
 	const copyConten = () => navigator.clipboard.writeText(address);
 
-	useEffect(() => {
-		if (transactionType) {
-			clearFilters();
-		}
-		if (address) {
-			setPosition(API.getDataForAddress, address.trim(), { limit: 50, type: transactionType });
-			if (errorData) {
-				setPosition(API.getDataForAddress, address.trim(), { limit: 50, type: transactionType });
-			}
-		}
-	}, [address, transactionType]);
-
-	return (
-		<Content isLoading={addressData}>
-			{addressData !== null && addressData !== undefined && (
+		return (
+			<Content>
 				<section className='addressDetails'>
 					<Content.Header>
 						<h1 className='addressDetails__h1'>
@@ -55,10 +67,12 @@ export const AddressDetails = () => {
 						</div>
 					</Content.Header>
 					<Content.Body isLoading={addressData}>
-						{addressData && <Tabs data={addressData} setTransactionType={setTransactionType} />}
+						{tx && <Tabs type={transactionType} data={tx} setTransactionType={setTransactionType} />}
 					</Content.Body>
 				</section>
-			)}
-		</Content>
-	);
-};
+			</Content>
+		);
+	}
+;
+
+

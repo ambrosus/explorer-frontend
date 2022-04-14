@@ -13,7 +13,7 @@ interface AddressBlockProps {
 	txfee: string | number;
 	token: string;
 	methodFilters: any;
-	setTransactionType: any;
+	setTransactionType?: any;
 }
 
 const AddressBlock: React.FC<AddressBlockProps> = ({

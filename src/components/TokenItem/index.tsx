@@ -1,28 +1,17 @@
 import React from 'react';
-
 import Eth from '../../assets/icons/Cryptos/Eth';
-import { useTypedSelector } from '../../hooks/useTypedSelector';
-
-interface Token {
-	name: string;
-	contract: string;
-	tokenBalance: string;
-	type: string;
-	transfers:number
-}
 
 type TokenItemProps = {
-	token: Token;
+	token: any;
 	setToken: Function;
+	selectedToken:any
+	index: number;
 };
 
-
-const TokenItem: React.FC<TokenItemProps> = ({token,setToken}) => {
-	const {filters } = useTypedSelector((state: any) => state.tokenFilters)
-
+const TokenItem: React.FC<TokenItemProps> = ({token,selectedToken,index,setToken}) => {
 	const handleKeyPress = (e:KeyboardEvent) => {
 		if (e.key==='Enter'){
-			setToken(token)
+			setToken({ ...token, filterName:index })
 		}
 	}
 	return (
@@ -30,7 +19,7 @@ const TokenItem: React.FC<TokenItemProps> = ({token,setToken}) => {
 				 tabIndex={0}
 			// @ts-ignore
 				 onKeyDown={handleKeyPress}
-				 style={{backgroundColor : filters.includes(token) ? '#EFF2F5':'#fff'}}>
+				 style={{backgroundColor : selectedToken.name === token.name ? '#EFF2F5':'#fff'}}>
 			<div className='tokenItem__icon'>
 				<Eth />
 			</div>
