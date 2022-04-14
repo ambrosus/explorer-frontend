@@ -42,7 +42,14 @@ const Tabs = ({ data, setTransactionType }: any) => {
 				return (type.style = { gridTemplateColumns: 'repeat(8, auto)' });
 		}
 	}
-
+	const methodFilters = [
+		{ title: 'Transfers', value: 'transfers' },
+		{ title: 'Contracts', value: 'contracts' },
+		{ title: 'Fees', value: 'fees' },
+		{ title: 'Validator Proxy', value: 'validator_proxy' },
+		{ title: 'Bundle Uploads', value: 'bundle_uploads' },
+		{ title: 'Payouts', value: 'payouts' },
+	];
 	return (
 		<>
 			<div className='tabs' tabIndex={-1}>
@@ -75,6 +82,7 @@ const Tabs = ({ data, setTransactionType }: any) => {
 						amount='Amount'
 						txfee={headerTxfee}
 						token={headerToken}
+						methodFilters={methodFilters}
 					/>
 
 					{data && data.length &&  data.map((transaction: any, index: number) => {
