@@ -14,7 +14,7 @@ type AddressBlockProps = {
 	block: string | number | null;
 	amount: any;
 	txfee: string | number | null;
-	token: any;
+	token?: any;
 };
 
 const AddressBlock: React.FC<AddressBlockProps> = ({ txhash, method, from, to, date, block, amount, txfee, token }) => {

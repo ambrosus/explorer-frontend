@@ -4,6 +4,7 @@ import { ethers, providers } from 'ethers';
 import erc20Abi from '../utils/abis/ERC20.json';
 import { formatEther } from 'ethers/lib/utils';
 import { ethereum } from '../utils/constants';
+import moment from 'moment';
 
 const tokenApiUrl = process.env.REACT_APP_TOKEN_API_URL;
 
@@ -30,7 +31,7 @@ const API = () => {
 		},
 		(error) => {
 			handleNotFound(error);
-		}
+		},
 	);
 
 	return api;
@@ -42,41 +43,60 @@ const getBlocks = async (params = {}) => {
 	});
 };
 
-const getDataForAddress = async (address: string, params:any) => {
-	const { limit, type ,filters} = params;
-
-	const transactionsData = await getAccountTx(address, { limit, type });
-	// TODO : add filters to query and update component accordingly
-	const blockBookApi = await fetch(`https://blockbook.ambrosus.io/api/v2/address/${address}?filter=`)
+const getDataForAddress = async (address: string, params: any) => {
+	const { filters, limit, type, selectedTokenFilter } = params;
+	console.log('selectedTokenFilter', selectedTokenFilter);
+	console.log('selectedTokenFilter', selectedTokenFilter);
+	const blockBookApi = await fetch(`https://blockbook.ambrosus.io/api/v2/address/${address}?filter=${selectedTokenFilter}`)
 		.then((res) => res.json());
 
-	// TODO get tokens names array from params ['token.name','token.name'] and filter it!
-	const filtersNames = blockBookApi && blockBookApi.tokens ? blockBookApi.tokens.map((token: any) => {
-		return token?.name;
-		// @ts-ignore
-	}) :null;
-
+	const { data: explorerTrans } = await getAccountTx(address, { limit, type });
+	const explorData = explorerTrans.map((t: any) => ({
+		txHash: t.hash,
+		method: t.type,
+		from: `${t.from.slice(0, 5)}...${t.from.slice(t.from.length - 5)}`,
+		to: `${t.to.slice(0, 5)}...${t.to.slice(t.to.length - 5)}`,
+		date: moment(t.timestamp * 1000).fromNow(),
+		block: t.blockNumber,
+		amount: Number(formatEther(t.value.wei)).toFixed(2),
+		txFee: Number(Number(formatEther(t.gasUsed)) * Number(formatEther(t.gasCost.wei))).toFixed(2),
+	}));
 	const blockBookApiTransactions = blockBookApi && blockBookApi?.txids.map(async (tx: string) => {
 		return await fetch(`https://blockbook.ambrosus.io/api/v2/tx/${tx}`).then((res) => res.json());
 	});
 	const blockBookApiTransactionsData = await Promise.all(blockBookApiTransactions);
-	// TODO: add filters and return only filtered data by tokens names
-	const filtered = filtersNames && filtersNames.length> 0 ? blockBookApiTransactionsData
-		// .filter((tx: any) => {
-		// 	return blockBookApi.tokens.map((filter: any) => {
-		// 		return filter.name;
-		// 	}).includes(tx?.tokenTransfers?.[0]?.name);
-		// })
-		.map((tx)=>{
-			// TODO create big transaction object
-			return tx
-		})
-		:blockBookApiTransactionsData
+	console.log('blockBookApiTransactionsData', blockBookApiTransactionsData);
+	const bBookData = blockBookApiTransactionsData.map((t) => ({
+		txHash: t.txid,
+		method: t?.tokenTransfers ? 'Transfer' : '',
+		from: t?.tokenTransfers ? `${t.tokenTransfers[0].from.slice(0, 5)}...${t.tokenTransfers[0].from.slice(t.tokenTransfers[0].from.length - 5)}` : '',
+		to: t?.tokenTransfers ? `${t.tokenTransfers[0].to.slice(0, 5)}...${t.tokenTransfers[0].to.slice(t.tokenTransfers[0].to.length - 5)}` : '',
+		date: moment(t.blockTime * 1000).fromNow(),
+		amount: t?.tokenTransfers ? Number(formatEther(t.tokenTransfers[0].value)).toFixed(2) : Number(formatEther(t.value)).toFixed(2),
+		token: t?.tokenTransfers ? t.tokenTransfers[0].name : 'No token',
+	}));
 
-	console.log('filtered', filtered);
-// TODO return  array from big transaction objects
-	return { transactions: transactionsData.data, tokens: blockBookApi.tokens };
-}
+	const defaultFilters=[
+		{
+			name: 'All',
+			filterName: 'All',
+		}, {
+			name: 'Inputs',
+			filterName: 'inputs',
+		}, {
+			name: 'Outputs',
+			filterName: 'outputs',
+		},
+		{
+			name: 'Non-Contracts',
+			filterName: '0',
+		}]
+	return {
+		transactions: type === 'ERC-20_Tx' ? bBookData : explorData, tokens: [
+			...defaultFilters,
+			...blockBookApi.tokens],
+	};
+};
 
 const getBlock = (hashOrNumber: any) => {
 	return API().get(`blocks/${hashOrNumber}`);
@@ -182,7 +202,7 @@ const getBundleWithEntries = (bundleId: any) => {
 				assets,
 				events,
 			};
-		})
+		}),
 	);
 };
 
