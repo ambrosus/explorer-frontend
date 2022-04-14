@@ -1,20 +1,31 @@
-@import './utilites/variables';
-@import './utilites/icons';
+// utilites
 @import './utilites/base';
+@import './utilites/icons';
 @import './utilites/universall';
+@import './utilites/variables';
+
+// fonts
 @import './fonts/fonts';
-@import './layout/layout';
-@import './layout/header';
+
+// layout
 @import './layout/footer';
+@import './layout/header';
+@import './layout/layout';
+
+// pages
 @import './pages/home';
 @import './pages/businesses';
 @import './pages/addresses';
+
+// components
 @import './components/calendar';
 @import './components/content';
 @import './components/exportСsv';
+@import './components/filteredToken';
 @import './components/findWide';
 @import './components/lastestTransactions';
 @import './components/latestBlocks';
 @import './components/mainInfo';
-@import './components/token';
+@import './components/methodModal';
 @import './components/tabs';
+@import './components/token';

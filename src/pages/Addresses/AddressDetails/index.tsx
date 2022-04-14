@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Content } from '../../../components/Content';
 import { useParams } from 'react-router-dom';
 import ContentCopy from '../../../assets/icons/ContentCopy';
@@ -10,6 +10,7 @@ import Token from '../../../components/Token';
 import Tabs from '../../../components/Tabs';
 import { useActions } from '../../../hooks/useActions';
 import { useTypedSelector } from '../../../hooks/useTypedSelector';
+import FilteredToken from '../../../components/FilteredToken';
 import { shallowEqual } from 'react-redux';
 
 export const AddressDetails = () => {
@@ -45,7 +46,7 @@ export const AddressDetails = () => {
 			}
 		}, [addressData]);
 
-		const copyConten = () => console.log(sybStringAddress);
+	const copyConten = () => navigator.clipboard.writeText(address);
 
 		return (
 			<Content>
@@ -62,11 +63,7 @@ export const AddressDetails = () => {
 								<OveralBalance token={'1,173,586.35'} amount={'21,067.61184460'} />
 								<Token selectedToken={selectedToken} onClick={setSelectedToken} />
 							</div>
-							{/*это убрать потом*/}
-							<div className='addressDetails__info'>
-								addressData.transactions :{addressData && addressData.transactions && addressData.transactions.length}
-							</div>
-							{/*тут конец*/}
+							<FilteredToken />
 						</div>
 					</Content.Header>
 					<Content.Body isLoading={addressData}>
