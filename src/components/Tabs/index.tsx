@@ -46,7 +46,7 @@ const Tabs = ({ data, setTransactionType }: any) => {
 	return (
 		<>
 			<div className='tabs' tabIndex={-1}>
-				<div className='tabs__filters'tabIndex={-1}>
+				<div className='tabs__filters' tabIndex={-1}>
 					{transactionFilters && transactionFilters.map((filter) => (
 						<Link
 
@@ -77,7 +77,7 @@ const Tabs = ({ data, setTransactionType }: any) => {
 						token={headerToken}
 					/>
 
-					{data && data.length &&  data.map((transaction: any, index: number) => {
+					{data && data.length && data.map((transaction: any, index: number) => {
 						return (
 							<AddressBlock
 								key={transaction.txHash}

@@ -6,14 +6,14 @@ import { useActions } from '../../hooks/useActions';
 
 type TokenModalProps = {
 	setToken: any;
-	selectedToken:any
+	selectedToken: any
 };
 
-const TokenModal: React.FC<TokenModalProps> = ({ selectedToken,setToken }) => {
+const TokenModal: React.FC<TokenModalProps> = ({ selectedToken, setToken }) => {
 	const [name, setName] = useState('');
 	// const {addFilter,removeFilter} = useActions();
-	const {data : addressData} = useTypedSelector((state: any) => state.position)
-	const {tokens} = addressData
+	const { data: addressData } = useTypedSelector((state: any) => state.position);
+	const { tokens } = addressData;
 
 	const changeInput = (e: ChangeEvent<HTMLInputElement>) => {
 		e.preventDefault();
@@ -37,27 +37,27 @@ const TokenModal: React.FC<TokenModalProps> = ({ selectedToken,setToken }) => {
 				type='text' value={name}
 				onChange={changeInput} />
 			{tokens ?
-			<>
-				<div>
-					<div className='tokenModal__tokens'>
-						ERC-20 Tokens
-						<span className='universall__light2' style={{ marginLeft: 4 }}>
+				<>
+					<div>
+						<div className='tokenModal__tokens'>
+							ERC-20 Tokens
+							<span className='universall__light2' style={{ marginLeft: 4 }}>
 						{'>'}20
 					</span>
+						</div>
+						<div className='tokenModal__arrows'></div>
 					</div>
-					<div className='tokenModal__arrows'></div>
-				</div>
-				{tokens.map((token:any,index:number)=><div
-					onClick={()=>{
-						const searchParam =  token.filterName === 'All' || token.filterName === 'inputs' || token.filterName === 'outputs' || token.filterName === '0' ? token.filterName: index-3
-						setToken({ ...token, filterName: searchParam})
-					}}
-					key={token.contract}>
-					<TokenItem selectedToken={selectedToken} index={index + 1} setToken={setToken} token={token} />
-				</div>)}
+					{tokens.map((token: any, index: number) => <div
+						onClick={() => {
+							const searchParam = token.filterName === 'All' || token.filterName === 'inputs' || token.filterName === 'outputs' || token.filterName === '0' ? token.filterName : index - 3;
+							setToken({ ...token, filterName: searchParam });
+						}}
+						key={token.contract}>
+						<TokenItem selectedToken={selectedToken} index={index + 1} setToken={setToken} token={token} />
+					</div>)}
 
-			</>
-			:<Loader/>}
+				</>
+				: <Loader />}
 
 		</div>
 	);

@@ -76,7 +76,7 @@ const getDataForAddress = async (address: string, params: any) => {
 		token: t?.tokenTransfers ? t.tokenTransfers[0].name : 'No token',
 	}));
 
-	const defaultFilters=[
+	const defaultFilters = [
 		{
 			name: 'All',
 			filterName: 'All',
@@ -90,7 +90,7 @@ const getDataForAddress = async (address: string, params: any) => {
 		{
 			name: 'Non-Contracts',
 			filterName: '0',
-		}]
+		}];
 	return {
 		transactions: type === 'ERC-20_Tx' ? bBookData : explorData, tokens: [
 			...defaultFilters,

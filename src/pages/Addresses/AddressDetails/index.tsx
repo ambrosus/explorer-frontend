@@ -22,19 +22,19 @@ export const AddressDetails = () => {
 			error: errorData,
 		} = useTypedSelector((state: any) => state.position, shallowEqual);
 		const [transactionType, setTransactionType] = useState<any>(type);
-		const [selectedToken, setSelectedToken] = useState({name:'All',filterName:'All'});
+		const [selectedToken, setSelectedToken] = useState({ name: 'All', filterName: 'All' });
 		const [tx, setTx] = useState([]);
-	const sybStringAddress = `${address && address.slice(0, 10)}...${address && address.slice(address.length - 10)}`;
-	console.log('selectedToken', selectedToken);
-	useEffect(() => {
-				if (!loading){
-					setPosition(API.getDataForAddress, address.trim(), {
-						filters : addressData && addressData.filters ? addressData.filters : [],
-						selectedTokenFilter : selectedToken.filterName,
-						limit: 200,
-						type: transactionType,
-					});
-				}
+		const sybStringAddress = `${address && address.slice(0, 10)}...${address && address.slice(address.length - 10)}`;
+		console.log('selectedToken', selectedToken);
+		useEffect(() => {
+			if (!loading) {
+				setPosition(API.getDataForAddress, address.trim(), {
+					filters: addressData && addressData.filters ? addressData.filters : [],
+					selectedTokenFilter: selectedToken.filterName,
+					limit: 200,
+					type: transactionType,
+				});
+			}
 		}, [filters, transactionType]);
 
 		useEffect(() => {
