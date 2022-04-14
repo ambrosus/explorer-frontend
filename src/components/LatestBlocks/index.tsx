@@ -6,35 +6,16 @@ import { sliceData, calcTime } from '../../utils/helpers';
 type LatestBlocksProps = {
 	name: string;
 	number: any;
-	numberArr: any;
+	index: any;
 	timestamp: number;
 	validator: string;
 	totalTransactions: number;
 	blockReward: number;
 };
 
-const LatestBlocks: React.FC<LatestBlocksProps> = ({ number, numberArr, timestamp, validator, totalTransactions, blockReward }) => {
-	const [maxNumber, setMaxNumber] = useState<any>();
-	const [isOnline, setIsOnline] = useState<any>();
-	const isMax = (number: Array<number>) => {
-		if (number) {
-			return Math.max(...number);
-		}
-	};
-	const success = maxNumber - 1;
+const LatestBlocks: React.FC<LatestBlocksProps> = ({ number, index, timestamp, validator, totalTransactions, blockReward }) => {
+	const online = index > 1 ? <GreenCircle /> : <OrangeCircle />;
 
-	useEffect(() => {
-		const res = isMax(numberArr);
-		setMaxNumber(res);
-	}, []);
-
-	useEffect(() => {
-		const online = number > success ? 'green' : 'orange';
-		console.log(online);
-
-		setIsOnline(online);
-	}, []);
-	// <GreenCircle /> : <GreenCircle />
 	const calckBlocks = (blockReward: any) =>
 		blockReward.reduce((acc: any, item: { reward: { ether: any } }) => acc + item.reward.ether, 0).toFixed(5);
 
@@ -43,7 +24,7 @@ const LatestBlocks: React.FC<LatestBlocksProps> = ({ number, numberArr, timestam
 			<div className='latestBlocks__cells'>
 				<div className='latestBlocks__cell'>
 					<div className='latestBlocks__cell-content latestBlocks__font-big'>
-						<span>{isOnline}</span>
+						<span>{online}</span>
 						{number}
 					</div>
 

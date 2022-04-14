@@ -13,16 +13,15 @@ import { useTypedSelector } from '../../../hooks/useTypedSelector';
 import FilteredToken from '../../../components/FilteredToken';
 
 export const AddressDetails = () => {
-	const { address } = useParams();
+	const { address }: any = useParams();
 	const { setPosition, clearFilters } = useActions();
 	const { data: addressData, error: errorData } = useTypedSelector((state: any) => state.position);
 	const [transactionType, setTransactionType] = useState('');
 	const [selectedToken, setSelectedToken] = useState({});
-	const [isShow, setIsShow] = useState(false);
 
 	const sybStringAddress = `${address && address.slice(0, 10)}...${address && address.slice(address.length - 10)}`;
 
-	const copyConten = () => setIsShow(!isShow);
+	const copyConten = () => navigator.clipboard.writeText(address);
 
 	useEffect(() => {
 		if (transactionType) {

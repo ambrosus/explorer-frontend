@@ -51,13 +51,11 @@
 .tokenFilter {
 	display: flex;
 	flex-direction: column;
-	background: #ffffff;
 	min-width: 320px;
 	background: #fff;
 	border: 1px solid #eff2f5;
 	box-shadow: 4px 8px 8px rgba(0, 0, 0, 0.25);
 	border-radius: 16px;
-	z-index: 2;
 
 	&__input {
 		display: flex;
@@ -117,7 +115,7 @@
 	}
 
 	&:hover {
-		background-color: #EFF2F5;
+		background-color: #eff2f5;
 	}
 
 	&__tokens {
