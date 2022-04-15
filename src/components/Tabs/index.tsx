@@ -11,47 +11,60 @@ import { clearFilters } from '../../state/actionsCreators';
 import Loader from '../Loader';
 
 const transactionFilters = [
-	{ title: 'All', value: '/' },
+	{ title: 'All', value: '' },
 	{ title: 'Transfers', value: 'transfers' },
 	{ title: 'Block Rewards', value: 'block_rewards' },
 	{ title: 'ERC-20 Tx', value: 'ERC-20_Tx' },
 ];
+const ERC20Filters = [
+	{ title: 'All', value: 'All' },
+	{ title: 'Transfers', value: 'transfers' },
+];
 
-const Tabs = ({selectedToken, data,onClick, setTransactionType }: any) => {
-	const { address, type } = useParams();
+const Tabs = ({ selectedToken, data,transactionType, onClick, setTransactionType }: any) => {
+	const { address, type, filtered, tokenToSorted } = useParams();
 	const [latestTrans, setLatestTrans] = useState([]);
 	const { clearFilters } = useActions();
-
 	const {
 		data: addressData,
-	} = useTypedSelector((state: any) => state.position, shallowEqual);
+	} = useTypedSelector((state: any) => state.position);
 	const { filters } = useTypedSelector((state: any) => state.tokenFilters, shallowEqual);
 
 	const sortTrans = () => {
-			const includesTokens = addressData.tokens.filter((token: any) => token.contract);
-			const latestTransactions = includesTokens.map((token: any) => {
-					return data.filter((transaction: any) => {
-						return transaction.token === token.contract;
-					})[0];
-			});
-			setLatestTrans(latestTransactions)
-
+		const includesTokens = addressData.tokens.filter((token: any) => token.contract);
+		const latestTransactions = includesTokens.map((token: any) => {
+			return data.filter((transaction: any) => {
+				return transaction.token === token.contract;
+			})[0];
+		});
+		setLatestTrans(latestTransactions);
 	};
 
 	useEffect(() => {
-		if (addressData && addressData.tokens && data && data.length && type === 'ERC-20_Tx' && filters.length === 0) {
+		if (addressData && !filtered && addressData.tokens && data && data.length && type === 'ERC-20_Tx' && filters.length === 0) {
 			sortTrans();
-		}else {
-			setLatestTrans([]);
+		}else if (tokenToSorted) {
+			const allSelected = data && data.filter((transaction: any) => {
+				return transaction?.token === selectedToken.name;
+			});
+			const allTransfer = allSelected.filter((transaction: any) => {
+				return transaction?.method === 'Transfer';
+			});
+			const tabsTokensSortedData = tokenToSorted === 'All'
+				? allSelected
+				: allTransfer;
+			// console.log('type',type)
+			// console.log('filtered',filtered)
+			// console.log('tokenToSorted',tokenToSorted)
+			// console.log('tokenToSorted',tokenToSorted);
+			// console.log('selectedToken',selectedToken);
+			// console.log('transactionType',transactionType);
+			// console.log('allSelected', allSelected);
+			// console.log('allTransfer', allTransfer);
+			// console.log('tabsTokensSortedData', tabsTokensSortedData);
+			setLatestTrans(tabsTokensSortedData);
 		}
-	}, [data]);
-
-
-	useEffect(() => {
-		clearFilters()
-		onClick(null)
-	}, [type]);
-
+	}, [data,filtered,type,filters, tokenToSorted]);
 
 
 	const headerBlock: any = type === 'ERC-20_Tx' ? null : 'Block';
@@ -86,23 +99,36 @@ const Tabs = ({selectedToken, data,onClick, setTransactionType }: any) => {
 		<>
 			<div className='tabs' tabIndex={-1}>
 				<div className='tabs__filters' tabIndex={-1}>
-					{transactionFilters &&
-					transactionFilters.map((filter) => (
-						<Link
-							key={filter.title}
-							to={`/addresses/${address}/${filter.value}`}
-							tabIndex={-1}
-							className='tabs__link'
-							onClick={() => setTransactionType(filter.value)}
-						>
-							{filter.title}
-						</Link>
-					))}
+					{!filtered ?
+						transactionFilters.map((filter) => (
+							<Link
+								key={filter.title}
+								to={`/addresses/${address}/${filter.value ? filter.value : ''}`}
+								tabIndex={-1}
+								className='tabs__link'
+								onClick={() => setTransactionType(filter.value)}
+							>
+								{filter.title}
+							</Link>
+						)) :
+						ERC20Filters.map((filter) => (
+							<Link
+								key={filter.title}
+								to={`/addresses/${address}/ERC-20_Tx/${filtered}/${filter.value}`}
+								className='tabs__link'
+								onClick={() => {
+									setTransactionType(filter.value);
+								}}
+							>
+								{filter.title}
+							</Link>
+						))
+					}
 				</div>
 				<ExportCsv />
 			</div>
 
-			<div style={{minHeight:200 ,marginTop:!data.length ? 200 : 0}}>
+			<div style={{ minHeight: 200, marginTop: !data.length ? 200 : 0 }}>
 				{data.length ? <section className='addressDetails__table' style={style(type)}>
 					<AddressBlocksHeader
 						txhash='txHash'
@@ -154,7 +180,7 @@ const Tabs = ({selectedToken, data,onClick, setTransactionType }: any) => {
 								);
 							})
 					}
-				</section> : <Loader/>}
+				</section> : <Loader />}
 				{/*<div style={{ marginTop: '10px', display: 'flex', alignItems: 'center' }}>*/}
 				{/*	<ViewMoreBtn nameBtn='Load More' />*/}
 				{/*</div>*/}

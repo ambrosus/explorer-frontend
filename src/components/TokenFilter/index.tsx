@@ -7,36 +7,29 @@ import { useOnClickOutside } from '../../hooks/useOnClickOutside';
 import { useNavigate, useParams } from 'react-router-dom';
 
 const TokenFilter= ({onClick,selectedToken}:any) => {
-	const {addFilter, removeFilter} = useActions();
+	const {addFilter} = useActions();
 	const {data : addressData} = useTypedSelector((state: any) => state.position)
 	const [isShow, setIsShow] = useState(false);
 	const navigate = useNavigate();
-	const { address, type }: any = useParams();
-
-	const handleSubmit = (e: any) => {
-		e.preventDefault();
-	};
-
-	const toggleMenu = () => setIsShow(!isShow);
-
+	const { address, type ,filtered}: any = useParams();
 	const refTokensModal = useRef(null);
 
 	useOnClickOutside(refTokensModal, () => setIsShow(false));
 
+	const toggleMenu = () => setIsShow(!isShow);
+
 	const handleSelect = (token: any) => {
-		const newToken = {...token, name: token.name, filterName: token.filterName}
-		onClick(newToken);
-		if (addressData && addressData.tokens){
-			addFilter(newToken)
-			navigate(`/addresses/${address}/ERC-20_Tx`)
-		}
+		onClick(token);
+			addFilter(token)
+			navigate(`/addresses/${address}/ERC-20_Tx/${token.idx ? token.idx : ''}`)
 	};
 
 	return (
 		<>
 			<div ref={refTokensModal}
 					 tabIndex={0}
-					 className='tokenFilter' onSubmit={handleSubmit}>
+					 className='tokenFilter'
+					 >
 				<div className='tokenFilter__input'>
 					<span className='tokenFilter__input-rectangle'>{addressData && addressData.tokens && addressData.tokens.length}</span>
 					<span className='tokenFilter__input-text'>{`> $ 152.35 USD`}</span>

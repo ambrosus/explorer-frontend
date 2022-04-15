@@ -35,7 +35,7 @@ const TokenModal: React.FC<TokenModalProps> = ({ selectedToken, setToken }) => {
 				placeholder='Search for Token Name'
 				type='text' value={name}
 				onChange={changeInput} />
-			{tokens &&
+			{addressData && tokens &&
 			<>
 				<div>
 					<div className='tokenModal__tokens'>
@@ -46,13 +46,12 @@ const TokenModal: React.FC<TokenModalProps> = ({ selectedToken, setToken }) => {
 					</div>
 					<div className='tokenModal__arrows'></div>
 				</div>
-				{tokens.map((token: any, index: number) => <div
+				{tokens.map((token: any) => <div
 					onClick={() => {
-						const searchParam = token.filterName === 'All' || token.filterName === 'inputs' || token.filterName === 'outputs' || token.filterName === '0' ? token.filterName : index - 3;
-						setToken({ ...token, filterName: searchParam });
+						setToken(token);
 					}}
-					key={token.contract}>
-					<TokenItem selectedToken={selectedToken} index={index + 1} setToken={setToken} token={token} />
+					key={token.name + token.idx}>
+					<TokenItem selectedToken={selectedToken}  token={token} />
 				</div>)}
 
 			</>}
