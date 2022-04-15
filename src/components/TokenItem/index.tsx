@@ -19,7 +19,7 @@ const TokenItem: React.FC<TokenItemProps> = ({token,selectedToken,index,setToken
 				 tabIndex={0}
 			// @ts-ignore
 				 onKeyDown={handleKeyPress}
-				 style={{backgroundColor : selectedToken.name === token.name ? '#EFF2F5':'#fff'}}>
+				 style={{backgroundColor : selectedToken && selectedToken.name && selectedToken.name === token.name ? '#EFF2F5':'#fff'}}>
 			<div className='tokenItem__icon'>
 				<Eth />
 			</div>

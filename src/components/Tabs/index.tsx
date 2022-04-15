@@ -3,11 +3,11 @@ import { Link, useParams } from 'react-router-dom';
 import AddressBlocksHeader from '../AddressBlocksHeader';
 import AddressBlock from '../AddressBlocks';
 import ViewMoreBtn from '../ViewMoreBtn';
-import { formatEther } from 'ethers/lib/utils';
-import moment from 'moment';
 import ExportCsv from '../ExportCsv';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { shallowEqual } from 'react-redux';
+import { useActions } from '../../hooks/useActions';
+import { clearFilters } from '../../state/actionsCreators';
 
 const transactionFilters = [
 	{ title: 'All', value: '/' },
@@ -16,9 +16,11 @@ const transactionFilters = [
 	{ title: 'ERC-20 Tx', value: 'ERC-20_Tx' },
 ];
 
-const Tabs = ({selectedToken, data, setTransactionType }: any) => {
+const Tabs = ({selectedToken, data,onClick, setTransactionType }: any) => {
 	const { address, type } = useParams();
 	const [latestTrans, setLatestTrans] = useState([]);
+	const { clearFilters } = useActions();
+
 	const {
 		data: addressData,
 	} = useTypedSelector((state: any) => state.position, shallowEqual);
@@ -37,12 +39,20 @@ const Tabs = ({selectedToken, data, setTransactionType }: any) => {
 	};
 
 	useEffect(() => {
-		if (data && data.length && type === 'ERC-20_Tx' && filters.length === 0) {
+		if (addressData && data && data.length && type === 'ERC-20_Tx' && filters.length === 0) {
 			sortTrans();
 		}else {
 			setLatestTrans([]);
 		}
 	}, [data]);
+
+
+	useEffect(() => {
+		clearFilters()
+		onClick(null)
+	}, [type]);
+
+
 
 	const headerBlock: any = type === 'ERC-20_Tx' ? null : 'Block';
 	const headerTxfee: any = type === 'ERC-20_Tx' ? null : 'txFee';
@@ -112,6 +122,7 @@ const Tabs = ({selectedToken, data, setTransactionType }: any) => {
 								return transaction && (
 									<AddressBlock
 										isLatest={true}
+										onClick={onClick}
 										key={transaction.txHash}
 										txhash={`${transaction.txHash.slice(0, 10)}...${transaction.txHash.slice(transaction.txHash.length - 10)}`}
 										method={transaction.method}

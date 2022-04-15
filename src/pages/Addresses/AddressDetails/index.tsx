@@ -23,20 +23,20 @@ export const AddressDetails = () => {
 			error: errorData,
 		} = useTypedSelector((state: any) => state.position, shallowEqual);
 		const [transactionType, setTransactionType] = useState<any>(type);
-		const [selectedToken, setSelectedToken] = useState({ name: 'All', filterName: 'All' });
+		const [selectedToken, setSelectedToken] = useState<any>(null);
 		const [tx, setTx] = useState([]);
 		const sybStringAddress = `${address && address.slice(0, 10)}...${address && address.slice(address.length - 10)}`;
-	console.log('selectedToken', selectedToken);
-	useEffect(() => {
+
+		useEffect(() => {
 			if (!loading) {
 				setPosition(API.getDataForAddress, address.trim(), {
 					filters: addressData && addressData.filters ? addressData.filters : [],
-					selectedTokenFilter: selectedToken.filterName,
+					selectedTokenFilter: selectedToken && selectedToken.filterName ? selectedToken.filterName : 'All',
 					limit: 200,
 					type: transactionType,
 				});
 			}
-		}, [filters, transactionType]);
+		}, [filters, transactionType, selectedToken]);
 
 		useEffect(() => {
 			if (addressData && addressData?.transactions) {
@@ -68,7 +68,8 @@ export const AddressDetails = () => {
 						</div>
 					</Content.Header>
 					<Content.Body isLoading={addressData}>
-						{tx && <Tabs selectedToken={selectedToken} type={transactionType} data={tx} setTransactionType={setTransactionType} />}
+						{tx && <Tabs onClick={setSelectedToken} selectedToken={selectedToken} type={transactionType} data={tx}
+												 setTransactionType={setTransactionType} />}
 					</Content.Body>
 				</section>
 			</Content>
