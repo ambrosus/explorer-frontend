@@ -23,19 +23,19 @@ export const AddressDetails = () => {
 			error: errorData,
 		} = useTypedSelector((state: any) => state.position, shallowEqual);
 		const [transactionType, setTransactionType] = useState<any>(type);
-		const [selectedToken, setSelectedToken] = useState({name:'All',filterName:'All'});
+		const [selectedToken, setSelectedToken] = useState({ name: 'All', filterName: 'All' });
 		const [tx, setTx] = useState([]);
-	const sybStringAddress = `${address && address.slice(0, 10)}...${address && address.slice(address.length - 10)}`;
+		const sybStringAddress = `${address && address.slice(0, 10)}...${address && address.slice(address.length - 10)}`;
 	console.log('selectedToken', selectedToken);
 	useEffect(() => {
-				if (!loading){
-					setPosition(API.getDataForAddress, address.trim(), {
-						filters : addressData && addressData.filters ? addressData.filters : [],
-						selectedTokenFilter : selectedToken.filterName,
-						limit: 200,
-						type: transactionType,
-					});
-				}
+			if (!loading) {
+				setPosition(API.getDataForAddress, address.trim(), {
+					filters: addressData && addressData.filters ? addressData.filters : [],
+					selectedTokenFilter: selectedToken.filterName,
+					limit: 200,
+					type: transactionType,
+				});
+			}
 		}, [filters, transactionType]);
 
 		useEffect(() => {
@@ -44,9 +44,10 @@ export const AddressDetails = () => {
 			} else {
 				setTx([]);
 			}
+
 		}, [addressData]);
 
-	const copyConten = () => navigator.clipboard.writeText(address);
+		const copyConten = () => navigator.clipboard.writeText(address);
 
 		return (
 			<Content>
@@ -67,7 +68,7 @@ export const AddressDetails = () => {
 						</div>
 					</Content.Header>
 					<Content.Body isLoading={addressData}>
-						{tx && <Tabs type={transactionType} data={tx} setTransactionType={setTransactionType} />}
+						{tx && <Tabs selectedToken={selectedToken} type={transactionType} data={tx} setTransactionType={setTransactionType} />}
 					</Content.Body>
 				</section>
 			</Content>

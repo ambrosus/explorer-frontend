@@ -45,8 +45,6 @@ const getBlocks = async (params = {}) => {
 
 const getDataForAddress = async (address: string, params: any) => {
 	const { filters, limit, type, selectedTokenFilter } = params;
-	console.log('selectedTokenFilter', selectedTokenFilter);
-	console.log('selectedTokenFilter', selectedTokenFilter);
 	const blockBookApi = await fetch(`https://blockbook.ambrosus.io/api/v2/address/${address}?filter=${selectedTokenFilter}`)
 		.then((res) => res.json());
 
@@ -65,13 +63,12 @@ const getDataForAddress = async (address: string, params: any) => {
 		return await fetch(`https://blockbook.ambrosus.io/api/v2/tx/${tx}`).then((res) => res.json());
 	});
 	const blockBookApiTransactionsData = await Promise.all(blockBookApiTransactions);
-	console.log('blockBookApiTransactionsData', blockBookApiTransactionsData);
 	const bBookData = blockBookApiTransactionsData.map((t) => ({
 		txHash: t.txid,
 		method: t?.tokenTransfers ? 'Transfer' : '',
 		from: t?.tokenTransfers ? `${t.tokenTransfers[0].from.slice(0, 5)}...${t.tokenTransfers[0].from.slice(t.tokenTransfers[0].from.length - 5)}` : '',
 		to: t?.tokenTransfers ? `${t.tokenTransfers[0].to.slice(0, 5)}...${t.tokenTransfers[0].to.slice(t.tokenTransfers[0].to.length - 5)}` : '',
-		date: moment(t.blockTime * 1000).fromNow(),
+		date:t.blockTime * 1000,
 		amount: t?.tokenTransfers ? Number(formatEther(t.tokenTransfers[0].value)).toFixed(2) : Number(formatEther(t.value)).toFixed(2),
 		token: t?.tokenTransfers ? t.tokenTransfers[0].name : 'No token',
 	}));

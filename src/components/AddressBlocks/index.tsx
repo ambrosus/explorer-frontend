@@ -15,9 +15,10 @@ type AddressBlockProps = {
 	amount: any;
 	txfee: string | number | null;
 	token?: any;
+	isLatest?: boolean;
 };
 
-const AddressBlock: React.FC<AddressBlockProps> = ({ txhash, method, from, to, date, block, amount, txfee, token }) => {
+const AddressBlock: React.FC<AddressBlockProps> = ({isLatest, txhash, method, from, to, date, block, amount, txfee, token }) => {
 	const online: any = txfee === 'Pending' ? <OrangeCircle /> : <GreenCircle />;
 
 	const { type } = useParams();
@@ -48,7 +49,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({ txhash, method, from, to, d
 			</div>
 		);
 
-	const isToken: any = type === 'ERC-20_Tx' ? <div className='addressDetails__thead-td'>{token}</div> : null;
+	const isToken: any = type === 'ERC-20_Tx' ? <div className='addressDetails__thead-td'>{!isLatest ?token : <div>{token}</div>}</div> : null;
 
 	return (
 		<>
