@@ -53,19 +53,19 @@ const Tabs = ({ data, setTransactionType }: any) => {
 	return (
 		<>
 			<div className='tabs' tabIndex={-1}>
-				<div className='tabs__filters'tabIndex={-1}>
-					{transactionFilters && transactionFilters.map((filter) => (
-						<Link
-
-							key={filter.title}
-							to={`/addresses/${address}/${filter.value}`}
-							tabIndex={-1}
-							className='tabs__link'
-							onClick={() => setTransactionType(filter.value)}
-						>
-							{filter.title}
-						</Link>
-					))}
+				<div className='tabs__filters' tabIndex={-1}>
+					{transactionFilters &&
+						transactionFilters.map((filter) => (
+							<Link
+								key={filter.title}
+								to={`/addresses/${address}/${filter.value}`}
+								tabIndex={-1}
+								className='tabs__link'
+								onClick={() => setTransactionType(filter.value)}
+							>
+								{filter.title}
+							</Link>
+						))}
 				</div>
 				<ExportCsv />
 			</div>
@@ -85,22 +85,24 @@ const Tabs = ({ data, setTransactionType }: any) => {
 						methodFilters={methodFilters}
 					/>
 
-					{data && data.length &&  data.map((transaction: any, index: number) => {
-						return (
-							<AddressBlock
-								key={transaction.txHash}
-								txhash={`${transaction.txHash.slice(0, 10)}...${transaction.txHash.slice(transaction.txHash.length - 10)}`}
-								method={transaction.method}
-								from={transaction.from}
-								to={transaction.to}
-								date={transaction.date}
-								block={transaction.block}
-								amount={`${transaction.amount} AMB`}
-								txfee={`${transaction.txFee}AMB`}
-								token={`${transaction?.token ? transaction?.token : null}`}
-							/>
-						);
-					})}
+					{data &&
+						data.length &&
+						data.map((transaction: any, index: number) => {
+							return (
+								<AddressBlock
+									key={transaction.txHash}
+									txhash={`${transaction.txHash.slice(0, 10)}...${transaction.txHash.slice(transaction.txHash.length - 10)}`}
+									method={transaction.method}
+									from={transaction.from}
+									to={transaction.to}
+									date={transaction.date}
+									block={transaction.block}
+									amount={`${transaction.amount} AMB`}
+									txfee={`${transaction.txFee}AMB`}
+									token={`${transaction?.token ? transaction?.token : null}`}
+								/>
+							);
+						})}
 				</section>
 				<div style={{ marginTop: '10px', display: 'flex', alignItems: 'center' }}>
 					<ViewMoreBtn nameBtn='Load More' />
