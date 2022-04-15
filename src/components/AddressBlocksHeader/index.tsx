@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { LegacyRef, MutableRefObject, useEffect, useRef, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import ArrowDown from '../../assets/icons/Arrows/ArrowDown';
+import { useOnClickOutside } from '../../hooks/useOnClickOutside';
 
 interface AddressBlockProps {
 	txhash: string | number;
@@ -31,8 +32,11 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 }) => {
 	const [isShow, setIsShow] = useState(false);
 	const { address } = useParams();
+	const methodRef: any = useRef();
+	console.log(methodRef);
 
-	const sortMethod = () => setIsShow(!isShow);
+	const sortMethod = () => setIsShow(true);
+	useOnClickOutside(methodRef, () => setIsShow(false));
 
 	const isTxHash = txhash === null ? null : <div className='addressDetails__thead-td'>{txhash}</div>;
 	const isMethod =
@@ -46,7 +50,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 					{method}
 					<ArrowDown />
 				</button>
-				<div className='methodModal__table'>
+				<div ref={methodRef} className='methodModal__table'>
 					{isShow &&
 						methodFilters.map((filter: { title: string; value: any }) => (
 							<Link
