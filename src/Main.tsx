@@ -8,11 +8,11 @@ import './styles/Main.scss';
 import { useActions } from './hooks/useActions';
 import { setAppDataAsync } from './state/actionsCreators';
 
-const Main: React.FC  = () => {
-	const {setAppDataAsync} = useActions();
+const Main: React.FC = () => {
+	const { setAppDataAsync } = useActions();
 
-	useEffect( () => {
-		setAppDataAsync()
+	useEffect(() => {
+		setAppDataAsync();
 	}, []);
 
 	return (

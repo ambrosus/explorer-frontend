@@ -17,10 +17,10 @@
 
 	&__filters {
 		display: flex;
-		min-width: 120px;
+
 		justify-content: center;
 		align-items: center;
-		flex: 2;
+
 		color: $main-light;
 	}
 	&__btn {
@@ -37,5 +37,5 @@
 .vl {
 	border-right: 1px solid #a6b0c3;
 	height: 24px;
-	margin: auto;
+	margin: auto 0;
 }
