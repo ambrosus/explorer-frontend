@@ -23,12 +23,12 @@ const AddressBlock: React.FC<AddressBlockProps> = ({isLatest, txhash, method, fr
 
 	const { type } = useParams();
 
-	const isTxHash = txhash === null ? null : <div className='addressDetails__thead-td'>{txhash}</div>;
+	const isTxHash = txhash === null ? null : <div className='addressDetails__tbody-td universall__light2'>{txhash}</div>;
 	const isMethod = method === null ? null : <div className='addressDetails__tbody-td'>{method}</div>;
-	const isFrom = from === null ? null : <div className='addressDetails__thead-td'>{from}</div>;
-	const isTo = to === null ? null : <div className='addressDetails__thead-td'>{to}</div>;
-	const isDate = date === null ? null : <div className='addressDetails__thead-td'>{date}</div>;
-	const isBlock: any = type === 'ERC-20_Tx' ? null : <div className='addressDetails__thead-td'>{block}</div>;
+	const isFrom = from === null ? null : <div className='addressDetails__tbody-td universall__light2'>{from}</div>;
+	const isTo = to === null ? null : <div className='addressDetails__tbody-td universall__light2'>{to}</div>;
+	const isDate = date === null ? null : <div className='addressDetails__tbody-td'>{date}</div>;
+	const isBlock: any = type === 'ERC-20_Tx' ? null : <div className='addressDetails__tbody-td'>{block}</div>;
 	const isAmount =
 		amount === null ? null : (
 			<div className='addressDetails__tbody-td'>
@@ -49,7 +49,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({isLatest, txhash, method, fr
 			</div>
 		);
 
-	const isToken: any = type === 'ERC-20_Tx' ? <div className='addressDetails__thead-td'>{!isLatest ?token : <div>{token}</div>}</div> : null;
+	const isToken: any = type === 'ERC-20_Tx' ? <div className='addressDetails__tbody-td'>{!isLatest ?token : <div>{token}</div>}</div> : null;
 
 	return (
 		<>
