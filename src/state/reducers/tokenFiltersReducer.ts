@@ -32,5 +32,4 @@ export const tokenFiltersReducer= (state :TokenFiltersReducerState= initialState
 		default:
 			return state;
 	}
-	console.log('state.filters', state.filters);
 };

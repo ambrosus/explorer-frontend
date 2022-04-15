@@ -1,19 +1,18 @@
 import React, { ChangeEvent, useState } from 'react';
 import TokenItem from '../TokenItem';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
-import Loader from '../Loader';
 import { useActions } from '../../hooks/useActions';
 
 type TokenModalProps = {
 	setToken: any;
-	selectedToken:any
+	selectedToken: any
 };
 
-const TokenModal: React.FC<TokenModalProps> = ({ selectedToken,setToken }) => {
+const TokenModal: React.FC<TokenModalProps> = ({ selectedToken, setToken }) => {
 	const [name, setName] = useState('');
 	// const {addFilter,removeFilter} = useActions();
-	const {data : addressData} = useTypedSelector((state: any) => state.position)
-	const {tokens} = addressData
+	const { data: addressData } = useTypedSelector((state: any) => state.position);
+	const { tokens } = addressData;
 
 	const changeInput = (e: ChangeEvent<HTMLInputElement>) => {
 		e.preventDefault();
@@ -36,7 +35,7 @@ const TokenModal: React.FC<TokenModalProps> = ({ selectedToken,setToken }) => {
 				placeholder='Search for Token Name'
 				type='text' value={name}
 				onChange={changeInput} />
-			{tokens ?
+			{tokens &&
 			<>
 				<div>
 					<div className='tokenModal__tokens'>
@@ -47,17 +46,16 @@ const TokenModal: React.FC<TokenModalProps> = ({ selectedToken,setToken }) => {
 					</div>
 					<div className='tokenModal__arrows'></div>
 				</div>
-				{tokens.map((token:any,index:number)=><div
-					onClick={()=>{
-						const searchParam =  token.filterName === 'All' || token.filterName === 'inputs' || token.filterName === 'outputs' || token.filterName === '0' ? token.filterName: index-3
-						setToken({ ...token, filterName: searchParam})
+				{tokens.map((token: any, index: number) => <div
+					onClick={() => {
+						const searchParam = token.filterName === 'All' || token.filterName === 'inputs' || token.filterName === 'outputs' || token.filterName === '0' ? token.filterName : index - 3;
+						setToken({ ...token, filterName: searchParam });
 					}}
 					key={token.contract}>
 					<TokenItem selectedToken={selectedToken} index={index + 1} setToken={setToken} token={token} />
 				</div>)}
 
-			</>
-			:<Loader/>}
+			</>}
 
 		</div>
 	);

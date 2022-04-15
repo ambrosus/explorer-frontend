@@ -62,8 +62,8 @@ const AddressBlock: React.FC<AddressBlockProps> = ({onClick,isLatest, txhash, me
 			addressData?.tokens.map((item: any,index:number)=>{
 				if(item.name === token){
 					const searchParam =  token.filterName === 'All' || token.filterName === 'inputs' || token.filterName === 'outputs' || token.filterName === '0' ? token.filterName: index-3
-					addFilter({ name:item.name, filterName: searchParam});
-					onClick({ name:item.name, filterName: searchParam})
+					addFilter({...item, name:item.name, filterName: searchParam});
+					onClick({...item, name:item.name, filterName: searchParam})
 				}
 			})
 

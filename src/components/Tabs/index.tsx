@@ -8,6 +8,7 @@ import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { shallowEqual } from 'react-redux';
 import { useActions } from '../../hooks/useActions';
 import { clearFilters } from '../../state/actionsCreators';
+import Loader from '../Loader';
 
 const transactionFilters = [
 	{ title: 'All', value: '/' },
@@ -25,10 +26,9 @@ const Tabs = ({selectedToken, data,onClick, setTransactionType }: any) => {
 		data: addressData,
 	} = useTypedSelector((state: any) => state.position, shallowEqual);
 	const { filters } = useTypedSelector((state: any) => state.tokenFilters, shallowEqual);
-	console.log('filters', filters);
+
 	const sortTrans = () => {
 			const includesTokens = addressData.tokens.filter((token: any) => token.contract);
-			console.log('includesTokens', includesTokens);
 			const latestTransactions = includesTokens.map((token: any) => {
 					return data.filter((transaction: any) => {
 						return transaction.token === token.contract;
@@ -102,8 +102,8 @@ const Tabs = ({selectedToken, data,onClick, setTransactionType }: any) => {
 				<ExportCsv />
 			</div>
 
-			<div>
-				<section className='addressDetails__table' style={style(type)}>
+			<div style={{minHeight:200 ,marginTop:!data.length ? 200 : 0}}>
+				{data.length ? <section className='addressDetails__table' style={style(type)}>
 					<AddressBlocksHeader
 						txhash='txHash'
 						method='Method'
@@ -136,7 +136,6 @@ const Tabs = ({selectedToken, data,onClick, setTransactionType }: any) => {
 									/>
 								);
 							}) :
-							data &&
 							data.length &&
 							data.map((transaction: any, index: number) => {
 								return (
@@ -155,11 +154,10 @@ const Tabs = ({selectedToken, data,onClick, setTransactionType }: any) => {
 								);
 							})
 					}
-
-				</section>
-				<div style={{ marginTop: '10px', display: 'flex', alignItems: 'center' }}>
-					<ViewMoreBtn nameBtn='Load More' />
-				</div>
+				</section> : <Loader/>}
+				{/*<div style={{ marginTop: '10px', display: 'flex', alignItems: 'center' }}>*/}
+				{/*	<ViewMoreBtn nameBtn='Load More' />*/}
+				{/*</div>*/}
 			</div>
 		</>
 	);
