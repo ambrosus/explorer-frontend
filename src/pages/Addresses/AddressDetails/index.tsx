@@ -64,7 +64,7 @@ export const AddressDetails = () => {
 								<OveralBalance token={'1,173,586.35'} amount={'21,067.61184460'} />
 								<Token selectedToken={selectedToken} onClick={setSelectedToken} />
 							</div>
-							<FilteredToken />
+							{selectedToken && <FilteredToken setSelectedToken={setSelectedToken} selectedToken={selectedToken} />}
 						</div>
 					</Content.Header>
 					<Content.Body isLoading={addressData}>

@@ -4,11 +4,14 @@ import TokenModal from '../TokenModal';
 import { useActions } from '../../hooks/useActions';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { useOnClickOutside } from '../../hooks/useOnClickOutside';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const TokenFilter= ({onClick,selectedToken}:any) => {
 	const {addFilter, removeFilter} = useActions();
 	const {data : addressData} = useTypedSelector((state: any) => state.position)
 	const [isShow, setIsShow] = useState(false);
+	const navigate = useNavigate();
+	const { address, type }: any = useParams();
 
 	const handleSubmit = (e: any) => {
 		e.preventDefault();
@@ -21,10 +24,11 @@ const TokenFilter= ({onClick,selectedToken}:any) => {
 	useOnClickOutside(refTokensModal, () => setIsShow(false));
 
 	const handleSelect = (token: any) => {
-		const newToken = {name: token.name, filterName: token.filterName}
+		const newToken = {...token, name: token.name, filterName: token.filterName}
 		onClick(newToken);
 		if (addressData && addressData.tokens){
 			addFilter(newToken)
+			navigate(`/addresses/${address}/ERC-20_Tx`)
 		}
 	};
 

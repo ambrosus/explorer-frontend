@@ -1,11 +1,21 @@
 import React from 'react';
 import Eth from '../../assets/icons/Cryptos/Eth';
 import Discard from '../../assets/icons/Discard';
+import { useTypedSelector } from '../../hooks/useTypedSelector';
+import { shallowEqual } from 'react-redux';
+import { useActions } from '../../hooks/useActions';
 
-const FilteredToken = () => {
+const FilteredToken = ({selectedToken,setSelectedToken}:any) => {
+	const {clearFilters} = useActions();
+
 	const backClick = () => console.log('backCLick');
-	const discardClick = () => console.log('discardClick');
-
+	const discardClick = () => {
+		setSelectedToken(null);
+		clearFilters(selectedToken);
+	}
+	const { filters } = useTypedSelector((state: any) => state.tokenFilters, shallowEqual);
+	console.log('filters', filters);
+	console.log('selectedToken', selectedToken);
 	return (
 		<div className='filteredToken'>
 			<div className='filteredToken__head'>
@@ -13,7 +23,7 @@ const FilteredToken = () => {
 					<div className='filteredToken__cell filteredToken__heading'>Filtered by token</div>
 					<div className='filteredToken__cell'>
 						<Eth />
-						AirCoin (ACC)
+						{selectedToken.name}
 					</div>
 				</div>
 				<div className='filteredToken__cells'>
