@@ -39,7 +39,7 @@ const Tabs = ({selectedToken, data,onClick, setTransactionType }: any) => {
 	};
 
 	useEffect(() => {
-		if (addressData && data && data.length && type === 'ERC-20_Tx' && filters.length === 0) {
+		if (addressData && addressData.tokens && data && data.length && type === 'ERC-20_Tx' && filters.length === 0) {
 			sortTrans();
 		}else {
 			setLatestTrans([]);
