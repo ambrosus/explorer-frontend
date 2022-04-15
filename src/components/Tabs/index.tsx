@@ -1,17 +1,13 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import AddressBlocksHeader from '../AddressBlocksHeader';
 import AddressBlock from '../AddressBlocks';
 import ViewMoreBtn from '../ViewMoreBtn';
-import { formatEther } from 'ethers/lib/utils';
-import moment from 'moment';
 import ExportCsv from '../ExportCsv';
-
-//create functional component Tabs without store  with the following tabs: 'All','Transfers','ERC-20 Tx','Block
-// Rewards' following the pattern of the Tabs component in the UI. The Tabs component is used to display the
-// different tabs in the UI. need to add the following props:"transfers","block_rewards" ," ERC-20_Tx"  props will
-// come from API call to get the data for the tabs. The Tabs component will render the tabs based on the	props
-// passed to it.
+import { useTypedSelector } from '../../hooks/useTypedSelector';
+import { shallowEqual } from 'react-redux';
+import { useActions } from '../../hooks/useActions';
+import { clearFilters } from '../../state/actionsCreators';
 
 const transactionFilters = [
 	{ title: 'All', value: '/' },
@@ -20,8 +16,43 @@ const transactionFilters = [
 	{ title: 'ERC-20 Tx', value: 'ERC-20_Tx' },
 ];
 
-const Tabs = ({ data, setTransactionType }: any) => {
+const Tabs = ({selectedToken, data,onClick, setTransactionType }: any) => {
 	const { address, type } = useParams();
+	const [latestTrans, setLatestTrans] = useState([]);
+	const { clearFilters } = useActions();
+
+	const {
+		data: addressData,
+	} = useTypedSelector((state: any) => state.position, shallowEqual);
+	const { filters } = useTypedSelector((state: any) => state.tokenFilters, shallowEqual);
+	console.log('filters', filters);
+	const sortTrans = () => {
+			const includesTokens = addressData.tokens.filter((token: any) => token.contract);
+			console.log('includesTokens', includesTokens);
+			const latestTransactions = includesTokens.map((token: any) => {
+					return data.filter((transaction: any) => {
+						return transaction.token === token.contract;
+					})[0];
+			});
+			setLatestTrans(latestTransactions)
+
+	};
+
+	useEffect(() => {
+		if (addressData && data && data.length && type === 'ERC-20_Tx' && filters.length === 0) {
+			sortTrans();
+		}else {
+			setLatestTrans([]);
+		}
+	}, [data]);
+
+
+	useEffect(() => {
+		clearFilters()
+		onClick(null)
+	}, [type]);
+
+
 
 	const headerBlock: any = type === 'ERC-20_Tx' ? null : 'Block';
 	const headerTxfee: any = type === 'ERC-20_Tx' ? null : 'txFee';
@@ -42,6 +73,7 @@ const Tabs = ({ data, setTransactionType }: any) => {
 				return (type.style = { gridTemplateColumns: 'repeat(8, auto)' });
 		}
 	}
+
 	const methodFilters = [
 		{ title: 'Transfers', value: 'transfers' },
 		{ title: 'Contracts', value: 'contracts' },
@@ -55,17 +87,17 @@ const Tabs = ({ data, setTransactionType }: any) => {
 			<div className='tabs' tabIndex={-1}>
 				<div className='tabs__filters' tabIndex={-1}>
 					{transactionFilters &&
-						transactionFilters.map((filter) => (
-							<Link
-								key={filter.title}
-								to={`/addresses/${address}/${filter.value}`}
-								tabIndex={-1}
-								className='tabs__link'
-								onClick={() => setTransactionType(filter.value)}
-							>
-								{filter.title}
-							</Link>
-						))}
+					transactionFilters.map((filter) => (
+						<Link
+							key={filter.title}
+							to={`/addresses/${address}/${filter.value}`}
+							tabIndex={-1}
+							className='tabs__link'
+							onClick={() => setTransactionType(filter.value)}
+						>
+							{filter.title}
+						</Link>
+					))}
 				</div>
 				<ExportCsv />
 			</div>
@@ -84,25 +116,46 @@ const Tabs = ({ data, setTransactionType }: any) => {
 						token={headerToken}
 						methodFilters={methodFilters}
 					/>
+					{
+						latestTrans.length ?
+							latestTrans.map((transaction: any, index: number) => {
+								return transaction && (
+									<AddressBlock
+										isLatest={true}
+										onClick={onClick}
+										key={transaction.txHash}
+										txhash={`${transaction.txHash.slice(0, 10)}...${transaction.txHash.slice(transaction.txHash.length - 10)}`}
+										method={transaction.method}
+										from={transaction.from}
+										to={transaction.to}
+										date={transaction.date}
+										block={transaction.block}
+										amount={`${transaction.amount} AMB`}
+										txfee={`${transaction.txFee}AMB`}
+										token={`${transaction?.token ? transaction?.token : null}`}
+									/>
+								);
+							}) :
+							data &&
+							data.length &&
+							data.map((transaction: any, index: number) => {
+								return (
+									<AddressBlock
+										key={transaction.txHash}
+										txhash={`${transaction.txHash.slice(0, 10)}...${transaction.txHash.slice(transaction.txHash.length - 10)}`}
+										method={transaction.method}
+										from={transaction.from}
+										to={transaction.to}
+										date={transaction.date}
+										block={transaction.block}
+										amount={`${transaction.amount} AMB`}
+										txfee={`${transaction.txFee}AMB`}
+										token={`${transaction?.token ? transaction?.token : null}`}
+									/>
+								);
+							})
+					}
 
-					{data &&
-						data.length &&
-						data.map((transaction: any, index: number) => {
-							return (
-								<AddressBlock
-									key={transaction.txHash}
-									txhash={`${transaction.txHash.slice(0, 10)}...${transaction.txHash.slice(transaction.txHash.length - 10)}`}
-									method={transaction.method}
-									from={transaction.from}
-									to={transaction.to}
-									date={transaction.date}
-									block={transaction.block}
-									amount={`${transaction.amount} AMB`}
-									txfee={`${transaction.txFee}AMB`}
-									token={`${transaction?.token ? transaction?.token : null}`}
-								/>
-							);
-						})}
 				</section>
 				<div style={{ marginTop: '10px', display: 'flex', alignItems: 'center' }}>
 					<ViewMoreBtn nameBtn='Load More' />

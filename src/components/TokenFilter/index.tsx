@@ -24,7 +24,6 @@ const TokenFilter= ({onClick,selectedToken}:any) => {
 		const newToken = {name: token.name, filterName: token.filterName}
 		onClick(newToken);
 		if (addressData && addressData.tokens){
-			console.log('addressData.tokens', addressData.tokens);
 			addFilter(newToken)
 		}
 	};

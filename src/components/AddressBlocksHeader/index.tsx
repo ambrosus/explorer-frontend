@@ -33,7 +33,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 	const [isShow, setIsShow] = useState(false);
 	const { address } = useParams();
 	const methodRef: any = useRef();
-	console.log(methodRef);
+	// console.log(methodRef);
 
 	const sortMethod = () => setIsShow(true);
 	useOnClickOutside(methodRef, () => setIsShow(false));

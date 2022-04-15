@@ -4,6 +4,8 @@ import { useParams } from 'react-router-dom';
 import Eth from '../../assets/icons/Cryptos/Eth';
 import GreenCircle from '../../assets/icons/GreenCircle';
 import OrangeCircle from '../../assets/icons/OrangeCircle';
+import { useActions } from '../../hooks/useActions';
+import { useTypedSelector } from '../../hooks/useTypedSelector';
 
 type AddressBlockProps = {
 	txhash: string | number;
@@ -15,11 +17,16 @@ type AddressBlockProps = {
 	amount: any;
 	txfee: string | number | null;
 	token?: any;
+	isLatest?: boolean;
+	onClick?: any;
 };
 
-const AddressBlock: React.FC<AddressBlockProps> = ({ txhash, method, from, to, date, block, amount, txfee, token }) => {
+const AddressBlock: React.FC<AddressBlockProps> = ({onClick,isLatest, txhash, method, from, to, date, block, amount, txfee, token }) => {
 	const online: any = txfee === 'Pending' ? <OrangeCircle /> : <GreenCircle />;
-
+	const {addFilter} = useActions();
+	const {
+		data: addressData,
+	} = useTypedSelector((state: any) => state.position);
 	const { type } = useParams();
 
 	const isTxHash = txhash === null ? null : <div className='addressDetails__tbody-td universall__light2'>{txhash}</div>;
@@ -48,7 +55,21 @@ const AddressBlock: React.FC<AddressBlockProps> = ({ txhash, method, from, to, d
 			</div>
 		);
 
-	const isToken: any = type === 'ERC-20_Tx' ? <div className='addressDetails__tbody-td'>{token}</div> : null;
+	const isToken: any = type === 'ERC-20_Tx'
+		? <div className='addressDetails__tbody-td'>
+		{!isLatest ?token : <div
+			onClick={()=>{
+			addressData?.tokens.map((item: any,index:number)=>{
+				if(item.name === token){
+					const searchParam =  token.filterName === 'All' || token.filterName === 'inputs' || token.filterName === 'outputs' || token.filterName === '0' ? token.filterName: index-3
+					addFilter({ name:item.name, filterName: searchParam});
+					onClick({ name:item.name, filterName: searchParam})
+				}
+			})
+
+		}}
+		>{token}</div>}</div>
+		: null;
 
 	return (
 		<>
