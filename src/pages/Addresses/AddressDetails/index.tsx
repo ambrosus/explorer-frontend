@@ -21,7 +21,6 @@ export const AddressDetails = () => {
 			loading,
 			data: addressData,
 		} = useTypedSelector((state: any) => state.position);
-	console.log('type', type);
 	const [transactionType, setTransactionType] = useState<any>(type);
 		const [selectedToken, setSelectedToken] = useState<any>(null);
 		const [tx, setTx] = useState([]);

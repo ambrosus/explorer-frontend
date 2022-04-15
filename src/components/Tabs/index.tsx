@@ -53,15 +53,6 @@ const Tabs = ({ selectedToken, data,transactionType, onClick, setTransactionType
 			const tabsTokensSortedData = tokenToSorted === 'All'
 				? allSelected
 				: allTransfer;
-			// console.log('type',type)
-			// console.log('filtered',filtered)
-			// console.log('tokenToSorted',tokenToSorted)
-			// console.log('tokenToSorted',tokenToSorted);
-			// console.log('selectedToken',selectedToken);
-			// console.log('transactionType',transactionType);
-			// console.log('allSelected', allSelected);
-			// console.log('allTransfer', allTransfer);
-			// console.log('tabsTokensSortedData', tabsTokensSortedData);
 			setLatestTrans(tabsTokensSortedData);
 		}
 	}, [data,filtered,type,filters, tokenToSorted]);
