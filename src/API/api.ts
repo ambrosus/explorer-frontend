@@ -250,10 +250,8 @@ const getTokenTotalSupply = () => {
 // }
 const followTheLinkRange = (fromDate: any, toDate: any, address: any) => {
 	const link = `${baseApiUrl}/transactions/csv/address/${address}`;
-	// @ts-ignore
-	const from = new Date(fromDate) / 1000;
-	// @ts-ignore
-	const to = new Date(toDate) / 1000;
+	const from = fromDate / 1000;
+	const to = toDate / 1000;
 	window.open(`${link}/dateFrom/${from}/dateTo/${to}`, '_self');
 };
 
