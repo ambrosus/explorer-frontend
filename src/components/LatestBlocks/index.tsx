@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import GreenCircle from '../../assets/icons/GreenCircle';
 import OrangeCircle from '../../assets/icons/OrangeCircle';
-import { sliceData, calcTime } from '../../utils/helpers';
+import { sliceData5, calcTime } from '../../utils/helpers';
 
 type LatestBlocksProps = {
 	name: string;
@@ -34,7 +34,7 @@ const LatestBlocks: React.FC<LatestBlocksProps> = ({ number, index, timestamp, v
 				<div className='latestBlocks__cell'>
 					<div className='latestBlocks__cell-content'>
 						<div className='latestBlocks__font-small'>Validator</div>
-						<div className='latestBlocks__font-big latestBlocks__margin-left'>{sliceData(validator)}</div>
+						<div className='latestBlocks__font-big latestBlocks__margin-left'>{sliceData5(validator)}</div>
 					</div>
 					<div className='latestBlocks__cell-content'>
 						<div className='latestBlocks__font-small'>{`${totalTransactions} txns`}</div>

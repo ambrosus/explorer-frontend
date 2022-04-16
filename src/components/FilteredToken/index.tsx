@@ -1,13 +1,11 @@
 import React from 'react';
 import Eth from '../../assets/icons/Cryptos/Eth';
 import Discard from '../../assets/icons/Discard';
-import { useTypedSelector } from '../../hooks/useTypedSelector';
-import { shallowEqual } from 'react-redux';
 import { useActions } from '../../hooks/useActions';
 import { useNavigate, useParams } from 'react-router-dom';
 
-const FilteredToken = ({selectedToken,setSelectedToken}:any) => {
-	const {clearFilters} = useActions();
+const FilteredToken = ({ selectedToken, setSelectedToken }: any) => {
+	const { clearFilters } = useActions();
 	const { address } = useParams();
 	const navigate = useNavigate();
 
@@ -15,8 +13,8 @@ const FilteredToken = ({selectedToken,setSelectedToken}:any) => {
 	const discardClick = () => {
 		setSelectedToken(null);
 		clearFilters();
-		navigate(`/addresses/${address}/ERC-20_Tx`)
-	}
+		navigate(`/addresses/${address}/ERC-20_Tx`);
+	};
 	return (
 		<div className='filteredToken'>
 			<div className='filteredToken__head'>
