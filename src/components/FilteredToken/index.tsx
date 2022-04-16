@@ -4,18 +4,19 @@ import Discard from '../../assets/icons/Discard';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { shallowEqual } from 'react-redux';
 import { useActions } from '../../hooks/useActions';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const FilteredToken = ({selectedToken,setSelectedToken}:any) => {
 	const {clearFilters} = useActions();
+	const { address } = useParams();
+	const navigate = useNavigate();
 
 	const backClick = () => console.log('backCLick');
 	const discardClick = () => {
 		setSelectedToken(null);
-		clearFilters(selectedToken);
+		clearFilters();
+		navigate(`/addresses/${address}/ERC-20_Tx`)
 	}
-	const { filters } = useTypedSelector((state: any) => state.tokenFilters, shallowEqual);
-	console.log('filters', filters);
-	console.log('selectedToken', selectedToken);
 	return (
 		<div className='filteredToken'>
 			<div className='filteredToken__head'>
@@ -23,7 +24,7 @@ const FilteredToken = ({selectedToken,setSelectedToken}:any) => {
 					<div className='filteredToken__cell filteredToken__heading'>Filtered by token</div>
 					<div className='filteredToken__cell'>
 						<Eth />
-						{selectedToken.name}
+						{selectedToken && selectedToken.name}
 					</div>
 				</div>
 				<div className='filteredToken__cells'>

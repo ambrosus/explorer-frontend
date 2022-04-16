@@ -73,6 +73,18 @@ export const subRoutes = [
 		exact: true,
 		component: () => <AddressDetails />,
 	},
+	{
+		path: '/addresses/:address/:type/:filtered',
+		key: 'Address Details',
+		exact: true,
+		component: () => <AddressDetails />,
+	},
+	{
+		path: '/addresses/:address/:type/:filtered/:tokenToSorted',
+		key: 'Address Details',
+		exact: true,
+		component: () => <AddressDetails />,
+	},
 ];
 
 const appRoutes = { routes, subRoutes };

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import Eth from '../../assets/icons/Cryptos/Eth';
 import GreenCircle from '../../assets/icons/GreenCircle';
@@ -24,6 +24,8 @@ type AddressBlockProps = {
 const AddressBlock: React.FC<AddressBlockProps> = ({onClick,isLatest, txhash, method, from, to, date, block, amount, txfee, token }) => {
 	const online: any = txfee === 'Pending' ? <OrangeCircle /> : <GreenCircle />;
 	const {addFilter} = useActions();
+	const navigate = useNavigate();
+	const { address } = useParams();
 	const {
 		data: addressData,
 	} = useTypedSelector((state: any) => state.position);
@@ -59,11 +61,11 @@ const AddressBlock: React.FC<AddressBlockProps> = ({onClick,isLatest, txhash, me
 		? <div className='addressDetails__tbody-td'>
 		{!isLatest ?token : <div
 			onClick={()=>{
-			addressData?.tokens.map((item: any,index:number)=>{
+			addressData?.tokens.map((item: any)=>{
 				if(item.name === token){
-					const searchParam =  token.filterName === 'All' || token.filterName === 'inputs' || token.filterName === 'outputs' || token.filterName === '0' ? token.filterName: index-3
-					addFilter({...item, name:item.name, filterName: searchParam});
-					onClick({...item, name:item.name, filterName: searchParam})
+					onClick(item)
+					addFilter(item);
+					navigate(`/addresses/${address}/ERC-20_Tx/${item.idx}`)
 				}
 			})
 

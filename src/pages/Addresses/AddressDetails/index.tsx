@@ -14,15 +14,14 @@ import FilteredToken from '../../../components/FilteredToken';
 import { shallowEqual } from 'react-redux';
 
 export const AddressDetails = () => {
-		const { address, type }: any = useParams();
-		const { setPosition } = useActions();
+		const { address, type ,filtered,tokenToSorted}: any = useParams();
+		const { setPosition ,addFilter} = useActions();
 		const { filters } = useTypedSelector((state: any) => state.tokenFilters, shallowEqual);
 		const {
 			loading,
 			data: addressData,
-			error: errorData,
-		} = useTypedSelector((state: any) => state.position, shallowEqual);
-		const [transactionType, setTransactionType] = useState<any>(type);
+		} = useTypedSelector((state: any) => state.position);
+	const [transactionType, setTransactionType] = useState<any>(type);
 		const [selectedToken, setSelectedToken] = useState<any>(null);
 		const [tx, setTx] = useState([]);
 		const sybStringAddress = `${address && address.slice(0, 10)}...${address && address.slice(address.length - 10)}`;
@@ -31,12 +30,12 @@ export const AddressDetails = () => {
 			if (!loading) {
 				setPosition(API.getDataForAddress, address.trim(), {
 					filters: addressData && addressData.filters ? addressData.filters : [],
-					selectedTokenFilter: selectedToken && selectedToken.filterName ? selectedToken.filterName : 'All',
+					selectedTokenFilter: selectedToken && selectedToken?.idx ? selectedToken.idx : filtered,
 					limit: 200,
 					type: transactionType,
 				});
 			}
-		}, [filters, transactionType, selectedToken]);
+		}, [filters, transactionType, selectedToken,tokenToSorted,address,type]);
 
 		useEffect(() => {
 			if (addressData && addressData?.transactions) {
@@ -44,8 +43,13 @@ export const AddressDetails = () => {
 			} else {
 				setTx([]);
 			}
-
 		}, [addressData]);
+
+	useEffect(() => {
+		if (addressData && addressData?.tokens && !selectedToken) {
+			setSelectedToken(addressData.tokens.find((token: any) => token.idx === +filtered));
+		}
+	}, [addressData]);
 
 		const copyConten = () => navigator.clipboard.writeText(address);
 
@@ -68,7 +72,7 @@ export const AddressDetails = () => {
 						</div>
 					</Content.Header>
 					<Content.Body isLoading={addressData}>
-						{tx && <Tabs onClick={setSelectedToken} selectedToken={selectedToken} type={transactionType} data={tx}
+						{tx && <Tabs onClick={setSelectedToken} selectedToken={selectedToken} transactionType={transactionType} data={tx}
 												 setTransactionType={setTransactionType} />}
 					</Content.Body>
 				</section>

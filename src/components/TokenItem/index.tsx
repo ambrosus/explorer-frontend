@@ -3,22 +3,14 @@ import Eth from '../../assets/icons/Cryptos/Eth';
 
 type TokenItemProps = {
 	token: any;
-	setToken: Function;
 	selectedToken:any
-	index: number;
 };
 
-const TokenItem: React.FC<TokenItemProps> = ({token,selectedToken,index,setToken}) => {
-	const handleKeyPress = (e:KeyboardEvent) => {
-		if (e.key==='Enter'){
-			setToken({ ...token, filterName:index })
-		}
-	}
+const TokenItem: React.FC<TokenItemProps> = ({token,selectedToken}) => {
 	return (
 		<div className='tokenItem'
 				 tabIndex={0}
 			// @ts-ignore
-				 onKeyDown={handleKeyPress}
 				 style={{backgroundColor : selectedToken && selectedToken.name && selectedToken.name === token.name ? '#EFF2F5':'#fff'}}>
 			<div className='tokenItem__icon'>
 				<Eth />

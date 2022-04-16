@@ -9,9 +9,7 @@ export interface TokenProps {
 
 const Token :React.FC<TokenProps>= ({onClick,selectedToken}) => {
 	return (
-		<div className='token'
-				 tabIndex={1}
-		>
+		<div className='token'>
 			<div className='token__info'>
 				<span className='token__info-name'>Token</span>
 				<TokenFilter
