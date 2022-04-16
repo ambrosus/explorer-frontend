@@ -1,7 +1,7 @@
 import React from 'react';
 import GreenCircle from '../../assets/icons/GreenCircle';
 import OrangeCircle from '../../assets/icons/OrangeCircle';
-import { sliceData, calcTime } from '../../utils/helpers';
+import { sliceData5, calcTime } from '../../utils/helpers';
 
 type lastestTransactionsProps = {
 	hash: any;
@@ -31,7 +31,7 @@ const LatestTransactions: React.FC<lastestTransactionsProps> = ({ hash, status, 
 				<div className='lastestTransactions__cell'>
 					<div className='lastestTransactions__cell-content lastestTransactions__font-big'>
 						<span>{isOnline(status)}</span>
-						{sliceData(hash)}
+						{sliceData5(hash)}
 					</div>
 
 					<div className='lastestTransactions__p lastestTransactions__font-small'>{calcTime(timestamp)}</div>
@@ -40,11 +40,11 @@ const LatestTransactions: React.FC<lastestTransactionsProps> = ({ hash, status, 
 				<div className='lastestTransactions__cell'>
 					<div className='lastestTransactions__cell-content'>
 						<div className='lastestTransactions__font-small'>From</div>
-						<div className='lastestTransactions__font-big lastestTransactions__margin-left'>{sliceData(from)}</div>
+						<div className='lastestTransactions__font-big lastestTransactions__margin-left'>{sliceData5(from)}</div>
 					</div>
 					<div className='lastestTransactions__cell-content'>
 						<div className='lastestTransactions__font-small'>To</div>
-						<div className='lastestTransactions__font-big lastestTransactions__margin-left'>{sliceData(to)}</div>
+						<div className='lastestTransactions__font-big lastestTransactions__margin-left'>{sliceData5(to)}</div>
 					</div>
 				</div>
 				<div className='lastestTransactions__cell'>
