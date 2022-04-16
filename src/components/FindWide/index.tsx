@@ -1,14 +1,15 @@
-import { useState, useEffect, FormEvent, ChangeEvent, useCallback } from 'react';
+import { useState, FormEvent, ChangeEvent } from 'react';
+import { Link } from 'react-router-dom';
 import ArrowDown from '../../assets/icons/Arrows/ArrowDown';
 import Search from '../../assets/icons/Search';
 
 const FindWide = () => {
 	const [name, setName] = useState('');
+	const [address, setAddress] = useState<any>();
 	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		console.log(`This ${name}`);
+		setAddress(name);
 	};
-	const handleAllFilters = () => console.log('handleAllFilters');
 
 	return (
 		<>
@@ -21,9 +22,8 @@ const FindWide = () => {
 					onChange={(e: ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
 				/>
 				<div className='search__filters vl'>
-					<button onClick={handleAllFilters}>
-						<span>All filters</span>
-					</button>
+					<span>All filters</span>
+
 					<span style={{ display: 'flex', margin: '0 10px' }}>
 						<ArrowDown />
 					</span>

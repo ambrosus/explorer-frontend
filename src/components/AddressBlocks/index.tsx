@@ -30,9 +30,6 @@ const AddressBlock: React.FC<AddressBlockProps> = ({ onClick, isLatest, txhash, 
 	const { data: addressData } = useTypedSelector((state: any) => state.position);
 	const { type } = useParams();
 
-	const x = Number(txfee).toFixed(6);
-	console.log(x);
-
 	const isTxHash = txhash === null ? null : <div className='addressDetails__tbody-td universall__light2'>{sliceData10(txhash)}</div>;
 	const isMethod = method === null ? null : <div className='addressDetails__tbody-td'>{method}</div>;
 	const isFrom = from === null ? null : <div className='addressDetails__tbody-td universall__light2'>{from}</div>;
