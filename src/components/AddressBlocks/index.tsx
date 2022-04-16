@@ -1,37 +1,36 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import Amb from '../../assets/icons/Cryptos/Amb';
 
-import Eth from '../../assets/icons/Cryptos/Eth';
 import GreenCircle from '../../assets/icons/GreenCircle';
 import OrangeCircle from '../../assets/icons/OrangeCircle';
 import { useActions } from '../../hooks/useActions';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
+import { sliceData10 } from '../../utils/helpers';
 
 type AddressBlockProps = {
-	txhash: string | number;
+	txhash: any;
 	method: string | number;
 	from: string | number;
 	to: string | number;
 	date: string | number;
 	block: string | number | null;
 	amount: any;
-	txfee: string | number | null;
+	txfee: any;
 	token?: any;
 	isLatest?: boolean;
 	onClick?: any;
 };
 
-const AddressBlock: React.FC<AddressBlockProps> = ({onClick,isLatest, txhash, method, from, to, date, block, amount, txfee, token }) => {
+const AddressBlock: React.FC<AddressBlockProps> = ({ onClick, isLatest, txhash, method, from, to, date, block, amount, txfee, token }) => {
 	const online: any = txfee === 'Pending' ? <OrangeCircle /> : <GreenCircle />;
-	const {addFilter} = useActions();
+	const { addFilter } = useActions();
 	const navigate = useNavigate();
 	const { address } = useParams();
-	const {
-		data: addressData,
-	} = useTypedSelector((state: any) => state.position);
+	const { data: addressData } = useTypedSelector((state: any) => state.position);
 	const { type } = useParams();
 
-	const isTxHash = txhash === null ? null : <div className='addressDetails__tbody-td universall__light2'>{txhash}</div>;
+	const isTxHash = txhash === null ? null : <div className='addressDetails__tbody-td universall__light2'>{sliceData10(txhash)}</div>;
 	const isMethod = method === null ? null : <div className='addressDetails__tbody-td'>{method}</div>;
 	const isFrom = from === null ? null : <div className='addressDetails__tbody-td universall__light2'>{from}</div>;
 	const isTo = to === null ? null : <div className='addressDetails__tbody-td universall__light2'>{to}</div>;
@@ -41,9 +40,9 @@ const AddressBlock: React.FC<AddressBlockProps> = ({onClick,isLatest, txhash, me
 		amount === null ? null : (
 			<div className='addressDetails__tbody-td'>
 				<span className='universall__indent-icon'>
-					<Eth />
+					<Amb />
 				</span>
-				{amount}
+				{`${amount} AMB`}
 			</div>
 		);
 
@@ -53,25 +52,33 @@ const AddressBlock: React.FC<AddressBlockProps> = ({onClick,isLatest, txhash, me
 				<span className='universall__indent-icon' style={{ display: 'flex', alignItems: 'center' }}>
 					{online}
 				</span>
-				{txfee}
+				{`${Number(txfee).toFixed(6)} AMB`}
 			</div>
 		);
 
-	const isToken: any = type === 'ERC-20_Tx'
-		? <div className='addressDetails__tbody-td'>
-		{!isLatest ?token : <div
-			onClick={()=>{
-			addressData?.tokens.map((item: any)=>{
-				if(item.name === token){
-					onClick(item)
-					addFilter(item);
-					navigate(`/addresses/${address}/ERC-20_Tx/${item.idx}`)
-				}
-			})
-
-		}}
-		>{token}</div>}</div>
-		: null;
+	const isToken: any =
+		type === 'ERC-20_Tx' ? (
+			<div className='addressDetails__tbody-td'>
+				{!isLatest ? (
+					token
+				) : (
+					<div
+						onClick={() => {
+							// eslint-disable-next-line array-callback-return
+							addressData?.tokens.map((item: any) => {
+								if (item.name === token) {
+									onClick(item);
+									addFilter(item);
+									navigate(`/addresses/${address}/ERC-20_Tx/${item.idx}`);
+								}
+							});
+						}}
+					>
+						{token}
+					</div>
+				)}
+			</div>
+		) : null;
 
 	return (
 		<>
