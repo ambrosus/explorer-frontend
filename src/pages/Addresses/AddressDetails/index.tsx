@@ -16,7 +16,7 @@ import { formatEther } from 'ethers/lib/utils';
 
 export const AddressDetails = () => {
 		const { address, type, filtered, tokenToSorted }: any = useParams();
-		const { setPosition, addFilter } = useActions();
+		const { setPosition } = useActions();
 		const { filters } = useTypedSelector((state: any) => state.tokenFilters, shallowEqual);
 		const {
 			loading,

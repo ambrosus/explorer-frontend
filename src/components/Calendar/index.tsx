@@ -8,7 +8,9 @@ import API from '../../API/api';
 import { useParams } from 'react-router-dom';
 
 const Calendar = ({ setIsShow, isShow }: any) => {
-	const [dataRange, setDataRange] = useState<[{}]>([
+	const { address } = useParams();
+	const calendarRef: any = useRef();
+	const [dataRange, setDataRange] = useState([
 		{
 			startDate: new Date(),
 			endDate: addDays(new Date(), 7),
@@ -16,20 +18,18 @@ const Calendar = ({ setIsShow, isShow }: any) => {
 			key: 'selection',
 		},
 	]);
-	const { address } = useParams();
 
-	const calendarRef: any = useRef();
+
 	useOnClickOutside(calendarRef, () => setIsShow(false));
+
 	const changeData = (item: any) => setDataRange([item.selection]);
+
 	const exportData = () => {
 			if(dataRange) {
-				console.log('dataRange', dataRange);
-				// @ts-ignore
 				API.followTheLinkRange(dataRange[0].startDate, dataRange[0].endDate, address);
-			}else { // @ts-ignore
-				API.followTheLinkRange(dataRange[0].startDate, dataRange[0].endDate, address);
+			}else {
+				API.followTheLinkRange(0, 0, address);
 			}
-			// this.setState({ value: "" });
 	}
 
 	return (
