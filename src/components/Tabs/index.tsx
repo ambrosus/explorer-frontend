@@ -142,8 +142,8 @@ const Tabs = ({ selectedToken, data, transactionType, onClick, setTransactionTyp
 												to={transaction.to}
 												date={transaction.date}
 												block={transaction.block}
-												amount={`${transaction.amount} AMB`}
-												txfee={`${transaction.txFee}AMB`}
+												amount={transaction.amount}
+												txfee={transaction.txFee}
 												token={`${transaction?.token ? transaction?.token : null}`}
 											/>
 										)
@@ -154,14 +154,14 @@ const Tabs = ({ selectedToken, data, transactionType, onClick, setTransactionTyp
 									return (
 										<AddressBlock
 											key={transaction.txHash}
-											txhash={`${transaction.txHash.slice(0, 10)}...${transaction.txHash.slice(transaction.txHash.length - 10)}`}
+											txhash={transaction.txHash}
 											method={transaction.method}
 											from={transaction.from}
 											to={transaction.to}
 											date={transaction.date}
 											block={transaction.block}
-											amount={`${transaction.amount} AMB`}
-											txfee={`${transaction.txFee}AMB`}
+											amount={transaction.amount}
+											txfee={transaction.txFee}
 											token={`${transaction?.token ? transaction?.token : null}`}
 										/>
 									);

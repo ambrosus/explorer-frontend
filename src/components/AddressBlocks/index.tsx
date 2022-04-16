@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import Amb from '../../assets/icons/Cryptos/Amb';
 
-import Eth from '../../assets/icons/Cryptos/Eth';
 import GreenCircle from '../../assets/icons/GreenCircle';
 import OrangeCircle from '../../assets/icons/OrangeCircle';
 import { useActions } from '../../hooks/useActions';
@@ -16,7 +16,7 @@ type AddressBlockProps = {
 	date: string | number;
 	block: string | number | null;
 	amount: any;
-	txfee: string | number | null;
+	txfee: any;
 	token?: any;
 	isLatest?: boolean;
 	onClick?: any;
@@ -30,6 +30,9 @@ const AddressBlock: React.FC<AddressBlockProps> = ({ onClick, isLatest, txhash, 
 	const { data: addressData } = useTypedSelector((state: any) => state.position);
 	const { type } = useParams();
 
+	const x = Number(txfee).toFixed(6);
+	console.log(x);
+
 	const isTxHash = txhash === null ? null : <div className='addressDetails__tbody-td universall__light2'>{sliceData10(txhash)}</div>;
 	const isMethod = method === null ? null : <div className='addressDetails__tbody-td'>{method}</div>;
 	const isFrom = from === null ? null : <div className='addressDetails__tbody-td universall__light2'>{from}</div>;
@@ -40,9 +43,9 @@ const AddressBlock: React.FC<AddressBlockProps> = ({ onClick, isLatest, txhash, 
 		amount === null ? null : (
 			<div className='addressDetails__tbody-td'>
 				<span className='universall__indent-icon'>
-					<Eth />
+					<Amb />
 				</span>
-				{amount}
+				{`${amount} AMB`}
 			</div>
 		);
 
@@ -52,7 +55,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({ onClick, isLatest, txhash, 
 				<span className='universall__indent-icon' style={{ display: 'flex', alignItems: 'center' }}>
 					{online}
 				</span>
-				{txfee}
+				{`${Number(txfee).toFixed(6)} AMB`}
 			</div>
 		);
 

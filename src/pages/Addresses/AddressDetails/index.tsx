@@ -23,7 +23,6 @@ export const AddressDetails = () => {
 	const [selectedToken, setSelectedToken] = useState<any>(null);
 	const [tx, setTx] = useState([]);
 
-	console.log(useParams());
 	useEffect(() => {
 		if (!loading) {
 			setPosition(API.getDataForAddress, address.trim(), {
