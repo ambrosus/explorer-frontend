@@ -43,14 +43,30 @@ const getBlocks = async (params = {}) => {
 	});
 };
 
+
+
 const getDataForAddress = async (address: string, params: any) => {
 	const { filters, limit, type, selectedTokenFilter } = params;
 	const blockBookApi = await fetch(`https://blockbook.ambrosus.io/api/v2/address/${address}?filter=${selectedTokenFilter}`)
 		.then((res) => res.json());
-	const defaultFilters=blockBookApi && blockBookApi.tokens.map((token: any,index:number) => ({
-		...token,
-		idx:index + 1
-	}));
+const addressBalance = blockBookApi.balance;
+	const constTokens = blockBookApi && blockBookApi.tokens.map((token: any, index: number) => {
+		return {
+			...token,
+			idx: index + 1,
+		};
+	});
+	const getBalance = async (tokensArr:any[]) => {
+		const newTokens :any[]= []
+		tokensArr.map(async (token: any) => {
+			const tokenContract = new ethers.Contract(token.contract, erc20Abi, new providers.Web3Provider(ethereum).getSigner());
+			token.balance = Number(formatEther(await tokenContract.balanceOf(String(address)))).toFixed(2);
+			newTokens.push(token);
+		});
+		return newTokens;
+	};
+	const defaultFilters = await getBalance(constTokens);
+
 	const { data: explorerTrans } = await getAccountTx(address, { limit, type });
 	const explorData = explorerTrans.map((t: any) => ({
 		txHash: t.hash,
@@ -79,7 +95,7 @@ const getDataForAddress = async (address: string, params: any) => {
 
 
 	return {
-		transactions: type === 'ERC-20_Tx' || selectedTokenFilter ? bBookData : explorData, tokens: [
+		balance :addressBalance, transactions: type === 'ERC-20_Tx' || selectedTokenFilter ? bBookData : explorData, tokens: [
 			...defaultFilters],
 	};
 };

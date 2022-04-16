@@ -12,16 +12,17 @@ import { useActions } from '../../../hooks/useActions';
 import { useTypedSelector } from '../../../hooks/useTypedSelector';
 import FilteredToken from '../../../components/FilteredToken';
 import { shallowEqual } from 'react-redux';
+import { formatEther } from 'ethers/lib/utils';
 
 export const AddressDetails = () => {
-		const { address, type ,filtered,tokenToSorted}: any = useParams();
-		const { setPosition ,addFilter} = useActions();
+		const { address, type, filtered, tokenToSorted }: any = useParams();
+		const { setPosition, addFilter } = useActions();
 		const { filters } = useTypedSelector((state: any) => state.tokenFilters, shallowEqual);
 		const {
 			loading,
 			data: addressData,
 		} = useTypedSelector((state: any) => state.position);
-	const [transactionType, setTransactionType] = useState<any>(type);
+		const [transactionType, setTransactionType] = useState<any>(type);
 		const [selectedToken, setSelectedToken] = useState<any>(null);
 		const [tx, setTx] = useState([]);
 		const sybStringAddress = `${address && address.slice(0, 10)}...${address && address.slice(address.length - 10)}`;
@@ -35,7 +36,7 @@ export const AddressDetails = () => {
 					type: transactionType,
 				});
 			}
-		}, [filters, transactionType, selectedToken,tokenToSorted,address,type]);
+		}, [filters, transactionType, selectedToken, tokenToSorted, address, type]);
 
 		useEffect(() => {
 			if (addressData && addressData?.transactions) {
@@ -45,11 +46,11 @@ export const AddressDetails = () => {
 			}
 		}, [addressData]);
 
-	useEffect(() => {
-		if (addressData && addressData?.tokens && !selectedToken) {
-			setSelectedToken(addressData.tokens.find((token: any) => token.idx === +filtered));
-		}
-	}, [addressData]);
+		useEffect(() => {
+			if (addressData && addressData?.tokens && !selectedToken) {
+				setSelectedToken(addressData.tokens.find((token: any) => token.idx === +filtered));
+			}
+		}, [addressData]);
 
 		const copyConten = () => navigator.clipboard.writeText(address);
 
@@ -65,15 +66,17 @@ export const AddressDetails = () => {
 						</h1>
 						<div className='addressDetails__section'>
 							<div className='addressDetails__info'>
-								<OveralBalance token={'1,173,586.35'} amount={'21,067.61184460'} />
+								{addressData && addressData.balance && 	<OveralBalance token={Number(formatEther(addressData.balance)).toFixed(2)} amount={'21,067.61184460'} />}
+
 								<Token selectedToken={selectedToken} onClick={setSelectedToken} />
 							</div>
 							{selectedToken && <FilteredToken setSelectedToken={setSelectedToken} selectedToken={selectedToken} />}
 						</div>
 					</Content.Header>
 					<Content.Body isLoading={addressData}>
-						{tx && <Tabs onClick={setSelectedToken} selectedToken={selectedToken} transactionType={transactionType} data={tx}
-												 setTransactionType={setTransactionType} />}
+						{tx &&
+						<Tabs onClick={setSelectedToken} selectedToken={selectedToken} transactionType={transactionType} data={tx}
+									setTransactionType={setTransactionType} />}
 					</Content.Body>
 				</section>
 			</Content>
