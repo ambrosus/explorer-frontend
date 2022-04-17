@@ -59,9 +59,16 @@ const addressBalance = blockBookApi.balance;
 	const getBalance = async (tokensArr:any[]) => {
 		const newTokens :any[]= []
 		tokensArr.map(async (token: any) => {
+		try {
 			const tokenContract = new ethers.Contract(token.contract, erc20Abi, new providers.Web3Provider(ethereum).getSigner());
-			token.balance = Number(formatEther(await tokenContract.balanceOf(String(address)))).toFixed(2);
+			const balance = Number(formatEther(await tokenContract.balanceOf(String(address)))).toFixed(2);
+			if (balance ){
+				token.balance = balance;
+			}
+		}finally {
 			newTokens.push(token);
+
+		}
 		});
 		return newTokens;
 	};
