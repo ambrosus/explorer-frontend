@@ -1,20 +1,25 @@
 import React from 'react';
 import Eth from '../../assets/icons/Cryptos/Eth';
 import Discard from '../../assets/icons/Discard';
+import { useTypedSelector } from '../../hooks/useTypedSelector';
+import { shallowEqual } from 'react-redux';
 import { useActions } from '../../hooks/useActions';
 import { useNavigate, useParams } from 'react-router-dom';
 
-const FilteredToken = ({ selectedToken, setSelectedToken }: any) => {
-	const { clearFilters } = useActions();
+const FilteredToken = ({selectedToken,setSelectedToken}:any) => {
+	const {clearFilters} = useActions();
 	const { address } = useParams();
 	const navigate = useNavigate();
+	const { filters } = useTypedSelector((state: any) => state.tokenFilters);
 
 	const backClick = () => console.log('backCLick');
+
 	const discardClick = () => {
 		setSelectedToken(null);
 		clearFilters();
-		navigate(`/addresses/${address}/ERC-20_Tx`);
-	};
+		navigate(`/addresses/${address}/ERC-20_Tx`)
+	}
+
 	return (
 		<div className='filteredToken'>
 			<div className='filteredToken__head'>
@@ -38,23 +43,23 @@ const FilteredToken = ({ selectedToken, setSelectedToken }: any) => {
 			<div className='filteredToken__body'>
 				<div className='filteredToken__cell'>
 					<span className='filteredToken__cell-bold'>Balance</span>
-					<span className='filteredToken__cell-normal'>1,286.35 ACC / $ 205.6118</span>
+					<span className='filteredToken__cell-normal'>{filters.balance} `Symbol` / $ n</span>
 				</div>
 				<div className='filteredToken__cell'>
 					<span className='filteredToken__cell-bold'>Price</span>
-					<span className='filteredToken__cell-normal'>1 ACC / $0.0000001556</span>
+					<span className='filteredToken__cell-normal'>n `Symbol` / $ n</span>
 				</div>
 				<div className='filteredToken__cell'>
 					<span className='filteredToken__cell-bold'>Total supply</span>
-					<span className='filteredToken__cell-normal'>361,477,437.53570140</span>
+					<span className='filteredToken__cell-normal'>n</span>
 				</div>
 				<div className='filteredToken__cell'>
 					<span className='filteredToken__cell-bold'>Market cap</span>
-					<span className='filteredToken__cell-normal'>$5,616,448.029...</span>
+					<span className='filteredToken__cell-normal'>$n</span>
 				</div>
 				<div className='filteredToken__cell'>
 					<span className='filteredToken__cell-bold'>Total transfers</span>
-					<span className='filteredToken__cell-normal'>466,238</span>
+					<span className='filteredToken__cell-normal'>n</span>
 				</div>
 			</div>
 		</div>

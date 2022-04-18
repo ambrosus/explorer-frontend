@@ -43,14 +43,37 @@ const getBlocks = async (params = {}) => {
 	});
 };
 
+
+
 const getDataForAddress = async (address: string, params: any) => {
 	const { filters, limit, type, selectedTokenFilter } = params;
 	const blockBookApi = await fetch(`https://blockbook.ambrosus.io/api/v2/address/${address}?filter=${selectedTokenFilter}`)
 		.then((res) => res.json());
-	const defaultFilters=blockBookApi && blockBookApi.tokens.map((token: any,index:number) => ({
-		...token,
-		idx:index + 1
-	}));
+const addressBalance = blockBookApi.balance;
+	const constTokens = blockBookApi && blockBookApi.tokens.map((token: any, index: number) => {
+		return {
+			...token,
+			idx: index + 1,
+		};
+	});
+	const getBalance = async (tokensArr:any[]) => {
+		const newTokens :any[]= []
+		tokensArr.map(async (token: any) => {
+		try {
+			const tokenContract = new ethers.Contract(token.contract, erc20Abi, new providers.Web3Provider(ethereum).getSigner());
+			const balance = Number(formatEther(await tokenContract.balanceOf(String(address)))).toFixed(2);
+			if (balance ){
+				token.balance = balance;
+			}
+		}finally {
+			newTokens.push(token);
+
+		}
+		});
+		return newTokens;
+	};
+	const defaultFilters = await getBalance(constTokens);
+
 	const { data: explorerTrans } = await getAccountTx(address, { limit, type });
 	const explorData = explorerTrans.map((t: any) => ({
 		txHash: t.hash,
@@ -79,7 +102,7 @@ const getDataForAddress = async (address: string, params: any) => {
 
 
 	return {
-		transactions: type === 'ERC-20_Tx' || selectedTokenFilter ? bBookData : explorData, tokens: [
+		balance :addressBalance, transactions: type === 'ERC-20_Tx' || selectedTokenFilter ? bBookData : explorData, tokens: [
 			...defaultFilters],
 	};
 };
@@ -234,10 +257,8 @@ const getTokenTotalSupply = () => {
 // }
 const followTheLinkRange = (fromDate: any, toDate: any, address: any) => {
 	const link = `${baseApiUrl}/transactions/csv/address/${address}`;
-	// @ts-ignore
-	const from = new Date(fromDate) / 1000;
-	// @ts-ignore
-	const to = new Date(toDate) / 1000;
+	const from = fromDate / 1000;
+	const to = toDate / 1000;
 	window.open(`${link}/dateFrom/${from}/dateTo/${to}`, '_self');
 };
 

@@ -1,15 +1,41 @@
-import { useState, FormEvent, ChangeEvent } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect, FormEvent, ChangeEvent, useCallback } from 'react';
 import ArrowDown from '../../assets/icons/Arrows/ArrowDown';
 import Search from '../../assets/icons/Search';
+import API from '../../API/api';
+import { useNavigate } from 'react-router-dom';
 
 const FindWide = () => {
 	const [name, setName] = useState('');
-	const [address, setAddress] = useState<any>();
+	const navigate = useNavigate();
+
 	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		setAddress(name);
+		if (!name) {
+			return;
+		}
+		API.searchItem(name)
+			.then((data:any) => {
+				setName('')
+				let searchTerm = data.data;
+
+				if (searchTerm && searchTerm.term !== undefined) {
+					const urlParts = data.meta.search.split("/");
+					urlParts[urlParts.length - 1] = searchTerm.term;
+					searchTerm = urlParts.join('/');
+				} else {
+					searchTerm = data.meta.search;
+				}
+				if (data.meta.search) {
+					navigate(`/${searchTerm}`);
+				} else {
+					navigate('/notfound');
+				}
+			})
+			.catch(() => {
+				navigate('/notfound');
+			});
 	};
+	const handleAllFilters = () => console.log('handleAllFilters');
 
 	return (
 		<>
@@ -22,8 +48,9 @@ const FindWide = () => {
 					onChange={(e: ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
 				/>
 				<div className='search__filters vl'>
-					<span>All filters</span>
-
+					<button onClick={handleAllFilters}>
+						<span>All filters</span>
+					</button>
 					<span style={{ display: 'flex', margin: '0 10px' }}>
 						<ArrowDown />
 					</span>
