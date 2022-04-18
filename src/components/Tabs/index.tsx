@@ -19,9 +19,16 @@ const ERC20Filters = [
 	{ title: 'Transfers', value: 'transfers' },
 ];
 
+const activeBtn = {
+	color: '#05060f',
+	borderBottom: '4px solid #05060f',
+	borderCollapse: 'collapse',
+};
+
 const Tabs = ({ selectedToken, data, transactionType, onClick, setTransactionType }: any) => {
 	const { address, type, filtered, tokenToSorted } = useParams();
 	const [latestTrans, setLatestTrans] = useState([]);
+	const [isActive, setIsActive] = useState<boolean>(false);
 	const { clearFilters } = useActions();
 	const { data: addressData } = useTypedSelector((state: any) => state.position);
 	const { filters } = useTypedSelector((state: any) => state.tokenFilters, shallowEqual);
@@ -35,6 +42,12 @@ const Tabs = ({ selectedToken, data, transactionType, onClick, setTransactionTyp
 		});
 		setLatestTrans(latestTransactions);
 	};
+
+	const handleClick = (filter: string) => {
+		return setTransactionType(filter) && setIsActive(true);
+	};
+
+	const changeColor = isActive ? {} : {};
 
 	useEffect(() => {
 		if (addressData && !filtered && addressData.tokens && data && data.length && type === 'ERC-20_Tx' && filters.length === 0) {
@@ -92,7 +105,8 @@ const Tabs = ({ selectedToken, data, transactionType, onClick, setTransactionTyp
 									to={`/addresses/${address}/${filter.value ? filter.value : ''}`}
 									tabIndex={-1}
 									className='tabs__link'
-									onClick={() => setTransactionType(filter.value)}
+									onClick={handleClick(filter.value)}
+									style={changeColor}
 								>
 									{filter.title}
 								</Link>
@@ -174,4 +188,5 @@ const Tabs = ({ selectedToken, data, transactionType, onClick, setTransactionTyp
 		</>
 	);
 };
+
 export default Tabs;
