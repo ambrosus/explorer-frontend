@@ -6,26 +6,37 @@
 	align-items: center;
 	justify-content: center;
 	color: white;
-
-	.navigation {
+}
+.navigation {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	&__search {
+		background-color: #212121;
+		width: 40px;
+		height: 40px;
+		border: 1px solid #808a9d;
+		border-radius: 1.22em;
+	}
+}
+.menu {
+	display: flex;
+	flex-direction: row;
+	gap: 32px;
+	&__item {
 		display: flex;
 		align-items: center;
-		justify-content: space-between;
-		.menu {
-			display: flex;
-			flex-direction: row;
-			gap: 32px;
-			&__item {
-				text-decoration: none;
-				font-family: Proxima Nova, Aktiv Grotesk Corp;
-				font-style: normal;
-				font-weight: 600;
-				font-size: 11px;
-				line-height: 34px;
-				letter-spacing: 0.22em;
-				text-transform: uppercase;
-				color: #ffffff;
-			}
-		}
+		text-decoration: none;
+		font-family: Proxima Nova, Aktiv Grotesk Corp;
+		font-style: normal;
+		font-weight: 600;
+		font-size: 11px;
+		line-height: 34px;
+		letter-spacing: 0.22em;
+		text-transform: uppercase;
+		color: #ffffff;
 	}
+}
+.logo {
+	margin-right: 40px;
 }

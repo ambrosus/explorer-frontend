@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import CalendarIcon from '../../assets/icons/CalendarIcon';
 
 import Calendar from '../Calendar';

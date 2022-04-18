@@ -23,7 +23,7 @@
 
 	&__info {
 		display: grid;
-		grid-template-columns: repeat(2, auto);
+		grid-template-columns: 1fr 400px;
 		grid-row-gap: 3vw;
 		margin-bottom: 32px;
 		&-token {

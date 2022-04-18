@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import AddressBlocksHeader from '../AddressBlocksHeader';
 import AddressBlock from '../AddressBlocks';
 import ExportCsv from '../ExportCsv';
@@ -8,6 +8,7 @@ import { shallowEqual } from 'react-redux';
 import { useActions } from '../../hooks/useActions';
 import { clearFilters } from '../../state/actionsCreators';
 import Loader from '../Loader';
+import { setActiveLink } from '../../utils/helpers';
 import moment from 'moment';
 
 const transactionFilters = [
@@ -20,9 +21,25 @@ const ERC20Filters = [
 	{ title: 'Transfers', value: 'transfers' },
 ];
 
+const activeBtn = {
+	color: '#05060f',
+	borderBottom: '4px solid #05060f',
+	borderCollapse: 'collapse',
+};
+
+const methodFilters = [
+	{ title: 'Transfers', value: 'transfers' },
+	{ title: 'Contracts', value: 'contracts' },
+	{ title: 'Fees', value: 'fees' },
+	{ title: 'Validator Proxy', value: 'validator_proxy' },
+	{ title: 'Bundle Uploads', value: 'bundle_uploads' },
+	{ title: 'Payouts', value: 'payouts' },
+];
+
 const Tabs = ({ selectedToken, data, transactionType, onClick, setTransactionType }: any) => {
 	const { address, type, filtered, tokenToSorted } = useParams();
 	const [latestTrans, setLatestTrans] = useState([]);
+
 	const { clearFilters } = useActions();
 	const { data: addressData } = useTypedSelector((state: any) => state.position);
 	const { filters } = useTypedSelector((state: any) => state.tokenFilters, shallowEqual);
@@ -74,41 +91,34 @@ const Tabs = ({ selectedToken, data, transactionType, onClick, setTransactionTyp
 		}
 	}
 
-	const methodFilters = [
-		{ title: 'Transfers', value: 'transfers' },
-		{ title: 'Contracts', value: 'contracts' },
-		{ title: 'Fees', value: 'fees' },
-		{ title: 'Validator Proxy', value: 'validator_proxy' },
-		{ title: 'Bundle Uploads', value: 'bundle_uploads' },
-		{ title: 'Payouts', value: 'payouts' },
-	];
 	return (
 		<>
 			<div className='tabs' tabIndex={-1}>
 				<div className='tabs__filters' tabIndex={-1}>
 					{!filtered
 						? transactionFilters.map((filter) => (
-								<Link
+								<NavLink
 									key={filter.title}
 									to={`/addresses/${address}/${filter.value ? filter.value : ''}`}
-									tabIndex={-1}
-									className='tabs__link'
-									onClick={() => setTransactionType(filter.value)}
-								>
-									{filter.title}
-								</Link>
-						  ))
-						: ERC20Filters.map((filter) => (
-								<Link
-									key={filter.title}
-									to={`/addresses/${address}/ERC-20_Tx/${filtered}/${filter.value}`}
-									className='tabs__link'
-									onClick={() => {
+									className={setActiveLink}
+									onClick={(e) => {
 										setTransactionType(filter.value);
 									}}
 								>
 									{filter.title}
-								</Link>
+								</NavLink>
+						  ))
+						: ERC20Filters.map((filter) => (
+								<NavLink
+									key={filter.title}
+									to={`/addresses/${address}/ERC-20_Tx/${filtered}/${filter.value}`}
+									className={setActiveLink}
+									onClick={(e) => {
+										setTransactionType(filter.value);
+									}}
+								>
+									{filter.title}
+								</NavLink>
 						  ))}
 				</div>
 				<ExportCsv />
@@ -175,4 +185,5 @@ const Tabs = ({ selectedToken, data, transactionType, onClick, setTransactionTyp
 		</>
 	);
 };
+
 export default Tabs;
