@@ -4,9 +4,13 @@ import { addDays } from 'date-fns';
 import 'react-date-range/dist/styles.css'; // main css file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import { useOnClickOutside } from '../../hooks/useOnClickOutside';
+import API from '../../API/api';
+import { useParams } from 'react-router-dom';
 
 const Calendar = ({ setIsShow, isShow }: any) => {
-	const [dataRange, setDataRange] = useState<[{}]>([
+	const { address } = useParams();
+	const calendarRef: any = useRef();
+	const [dataRange, setDataRange] = useState([
 		{
 			startDate: new Date(),
 			endDate: addDays(new Date(), 7),
@@ -14,10 +18,19 @@ const Calendar = ({ setIsShow, isShow }: any) => {
 			key: 'selection',
 		},
 	]);
-	const calendarRef: any = useRef();
+
+
 	useOnClickOutside(calendarRef, () => setIsShow(false));
+
 	const changeData = (item: any) => setDataRange([item.selection]);
-	const exportData = () => console.log('exportData');
+
+	const exportData = () => {
+			if(dataRange) {
+				API.followTheLinkRange(dataRange[0].startDate, dataRange[0].endDate, address);
+			}else {
+				API.followTheLinkRange(0, 0, address);
+			}
+	}
 
 	return (
 		<div ref={calendarRef} className='tabs__calendar'>
