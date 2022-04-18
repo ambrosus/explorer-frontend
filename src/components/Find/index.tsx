@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Search from '../../assets/icons/Search';
 
-const Find = () => {
+type FindProps = {
+	setIsShow: any;
+};
+
+const Find: React.FC<FindProps> = ({ setIsShow }) => {
 	return (
 		<>
-			<Search />
+			<button className='navigation__search' onClick={() => setIsShow(true)}>
+				<Search fill={'#fff'} />
+			</button>
 		</>
 	);
 };

@@ -4,7 +4,7 @@ import Search from '../../assets/icons/Search';
 import API from '../../API/api';
 import { useNavigate } from 'react-router-dom';
 
-const FindWide = () => {
+const FindWide = ({ searchRef }: any) => {
 	const [name, setName] = useState('');
 	const navigate = useNavigate();
 
@@ -14,12 +14,12 @@ const FindWide = () => {
 			return;
 		}
 		API.searchItem(name)
-			.then((data:any) => {
-				setName('')
+			.then((data: any) => {
+				setName('');
 				let searchTerm = data.data;
 
 				if (searchTerm && searchTerm.term !== undefined) {
-					const urlParts = data.meta.search.split("/");
+					const urlParts = data.meta.search.split('/');
 					urlParts[urlParts.length - 1] = searchTerm.term;
 					searchTerm = urlParts.join('/');
 				} else {
@@ -39,7 +39,7 @@ const FindWide = () => {
 
 	return (
 		<>
-			<form className='search' onSubmit={handleSubmit}>
+			<form ref={searchRef} className='search' onSubmit={handleSubmit}>
 				<input
 					className='search__input'
 					placeholder='Search by Node, Address, Tx, Block, Token, Bundle'
@@ -56,7 +56,7 @@ const FindWide = () => {
 					</span>
 				</div>
 				<button className='search__btn' type='submit'>
-					<Search />
+					<Search fill={'#808A9D'} />
 				</button>
 			</form>
 		</>
