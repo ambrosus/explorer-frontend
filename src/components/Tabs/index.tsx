@@ -9,6 +9,7 @@ import { useActions } from '../../hooks/useActions';
 import { clearFilters } from '../../state/actionsCreators';
 import Loader from '../Loader';
 import { setActiveLink } from '../../utils/helpers';
+import moment from 'moment';
 
 const transactionFilters = [
 	{ title: 'All', value: '' },
@@ -150,7 +151,7 @@ const Tabs = ({ selectedToken, data, transactionType, onClick, setTransactionTyp
 												method={transaction.method}
 												from={transaction.from}
 												to={transaction.to}
-												date={transaction.date}
+												date={moment(transaction.date).fromNow()}
 												block={transaction.block}
 												amount={transaction.amount}
 												txfee={transaction.txFee}
@@ -168,7 +169,7 @@ const Tabs = ({ selectedToken, data, transactionType, onClick, setTransactionTyp
 											method={transaction.method}
 											from={transaction.from}
 											to={transaction.to}
-											date={transaction.date}
+											date={moment(transaction.date).fromNow()}
 											block={transaction.block}
 											amount={transaction.amount}
 											txfee={transaction.txFee}

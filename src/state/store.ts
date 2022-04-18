@@ -12,7 +12,7 @@ const persistConfig = {
 		key: 'root',
 		storage,
 		// whitelist: ['position,tokenFilters'],
-		blacklist: ['position,tokenFilters']
+		blacklist: ['position,tokenFilters,app']
 };
 const persistedReducer = persistReducer(persistConfig, reducers);
 

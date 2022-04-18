@@ -44,66 +44,70 @@ const getBlocks = async (params = {}) => {
 };
 
 
-
 const getDataForAddress = async (address: string, params: any) => {
 	const { filters, limit, type, selectedTokenFilter } = params;
 	const blockBookApi = await fetch(`https://blockbook.ambrosus.io/api/v2/address/${address}?filter=${selectedTokenFilter}`)
 		.then((res) => res.json());
-const addressBalance = blockBookApi.balance;
+
+	const addressBalance = blockBookApi.balance;
 	const constTokens = blockBookApi && blockBookApi.tokens.map((token: any, index: number) => {
 		return {
 			...token,
 			idx: index + 1,
 		};
 	});
-	const getBalance = async (tokensArr:any[]) => {
-		const newTokens :any[]= []
-		tokensArr.map(async (token: any) => {
-		try {
-			const tokenContract = new ethers.Contract(token.contract, erc20Abi, new providers.Web3Provider(ethereum).getSigner());
-			const balance = Number(formatEther(await tokenContract.balanceOf(String(address)))).toFixed(2);
-			if (balance ){
-				token.balance = balance;
-			}
-		}finally {
-			newTokens.push(token);
 
-		}
+	const getBalance = async (tokensArr: any[]) => {
+		const newTokens: any[] = [];
+
+		tokensArr.map(async (token: any) => {
+			try {
+				const tokenContract = new ethers.Contract(token.contract, erc20Abi, new providers.Web3Provider(ethereum).getSigner());
+				const balance = Number(formatEther(await tokenContract.balanceOf(String(address)))).toFixed(2);
+				if (balance) {
+					token.balance = balance;
+				}
+			} finally {
+				newTokens.push(token);
+			}
 		});
 		return newTokens;
 	};
 	const defaultFilters = await getBalance(constTokens);
 
 	const { data: explorerTrans } = await getAccountTx(address, { limit, type });
+
+	const blockBookApiTransactions = blockBookApi && blockBookApi?.txids.map(async (tx: string) => {
+		return await fetch(`https://blockbook.ambrosus.io/api/v2/tx/${tx}`).then((res) => res.json());
+	});
+
+	const blockBookApiTransactionsData = await Promise.all(blockBookApiTransactions);
+
 	const explorData = explorerTrans.map((t: any) => ({
 		txHash: t.hash,
 		method: t.type,
 		from: `${t.from.slice(0, 5)}...${t.from.slice(t.from.length - 5)}`,
 		to: `${t.to.slice(0, 5)}...${t.to.slice(t.to.length - 5)}`,
-		date: moment(t.timestamp * 1000).fromNow(),
+		date: t.timestamp * 1000,
 		block: t.blockNumber,
 		amount: Number(formatEther(t.value.wei)).toFixed(2),
 		txFee: Number(Number(formatEther(t.gasUsed)) * Number(formatEther(t.gasCost.wei))).toFixed(2),
 	}));
-	const blockBookApiTransactions = blockBookApi && blockBookApi?.txids.map(async (tx: string) => {
-		return await fetch(`https://blockbook.ambrosus.io/api/v2/tx/${tx}`).then((res) => res.json());
-	});
-	const blockBookApiTransactionsData = await Promise.all(blockBookApiTransactions);
 	const bBookData = blockBookApiTransactionsData.map((t) => ({
-		userTokens:defaultFilters,
+		userTokens: defaultFilters,
 		txHash: t.txid,
 		method: t?.tokenTransfers ? 'Transfer' : '',
 		from: t?.tokenTransfers ? `${t.tokenTransfers[0].from.slice(0, 5)}...${t.tokenTransfers[0].from.slice(t.tokenTransfers[0].from.length - 5)}` : '',
 		to: t?.tokenTransfers ? `${t.tokenTransfers[0].to.slice(0, 5)}...${t.tokenTransfers[0].to.slice(t.tokenTransfers[0].to.length - 5)}` : '',
-		date: moment(t.blockTime * 1000).fromNow(),
+		date: t.blockTime * 1000,
 		amount: t?.tokenTransfers ? Number(formatEther(t.tokenTransfers[0].value)).toFixed(2) : Number(formatEther(t.value)).toFixed(2),
 		token: t?.tokenTransfers ? t.tokenTransfers[0].name : 'No token',
 	}));
 
-
 	return {
-		balance :addressBalance, transactions: type === 'ERC-20_Tx' || selectedTokenFilter ? bBookData : explorData, tokens: [
-			...defaultFilters],
+		balance: addressBalance,
+		transactions: type === 'ERC-20_Tx' || selectedTokenFilter ? bBookData : explorData,
+		tokens: [...defaultFilters],
 	};
 };
 
