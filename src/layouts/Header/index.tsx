@@ -19,6 +19,7 @@ export const Header = () => (
 					</Link>
 				</div>
 				<div className='menu'>{menu}</div>
+				<button></button>
 			</nav>
 		</div>
 	</div>

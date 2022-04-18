@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, NavLink, useParams } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import AddressBlocksHeader from '../AddressBlocksHeader';
 import AddressBlock from '../AddressBlocks';
 import ExportCsv from '../ExportCsv';
@@ -8,6 +8,7 @@ import { shallowEqual } from 'react-redux';
 import { useActions } from '../../hooks/useActions';
 import { clearFilters } from '../../state/actionsCreators';
 import Loader from '../Loader';
+import { setActiveLink } from '../../utils/helpers';
 
 const transactionFilters = [
 	{ title: 'All', value: '' },
@@ -37,7 +38,7 @@ const methodFilters = [
 const Tabs = ({ selectedToken, data, transactionType, onClick, setTransactionType }: any) => {
 	const { address, type, filtered, tokenToSorted } = useParams();
 	const [latestTrans, setLatestTrans] = useState([]);
-	const [isActive, setIsActive] = useState<boolean>(false);
+
 	const { clearFilters } = useActions();
 	const { data: addressData } = useTypedSelector((state: any) => state.position);
 	const { filters } = useTypedSelector((state: any) => state.tokenFilters, shallowEqual);
@@ -51,12 +52,6 @@ const Tabs = ({ selectedToken, data, transactionType, onClick, setTransactionTyp
 		});
 		setLatestTrans(latestTransactions);
 	};
-
-	// const handleClick = (filter: string) => {
-	// 	return ;
-	// };
-
-	const focusItem = isActive ? 'tabs__link-active' : null;
 
 	useEffect(() => {
 		if (addressData && !filtered && addressData.tokens && data && data.length && type === 'ERC-20_Tx' && filters.length === 0) {
@@ -104,7 +99,7 @@ const Tabs = ({ selectedToken, data, transactionType, onClick, setTransactionTyp
 								<NavLink
 									key={filter.title}
 									to={`/addresses/${address}/${filter.value ? filter.value : ''}`}
-									className={({ isActive }) => (isActive ? 'tabs__link  tabs__link-active' : 'tabs__link')}
+									className={setActiveLink}
 									onClick={(e) => {
 										setTransactionType(filter.value);
 									}}
@@ -116,7 +111,7 @@ const Tabs = ({ selectedToken, data, transactionType, onClick, setTransactionTyp
 								<NavLink
 									key={filter.title}
 									to={`/addresses/${address}/ERC-20_Tx/${filtered}/${filter.value}`}
-									className={({ isActive }) => (isActive ? 'tabs__link  tabs__link-active' : 'tabs__link')}
+									className={setActiveLink}
 									onClick={(e) => {
 										setTransactionType(filter.value);
 									}}
