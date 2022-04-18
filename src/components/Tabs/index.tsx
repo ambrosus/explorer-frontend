@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, NavLink, useParams } from 'react-router-dom';
 import AddressBlocksHeader from '../AddressBlocksHeader';
 import AddressBlock from '../AddressBlocks';
 import ExportCsv from '../ExportCsv';
@@ -25,6 +25,15 @@ const activeBtn = {
 	borderCollapse: 'collapse',
 };
 
+const methodFilters = [
+	{ title: 'Transfers', value: 'transfers' },
+	{ title: 'Contracts', value: 'contracts' },
+	{ title: 'Fees', value: 'fees' },
+	{ title: 'Validator Proxy', value: 'validator_proxy' },
+	{ title: 'Bundle Uploads', value: 'bundle_uploads' },
+	{ title: 'Payouts', value: 'payouts' },
+];
+
 const Tabs = ({ selectedToken, data, transactionType, onClick, setTransactionType }: any) => {
 	const { address, type, filtered, tokenToSorted } = useParams();
 	const [latestTrans, setLatestTrans] = useState([]);
@@ -43,11 +52,11 @@ const Tabs = ({ selectedToken, data, transactionType, onClick, setTransactionTyp
 		setLatestTrans(latestTransactions);
 	};
 
-	const handleClick = (filter: string) => {
-		return setTransactionType(filter) && setIsActive(true);
-	};
+	// const handleClick = (filter: string) => {
+	// 	return ;
+	// };
 
-	const changeColor = isActive ? {} : {};
+	const focusItem = isActive ? 'tabs__link-active' : null;
 
 	useEffect(() => {
 		if (addressData && !filtered && addressData.tokens && data && data.length && type === 'ERC-20_Tx' && filters.length === 0) {
@@ -86,42 +95,34 @@ const Tabs = ({ selectedToken, data, transactionType, onClick, setTransactionTyp
 		}
 	}
 
-	const methodFilters = [
-		{ title: 'Transfers', value: 'transfers' },
-		{ title: 'Contracts', value: 'contracts' },
-		{ title: 'Fees', value: 'fees' },
-		{ title: 'Validator Proxy', value: 'validator_proxy' },
-		{ title: 'Bundle Uploads', value: 'bundle_uploads' },
-		{ title: 'Payouts', value: 'payouts' },
-	];
 	return (
 		<>
 			<div className='tabs' tabIndex={-1}>
 				<div className='tabs__filters' tabIndex={-1}>
 					{!filtered
 						? transactionFilters.map((filter) => (
-								<Link
+								<NavLink
 									key={filter.title}
 									to={`/addresses/${address}/${filter.value ? filter.value : ''}`}
-									tabIndex={-1}
-									className='tabs__link'
-									onClick={handleClick(filter.value)}
-									style={changeColor}
-								>
-									{filter.title}
-								</Link>
-						  ))
-						: ERC20Filters.map((filter) => (
-								<Link
-									key={filter.title}
-									to={`/addresses/${address}/ERC-20_Tx/${filtered}/${filter.value}`}
-									className='tabs__link'
-									onClick={() => {
+									className={({ isActive }) => (isActive ? 'tabs__link  tabs__link-active' : 'tabs__link')}
+									onClick={(e) => {
 										setTransactionType(filter.value);
 									}}
 								>
 									{filter.title}
-								</Link>
+								</NavLink>
+						  ))
+						: ERC20Filters.map((filter) => (
+								<NavLink
+									key={filter.title}
+									to={`/addresses/${address}/ERC-20_Tx/${filtered}/${filter.value}`}
+									className={({ isActive }) => (isActive ? 'tabs__link  tabs__link-active' : 'tabs__link')}
+									onClick={(e) => {
+										setTransactionType(filter.value);
+									}}
+								>
+									{filter.title}
+								</NavLink>
 						  ))}
 				</div>
 				<ExportCsv />

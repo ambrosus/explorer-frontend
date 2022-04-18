@@ -39,11 +39,13 @@
 		margin-right: 32px;
 		display: flex;
 		align-items: center;
+		&-active {
+			color: #05060f;
+			border-bottom: 4px solid #05060f;
+			border-collapse: collapse;
+		}
 	}
-	&__link:hover,
-	&__link:focus,
-	&__link:enabled,
-	&__link:active {
+	&__link:hover {
 		color: #05060f;
 		border-bottom: 4px solid #05060f;
 		border-collapse: collapse;
