@@ -45,7 +45,7 @@ const getBlocks = async (params = {}) => {
 
 
 const getDataForAddress = async (address: string, params: any) => {
-	const { filters, limit, type, selectedTokenFilter } = params;
+	const { filtered, limit, type, selectedTokenFilter } = params;
 	const blockBookApi = await fetch(`https://blockbook.ambrosus.io/api/v2/address/${address}?filter=${selectedTokenFilter}`)
 		.then((res) => res.json());
 
@@ -62,11 +62,13 @@ const getDataForAddress = async (address: string, params: any) => {
 
 		tokensArr.map(async (token: any) => {
 			try {
-				const tokenContract = new ethers.Contract(token.contract, erc20Abi, new providers.Web3Provider(ethereum).getSigner());
+				// const ambProvider = new providers.JsonRpcProvider('https://network.ambrosus.io');
+				const ambProvider = new providers.Web3Provider(ethereum);
+				const tokenContract = new ethers.Contract(token.contract, erc20Abi, ambProvider);
 				const balance = Number(formatEther(await tokenContract.balanceOf(String(address)))).toFixed(2);
-				if (balance) {
-					token.balance = balance;
-				}
+				const totalSupply = Number(formatEther(await tokenContract.totalSupply()));
+				token.balance = balance;
+				token.totalSupply = totalSupply;
 			} finally {
 				newTokens.push(token);
 			}

@@ -11,6 +11,7 @@ const FilteredToken = ({selectedToken,setSelectedToken}:any) => {
 	const { address } = useParams();
 	const navigate = useNavigate();
 	const { filters } = useTypedSelector((state: any) => state.tokenFilters);
+	const { data: appData } = useTypedSelector((state: any) => state.app);
 
 	const backClick = () => console.log('backCLick');
 
@@ -27,7 +28,7 @@ const FilteredToken = ({selectedToken,setSelectedToken}:any) => {
 					<div className='filteredToken__cell filteredToken__heading'>Filtered by token</div>
 					<div className='filteredToken__cell'>
 						<Eth />
-						{selectedToken && selectedToken.name}
+						{filters && filters.name}
 					</div>
 				</div>
 				<div className='filteredToken__cells'>
@@ -43,7 +44,7 @@ const FilteredToken = ({selectedToken,setSelectedToken}:any) => {
 			<div className='filteredToken__body'>
 				<div className='filteredToken__cell'>
 					<span className='filteredToken__cell-bold'>Balance</span>
-					<span className='filteredToken__cell-normal'>{filters.balance} `Symbol` / $ n</span>
+					<span className='filteredToken__cell-normal'>{filters.balance}/ $ {Number(filters.balance * appData.total_price_usd).toFixed(2)}</span>
 				</div>
 				<div className='filteredToken__cell'>
 					<span className='filteredToken__cell-bold'>Price</span>
@@ -51,7 +52,7 @@ const FilteredToken = ({selectedToken,setSelectedToken}:any) => {
 				</div>
 				<div className='filteredToken__cell'>
 					<span className='filteredToken__cell-bold'>Total supply</span>
-					<span className='filteredToken__cell-normal'>n</span>
+					<span className='filteredToken__cell-normal'>{Number(filters.totalSupply).toFixed(2)}</span>
 				</div>
 				<div className='filteredToken__cell'>
 					<span className='filteredToken__cell-bold'>Market cap</span>

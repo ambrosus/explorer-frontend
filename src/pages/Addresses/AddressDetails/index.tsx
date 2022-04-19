@@ -16,7 +16,7 @@ import { formatEther } from 'ethers/lib/utils';
 
 export const AddressDetails = () => {
 	const { address, type, filtered, tokenToSorted }: any = useParams();
-	const { setPosition } = useActions();
+	const { setPosition, addFilter } = useActions();
 	const { filters } = useTypedSelector((state: any) => state.tokenFilters, shallowEqual);
 	const { loading, data: addressData } = useTypedSelector((state: any) => state.position);
 	const [transactionType, setTransactionType] = useState<any>(type);
@@ -24,9 +24,13 @@ export const AddressDetails = () => {
 	const [tx, setTx] = useState([]);
 
 	useEffect(() => {
+		if (filtered && addressData?.tokens?.length) {
+			addFilter(addressData.tokens.find((token: any) => token.idx === +filtered));
+		}
 		if (!loading) {
+
 			setPosition(API.getDataForAddress, address.trim(), {
-				filters: addressData && addressData.filters ? addressData.filters : [],
+				filtered: addressData && addressData.filters ? addressData.filters : [],
 				selectedTokenFilter: selectedToken && selectedToken?.idx ? selectedToken.idx : filtered,
 				limit: 200,
 				type: transactionType,

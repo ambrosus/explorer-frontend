@@ -19,11 +19,14 @@ export const setAppDataAsync = () => {
                 return info;
             });
             const totalPriceToken =await API.getTokenMountPrice();
+            const { total_price_usd } = await API.getTokenMountPrice().then((res) => res);
+
             const result = {
                 gitTagVersion: CLIENT_VERSION,
                 netInfo: netInfo,
                 tokenInfo: tokenInfo,
                 totalPriceToken: totalPriceToken,
+                total_price_usd: total_price_usd,
             };
             dispatch({
                 type: actionTypes.SET_APP_DATA__SUCCESS,

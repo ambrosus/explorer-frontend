@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import API from '../../API/api';
+import { useTypedSelector } from '../../hooks/useTypedSelector';
 
 type OveralBalanceProps = {
 	addressBalance: string | number;
@@ -7,11 +8,12 @@ type OveralBalanceProps = {
 
 const OveralBalance: React.FC<OveralBalanceProps> = ({ addressBalance }) => {
 	const [amountInUsd, setAmountInUsd] = useState(0);
+	const { data: appData } = useTypedSelector((state: any) => state.app);
+
 	// @ts-ignore
 	useEffect(async () => {
-		const { total_price_usd } = await API.getTokenMountPrice().then((res) => res);
-		if (total_price_usd) {
-			setAmountInUsd(total_price_usd * Number(addressBalance));
+		if (appData && appData?.total_price_usd) {
+			setAmountInUsd(appData.total_price_usd * Number(addressBalance));
 		}
 	}, [addressBalance]);
 	return (
