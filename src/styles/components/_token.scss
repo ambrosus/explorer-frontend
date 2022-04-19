@@ -3,7 +3,7 @@
 	justify-content: flex-end;
 	&__info {
 		display: flex;
-		// position: absolute;
+		position: absolute;
 		flex-direction: row;
 
 		&-name {
@@ -108,18 +108,20 @@
 	padding: 15px;
 	border-top: 1px solid #eff2f5;
 	cursor: pointer;
-	margin: 1px 0;
 
 	&:focus {
 		outline: none;
 	}
-
 	&:hover {
 		background-color: #eff2f5;
+		border-top: 1px solid #fff;
 	}
 
 	&__tokens {
 		line-height: 1.33em;
+	}
+	&__tokens:hover {
+		background-color: #eff2f5;
 	}
 	&__amount {
 		text-align: end;

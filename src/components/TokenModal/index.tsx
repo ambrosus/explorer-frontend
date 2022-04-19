@@ -6,11 +6,11 @@ import { ethers, providers } from 'ethers';
 import erc20Abi from '../../utils/abis/ERC20.json';
 import { ethereum } from '../../utils/constants';
 import { formatEther } from 'ethers/lib/utils';
-import { useParams } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 
 type TokenModalProps = {
 	setToken: any;
-	selectedToken: any
+	selectedToken: any;
 };
 
 const TokenModal: React.FC<TokenModalProps> = ({ selectedToken, setToken }) => {
@@ -21,50 +21,27 @@ const TokenModal: React.FC<TokenModalProps> = ({ selectedToken, setToken }) => {
 	const changeInput = (e: ChangeEvent<HTMLInputElement>) => {
 		e.preventDefault();
 		setName(e.target.value);
-		// tokens.map((token: any) => {
-		// 	if (token.name.includes(e.target.value)) {
-		// 		addFilter(token);
-		// 	}else{
-		// 		removeFilter(token);
-		// 	}
-		// });
 	};
 
 	return (
-		<div className='tokenModal'
-				 tabIndex={0}
-		>
-			<input
-				className='tokenModal__search'
-				placeholder='Search for Token Name'
-				type='text' value={name}
-				onChange={changeInput} />
-			{addressData && tokens &&
-			<>
-				<div>
-					<div className='tokenModal__tokens'>
-						ERC-20 Tokens
-						<span className='universall__light2' style={{ marginLeft: 4 }}>
-						{'>'}20
-					</span>
-					</div>
-					<div className='tokenModal__arrows'></div>
-				</div>
-				{tokens.map( (token: any) => {
-					return  (
-						<div
-							onClick={() => {
-								setToken(token);
-							}}
-							key={token.name + token.idx}>
-							<TokenItem selectedToken={selectedToken} token={token} />
+		<div className='tokenModal' tabIndex={0}>
+			<input className='tokenModal__search' placeholder='Search for Token Name' type='text' value={name} onChange={changeInput} />
+			{addressData && tokens && (
+				<>
+					<div>
+						<div className='tokenModal__tokens'>
+							ERC-20 Tokens
+							<span className='universall__light2' style={{ marginLeft: 4 }}>
+								{'>'}20
+							</span>
 						</div>
-					);
-				})
-				}
-
-			</>}
-
+						<div className='tokenModal__arrows'></div>
+					</div>
+					{tokens.map((token: any) => {
+						return <TokenItem key={token.name + token.idx} selectedToken={selectedToken} token={token} setToken={setToken} />;
+					})}
+				</>
+			)}
 		</div>
 	);
 };
