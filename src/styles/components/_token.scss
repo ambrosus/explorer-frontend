@@ -116,6 +116,10 @@
 		background-color: #eff2f5;
 		border-top: 1px solid #fff;
 	}
+	&:hover:nth-last-child(1) {
+		border-bottom-left-radius: 16px;
+		border-bottom-right-radius: 16px;
+	}
 
 	&__tokens {
 		line-height: 1.33em;
