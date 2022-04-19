@@ -108,13 +108,13 @@
 	padding: 15px;
 	border-top: 1px solid #eff2f5;
 	cursor: pointer;
-	margin: 1px 0;
 
 	&:focus {
 		outline: none;
 	}
 	&:hover {
 		background-color: #eff2f5;
+		border-top: 1px solid #fff;
 	}
 
 	&__tokens {

@@ -19,7 +19,7 @@ const TokenItem = ({ token, selectedToken, setToken }: TokenItemProps) => (
 			setToken(token);
 		}}
 		// @ts-ignore
-		style={{ backgroundColor: selectedToken && selectedToken?.name && selectedToken?.name === token?.name ? '#EFF2F5' : '' }}
+		style={{ backgroundColor: selectedToken && selectedToken?.name && selectedToken?.name === token?.name ? '#EFF2F5' : null }}
 	>
 		<div className='tokenItem__icon'>
 			<Eth />
