@@ -3,7 +3,7 @@
 	justify-content: flex-end;
 	&__info {
 		display: flex;
-		// position: absolute;
+		position: absolute;
 		flex-direction: row;
 
 		&-name {
@@ -113,13 +113,15 @@
 	&:focus {
 		outline: none;
 	}
-
 	&:hover {
 		background-color: #eff2f5;
 	}
 
 	&__tokens {
 		line-height: 1.33em;
+	}
+	&__tokens:hover {
+		background-color: #eff2f5;
 	}
 	&__amount {
 		text-align: end;
