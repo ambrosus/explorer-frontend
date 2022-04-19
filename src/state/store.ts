@@ -7,12 +7,12 @@ import {persistStore, persistReducer} from "redux-persist";
 import storage from  'redux-persist/lib/storage';
 
 const middleware:Array<any>= [thunk];
-//
+
 // const persistConfig = {
 // 		key: 'root',
 // 		storage,
 // 		// whitelist: ['position,tokenFilters'],
-// 		// blacklist: ['position,tokenFilters,app']
+// 		blacklist: ['position,tokenFilters,app']
 // };
 // const persistedReducer = persistReducer(persistConfig, reducers);
 

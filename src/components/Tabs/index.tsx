@@ -96,7 +96,7 @@ const Tabs = ({ selectedToken, data, transactionType, onClick, setTransactionTyp
 			<div className='tabs' tabIndex={-1}>
 				<div className='tabs__filters' tabIndex={-1}>
 					{!filtered
-						? transactionFilters.map((filter) => (
+						? transactionFilters && transactionFilters.length && transactionFilters.map((filter) => (
 								<NavLink
 									key={filter.title}
 									to={`/addresses/${address}/${filter.value ? filter.value : ''}`}
@@ -108,7 +108,7 @@ const Tabs = ({ selectedToken, data, transactionType, onClick, setTransactionTyp
 									{filter.title}
 								</NavLink>
 						  ))
-						: ERC20Filters.map((filter) => (
+						: ERC20Filters && ERC20Filters.length && ERC20Filters.map((filter) => (
 								<NavLink
 									key={filter.title}
 									to={`/addresses/${address}/ERC-20_Tx/${filtered}/${filter.value}`}
@@ -125,7 +125,7 @@ const Tabs = ({ selectedToken, data, transactionType, onClick, setTransactionTyp
 			</div>
 
 			<div style={{ minHeight: 200, marginTop: !data.length ? 200 : 0 }}>
-				{data.length ? (
+				{data && data.length ? (
 					<section className='addressDetails__table' style={style(type)}>
 						<AddressBlocksHeader
 							txhash='txHash'
