@@ -34,17 +34,16 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 	const { address } = useParams();
 	const methodRef: any = useRef();
 
-	const sortMethod = () => setIsShow(true);
 	useOnClickOutside(methodRef, () => setIsShow(false));
 
 	const isTxHash = txhash === null ? null : <div className='addressDetails__thead-td'>{txhash}</div>;
 	const isMethod =
 		method === null ? null : (
-			<div className='addressDetails__thead-td'>
+			<div ref={methodRef} className='addressDetails__thead-td'>
 				<button
 					className='universall__light2'
 					style={{ display: 'flex', alignItems: 'center', fontWeight: 700, fontSize: '0.86em', lineHeight: '1.77em' }}
-					onClick={sortMethod}
+					onClick={() => setIsShow(true)}
 				>
 					{method}
 					<ArrowDown />
