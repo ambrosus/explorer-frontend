@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { AmbrosusLogoFooter } from './AmbrosusLogoFooter';
 import footerSocials from './SocialsIcon';
 
@@ -10,9 +10,9 @@ export const Footer = () => (
 		<div className='container'>
 			<div className='footer__container'>
 				<div className='logo'>
-					<Link to='/'>
+					<NavLink to='/'>
 						<AmbrosusLogoFooter />
-					</Link>
+					</NavLink>
 				</div>
 				<div className='mail'>
 					<a href='mailto:support@ambrosus.io'>support@ambrosus.io</a>

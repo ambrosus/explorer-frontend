@@ -96,6 +96,7 @@ export const Home: React.FC = () => {
 										from: any;
 										to: any;
 										value: { ether: any };
+										type: any;
 									}) => (
 										<LatestTransactions
 											key={item._id}
@@ -105,6 +106,7 @@ export const Home: React.FC = () => {
 											from={item.from}
 											to={item.to}
 											amount={item.value.ether}
+											type={item.type}
 										/>
 									)
 								)}
