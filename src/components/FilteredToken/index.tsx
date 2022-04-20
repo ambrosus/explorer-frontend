@@ -44,7 +44,7 @@ const FilteredToken = ({selectedToken,setSelectedToken}:any) => {
 			<div className='filteredToken__body'>
 				<div className='filteredToken__cell'>
 					<span className='filteredToken__cell-bold'>Balance</span>
-					<span className='filteredToken__cell-normal'>{filters.balance}/ $ {Number(filters.balance * appData.total_price_usd).toFixed(2)}</span>
+					<span className='filteredToken__cell-normal'>{filters.balance}/ $ {appData && appData?.total_price_usd && appData.total_price_usd ? Number(filters.balance * appData.total_price_usd).toFixed(2):'no course'}</span>
 				</div>
 				<div className='filteredToken__cell'>
 					<span className='filteredToken__cell-bold'>Price</span>

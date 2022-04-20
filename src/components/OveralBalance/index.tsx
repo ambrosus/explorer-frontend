@@ -12,7 +12,7 @@ const OveralBalance: React.FC<OveralBalanceProps> = ({ addressBalance }) => {
 
 	// @ts-ignore
 	useEffect(async () => {
-		if (appData && appData?.total_price_usd) {
+		if (appData && appData?.total_price_usd && appData.total_price_usd) {
 			setAmountInUsd(appData.total_price_usd * Number(addressBalance));
 		}
 	}, [addressBalance]);

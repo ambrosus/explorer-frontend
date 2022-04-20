@@ -69,7 +69,10 @@ const getDataForAddress = async (address: string, params: any) => {
 				const totalSupply = Number(formatEther(await tokenContract.totalSupply()));
 				token.balance = balance;
 				token.totalSupply = totalSupply;
-			} finally {
+			}
+			catch (e) {
+				console.log(e);
+			}finally {
 				newTokens.push(token);
 			}
 		});

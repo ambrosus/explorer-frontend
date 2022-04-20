@@ -75,8 +75,8 @@ export const AddressDetails = () => {
 						{selectedToken && <FilteredToken setSelectedToken={setSelectedToken} selectedToken={selectedToken} />}
 					</div>
 				</Content.Header>
-				<Content.Body isLoading={addressData}>
-					{tx && (
+				<Content.Body isLoading={Boolean(tx && tx.length)}>
+					{tx && tx.length && (
 						<Tabs
 							onClick={setSelectedToken}
 							selectedToken={selectedToken}

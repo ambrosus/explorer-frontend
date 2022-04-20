@@ -8,7 +8,7 @@ import Main from './Main';
 const rootNode = document.getElementById('root');
 ReactDOM.render(
 	<Provider store={store}>
-			<BrowserRouter >
+			<BrowserRouter>
 				<Main />
 			</BrowserRouter>
 	</Provider>,

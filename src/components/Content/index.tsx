@@ -19,6 +19,12 @@ Content.Header = ({ children, isLoading = true }: Props) => (
 
 Content.Body = ({ children, isLoading = true }: Props) => (
 	<div key='1' className='content__body'>
-		{!isLoading ? <Loader /> : <div className='container'>{children}</div>}
+		{!isLoading ? (
+			<div style={{ minHeight: 400, marginTop: 200 }}>
+				<Loader />
+			</div>
+		) : (
+			<div className='container'>{children}</div>
+		)}
 	</div>
 );
