@@ -31,9 +31,7 @@ const TokenModal: React.FC<TokenModalProps> = ({ selectedToken, setToken }) => {
 					<div>
 						<div className='tokenModal__tokens'>
 							ERC-20 Tokens
-							<span className='universall__light2' style={{ marginLeft: 4 }}>
-								{'>'}20
-							</span>
+							<span className='universall__light2' style={{ marginLeft: 4 }}></span>
 						</div>
 						<div className='tokenModal__arrows'></div>
 					</div>
