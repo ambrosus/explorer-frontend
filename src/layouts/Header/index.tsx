@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import Find from '../../components/Find';
 import FindWide from '../../components/FindWide';
 import { useOnClickOutside } from '../../hooks/useOnClickOutside';
@@ -8,9 +8,9 @@ import { routes as menuItems } from '../../routes';
 import AmbrosusLogoSvg from './AmbrosusLogoSvg';
 
 const menu = menuItems.map((menuElement) => (
-	<Link to={menuElement.path} key={menuElement.key} className='menu__item'>
+	<NavLink to={menuElement.path} key={menuElement.key} className='menu__item'>
 		{menuElement.key}
-	</Link>
+	</NavLink>
 ));
 
 export const Header = () => {
@@ -24,9 +24,9 @@ export const Header = () => {
 			<div className='container'>
 				<nav className='navigation'>
 					<div className='logo'>
-						<Link to='/'>
+						<NavLink to='/'>
 							<AmbrosusLogoSvg />
-						</Link>
+						</NavLink>
 					</div>
 
 					{isShow ? (

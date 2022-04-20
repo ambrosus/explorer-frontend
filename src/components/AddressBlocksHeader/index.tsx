@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import ArrowDown from '../../assets/icons/Arrows/ArrowDown';
 import { useOnClickOutside } from '../../hooks/useOnClickOutside';
 
@@ -52,7 +52,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 				<div ref={methodRef} className='methodModal__table'>
 					{isShow &&
 						methodFilters.map((filter: { title: string; value: any }) => (
-							<Link
+							<NavLink
 								key={filter.title}
 								to={`/addresses/${address}/${filter.value}`}
 								tabIndex={-1}
@@ -60,7 +60,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 								onClick={() => setTransactionType(filter.value)}
 							>
 								{filter.title}
-							</Link>
+							</NavLink>
 						))}
 				</div>
 			</div>

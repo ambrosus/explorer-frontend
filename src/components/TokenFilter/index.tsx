@@ -29,8 +29,8 @@ const TokenFilter = ({ onClick, selectedToken }: any) => {
 			<div ref={refTokensModal} tabIndex={0} className='tokenFilter'>
 				<div className='tokenFilter__input'>
 					<span className='tokenFilter__input-rectangle'>{addressData && addressData.tokens && addressData.tokens.length}</span>
-					<span className='tokenFilter__input-text'>{`> $ 152.35 USD`}</span>
 					<button className='tokenFilter__input-btn' type='button' onClick={toggleMenu}>
+						<span className='tokenFilter__input-text'>{''}</span>
 						<ArrowDownBig />
 					</button>
 				</div>

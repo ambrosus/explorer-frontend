@@ -9,22 +9,22 @@ interface Props {
 	isLoading?: boolean;
 }
 
-export const Content = ({ children, isLoading = true }: Props) =>
-	!isLoading
-		? <Loader />
-		: <div className='content'>{children}</div>;
+export const Content = ({ children, isLoading = true }: Props) => (!isLoading ? <Loader /> : <div className='content'>{children}</div>);
 
-Content.Header = ({ children,isLoading = true }:  Props) => (
+Content.Header = ({ children, isLoading = true }: Props) => (
 	<div key='0' className='content__header'>
-		{!isLoading
-			? <Loader />
-			:<div className='container'>{children}</div>}	</div>
+		{!isLoading ? <Loader /> : <div className='container'>{children}</div>}{' '}
+	</div>
 );
 
-Content.Body = ({ children,isLoading = true }: Props) => (
+Content.Body = ({ children, isLoading = true }: Props) => (
 	<div key='1' className='content__body'>
-		{!isLoading
-			? <div style={{minHeight:400 , marginTop: 200 }}><Loader /></div>
-			:<div className='container'>{children}</div>}
+		{!isLoading ? (
+			<div style={{ minHeight: 400, marginTop: 200 }}>
+				<Loader />
+			</div>
+		) : (
+			<div className='container'>{children}</div>
+		)}
 	</div>
 );
