@@ -36,11 +36,9 @@ const methodFilters = [
 	{ title: 'Payouts', value: 'payouts' },
 ];
 
-const Tabs = ({ selectedToken, data, transactionType, onClick, setTransactionType }: any) => {
+const Tabs = ({ selectedToken, data, onClick, setTransactionType }: any) => {
 	const { address, type, filtered, tokenToSorted } = useParams();
 	const [latestTrans, setLatestTrans] = useState([]);
-
-	const { clearFilters } = useActions();
 	const { data: addressData } = useTypedSelector((state: any) => state.position);
 	const { filters } = useTypedSelector((state: any) => state.tokenFilters, shallowEqual);
 
@@ -61,7 +59,7 @@ const Tabs = ({ selectedToken, data, transactionType, onClick, setTransactionTyp
 			const allSelected =
 				data &&
 				data.filter((transaction: any) => {
-					return transaction?.token === selectedToken.name;
+					return transaction?.token === selectedToken?.name;
 				});
 			const allTransfer = allSelected.filter((transaction: any) => {
 				return transaction?.method === 'Transfer';
