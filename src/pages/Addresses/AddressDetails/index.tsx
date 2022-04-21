@@ -13,6 +13,7 @@ import { useTypedSelector } from '../../../hooks/useTypedSelector';
 import FilteredToken from '../../../components/FilteredToken';
 import { shallowEqual } from 'react-redux';
 import { formatEther } from 'ethers/lib/utils';
+import useHover from '../../../hooks/useHover';
 
 export const AddressDetails = () => {
 	const { address, type, filtered, tokenToSorted }: any = useParams();
@@ -22,6 +23,7 @@ export const AddressDetails = () => {
 	const [transactionType, setTransactionType] = useState<any>(type);
 	const [selectedToken, setSelectedToken] = useState<any>(null);
 	const [tx, setTx] = useState([]);
+	const [hoverRef, isHovered]: any = useHover();
 
 	useEffect(() => {
 		if (filtered && addressData?.tokens?.length) {
@@ -60,7 +62,7 @@ export const AddressDetails = () => {
 					<h1 className='addressDetails__h1'>
 						Address Details <span className='addressDetails__h1-span'> {address}</span>
 						<button className='addressDetails__h1-btn' onClick={copyConten}>
-							<ContentCopy />
+							<ContentCopy fill='#808A9D' />
 						</button>
 					</h1>
 					<div className='addressDetails__section'>
