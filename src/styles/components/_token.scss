@@ -7,6 +7,7 @@
 		flex-direction: row;
 
 		&-name {
+			color: #05060f;
 			margin-right: 10px;
 			font-weight: 700;
 			font-size: 1.28em;
@@ -21,6 +22,10 @@
 .tokenModal {
 	display: flex;
 	flex-direction: column;
+	box-shadow: 4px 8px 8px rgba(0, 0, 0, 0.25);
+	border-bottom-left-radius: 16px;
+	border-bottom-right-radius: 16px;
+
 	&__search {
 		width: 300px;
 		height: 40px;
@@ -54,7 +59,6 @@
 	min-width: 320px;
 	background: #fff;
 	border: 1px solid #eff2f5;
-	box-shadow: 4px 8px 8px rgba(0, 0, 0, 0.25);
 	border-radius: 16px;
 
 	&__input {

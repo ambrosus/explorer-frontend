@@ -41,8 +41,8 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 		method === null ? null : (
 			<div ref={methodRef} className='addressDetails__thead-td'>
 				<button
-					className='universall__light2'
-					style={{ display: 'flex', alignItems: 'center', fontWeight: 700, fontSize: '0.86em', lineHeight: '1.77em' }}
+					className=' universall__light2'
+					style={{ display: 'flex', alignItems: 'center', fontWeight: 700, fontSize: '0.86rem', lineHeight: '1.77em' }}
 					onClick={() => setIsShow(true)}
 				>
 					{method}
@@ -70,7 +70,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 	const isBlock = block === null ? null : <div className='addressDetails__thead-td'>{block}</div>;
 	const isAmount = amount === null ? null : <div className='addressDetails__thead-td'>{amount}</div>;
 	const isTxFee = txfee === null ? null : <div className='addressDetails__thead-td'>{txfee}</div>;
-	const isToken = token === null ? null : <div className='addressDetails__thead-td'>{token}</div>;
+	const isToken = token === null ? null : <div className='addressDetails__thead-td'>{token[0].toUpperCase() + token.slice(1)}</div>;
 
 	return (
 		<>
