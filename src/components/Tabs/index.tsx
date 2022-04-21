@@ -88,13 +88,16 @@ const Tabs = ({ selectedToken, data, onClick, setTransactionType }: any) => {
 				return (type.style = { gridTemplateColumns: 'repeat(8, auto)' });
 		}
 	}
+	console.log(latestTrans);
 
 	return (
 		<>
 			<div className='tabs' tabIndex={-1}>
 				<div className='tabs__filters' tabIndex={-1}>
 					{!filtered
-						? transactionFilters && transactionFilters.length && transactionFilters.map((filter) => (
+						? transactionFilters &&
+						  transactionFilters.length &&
+						  transactionFilters.map((filter) => (
 								<NavLink
 									key={filter.title}
 									to={`/addresses/${address}/${filter.value ? filter.value : ''}`}
@@ -106,7 +109,9 @@ const Tabs = ({ selectedToken, data, onClick, setTransactionType }: any) => {
 									{filter.title}
 								</NavLink>
 						  ))
-						: ERC20Filters && ERC20Filters.length && ERC20Filters.map((filter) => (
+						: ERC20Filters &&
+						  ERC20Filters.length &&
+						  ERC20Filters.map((filter) => (
 								<NavLink
 									key={filter.title}
 									to={`/addresses/${address}/ERC-20_Tx/${filtered}/${filter.value}`}

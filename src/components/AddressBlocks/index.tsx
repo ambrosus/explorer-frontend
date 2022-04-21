@@ -30,7 +30,12 @@ const AddressBlock: React.FC<AddressBlockProps> = ({ onClick, isLatest, txhash, 
 	const { data: addressData } = useTypedSelector((state: any) => state.position);
 	const { type } = useParams();
 
-	const isTxHash = txhash === null ? null : <div className='addressDetails__tbody-td universall__light2'>{sliceData10(txhash)}</div>;
+	const isTxHash =
+		txhash === null ? null : (
+			<div className='addressDetails__tbody-td universall__light2' style={{ fontWeight: '600' }}>
+				{sliceData10(txhash)}
+			</div>
+		);
 	const isMethod = method === null ? null : <div className='addressDetails__tbody-td'>{method}</div>;
 	const isFrom = from === null ? null : <div className='addressDetails__tbody-td universall__light2'>{from}</div>;
 	const isTo = to === null ? null : <div className='addressDetails__tbody-td universall__light2'>{to}</div>;
@@ -58,7 +63,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({ onClick, isLatest, txhash, 
 
 	const isToken: any =
 		type === 'ERC-20_Tx' ? (
-			<div className='addressDetails__tbody-td'>
+			<div className='addressDetails__tbody-td universall__light2' style={{ fontWeight: '600' }}>
 				{!isLatest ? (
 					token
 				) : (
