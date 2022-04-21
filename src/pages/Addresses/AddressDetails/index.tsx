@@ -33,7 +33,7 @@ export const AddressDetails = () => {
 			setPosition(API.getDataForAddress, address.trim(), {
 				filtered: addressData && addressData.filters ? addressData.filters : [],
 				selectedTokenFilter: selectedToken && selectedToken?.idx ? selectedToken.idx : filtered,
-				limit: 200,
+				limit: 500,
 				type: transactionType,
 			});
 		}
