@@ -47,7 +47,30 @@ const AddressBlock: React.FC<AddressBlockProps> = ({ onClick, isLatest, txhash, 
 				<span className='universall__indent-icon'>
 					<Amb />
 				</span>
-				{`${amount} AMB`}
+				{amount}
+				{token && token!== 'No token'? (
+						<div
+							style={{padding:"0 5px",cursor:"pointer",color:"#808a9d"}}
+							onClick={() => {
+								// eslint-disable-next-line array-callback-return
+								addressData?.tokens.forEach((item: any) => {
+									console.log('item',item);
+									if (item.name === token) {
+										onClick(item);
+										addFilter(item);
+										navigate(`/addresses/${address}/ERC-20_Tx/${item.idx}`);
+									}else {
+										return '';
+									}
+								});
+							}}
+						>
+							{token ? token.slice(0, 8) : ''}
+						</div>
+					)
+					: (<div
+						style={{padding:"0 5px",color:"#808a9d"}}
+					>No token</div> )}
 			</div>
 		);
 
@@ -57,7 +80,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({ onClick, isLatest, txhash, 
 				<span className='universall__indent-icon' style={{ display: 'flex', alignItems: 'center' }}>
 					{online}
 				</span>
-				{`${Number(txfee).toFixed(6)} AMB`}
+				{txfee }
 			</div>
 		);
 

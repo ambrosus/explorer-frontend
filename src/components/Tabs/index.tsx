@@ -167,6 +167,7 @@ const Tabs = ({ selectedToken, data, onClick, setTransactionType }: any) => {
 							  data.map((transaction: any, index: number) => {
 									return (
 										<AddressBlock
+											onClick={onClick}
 											key={transaction.txHash}
 											txhash={transaction.txHash}
 											method={transaction.method}

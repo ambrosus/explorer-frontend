@@ -87,8 +87,9 @@ const getDataForAddress = async (address: string, params: any) => {
 	});
 
 	const blockBookApiTransactionsData = await Promise.all(blockBookApiTransactions);
-
-	const explorData = explorerTrans.map((t: any) => ({
+	console.log('blockBookApiTransactionsData', blockBookApiTransactionsData);
+	const explorData = explorerTrans.map((t: any) => {
+		return {
 		txHash: t.hash,
 		method: t.type,
 		from: `${t.from.slice(0, 5)}...${t.from.slice(t.from.length - 5)}`,
@@ -96,22 +97,37 @@ const getDataForAddress = async (address: string, params: any) => {
 		date: t.timestamp * 1000,
 		block: t.blockNumber,
 		amount: Number(formatEther(t.value.wei)).toFixed(2),
-		txFee: Number(Number(formatEther(t.gasUsed)) * Number(formatEther(t.gasCost.wei))).toFixed(2),
-	}));
+			// TODO add token symbol && token name
+			token:'No token',
+			txFee: Number(t.gasCost.ether),
+	}
+});
 	const bBookData = blockBookApiTransactionsData.map((t) => ({
 		userTokens: defaultFilters,
 		txHash: t.txid,
-		method: t?.tokenTransfers ? 'Transfer' : '',
-		from: t?.tokenTransfers ? `${t.tokenTransfers[0].from.slice(0, 5)}...${t.tokenTransfers[0].from.slice(t.tokenTransfers[0].from.length - 5)}` : '',
-		to: t?.tokenTransfers ? `${t.tokenTransfers[0].to.slice(0, 5)}...${t.tokenTransfers[0].to.slice(t.tokenTransfers[0].to.length - 5)}` : '',
+		method: t?.tokenTransfers ? 'Transfer' : 'Transaction',
+		from: t?.tokenTransfers ?
+			`${t.tokenTransfers[0].from.slice(0, 5)}...${t.tokenTransfers[0].from.slice(t.tokenTransfers[0].from.length - 5)}`
+			: `${t.vin[0].addresses[0].slice(0, 5)}...${t.vin[0].addresses[0].slice(t.vin[0].addresses[0].length - 5)}`
+		,
+		to: t?.tokenTransfers ?
+			`${t.tokenTransfers[0].to.slice(0, 5)}...${t.tokenTransfers[0].to.slice(t.tokenTransfers[0].to.length - 5)}`
+			: `${t.vout[0].addresses[0].slice(0, 5)}...${t.vout[0].addresses[0].slice(t.vout[0].addresses[0].length - 5)}`,
 		date: t.blockTime * 1000,
+		block: t.blockHeight,
 		amount: t?.tokenTransfers ? Number(formatEther(t.tokenTransfers[0].value)).toFixed(2) : Number(formatEther(t.value)).toFixed(2),
 		token: t?.tokenTransfers ? t.tokenTransfers[0].name : 'No token',
+		txFee: Number(ethers.utils.formatEther(t.fees)),
 	}));
 
+const concatData = [...explorData, ...bBookData];
+const result : any = new Map(concatData.map((item) => [item.txHash, item])).values()
+	const data : any = [...result]
+	const transfersData : any = data.filter((item: any) => item.method === 'Transfer');
+	console.log('data', data);
 	return {
 		balance: addressBalance,
-		transactions: type === 'ERC-20_Tx' || selectedTokenFilter ? bBookData : explorData,
+		transactions: type === 'ERC-20_Tx' || selectedTokenFilter ? bBookData : type === 'transfers'  ? transfersData : data,
 		tokens: [...defaultFilters],
 	};
 };
