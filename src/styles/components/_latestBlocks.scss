@@ -5,6 +5,7 @@
 		line-height: 1.78em;
 		border-bottom: 1px solid #eff2f5;
 		padding-bottom: 15px;
+		color: #1e1e1f;
 	}
 	&__cells {
 		display: grid;
@@ -15,6 +16,7 @@
 	&__cell {
 		display: grid;
 		align-items: center;
+		min-width: 170px;
 		&-content {
 			display: flex;
 			gap: 8px;

@@ -16,7 +16,7 @@ export const Home: React.FC = () => {
 	const getHomePageData = async () => {
 		const result: { header?: Array<{ name: string; value: any }>; latestBlocks: Array<any>; latestTransactions: Array<any> } = {
 			latestBlocks: (await API.getBlocks({ limit: 8 })).data,
-			latestTransactions: (await API.getTransactions({ limit: 8 })).data,
+			latestTransactions: (await API.getTransactions({ limit: 3000 })).data.filter((item: any) => item.type !== 'BlockReward').slice(0, 8),
 		};
 
 		result.header = [
@@ -35,7 +35,7 @@ export const Home: React.FC = () => {
 
 	useEffect(() => {
 		getHomePageData().then((res: any) => setData(res));
-	}, [appData, getHomePageData]);
+	}, [appData]);
 
 	return (
 		<Content isLoading={!!data}>

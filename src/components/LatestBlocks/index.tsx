@@ -37,7 +37,8 @@ const LatestBlocks: React.FC<LatestBlocksProps> = ({ number, index, timestamp, v
 						<div className='latestBlocks__font-big latestBlocks__margin-left'>{sliceData5(validator)}</div>
 					</div>
 					<div className='latestBlocks__cell-content'>
-						<div className='latestBlocks__font-small'>{`${totalTransactions} txns`}</div>
+						<div className='latestBlocks__font-small'></div>
+						<div className='latestBlocks__font-small' style={{ marginLeft: '1px' }}>{`${totalTransactions} txns`}</div>
 					</div>
 				</div>
 				<div className='latestBlocks__cell'>

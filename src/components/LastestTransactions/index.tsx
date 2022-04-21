@@ -10,7 +10,7 @@ type lastestTransactionsProps = {
 	from: string;
 	to: string;
 	amount: number;
-	type: any;
+	type?: any | Element | null | false;
 };
 
 const LatestTransactions: React.FC<lastestTransactionsProps> = ({ hash, status, timestamp, from, to, amount, type }) => {
