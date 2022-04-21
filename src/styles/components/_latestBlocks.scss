@@ -15,6 +15,7 @@
 	&__cell {
 		display: grid;
 		align-items: center;
+		min-width: 170px;
 		&-content {
 			display: flex;
 			gap: 8px;
