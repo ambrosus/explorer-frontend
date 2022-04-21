@@ -28,7 +28,6 @@ export const AddressDetails = () => {
 			addFilter(addressData.tokens.find((token: any) => token.idx === +filtered));
 		}
 		if (!loading) {
-
 			setPosition(API.getDataForAddress, address.trim(), {
 				filtered: addressData && addressData.filters ? addressData.filters : [],
 				selectedTokenFilter: selectedToken && selectedToken?.idx ? selectedToken.idx : filtered,
