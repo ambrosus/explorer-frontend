@@ -78,9 +78,6 @@ const Tabs = ({ selectedToken, data, onClick, setTransactionType }: any) => {
 			style,
 		};
 		switch (item) {
-			case '/':
-				return (type.style = { gridTemplateColumns: 'repeat(8, auto)' });
-
 			case 'ERC-20_Tx':
 				return (type.style = { gridTemplateColumns: 'repeat(7, auto)' });
 
@@ -88,7 +85,6 @@ const Tabs = ({ selectedToken, data, onClick, setTransactionType }: any) => {
 				return (type.style = { gridTemplateColumns: 'repeat(8, auto)' });
 		}
 	}
-	console.log(latestTrans);
 
 	return (
 		<>
