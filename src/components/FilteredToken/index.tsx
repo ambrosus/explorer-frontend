@@ -41,28 +41,31 @@ const FilteredToken = ({selectedToken,setSelectedToken}:any) => {
 					</button>
 				</div>
 			</div>
-			<div className='filteredToken__body'>
-				<div className='filteredToken__cell'>
-					<span className='filteredToken__cell-bold'>Balance</span>
-					<span className='filteredToken__cell-normal'>{filters.balance}/ $ {appData && appData?.total_price_usd && appData.total_price_usd ? Number(filters.balance * appData.total_price_usd).toFixed(2):'no course'}</span>
+			{filters?.balance && (
+				<div className='filteredToken__body'>
+					<div className='filteredToken__cell'>
+						<span className='filteredToken__cell-bold'>Balance</span>
+						<span className='filteredToken__cell-normal'>{filters.balance ? Number(filters.balance).toFixed(2) : '-'}</span>
+						{/*<span className='filteredToken__cell-normal'>{filters.balance}/ $ {appData && appData?.total_price_usd && appData.total_price_usd ? Number(filters.balance * appData.total_price_usd).toFixed(2):'no course'}</span>*/}
+					</div>
+					{/*<div className='filteredToken__cell'>*/}
+					{/*	<span className='filteredToken__cell-bold'>Price</span>*/}
+					{/*	<span className='filteredToken__cell-normal'>n `Symbol` / $ n</span>*/}
+					{/*</div>*/}
+					<div className='filteredToken__cell'>
+						<span className='filteredToken__cell-bold'>Total supply</span>
+						<span className='filteredToken__cell-normal'>{filters.totalSupply ? Number(filters.totalSupply).toFixed(2) : '-'}</span>
+					</div>
+					{/*<div className='filteredToken__cell'>*/}
+					{/*	<span className='filteredToken__cell-bold'>Market cap</span>*/}
+					{/*	<span className='filteredToken__cell-normal'>$n</span>*/}
+					{/*</div>*/}
+					{/*<div className='filteredToken__cell'>*/}
+					{/*	<span className='filteredToken__cell-bold'>Total transfers</span>*/}
+					{/*	<span className='filteredToken__cell-normal'>n</span>*/}
+					{/*</div>*/}
 				</div>
-				<div className='filteredToken__cell'>
-					<span className='filteredToken__cell-bold'>Price</span>
-					<span className='filteredToken__cell-normal'>n `Symbol` / $ n</span>
-				</div>
-				<div className='filteredToken__cell'>
-					<span className='filteredToken__cell-bold'>Total supply</span>
-					<span className='filteredToken__cell-normal'>{Number(filters.totalSupply).toFixed(2)}</span>
-				</div>
-				<div className='filteredToken__cell'>
-					<span className='filteredToken__cell-bold'>Market cap</span>
-					<span className='filteredToken__cell-normal'>$n</span>
-				</div>
-				<div className='filteredToken__cell'>
-					<span className='filteredToken__cell-bold'>Total transfers</span>
-					<span className='filteredToken__cell-normal'>n</span>
-				</div>
-			</div>
+			)}
 		</div>
 	);
 };
