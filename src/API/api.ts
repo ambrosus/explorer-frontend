@@ -103,7 +103,6 @@ const getDataForAddress = async (address: string, params: any) => {
 	}
 });
 	const bBookData = blockBookApiTransactionsData.map((t) => ({
-		userTokens: defaultFilters,
 		txHash: t.txid,
 		method: t?.tokenTransfers ? 'Transfer' : 'Transaction',
 		from: t?.tokenTransfers ?
