@@ -53,7 +53,7 @@ const Tabs = ({ selectedToken, data, onClick, setTransactionType }: any) => {
 	};
 
 	useEffect(() => {
-		if (addressData && !filtered && addressData.tokens && data && data.length && type === 'ERC-20_Tx' && filters.length === 0) {
+		if (addressData && !filtered && addressData.tokens && data && data.length && type === 'ERC-20_Tx' ) {
 			sortTrans();
 		} else if (tokenToSorted) {
 			const allSelected =
