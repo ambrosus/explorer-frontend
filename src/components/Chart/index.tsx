@@ -1,5 +1,12 @@
-import React from 'react';
-import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Area, AreaChart } from 'recharts';
+import React from 'react'
+import {
+	Area,
+	AreaChart,
+	Line,
+	Tooltip,
+	XAxis,
+	YAxis,
+} from 'recharts'
 
 const data = [
 	{ name: 'Feb 18', Transactions: 4000, Price: 100000 },
@@ -9,20 +16,24 @@ const data = [
 	{ name: 'Feb 22', Transactions: 1890, Price: 500000 },
 	{ name: 'Feb 23', Transactions: 2390, Price: 600000 },
 	{ name: 'Feb 24', Transactions: 3490, Price: 700000 },
-];
+]
 
 type CustomTooltipProps = {
-	payload?: any;
-	label?: string;
-	active?: boolean;
-};
+	payload?: any
+	label?: string
+	active?: boolean
+}
 
-export const CustomTooltip = ({ payload, label, active }: CustomTooltipProps) => {
+export const CustomTooltip = ({
+	payload,
+	label,
+	active,
+}: CustomTooltipProps) => {
 	// console.log('active', active);
 	if (active) {
 		return (
 			<div
-				className='custom-tooltip'
+				className="custom-tooltip"
 				style={{
 					border: '1px solid #ccc',
 					padding: '10px',
@@ -38,15 +49,17 @@ export const CustomTooltip = ({ payload, label, active }: CustomTooltipProps) =>
 					color: '#333',
 				}}
 			>
-				<p className='intro'>{label}</p>
-				<p className='label'>Price : {`${payload[0].payload?.Price}`}</p>
-				<p className='label'>Transactions :{`${payload[0].payload?.Transactions}`}</p>
+				<p className="intro">{label}</p>
+				<p className="label">Price : {`${payload[0].payload?.Price}`}</p>
+				<p className="label">
+					Transactions :{`${payload[0].payload?.Transactions}`}
+				</p>
 			</div>
-		);
+		)
 	}
 
-	return null;
-};
+	return null
+}
 
 const Chart = () => (
 	<div
@@ -72,8 +85,8 @@ const Chart = () => (
 		</div>
 		<div>
 			<AreaChart width={318} height={120} data={data}>
-				<Area dataKey='Transactions' stroke='#212121' fill='url(#colorUv)' />
-				<Line type='monotone' dataKey='Transactions' stroke='#8884d8' />
+				<Area dataKey="Transactions" stroke="#212121" fill="url(#colorUv)" />
+				<Line type="monotone" dataKey="Transactions" stroke="#8884d8" />
 				<XAxis
 					fontSize={12}
 					interval={2}
@@ -84,17 +97,17 @@ const Chart = () => (
 						fontFamily: 'Halvar Breitschrift',
 						color: '#212121',
 					}}
-					color='#212121'
-					lightingColor='#212121'
-					colorInterpolation='#212121'
-					stopColor='#212121'
-					dataKey='name'
+					color="#212121"
+					lightingColor="#212121"
+					colorInterpolation="#212121"
+					stopColor="#212121"
+					dataKey="name"
 				/>
 				<YAxis hide domain={['auto', 'auto']} />
 				<Tooltip cursor={false} content={<CustomTooltip />} />
 			</AreaChart>
 		</div>
 	</div>
-);
+)
 
-export default Chart;
+export default Chart

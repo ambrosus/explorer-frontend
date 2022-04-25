@@ -1,80 +1,100 @@
-import React, { useEffect, useState } from 'react';
-import { Content } from '../../../components/Content';
-import { useParams } from 'react-router-dom';
-import ContentCopy from '../../../assets/icons/ContentCopy';
-import API from '../../../API/api';
-import OverallBalance from '../../../components/OveralBalance';
+import API from 'API/api'
+import ContentCopy from 'assets/icons/ContentCopy'
+import { Content } from 'components/Content'
+import FilteredToken from 'components/FilteredToken'
+import OverallBalance from 'components/OveralBalance'
+import Tabs from 'components/Tabs'
+import Token from 'components/Token'
+import { formatEther } from 'ethers/lib/utils'
+import { useActions } from 'hooks/useActions'
+import { useTypedSelector } from 'hooks/useTypedSelector'
+import React, { useEffect, useState } from 'react'
+import { shallowEqual } from 'react-redux'
+import { useParams } from 'react-router-dom'
 
-import Token from '../../../components/Token';
+import { TParams } from '../../../types'
 
-import Tabs from '../../../components/Tabs';
-import { useActions } from '../../../hooks/useActions';
-import { useTypedSelector } from '../../../hooks/useTypedSelector';
-import FilteredToken from '../../../components/FilteredToken';
-import { shallowEqual } from 'react-redux';
-import { formatEther } from 'ethers/lib/utils';
-import { TParams } from '../../../types';
-import { TokenType } from './types';
-
+import { TokenType } from './types'
 
 export const AddressDetails = () => {
-	const { address, type, filtered, tokenToSorted }: TParams = useParams();
-	const { setPosition, addFilter } = useActions();
-	const { filters } = useTypedSelector((state) => state.tokenFilters, shallowEqual);
-	const { loading, data: addressData,error:errorData } = useTypedSelector((state: any) => state.position);
-	const [transactionType, setTransactionType] = useState(type);
-	const [selectedToken, setSelectedToken] = useState<TokenType | null>(null);
-	const [tx, setTx] = useState([]);
+	const { address, type, filtered, tokenToSorted }: TParams = useParams()
+	const { setPosition, addFilter } = useActions()
+	const { filters } = useTypedSelector(
+		(state) => state.tokenFilters,
+		shallowEqual
+	)
+	const {
+		loading,
+		data: addressData,
+		error: errorData,
+	} = useTypedSelector((state: any) => state.position)
+	const [transactionType, setTransactionType] = useState(type)
+	const [selectedToken, setSelectedToken] = useState<TokenType | null>(null)
+	const [tx, setTx] = useState([])
 
 	useEffect(() => {
 		if (filtered && addressData?.tokens?.length) {
-			addFilter(addressData.tokens.find((token: TokenType) => token.idx === +filtered));
+			addFilter(
+				addressData.tokens.find((token: TokenType) => token.idx === +filtered)
+			)
 		}
 		if (!loading || errorData) {
 			setPosition(API.getDataForAddress, address?.trim(), {
 				filtered: addressData && addressData.filters ? addressData.filters : [],
-				selectedTokenFilter: selectedToken && selectedToken?.idx ? selectedToken.idx : filtered,
+				selectedTokenFilter:
+					selectedToken && selectedToken?.idx ? selectedToken.idx : filtered,
 				limit: 500,
 				type: transactionType,
-			});
+			})
 		}
-	}, [filters, transactionType, selectedToken, tokenToSorted, address, type]);
+	}, [filters, transactionType, selectedToken, tokenToSorted, address, type])
 
 	useEffect(() => {
 		if (addressData && addressData?.transactions) {
-			setTx(addressData.transactions);
+			setTx(addressData.transactions)
 		} else {
-			setTx([]);
+			setTx([])
 		}
-	}, [addressData]);
+	}, [addressData])
 
 	useEffect(() => {
 		if (addressData && addressData?.tokens && !selectedToken) {
-			setSelectedToken(addressData.tokens.find((token: TokenType) => token.idx === Number(filtered)));
+			setSelectedToken(
+				addressData.tokens.find(
+					(token: TokenType) => token.idx === Number(filtered)
+				)
+			)
 		}
-	}, [addressData]);
+	}, [addressData])
 
-	const copyContent = () => address && navigator.clipboard.writeText(address);
+	const copyContent = () => address && navigator.clipboard.writeText(address)
 
 	return (
 		<Content>
-			<section className='addressDetails'>
+			<section className="addressDetails">
 				<Content.Header>
-					<h1 className='addressDetails__h1'>
-						Address Details <span className='addressDetails__h1-span'> {address}</span>
-						<button className='addressDetails__h1-btn' onClick={copyContent}>
-							<ContentCopy fill='#808A9D' />
+					<h1 className="addressDetails__h1">
+						Address Details{' '}
+						<span className="addressDetails__h1-span"> {address}</span>
+						<button className="addressDetails__h1-btn" onClick={copyContent}>
+							<ContentCopy fill="#808A9D" />
 						</button>
 					</h1>
-					<div className='addressDetails__section'>
-						<div className='addressDetails__info'>
+					<div className="addressDetails__section">
+						<div className="addressDetails__info">
 							<OverallBalance
-								addressBalance={addressData && addressData.balance ? Number(formatEther(addressData.balance)).toFixed(2) : 0}
+								addressBalance={
+									addressData && addressData.balance
+										? Number(formatEther(addressData.balance)).toFixed(2)
+										: 0
+								}
 							/>
 
 							<Token selectedToken={selectedToken} onClick={setSelectedToken} />
 						</div>
-						{selectedToken && <FilteredToken setSelectedToken={setSelectedToken} />}
+						{selectedToken && (
+							<FilteredToken setSelectedToken={setSelectedToken} />
+						)}
 					</div>
 				</Content.Header>
 				<Content.Body isLoading={Boolean(tx && tx.length)}>
@@ -90,5 +110,5 @@ export const AddressDetails = () => {
 				</Content.Body>
 			</section>
 		</Content>
-	);
-};
+	)
+}

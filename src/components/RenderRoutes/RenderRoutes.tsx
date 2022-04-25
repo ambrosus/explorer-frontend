@@ -1,15 +1,16 @@
-import React from 'react';
+import React from 'react'
 // @ts-ignore
-import { Route, Routes } from 'react-router-dom';
-import Loader from '../Loader';
+import { Route, Routes } from 'react-router-dom'
+
+import Loader from '../Loader'
 
 export const RenderRoutes = (props: any) => {
-	const { routes } = props;
+	const { routes } = props
 	return (
-		<Routes >
+		<Routes>
 			{routes.routes.map((route: any) => (
 				<Route
-					suspense={<Loader/>}
+					suspense={<Loader />}
 					key={route.key}
 					path={route.path}
 					element={<route.component />}
@@ -18,7 +19,7 @@ export const RenderRoutes = (props: any) => {
 			))}
 			{routes.subRoutes.map((route: any) => (
 				<Route
-					suspense={<Loader/>}
+					suspense={<Loader />}
 					key={route.key}
 					path={route.path}
 					element={<route.component />}
@@ -26,5 +27,5 @@ export const RenderRoutes = (props: any) => {
 				/>
 			))}
 		</Routes>
-	);
-};
+	)
+}

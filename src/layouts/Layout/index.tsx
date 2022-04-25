@@ -1,15 +1,16 @@
-import React, { FC } from 'react';
-import { Header } from '../Header';
-import { Footer } from '../Footer';
+import React, { FC } from 'react'
+
+import { Footer } from '../Footer'
+import { Header } from '../Header'
 
 export interface LayoutProps {
-	children: React.ReactNode;
+	children: React.ReactNode
 }
 
 export const Layout: FC<LayoutProps> = ({ children }) => (
-	<div className='layout '>
+	<div className="layout ">
 		<Header />
-		<div className='page'>{children}</div>
+		<div className="page">{children}</div>
 		<Footer />
 	</div>
-);
+)

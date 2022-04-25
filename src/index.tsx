@@ -1,16 +1,17 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import {  store } from './state';
-import Main from './Main';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { Provider } from 'react-redux'
+import { BrowserRouter } from 'react-router-dom'
 
-const rootNode = document.getElementById('root');
+import Main from './Main'
+import { store } from './state'
+
+const rootNode = document.getElementById('root')
 ReactDOM.render(
 	<Provider store={store}>
-			<BrowserRouter>
-				<Main />
-			</BrowserRouter>
+		<BrowserRouter>
+			<Main />
+		</BrowserRouter>
 	</Provider>,
-	rootNode,
-);
+	rootNode
+)

@@ -1,19 +1,19 @@
-import React from 'react';
+import React from 'react'
 
 type ViewMoreBtnProps = {
-	nameBtn: string;
-};
+	nameBtn: string
+}
 
 const ViewMoreBtn: React.FC<ViewMoreBtnProps> = ({ nameBtn }) => {
-	const viewMoreFunc = () => console.log(nameBtn);
+	const viewMoreFunc = () => console.log(nameBtn)
 
 	return (
-		<div className='latestBlocks__btn'>
-			<button className='latestBlocks__btn-content' onClick={viewMoreFunc}>
+		<div className="latestBlocks__btn">
+			<button className="latestBlocks__btn-content" onClick={viewMoreFunc}>
 				{nameBtn}
 			</button>
 		</div>
-	);
-};
+	)
+}
 
-export default ViewMoreBtn;
+export default ViewMoreBtn

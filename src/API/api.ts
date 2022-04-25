@@ -1,10 +1,10 @@
 /*eslint-disable*/
 import axios from 'axios';
 import { ethers, providers } from 'ethers';
-import erc20Abi from '../utils/abis/ERC20.json';
+import erc20Abi from 'utils/abis/ERC20.json';
 import { formatEther } from 'ethers/lib/utils';
-import { ethereum } from '../utils/constants';
-import { ExplorerTxType, TokenType, TransactionProps } from '../pages/Addresses/AddressDetails/types';
+import { ethereum } from 'utils/constants';
+import { ExplorerTxType, TokenType, TransactionProps } from 'pages/Addresses/AddressDetails/types';
 
 const tokenApiUrl = process.env.REACT_APP_TOKEN_API_URL;
 
@@ -119,7 +119,8 @@ const getDataForAddress = async (address: string, params: any) => {
 		txFee: Number(ethers.utils.formatEther(t.fees)),
 	}));
 
-	const result :IterableIterator<TransactionProps> = new Map([...explorData, ...bBookData].map((item) => [item.txHash, item])).values();
+	// @ts-ignore
+	const result :IterableIterator<string,TransactionProps> = new Map([...explorData, ...bBookData].map((item) => [item.txHash, item])).values();
 	const data: TransactionProps[] = [...result];
 	const transfersData: TransactionProps[] = data.filter((item: TransactionProps) => item.method === 'Transfer');
 	return {

@@ -3,8 +3,8 @@ import thunk from "redux-thunk";
 import reducers from "./reducers/index";
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { createLogger } from "redux-logger";
-import {persistStore, persistReducer} from "redux-persist";
-import storage from  'redux-persist/lib/storage';
+// import {persistStore, persistReducer} from "redux-persist";
+// import storage from  'redux-persist/lib/storage';
 
 const middleware:Array<any>= [thunk];
 

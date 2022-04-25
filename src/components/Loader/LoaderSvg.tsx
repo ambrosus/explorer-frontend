@@ -1,14 +1,14 @@
-import * as React from 'react';
-import { memo } from 'react';
+import * as React from 'react'
+import { memo } from 'react'
 
-const AnimatedLoader  = memo((props) => (
+const AnimatedLoader = memo((props) => (
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
 		style={{
-			margin: "auto",
-			background: "0 0",
-			display: "block",
-			shapeRendering: "auto",
+			margin: 'auto',
+			background: '0 0',
+			display: 'block',
+			shapeRendering: 'auto',
 		}}
 		width={100}
 		height={100}
@@ -60,6 +60,6 @@ const AnimatedLoader  = memo((props) => (
 			/>
 		</circle>
 	</svg>
-));
+))
 
-export default AnimatedLoader;
+export default AnimatedLoader

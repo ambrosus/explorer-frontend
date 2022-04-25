@@ -1,13 +1,27 @@
 {
-	"printWidth": 140,
-	"trailingComma": "es5",
-	"useTabs": true,
-	"semi": true,
-	"singleQuote": true,
-	"quoteProps": "as-needed",
-	"jsxSingleQuote": true,
-	"bracketSpacing": true,
-	"bracketSameLine": false,
-	"arrowParens": "always",
-	"proseWrap": "always"
+  "trailingComma": "es5",
+  "tabWidth": 2,
+  "useTabs": true,
+  "semi": false,
+  "singleQuote": true,
+  "importOrder": [
+      "<THIRD_PARTY-MODULES>",
+      "^@/API/(.*)$",
+      "^@/assets/(.*)$",
+      "^@/components/(.*)$",
+      "^@/config/(.*)$",
+      "^@/hooks/(.*)$",
+      "^@/layouts/(.*)$",
+      "^@/pages/(.*)$",
+      "^@/state/(.*)$",
+      "^@/style/(.*)$",
+      "^@/utils/(.*)$",
+      "^../(.*)",
+      "^./(.*)",
+      "(.scss)$"
+  ],
+  "importOrderSeparation":true,
+  "importOrderSortSpecifiers":true
+
+
 }
