@@ -9,7 +9,18 @@ import { Transactions } from './pages/Transactions';
 import { Bundles } from './pages/Bundles';
 import { AddressDetails } from './pages/Addresses/AddressDetails';
 
-export const routes = [
+interface IRoute {
+	path: string,
+	key: string,
+	exact: boolean,
+	component: React.FC
+}
+interface IAppRoutes{
+	routes: IRoute[],
+	subRoutes: IRoute[]
+}
+
+export const routes:IRoute[] = [
 	{
 		path: '/',
 		key: 'home',
@@ -59,8 +70,7 @@ export const routes = [
 		component: () => <Bundles />,
 	},
 ];
-
-export const subRoutes = [
+export const subRoutes :IRoute[] = [
 	{
 		path: '/addresses/:address',
 		key: 'Address Details',
@@ -87,5 +97,6 @@ export const subRoutes = [
 	},
 ];
 
-const appRoutes = { routes, subRoutes };
+const appRoutes:IAppRoutes = { routes, subRoutes };
+
 export default appRoutes;

@@ -1,10 +1,8 @@
-/*eslint-disable*/
 import axios from 'axios';
 import { ethers, providers } from 'ethers';
 import erc20Abi from '../utils/abis/ERC20.json';
 import { formatEther } from 'ethers/lib/utils';
 import { ethereum } from '../utils/constants';
-import moment from 'moment';
 
 const tokenApiUrl = process.env.REACT_APP_TOKEN_API_URL;
 
@@ -18,7 +16,6 @@ const API = () => {
 		if (err) {
 			console.error(err);
 		}
-		// window.location.replace('/notfound');
 	}
 
 	api.interceptors.response.use(
