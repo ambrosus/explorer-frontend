@@ -11,7 +11,8 @@ export const setAppDataAsync = () => {
         })
         try {
             const netInfo = await API.getInfo();
-            const tokenInfo =  await API.getToken().then(async (info = {}) => {
+
+            const tokenInfo  =  await API.getToken().then(async (info = {}) => {
                 const totalSupply = await API.getTokenTotalSupply().then((totalSupplyToken = {}) => {
                     return totalSupplyToken;
                 });
