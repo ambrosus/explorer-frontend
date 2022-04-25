@@ -39,7 +39,6 @@
 		min-width: 50px;
 		line-height: 1.33em;
 		font-weight: 600;
-		color: #05060f;
 	}
 	&__font-small {
 		min-width: 50px;
@@ -55,7 +54,7 @@
 		&-content {
 			width: 180px;
 			height: 32px;
-			color: #808a9d;
+			color: $main-light;
 			margin: auto;
 			background: #ffffff;
 			border: 1px solid #eff2f5;

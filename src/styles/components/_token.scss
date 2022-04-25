@@ -7,7 +7,6 @@
 		flex-direction: row;
 
 		&-name {
-			color: #05060f;
 			margin-right: 10px;
 			font-weight: 700;
 			font-size: 1.28em;
@@ -47,7 +46,6 @@
 		border-top: 1px solid #eff2f5;
 		font-weight: 600;
 		line-height: 1.33em;
-		color: #05060f;
 	}
 }
 
@@ -82,7 +80,7 @@
 
 			width: 24px;
 			height: 24px;
-			background: #808a9d;
+			background: $main-light;
 			border-radius: 8px;
 		}
 		&-text {
