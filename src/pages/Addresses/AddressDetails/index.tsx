@@ -13,7 +13,6 @@ import { useTypedSelector } from '../../../hooks/useTypedSelector';
 import FilteredToken from '../../../components/FilteredToken';
 import { shallowEqual } from 'react-redux';
 import { formatEther } from 'ethers/lib/utils';
-import useHover from '../../../hooks/useHover';
 
 export const AddressDetails = () => {
 	const { address, type, filtered, tokenToSorted }: any = useParams();
@@ -23,7 +22,6 @@ export const AddressDetails = () => {
 	const [transactionType, setTransactionType] = useState<any>(type);
 	const [selectedToken, setSelectedToken] = useState<any>(null);
 	const [tx, setTx] = useState([]);
-	const [hoverRef, isHovered]: any = useHover();
 
 	useEffect(() => {
 		if (filtered && addressData?.tokens?.length) {
