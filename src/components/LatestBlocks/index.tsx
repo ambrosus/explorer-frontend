@@ -1,8 +1,8 @@
 import React from 'react';
-import GreenCircle from '../../assets/icons/GreenCircle';
-import OrangeCircle from '../../assets/icons/OrangeCircle';
 import { sliceData5, calcTime } from '../../utils/helpers';
 import { LatestBlocksProps } from '../../pages/Home/types';
+import OrangeCircle from '../../assets/icons/StatusAction/OrangeCircle';
+import GreenCircle from '../../assets/icons/StatusAction/GreenCircle';
 
 
 

@@ -60,7 +60,6 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 	const isTxFee = txfee === null ? null : <div className='addressDetails__thead-td'>{txfee}</div>;
 	const isToken = token === null
 		? null
-		// @ts-ignore
 		: <div className='addressDetails__thead-td'>{token && token[0].toUpperCase() + token.slice(1)}</div>;
 
 	return (

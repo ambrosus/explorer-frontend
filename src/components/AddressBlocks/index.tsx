@@ -34,8 +34,8 @@ const AddressBlock: React.FC<AddressBlockProps> = ({ onClick, isLatest, txhash, 
 				{method}
 			</div>
 		);
-	const isFrom = from === null ? null : <div className='addressDetails__tbody-td universall__light2'>{sliceData5(from)}</div>;
-	const isTo = to === null ? null : <div className='addressDetails__tbody-td universall__light2'>{sliceData5(to)}</div>;
+	const isFrom = from === null ? null : <div className='addressDetails__tbody-td universall__light2'>{sliceData5(from as string)}</div>;
+	const isTo = to === null ? null : <div className='addressDetails__tbody-td universall__light2'>{sliceData5(to as string)}</div>;
 	const isDate = date === null ? null : <div className='addressDetails__tbody-td'>{date}</div>;
 	const isBlock: any = type === 'ERC-20_Tx' ? null : <div className='addressDetails__tbody-td'>{block}</div>;
 	const isAmount =
