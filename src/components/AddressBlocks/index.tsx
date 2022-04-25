@@ -2,13 +2,15 @@ import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Amb from '../../assets/icons/Cryptos/Amb';
 
-import GreenCircle from '../../assets/icons/GreenCircle';
-import OrangeCircle from '../../assets/icons/OrangeCircle';
+import GreenCircle from '../../assets/icons/StatusAction/GreenCircle';
+import IncomeTrasaction from '../../assets/icons/StatusAction/IncomeTrasaction';
+import OrangeCircle from '../../assets/icons/StatusAction/OrangeCircle';
+import OutgoingTransaction from '../../assets/icons/StatusAction/OutgoingTransaction';
 import { useActions } from '../../hooks/useActions';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
-import { sliceData10 } from '../../utils/helpers';
 import { TParams } from '../../types';
 import { AddressBlockProps } from '../../pages/Addresses/AddressDetails/types';
+import { sliceData10, sliceData5 } from '../../utils/helpers';
 
 const AddressBlock: React.FC<AddressBlockProps> = ({ onClick, isLatest, txhash, method, from, to, date, block, amount, txfee, token }) => {
 	const online: any = txfee === 'Pending' ? <OrangeCircle /> : <GreenCircle />;
@@ -24,9 +26,16 @@ const AddressBlock: React.FC<AddressBlockProps> = ({ onClick, isLatest, txhash, 
 				{sliceData10(txhash as string)}
 			</div>
 		);
-	const isMethod = method === null ? null : <div className='addressDetails__tbody-td'>{method}</div>;
-	const isFrom = from === null ? null : <div className='addressDetails__tbody-td universall__light2'>{from}</div>;
-	const isTo = to === null ? null : <div className='addressDetails__tbody-td universall__light2'>{to}</div>;
+
+	const isMethod =
+		method === null ? null : (
+			<div className='addressDetails__tbody-td'>
+				{from && from === address ? <OutgoingTransaction /> : <IncomeTrasaction />}
+				{method}
+			</div>
+		);
+	const isFrom = from === null ? null : <div className='addressDetails__tbody-td universall__light2'>{sliceData5(from)}</div>;
+	const isTo = to === null ? null : <div className='addressDetails__tbody-td universall__light2'>{sliceData5(to)}</div>;
 	const isDate = date === null ? null : <div className='addressDetails__tbody-td'>{date}</div>;
 	const isBlock: any = type === 'ERC-20_Tx' ? null : <div className='addressDetails__tbody-td'>{block}</div>;
 	const isAmount =
@@ -69,7 +78,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({ onClick, isLatest, txhash, 
 				<span className='universall__indent-icon' style={{ display: 'flex', alignItems: 'center' }}>
 					{online}
 				</span>
-				{txfee }
+				{txfee}
 			</div>
 		);
 

@@ -1,3 +1,4 @@
+/*eslint-disable*/
 import axios from 'axios';
 import { ethers, providers } from 'ethers';
 import erc20Abi from '../utils/abis/ERC20.json';
@@ -17,6 +18,7 @@ const API = () => {
 		if (err) {
 			console.error(err);
 		}
+		// window.location.replace('/notfound');
 	}
 
 	api.interceptors.response.use(
@@ -90,8 +92,8 @@ const getDataForAddress = async (address: string, params: any) => {
 		return {
 			txHash: t.hash,
 			method: t.type,
-			from: `${t.from.slice(0, 5)}...${t.from.slice(t.from.length - 5)}`,
-			to: `${t.to.slice(0, 5)}...${t.to.slice(t.to.length - 5)}`,
+			from: t.from,
+			to: t.to,
 			date: t.timestamp * 1000,
 			block: t.blockNumber,
 			amount: Number(formatEther(t.value.wei)).toFixed(2),

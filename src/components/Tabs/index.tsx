@@ -55,7 +55,7 @@ const Tabs : FC<TabsProps> = ({ selectedToken, data, onClick, setTransactionType
 	};
 
 	useEffect(() => {
-		if (addressData && !filtered && addressData.tokens && data && data.length && type === 'ERC-20_Tx' ) {
+		if (addressData && !filtered && addressData.tokens && data && data.length && type === 'ERC-20_Tx') {
 			sortTrans();
 		} else if (tokenToSorted) {
 			const allSelected =
