@@ -3,7 +3,6 @@ import { Content } from '../../components/Content';
 import { useActions } from '../../hooks/useActions';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import API from '../../API/api';
-import { setPosition } from '../../state/actionsCreators';
 
 export const Blocks = () => {
 	const {setPosition} = useActions();

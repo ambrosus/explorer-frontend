@@ -3,20 +3,7 @@ import { NavLink, useParams } from 'react-router-dom';
 import ArrowDown from '../../assets/icons/Arrows/ArrowDown';
 import { useOnClickOutside } from '../../hooks/useOnClickOutside';
 import { TParams } from '../../types';
-
-interface AddressBlockProps {
-	txhash: string | number;
-	method: string | number;
-	from: string | number;
-	to: string | number;
-	date: string | number;
-	block: string | number;
-	amount: any;
-	txfee: string | number;
-	token: string;
-	methodFilters: any;
-	setTransactionType?: any;
-}
+import { AddressBlockProps } from '../../pages/Addresses/AddressDetails/types';
 
 const AddressBlock: React.FC<AddressBlockProps> = ({
 	txhash,
@@ -33,7 +20,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 }) => {
 	const [isShow, setIsShow] = useState(false);
 	const { address }: TParams = useParams();
-	const methodRef: any = useRef();
+	const methodRef = useRef(null);
 
 	useOnClickOutside(methodRef, () => setIsShow(false));
 
@@ -51,17 +38,17 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 				</button>
 				<div ref={methodRef} className='methodModal__table'>
 					{isShow &&
-						methodFilters.map((filter: { title: string; value: any }) => (
-							<NavLink
-								key={filter.title}
-								to={`/addresses/${address}/${filter.value}`}
-								tabIndex={-1}
-								className='methodModal__link'
-								onClick={() => setTransactionType(filter.value)}
-							>
-								{filter.title}
-							</NavLink>
-						))}
+					methodFilters.map((filter: { title: string; value: number }) => (
+						<NavLink
+							key={filter.title}
+							to={`/addresses/${address}/${filter.value}`}
+							tabIndex={-1}
+							className='methodModal__link'
+							onClick={() => setTransactionType(filter.value)}
+						>
+							{filter.title}
+						</NavLink>
+					))}
 				</div>
 			</div>
 		);
@@ -71,7 +58,10 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 	const isBlock = block === null ? null : <div className='addressDetails__thead-td'>{block}</div>;
 	const isAmount = amount === null ? null : <div className='addressDetails__thead-td'>{amount}</div>;
 	const isTxFee = txfee === null ? null : <div className='addressDetails__thead-td'>{txfee}</div>;
-	const isToken = token === null ? null : <div className='addressDetails__thead-td'>{token[0].toUpperCase() + token.slice(1)}</div>;
+	const isToken = token === null
+		? null
+		// @ts-ignore
+		: <div className='addressDetails__thead-td'>{token && token[0].toUpperCase() + token.slice(1)}</div>;
 
 	return (
 		<>

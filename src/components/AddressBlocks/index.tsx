@@ -8,20 +8,7 @@ import { useActions } from '../../hooks/useActions';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { sliceData10 } from '../../utils/helpers';
 import { TParams } from '../../types';
-
-type AddressBlockProps = {
-	txhash: any;
-	method: string | number;
-	from: string | number;
-	to: string | number;
-	date: string | number;
-	block: string | number | null;
-	amount: any;
-	txfee: any;
-	token?: any;
-	isLatest?: boolean;
-	onClick?: any;
-};
+import { AddressBlockProps } from '../../pages/Addresses/AddressDetails/types';
 
 const AddressBlock: React.FC<AddressBlockProps> = ({ onClick, isLatest, txhash, method, from, to, date, block, amount, txfee, token }) => {
 	const online: any = txfee === 'Pending' ? <OrangeCircle /> : <GreenCircle />;
@@ -31,10 +18,10 @@ const AddressBlock: React.FC<AddressBlockProps> = ({ onClick, isLatest, txhash, 
 	const { data: addressData } = useTypedSelector((state: any) => state.position);
 	const { type } : TParams= useParams();
 
-	const isTxHash =
+	const isTxHash : JSX.Element | null =
 		txhash === null ? null : (
 			<div className='addressDetails__tbody-td universall__light2' style={{ fontWeight: '600' }}>
-				{sliceData10(txhash)}
+				{sliceData10(txhash as string)}
 			</div>
 		);
 	const isMethod = method === null ? null : <div className='addressDetails__tbody-td'>{method}</div>;
@@ -66,7 +53,8 @@ const AddressBlock: React.FC<AddressBlockProps> = ({ onClick, isLatest, txhash, 
 								});
 							}}
 						>
-							{token ? token.slice(0, 8) : ''}
+							{// @ts-ignore
+								token ? token?.slice(0, 8) : ''}
 						</div>
 					)
 					: (<div

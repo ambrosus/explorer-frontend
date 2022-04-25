@@ -2,18 +2,9 @@ import React from 'react';
 import GreenCircle from '../../assets/icons/GreenCircle';
 import OrangeCircle from '../../assets/icons/OrangeCircle';
 import { sliceData5, calcTime } from '../../utils/helpers';
+import { LatestTransactionsProps } from '../../pages/Home/types';
 
-type lastestTransactionsProps = {
-	hash: any;
-	status: string;
-	timestamp: number;
-	from: string;
-	to: string;
-	amount: number;
-	type?: any | Element | null | false;
-};
-
-const LatestTransactions: React.FC<lastestTransactionsProps> = ({ hash, status, timestamp, from, to, amount, type }) => {
+const LatestTransactions: React.FC<LatestTransactionsProps> = ({ hash, status, timestamp, from, to, amount, type }) => {
 	const isOnline = (status: string) => {
 		switch (status) {
 			case 'SUCCESS':
@@ -50,7 +41,7 @@ const LatestTransactions: React.FC<lastestTransactionsProps> = ({ hash, status, 
 				</div>
 				<div className='lastestTransactions__cell'>
 					<div className='lastestTransactions__cell-content lastestTransactions__font-small'>{type}</div>
-					<div className='lastestTransactions__cell-content lastestTransactions__font-big'>{`${amount.toFixed(5)} AMB`}</div>
+					<div className='lastestTransactions__cell-content lastestTransactions__font-big'>{`${amount?.toFixed(5)} AMB`}</div>
 				</div>
 			</div>
 		</>

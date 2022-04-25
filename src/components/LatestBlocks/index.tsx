@@ -1,17 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import GreenCircle from '../../assets/icons/GreenCircle';
 import OrangeCircle from '../../assets/icons/OrangeCircle';
 import { sliceData5, calcTime } from '../../utils/helpers';
+import { LatestBlocksProps } from '../../pages/Home/types';
 
-type LatestBlocksProps = {
-	name: string;
-	number: any;
-	index: any;
-	timestamp: number;
-	validator: string;
-	totalTransactions: number;
-	blockReward: number;
-};
+
 
 const LatestBlocks: React.FC<LatestBlocksProps> = ({ number, index, timestamp, validator, totalTransactions, blockReward }) => {
 	const online = index > 1 ? <GreenCircle /> : <OrangeCircle />;
@@ -28,13 +21,13 @@ const LatestBlocks: React.FC<LatestBlocksProps> = ({ number, index, timestamp, v
 						{number}
 					</div>
 
-					<div className='latestBlocks__p latestBlocks__font-small'>{calcTime(timestamp)}</div>
+					<div className='latestBlocks__p latestBlocks__font-small'>{calcTime(timestamp as number)}</div>
 				</div>
 
 				<div className='latestBlocks__cell'>
 					<div className='latestBlocks__cell-content'>
 						<div className='latestBlocks__font-small'>Validator</div>
-						<div className='latestBlocks__font-big latestBlocks__margin-left'>{sliceData5(validator)}</div>
+						<div className='latestBlocks__font-big latestBlocks__margin-left'>{sliceData5(validator as string)}</div>
 					</div>
 					<div className='latestBlocks__cell-content'>
 						<div className='latestBlocks__font-small'></div>

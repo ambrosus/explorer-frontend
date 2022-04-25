@@ -73,9 +73,9 @@ export const Home: React.FC = () => {
 											number={item.number}
 											index={index}
 											timestamp={item.timestamp}
-											validator={item.miner}
+											validator={item?.miner}
 											totalTransactions={item.totalTransactions}
-											blockReward={item.blockRewards}
+											blockReward={item?.blockRewards}
 											name='name'
 										/>
 									),
@@ -94,7 +94,7 @@ export const Home: React.FC = () => {
 											timestamp={item.timestamp}
 											from={item.from}
 											to={item.to}
-											amount={item.value.ether}
+											amount={item?.value?.ether}
 											type={item.type}
 										/>
 									),

@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { FC } from 'react';
 import Loader from '../Loader';
 
-export const Content = ({ children, isLoading = true }: IContentProps) => (!isLoading ? <Loader /> :
+export const Content: FC<IContentProps> & ITabsComposition= ({ children, isLoading = true }: IContentProps) => (!isLoading ? <Loader /> :
 	<div className='content'>{children}</div>);
 
 Content.Header = ({ children, isLoading = true }: IContentProps) => (
@@ -25,4 +25,9 @@ Content.Body = ({ children, isLoading = true }: IContentProps) => (
 type IContentProps={
 	children: any;
 	isLoading?: boolean;
+}
+
+interface ITabsComposition {
+	Header:React.FC<IContentProps>;
+	Body:React.FC<IContentProps>;
 }

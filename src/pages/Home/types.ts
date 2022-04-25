@@ -5,20 +5,28 @@ export type ResultHomePageData = {
 	latestBlocks: LatestBlocksProps[];
 	latestTransactions: LatestTransactionsProps[];
 }
-type LatestBlocksProps= {
-	number: React.Key | null | undefined;
-	timestamp: number;
-	miner: string;
-	totalTransactions: number;
-	blockRewards: number;
+
+export type LatestBlocksProps = {
+	number?: number;
+	timestamp?: number;
+	miner?: string;
+	totalTransactions?: number;
+	blockRewards?: number;
+	key?: number;
+	index?: any;
+	validator?: string;
+	blockReward?: number;
+	name?: string;
 }
-export type LatestTransactionsProps= {
-	_id: React.Key | null | undefined;
+
+export type LatestTransactionsProps = {
+	_id?: React.Key | null | undefined;
 	status: string;
 	hash: any;
+	amount?: number;
 	timestamp: number;
 	from: string;
 	to: string;
-	value: { ether: number; };
+	value?: { ether?: number; };
 	type: any;
 }

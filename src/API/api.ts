@@ -3,6 +3,7 @@ import { ethers, providers } from 'ethers';
 import erc20Abi from '../utils/abis/ERC20.json';
 import { formatEther } from 'ethers/lib/utils';
 import { ethereum } from '../utils/constants';
+import { ExplorerTxType, TokenType, TransactionProps } from '../pages/Addresses/AddressDetails/types';
 
 const tokenApiUrl = process.env.REACT_APP_TOKEN_API_URL;
 
@@ -42,23 +43,24 @@ const getBlocks = async (params = {}) => {
 
 
 const getDataForAddress = async (address: string, params: any) => {
-	const { filtered, limit, type, selectedTokenFilter } = params;
+	const { limit, type, selectedTokenFilter } = params;
 	const blockBookApi = await fetch(`https://blockbook.ambrosus.io/api/v2/address/${address}?filter=${selectedTokenFilter}`)
 		.then((res) => res.json());
 
-	const addressBalance = blockBookApi.balance;
-	const constTokens = blockBookApi && blockBookApi.tokens.map((token: any, index: number) => {
+	const addressBalance : string = blockBookApi.balance;
+
+	const constTokens = blockBookApi && blockBookApi.tokens.map((token: TokenType, index: number) => {
 		return {
 			...token,
 			idx: index + 1,
 		};
 	});
 
-	const getBalance = async (tokensArr: any[]) => {
-		const newTokens: any[] = [];
-
-		tokensArr.map(async (token: any) => {
+	const getBalance = async (tokensArr: TokenType[]) => {
+		const newTokens: TokenType[] | never = [];
+		tokensArr.map(async (token: TokenType) => {
 			try {
+				// TODO get data in incognito
 				// const ambProvider = new providers.JsonRpcProvider('https://network.ambrosus.io');
 				const ambProvider = new providers.Web3Provider(ethereum);
 				const tokenContract = new ethers.Contract(token.contract, erc20Abi, ambProvider);
@@ -66,16 +68,15 @@ const getDataForAddress = async (address: string, params: any) => {
 				const totalSupply = Number(formatEther(await tokenContract.totalSupply()));
 				token.balance = balance;
 				token.totalSupply = totalSupply;
-			}
-			catch (e) {
+			} catch (e) {
 				console.log(e);
-			}finally {
+			} finally {
 				newTokens.push(token);
 			}
 		});
 		return newTokens;
 	};
-	const defaultFilters = await getBalance(constTokens);
+	const defaultFilters: TokenType[] = await getBalance(constTokens);
 
 	const { data: explorerTrans } = await getAccountTx(address, { limit, type });
 
@@ -85,21 +86,21 @@ const getDataForAddress = async (address: string, params: any) => {
 
 	const blockBookApiTransactionsData = await Promise.all(blockBookApiTransactions);
 	console.log('blockBookApiTransactionsData', blockBookApiTransactionsData);
-	const explorData = explorerTrans.map((t: any) => {
+	const explorData: TransactionProps[] = explorerTrans.map((t: ExplorerTxType) => {
 		return {
-		txHash: t.hash,
-		method: t.type,
-		from: `${t.from.slice(0, 5)}...${t.from.slice(t.from.length - 5)}`,
-		to: `${t.to.slice(0, 5)}...${t.to.slice(t.to.length - 5)}`,
-		date: t.timestamp * 1000,
-		block: t.blockNumber,
-		amount: Number(formatEther(t.value.wei)).toFixed(2),
+			txHash: t.hash,
+			method: t.type,
+			from: `${t.from.slice(0, 5)}...${t.from.slice(t.from.length - 5)}`,
+			to: `${t.to.slice(0, 5)}...${t.to.slice(t.to.length - 5)}`,
+			date: t.timestamp * 1000,
+			block: t.blockNumber,
+			amount: Number(formatEther(t.value.wei)).toFixed(2),
 			// TODO add token symbol && token name
-			token:'No token',
+			token: 'No token',
 			txFee: Number(t.gasCost.ether),
-	}
-});
-	const bBookData = blockBookApiTransactionsData.map((t) => ({
+		};
+	});
+	const bBookData: TransactionProps[] = blockBookApiTransactionsData.map((t) => ({
 		txHash: t.txid,
 		method: t?.tokenTransfers ? 'Transfer' : 'Transaction',
 		from: t?.tokenTransfers ?
@@ -116,14 +117,12 @@ const getDataForAddress = async (address: string, params: any) => {
 		txFee: Number(ethers.utils.formatEther(t.fees)),
 	}));
 
-const concatData = [...explorData, ...bBookData];
-const result : any = new Map(concatData.map((item) => [item.txHash, item])).values()
-	const data : any = [...result]
-	const transfersData : any = data.filter((item: any) => item.method === 'Transfer');
-	console.log('data', data);
+	const result :IterableIterator<TransactionProps> = new Map([...explorData, ...bBookData].map((item) => [item.txHash, item])).values();
+	const data: TransactionProps[] = [...result];
+	const transfersData: TransactionProps[] = data.filter((item: TransactionProps) => item.method === 'Transfer');
 	return {
 		balance: addressBalance,
-		transactions: type === 'ERC-20_Tx' || selectedTokenFilter ? bBookData : type === 'transfers'  ? transfersData : data,
+		transactions: type === 'ERC-20_Tx' || selectedTokenFilter ? bBookData : type === 'transfers' ? transfersData : data,
 		tokens: [...defaultFilters],
 	};
 };

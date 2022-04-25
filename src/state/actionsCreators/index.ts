@@ -58,7 +58,7 @@ export const setPosition:any = (promiseFunc:any, ...params:any) => {
         } catch (error: any) {
             dispatch({
                 type: actionTypes.SET_POSITION__FAIL,
-                payload: `Error in setPosition() ${error.message}`,
+                payload: error.message,
             })
         }
     }

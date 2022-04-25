@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { FC } from 'react';
 import Eth from '../../assets/icons/Cryptos/Eth';
 import Discard from '../../assets/icons/Discard';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
-import { shallowEqual } from 'react-redux';
 import { useActions } from '../../hooks/useActions';
 import { useNavigate, useParams } from 'react-router-dom';
 import { TParams } from '../../types';
+import { TokenType } from '../../pages/Addresses/AddressDetails/types';
 
-const FilteredToken = ({selectedToken,setSelectedToken}:any) => {
+export type FilteredTokenProps = {
+	setSelectedToken: (token: TokenType | null) => void;
+};
+const FilteredToken : FC<FilteredTokenProps> = ({setSelectedToken}) => {
 	const {clearFilters} = useActions();
 	const { address }: TParams = useParams();
 	const navigate = useNavigate();
@@ -47,7 +50,10 @@ const FilteredToken = ({selectedToken,setSelectedToken}:any) => {
 					<div className='filteredToken__cell'>
 						<span className='filteredToken__cell-bold'>Balance</span>
 						<span className='filteredToken__cell-normal'>{filters.balance ? Number(filters.balance).toFixed(2) : '-'}</span>
-						{/*<span className='filteredToken__cell-normal'>{filters.balance}/ $ {appData && appData?.total_price_usd && appData.total_price_usd ? Number(filters.balance * appData.total_price_usd).toFixed(2):'no course'}</span>*/}
+						{/*
+						// TODO make it work when backend is ready
+						<span className='filteredToken__cell-normal'>{filters.balance}/ $ {appData && appData?.total_price_usd && appData.total_price_usd ? Number(filters.balance * appData.total_price_usd).toFixed(2):'no course'}</span>
+						*/}
 					</div>
 					{/*<div className='filteredToken__cell'>*/}
 					{/*	<span className='filteredToken__cell-bold'>Price</span>*/}

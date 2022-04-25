@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { NavLink, useParams } from 'react-router-dom';
 import AddressBlocksHeader from '../AddressBlocksHeader';
 import AddressBlock from '../AddressBlocks';
@@ -10,6 +10,7 @@ import { clearFilters } from '../../state/actionsCreators';
 import Loader from '../Loader';
 import { setActiveLink } from '../../utils/helpers';
 import moment from 'moment';
+import { TabsProps, TokenType, TransactionProps } from '../../pages/Addresses/AddressDetails/types';
 
 const transactionFilters = [
 	{ title: 'All', value: '' },
@@ -36,16 +37,17 @@ const methodFilters = [
 	{ title: 'Payouts', value: 'payouts' },
 ];
 
-const Tabs = ({ selectedToken, data, onClick, setTransactionType }: any) => {
+
+const Tabs : FC<TabsProps> = ({ selectedToken, data, onClick, setTransactionType }) => {
 	const { address, type, filtered, tokenToSorted } = useParams();
 	const [latestTrans, setLatestTrans] = useState([]);
 	const { data: addressData } = useTypedSelector((state: any) => state.position);
 	const { filters } = useTypedSelector((state: any) => state.tokenFilters, shallowEqual);
 
 	const sortTrans = () => {
-		const includesTokens = addressData.tokens.filter((token: any) => token.contract);
-		const latestTransactions = includesTokens.map((token: any) => {
-			return data.filter((transaction: any) => {
+		const includesTokens = addressData.tokens.filter((token : TokenType) => token.contract);
+		const latestTransactions = includesTokens.map((token : TokenType) => {
+			return data.filter((transaction: { token: string; }) => {
 				return transaction.token === token.contract;
 			})[0];
 		});
@@ -58,10 +60,10 @@ const Tabs = ({ selectedToken, data, onClick, setTransactionType }: any) => {
 		} else if (tokenToSorted) {
 			const allSelected =
 				data &&
-				data.filter((transaction: any) => {
+				data.filter((transaction: TransactionProps) => {
 					return transaction?.token === selectedToken?.name;
 				});
-			const allTransfer = allSelected.filter((transaction: any) => {
+			const allTransfer = allSelected.filter((transaction: TransactionProps) => {
 				return transaction?.method === 'Transfer';
 			});
 			const tabsTokensSortedData = tokenToSorted === 'All' ? allSelected : allTransfer;
@@ -69,12 +71,12 @@ const Tabs = ({ selectedToken, data, onClick, setTransactionType }: any) => {
 		}
 	}, [data, filtered, type, filters, tokenToSorted]);
 
-	const headerBlock: any = type === 'ERC-20_Tx' ? null : 'Block';
-	const headerTxfee: any = type === 'ERC-20_Tx' ? null : 'txFee';
-	const headerToken: any = type === 'ERC-20_Tx' ? 'token' : null;
+	const headerBlock:any = type === 'ERC-20_Tx' ? null : 'Block';
+	const headerTxfee:any = type === 'ERC-20_Tx' ? null : 'txFee';
+	const headerToken:any = type === 'ERC-20_Tx' ? 'token' : null;
 
-	function style(item: any) {
-		let type: any = {
+	function style(item: string | undefined) {
+		let type: {style:object} = {
 			style,
 		};
 		switch (item) {

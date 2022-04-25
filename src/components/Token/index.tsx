@@ -1,9 +1,10 @@
 import React from 'react';
 
 import TokenFilter from '../TokenFilter';
+import { TokenType } from '../../pages/Addresses/AddressDetails/types';
 
 export interface TokenProps {
-	selectedToken: Object
+	selectedToken: TokenType | null;
 	onClick: any;
 }
 
