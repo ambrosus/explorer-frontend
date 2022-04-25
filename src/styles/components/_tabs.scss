@@ -21,7 +21,7 @@
 			bottom: 50px;
 			height: 40px;
 			width: 100px;
-			background-color: #05060f;
+			background-color: $main;
 			color: #fff;
 			border-radius: 4px;
 		}
@@ -31,7 +31,7 @@
 	}
 
 	&__link {
-		color: #808a9d;
+		color: $main-light;
 		text-decoration: none;
 		font-weight: 700;
 		font-size: 1.28em;
@@ -40,14 +40,14 @@
 		display: flex;
 		align-items: center;
 		&-active {
-			color: #05060f;
-			border-bottom: 4px solid #05060f;
+			color: $main;
+			border-bottom: 4px solid $main;
 			border-collapse: collapse;
 		}
 	}
 	&__link:hover {
-		color: #05060f;
-		border-bottom: 4px solid #05060f;
+		color: $main;
+		border-bottom: 4px solid $main;
 		border-collapse: collapse;
 	}
 	&__exportCsv {
@@ -67,11 +67,11 @@
 			border-radius: 16px;
 		}
 		&-btn:hover {
-			border-color: #05060f;
+			border-color: $main;
 		}
 		// &-btn:hover,
 		// :active {
-		// 	border: 1px solid #05060f;
+		// 	border: 1px solid $main;
 		// }
 		&-text {
 			font-weight: 600;

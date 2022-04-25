@@ -31,7 +31,7 @@ const API = () => {
 		},
 		(error) => {
 			handleNotFound(error);
-		},
+		}
 	);
 
 	return api;
@@ -43,19 +43,21 @@ const getBlocks = async (params = {}) => {
 	});
 };
 
-
 const getDataForAddress = async (address: string, params: any) => {
 	const { filtered, limit, type, selectedTokenFilter } = params;
-	const blockBookApi = await fetch(`https://blockbook.ambrosus.io/api/v2/address/${address}?filter=${selectedTokenFilter}`)
-		.then((res) => res.json());
+	const blockBookApi = await fetch(`https://blockbook.ambrosus.io/api/v2/address/${address}?filter=${selectedTokenFilter}`).then((res) =>
+		res.json()
+	);
 
 	const addressBalance = blockBookApi.balance;
-	const constTokens = blockBookApi && blockBookApi.tokens.map((token: any, index: number) => {
-		return {
-			...token,
-			idx: index + 1,
-		};
-	});
+	const constTokens =
+		blockBookApi &&
+		blockBookApi.tokens.map((token: any, index: number) => {
+			return {
+				...token,
+				idx: index + 1,
+			};
+		});
 
 	const getBalance = async (tokensArr: any[]) => {
 		const newTokens: any[] = [];
@@ -69,10 +71,9 @@ const getDataForAddress = async (address: string, params: any) => {
 				const totalSupply = Number(formatEther(await tokenContract.totalSupply()));
 				token.balance = balance;
 				token.totalSupply = totalSupply;
-			}
-			catch (e) {
+			} catch (e) {
 				console.log(e);
-			}finally {
+			} finally {
 				newTokens.push(token);
 			}
 		});
@@ -82,36 +83,32 @@ const getDataForAddress = async (address: string, params: any) => {
 
 	const { data: explorerTrans } = await getAccountTx(address, { limit, type });
 
-	const blockBookApiTransactions = blockBookApi && blockBookApi?.txids.map(async (tx: string) => {
-		return await fetch(`https://blockbook.ambrosus.io/api/v2/tx/${tx}`).then((res) => res.json());
-	});
+	const blockBookApiTransactions =
+		blockBookApi &&
+		blockBookApi?.txids.map(async (tx: string) => {
+			return await fetch(`https://blockbook.ambrosus.io/api/v2/tx/${tx}`).then((res) => res.json());
+		});
 
 	const blockBookApiTransactionsData = await Promise.all(blockBookApiTransactions);
-	console.log('blockBookApiTransactionsData', blockBookApiTransactionsData);
 	const explorData = explorerTrans.map((t: any) => {
 		return {
-		txHash: t.hash,
-		method: t.type,
-		from: `${t.from.slice(0, 5)}...${t.from.slice(t.from.length - 5)}`,
-		to: `${t.to.slice(0, 5)}...${t.to.slice(t.to.length - 5)}`,
-		date: t.timestamp * 1000,
-		block: t.blockNumber,
-		amount: Number(formatEther(t.value.wei)).toFixed(2),
+			txHash: t.hash,
+			method: t.type,
+			from: t.from,
+			to: t.to,
+			date: t.timestamp * 1000,
+			block: t.blockNumber,
+			amount: Number(formatEther(t.value.wei)).toFixed(2),
 			// TODO add token symbol && token name
-			token:'No token',
+			token: 'No token',
 			txFee: Number(t.gasCost.ether),
-	}
-});
+		};
+	});
 	const bBookData = blockBookApiTransactionsData.map((t) => ({
 		txHash: t.txid,
 		method: t?.tokenTransfers ? 'Transfer' : 'Transaction',
-		from: t?.tokenTransfers ?
-			`${t.tokenTransfers[0].from.slice(0, 5)}...${t.tokenTransfers[0].from.slice(t.tokenTransfers[0].from.length - 5)}`
-			: `${t.vin[0].addresses[0].slice(0, 5)}...${t.vin[0].addresses[0].slice(t.vin[0].addresses[0].length - 5)}`
-		,
-		to: t?.tokenTransfers ?
-			`${t.tokenTransfers[0].to.slice(0, 5)}...${t.tokenTransfers[0].to.slice(t.tokenTransfers[0].to.length - 5)}`
-			: `${t.vout[0].addresses[0].slice(0, 5)}...${t.vout[0].addresses[0].slice(t.vout[0].addresses[0].length - 5)}`,
+		from: t?.tokenTransfers ? t.tokenTransfers[0].from : t.vin[0].addresses[0],
+		to: t?.tokenTransfers ? t.tokenTransfers[0].to : t.vout[0].addresses[0],
 		date: t.blockTime * 1000,
 		block: t.blockHeight,
 		amount: t?.tokenTransfers ? Number(formatEther(t.tokenTransfers[0].value)).toFixed(2) : Number(formatEther(t.value)).toFixed(2),
@@ -119,14 +116,14 @@ const getDataForAddress = async (address: string, params: any) => {
 		txFee: Number(ethers.utils.formatEther(t.fees)),
 	}));
 
-const concatData = [...explorData, ...bBookData];
-const result : any = new Map(concatData.map((item) => [item.txHash, item])).values()
-	const data : any = [...result]
-	const transfersData : any = data.filter((item: any) => item.method === 'Transfer');
-	console.log('data', data);
+	const concatData = [...explorData, ...bBookData];
+	const result: any = new Map(concatData.map((item) => [item.txHash, item])).values();
+	const data: any = [...result];
+	const transfersData: any = data.filter((item: any) => item.method === 'Transfer');
+
 	return {
 		balance: addressBalance,
-		transactions: type === 'ERC-20_Tx' || selectedTokenFilter ? bBookData : type === 'transfers'  ? transfersData : data,
+		transactions: type === 'ERC-20_Tx' || selectedTokenFilter ? bBookData : type === 'transfers' ? transfersData : data,
 		tokens: [...defaultFilters],
 	};
 };
@@ -235,7 +232,7 @@ const getBundleWithEntries = (bundleId: any) => {
 				assets,
 				events,
 			};
-		}),
+		})
 	);
 };
 
