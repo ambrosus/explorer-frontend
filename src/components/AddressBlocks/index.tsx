@@ -84,7 +84,6 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 					<div
 						style={{ padding: '0 5px', cursor: 'pointer', color: '#808a9d' }}
 						onClick={() => {
-							// eslint-disable-next-line array-callback-return
 							addressData?.tokens.forEach((item: any) => {
 								console.log('item', item)
 								if (item.name === token) {
