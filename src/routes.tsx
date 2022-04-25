@@ -1,15 +1,22 @@
-import React from 'react';
-import { Home } from './pages/Home';
-import { Apollo } from './pages/Apollo';
-import { Atlas } from './pages/Atlas';
-import { Hermes } from './pages/Hermes';
-import { Addresses } from './pages/Addresses';
-import { Blocks } from './pages/Blocks';
-import { Transactions } from './pages/Transactions';
-import { Bundles } from './pages/Bundles';
-import { AddressDetails } from './pages/Addresses/AddressDetails';
+import { Addresses } from 'pages/Addresses'
+import { AddressDetails } from 'pages/Addresses/AddressDetails'
+import { Apollo } from 'pages/Apollo'
+import { Atlas } from 'pages/Atlas'
+import { Blocks } from 'pages/Blocks'
+import { Bundles } from 'pages/Bundles'
+import { Hermes } from 'pages/Hermes'
+import { Home } from 'pages/Home'
+import { Transactions } from 'pages/Transactions'
+import React from 'react'
 
-export const routes = [
+import { IRoute } from './types'
+
+interface IAppRoutes {
+	routes: IRoute[]
+	subRoutes: IRoute[]
+}
+
+export const routes: IRoute[] = [
 	{
 		path: '/',
 		key: 'home',
@@ -58,9 +65,8 @@ export const routes = [
 		exact: true,
 		component: () => <Bundles />,
 	},
-];
-
-export const subRoutes = [
+]
+export const subRoutes: IRoute[] = [
 	{
 		path: '/addresses/:address',
 		key: 'Address Details',
@@ -85,7 +91,8 @@ export const subRoutes = [
 		exact: true,
 		component: () => <AddressDetails />,
 	},
-];
+]
 
-const appRoutes = { routes, subRoutes };
-export default appRoutes;
+const appRoutes: IAppRoutes = { routes, subRoutes }
+
+export default appRoutes

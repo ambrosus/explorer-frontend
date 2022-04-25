@@ -1,5 +1,5 @@
-import React from 'react';
-import { Content } from '../../components/Content';
+import { Content } from 'components/Content'
+import React from 'react'
 
 export const Bundles = () => (
 	<Content>
@@ -10,4 +10,4 @@ export const Bundles = () => (
 			<div>Bundles CONTENT</div>
 		</Content.Body>
 	</Content>
-);
+)

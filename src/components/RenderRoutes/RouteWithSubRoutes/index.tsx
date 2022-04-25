@@ -1,8 +1,8 @@
-import React from 'react';
-import { Route } from 'react-router-dom';
+import React from 'react'
+import { Route } from 'react-router-dom'
 
 export const RouteWithSubRoutes = (route: any) => {
-	const { path, exact, routes } = route;
+	const { path, exact, routes } = route
 	return (
 		<React.Fragment>
 			<Route
@@ -12,5 +12,5 @@ export const RouteWithSubRoutes = (route: any) => {
 				render={(props: any) => <route.component {...props} routes={routes} />}
 			/>
 		</React.Fragment>
-	);
-};
+	)
+}

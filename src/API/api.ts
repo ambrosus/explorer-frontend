@@ -1,10 +1,10 @@
 /*eslint-disable*/
 import axios from 'axios';
 import { ethers, providers } from 'ethers';
-import erc20Abi from '../utils/abis/ERC20.json';
+import erc20Abi from 'utils/abis/ERC20.json';
 import { formatEther } from 'ethers/lib/utils';
-import { ethereum } from '../utils/constants';
-import moment from 'moment';
+import { ethereum } from 'utils/constants';
+import { ExplorerTxType, TokenType, TransactionProps } from 'pages/Addresses/AddressDetails/types';
 
 const tokenApiUrl = process.env.REACT_APP_TOKEN_API_URL;
 
@@ -31,7 +31,7 @@ const API = () => {
 		},
 		(error) => {
 			handleNotFound(error);
-		}
+		},
 	);
 
 	return api;
@@ -43,27 +43,26 @@ const getBlocks = async (params = {}) => {
 	});
 };
 
+
 const getDataForAddress = async (address: string, params: any) => {
-	const { filtered, limit, type, selectedTokenFilter } = params;
-	const blockBookApi = await fetch(`https://blockbook.ambrosus.io/api/v2/address/${address}?filter=${selectedTokenFilter}`).then((res) =>
-		res.json()
-	);
+	const { limit, type, selectedTokenFilter } = params;
+	const blockBookApi = await fetch(`https://blockbook.ambrosus.io/api/v2/address/${address}?filter=${selectedTokenFilter}`)
+		.then((res) => res.json());
 
-	const addressBalance = blockBookApi.balance;
-	const constTokens =
-		blockBookApi &&
-		blockBookApi.tokens.map((token: any, index: number) => {
-			return {
-				...token,
-				idx: index + 1,
-			};
-		});
+	const addressBalance : string = blockBookApi.balance;
 
-	const getBalance = async (tokensArr: any[]) => {
-		const newTokens: any[] = [];
+	const constTokens = blockBookApi && blockBookApi.tokens.map((token: TokenType, index: number) => {
+		return {
+			...token,
+			idx: index + 1,
+		};
+	});
 
-		tokensArr.map(async (token: any) => {
+	const getBalance = async (tokensArr: TokenType[]) => {
+		const newTokens: TokenType[] | never = [];
+		tokensArr.map(async (token: TokenType) => {
 			try {
+				// TODO get data in incognito
 				// const ambProvider = new providers.JsonRpcProvider('https://network.ambrosus.io');
 				const ambProvider = new providers.Web3Provider(ethereum);
 				const tokenContract = new ethers.Contract(token.contract, erc20Abi, ambProvider);
@@ -79,18 +78,17 @@ const getDataForAddress = async (address: string, params: any) => {
 		});
 		return newTokens;
 	};
-	const defaultFilters = await getBalance(constTokens);
+	const defaultFilters: TokenType[] = await getBalance(constTokens);
 
 	const { data: explorerTrans } = await getAccountTx(address, { limit, type });
 
-	const blockBookApiTransactions =
-		blockBookApi &&
-		blockBookApi?.txids.map(async (tx: string) => {
-			return await fetch(`https://blockbook.ambrosus.io/api/v2/tx/${tx}`).then((res) => res.json());
-		});
+	const blockBookApiTransactions = blockBookApi && blockBookApi?.txids.map(async (tx: string) => {
+		return await fetch(`https://blockbook.ambrosus.io/api/v2/tx/${tx}`).then((res) => res.json());
+	});
 
 	const blockBookApiTransactionsData = await Promise.all(blockBookApiTransactions);
-	const explorData = explorerTrans.map((t: any) => {
+	console.log('blockBookApiTransactionsData', blockBookApiTransactionsData);
+	const explorData: TransactionProps[] = explorerTrans.map((t: ExplorerTxType) => {
 		return {
 			txHash: t.hash,
 			method: t.type,
@@ -104,11 +102,16 @@ const getDataForAddress = async (address: string, params: any) => {
 			txFee: Number(t.gasCost.ether),
 		};
 	});
-	const bBookData = blockBookApiTransactionsData.map((t) => ({
+	const bBookData: TransactionProps[] = blockBookApiTransactionsData.map((t) => ({
 		txHash: t.txid,
 		method: t?.tokenTransfers ? 'Transfer' : 'Transaction',
-		from: t?.tokenTransfers ? t.tokenTransfers[0].from : t.vin[0].addresses[0],
-		to: t?.tokenTransfers ? t.tokenTransfers[0].to : t.vout[0].addresses[0],
+		from: t?.tokenTransfers ?
+			`${t.tokenTransfers[0].from.slice(0, 5)}...${t.tokenTransfers[0].from.slice(t.tokenTransfers[0].from.length - 5)}`
+			: `${t.vin[0].addresses[0].slice(0, 5)}...${t.vin[0].addresses[0].slice(t.vin[0].addresses[0].length - 5)}`
+		,
+		to: t?.tokenTransfers ?
+			`${t.tokenTransfers[0].to.slice(0, 5)}...${t.tokenTransfers[0].to.slice(t.tokenTransfers[0].to.length - 5)}`
+			: `${t.vout[0].addresses[0].slice(0, 5)}...${t.vout[0].addresses[0].slice(t.vout[0].addresses[0].length - 5)}`,
 		date: t.blockTime * 1000,
 		block: t.blockHeight,
 		amount: t?.tokenTransfers ? Number(formatEther(t.tokenTransfers[0].value)).toFixed(2) : Number(formatEther(t.value)).toFixed(2),
@@ -116,11 +119,10 @@ const getDataForAddress = async (address: string, params: any) => {
 		txFee: Number(ethers.utils.formatEther(t.fees)),
 	}));
 
-	const concatData = [...explorData, ...bBookData];
-	const result: any = new Map(concatData.map((item) => [item.txHash, item])).values();
-	const data: any = [...result];
-	const transfersData: any = data.filter((item: any) => item.method === 'Transfer');
-
+	// @ts-ignore
+	const result :IterableIterator<string,TransactionProps> = new Map([...explorData, ...bBookData].map((item) => [item.txHash, item])).values();
+	const data: TransactionProps[] = [...result];
+	const transfersData: TransactionProps[] = data.filter((item: TransactionProps) => item.method === 'Transfer');
 	return {
 		balance: addressBalance,
 		transactions: type === 'ERC-20_Tx' || selectedTokenFilter ? bBookData : type === 'transfers' ? transfersData : data,
@@ -232,7 +234,7 @@ const getBundleWithEntries = (bundleId: any) => {
 				assets,
 				events,
 			};
-		})
+		}),
 	);
 };
 

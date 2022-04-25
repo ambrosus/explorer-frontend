@@ -1,60 +1,75 @@
-import React from 'react';
-import Eth from '../../assets/icons/Cryptos/Eth';
-import Discard from '../../assets/icons/Discard';
-import { useTypedSelector } from '../../hooks/useTypedSelector';
-import { shallowEqual } from 'react-redux';
-import { useActions } from '../../hooks/useActions';
-import { useNavigate, useParams } from 'react-router-dom';
+import Eth from 'assets/icons/Cryptos/Eth'
+import Discard from 'assets/icons/Discard'
+import { useActions } from 'hooks/useActions'
+import { useTypedSelector } from 'hooks/useTypedSelector'
+import { TokenType } from 'pages/Addresses/AddressDetails/types'
+import React, { FC } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
 
-const FilteredToken = ({selectedToken,setSelectedToken}:any) => {
-	const {clearFilters} = useActions();
-	const { address } = useParams();
-	const navigate = useNavigate();
-	const { filters } = useTypedSelector((state: any) => state.tokenFilters);
-	const { data: appData } = useTypedSelector((state: any) => state.app);
+import { TParams } from '../../types'
 
-	const backClick = () => console.log('backCLick');
+export type FilteredTokenProps = {
+	setSelectedToken: (token: TokenType | null) => void
+}
+const FilteredToken: FC<FilteredTokenProps> = ({ setSelectedToken }) => {
+	const { clearFilters } = useActions()
+	const { address }: TParams = useParams()
+	const navigate = useNavigate()
+	const { filters } = useTypedSelector((state: any) => state.tokenFilters)
+
+	const backClick = () => console.log('backCLick')
 
 	const discardClick = () => {
-		setSelectedToken(null);
-		clearFilters();
+		setSelectedToken(null)
+		clearFilters()
 		navigate(`/addresses/${address}/ERC-20_Tx`)
 	}
 
 	return (
-		<div className='filteredToken'>
-			<div className='filteredToken__head'>
-				<div className='filteredToken__cells'>
-					<div className='filteredToken__cell filteredToken__heading'>Filtered by token</div>
-					<div className='filteredToken__cell'>
+		<div className="filteredToken">
+			<div className="filteredToken__head">
+				<div className="filteredToken__cells">
+					<div className="filteredToken__cell filteredToken__heading">
+						Filtered by token
+					</div>
+					<div className="filteredToken__cell">
 						<Eth />
 						{filters && filters.name}
 					</div>
 				</div>
-				<div className='filteredToken__cells'>
-					<div className='filteredToken__cell'>
+				<div className="filteredToken__cells">
+					<div className="filteredToken__cell">
 						<button onClick={backClick}>Back to all tokens</button>
 					</div>
 
-					<button className='filteredToken__cell' onClick={discardClick}>
+					<button className="filteredToken__cell" onClick={discardClick}>
 						<Discard />
 					</button>
 				</div>
 			</div>
 			{filters?.balance && (
-				<div className='filteredToken__body'>
-					<div className='filteredToken__cell'>
-						<span className='filteredToken__cell-bold'>Balance</span>
-						<span className='filteredToken__cell-normal'>{filters.balance ? Number(filters.balance).toFixed(2) : '-'}</span>
-						{/*<span className='filteredToken__cell-normal'>{filters.balance}/ $ {appData && appData?.total_price_usd && appData.total_price_usd ? Number(filters.balance * appData.total_price_usd).toFixed(2):'no course'}</span>*/}
+				<div className="filteredToken__body">
+					<div className="filteredToken__cell">
+						<span className="filteredToken__cell-bold">Balance</span>
+						<span className="filteredToken__cell-normal">
+							{filters.balance ? Number(filters.balance).toFixed(2) : '-'}
+						</span>
+						{/*
+						// TODO make it work when backend is ready
+						<span className='filteredToken__cell-normal'>{filters.balance}/ $ {appData && appData?.total_price_usd && appData.total_price_usd ? Number(filters.balance * appData.total_price_usd).toFixed(2):'no course'}</span>
+						*/}
 					</div>
 					{/*<div className='filteredToken__cell'>*/}
 					{/*	<span className='filteredToken__cell-bold'>Price</span>*/}
 					{/*	<span className='filteredToken__cell-normal'>n `Symbol` / $ n</span>*/}
 					{/*</div>*/}
-					<div className='filteredToken__cell'>
-						<span className='filteredToken__cell-bold'>Total supply</span>
-						<span className='filteredToken__cell-normal'>{filters.totalSupply ? Number(filters.totalSupply).toFixed(2) : '-'}</span>
+					<div className="filteredToken__cell">
+						<span className="filteredToken__cell-bold">Total supply</span>
+						<span className="filteredToken__cell-normal">
+							{filters.totalSupply
+								? Number(filters.totalSupply).toFixed(2)
+								: '-'}
+						</span>
 					</div>
 					{/*<div className='filteredToken__cell'>*/}
 					{/*	<span className='filteredToken__cell-bold'>Market cap</span>*/}
@@ -67,7 +82,7 @@ const FilteredToken = ({selectedToken,setSelectedToken}:any) => {
 				</div>
 			)}
 		</div>
-	);
-};
+	)
+}
 
-export default FilteredToken;
+export default FilteredToken

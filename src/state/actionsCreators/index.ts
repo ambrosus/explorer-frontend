@@ -1,8 +1,8 @@
 import {actionTypes} from "../action-types";
 import { AppDataAction, FiltersAction, PositionAction } from '../actions';
 import {Dispatch} from "redux";
-import API from '../../API/api';
-import { CLIENT_VERSION } from '../../utils/constants';
+import API from 'API/api';
+import { CLIENT_VERSION } from 'utils/constants';
 
 export const setAppDataAsync = () => {
     return async (dispatch: Dispatch<AppDataAction>) => {
@@ -11,7 +11,8 @@ export const setAppDataAsync = () => {
         })
         try {
             const netInfo = await API.getInfo();
-            const tokenInfo =  await API.getToken().then(async (info = {}) => {
+
+            const tokenInfo  =  await API.getToken().then(async (info = {}) => {
                 const totalSupply = await API.getTokenTotalSupply().then((totalSupplyToken = {}) => {
                     return totalSupplyToken;
                 });
@@ -35,7 +36,7 @@ export const setAppDataAsync = () => {
         } catch (error: any) {
             dispatch({
                 type: actionTypes.SET_APP_DATA__FAIL,
-                payload: `Error in setAppDataAsync() ${error.message}`,
+                payload: error.message,
             })
         }
     }
@@ -57,7 +58,7 @@ export const setPosition:any = (promiseFunc:any, ...params:any) => {
         } catch (error: any) {
             dispatch({
                 type: actionTypes.SET_POSITION__FAIL,
-                payload: `Error in setPosition() ${error.message}`,
+                payload: error.message,
             })
         }
     }
