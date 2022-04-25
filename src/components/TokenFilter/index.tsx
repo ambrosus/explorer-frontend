@@ -13,7 +13,7 @@ const TokenFilter = ({ onClick, selectedToken }: any) => {
 	const [isShow, setIsShow] = useState(false);
 	const navigate = useNavigate();
 	const { address }: any = useParams();
-	const refTokensModal = useRef(null);
+	const refTokensModal = useRef<HTMLDivElement>(null);
 
 	useOnClickOutside(refTokensModal, () => setIsShow(false));
 

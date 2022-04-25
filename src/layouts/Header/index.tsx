@@ -6,16 +6,17 @@ import { useOnClickOutside } from '../../hooks/useOnClickOutside';
 
 import { routes as menuItems } from '../../routes';
 import AmbrosusLogoSvg from './AmbrosusLogoSvg';
+import { IRoute } from '../../types';
 
-const menu = menuItems.map((menuElement) => (
+const menu = menuItems.map((menuElement:IRoute) => (
 	<NavLink to={menuElement.path} key={menuElement.key} className='menu__item'>
 		{menuElement.key}
 	</NavLink>
 ));
 
 export const Header = () => {
-	const [isShow, setIsShow] = useState(false);
-	const searchRef: any = useRef();
+	const [isShow, setIsShow] = useState<boolean>(false);
+	const searchRef  = useRef(null);
 
 	useOnClickOutside(searchRef, () => setIsShow(false));
 

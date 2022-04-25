@@ -13,24 +13,28 @@ import { useTypedSelector } from '../../../hooks/useTypedSelector';
 import FilteredToken from '../../../components/FilteredToken';
 import { shallowEqual } from 'react-redux';
 import { formatEther } from 'ethers/lib/utils';
-import useHover from '../../../hooks/useHover';
 
+type TParams = {
+	address?: string;
+	type?: string;
+	filtered?: string;
+	tokenToSorted?: string;
+};
 export const AddressDetails = () => {
-	const { address, type, filtered, tokenToSorted }: any = useParams();
+	const { address, type, filtered, tokenToSorted }  : TParams= useParams();
 	const { setPosition, addFilter } = useActions();
 	const { filters } = useTypedSelector((state: any) => state.tokenFilters, shallowEqual);
 	const { loading, data: addressData } = useTypedSelector((state: any) => state.position);
 	const [transactionType, setTransactionType] = useState<any>(type);
 	const [selectedToken, setSelectedToken] = useState<any>(null);
 	const [tx, setTx] = useState([]);
-	const [hoverRef, isHovered]: any = useHover();
 
 	useEffect(() => {
 		if (filtered && addressData?.tokens?.length) {
 			addFilter(addressData.tokens.find((token: any) => token.idx === +filtered));
 		}
 		if (!loading) {
-			setPosition(API.getDataForAddress, address.trim(), {
+			setPosition(API.getDataForAddress, address?.trim(), {
 				filtered: addressData && addressData.filters ? addressData.filters : [],
 				selectedTokenFilter: selectedToken && selectedToken?.idx ? selectedToken.idx : filtered,
 				limit: 500,
@@ -49,11 +53,11 @@ export const AddressDetails = () => {
 
 	useEffect(() => {
 		if (addressData && addressData?.tokens && !selectedToken) {
-			setSelectedToken(addressData.tokens.find((token: any) => token.idx === +filtered));
+			setSelectedToken(addressData.tokens.find((token: any) => token.idx === Number(filtered)));
 		}
 	}, [addressData]);
 
-	const copyConten = () => navigator.clipboard.writeText(address);
+	const copyConten = () => address && navigator.clipboard.writeText(address);
 
 	return (
 		<Content>

@@ -1,10 +1,14 @@
-import { useState, useEffect, FormEvent, ChangeEvent, useCallback } from 'react';
+import React, { useState, FormEvent, ChangeEvent } from 'react';
 import ArrowDown from '../../assets/icons/Arrows/ArrowDown';
 import Search from '../../assets/icons/Search';
 import API from '../../API/api';
 import { useNavigate } from 'react-router-dom';
 
-const FindWide = ({ searchRef }: any) => {
+interface FindWideProps {
+	searchRef?: React.Ref<HTMLFormElement>;
+}
+
+const FindWide: React.FC<FindWideProps> = ({ searchRef }) => {
 	const [name, setName] = useState('');
 	const navigate = useNavigate();
 

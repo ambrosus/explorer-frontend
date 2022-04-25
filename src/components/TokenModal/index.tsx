@@ -1,19 +1,19 @@
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, FC, useState } from 'react';
 import TokenItem from '../TokenItem';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
-import { useActions } from '../../hooks/useActions';
-import { ethers, providers } from 'ethers';
-import erc20Abi from '../../utils/abis/ERC20.json';
-import { ethereum } from '../../utils/constants';
-import { formatEther } from 'ethers/lib/utils';
-import { NavLink, useParams } from 'react-router-dom';
 
-type TokenModalProps = {
-	setToken: any;
-	selectedToken: any;
-};
+/**
+ * @description TokenModal
+ * @param {TokenModalProps} props
+ * @returns {JSX.Element}
+ */
 
-const TokenModal: React.FC<TokenModalProps> = ({ selectedToken, setToken }) => {
+interface TokenModalProps {
+	selectedToken: string;
+	setToken: (token: string) => void;
+}
+
+const TokenModal: FC<TokenModalProps> = ({ selectedToken, setToken }) => {
 	const [name, setName] = useState('');
 	const { data: addressData } = useTypedSelector((state: any) => state.position);
 	const { tokens } = addressData;
@@ -35,7 +35,7 @@ const TokenModal: React.FC<TokenModalProps> = ({ selectedToken, setToken }) => {
 						</div>
 						<div className='tokenModal__arrows'></div>
 					</div>
-					{tokens.map((token: any) => {
+					{tokens.map((token: { name: string; idx: number; }) => {
 						return <TokenItem key={token.name + token.idx} selectedToken={selectedToken} token={token} setToken={setToken} />;
 					})}
 				</>

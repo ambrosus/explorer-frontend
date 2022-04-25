@@ -8,13 +8,8 @@ import { Blocks } from './pages/Blocks';
 import { Transactions } from './pages/Transactions';
 import { Bundles } from './pages/Bundles';
 import { AddressDetails } from './pages/Addresses/AddressDetails';
+import { IRoute } from './types';
 
-interface IRoute {
-	path: string,
-	key: string,
-	exact: boolean,
-	component: React.FC
-}
 interface IAppRoutes{
 	routes: IRoute[],
 	subRoutes: IRoute[]
