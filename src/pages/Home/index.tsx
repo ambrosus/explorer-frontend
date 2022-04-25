@@ -35,7 +35,7 @@ export const Home: React.FC = () => {
 
 	useEffect(() => {
 		getHomePageData().then((res: any) => setData(res));
-	}, [appData]);
+	}, [appData, getHomePageData]);
 
 	return (
 		<Content isLoading={!!data}>
