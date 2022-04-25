@@ -6,3 +6,10 @@ export interface IRoute {
 	exact: boolean,
 	component: React.FC
 }
+
+export type TParams = {
+	address?: string;
+	type?: string;
+	filtered?: string;
+	tokenToSorted?: string;
+};

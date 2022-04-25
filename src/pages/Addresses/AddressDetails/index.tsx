@@ -13,13 +13,10 @@ import { useTypedSelector } from '../../../hooks/useTypedSelector';
 import FilteredToken from '../../../components/FilteredToken';
 import { shallowEqual } from 'react-redux';
 import { formatEther } from 'ethers/lib/utils';
+import { TParams } from '../../../types';
 
-type TParams = {
-	address?: string;
-	type?: string;
-	filtered?: string;
-	tokenToSorted?: string;
-};
+
+
 export const AddressDetails = () => {
 	const { address, type, filtered, tokenToSorted }  : TParams= useParams();
 	const { setPosition, addFilter } = useActions();

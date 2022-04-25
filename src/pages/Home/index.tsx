@@ -8,15 +8,19 @@ import LatestBlocks from '../../components/LatestBlocks';
 import ViewMoreBtn from '../../components/ViewMoreBtn';
 import Chart from '../../components/Chart';
 import LatestTransactions from '../../components/LastestTransactions';
+import { LatestTransactionsProps, ResultHomePageData } from './types';
+
 
 export const Home: React.FC = () => {
-	const [data, setData] = useState<any>();
-	const { data: appData } = useTypedSelector((state: any) => state.app);
+	const [data, setData] = useState<ResultHomePageData>();
+	const { data: appData } = useTypedSelector((state:any) => state.app);
 
-	const getHomePageData = async () => {
-		const result: { header?: Array<{ name: string; value: any }>; latestBlocks: Array<any>; latestTransactions: Array<any> } = {
+	const getHomePageData: () => Promise<ResultHomePageData> = async () => {
+		const result: ResultHomePageData = {
 			latestBlocks: (await API.getBlocks({ limit: 8 })).data,
-			latestTransactions: (await API.getTransactions({ limit: 3000 })).data.filter((item: any) => item.type !== 'BlockReward').slice(0, 8),
+			latestTransactions: (await API.getTransactions({ limit: 3000 })).data
+				.filter((item : LatestTransactionsProps) => item.type !== 'BlockReward')
+				.slice(0, 8),
 		};
 
 		result.header = [
@@ -34,7 +38,7 @@ export const Home: React.FC = () => {
 	};
 
 	useEffect(() => {
-		getHomePageData().then((res: any) => setData(res));
+		getHomePageData().then((result: ResultHomePageData) => setData(result));
 	}, [appData]);
 
 	return (
@@ -46,7 +50,7 @@ export const Home: React.FC = () => {
 						<FindWide />
 						<div className='mainInfo'>
 							<div className='mainInfo__table'>
-								{data?.header.map((item: { name: React.Key | null | undefined; value: any }) => (
+								{data?.header.map((item: { name: React.Key | null | undefined; value: number }) => (
 									<MainInfo key={item.name} name={item.name} value={item.value} />
 								))}
 							</div>
@@ -61,14 +65,8 @@ export const Home: React.FC = () => {
 								<div className='latestBlocks__heading'>Lastest Blocks</div>
 								{data?.latestBlocks.map(
 									(
-										item: {
-											number: React.Key | null | undefined;
-											timestamp: number;
-											miner: string;
-											totalTransactions: number;
-											blockRewards: number;
-										},
-										index: number
+										item,
+										index,
 									) => (
 										<LatestBlocks
 											key={item.number}
@@ -80,7 +78,7 @@ export const Home: React.FC = () => {
 											blockReward={item.blockRewards}
 											name='name'
 										/>
-									)
+									),
 								)}
 								<ViewMoreBtn nameBtn='View all blocks' />
 							</div>
@@ -88,16 +86,7 @@ export const Home: React.FC = () => {
 							<div className='home__content'>
 								<div className='latestBlocks__heading'>Lastest Transactions</div>
 								{data?.latestTransactions.map(
-									(item: {
-										_id: React.Key | null | undefined;
-										status: any;
-										hash: any;
-										timestamp: any;
-										from: any;
-										to: any;
-										value: { ether: any };
-										type: any;
-									}) => (
+									(item) => (
 										<LatestTransactions
 											key={item._id}
 											status={item.status}
@@ -108,7 +97,7 @@ export const Home: React.FC = () => {
 											amount={item.value.ether}
 											type={item.type}
 										/>
-									)
+									),
 								)}
 
 								<ViewMoreBtn nameBtn='View all transactions' />

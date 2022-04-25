@@ -5,10 +5,11 @@ import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { shallowEqual } from 'react-redux';
 import { useActions } from '../../hooks/useActions';
 import { useNavigate, useParams } from 'react-router-dom';
+import { TParams } from '../../types';
 
 const FilteredToken = ({selectedToken,setSelectedToken}:any) => {
 	const {clearFilters} = useActions();
-	const { address } = useParams();
+	const { address }: TParams = useParams();
 	const navigate = useNavigate();
 	const { filters } = useTypedSelector((state: any) => state.tokenFilters);
 	const { data: appData } = useTypedSelector((state: any) => state.app);

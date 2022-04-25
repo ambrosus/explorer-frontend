@@ -7,6 +7,7 @@ import OrangeCircle from '../../assets/icons/OrangeCircle';
 import { useActions } from '../../hooks/useActions';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { sliceData10 } from '../../utils/helpers';
+import { TParams } from '../../types';
 
 type AddressBlockProps = {
 	txhash: any;
@@ -26,9 +27,9 @@ const AddressBlock: React.FC<AddressBlockProps> = ({ onClick, isLatest, txhash, 
 	const online: any = txfee === 'Pending' ? <OrangeCircle /> : <GreenCircle />;
 	const { addFilter } = useActions();
 	const navigate = useNavigate();
-	const { address } = useParams();
+	const { address }: TParams = useParams();
 	const { data: addressData } = useTypedSelector((state: any) => state.position);
-	const { type } = useParams();
+	const { type } : TParams= useParams();
 
 	const isTxHash =
 		txhash === null ? null : (

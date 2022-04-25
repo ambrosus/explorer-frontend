@@ -6,13 +6,14 @@ import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { useOnClickOutside } from '../../hooks/useOnClickOutside';
 import { useNavigate, useParams } from 'react-router-dom';
 import ArrowUpBig from '../../assets/icons/Arrows/ArrowUpBig';
+import { TParams } from '../../types';
 
 const TokenFilter = ({ onClick, selectedToken }: any) => {
 	const { addFilter } = useActions();
 	const { data: addressData } = useTypedSelector((state: any) => state.position);
 	const [isShow, setIsShow] = useState(false);
 	const navigate = useNavigate();
-	const { address }: any = useParams();
+	const { address }: TParams = useParams();
 	const refTokensModal = useRef<HTMLDivElement>(null);
 
 	useOnClickOutside(refTokensModal, () => setIsShow(false));

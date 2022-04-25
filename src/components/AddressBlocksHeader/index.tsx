@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react';
 import { NavLink, useParams } from 'react-router-dom';
 import ArrowDown from '../../assets/icons/Arrows/ArrowDown';
 import { useOnClickOutside } from '../../hooks/useOnClickOutside';
+import { TParams } from '../../types';
 
 interface AddressBlockProps {
 	txhash: string | number;
@@ -31,7 +32,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 	setTransactionType,
 }) => {
 	const [isShow, setIsShow] = useState(false);
-	const { address } = useParams();
+	const { address }: TParams = useParams();
 	const methodRef: any = useRef();
 
 	useOnClickOutside(methodRef, () => setIsShow(false));

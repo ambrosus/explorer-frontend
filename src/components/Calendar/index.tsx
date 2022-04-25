@@ -6,9 +6,10 @@ import 'react-date-range/dist/theme/default.css'; // theme css file
 import { useOnClickOutside } from '../../hooks/useOnClickOutside';
 import API from '../../API/api';
 import { useParams } from 'react-router-dom';
+import { TParams } from '../../types';
 
 const Calendar = ({ setIsShow, isShow }: any) => {
-	const { address } = useParams();
+	const { address } : TParams= useParams();
 	const calendarRef: any = useRef();
 	const [dataRange, setDataRange] = useState([
 		{
