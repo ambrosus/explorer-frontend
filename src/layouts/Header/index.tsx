@@ -10,15 +10,18 @@ import AmbrosusLogoSvg from './AmbrosusLogoSvg'
 import DesctopMenu from '../../components/DesctopMenu'
 import MobileMenu from '../../components/MobileMenu'
 
-const menu = menuItems.map((menuElement: IRoute) => (
-	<NavLink to={menuElement.path} key={menuElement.key} className="menu__item">
-		{menuElement.key}
-	</NavLink>
-))
-
 export const Header = () => {
 	const { width } = useWindowSize()
-	console.log(width)
+
+	const menu = menuItems.map((menuElement: IRoute) => (
+		<NavLink
+			to={menuElement.path}
+			key={menuElement.key}
+			className={width > 1100 ? 'menuMobile__item' : 'menu__item'}
+		>
+			{menuElement.key}
+		</NavLink>
+	))
 
 	return (
 		<div className="header">
@@ -30,9 +33,9 @@ export const Header = () => {
 						</NavLink>
 					</div>
 					{width > 1100 ? (
-						<MobileMenu menu={menu} />
-					) : (
 						<DesctopMenu menu={menu} />
+					) : (
+						<MobileMenu menu={menu} />
 					)}
 				</nav>
 			</div>

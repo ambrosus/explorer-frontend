@@ -50,6 +50,34 @@
 		background-color: #212121;
 	}
 }
+.menuMobile {
+	display: grid;
+	grid-template-rows: repeat(8, auto);
+	position: absolute;
+	background-color: #212121;
+	// top: 142px;
+	margin-top: 100px;
+	width: 360px;
+	&__item {
+		text-decoration: none;
+		font-family: Proxima Nova, Aktiv Grotesk Corp;
+		font-style: normal;
+		font-weight: 600;
+		font-size: 11px;
+		line-height: 34px;
+		letter-spacing: 0.22em;
+		text-transform: uppercase;
+		color: #ffffff;
+	}
+}
+.mobile {
+	height: 100%;
+	top: 20px;
+	left: 1000px;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+}
 .logo {
 	margin-right: 40px;
 }
