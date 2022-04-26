@@ -85,11 +85,10 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 						style={{ padding: '0 5px', cursor: 'pointer', color: '#808a9d' }}
 						onClick={() => {
 							addressData?.tokens.forEach((item: any) => {
-								console.log('item', item)
 								if (item.name === token) {
 									onClick(item)
 									addFilter(item)
-									navigate(`/addresses/${address}/ERC-20_Tx/${item.idx}`)
+									navigate(`/addresses/${address}/ERC-20_Tx/${item.contract}`)
 								} else {
 									return ''
 								}
@@ -136,7 +135,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 								if (item.name === token) {
 									onClick(item)
 									addFilter(item)
-									navigate(`/addresses/${address}/ERC-20_Tx/${item.idx}`)
+									navigate(`/addresses/${address}/ERC-20_Tx/${item.contract}`)
 								}
 							})
 						}}

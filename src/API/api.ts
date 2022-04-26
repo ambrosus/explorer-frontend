@@ -48,31 +48,27 @@ const getBlocks = async (params = {}) => {
 };
 
 const getDataForAddress = async (address: string, params: any) => {
-  const { limit, type, selectedTokenFilter } = params;
+  const { limit,page, type, selectedTokenFilter } = params;
 
-  const blockBookApi = await fetch(
-    `https://blockbook.ambrosus.io/api/v2/address/${address}?filter=${selectedTokenFilter}`
-  ).then((res) => res.json());
+  const url = `https://blockbook.ambrosus.io/api/v2/address/${address}?&details=used`;
+  const blockBookApi : any = await API().get(url, {
+    params: {
+      page: page,
+      pageSize: limit,
+      contract: selectedTokenFilter,
+    }
+  });
 
   const addressBalance: string = blockBookApi.balance;
 
-  const constTokens =
-    blockBookApi &&
-    blockBookApi.tokens ? blockBookApi.tokens.map((token: TokenType, index: number) => {
-      return {
-        ...token,
-        idx: index + 1
-      };
-    }) : [];
-
-  const getBalance = async (tokensArr: TokenType[]) => {
+  const getTokensBalance = async (tokensArr: TokenType[]) => {
     const newTokens: TokenType[] | never = [];
-    tokensArr.map(async (token: TokenType) => {
+    tokensArr?.length ? tokensArr.map(async (token: TokenType) => {
       try {
         // TODO get data in incognito
         // const ambProvider = new providers.JsonRpcProvider('https://network.ambrosus.io');
         const ambProvider = new providers.Web3Provider(ethereum);
-        const tokenContract = new ethers.Contract(
+        const tokenContract =await new ethers.Contract(
           token.contract,
           erc20Abi,
           ambProvider
@@ -80,32 +76,41 @@ const getDataForAddress = async (address: string, params: any) => {
         const balance = Number(
           formatEther(await tokenContract.balanceOf(String(address)))
         ).toFixed(2);
-        const totalSupply = Number(
-          formatEther(await tokenContract.totalSupply())
-        );
+        // const totalSupply = Number(
+        //   formatEther(await tokenContract.totalSupply())
+        // );
         token.balance = balance;
-        token.totalSupply = totalSupply;
+        // token.totalSupply = totalSupply;
+        console.log('token',token);
       } catch (e) {
         console.log(e);
       } finally {
         newTokens.push(token);
       }
-    });
+    }) : newTokens
     return newTokens;
   };
-  const defaultFilters: TokenType[] = await getBalance(constTokens);
+
+  const constTokens = blockBookApi && blockBookApi.tokens ? blockBookApi.tokens.map((token: TokenType, index: number) => {
+    return {
+      ...token,
+      idx: index + 1
+    };
+  }) : []
+  const defaultFilters: TokenType[] = await getTokensBalance(constTokens);
+
   const { data: explorerTrans } = await getAccountTx(address, { limit, type });
+
   const blockBookApiTransactions =
-    blockBookApi &&
-    blockBookApi?.txids.map(async (tx: string) => {
+    blockBookApi && blockBookApi.txids ? blockBookApi.txids.map(async (tx: string) => {
       return await fetch(`https://blockbook.ambrosus.io/api/v2/tx/${tx}`)
         .then((res) => res.json())
-        .catch(e=>console.log(e))
-    });
+        .catch(e => console.log(e))
+    }) : []
 
-  const blockBookApiTransactionsData = await Promise.all(
+  const blockBookApiTransactionsData = await Promise.allSettled(
     blockBookApiTransactions
-  );
+  )
 
   const explorData: TransactionProps[] = explorerTrans.map(
     (t: ExplorerTxType) => {
@@ -124,8 +129,52 @@ const getDataForAddress = async (address: string, params: any) => {
 			};
     }
   );
-  const bBookData: TransactionProps[] = blockBookApiTransactionsData.map(
-    (t) =>t.txid && ({
+
+  const filteredBlockBookApiTransactionsData = blockBookApiTransactionsData.filter((item:any)=>item.value !== undefined)
+
+  const bBookData: TransactionProps[] | any = filteredBlockBookApiTransactionsData && filteredBlockBookApiTransactionsData?.length && filteredBlockBookApiTransactionsData.map(
+    (item : any) => {
+      const t = item.value
+      return ({
+        txHash: t.txid,
+        method: t?.tokenTransfers ? "Transfer" : "Transaction",
+        from: t?.tokenTransfers
+          ? t.tokenTransfers[0].from
+          : t.vin[0].addresses[0],
+        to: t?.tokenTransfers ? t.tokenTransfers[0].to : t.vout[0].addresses[0],
+        date: t.blockTime * 1000,
+        block: t.blockHeight,
+        amount: t?.tokenTransfers
+          ? Number(formatEther(t.tokenTransfers[0].value)).toFixed(2)
+          : Number(formatEther(t.value)).toFixed(2),
+        token: t?.tokenTransfers ? t.tokenTransfers[0].name : "No token",
+        txFee: Number(ethers.utils.formatEther(t.fees)),
+        erc20:t?.tokenTransfers ? true : false
+      })
+    }
+  )
+
+  const includesTokens = defaultFilters.filter(
+    (token: TokenType) => token.contract
+  )
+  const byToken = includesTokens.map(async (token: TokenType) => {
+    const tokensTransactions: any = await API().get(url, {
+      params: {
+        page:params.page,
+        pageSize: 1000,
+        contract: token.contract,
+      }
+    });
+    return tokensTransactions.txids.map(async (tx: string) => {
+      return  fetch(`https://blockbook.ambrosus.io/api/v2/tx/${tx}`)
+        .then((res) => res.json())
+        .catch(e => console.log(e))
+    })[0]
+  })
+  const parsePromisesByToken = await Promise.allSettled(byToken)
+  const sortedLatestTransactionsData: TransactionProps[] = parsePromisesByToken.map((item:any)=>{
+    const t = item.value
+    return ({
       txHash: t.txid,
       method: t?.tokenTransfers ? "Transfer" : "Transaction",
       from: t?.tokenTransfers
@@ -139,16 +188,14 @@ const getDataForAddress = async (address: string, params: any) => {
         : Number(formatEther(t.value)).toFixed(2),
       token: t?.tokenTransfers ? t.tokenTransfers[0].name : "No token",
       txFee: Number(ethers.utils.formatEther(t.fees)),
-			erc20:t?.tokenTransfers ? true : false
     })
-  );
+  })
 
-  // @ts-ignore
-  const result: IterableIterator<string, TransactionProps> = new Map(
-    [...bBookData,...explorData].map((item) => [item.txHash, item])
+  const compare: any = new Map(
+    [...explorData,...bBookData].map((item) => [item.txHash, item])
   ).values();
-  const data: TransactionProps[] = [...result];
-  const transfersData: TransactionProps[] = data.filter(
+  const transactionsAll: TransactionProps[] = [...compare];
+  const transfersDataTx: TransactionProps[] = transactionsAll.filter(
     (item: TransactionProps) => item.method === "Transfer"
   );
 
@@ -158,11 +205,14 @@ const getDataForAddress = async (address: string, params: any) => {
       type === "ERC-20_Tx" || selectedTokenFilter
         ? bBookData
         : type === "transfers"
-          ? transfersData
-          : data,
-    tokens: [...defaultFilters]
+          ? transfersDataTx
+          : transactionsAll,
+    tokens: [...defaultFilters],
+    latestTransactions: sortedLatestTransactionsData,
+    meta:blockBookApi
   };
 };
+
 
 const getBlock = (hashOrNumber: any) => {
   return API().get(`blocks/${hashOrNumber}`);

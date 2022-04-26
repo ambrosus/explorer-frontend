@@ -35,6 +35,7 @@
 	},
 	"devDependencies": {
 		"@reduxjs/toolkit": "^1.8.1",
+		"@types/react-scroll-to-bottom": "^4.2.0",
 		"@types/redux-logger": "^3.0.9",
 		"@types/redux-promise": "^0.5.29",
 		"axios": "^0.26.1",
