@@ -42,7 +42,7 @@ export const routes: IRoute[] = [
 		component: () => <Hermes />,
 	},
 	{
-		path: '#',
+		path: '/addresses',
 		key: 'Addresses',
 		exact: true,
 		component: () => <Addresses />,
