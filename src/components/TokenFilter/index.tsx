@@ -24,7 +24,7 @@ const TokenFilter = ({ onClick, selectedToken }: any) => {
 	const handleSelect = (token: any) => {
 		onClick(token)
 		addFilter(token)
-		navigate(`/addresses/${address}/ERC-20_Tx/${token.idx ? token.idx : ''}`)
+		navigate(`/addresses/${address}/ERC-20_Tx/${token.contract ? token.contract : ''}`)
 	}
 
 	return (
