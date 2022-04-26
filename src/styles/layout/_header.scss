@@ -36,6 +36,19 @@
 		text-transform: uppercase;
 		color: #ffffff;
 	}
+	@include for-device-large {
+		// display: none;
+	}
+	&__btn {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 40px;
+		width: 40px;
+		border: 1px solid #808a9d;
+		border-radius: 16px;
+		background-color: #212121;
+	}
 }
 .logo {
 	margin-right: 40px;

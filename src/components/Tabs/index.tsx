@@ -24,12 +24,6 @@ const ERC20Filters = [
 	{ title: 'All', value: 'All' },
 	{ title: 'Transfers', value: 'transfers' },
 ]
-//
-// const activeBtn = {
-// 	color: '#05060f',
-// 	borderBottom: '4px solid #05060f',
-// 	borderCollapse: 'collapse',
-// }
 
 const methodFilters = [
 	{ title: 'Transfers', value: 'transfers' },
