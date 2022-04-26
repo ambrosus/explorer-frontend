@@ -32,6 +32,7 @@ export const AddressDetails = () => {
   const [selectedToken, setSelectedToken] = useState<TokenType | null>(null);
   const [tx, setTx] = useState([]);
   const [pageNum, setPageNum] = useState(1);
+  const [limitNum] = useState(40);
 
   const observer = useRef();
 
@@ -42,7 +43,7 @@ export const AddressDetails = () => {
     }
     // @ts-ignore
     observer.current = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting && addressData && addressData?.meta?.page < addressData?.meta?.totalPages) {
+      if (entries[0].isIntersecting && addressData && pageNum < addressData?.meta?.totalPages) {
         setPageNum(prevNum => prevNum + 1);
       }
     });
@@ -67,7 +68,7 @@ export const AddressDetails = () => {
           filtered: addressData && addressData.filters ? addressData.filters : [],
           selectedTokenFilter:
             selectedToken && selectedToken?.contract ? selectedToken.contract : filtered,
-          limit: 30,
+          limit: limitNum,
           type: transactionType,
           page: pageNum
         });
@@ -76,7 +77,7 @@ export const AddressDetails = () => {
           filtered: addressData && addressData.filters ? addressData.filters : [],
           selectedTokenFilter:
             selectedToken && selectedToken?.contract ? selectedToken.contract : filtered,
-          limit: 30,
+          limit: limitNum,
           type: transactionType,
           page: pageNum
         });
@@ -143,7 +144,7 @@ export const AddressDetails = () => {
               data={tx}
               setTransactionType={setTransactionType}
             />
-          <div ref={lastCardRef}></div>
+          {addressData?.meta?.totalPages < 1 || type  !== 'ERC-20_Tx' && <div ref={lastCardRef} style={{height:100}}></div>}
         </Content.Body>
       </section>
     </Content>

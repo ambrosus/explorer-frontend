@@ -143,8 +143,7 @@ const Tabs: FC<TabsProps> = ({
               methodFilters={methodFilters}
             />
             {addressData?.latestTransactions?.length && type === "ERC-20_Tx" ?
-              addressData.latestTransactions.map((transaction: any, index: number) => {
-                return <AddressBlock
+              addressData.latestTransactions.map((transaction: any, index: number) => (<AddressBlock
                   isLatest={true}
                   onClick={onClick}
                   key={transaction.txHash}
@@ -159,12 +158,11 @@ const Tabs: FC<TabsProps> = ({
                   token={`${
                     transaction?.token ? transaction?.token : null
                   }`}
-                />;
-              }) : null
+                />
+              )) : null
             }
             {data?.length && filtered && type === "ERC-20_Tx" ?
-              data.map((transaction: any, index: number) => {
-                return <AddressBlock
+              data.map((transaction: any, index: number) => (<AddressBlock
                   isLatest={true}
                   onClick={onClick}
                   key={transaction.txHash}
@@ -179,13 +177,11 @@ const Tabs: FC<TabsProps> = ({
                   token={`${
                     transaction?.token ? transaction?.token : null
                   }`}
-                />;
-
-              }) : null
+                />
+              )) : null
             }
 
-            {data?.length && type !== "ERC-20_Tx" ? data.map((transaction: any, index: number) => {
-              return   <AddressBlock
+            {data?.length && type !== "ERC-20_Tx" ? data.map((transaction: any, index: number) => (<AddressBlock
                 onClick={onClick}
                 key={transaction.txHash}
                 txhash={transaction.txHash}
@@ -200,7 +196,7 @@ const Tabs: FC<TabsProps> = ({
                   transaction?.token ? transaction?.token : null
                 }`}
               />
-            }) : null}
+            )) : null}
 
           </section>
       </div>
