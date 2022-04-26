@@ -49,7 +49,7 @@ const getBlocks = async (params = {}) => {
 
 const getDataForAddress = async (address: string, params: any) => {
   const { limit, type, selectedTokenFilter } = params;
-  console.log("type", type);
+
   const blockBookApi = await fetch(
     `https://blockbook.ambrosus.io/api/v2/address/${address}?filter=${selectedTokenFilter}`
   ).then((res) => res.json());
