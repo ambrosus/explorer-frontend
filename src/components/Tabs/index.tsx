@@ -48,29 +48,8 @@ const Tabs: FC<TabsProps> = ({
 		shallowEqual
 	)
 
-	const sortTrans = () => {
-		const includesTokens = addressData.tokens.filter(
-			(token: TokenType) => token.contract
-		)
-		const latestTransactions = includesTokens.map((token: TokenType) => {
-			return data.filter((transaction: { token: string }) => {
-				return transaction.token === token.contract
-			})[0]
-		})
-		setLatestTrans(latestTransactions)
-	}
-
 	useEffect(() => {
-		if (
-			addressData &&
-			!filtered &&
-			addressData.tokens &&
-			data &&
-			data.length &&
-			type === 'ERC-20_Tx'
-		) {
-			sortTrans()
-		} else if (tokenToSorted) {
+		if (tokenToSorted) {
 			const allSelected =
 				data &&
 				data.filter((transaction: TransactionProps) => {
@@ -144,67 +123,76 @@ const Tabs: FC<TabsProps> = ({
 			</div>
 
 			<div style={{ minHeight: 200, marginTop: !data.length ? 200 : 0 }}>
-				{data && data.length ? (
-					<section className="addressDetails__table" style={style(type)}>
-						<AddressBlocksHeader
-							txhash="txHash"
-							method="Method"
-							from="From"
-							to="To"
-							date="Date"
-							block={headerBlock}
-							amount="Amount"
-							txfee={headerTxfee}
-							token={headerToken}
-							methodFilters={methodFilters}
-						/>
-						{latestTrans.length
-							? latestTrans.map((transaction: any, index: number) => {
-									return (
-										transaction && (
-											<AddressBlock
-												isLatest={true}
-												onClick={onClick}
-												key={transaction.txHash}
-												txhash={transaction.txHash}
-												method={transaction.method}
-												from={transaction.from}
-												to={transaction.to}
-												date={moment(transaction.date).fromNow()}
-												block={transaction.block}
-												amount={transaction.amount}
-												txfee={transaction.txFee}
-												token={`${
-													transaction?.token ? transaction?.token : null
-												}`}
-											/>
-										)
-									)
-							  })
-							: data.length &&
-							  data.map((transaction: any, index: number) => {
-									return (
-										<AddressBlock
-											onClick={onClick}
-											key={transaction.txHash}
-											txhash={transaction.txHash}
-											method={transaction.method}
-											from={transaction.from}
-											to={transaction.to}
-											date={moment(transaction.date).fromNow()}
-											block={transaction.block}
-											amount={transaction.amount}
-											txfee={transaction.txFee}
-											token={`${
-												transaction?.token ? transaction?.token : null
-											}`}
-										/>
-									)
-							  })}
-					</section>
-				) : (
-					<Loader />
-				)}
+				<section className="addressDetails__table" style={style(type)}>
+					<AddressBlocksHeader
+						txhash="txHash"
+						method="Method"
+						from="From"
+						to="To"
+						date="Date"
+						block={headerBlock}
+						amount="Amount"
+						txfee={headerTxfee}
+						token={headerToken}
+						methodFilters={methodFilters}
+					/>
+					{addressData?.latestTransactions?.length && type === 'ERC-20_Tx'
+						? addressData.latestTransactions.map(
+								(transaction: any, index: number) => (
+									<AddressBlock
+										isLatest={true}
+										onClick={onClick}
+										key={transaction.txHash}
+										txhash={transaction.txHash}
+										method={transaction.method}
+										from={transaction.from}
+										to={transaction.to}
+										date={moment(transaction.date).fromNow()}
+										block={transaction.block}
+										amount={transaction.amount}
+										txfee={transaction.txFee}
+										token={`${transaction?.token ? transaction?.token : null}`}
+									/>
+								)
+						  )
+						: null}
+					{data?.length && filtered && type === 'ERC-20_Tx'
+						? data.map((transaction: any, index: number) => (
+								<AddressBlock
+									isLatest={true}
+									onClick={onClick}
+									key={transaction.txHash}
+									txhash={transaction.txHash}
+									method={transaction.method}
+									from={transaction.from}
+									to={transaction.to}
+									date={moment(transaction.date).fromNow()}
+									block={transaction.block}
+									amount={transaction.amount}
+									txfee={transaction.txFee}
+									token={`${transaction?.token ? transaction?.token : null}`}
+								/>
+						  ))
+						: null}
+
+					{data?.length && type !== 'ERC-20_Tx'
+						? data.map((transaction: any, index: number) => (
+								<AddressBlock
+									onClick={onClick}
+									key={transaction.txHash}
+									txhash={transaction.txHash}
+									method={transaction.method}
+									from={transaction.from}
+									to={transaction.to}
+									date={moment(transaction.date).fromNow()}
+									block={transaction.block}
+									amount={transaction.amount}
+									txfee={transaction.txFee}
+									token={`${transaction?.token ? transaction?.token : null}`}
+								/>
+						  ))
+						: null}
+				</section>
 			</div>
 		</>
 	)
