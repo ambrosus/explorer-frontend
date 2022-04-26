@@ -187,8 +187,8 @@ const Tabs: FC<TabsProps> = ({
 										)
 									)
 							  })
-							: data.length &&
-							  data.map((transaction: any, index: number) => {
+							: data?.length && type !== 'ERC-20_Tx'
+								? data.map((transaction: any, index: number) => {
 									return (
 										<AddressBlock
 											onClick={onClick}
@@ -206,7 +206,28 @@ const Tabs: FC<TabsProps> = ({
 											}`}
 										/>
 									)
-							  })}
+							  })
+								: data?.length && type === 'ERC-20_Tx' && addressData?.tokens?.length
+									? data.map((transaction: any, index: number) => {
+										return (
+											<AddressBlock
+												onClick={onClick}
+												key={transaction.txHash}
+												txhash={transaction.txHash}
+												method={transaction.method}
+												from={transaction.from}
+												to={transaction.to}
+												date={moment(transaction.date).fromNow()}
+												block={transaction.block}
+												amount={transaction.amount}
+												txfee={transaction.txFee}
+												token={`${
+													transaction?.token ? transaction?.token : null
+												}`}
+											/>
+										)
+									})
+									: <div>No ERC20 data found</div>}
 					</section>
 				) : (
 					<Loader />
