@@ -98,9 +98,9 @@ const getDataForAddress = async (address: string, params: any) => {
   const blockBookApiTransactions =
     blockBookApi &&
     blockBookApi?.txids.map(async (tx: string) => {
-      return await fetch(`https://blockbook.ambrosus.io/api/v2/tx/${tx}`).then(
-        (res) => res.json()
-      );
+      return await fetch(`https://blockbook.ambrosus.io/api/v2/tx/${tx}`)
+        .then((res) => res.json())
+        .catch(e=>console.log(e))
     });
 
   const blockBookApiTransactionsData = await Promise.all(
@@ -125,7 +125,7 @@ const getDataForAddress = async (address: string, params: any) => {
     }
   );
   const bBookData: TransactionProps[] = blockBookApiTransactionsData.map(
-    (t) => ({
+    (t) =>t.txid && ({
       txHash: t.txid,
       method: t?.tokenTransfers ? "Transfer" : "Transaction",
       from: t?.tokenTransfers
