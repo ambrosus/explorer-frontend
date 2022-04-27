@@ -2,13 +2,18 @@
 	display: grid;
 	grid-template-columns: repeat(2, auto);
 	margin: 30px auto;
-	width: 1120px;
+
+	// @include for-device-large {
+	// 	display: flex;
+	// 	flex-direction: column;
+	// 	// grid-template-columns: repeat(2, auto);
+	// 	margin: 30px auto;
+	// }
 	&__table {
 		display: grid;
-		grid-template-columns: repeat(3, 250px);
+		grid-template-columns: repeat(3, auto);
 		border-radius: 1.15em 0 0 1.15em;
 		background: #ffffff;
-		width: 750px;
 	}
 
 	&__td {
@@ -16,7 +21,7 @@
 		align-items: center;
 		justify-content: flex-start;
 		height: 105px;
-		width: 250px;
+
 		border: 1px solid #f6f6f6;
 	}
 	&__chart {
@@ -26,10 +31,9 @@
 		border: 1px solid #f6f6f6;
 		background-color: #fff;
 	}
-	&__p {
-		flex-direction: row;
-		margin: 0px;
-		margin-left: 12px;
+	&__text {
+		margin: 0 12px;
+		white-space: nowrap;
 	}
 	&__icon {
 		display: flex;

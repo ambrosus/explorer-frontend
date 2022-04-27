@@ -15,13 +15,13 @@
 	&__cell {
 		display: grid;
 		align-items: center;
+		min-width: 140px;
 		&-content {
 			display: flex;
 			gap: 8px;
 		}
 	}
 	&__cell:nth-child(1) {
-		width: 170px;
 	}
 	&__cell:nth-child(2) {
 		margin: 0px auto;
