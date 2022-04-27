@@ -17,7 +17,7 @@ export const Header = () => {
 		<NavLink
 			to={menuElement.path}
 			key={menuElement.key}
-			className={width > 1100 ? 'menuMobile__item' : 'menu__item'}
+			className={width > 1100 ? 'menu__item' : 'menuMobile__item'}
 		>
 			{menuElement.key}
 		</NavLink>

@@ -6,6 +6,9 @@
 	align-items: center;
 	justify-content: center;
 	color: white;
+	@include for-device-medium {
+		height: 60px;
+	}
 }
 .navigation {
 	display: flex;
@@ -55,8 +58,8 @@
 	grid-template-rows: repeat(8, auto);
 	position: absolute;
 	background-color: #212121;
-	// top: 142px;
-	margin-top: 100px;
+	right: 0px;
+	margin-top: 40px;
 	width: 360px;
 	&__item {
 		text-decoration: none;
@@ -68,15 +71,16 @@
 		letter-spacing: 0.22em;
 		text-transform: uppercase;
 		color: #ffffff;
+		margin: 0 0 25px 20px;
 	}
 }
 .mobile {
-	height: 100%;
-	top: 20px;
-	left: 1000px;
 	display: flex;
 	flex-direction: column;
 	align-items: flex-end;
+	height: 100%;
+	width: 100px;
+	margin-right: 20px;
 }
 .logo {
 	margin-right: 40px;
