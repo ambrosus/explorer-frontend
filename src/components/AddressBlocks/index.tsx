@@ -14,6 +14,7 @@ import { TParams } from '../../types'
 
 const AddressBlock: React.FC<AddressBlockProps> = ({
 	onClick,
+																										 lastCardRef,
 	isLatest,
 	txhash,
 	method,
@@ -35,6 +36,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 	const isTxHash: JSX.Element | null =
 		txhash === null ? null : (
 			<div
+				ref={lastCardRef}
 				className="addressDetails__tbody-td universall__light2"
 				style={{ fontWeight: '600' }}
 			>
@@ -80,9 +82,9 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 					<Amb />
 				</span>
 				{amount}
-				{token && token !== 'No token' ? (
+				{token && token !== 'AMB' ? (
 					<div
-						style={{ padding: '0 5px', cursor: 'pointer', color: '#808a9d' }}
+						style={{ padding: '0 5px', cursor: 'pointer', color: '#808a9d',textDecoration: 'underline' }}
 						onClick={() => {
 							addressData?.tokens.forEach((item: any) => {
 								if (item.name === token) {
@@ -95,13 +97,13 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 							})
 						}}
 					>
-						{
+												{
 							// @ts-ignore
 							token ? token?.slice(0, 8) : ''
 						}
 					</div>
 				) : (
-					<div style={{ padding: '0 5px', color: '#808a9d' }}>No token</div>
+					<div style={{ padding: '0 5px', color: '#808a9d' }}>AMB</div>
 				)}
 			</div>
 		)
@@ -115,7 +117,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 				>
 					{online}
 				</span>
-				{txfee}
+				{txfee} AMB
 			</div>
 		)
 
