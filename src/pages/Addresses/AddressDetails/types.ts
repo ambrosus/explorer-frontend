@@ -16,6 +16,7 @@ export type OverallBalanceProps = {
 };
 
 export interface TabsProps {
+	lastCardRef?: any;
 	selectedToken: TokenType | null;
 	transactionType?: string;
 	data: any;
@@ -49,7 +50,8 @@ export interface AddressBlockProps {
 	txhash: string | number;
 	method: string | number;
 	from: string | number;
-	to: string | number;
+	lastCardRef?: any;
+to: string | number;
 	date: string | number;
 	block: string | any;
 	amount: any;

@@ -11,10 +11,11 @@ import { useTypedSelector } from "hooks/useTypedSelector";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { shallowEqual } from "react-redux";
 import { useParams } from "react-router-dom";
+import { Store } from "react-notifications-component";
 
 import { TParams } from "../../../types";
 
-import { TokenType } from "./types";
+import { TokenType, TransactionProps } from "./types";
 
 export const AddressDetails = () => {
   const { address, type, filtered, tokenToSorted }: TParams = useParams();
@@ -32,23 +33,20 @@ export const AddressDetails = () => {
   const [selectedToken, setSelectedToken] = useState<TokenType | null>(null);
   const [tx, setTx] = useState([]);
   const [pageNum, setPageNum] = useState(1);
-  const [limitNum] = useState(40);
-
-  const observer = useRef();
+  const [limitNum] = useState(50);
+  const observer = useRef<IntersectionObserver>();
 
   const lastCardRef = useCallback(node => {
     if (loading) return;
-    if (observer.current) { // @ts-ignore
+    if (observer.current) {
       observer.current.disconnect();
     }
-    // @ts-ignore
     observer.current = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting && addressData && pageNum < addressData?.meta?.totalPages) {
         setPageNum(prevNum => prevNum + 1);
       }
     });
     if (node) {
-      // @ts-ignore
       observer.current.observe(node);
     }
   }, [loading]);
@@ -62,6 +60,7 @@ export const AddressDetails = () => {
     if (type) {
       setTx([]);
     }
+
     if (!loading || errorData) {
       if (addressData && addressData?.meta?.totalPages > pageNum) {
         setPosition(API.getDataForAddress, address?.trim(), {
@@ -87,12 +86,15 @@ export const AddressDetails = () => {
   }, [filters, transactionType, selectedToken, tokenToSorted, address, pageNum, type]);
 
   useEffect(() => {
-
     if (addressData && addressData?.transactions) {
       // @ts-ignore
-      setTx(prevState => [...prevState, ...addressData.transactions]);
-    } else {
-      setTx([]);
+      setTx(prevState => {
+        const compare: any = new Map(
+          [...prevState, ...addressData.transactions].map((item) => [item.block, item])
+        ).values();
+        const newTx: TransactionProps[] = [...compare].sort((a: any, b: any) => b.block - a.block);
+        return newTx;
+      });
     }
   }, [addressData]);
 
@@ -106,7 +108,24 @@ export const AddressDetails = () => {
     }
   }, [addressData]);
 
-  const copyContent = () => address && navigator.clipboard.writeText(address);
+  const copyContent = () => {
+    if (address) {
+      navigator.clipboard.writeText(address);
+      Store.addNotification({
+        title: "Copied to clipboard",
+        type: "success",
+        insert: "top",
+        container: "top-right",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: 5000,
+          onScreen: true
+        }
+      });
+    }
+
+  };
 
   return (
     <Content>
@@ -136,15 +155,15 @@ export const AddressDetails = () => {
             )}
           </div>
         </Content.Header>
-        <Content.Body isLoading={Boolean(tx && tx.length)}>
-            <Tabs
-              onClick={setSelectedToken}
-              selectedToken={selectedToken}
-              transactionType={transactionType}
-              data={tx}
-              setTransactionType={setTransactionType}
-            />
-          {addressData?.meta?.totalPages < 1 || type  !== 'ERC-20_Tx' && <div ref={lastCardRef} style={{height:100}}></div>}
+        <Content.Body isLoading={true}>
+          <Tabs
+            lastCardRef={lastCardRef}
+            onClick={setSelectedToken}
+            selectedToken={selectedToken}
+            transactionType={transactionType}
+            data={tx}
+            setTransactionType={setTransactionType}
+          />
         </Content.Body>
       </section>
     </Content>
