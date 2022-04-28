@@ -4,13 +4,13 @@
 	}
 }
 @mixin for-device-medium {
-	@media screen and (max-width: 800px) {
+	@media screen and (max-width: 760px) {
 		@content;
 	}
 }
 
 @mixin for-device-small {
-	@media screen and (max-width: 480px) {
+	@media screen and (max-width: 550px) {
 		@content;
 	}
 }

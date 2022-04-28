@@ -1,15 +1,15 @@
+import React, { useEffect, useState } from 'react'
+import LatestsHeading from '../../components/LatestsHeading'
 import API from 'API/api'
 import Chart from 'components/Chart'
 import { Content } from 'components/Content'
 import FindWide from 'components/FindWide'
-import LatestTransactions from 'components/LastestTransactions'
-import LatestBlocks from 'components/LatestBlocks'
 import MainInfo from 'components/MainInfo'
-import ViewMoreBtn from 'components/ViewMoreBtn'
 import { useTypedSelector } from 'hooks/useTypedSelector'
-import React, { useEffect, useState } from 'react'
 
 import { LatestTransactionsProps, ResultHomePageData } from './types'
+import useWindowSize from '../../hooks/useWindowSize'
+import BlocksContent from '../../components/BlocksContent'
 
 export const Home: React.FC = () => {
 	const [data, setData] = useState<ResultHomePageData>()
@@ -48,6 +48,8 @@ export const Home: React.FC = () => {
 		getHomePageData().then((result: ResultHomePageData) => setData(result))
 	}, [appData, data])
 
+	const { width } = useWindowSize()
+
 	return (
 		<Content isLoading={!!data}>
 			{data && (
@@ -76,43 +78,11 @@ export const Home: React.FC = () => {
 						</div>
 					</Content.Header>
 					<Content.Body>
+						{/* <LatestsHeading /> */}
+						{/* {width > 1000? } */}
 						<div className="home__table">
-							<div className="home__content">
-								<div className="latestBlocks__heading">Lastest Blocks</div>
-								{data?.latestBlocks.map((item, index) => (
-									<LatestBlocks
-										key={item.number}
-										number={item.number}
-										index={index}
-										timestamp={item.timestamp}
-										validator={item?.miner}
-										totalTransactions={item.totalTransactions}
-										blockReward={item?.blockRewards}
-										name="name"
-									/>
-								))}
-								<ViewMoreBtn nameBtn="View all blocks" />
-							</div>
-
-							<div className="home__content">
-								<div className="latestBlocks__heading">
-									Lastest Transactions
-								</div>
-								{data?.latestTransactions.map((item) => (
-									<LatestTransactions
-										key={item._id}
-										status={item.status}
-										hash={item.hash}
-										timestamp={item.timestamp}
-										from={item.from}
-										to={item.to}
-										amount={item?.value?.ether}
-										type={item.type}
-									/>
-								))}
-
-								<ViewMoreBtn nameBtn="View all transactions" />
-							</div>
+							<BlocksContent name="latestBlocks" data={data} />
+							<BlocksContent name="LatestTransactions" data={data} />
 						</div>
 					</Content.Body>
 				</div>
