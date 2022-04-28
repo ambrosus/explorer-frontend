@@ -53,14 +53,14 @@ const FindWide: React.FC<FindWideProps> = ({ searchRef }) => {
 						setName(e.target.value)
 					}
 				/>
-				<div className="search__filters vl">
+				{/* <div className="search__filters vl">
 					<button onClick={handleAllFilters}>
 						<span>All filters</span>
 					</button>
 					<span style={{ display: 'flex', margin: '0 10px' }}>
 						<ArrowDown />
 					</span>
-				</div>
+				</div> */}
 				<button className="search__btn" type="submit">
 					<Search fill={'#808A9D'} />
 				</button>

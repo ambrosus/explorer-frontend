@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import LatestsHeading from '../../components/LatestsHeading'
 import API from 'API/api'
 import Chart from 'components/Chart'
 import { Content } from 'components/Content'
@@ -10,6 +9,7 @@ import { useTypedSelector } from 'hooks/useTypedSelector'
 import { LatestTransactionsProps, ResultHomePageData } from './types'
 import useWindowSize from '../../hooks/useWindowSize'
 import BlocksContent from '../../components/BlocksContent'
+import BlocksContentMobile from '../../components/BlocksContentMobile'
 
 export const Home: React.FC = () => {
 	const [data, setData] = useState<ResultHomePageData>()
@@ -78,12 +78,11 @@ export const Home: React.FC = () => {
 						</div>
 					</Content.Header>
 					<Content.Body>
-						{/* <LatestsHeading /> */}
-						{/* {width > 1000? } */}
-						<div className="home__table">
-							<BlocksContent name="latestBlocks" data={data} />
-							<BlocksContent name="LatestTransactions" data={data} />
-						</div>
+						{width > 900 ? (
+							<BlocksContent data={data} />
+						) : (
+							<BlocksContentMobile data={data} />
+						)}
 					</Content.Body>
 				</div>
 			)}

@@ -39,7 +39,6 @@ const FindWideMobile: React.FC<FindWideMobileProps> = ({ searchRef }) => {
 				navigate('/notfound')
 			})
 	}
-	const handleAllFilters = () => console.log('handleAllFilters')
 
 	return (
 		<>

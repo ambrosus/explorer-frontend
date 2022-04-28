@@ -8,11 +8,24 @@
 	color: white;
 	margin-top: 130px;
 
+	@include for-device-medium {
+		height: 250px;
+	}
+
 	&__container {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		width: 100%;
+		@include for-device-medium {
+			width: 320px;
+			margin: auto;
+			display: flex;
+			flex-direction: column;
+			height: 250px;
+			padding: 45px 0;
+
+			border-collapse: collapse;
+		}
 
 		.mail {
 			a {
@@ -34,5 +47,14 @@
 			max-width: 100%;
 			gap: 30px;
 		}
+	}
+}
+.logoFooter {
+	@include for-device-medium {
+		display: flex;
+		justify-content: center;
+		border-top: 1px solid rgba(255, 255, 255, 0.3);
+		padding-top: 32px;
+		width: 320px;
 	}
 }
