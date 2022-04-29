@@ -1,12 +1,11 @@
-import React from 'react'
+import React, { useEffect, useMemo } from 'react'
+import { Area, AreaChart, Line, Tooltip, XAxis, YAxis } from 'recharts'
+
+import API from '../../API/api'
 import {
-	Area,
-	AreaChart,
-	Line,
-	Tooltip,
-	XAxis,
-	YAxis,
-} from 'recharts'
+	LatestTransactionsProps,
+	ResultHomePageData,
+} from '../../pages/Home/types'
 
 const data = [
 	{ name: 'Feb 18', Transactions: 4000, Price: 100000 },
@@ -61,53 +60,71 @@ export const CustomTooltip = ({
 	return null
 }
 
-const Chart = () => (
-	<div
-		style={{
-			display: 'flex',
-			flexDirection: 'column',
-			alignItems: 'center',
-			justifyContent: 'center',
-			width: '100%',
-			height: '100%',
-		}}
-	>
+const Chart = () => {
+	const getTransactions = useMemo(
+		() => async () => {
+			console.log('getTransactions')
+			// TODO : get transactions data
+			// const { data: explorerTrans }: any = await API.getTransactions({
+			// 	limit: 100000
+			// });
+			// console.log("explorerTrans", explorerTrans);
+		},
+		[]
+	)
+
+	useEffect(() => {
+		getTransactions()
+	}, [])
+
+	return (
 		<div
 			style={{
 				display: 'flex',
-				justifyContent: 'space-between',
+				flexDirection: 'column',
 				alignItems: 'center',
-				flexDirection: 'row',
+				justifyContent: 'center',
+				width: '100%',
+				height: '100%',
 			}}
 		>
-			<span>Transaction HISTORY</span>
-			<span>Last 7 days</span>
+			<div
+				style={{
+					display: 'flex',
+					justifyContent: 'space-between',
+					alignItems: 'center',
+					flexDirection: 'row',
+				}}
+			>
+				<span>Transaction HISTORY</span>
+				<span>Last 7 days</span>
+			</div>
+			<div>
+				<AreaChart width={318} height={120} data={data}>
+					<Area dataKey="Transactions" stroke="#212121" fill="url(#colorUv)" />
+					<Line type="monotone" dataKey="Transactions" stroke="#8884d8" />
+					<XAxis
+						fontSize={12}
+						interval={2}
+						axisLine={false}
+						tickLine={false}
+						style={{
+							fontSize: 12,
+							fontFamily: 'Halvar Breitschrift',
+							color: '#212121',
+						}}
+						color="#212121"
+						lightingColor="#212121"
+						colorInterpolation="#212121"
+						stopColor="#212121"
+						dataKey="name"
+					/>
+					<YAxis hide domain={['auto', 'auto']} />
+					<Tooltip cursor={false} content={<CustomTooltip />} />
+				</AreaChart>
+			</div>
 		</div>
-		<div>
-			<AreaChart width={318} height={120} data={data}>
-				<Area dataKey="Transactions" stroke="#212121" fill="url(#colorUv)" />
-				<Line type="monotone" dataKey="Transactions" stroke="#8884d8" />
-				<XAxis
-					fontSize={12}
-					interval={2}
-					axisLine={false}
-					tickLine={false}
-					style={{
-						fontSize: 12,
-						fontFamily: 'Halvar Breitschrift',
-						color: '#212121',
-					}}
-					color="#212121"
-					lightingColor="#212121"
-					colorInterpolation="#212121"
-					stopColor="#212121"
-					dataKey="name"
-				/>
-				<YAxis hide domain={['auto', 'auto']} />
-				<Tooltip cursor={false} content={<CustomTooltip />} />
-			</AreaChart>
-		</div>
-	</div>
-)
+	)
+}
 
 export default Chart

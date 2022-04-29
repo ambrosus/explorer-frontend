@@ -1,8 +1,7 @@
-import React, { useState } from 'react'
-import LatestBlocks from 'components/LatestBlocks'
 import LatestTransactions from 'components/LastestTransactions'
-
+import LatestBlocks from 'components/LatestBlocks'
 import ViewMoreBtn from 'components/ViewMoreBtn'
+import React, { useState } from 'react'
 
 const BlocksContentMobile = ({ name, data }: any) => {
 	const [index, setIndex] = useState(1)

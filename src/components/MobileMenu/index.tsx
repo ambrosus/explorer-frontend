@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import BurgerMenuOpen from '../../assets/icons/MobileMenu/BurgerMenuOpen'
+
 import BurgerMenuClose from '../../assets/icons/MobileMenu/BurgerMenuClose'
+import BurgerMenuOpen from '../../assets/icons/MobileMenu/BurgerMenuOpen'
 import FindWideMobile from '../../components/FindWideMobile'
 
 interface MobileMenuProps {
