@@ -7,14 +7,14 @@ import { useActions } from 'hooks/useActions'
 import { useTypedSelector } from 'hooks/useTypedSelector'
 import { AddressBlockProps } from 'pages/Addresses/AddressDetails/types'
 import React from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { NavLink, useNavigate, useParams } from 'react-router-dom'
 import { sliceData5, sliceData10 } from 'utils/helpers'
 
 import { TParams } from '../../types'
 
 const AddressBlock: React.FC<AddressBlockProps> = ({
 	onClick,
-																										 lastCardRef,
+	lastCardRef,
 	isLatest,
 	txhash,
 	method,
@@ -28,10 +28,10 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 }) => {
 	const online: any = txfee === 'Pending' ? <OrangeCircle /> : <GreenCircle />
 	const { addFilter } = useActions()
+	const { address, type }: TParams = useParams()
+
 	const navigate = useNavigate()
-	const { address }: TParams = useParams()
 	const { data: addressData } = useTypedSelector((state: any) => state.position)
-	const { type }: TParams = useParams()
 
 	const isTxHash: JSX.Element | null =
 		txhash === null ? null : (
@@ -56,13 +56,25 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 			</div>
 		)
 	const isFrom =
-		from === null ? null : (
-			<div className="addressDetails__tbody-td universall__light2">
+		from === null ? null : address !== from ? (
+			<NavLink to={`/addresses/${from}`}>
+				<div className="addressDetails__tbody-td">
+					{sliceData5(from as string)}
+				</div>
+			</NavLink>
+		) : (
+			<div className="addressDetails__tbody-td">
 				{sliceData5(from as string)}
 			</div>
 		)
 	const isTo =
-		to === null ? null : (
+		to === null ? null : address !== to ? (
+			<NavLink to={`/addresses/${to}`}>
+				<div className="addressDetails__tbody-td universall__light2">
+					{sliceData5(to as string)}
+				</div>
+			</NavLink>
+		) : (
 			<div className="addressDetails__tbody-td universall__light2">
 				{sliceData5(to as string)}
 			</div>
@@ -84,7 +96,12 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 				{amount}
 				{token && token !== 'AMB' ? (
 					<div
-						style={{ padding: '0 5px', cursor: 'pointer', color: '#808a9d',textDecoration: 'underline' }}
+						style={{
+							padding: '0 5px',
+							cursor: 'pointer',
+							color: '#808a9d',
+							textDecoration: 'underline',
+						}}
 						onClick={() => {
 							addressData?.tokens.forEach((item: any) => {
 								if (item.name === token) {
@@ -97,7 +114,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 							})
 						}}
 					>
-												{
+						{
 							// @ts-ignore
 							token ? token?.slice(0, 8) : ''
 						}

@@ -1,4 +1,3 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react'
 import API from 'API/api'
 import ContentCopy from 'assets/icons/ContentCopy'
 import ContentCopyed from 'assets/icons/ContentCopyed'
@@ -10,9 +9,10 @@ import Token from 'components/Token'
 import { formatEther } from 'ethers/lib/utils'
 import { useActions } from 'hooks/useActions'
 import { useTypedSelector } from 'hooks/useTypedSelector'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
+import { Store } from 'react-notifications-component'
 import { shallowEqual } from 'react-redux'
 import { useParams } from 'react-router-dom'
-import { Store } from 'react-notifications-component'
 
 import { TParams } from '../../../types'
 
@@ -61,15 +61,18 @@ export const AddressDetails = () => {
 	)
 
 	useEffect(() => {
+		if (address || type) {
+			setTx([])
+		}
+	}, [address, type])
+
+	useEffect(() => {
 		if (filtered && addressData?.tokens?.length) {
 			addFilter(
 				addressData.tokens.find(
 					(token: TokenType) => token.contract === filtered
 				)
 			)
-		}
-		if (type) {
-			setTx([])
 		}
 
 		if (!loading || errorData) {

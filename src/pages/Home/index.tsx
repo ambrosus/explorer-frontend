@@ -1,15 +1,16 @@
-import React, { useEffect, useState } from 'react'
 import API from 'API/api'
 import Chart from 'components/Chart'
 import { Content } from 'components/Content'
 import FindWide from 'components/FindWide'
 import MainInfo from 'components/MainInfo'
 import { useTypedSelector } from 'hooks/useTypedSelector'
+import React, { useEffect, useState } from 'react'
 
-import { LatestTransactionsProps, ResultHomePageData } from './types'
-import useWindowSize from '../../hooks/useWindowSize'
 import BlocksContent from '../../components/BlocksContent'
 import BlocksContentMobile from '../../components/BlocksContentMobile'
+import useWindowSize from '../../hooks/useWindowSize'
+
+import { LatestTransactionsProps, ResultHomePageData } from './types'
 
 export const Home: React.FC = () => {
 	const [data, setData] = useState<ResultHomePageData>()

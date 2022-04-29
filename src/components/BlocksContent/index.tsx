@@ -1,8 +1,7 @@
-import React from 'react'
-import LatestBlocks from 'components/LatestBlocks'
 import LatestTransactions from 'components/LastestTransactions'
-
+import LatestBlocks from 'components/LatestBlocks'
 import ViewMoreBtn from 'components/ViewMoreBtn'
+import React from 'react'
 
 const BlocksContent = ({ name, data }: any) => {
 	return (

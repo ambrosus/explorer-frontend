@@ -396,6 +396,7 @@ const followTheLinkRange = (fromDate: any, toDate: any, address: any) => {
   const link = `${baseApiUrl}/transactions/csv/address/${address}`;
   const from = fromDate / 1000;
   const to = toDate / 1000;
+  console.log(`${link}/dateFrom/${from}/dateTo/${to}`);
   window.open(`${link}/dateFrom/${from}/dateTo/${to}`, "_self");
 };
 

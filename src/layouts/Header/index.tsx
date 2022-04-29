@@ -1,14 +1,13 @@
 import React from 'react'
-import useWindowSize from '../../hooks/useWindowSize'
-
 import { NavLink } from 'react-router-dom'
 
+import DesctopMenu from '../../components/DesctopMenu'
+import MobileMenu from '../../components/MobileMenu'
+import useWindowSize from '../../hooks/useWindowSize'
 import { routes as menuItems } from '../../routes'
 import { IRoute } from '../../types'
 
 import AmbrosusLogoSvg from './AmbrosusLogoSvg'
-import DesctopMenu from '../../components/DesctopMenu'
-import MobileMenu from '../../components/MobileMenu'
 
 export const Header = () => {
 	const { width } = useWindowSize()
