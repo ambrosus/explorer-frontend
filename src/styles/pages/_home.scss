@@ -10,7 +10,9 @@
 	}
 
 	&__content {
-		width: 550px;
+		display: flex;
+		flex-direction: column;
+		width: 460px;
 		min-height: 600px;
 		min-width: 320px;
 	}
