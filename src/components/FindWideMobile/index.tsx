@@ -4,11 +4,11 @@ import Search from 'assets/icons/Search'
 import React, { ChangeEvent, FormEvent, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-interface FindWideProps {
+interface FindWideMobileProps {
 	searchRef?: React.Ref<HTMLFormElement>
 }
 
-const FindWide: React.FC<FindWideProps> = ({ searchRef }) => {
+const FindWideMobile: React.FC<FindWideMobileProps> = ({ searchRef }) => {
 	const [name, setName] = useState('')
 	const navigate = useNavigate()
 
@@ -39,29 +39,21 @@ const FindWide: React.FC<FindWideProps> = ({ searchRef }) => {
 				navigate('/notfound')
 			})
 	}
-	const handleAllFilters = () => console.log('handleAllFilters')
 
 	return (
 		<>
-			<form ref={searchRef} className="search" onSubmit={handleSubmit}>
+			<form ref={searchRef} className="searchMobile" onSubmit={handleSubmit}>
 				<input
-					className="search__input"
-					placeholder="Search by Node, Address, Tx, Block, Token, Bundle"
+					className="searchMobile__input"
+					placeholder="Search by Node, Address, Tx, Block, Toke..."
 					type="text"
 					value={name}
 					onChange={(e: ChangeEvent<HTMLInputElement>) =>
 						setName(e.target.value)
 					}
 				/>
-				{/* <div className="search__filters vl">
-					<button onClick={handleAllFilters}>
-						<span>All filters</span>
-					</button>
-					<span style={{ display: 'flex', margin: '0 10px' }}>
-						<ArrowDown />
-					</span>
-				</div> */}
-				<button className="search__btn" type="submit">
+
+				<button className="searchMobile__btn" type="submit">
 					<Search fill={'#808A9D'} />
 				</button>
 			</form>
@@ -69,4 +61,4 @@ const FindWide: React.FC<FindWideProps> = ({ searchRef }) => {
 	)
 }
 
-export default FindWide
+export default FindWideMobile

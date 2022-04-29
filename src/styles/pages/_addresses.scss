@@ -16,8 +16,30 @@
 			font-weight: 400;
 		}
 		&-btn {
-			border: 0px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 45px;
+			height: 24px;
+			font-weight: 700;
+			font-size: 11px;
+			line-height: 32px;
 			background: #f6f6f6;
+			border-radius: 8px;
+			color: #fff;
+			&-copyed {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				width: 56px;
+				height: 24px;
+				font-weight: 700;
+				font-size: 11px;
+				line-height: 32px;
+				background: #1acd8c;
+				border-radius: 8px;
+				color: #fff;
+			}
 		}
 	}
 

@@ -15,13 +15,13 @@
 	&__cell {
 		display: grid;
 		align-items: center;
+
 		&-content {
 			display: flex;
 			gap: 8px;
 		}
 	}
 	&__cell:nth-child(1) {
-		width: 170px;
 	}
 	&__cell:nth-child(2) {
 		margin: 0px auto;
@@ -34,16 +34,22 @@
 		margin-right: 8px;
 	}
 	&__font-big {
-		min-width: 50px;
+		min-width: 30px;
 		line-height: 1.33em;
 		font-weight: 600;
+		// @include for-device-small {
+		// 	font-size: 11.5px;
+		// }
 	}
 	&__font-small {
-		min-width: 50px;
+		min-width: 30px;
 		font-size: 0.86em;
 		line-height: 0.88 em;
 		font-weight: 400;
 		color: #58667e;
+		// @include for-device-small {
+		// 	font-size: 9.5px;
+		// }
 	}
 
 	&__btn {

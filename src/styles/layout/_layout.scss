@@ -4,6 +4,7 @@
 	margin: auto;
 	display: flex;
 	flex-direction: column;
+	overflow: hidden;
 
 	.page {
 		color: #212121;
@@ -40,6 +41,9 @@
 }
 
 .container {
-	max-width: 1140px;
 	width: 100%;
+	max-width: 1140px;
+	@include for-device-large {
+		padding: 0 20px;
+	}
 }

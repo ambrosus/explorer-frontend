@@ -4,6 +4,7 @@
 	border-radius: 16px;
 	min-width: 320px;
 	width: 100%;
+
 	&__input {
 		height: 48px;
 		border: 0px;
@@ -34,6 +35,35 @@
 		min-width: 50px;
 	}
 }
+.searchMobile {
+	display: flex;
+	margin: 20px auto;
+	width: 320px;
+	border: 1px solid #808a9d;
+	border-radius: 16px;
+	background-color: #212121;
+	border-radius: 16px;
+
+	&__input {
+		background-color: #212121;
+		height: 48px;
+		border: 0px;
+		border-radius: 16px;
+		flex: 20;
+		padding: 12px;
+	}
+	&__btn {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		border-radius: 16px;
+		border: 0px;
+		flex: 1;
+		min-width: 50px;
+		background-color: #212121;
+	}
+}
+
 .vl {
 	border-right: 1px solid #a6b0c3;
 	height: 24px;

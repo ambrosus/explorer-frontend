@@ -1,25 +1,27 @@
-import Find from 'components/Find'
-import FindWide from 'components/FindWide'
-import { useOnClickOutside } from 'hooks/useOnClickOutside'
-import React, { useRef, useState } from 'react'
+import React from 'react'
+import useWindowSize from '../../hooks/useWindowSize'
+
 import { NavLink } from 'react-router-dom'
 
 import { routes as menuItems } from '../../routes'
 import { IRoute } from '../../types'
 
 import AmbrosusLogoSvg from './AmbrosusLogoSvg'
-
-const menu = menuItems.map((menuElement: IRoute) => (
-	<NavLink to={menuElement.path} key={menuElement.key} className="menu__item">
-		{menuElement.key}
-	</NavLink>
-))
+import DesctopMenu from '../../components/DesctopMenu'
+import MobileMenu from '../../components/MobileMenu'
 
 export const Header = () => {
-	const [isShow, setIsShow] = useState<boolean>(false)
-	const searchRef = useRef(null)
+	const { width } = useWindowSize()
 
-	useOnClickOutside(searchRef, () => setIsShow(false))
+	const menu = menuItems.map((menuElement: IRoute) => (
+		<NavLink
+			to={menuElement.path}
+			key={menuElement.key}
+			className={width > 1100 ? 'menu__item' : 'menuMobile__item'}
+		>
+			{menuElement.key}
+		</NavLink>
+	))
 
 	return (
 		<div className="header">
@@ -30,14 +32,10 @@ export const Header = () => {
 							<AmbrosusLogoSvg />
 						</NavLink>
 					</div>
-
-					{isShow ? (
-						<FindWide searchRef={searchRef} />
+					{width > 1100 ? (
+						<DesctopMenu menu={menu} />
 					) : (
-						<div className="menu">
-							{menu}
-							<Find setIsShow={setIsShow} />
-						</div>
+						<MobileMenu menu={menu} />
 					)}
 				</nav>
 			</div>
