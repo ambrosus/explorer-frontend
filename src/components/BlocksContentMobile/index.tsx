@@ -52,37 +52,35 @@ const BlocksContentMobile = ({ name, data }: any) => {
 								/>
 							)
 						)}
-						<ViewMoreBtn nameBtn="View all blocks" />
+						<ViewMoreBtn nameBtn="View al]l blocks" />
 					</div>
 				) : null}
 				{index === 2 ? (
-					<div className="home__content">
-						<div className="latestBlocks__body">
-							{data?.latestTransactions.map(
-								(item: {
-									_id: React.Key | null | undefined
-									status: string
-									hash: any
-									timestamp: number
-									from: string
-									to: string
-									value: { ether: number | undefined }
-									type: any
-								}) => (
-									<LatestTransactions
-										key={item._id}
-										status={item.status}
-										hash={item.hash}
-										timestamp={item.timestamp}
-										from={item.from}
-										to={item.to}
-										amount={item?.value?.ether}
-										type={item.type}
-									/>
-								)
-							)}
-							<ViewMoreBtn nameBtn="View all transactions" />
-						</div>
+					<div className="latestBlocks__body">
+						{data?.latestTransactions.map(
+							(item: {
+								_id: React.Key | null | undefined
+								status: string
+								hash: any
+								timestamp: number
+								from: string
+								to: string
+								value: { ether: number | undefined }
+								type: any
+							}) => (
+								<LatestTransactions
+									key={item._id}
+									status={item.status}
+									hash={item.hash}
+									timestamp={item.timestamp}
+									from={item.from}
+									to={item.to}
+									amount={item?.value?.ether}
+									type={item.type}
+								/>
+							)
+						)}
+						<ViewMoreBtn nameBtn="View all transactions" />
 					</div>
 				) : null}
 			</div>

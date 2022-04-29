@@ -11,6 +11,9 @@
 		grid-template-columns: repeat(3, 1fr);
 		height: 72px;
 		border-bottom: 1px solid #eff2f5;
+		@include for-device-small {
+			white-space: nowrap;
+		}
 	}
 	&__cell {
 		display: grid;
