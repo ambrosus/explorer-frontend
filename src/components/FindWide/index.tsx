@@ -4,6 +4,7 @@ import React, { ChangeEvent, FormEvent, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { FindWideProps } from '../../pages/Home/home.interfaces'
+import { toastr } from "react-redux-toastr";
 
 const FindWide: React.FC<FindWideProps> = ({ searchRef }) => {
 	const [name, setName] = useState<string>('')
@@ -29,11 +30,11 @@ const FindWide: React.FC<FindWideProps> = ({ searchRef }) => {
 				if (data.meta.search) {
 					navigate(`/${searchTerm}/`)
 				} else {
-					navigate('/notfound')
+					toastr.error('404', 'No matches found')
 				}
 			})
 			.catch(() => {
-				navigate('/notfound')
+				toastr.error('404', 'No matches found')
 			})
 	}
 	// const handleAllFilters = () => console.log('handleAllFilters')

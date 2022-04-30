@@ -1,8 +1,8 @@
 import React from 'react'
-// @ts-ignore
 import { Route, Routes } from 'react-router-dom'
-
 import Loader from '../Loader'
+import { Navigate } from "react-router-dom";
+import Error404 from "../../pages/Error404";
 
 export const RenderRoutes = (props: any) => {
 	const { routes } = props
@@ -26,6 +26,7 @@ export const RenderRoutes = (props: any) => {
 					{...route}
 				/>
 			))}
+			<Route path="*" element={<Error404/>} />
 		</Routes>
 	)
 }

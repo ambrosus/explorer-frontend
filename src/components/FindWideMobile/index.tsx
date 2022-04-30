@@ -4,6 +4,7 @@ import React, { ChangeEvent, FormEvent, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { FindWideMobileProps } from '../../pages/Home/home.interfaces'
+import { toastr } from "react-redux-toastr";
 
 const FindWideMobile: React.FC<FindWideMobileProps> = ({ searchRef }) => {
 	const [name, setName] = useState('')
@@ -29,11 +30,11 @@ const FindWideMobile: React.FC<FindWideMobileProps> = ({ searchRef }) => {
 				if (data.meta.search) {
 					navigate(`/${searchTerm}/`)
 				} else {
-					navigate('/notfound')
+					toastr.error('404', 'No matches found')
 				}
 			})
 			.catch(() => {
-				navigate('/notfound')
+				toastr.error('404', 'No matches found')
 			})
 	}
 
