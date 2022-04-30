@@ -9679,11 +9679,6 @@ react-list@^0.8.13:
   dependencies:
     prop-types "15"
 
-react-notifications-component@^3.4.1:
-  version "3.4.1"
-  resolved "https://registry.yarnpkg.com/react-notifications-component/-/react-notifications-component-3.4.1.tgz#3670aa17210a4e63ba3b4f553853bd99ab6a0150"
-  integrity sha512-vS/RLdz+VlXZz0dbK+LCcdhgUdUPi1BvSo7mVp58AQDpixI9emGwI0uISXhiTSjqFn/cPibPlJOJQ8kcvgmUrQ==
-
 react-notifications@^1.7.3:
   version "1.7.3"
   resolved "https://registry.yarnpkg.com/react-notifications/-/react-notifications-1.7.3.tgz#86abe38e0b5cc2ec451dfad8993754ad3f23ef45"

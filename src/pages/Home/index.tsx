@@ -10,15 +10,16 @@ import BlocksContent from '../../components/BlocksContent'
 import BlocksContentMobile from '../../components/BlocksContentMobile'
 import useWindowSize from '../../hooks/useWindowSize'
 
-import { LatestTransactionsProps, ResultHomePageData } from './types'
+import { LatestTransactionsProps, ResultHomePageData } from './home.interfaces'
 
-export const Home: React.FC = () => {
+export const Index: React.FC = () => {
 	const [data, setData] = useState<ResultHomePageData>()
 	const { data: appData } = useTypedSelector((state: any) => state.app)
 
 	useEffect(() => {
 		const getHomePageData: () => Promise<ResultHomePageData> = async () => {
 			const result: ResultHomePageData = {
+				header: [],
 				latestBlocks: (await API.getBlocks({ limit: 8 })).data,
 				latestTransactions: (await API.getTransactions({ limit: 3000 })).data
 					.filter(
@@ -60,18 +61,15 @@ export const Home: React.FC = () => {
 						<FindWide />
 						<div className="mainInfo">
 							<div className="mainInfo__table">
-								{data?.header.map(
-									(item: {
-										name: React.Key | null | undefined
-										value: number
-									}) => (
-										<MainInfo
-											key={item.name}
-											name={item.name}
-											value={item.value}
-										/>
-									)
-								)}
+								{data?.header?.length
+									? data.header.map((item) => (
+											<MainInfo
+												key={item.name}
+												name={item.name as string}
+												value={item.value}
+											/>
+									  ))
+									: null}
 							</div>
 							<div className="mainInfo__chart">
 								<Chart />

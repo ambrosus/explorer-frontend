@@ -1,11 +1,7 @@
 import React, { useEffect, useMemo } from 'react'
 import { Area, AreaChart, Line, Tooltip, XAxis, YAxis } from 'recharts'
 
-import API from '../../API/api'
-import {
-	LatestTransactionsProps,
-	ResultHomePageData,
-} from '../../pages/Home/types'
+import { CustomTooltipProps } from '../../pages/Home/home.interfaces'
 
 const data = [
 	{ name: 'Feb 18', Transactions: 4000, Price: 100000 },
@@ -17,18 +13,11 @@ const data = [
 	{ name: 'Feb 24', Transactions: 3490, Price: 700000 },
 ]
 
-type CustomTooltipProps = {
-	payload?: any
-	label?: string
-	active?: boolean
-}
-
 export const CustomTooltip = ({
 	payload,
 	label,
 	active,
 }: CustomTooltipProps) => {
-	// console.log('active', active);
 	if (active) {
 		return (
 			<div

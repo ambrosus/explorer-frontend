@@ -1,15 +1,12 @@
 import API from 'API/api'
-import ArrowDown from 'assets/icons/Arrows/ArrowDown'
 import Search from 'assets/icons/Search'
 import React, { ChangeEvent, FormEvent, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-interface FindWideProps {
-	searchRef?: React.Ref<HTMLFormElement>
-}
+import { FindWideProps } from '../../pages/Home/home.interfaces'
 
 const FindWide: React.FC<FindWideProps> = ({ searchRef }) => {
-	const [name, setName] = useState('')
+	const [name, setName] = useState<string>('')
 	const navigate = useNavigate()
 
 	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -39,7 +36,7 @@ const FindWide: React.FC<FindWideProps> = ({ searchRef }) => {
 				navigate('/notfound')
 			})
 	}
-	const handleAllFilters = () => console.log('handleAllFilters')
+	// const handleAllFilters = () => console.log('handleAllFilters')
 
 	return (
 		<>
