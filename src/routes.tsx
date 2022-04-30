@@ -10,7 +10,6 @@ import { Transactions } from 'pages/Transactions'
 import React from 'react'
 
 import { IRoute } from './types'
-import Error404 from "./pages/Error404";
 
 interface IAppRoutes {
 	routes: IRoute[]
