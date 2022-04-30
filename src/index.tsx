@@ -4,13 +4,13 @@ import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
 
 import Main from './Main'
+import ReduxToastrLib from './components/ReduxToastr'
 import { store } from './state'
-import ReduxToastrLib from "./components/ReduxToastr";
 
 const rootNode = document.getElementById('root')
 ReactDOM.render(
 	<Provider store={store}>
-		<ReduxToastrLib/>
+		<ReduxToastrLib />
 		<BrowserRouter>
 			<Main />
 		</BrowserRouter>

@@ -1,10 +1,10 @@
 import API from 'API/api'
 import Search from 'assets/icons/Search'
 import React, { ChangeEvent, FormEvent, useState } from 'react'
+import { toastr } from 'react-redux-toastr'
 import { useNavigate } from 'react-router-dom'
 
 import { FindWideMobileProps } from '../../pages/Home/home.interfaces'
-import { toastr } from "react-redux-toastr";
 
 const FindWideMobile: React.FC<FindWideMobileProps> = ({ searchRef }) => {
 	const [name, setName] = useState('')
