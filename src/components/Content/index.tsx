@@ -32,6 +32,6 @@ type IContentProps = {
 }
 
 interface ITabsComposition {
-	Header: React.FC<IContentProps>
-	Body: React.FC<IContentProps>
+	Header?: React.FC<IContentProps>
+	Body?: React.FC<IContentProps>
 }
