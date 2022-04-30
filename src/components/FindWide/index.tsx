@@ -4,18 +4,20 @@ import React, { ChangeEvent, FormEvent, useState } from 'react'
 import { toastr } from 'react-redux-toastr'
 import { useNavigate } from 'react-router-dom'
 
+import { useDebounce } from '../../hooks/useDebounce'
 import { FindWideProps } from '../../pages/Home/home.interfaces'
 
 const FindWide: React.FC<FindWideProps> = ({ searchRef }) => {
 	const [name, setName] = useState<string>('')
 	const navigate = useNavigate()
+	const debouncedSearchTerm = useDebounce(name, 50)
 
 	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
-		if (!name) {
+		if (!debouncedSearchTerm) {
 			return
 		}
-		API.searchItem(name)
+		API.searchItem(debouncedSearchTerm)
 			.then((data: any) => {
 				setName('')
 				let searchTerm = data.data
