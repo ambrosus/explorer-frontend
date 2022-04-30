@@ -1,6 +1,6 @@
 import GreenCircle from 'assets/icons/StatusAction/GreenCircle'
 import OrangeCircle from 'assets/icons/StatusAction/OrangeCircle'
-import { LatestBlocksProps } from 'pages/Home/types'
+import { LatestBlocksProps } from 'pages/Home/home.interfaces'
 import React from 'react'
 import { calcTime, sliceData5 } from 'utils/helpers'
 

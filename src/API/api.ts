@@ -8,7 +8,7 @@ import {
   ExplorerTxType,
   TokenType,
   TransactionProps
-} from "pages/Addresses/AddressDetails/types";
+} from "pages/Addresses/AddressDetails/address-details.interface";
 
 const tokenApiUrl = process.env.REACT_APP_TOKEN_API_URL;
 

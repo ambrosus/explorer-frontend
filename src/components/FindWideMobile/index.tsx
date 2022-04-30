@@ -1,12 +1,9 @@
 import API from 'API/api'
-import ArrowDown from 'assets/icons/Arrows/ArrowDown'
 import Search from 'assets/icons/Search'
 import React, { ChangeEvent, FormEvent, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-interface FindWideMobileProps {
-	searchRef?: React.Ref<HTMLFormElement>
-}
+import { FindWideMobileProps } from '../../pages/Home/home.interfaces'
 
 const FindWideMobile: React.FC<FindWideMobileProps> = ({ searchRef }) => {
 	const [name, setName] = useState('')

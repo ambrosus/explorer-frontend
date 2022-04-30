@@ -5,7 +5,7 @@ import { Atlas } from 'pages/Atlas'
 import { Blocks } from 'pages/Blocks'
 import { Bundles } from 'pages/Bundles'
 import { Hermes } from 'pages/Hermes'
-import { Home } from 'pages/Home'
+import { Index } from 'pages/Home'
 import { Transactions } from 'pages/Transactions'
 import React from 'react'
 
@@ -21,7 +21,7 @@ export const routes: IRoute[] = [
 		path: '/',
 		key: 'home',
 		exact: true,
-		component: () => <Home />,
+		component: () => <Index />,
 	},
 	{
 		path: '#',

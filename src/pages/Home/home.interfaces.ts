@@ -1,11 +1,18 @@
 import React from 'react';
 
 export type ResultHomePageData = {
-	header?: any;
+	header?: HeaderProps[] | [];
 	latestBlocks: LatestBlocksProps[];
 	latestTransactions: LatestTransactionsProps[];
 }
 
+export type HeaderProps = {
+	name: string;
+	value: any;
+}
+export interface FindWideMobileProps {
+	searchRef?: React.Ref<HTMLFormElement>
+}
 export type LatestBlocksProps = {
 	number?: number;
 	timestamp?: number;
@@ -29,4 +36,27 @@ export type LatestTransactionsProps = {
 	to: string;
 	value?: { ether?: number; };
 	type: any;
+}
+
+export interface FindWideProps {
+	searchRef?: React.Ref<HTMLFormElement>
+}
+
+export type MainInfoProps = {
+	name: string
+	value: any
+}
+
+export type CustomTooltipProps = {
+	payload?: any
+	label?: string
+	active?: boolean
+}
+
+export type BlocksContentProps = {
+	data: ResultHomePageData
+}
+
+export type ViewMoreBtnProps = {
+	nameBtn: string
 }

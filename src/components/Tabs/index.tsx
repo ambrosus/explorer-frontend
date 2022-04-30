@@ -1,7 +1,7 @@
 import { useTypedSelector } from 'hooks/useTypedSelector'
 import moment from 'moment'
-import { TabsProps } from 'pages/Addresses/AddressDetails/types'
-import React, { FC, useEffect } from 'react'
+import { TabsProps } from 'pages/Addresses/AddressDetails/address-details.interface'
+import React, { FC } from 'react'
 import { NavLink, useParams } from 'react-router-dom'
 import { setActiveLink } from 'utils/helpers'
 
