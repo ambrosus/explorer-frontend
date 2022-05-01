@@ -24,6 +24,7 @@
 		"react-dom": "^17.0.2",
 		"react-notifications": "^1.7.3",
 		"react-redux": "^7.2.8",
+		"react-redux-toastr": "^7.6.8",
 		"react-router-dom": "6.2.2",
 		"react-scripts": "5.0.0",
 		"recharts": "^2.1.9",
@@ -37,6 +38,7 @@
 	},
 	"devDependencies": {
 		"@reduxjs/toolkit": "^1.8.1",
+		"@types/react-redux-toastr": "^7.6.2",
 		"@types/redux-logger": "^3.0.9",
 		"@types/redux-promise": "^0.5.29",
 		"axios": "^0.26.1",
