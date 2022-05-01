@@ -21,7 +21,7 @@ const LatestBlocks: React.FC<LatestBlocksProps> = ({
 				0
 			)
 			.toFixed(5)
-
+	console.log('s');
 	return (
 		<>
 			<div className="latestBlocks__cells">

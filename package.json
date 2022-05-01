@@ -50,7 +50,6 @@
 		"start": "react-scripts start",
 		"build": "react-scripts build",
 		"test": "react-scripts test",
-		"eject": "react-scripts eject",
 		"serve": "react-scripts build && serve -s build",
 		"analyze": "source-map-explorer 'build/static/js/*.js'",
 		"format": "prettier --write \"{,!(node_modules)/**/}*.tsx\""

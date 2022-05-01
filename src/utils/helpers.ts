@@ -15,7 +15,7 @@ export const sliceData10 = (item: string| any) => {
 export const calcTime = (time: number) => moment(time * 1000).fromNow();
 export const setActiveLink = ((props: {
   isActive: boolean;
-}): string | undefined => "tabs__link " + (props.isActive ? " tabs__link-active" : ""));
+}): string | undefined => "tabs__link " + (props.isActive ? "tabs__link-active" : ""));
 
 export const copyContent: (copyObj: any, setIsCopy: Function) => void = (copyObj: any, setIsCopy: Function) => {
   copyObj && navigator.clipboard.writeText(copyObj);
