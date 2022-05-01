@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react'
 
-const useCopyContent = ({ address }: any) => {
+const useCopyContent = (address: any) => {
 	const [isCopy, setIsCopy] = useState(false)
 
 	const copyContent = () => {
 		address && navigator.clipboard.writeText(address)
+
 		setIsCopy(true)
 	}
 	useEffect(() => {

@@ -1,4 +1,4 @@
-import { TokenType } from 'pages/Addresses/AddressDetails/types'
+import { TokenType } from 'pages/Addresses/AddressDetails/address-details.interface'
 import React from 'react'
 
 import TokenFilter from '../TokenFilter'

@@ -1,8 +1,6 @@
 import React from 'react'
 
-type ViewMoreBtnProps = {
-	nameBtn: string
-}
+import { ViewMoreBtnProps } from '../../pages/Home/home.interfaces'
 
 const ViewMoreBtn: React.FC<ViewMoreBtnProps> = ({ nameBtn }) => {
 	const viewMoreFunc = () => console.log(nameBtn)

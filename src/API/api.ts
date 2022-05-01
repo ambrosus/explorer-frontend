@@ -8,7 +8,8 @@ import {
   ExplorerTxType,
   TokenType,
   TransactionProps
-} from "pages/Addresses/AddressDetails/types";
+} from "pages/Addresses/AddressDetails/address-details.interface";
+import { toastr } from "react-redux-toastr";
 
 const tokenApiUrl = process.env.REACT_APP_TOKEN_API_URL;
 
@@ -22,7 +23,7 @@ const API = () => {
     if (err) {
       console.error(err);
     }
-    // window.location.replace('/notfound');
+    toastr.error('404', 'No matches found')
   }
 
   api.interceptors.response.use(

@@ -1,15 +1,12 @@
 import React from 'react'
 
 import getMainInfoIcon from '../../config'
-
-type MainInfoProps = {
-	name: any
-	value: any
-}
+import { MainInfoProps } from '../../pages/Home/home.interfaces'
 
 const MainInfo: React.FC<MainInfoProps> = ({ name, value }) => {
 	const numberWithCommas = (number: number) =>
 		number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+
 	const currenCurrency = (nameCurrency: string) => {
 		switch (nameCurrency) {
 			case 'TOTAL SUPPLY':
@@ -22,7 +19,9 @@ const MainInfo: React.FC<MainInfoProps> = ({ name, value }) => {
 				return value
 		}
 	}
+
 	const updatedValue = numberWithCommas(currenCurrency(name))
+
 	return (
 		<>
 			<div className="mainInfo__td">

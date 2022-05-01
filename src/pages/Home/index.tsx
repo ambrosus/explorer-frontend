@@ -1,23 +1,25 @@
-import React, { useEffect, useState } from 'react'
 import API from 'API/api'
 import Chart from 'components/Chart'
 import { Content } from 'components/Content'
 import FindWide from 'components/FindWide'
 import MainInfo from 'components/MainInfo'
 import { useTypedSelector } from 'hooks/useTypedSelector'
+import React, { useEffect, useState } from 'react'
 
-import { LatestTransactionsProps, ResultHomePageData } from './types'
-import useWindowSize from '../../hooks/useWindowSize'
 import BlocksContent from '../../components/BlocksContent'
 import BlocksContentMobile from '../../components/BlocksContentMobile'
+import useWindowSize from '../../hooks/useWindowSize'
 
-export const Home: React.FC = () => {
+import { LatestTransactionsProps, ResultHomePageData } from './home.interfaces'
+
+export const Index: React.FC = () => {
 	const [data, setData] = useState<ResultHomePageData>()
 	const { data: appData } = useTypedSelector((state: any) => state.app)
 
 	useEffect(() => {
 		const getHomePageData: () => Promise<ResultHomePageData> = async () => {
 			const result: ResultHomePageData = {
+				header: [],
 				latestBlocks: (await API.getBlocks({ limit: 8 })).data,
 				latestTransactions: (await API.getTransactions({ limit: 3000 })).data
 					.filter(
@@ -59,18 +61,15 @@ export const Home: React.FC = () => {
 						<FindWide />
 						<div className="mainInfo">
 							<div className="mainInfo__table">
-								{data?.header.map(
-									(item: {
-										name: React.Key | null | undefined
-										value: number
-									}) => (
-										<MainInfo
-											key={item.name}
-											name={item.name}
-											value={item.value}
-										/>
-									)
-								)}
+								{data?.header?.length
+									? data.header.map((item) => (
+											<MainInfo
+												key={item.name}
+												name={item.name as string}
+												value={item.value}
+											/>
+									  ))
+									: null}
 							</div>
 							<div className="mainInfo__chart">
 								<Chart />

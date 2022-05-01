@@ -1,12 +1,7 @@
 import { useTypedSelector } from 'hooks/useTypedSelector'
 import moment from 'moment'
-import {
-	TabsProps,
-	TokenType,
-	TransactionProps,
-} from 'pages/Addresses/AddressDetails/types'
-import React, { FC, useEffect, useState } from 'react'
-import { shallowEqual } from 'react-redux'
+import { TabsProps } from 'pages/Addresses/AddressDetails/address-details.interface'
+import React, { FC } from 'react'
 import { NavLink, useParams } from 'react-router-dom'
 import { setActiveLink } from 'utils/helpers'
 
@@ -24,6 +19,12 @@ const ERC20Filters = [
 	{ title: 'All', value: 'All' },
 	{ title: 'Transfers', value: 'transfers' },
 ]
+//
+// const activeBtn = {
+// 	color: '#05060f',
+// 	borderBottom: '4px solid #05060f',
+// 	borderCollapse: 'collapse',
+// }
 
 const methodFilters = [
 	{ title: 'Transfers', value: 'transfers' },

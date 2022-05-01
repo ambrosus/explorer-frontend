@@ -1,5 +1,5 @@
 import { useTypedSelector } from 'hooks/useTypedSelector'
-import { ChangeEvent, FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 
 import TokenItem from '../TokenItem'
 
@@ -18,11 +18,19 @@ const TokenModal: FC<TokenModalProps> = ({ selectedToken, setToken }) => {
 	const [name, setName] = useState('')
 	const { data: addressData } = useTypedSelector((state: any) => state.position)
 	const { tokens } = addressData
+	const [filteredTokensList, setFilteredTokensList] = useState([])
 
-	const changeInput = (e: ChangeEvent<HTMLInputElement>) => {
-		e.preventDefault()
-		setName(e.target.value)
-	}
+	useEffect(() => {
+		if (name) {
+			const newTokensList = tokens.filter((token: any) =>
+				token.name.toLowerCase().includes(name.toLowerCase())
+			)
+			setFilteredTokensList(newTokensList || [])
+			if (!newTokensList.length) {
+				setFilteredTokensList(tokens)
+			}
+		}
+	}, [name])
 
 	return (
 		<div className="tokenModal" tabIndex={0}>
@@ -31,30 +39,34 @@ const TokenModal: FC<TokenModalProps> = ({ selectedToken, setToken }) => {
 				placeholder="Search for Token Name"
 				type="text"
 				value={name}
-				onChange={changeInput}
+				onChange={(e) => setName(e.target.value)}
 			/>
 			{addressData && tokens && (
 				<>
 					<div>
 						<div className="tokenModal__tokens">
 							ERC-20 Tokens
-							<span
-								className="universall__light2"
-								style={{ marginLeft: 4 }}
-							></span>
+							<span className="universall__light2" style={{ marginLeft: 4 }} />
 						</div>
-						<div className="tokenModal__arrows"></div>
+						<div className="tokenModal__arrows" />
 					</div>
-					{tokens.map((token: { name: string; idx: number }) => {
-						return (
-							<TokenItem
-								key={token.name + token.idx}
-								selectedToken={selectedToken}
-								token={token}
-								setToken={setToken}
-							/>
-						)
-					})}
+					{!filteredTokensList.length
+						? tokens.map((token: { name: string; idx: number }) => (
+								<TokenItem
+									key={token.name + token.idx}
+									selectedToken={selectedToken}
+									token={token}
+									setToken={setToken}
+								/>
+						  ))
+						: filteredTokensList.map((token: { name: string; idx: number }) => (
+								<TokenItem
+									key={token.name + token.idx}
+									selectedToken={selectedToken}
+									token={token}
+									setToken={setToken}
+								/>
+						  ))}
 				</>
 			)}
 		</div>

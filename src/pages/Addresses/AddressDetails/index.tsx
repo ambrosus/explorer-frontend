@@ -1,4 +1,3 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react'
 import API from 'API/api'
 import ContentCopy from 'assets/icons/ContentCopy'
 import ContentCopyed from 'assets/icons/ContentCopyed'
@@ -10,13 +9,14 @@ import Token from 'components/Token'
 import { formatEther } from 'ethers/lib/utils'
 import { useActions } from 'hooks/useActions'
 import { useTypedSelector } from 'hooks/useTypedSelector'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { shallowEqual } from 'react-redux'
 import { useParams } from 'react-router-dom'
-import { Store } from 'react-notifications-component'
+
 import useCopyContent from '../../../hooks/useCopyContent'
 import { TParams } from '../../../types'
 
-import { TokenType, TransactionProps } from './types'
+import { TokenType, TransactionProps } from './address-details.interface'
 
 export const AddressDetails = () => {
 	const { address, type, filtered, tokenToSorted }: TParams = useParams()
@@ -25,6 +25,7 @@ export const AddressDetails = () => {
 		(state) => state.tokenFilters,
 		shallowEqual
 	)
+
 	const {
 		loading,
 		data: addressData,
@@ -32,12 +33,12 @@ export const AddressDetails = () => {
 	} = useTypedSelector((state: any) => state.position)
 	const [transactionType, setTransactionType] = useState(type)
 	const [selectedToken, setSelectedToken] = useState<TokenType | null>(null)
-	const [tx, setTx] = useState([])
+	const [tx, setTx] = useState<TransactionProps[] | []>([])
 	const [pageNum, setPageNum] = useState(1)
 	const [limitNum] = useState(50)
 	const observer = useRef<IntersectionObserver>()
-	const { isCopy, copyContent } = useCopyContent(address)
 
+	const { isCopy, copyContent } = useCopyContent(address)
 	const lastCardRef = useCallback(
 		(node) => {
 			if (loading) return
@@ -61,15 +62,18 @@ export const AddressDetails = () => {
 	)
 
 	useEffect(() => {
+		if (address || type) {
+			setTx([])
+		}
+	}, [address, type])
+
+	useEffect(() => {
 		if (filtered && addressData?.tokens?.length) {
 			addFilter(
 				addressData.tokens.find(
 					(token: TokenType) => token.contract === filtered
 				)
 			)
-		}
-		if (type) {
-			setTx([])
 		}
 
 		if (!loading || errorData) {
@@ -111,7 +115,6 @@ export const AddressDetails = () => {
 
 	useEffect(() => {
 		if (addressData && addressData?.transactions) {
-			// @ts-ignore
 			setTx((prevState) => {
 				const compare: any = new Map(
 					[...prevState, ...addressData.transactions].map((item) => [

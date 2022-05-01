@@ -2,7 +2,7 @@ import Eth from 'assets/icons/Cryptos/Eth'
 import Discard from 'assets/icons/Discard'
 import { useActions } from 'hooks/useActions'
 import { useTypedSelector } from 'hooks/useTypedSelector'
-import { TokenType } from 'pages/Addresses/AddressDetails/types'
+import { TokenType } from 'pages/Addresses/AddressDetails/address-details.interface'
 import React, { FC } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 
