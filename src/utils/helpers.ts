@@ -12,7 +12,7 @@ export const sliceData10 = (item: string| any) => {
   }
   return item.length > 10 ? `${item.slice(0, 10)}...${item.slice(item.length - 10)}` : item;
 };
-export const calcTime = (time: number) => moment(time * 1000).fromNow();
+export const calcTime = (time: any) => moment(time).isValid() ? moment(time * 1000).fromNow() : "";
 export const setActiveLink = ((props: {
   isActive: boolean;
 }): string | undefined => "tabs__link " + (props.isActive ? "tabs__link-active" : ""));

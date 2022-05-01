@@ -1,4 +1,5 @@
 import { copyContent, sliceData10, sliceData5, calcTime, setActiveLink } from "./helpers";
+import moment from "moment";
 
 describe("copyContent", () => {
   Object.assign(window.navigator, {
@@ -57,7 +58,15 @@ describe("setActiveLink", () => {
   });
 });
 
-describe("calcTime", () => {
+describe("should return the date in a specific format", () => {
+  it("Invalid date", () => {
+    const tNull = null
+    const tUndefined = undefined
+    const tEmptyString = ''
+    expect(calcTime(tNull)).toEqual('')
+    expect(calcTime(tUndefined)).toEqual('Invalid date')
+    expect(calcTime(tEmptyString)).toEqual('')
+  });
   it("a few seconds ago", () => {
     const time = Date.now() / 1000
     expect(calcTime(time)).toEqual('a few seconds ago');
