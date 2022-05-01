@@ -146,10 +146,15 @@ export const AddressDetails = () => {
 				<Content.Header>
 					<h1 className="addressDetails__h1">
 						Address Details{' '}
-						<span className="addressDetails__h1-span"> {address}</span>
-						<button className={'addressDetails__h1-btn'} onClick={copyContent}>
-							{isCopy ? <ContentCopyed /> : <ContentCopy />}
-						</button>
+						<span className="addressDetails__h1-span">
+							{address}
+							<button
+								className={'addressDetails__h1-btn'}
+								onClick={copyContent}
+							>
+								{isCopy ? <ContentCopyed /> : <ContentCopy />}
+							</button>
+						</span>
 					</h1>
 					<div className="addressDetails__section">
 						<div className="addressDetails__info">

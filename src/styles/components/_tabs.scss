@@ -39,6 +39,7 @@
 		margin-right: 32px;
 		display: flex;
 		align-items: center;
+		white-space: nowrap;
 		&-active {
 			color: $main;
 			border-bottom: 4px solid $main;
