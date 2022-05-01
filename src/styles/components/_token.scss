@@ -5,6 +5,7 @@
 		display: flex;
 		position: absolute;
 		flex-direction: row;
+		z-index: 1;
 
 		&-name {
 			margin-right: 10px;

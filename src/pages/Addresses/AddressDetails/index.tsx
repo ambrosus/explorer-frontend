@@ -13,7 +13,7 @@ import { useTypedSelector } from 'hooks/useTypedSelector'
 import { shallowEqual } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { Store } from 'react-notifications-component'
-
+import useCopyContent from '../../../hooks/useCopyContent'
 import { TParams } from '../../../types'
 
 import { TokenType, TransactionProps } from './types'
@@ -36,7 +36,7 @@ export const AddressDetails = () => {
 	const [pageNum, setPageNum] = useState(1)
 	const [limitNum] = useState(50)
 	const observer = useRef<IntersectionObserver>()
-	const [isCopy, setIsCopy] = useState(false)
+	const { isCopy, copyContent } = useCopyContent(address)
 
 	const lastCardRef = useCallback(
 		(node) => {
@@ -136,12 +136,6 @@ export const AddressDetails = () => {
 			)
 		}
 	}, [addressData])
-
-	const copyContent = () => {
-		address && navigator.clipboard.writeText(address)
-		setIsCopy(true)
-		setTimeout(() => setIsCopy(false), 1000)
-	}
 
 	return (
 		<Content>
