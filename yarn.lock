@@ -10393,7 +10393,7 @@ react-notifications@^1.7.3:
 
 react-redux-toastr@^7.6.8:
   version "7.6.8"
-  resolved "https://registry.npmjs.org/react-redux-toastr/-/react-redux-toastr-7.6.8.tgz"
+  resolved "https://registry.yarnpkg.com/react-redux-toastr/-/react-redux-toastr-7.6.8.tgz#da6265844497a81191f16b5d1d9b054480aa4b97"
   integrity sha512-ex2MzJG/SjPk2PQZCuhxZXoZbqGY/orxEgajgL3fXiYoBaKmjLrI2SiR5z5+fDFgL+aEzgqVl+ZAQK3Fgshf4Q==
   dependencies:
     classnames "^2.2.3"

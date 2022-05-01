@@ -13,10 +13,10 @@ import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { shallowEqual } from 'react-redux'
 import { useParams } from 'react-router-dom'
 
+import useCopyContent from '../../../hooks/useCopyContent'
 import { TParams } from '../../../types'
 
 import { TokenType, TransactionProps } from './address-details.interface'
-import { copyContent } from "../../../utils/helpers";
 
 export const AddressDetails = () => {
 	const { address, type, filtered, tokenToSorted }: TParams = useParams()
@@ -25,6 +25,7 @@ export const AddressDetails = () => {
 		(state) => state.tokenFilters,
 		shallowEqual
 	)
+
 	const {
 		loading,
 		data: addressData,
@@ -36,8 +37,8 @@ export const AddressDetails = () => {
 	const [pageNum, setPageNum] = useState(1)
 	const [limitNum] = useState(50)
 	const observer = useRef<IntersectionObserver>()
-	const [isCopy, setIsCopy] = useState(false)
 
+	const { isCopy, copyContent } = useCopyContent(address)
 	const lastCardRef = useCallback(
 		(node) => {
 			if (loading) return
@@ -145,10 +146,15 @@ export const AddressDetails = () => {
 				<Content.Header>
 					<h1 className="addressDetails__h1">
 						Address Details{' '}
-						<span className="addressDetails__h1-span"> {address}</span>
-						<button className={'addressDetails__h1-btn'} onClick={()=>copyContent(address,setIsCopy)}>
-							{isCopy ? <ContentCopyed /> : <ContentCopy />}
-						</button>
+						<span className="addressDetails__h1-span">
+							{address}
+							<button
+								className={'addressDetails__h1-btn'}
+								onClick={copyContent}
+							>
+								{isCopy ? <ContentCopyed /> : <ContentCopy />}
+							</button>
+						</span>
 					</h1>
 					<div className="addressDetails__section">
 						<div className="addressDetails__info">

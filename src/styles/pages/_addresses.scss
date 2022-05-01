@@ -7,13 +7,30 @@
 		display: flex;
 		align-items: center;
 		margin: 30px auto;
+		white-space: nowrap;
+		@include for-device-large {
+			flex-direction: column;
+			align-items: flex-start;
+		}
 
 		&-span {
+			display: flex;
+			align-items: center;
 			margin: 12px;
 			font-size: 2.3rem;
 			line-height: 2.2rem;
 			font-style: normal;
 			font-weight: 400;
+			@include for-device-large {
+				margin-left: 0px;
+				font-size: 2rem;
+			}
+			@include for-device-medium {
+				font-size: 1.5rem;
+			}
+			@include for-device-small {
+				font-size: 0.88rem;
+			}
 		}
 		&-btn {
 			display: flex;
@@ -46,11 +63,13 @@
 	&__info {
 		display: grid;
 		grid-template-columns: 1fr 400px;
+		display: flex;
 		grid-row-gap: 3vw;
 		margin-bottom: 32px;
-		&-token {
-			display: flex;
-			justify-content: flex-end;
+		@include for-device-medium {
+			grid-template-rows: repeat(2, auto);
+			flex-direction: column;
+			grid-row-gap: 16px;
 		}
 
 		&-tokenName {
@@ -76,9 +95,12 @@
 	&__table {
 		width: 100%;
 		display: grid;
-		grid-row-gap: 3vw;
+		grid-row-gap: 32px;
+		gap: 32px;
 		margin-top: 16px;
 		position: relative;
+		white-space: nowrap;
+		overflow: auto;
 	}
 
 	&__thead-td {

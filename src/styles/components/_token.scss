@@ -1,10 +1,17 @@
 .token {
+	height: 42px;
 	display: flex;
 	justify-content: flex-end;
+	@include for-device-medium {
+		display: flex;
+
+		justify-content: flex-start;
+	}
 	&__info {
 		display: flex;
 		position: absolute;
 		flex-direction: row;
+		z-index: 1;
 
 		&-name {
 			margin-right: 10px;
@@ -58,6 +65,9 @@
 	background: #fff;
 	border: 1px solid #eff2f5;
 	border-radius: 16px;
+	@include for-device-xs {
+		min-width: 260px;
+	}
 
 	&__input {
 		display: flex;
