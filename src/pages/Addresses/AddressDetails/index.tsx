@@ -16,6 +16,7 @@ import { useParams } from 'react-router-dom'
 import { TParams } from '../../../types'
 
 import { TokenType, TransactionProps } from './address-details.interface'
+import { copyContent } from "../../../utils/helpers";
 
 export const AddressDetails = () => {
 	const { address, type, filtered, tokenToSorted }: TParams = useParams()
@@ -138,12 +139,6 @@ export const AddressDetails = () => {
 		}
 	}, [addressData])
 
-	const copyContent = () => {
-		address && navigator.clipboard.writeText(address)
-		setIsCopy(true)
-		setTimeout(() => setIsCopy(false), 1000)
-	}
-
 	return (
 		<Content>
 			<section className="addressDetails">
@@ -151,7 +146,7 @@ export const AddressDetails = () => {
 					<h1 className="addressDetails__h1">
 						Address Details{' '}
 						<span className="addressDetails__h1-span"> {address}</span>
-						<button className={'addressDetails__h1-btn'} onClick={copyContent}>
+						<button className={'addressDetails__h1-btn'} onClick={()=>copyContent(address,setIsCopy)}>
 							{isCopy ? <ContentCopyed /> : <ContentCopy />}
 						</button>
 					</h1>
