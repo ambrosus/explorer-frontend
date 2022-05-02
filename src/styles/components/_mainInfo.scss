@@ -6,15 +6,16 @@
 	@include for-device-large {
 		display: flex;
 		flex-direction: column;
-		// grid-template-columns: repeat(2, auto);
 		margin: 30px auto;
 	}
 	&__table {
 		display: grid;
 		grid-template-columns: repeat(3, auto);
-		border-radius: 1.15em 1.15em 0 0;
 		background: #ffffff;
+		border-radius: 1.15em 0 0 1.15em;
+
 		@include for-device-medium {
+			border-radius: 1.15em 1.15em 0 0;
 			grid-template-columns: repeat(2, auto);
 		}
 		@include for-device-small {
@@ -34,10 +35,11 @@
 	&__chart {
 		height: 210px;
 		width: 370px;
-		border-radius: 0 0 1.15em 1.15em;
 		border: 1px solid #f6f6f6;
 		background-color: #fff;
+		border-radius: 0 1.15em 1.15em 0;
 		@include for-device-large {
+			border-radius: 0 0 1.15em 1.15em;
 			display: flex;
 			width: 100%;
 		}
