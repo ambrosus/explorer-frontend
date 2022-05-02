@@ -30,6 +30,7 @@ const Tabs: FC<TabsProps> = ({
 
 	const { width } = useWindowSize()
 	const { transactionFilters, ERC20Filters, methodFilters } = sidePages
+
 	return (
 		<>
 			<div className="tabs" tabIndex={-1}>

@@ -24,30 +24,15 @@ export const setActiveLink = (props: {
 }): string | undefined =>
 	'tabs__link ' + (props.isActive ? 'tabs__link-active' : '')
 
-export const copyContent: (copyObj: any, setIsCopy: Function) => void = (
-	copyObj: any,
-	setIsCopy: Function
-) => {
-	if (copyObj) {
-		navigator.clipboard.writeText(copyObj)
-		setIsCopy(true)
-		setTimeout(() => setIsCopy(false), 1000)
-	} else {
-		setIsCopy(false)
-	}
-}
-
 export const setupStyle = (item: string | undefined) => {
-	if (item) {
-		let type: { style: object } = {
-			style: {},
-		}
-		switch (item) {
-			case 'ERC-20_Tx':
-				return (type.style = { gridTemplateColumns: 'repeat(7, auto)' })
+	let type: { style: object } = {
+		style: {},
+	}
+	switch (item) {
+		case 'ERC-20_Tx':
+			return (type.style = { gridTemplateColumns: 'repeat(7, auto)' })
 
-			default:
-				return (type.style = { gridTemplateColumns: 'repeat(8, auto)' })
-		}
+		default:
+			return (type.style = { gridTemplateColumns: 'repeat(8, auto)' })
 	}
 }
