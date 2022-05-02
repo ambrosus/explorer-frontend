@@ -63,11 +63,10 @@
 	&__info {
 		display: grid;
 		grid-template-columns: 1fr 400px;
-		display: flex;
 		grid-row-gap: 3vw;
 		margin-bottom: 32px;
 		@include for-device-medium {
-			grid-template-rows: repeat(2, auto);
+			display: flex;
 			flex-direction: column;
 			grid-row-gap: 16px;
 		}
