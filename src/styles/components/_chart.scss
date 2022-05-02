@@ -67,11 +67,20 @@
 }
 
 .chart{
-  padding: 32px 16px;
+  //padding: 32px 16px;
+  padding: 50px 36px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 15px;
   width: 100%;
-  height: 100%
+  height: 100%;
+  .bundlesActivity{
+    font-style: normal;
+    font-weight: 600;
+    font-size: 3.28em;
+    line-height: 1.33em;
+    color: #05060f;
+  }
 }

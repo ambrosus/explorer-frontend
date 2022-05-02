@@ -20,7 +20,5 @@ test("react-testing-library works!", () => {
   );
   const dropdown:any = rendered.container.querySelector(".Dropdown-placeholder");
   fireEvent.click(dropdown);
-  const dropdownMenu = rendered.container.querySelector(".Dropdown-menu");
-  console.log(dropdownMenu);
   expect(rendered).toMatchSnapshot();
 });
