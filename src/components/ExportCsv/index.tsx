@@ -8,7 +8,7 @@ const ExportCsv = () => {
 	const style: any = isShow ? { borderColor: '#05060f' } : null
 
 	return (
-		<div className="tabs__exportModal">
+		<>
 			<div className="tabs__exportCsv">
 				<button
 					className="tabs__exportCsv-btn"
@@ -20,7 +20,7 @@ const ExportCsv = () => {
 				</button>
 			</div>
 			{isShow && <Calendar setIsShow={setIsShow} />}
-		</div>
+		</>
 	)
 }
 

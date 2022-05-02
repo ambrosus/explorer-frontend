@@ -1,39 +1,17 @@
+import SideMenu from 'assets/icons/SideMenu'
 import { useTypedSelector } from 'hooks/useTypedSelector'
+import useWindowSize from 'hooks/useWindowSize'
 import moment from 'moment'
 import { TabsProps } from 'pages/Addresses/AddressDetails/address-details.interface'
 import React, { FC } from 'react'
 import { NavLink, useParams } from 'react-router-dom'
-import { setActiveLink } from 'utils/helpers'
+import { setActiveLink, setupStyle } from 'utils/helpers'
+import { sidePages } from 'utils/sidePages'
 
 import AddressBlock from '../AddressBlocks'
 import AddressBlocksHeader from '../AddressBlocksHeader'
 import ExportCsv from '../ExportCsv'
 import Loader from '../Loader'
-
-const transactionFilters = [
-	{ title: 'All', value: '' },
-	{ title: 'Transfers', value: 'transfers' },
-	{ title: 'ERC-20 Tx', value: 'ERC-20_Tx' },
-]
-const ERC20Filters = [
-	{ title: 'All', value: 'All' },
-	{ title: 'Transfers', value: 'transfers' },
-]
-//
-// const activeBtn = {
-// 	color: '#05060f',
-// 	borderBottom: '4px solid #05060f',
-// 	borderCollapse: 'collapse',
-// }
-
-const methodFilters = [
-	{ title: 'Transfers', value: 'transfers' },
-	{ title: 'Contracts', value: 'contracts' },
-	{ title: 'Fees', value: 'fees' },
-	{ title: 'Validator Proxy', value: 'validator_proxy' },
-	{ title: 'Bundle Uploads', value: 'bundle_uploads' },
-	{ title: 'Payouts', value: 'payouts' },
-]
 
 const Tabs: FC<TabsProps> = ({
 	data,
@@ -50,18 +28,8 @@ const Tabs: FC<TabsProps> = ({
 	const headerTxfee: any = type === 'ERC-20_Tx' ? null : 'txFee'
 	const headerToken: any = type === 'ERC-20_Tx' ? 'token' : null
 
-	function style(item: string | undefined) {
-		let type: { style: object } = {
-			style,
-		}
-		switch (item) {
-			case 'ERC-20_Tx':
-				return (type.style = { gridTemplateColumns: 'repeat(7, auto)' })
-
-			default:
-				return (type.style = { gridTemplateColumns: 'repeat(8, auto)' })
-		}
-	}
+	const { width } = useWindowSize()
+	const { transactionFilters, ERC20Filters, methodFilters } = sidePages
 
 	return (
 		<>
@@ -99,11 +67,19 @@ const Tabs: FC<TabsProps> = ({
 								</NavLink>
 						  ))}
 				</div>
-				<ExportCsv />
+				<div className="tabs__exportModal">
+					{width > 760 ? (
+						<ExportCsv />
+					) : (
+						<button className="tabs__sideMenu">
+							<SideMenu />
+						</button>
+					)}
+				</div>
 			</div>
 
 			<div>
-				<section className="addressDetails__table" style={style(type)}>
+				<section className="addressDetails__table" style={setupStyle(type)}>
 					<AddressBlocksHeader
 						txhash="txHash"
 						method="Method"
