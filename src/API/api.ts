@@ -23,7 +23,7 @@ const API = () => {
     if (err) {
       console.error(err);
     }
-    toastr.error('404', 'No matches found')
+    toastr.error("404", "No matches found");
   }
 
   api.interceptors.response.use(
@@ -61,10 +61,10 @@ const getDataForAddress = async (address: string, params: any) => {
   const blockBookApiForT: any = await API().get(url, {
     params: {
       page: page,
-      pageSize: !type ? limit : 1000,
+      pageSize: !type ? limit : 1000
     }
   });
-  const blockBookApiTokensSearch:any=async () => {
+  const blockBookApiTokensSearch: any = async () => {
     const array: any = blockBookApiForT && blockBookApiForT.tokens && blockBookApiForT.tokens.map(async (token: TokenType) => {
       // @ts-ignore
       const getTokenData: any = await API().get(url, {
@@ -76,9 +76,9 @@ const getDataForAddress = async (address: string, params: any) => {
       });
       return getTokenData && getTokenData.tokens && getTokenData?.tokens.find((item: TokenType) => token.contract === item.contract);
     });
-    const promiseArray = array?.length ? await Promise.all(array) : []
-    const flatMap = promiseArray?.length ? promiseArray.map((item: any) => item) : []
-    return flatMap
+    const promiseArray = array?.length ? await Promise.all(array) : [];
+    const flatMap = promiseArray?.length ? promiseArray.map((item: any) => item) : [];
+    return flatMap;
   };
   const blockBookApiTokens: any = await blockBookApiTokensSearch();
 
@@ -121,7 +121,7 @@ const getDataForAddress = async (address: string, params: any) => {
   }) : [];
   const defaultFilters: TokenType[] = await getTokensBalance(constTokens);
 
-  const { data: explorerTrans } = await getAccountTx(address, { page,limit, type });
+  const { data: explorerTrans } = await getAccountTx(address, { page, limit, type });
 
   const blockBookApiTransactions =
     blockBookApi && blockBookApi.txids ? blockBookApi.txids.map(async (tx: string) => {
@@ -171,7 +171,7 @@ const getDataForAddress = async (address: string, params: any) => {
           : Number(formatEther(t.value)).toFixed(2),
         token: t?.tokenTransfers ? t.tokenTransfers[0].name : "AMB",
         txFee: Number(ethers.utils.formatEther(t.fees)),
-        erc20: t?.tokenTransfers ? true : false
+        erc20: "t?.tokenTransfers ? true : false"
       });
     }
   );
@@ -184,7 +184,7 @@ const getDataForAddress = async (address: string, params: any) => {
       params: {
         page: page,
         pageSize: 1000,
-        contract: selectedTokenFilter
+        contract: token.contract
       }
     });
     return tokensTransactions.txids.map(async (tx: string) => {
@@ -194,27 +194,30 @@ const getDataForAddress = async (address: string, params: any) => {
     })[0];
   });
   const parsePromisesByToken = await Promise.allSettled(byToken);
-  const sortedLatestTransactionsData: TransactionProps[] = parsePromisesByToken.map((item: any) => {
-    const t = item.value;
-    return ({
-      txHash: t.txid,
-      method: t?.tokenTransfers ? "Transfer" : "Transaction",
-      from: t?.tokenTransfers
-        ? t.tokenTransfers[0].from
-        : t.vin[0].addresses[0],
-      to: t?.tokenTransfers ? t.tokenTransfers[0].to : t.vout[0].addresses[0],
-      date: t.blockTime * 1000,
-      block: t.blockHeight,
-      amount: t?.tokenTransfers
-        ? Number(formatEther(t.tokenTransfers[0].value)).toFixed(2)
-        : Number(formatEther(t.value)).toFixed(2),
-      token: t?.tokenTransfers ? t.tokenTransfers[0].name : "No token",
-      txFee: Number(ethers.utils.formatEther(t.fees))
+  console.log("tokensTransactions", parsePromisesByToken);
+
+  const sortedLatestTransactionsData: TransactionProps[] =
+    parsePromisesByToken.map((item: any) => {
+      const t = item.value;
+      return ({
+        txHash: t.txid,
+        method: t?.tokenTransfers ? "Transfer" : "Transaction",
+        from: t?.tokenTransfers
+          ? t.tokenTransfers[0].from
+          : t.vin[0].addresses[0],
+        to: t?.tokenTransfers ? t.tokenTransfers[0].to : t.vout[0].addresses[0],
+        date: t.blockTime * 1000,
+        block: t.blockHeight,
+        amount: t?.tokenTransfers
+          ? Number(formatEther(t.tokenTransfers[0].value)).toFixed(2)
+          : Number(formatEther(t.value)).toFixed(2),
+        token: t?.tokenTransfers ? t.tokenTransfers[0].name : "No token",
+        txFee: Number(ethers.utils.formatEther(t.fees))
+      });
     });
-  });
 
   const compare: any = new Map(
-    [...bBookData,...explorData,].map((item) => [item.block, item])
+    [...bBookData, ...explorData].map((item) => [item.block, item])
   ).values();
   //sort by block number
   const transactionsAll: TransactionProps[] = [...compare].sort((a: any, b: any) => b.block - a.block);
@@ -225,7 +228,7 @@ const getDataForAddress = async (address: string, params: any) => {
   return {
     balance: addressBalance,
     transactions:
-      type === "ERC-20_Tx" || selectedTokenFilter
+      type === "ERC-20_Tx" || selectedTokenFilter !== null || selectedTokenFilter !== undefined || selectedTokenFilter && selectedTokenFilter?.contract || type === "ERC-20_Tx" && selectedTokenFilter
         ? bBookData
         : type === "transfers"
           ? transfersDataTx

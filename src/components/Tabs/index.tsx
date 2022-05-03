@@ -5,7 +5,7 @@ import moment from 'moment'
 import { TabsProps } from 'pages/Addresses/AddressDetails/address-details.interface'
 import React, { FC } from 'react'
 import { NavLink, useParams } from 'react-router-dom'
-import { setActiveLink, setupStyle } from 'utils/helpers'
+import { setActiveLink, setupStyle, toUniqueValueByBlock } from "utils/helpers";
 import { sidePages } from 'utils/sidePages'
 
 import AddressBlock from '../AddressBlocks'
@@ -23,7 +23,7 @@ const Tabs: FC<TabsProps> = ({
 	const { loading, data: addressData } = useTypedSelector(
 		(state: any) => state.position
 	)
-
+	console.log('data',data);
 	const headerBlock: any = type === 'ERC-20_Tx' ? null : 'Block'
 	const headerTxfee: any = type === 'ERC-20_Tx' ? null : 'txFee'
 	const headerToken: any = type === 'ERC-20_Tx' ? 'token' : null
@@ -106,8 +106,8 @@ const Tabs: FC<TabsProps> = ({
 							<Loader />
 						</div>
 					)}
-					{addressData?.latestTransactions?.length && type === 'ERC-20_Tx'
-						? addressData.latestTransactions.map(
+					{addressData?.latestTransactions?.length && type === 'ERC-20_Tx' && !filtered
+						? toUniqueValueByBlock(addressData.latestTransactions).map(
 								(transaction: any, index: number) => (
 									<AddressBlock
 										isLatest={true}
@@ -127,8 +127,8 @@ const Tabs: FC<TabsProps> = ({
 						  )
 						: null}
 					{data?.length && filtered && type === 'ERC-20_Tx'
-						? data.map((transaction: any, index: number) =>
-								data.length - 1 === index ? (
+						? toUniqueValueByBlock(data).map((transaction: any, index: number) =>
+								data.length - 1 === index && data.length > 20 ? (
 									<AddressBlock
 										lastCardRef={lastCardRef}
 										isLatest={true}
@@ -163,9 +163,9 @@ const Tabs: FC<TabsProps> = ({
 						  )
 						: null}
 
-					{data?.length && type !== 'ERC-20_Tx'
-						? data.map((transaction: any, index: number) =>
-								data.length - 1 === index ? (
+					{data?.length && type !== 'ERC-20_Tx' && !filtered
+						? toUniqueValueByBlock(data).map((transaction: any, index: number) =>
+								data.length - 1 === index && data.length > 20 ? (
 									<AddressBlock
 										lastCardRef={lastCardRef}
 										onClick={onClick}

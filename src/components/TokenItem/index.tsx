@@ -32,11 +32,11 @@ const TokenItem = ({ token, selectedToken, setToken }: TokenItemProps) => (
 					? `${token?.name.slice(0, 11)}...`
 					: token?.name}
 			</div>
-			<div className="universall__light2">1 AMB</div>
+			<div className="universall__light2">{token?.balance}</div>
 		</div>
 		<div className="tokenItem__amount">
-			<div>{token?.balance}</div>
-			<div className="universall__light2 universall__line-height">@0.00</div>
+			{/*<div>{token?.balance}</div>*/}
+			{/*<div className="universall__light2 universall__line-height">@0.00</div>*/}
 		</div>
 	</div>
 )
