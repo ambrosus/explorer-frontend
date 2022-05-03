@@ -70,7 +70,43 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	justify-content: space-between;
-	width: 100%;
-	height: 100%;
+	justify-content: center;
+	gap: 15px;
+}
+.bundles-activity {
+	padding: 32px 16px;
+	display: flex !important;
+	align-items: center !important;
+	justify-content: space-between !important;
+	flex-direction: column;
+	.chart-header-title {
+		font-family: 'Proxima Nova' !important;
+		font-style: normal !important;
+		font-weight: 400 !important;
+		font-size: 14px !important;
+		line-height: 16px !important;
+		text-transform: uppercase;
+		color: #58667e;
+	}
+	.bundlesActivity {
+		font-family: 'Proxima Nova';
+		font-style: normal;
+		font-weight: 300;
+		margin-top: 34px;
+		font-size: 64px;
+		margin-bottom: 36px;
+		text-align: center;
+
+		line-height: 24px;
+		color: #000000;
+	}
+	.days {
+		font-family: 'Proxima Nova';
+		font-style: normal;
+		font-weight: 600;
+		text-align: center;
+		font-size: 12px;
+		line-height: 24px;
+		color: #58667e;
+	}
 }
