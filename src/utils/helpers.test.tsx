@@ -1,4 +1,4 @@
-import { calcTime, setActiveLink, sliceData5, sliceData10 } from './helpers'
+import { calcTime, sliceData5, sliceData10 } from './helpers'
 
 describe('sliceData5 & sliceData10', () => {
 	it('should slice data less then correctly value', () => {
@@ -22,26 +22,6 @@ describe('sliceData5 & sliceData10', () => {
 		expect(sliceData10(address)).toEqual('0xB500558a...d1ef378D34')
 		expect(sliceData5(address)).toEqual('0xB50...78D34')
 		expect(sliceData10(address)).toMatchSnapshot()
-	})
-})
-
-describe('setActiveLink', () => {
-	const className = 'tabs__link'
-	const activeClass = className + '-active'
-	const separator = ' '
-	it('not active link', () => {
-		expect(setActiveLink({ isActive: false })).toEqual(className + separator)
-		expect(setActiveLink({ isActive: false })).not.toEqual(
-			className + separator + activeClass
-		)
-		expect(setActiveLink({ isActive: false })).toMatchSnapshot()
-	})
-	it('is active link', () => {
-		expect(setActiveLink({ isActive: true })).toEqual(
-			className + separator + activeClass
-		)
-		expect(setActiveLink({ isActive: true })).not.toEqual(className + separator)
-		expect(setActiveLink({ isActive: true })).toMatchSnapshot()
 	})
 })
 

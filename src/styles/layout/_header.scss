@@ -15,6 +15,9 @@
 	align-items: center;
 	justify-content: space-between;
 	&__search {
+		display: flex;
+		align-items: center;
+		justify-content: center;
 		background-color: #212121;
 		width: 40px;
 		height: 40px;
@@ -30,6 +33,7 @@
 		display: flex;
 		align-items: center;
 		text-decoration: none;
+
 		font-family: Proxima Nova, Aktiv Grotesk Corp;
 		font-style: normal;
 		font-weight: 600;
@@ -37,7 +41,10 @@
 		line-height: 34px;
 		letter-spacing: 0.22em;
 		text-transform: uppercase;
-		color: #ffffff;
+		color: #4d4d4d;
+		&:hover {
+			color: #fff;
+		}
 	}
 	@include for-device-large {
 		// display: none;

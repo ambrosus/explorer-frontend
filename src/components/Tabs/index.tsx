@@ -3,9 +3,9 @@ import { useTypedSelector } from 'hooks/useTypedSelector'
 import useWindowSize from 'hooks/useWindowSize'
 import moment from 'moment'
 import { TabsProps } from 'pages/Addresses/AddressDetails/address-details.interface'
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 import { NavLink, useParams } from 'react-router-dom'
-import { setActiveLink, setupStyle } from 'utils/helpers'
+import { setupStyle } from 'utils/helpers'
 import { sidePages } from 'utils/sidePages'
 
 import AddressBlock from '../AddressBlocks'
@@ -29,7 +29,11 @@ const Tabs: FC<TabsProps> = ({
 	const headerToken: any = type === 'ERC-20_Tx' ? 'token' : null
 
 	const { width } = useWindowSize()
+
 	const { transactionFilters, ERC20Filters, methodFilters } = sidePages
+	const [isShow, setIsShow] = useState(false)
+	const setActiveLink = ({ isActive }: any) =>
+		isActive ? 'tabs__link tabs__link-active' : 'tabs__link'
 
 	return (
 		<>
@@ -71,9 +75,19 @@ const Tabs: FC<TabsProps> = ({
 					{width > 760 ? (
 						<ExportCsv />
 					) : (
-						<button className="tabs__sideMenu">
-							<SideMenu />
-						</button>
+						<div className="tabs__sideMenu">
+							<button
+								className="tabs__sideMenu-icon"
+								onClick={() => setIsShow(!isShow)}
+							>
+								<SideMenu />
+							</button>
+							{isShow && (
+								<div className="tabs__exportModal-mobile">
+									<ExportCsv />
+								</div>
+							)}
+						</div>
 					)}
 				</div>
 			</div>
