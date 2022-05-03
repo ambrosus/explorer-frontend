@@ -67,20 +67,48 @@
 }
 
 .chart{
-  //padding: 32px 16px;
-  padding: 50px 36px;
+  padding: 32px 16px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 15px;
-  width: 100%;
-  height: 100%;
+
+}
+.bundles-activity {
+  padding: 32px 16px;
+  display: flex!important;
+  align-items: center!important;
+  justify-content: space-between!important;
+  flex-direction: column;
+  .chart-header-title{
+    font-family: 'Proxima Nova' !important;
+    font-style: normal !important;
+    font-weight: 400 !important;
+    font-size: 14px !important;
+    line-height: 16px !important;
+    text-transform: uppercase;
+    color: #58667E;
+  }
   .bundlesActivity{
+    font-family: 'Proxima Nova';
+    font-style: normal;
+    font-weight: 300;
+    margin-top: 34px;
+    font-size: 64px;
+    margin-bottom:36px;
+    text-align: center;
+
+    line-height: 24px;
+    color: #000000;
+  }
+  .days{
+    font-family: 'Proxima Nova';
     font-style: normal;
     font-weight: 600;
-    font-size: 3.28em;
-    line-height: 1.33em;
-    color: #05060f;
+    text-align: center;
+    font-size: 12px;
+    line-height: 24px;
+    color: #58667E;
   }
 }

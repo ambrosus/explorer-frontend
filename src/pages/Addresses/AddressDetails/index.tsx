@@ -62,10 +62,10 @@ export const AddressDetails = () => {
 	)
 
 	useEffect(() => {
-		if (address || type) {
+		if (  address || type|| filtered||tokenToSorted) {
 			setTx([])
 		}
-	}, [address, type])
+	}, [address, type, filtered,tokenToSorted])
 
 	useEffect(() => {
 		if (filtered && addressData?.tokens?.length) {
@@ -107,6 +107,7 @@ export const AddressDetails = () => {
 		filters,
 		transactionType,
 		selectedToken,
+		filtered,
 		tokenToSorted,
 		address,
 		pageNum,
@@ -116,6 +117,12 @@ export const AddressDetails = () => {
 	useEffect(() => {
 		if (addressData && addressData?.transactions) {
 			setTx((prevState) => {
+			if (filtered) {
+				const newTx: any = [...addressData.transactions].sort(
+					(a: any, b: any) => b.block - a.block
+				)
+				return newTx
+			}else {
 				const compare: any = new Map(
 					[...prevState, ...addressData.transactions].map((item) => [
 						item.block,
@@ -126,6 +133,7 @@ export const AddressDetails = () => {
 					(a: any, b: any) => b.block - a.block
 				)
 				return newTx
+			}
 			})
 		}
 	}, [addressData])
