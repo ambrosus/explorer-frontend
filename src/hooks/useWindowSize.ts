@@ -10,7 +10,6 @@ const useWindowSize = () => {
 			setHeight(window.innerHeight)
 		}
 		window.addEventListener('resize', updateWindowDimensions)
-		console.log(width)
 
 		return () => window.removeEventListener('resize', updateWindowDimensions)
 	}, [width])

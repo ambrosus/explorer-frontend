@@ -27,7 +27,7 @@
 			"@/pages": ["pages/*"],
 			"@/state": ["state/*"],
 			"@/style": ["style/*"],
-			"@/utils": ["utils/*"],
+			"@/utils": ["utils/*"]
 		}
 	},
 	"include": ["**/*.ts", "**/*.tsx"],

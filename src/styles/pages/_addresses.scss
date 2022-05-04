@@ -99,7 +99,9 @@
 		margin-top: 16px;
 		position: relative;
 		white-space: nowrap;
-		overflow: auto;
+		@include for-device-large {
+			overflow: auto;
+		}
 	}
 
 	&__thead-td {
