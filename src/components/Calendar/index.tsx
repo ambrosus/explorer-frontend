@@ -15,7 +15,7 @@ const Calendar = ({ setIsShow, calendarRef }: any) => {
 	const [dataRange, setDataRange] = useState([
 		{
 			startDate: new Date(),
-			endDate: addDays(new Date(), 7),
+			endDate: addDays(new Date(), -4),
 			color: '#05060F',
 			key: 'selection',
 		},
