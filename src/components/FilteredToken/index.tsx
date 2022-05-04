@@ -17,9 +17,8 @@ const FilteredToken: FC<FilteredTokenProps> = ({ setSelectedToken }) => {
 	const navigate = useNavigate()
 	const { filters } = useTypedSelector((state: any) => state.tokenFilters)
 
-	const backClick = () => console.log('backCLick')
 
-	const discardClick = () => {
+	const backClick = () => {
 		setSelectedToken(null)
 		clearFilters()
 		navigate(`/addresses/${address}/ERC-20_Tx`)
@@ -42,7 +41,7 @@ const FilteredToken: FC<FilteredTokenProps> = ({ setSelectedToken }) => {
 						<button onClick={backClick}>Back to all tokens</button>
 					</div>
 
-					<button className="filteredToken__cell" onClick={discardClick}>
+					<button className="filteredToken__cell" onClick={backClick}>
 						<Discard />
 					</button>
 				</div>

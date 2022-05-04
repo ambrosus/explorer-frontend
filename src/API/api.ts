@@ -10,7 +10,6 @@ import {
   TransactionProps
 } from "pages/Addresses/AddressDetails/address-details.interface";
 import { toastr } from "react-redux-toastr";
-
 const tokenApiUrl = process.env.REACT_APP_TOKEN_API_URL;
 
 const baseApiUrl = process.env.REACT_APP_API_ENDPOINT;
@@ -51,6 +50,7 @@ const getBlocks = async (params = {}) => {
 const getDataForAddress = async (address: string, params: any) => {
   const { limit, page, type, selectedTokenFilter } = params;
   const url = `https://blockbook.ambrosus.io/api/v2/address/${address}`;
+
   const blockBookApi: any = await API().get(url, {
     params: {
       page: page,
@@ -179,6 +179,7 @@ const getDataForAddress = async (address: string, params: any) => {
   const includesTokens = defaultFilters.filter(
     (token: TokenType) => token.contract
   );
+
   const byToken = includesTokens.map(async (token: TokenType) => {
     const tokensTransactions: any = await API().get(url, {
       params: {
@@ -194,7 +195,6 @@ const getDataForAddress = async (address: string, params: any) => {
     })[0];
   });
   const parsePromisesByToken = await Promise.allSettled(byToken);
-  console.log("tokensTransactions", parsePromisesByToken);
 
   const sortedLatestTransactionsData: TransactionProps[] =
     parsePromisesByToken.map((item: any) => {
