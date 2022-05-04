@@ -31,7 +31,7 @@
 	box-shadow: 4px 8px 8px rgba(0, 0, 0, 0.25);
 	border-bottom-left-radius: 16px;
 	border-bottom-right-radius: 16px;
-
+	width: 324px;
 	&__search {
 		width: 300px;
 		height: 40px;
@@ -116,8 +116,8 @@
 
 .tokenItem {
 	display: grid;
-	grid-template-columns: repeat(6, auto);
-	padding: 15px;
+	grid-template-columns: 22px 1fr 1fr;
+	padding: 12px;
 	border-top: 1px solid #eff2f5;
 	cursor: pointer;
 
@@ -142,5 +142,7 @@
 	&__amount {
 		text-align: end;
 		line-height: 1.33em;
+	}
+	&__icon {
 	}
 }

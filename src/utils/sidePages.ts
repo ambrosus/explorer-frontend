@@ -4,7 +4,7 @@ const transactionFilters = [
 	{ title: 'ERC-20 Tx', value: 'ERC-20_Tx' },
 ]
 const ERC20Filters = [
-	{ title: 'All', value: 'All' },
+	{ title: 'All', value: 'all' },
 	{ title: 'Transfers', value: 'transfers' },
 ]
 

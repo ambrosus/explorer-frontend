@@ -2,16 +2,16 @@ import API from 'API/api'
 import { addDays } from 'date-fns'
 import { useOnClickOutside } from 'hooks/useOnClickOutside'
 import React, { useRef, useState } from 'react'
+import { DateRange } from 'react-date-range'
 import 'react-date-range/dist/styles.css'
 import 'react-date-range/dist/theme/default.css'
 import { useParams } from 'react-router-dom'
 
 import { TParams } from '../../types'
-import { DateRange } from "react-date-range";
 
-const Calendar = ({ setIsShow }: any) => {
+const Calendar = ({ setIsShow, calendarRef }: any) => {
 	const { address }: TParams = useParams()
-	const calendarRef: any = useRef()
+
 	const [dataRange, setDataRange] = useState([
 		{
 			startDate: new Date(),
@@ -20,8 +20,6 @@ const Calendar = ({ setIsShow }: any) => {
 			key: 'selection',
 		},
 	])
-
-	useOnClickOutside(calendarRef, () => setIsShow(false))
 
 	const changeData = (item: any) => setDataRange([item.selection])
 
@@ -38,7 +36,7 @@ const Calendar = ({ setIsShow }: any) => {
 	}
 
 	return (
-		<div ref={calendarRef} className="tabs__calendar">
+		<div className="tabs__calendar">
 			<DateRange
 				editableDateInputs={true}
 				onChange={changeData}

@@ -8,13 +8,12 @@ import Tabs from 'components/Tabs'
 import Token from 'components/Token'
 import { formatEther } from 'ethers/lib/utils'
 import { useActions } from 'hooks/useActions'
+import useCopyContent from 'hooks/useCopyContent'
 import { useTypedSelector } from 'hooks/useTypedSelector'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { shallowEqual } from 'react-redux'
 import { useParams } from 'react-router-dom'
-
-import useCopyContent from '../../../hooks/useCopyContent'
-import { TParams } from '../../../types'
+import { TParams } from 'types'
 
 import { TokenType, TransactionProps } from './address-details.interface'
 
@@ -62,10 +61,10 @@ export const AddressDetails = () => {
 	)
 
 	useEffect(() => {
-		if (  address || type|| filtered||tokenToSorted) {
+		if (address || type || filtered || tokenToSorted) {
 			setTx([])
 		}
-	}, [address, type, filtered,tokenToSorted])
+	}, [address, type, filtered, tokenToSorted])
 
 	useEffect(() => {
 		if (filtered && addressData?.tokens?.length) {
@@ -117,23 +116,23 @@ export const AddressDetails = () => {
 	useEffect(() => {
 		if (addressData && addressData?.transactions) {
 			setTx((prevState) => {
-			if (filtered) {
-				const newTx: any = [...addressData.transactions].sort(
-					(a: any, b: any) => b.block - a.block
-				)
-				return newTx
-			}else {
-				const compare: any = new Map(
-					[...prevState, ...addressData.transactions].map((item) => [
-						item.block,
-						item,
-					])
-				).values()
-				const newTx: TransactionProps[] = [...compare].sort(
-					(a: any, b: any) => b.block - a.block
-				)
-				return newTx
-			}
+				if (filtered) {
+					const newTx: any = [...addressData.transactions].sort(
+						(a: any, b: any) => b.block - a.block
+					)
+					return newTx
+				} else {
+					const compare: any = new Map(
+						[...prevState, ...addressData.transactions].map((item) => [
+							item.block,
+							item,
+						])
+					).values()
+					const newTx: TransactionProps[] = [...compare].sort(
+						(a: any, b: any) => b.block - a.block
+					)
+					return newTx
+				}
 			})
 		}
 	}, [addressData])
