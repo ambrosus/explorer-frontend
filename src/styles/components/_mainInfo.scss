@@ -39,8 +39,8 @@
 		background-color: #fff;
 		border-radius: 0 1.15em 1.15em 0;
 		@include for-device-large {
+			// display: flex;
 			border-radius: 0 0 1.15em 1.15em;
-			display: flex;
 			width: 100%;
 		}
 	}
