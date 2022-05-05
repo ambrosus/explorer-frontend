@@ -1,4 +1,3 @@
-import API from 'API/api'
 import ContentCopy from 'assets/icons/CopyIcons/ContentCopy'
 import ContentCopyed from 'assets/icons/CopyIcons/ContentCopyed'
 import ContentCopyedPopup from 'assets/icons/CopyIcons/ContentCopyedPopup'
@@ -14,6 +13,8 @@ import { useTypedSelector } from 'hooks/useTypedSelector'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { shallowEqual } from 'react-redux'
 import { useParams } from 'react-router-dom'
+
+import { getDataForAddress } from '../../../services/address.service'
 import { TParams } from 'types'
 
 import { TokenType, TransactionProps } from './address-details.interface'
@@ -78,7 +79,7 @@ export const AddressDetails = () => {
 
 		if (!loading || errorData) {
 			if (addressData && addressData?.meta?.totalPages > pageNum) {
-				setPosition(API.getDataForAddress, address?.trim(), {
+				setPosition(getDataForAddress, address?.trim(), {
 					filtered:
 						addressData && addressData.filters ? addressData.filters : [],
 					selectedTokenFilter:
@@ -90,7 +91,7 @@ export const AddressDetails = () => {
 					page: pageNum,
 				})
 			} else {
-				setPosition(API.getDataForAddress, address?.trim(), {
+				setPosition(getDataForAddress, address?.trim(), {
 					filtered:
 						addressData && addressData.filters ? addressData.filters : [],
 					selectedTokenFilter:
@@ -193,13 +194,13 @@ export const AddressDetails = () => {
 						)}
 					</div>
 				</Content.Header>
-				<Content.Body isLoading={true}>
+				<Content.Body isLoading={filtered ? !loading : true}>
 					<Tabs
 						lastCardRef={lastCardRef}
 						onClick={setSelectedToken}
 						selectedToken={selectedToken}
 						transactionType={transactionType}
-						data={tx}
+						data={!!tx ? tx : []}
 						setTransactionType={setTransactionType}
 					/>
 				</Content.Body>

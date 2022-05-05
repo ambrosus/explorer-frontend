@@ -1,10 +1,12 @@
 import { ethers } from 'ethers';
+import { ReactNode } from "react";
 
 export  type TokenType = {
 	address: string;
 	balance: string;
 	decimals: number;
 	symbol: string;
+	token?:string
 	contract: string;
 	name: string;
 	idx: number;
@@ -32,7 +34,7 @@ export type TransactionProps = {
 	date: number;
 	block: number;
 	amount: any;
-	token: string;
+	token: string | undefined
 	txFee: any;
 }
 
@@ -62,4 +64,6 @@ to: string | number;
 	onClick?: any;
 	isLatest?: boolean;
 }
+
+export type PropsWithChildren<P> = P & { children?: ReactNode | undefined };
 

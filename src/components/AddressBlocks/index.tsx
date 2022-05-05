@@ -94,13 +94,15 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 					<Amb />
 				</span>
 				{amount}
-				{token && token !== 'AMB' ? (
+				{token ? (
 					<div
 						style={{
 							padding: '0 5px',
-							cursor: 'pointer',
+							cursor:
+								token !== 'AMB' && type !== 'ERC-20_Tx' ? 'pointer' : 'default',
 							color: '#808a9d',
-							textDecoration: 'underline',
+							textDecoration:
+								token !== 'AMB' && type !== 'ERC-20_Tx' ? 'underline' : 'none',
 						}}
 						onClick={() => {
 							addressData?.tokens.forEach((item: any) => {
@@ -116,12 +118,10 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 					>
 						{
 							// @ts-ignore
-							token ? token?.slice(0, 8) : ''
+							type !== 'ERC-20_Tx' ? token : ''
 						}
 					</div>
-				) : (
-					<div style={{ padding: '0 5px', color: '#808a9d' }}>AMB</div>
-				)}
+				) : null}
 			</div>
 		)
 
