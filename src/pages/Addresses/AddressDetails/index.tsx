@@ -1,5 +1,7 @@
-import ContentCopy from 'assets/icons/ContentCopy'
-import ContentCopyed from 'assets/icons/ContentCopyed'
+import API from 'API/api'
+import ContentCopy from 'assets/icons/CopyIcons/ContentCopy'
+import ContentCopyed from 'assets/icons/CopyIcons/ContentCopyed'
+import ContentCopyedPopup from 'assets/icons/CopyIcons/ContentCopyedPopup'
 import { Content } from 'components/Content'
 import FilteredToken from 'components/FilteredToken'
 import OverallBalance from 'components/OveralBalance'
@@ -7,14 +9,14 @@ import Tabs from 'components/Tabs'
 import Token from 'components/Token'
 import { formatEther } from 'ethers/lib/utils'
 import { useActions } from 'hooks/useActions'
+import useCopyContent from 'hooks/useCopyContent'
 import { useTypedSelector } from 'hooks/useTypedSelector'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { shallowEqual } from 'react-redux'
 import { useParams } from 'react-router-dom'
 
-import useCopyContent from '../../../hooks/useCopyContent'
 import { getDataForAddress } from '../../../services/address.service'
-import { TParams } from '../../../types'
+import { TParams } from 'types'
 
 import { TokenType, TransactionProps } from './address-details.interface'
 
@@ -38,7 +40,7 @@ export const AddressDetails = () => {
 	const [limitNum] = useState(50)
 	const observer = useRef<IntersectionObserver>()
 
-	const { isCopy, copyContent } = useCopyContent(address)
+	const { isCopy, isCopyPopup, copyContent } = useCopyContent(address)
 	const lastCardRef = useCallback(
 		(node) => {
 			if (loading) return
@@ -153,16 +155,28 @@ export const AddressDetails = () => {
 			<section className="addressDetails">
 				<Content.Header>
 					<h1 className="addressDetails__h1">
-						Address Details{' '}
-						<span className="addressDetails__h1-span">
+						Address Details
+						<div className="addressDetails__copy">
 							{address}
 							<button
-								className={'addressDetails__h1-btn'}
+								className={'addressDetails__copy-btn'}
 								onClick={copyContent}
 							>
-								{isCopy ? <ContentCopyed /> : <ContentCopy />}
+								{isCopy ? (
+									<>
+										<ContentCopyed />
+
+										{isCopyPopup && (
+											<span className={'addressDetails__copy-popup'}>
+												<ContentCopyedPopup />
+											</span>
+										)}
+									</>
+								) : (
+									<ContentCopy />
+								)}
 							</button>
-						</span>
+						</div>
 					</h1>
 					<div className="addressDetails__section">
 						<div className="addressDetails__info">

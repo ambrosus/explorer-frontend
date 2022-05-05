@@ -13,9 +13,10 @@
 		grid-template-columns: repeat(3, auto);
 		background: #ffffff;
 		border-radius: 1.15em 0 0 1.15em;
-
-		@include for-device-medium {
+		@include for-device-large {
 			border-radius: 1.15em 1.15em 0 0;
+		}
+		@include for-device-medium {
 			grid-template-columns: repeat(2, auto);
 		}
 		@include for-device-small {
@@ -29,8 +30,7 @@
 		align-items: center;
 		justify-content: flex-start;
 		height: 105px;
-
-		border: 1px solid #f6f6f6;
+		border: 0.5px solid #f6f6f6;
 	}
 	&__chart {
 		height: 210px;
@@ -39,14 +39,18 @@
 		background-color: #fff;
 		border-radius: 0 1.15em 1.15em 0;
 		@include for-device-large {
+			// display: flex;
 			border-radius: 0 0 1.15em 1.15em;
-			display: flex;
 			width: 100%;
 		}
 	}
 	&__text {
 		margin: 0 12px;
 		white-space: nowrap;
+		width: 168px;
+		@include for-device-large {
+			width: 155px;
+		}
 	}
 	&__icon {
 		display: flex;

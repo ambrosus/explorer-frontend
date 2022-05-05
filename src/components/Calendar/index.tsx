@@ -9,19 +9,17 @@ import { useParams } from 'react-router-dom'
 
 import { TParams } from '../../types'
 
-const Calendar = ({ setIsShow }: any) => {
+const Calendar = ({ setIsShow, calendarRef }: any) => {
 	const { address }: TParams = useParams()
-	const calendarRef: any = useRef()
+
 	const [dataRange, setDataRange] = useState([
 		{
 			startDate: new Date(),
-			endDate: addDays(new Date(), 7),
+			endDate: addDays(new Date(), -4),
 			color: '#05060F',
 			key: 'selection',
 		},
 	])
-
-	useOnClickOutside(calendarRef, () => setIsShow(false))
 
 	const changeData = (item: any) => setDataRange([item.selection])
 
@@ -38,7 +36,7 @@ const Calendar = ({ setIsShow }: any) => {
 	}
 
 	return (
-		<div ref={calendarRef} className="tabs__calendar">
+		<div className="tabs__calendar">
 			<DateRange
 				editableDateInputs={true}
 				onChange={changeData}

@@ -20,11 +20,6 @@ export const sliceData10 = (item: string | any) => {
 export const calcTime = (time: any) =>
 	moment(time).isValid() ? moment(time * 1000).fromNow() : ''
 
-export const setActiveLink = (props: {
-	isActive: boolean
-}): string | undefined =>
-	'tabs__link ' + (props.isActive ? 'tabs__link-active' : '')
-
 export const setupStyle = (item: string | undefined) => {
 	let type: { style: object } = {
 		style: {},

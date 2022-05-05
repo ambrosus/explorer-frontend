@@ -86,14 +86,25 @@
 		@include for-device-medium {
 			width: 100%;
 		}
+		&-mobile {
+			margin-top: 100px;
+			position: absolute;
+			z-index: 1;
+		}
 	}
 	&__sideMenu {
 		display: flex;
+		width: 140px;
 		align-items: center;
-		justify-content: center;
-		width: 24px;
-		height: 24px;
-		background: #eff2f5;
-		border-radius: 8px;
+		justify-content: flex-end;
+		&-icon {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 24px;
+			height: 24px;
+			background: #eff2f5;
+			border-radius: 8px;
+		}
 	}
 }

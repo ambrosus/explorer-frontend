@@ -1,15 +1,15 @@
-import React from 'react';
+import React from 'react'
 
 export interface IRoute {
-	path: string,
-	key: string,
-	exact: boolean,
+	path: string
+	key: string
+	exact: boolean
 	component: React.FC
 }
 
 export type TParams = {
-	address?: string;
-	type?: string;
-	filtered?: string;
-	tokenToSorted?: string;
-};
+	address?: string
+	type?: string
+	filtered?: string
+	tokenToSorted?: string
+}

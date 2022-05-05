@@ -48,7 +48,11 @@ const Tabs: FC<TabsProps> = ({
 	}, [addressData, data, filtered, type, loading])
 
 	const { width } = useWindowSize()
+
 	const { transactionFilters, ERC20Filters, methodFilters } = sidePages
+	const [isShow, setIsShow] = useState(false)
+	const setActiveLink = ({ isActive }: any) =>
+		isActive ? 'tabs__link tabs__link-active' : 'tabs__link'
 
 	return (
 		<>
@@ -90,9 +94,19 @@ const Tabs: FC<TabsProps> = ({
 					{width > 760 ? (
 						<ExportCsv />
 					) : (
-						<button className="tabs__sideMenu">
-							<SideMenu />
-						</button>
+						<div className="tabs__sideMenu">
+							<button
+								className="tabs__sideMenu-icon"
+								onClick={() => setIsShow(!isShow)}
+							>
+								<SideMenu />
+							</button>
+							{isShow && (
+								<div className="tabs__exportModal-mobile">
+									<ExportCsv />
+								</div>
+							)}
+						</div>
 					)}
 				</div>
 			</div>
