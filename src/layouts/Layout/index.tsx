@@ -7,6 +7,10 @@ export interface LayoutProps {
 	children: React.ReactNode
 }
 
+/*
+@param {React.ReactNode} children
+@return {React.FC<LayoutProps>}
+ */
 export const Layout: FC<LayoutProps> = ({ children }) => (
 	<div className="layout ">
 		<Header />

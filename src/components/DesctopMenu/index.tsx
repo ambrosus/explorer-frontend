@@ -3,6 +3,11 @@ import FindWide from 'components/FindWide'
 import { useOnClickOutside } from 'hooks/useOnClickOutside'
 import React, { useRef, useState } from 'react'
 
+/*
+ * @param {string} props.title - title of the menu
+ * @param {string} props.link - link of the menu
+ *@return {JSX.Element} - return JSX.Element
+ */
 interface DesctopMenuProps {
 	menu: any
 }

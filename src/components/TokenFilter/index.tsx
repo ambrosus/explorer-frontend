@@ -17,13 +17,13 @@ const TokenFilter = ({ onClick, selectedToken }: any) => {
 	const { address }: TParams = useParams()
 	const refTokensModal = useRef<HTMLDivElement>(null)
 
-	useOnClickOutside(refTokensModal, () => setIsShow(false))
-
+	useOnClickOutside(refTokensModal, () => !isShow && setIsShow(false))
 	const toggleMenu = () => setIsShow(!isShow)
 
 	const handleSelect = (token: any) => {
 		onClick(token)
 		addFilter(token)
+		setIsShow(false)
 		navigate(
 			`/addresses/${address}/ERC-20_Tx/${token.contract ? token.contract : ''}`
 		)
@@ -53,4 +53,4 @@ const TokenFilter = ({ onClick, selectedToken }: any) => {
 	)
 }
 
-export default TokenFilter
+export default React.memo(TokenFilter)

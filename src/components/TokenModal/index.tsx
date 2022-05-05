@@ -30,7 +30,7 @@ const TokenModal: FC<TokenModalProps> = ({ selectedToken, setToken }) => {
 				setFilteredTokensList(tokens)
 			}
 		}
-	}, [name])
+	}, [name, tokens, selectedToken])
 
 	return (
 		<div className="tokenModal" tabIndex={0}>
