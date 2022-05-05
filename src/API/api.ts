@@ -203,9 +203,8 @@ const followTheLinkRange = (fromDate: any, toDate: any, address: any) => {
   const to = toDate / 1000;
   window.open(`${link}/dateFrom/${from}/dateTo/${to}`, "_self");
 };
-
-export default {
-  API: API,
+const api={
+  API: API(),
   getBlocks,
   getBlockTransactions,
   getTransactions,
@@ -235,3 +234,5 @@ export default {
   getAtlasBundles,
   followTheLinkRange
 };
+
+export default api

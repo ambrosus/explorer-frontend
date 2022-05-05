@@ -79,7 +79,7 @@ const sortedLatestTransactionsData = async (
     (token: TokenType) => token.contract
   );
   const byToken = includesTokens.map(async (token: TokenType) => {
-    const tokensTransactions: any = await API.API().get(url, {
+    const tokensTransactions: any = await API.API.get(url, {
       params: {
         page: page,
         pageSize: 1000,
@@ -115,7 +115,7 @@ const sortedLatestTransactionsData = async (
 };
 
 const blockBookApiTokensSearch: any = async (url: string, { page, type, limit }: any) => {
-  const blockBookApiForT: any = await API.API().get(url, {
+  const blockBookApiForT: any = await API.API.get(url, {
     params: {
       page: page,
       pageSize: !type ? limit : 1000
@@ -124,7 +124,7 @@ const blockBookApiTokensSearch: any = async (url: string, { page, type, limit }:
 
   const array: any = blockBookApiForT && blockBookApiForT.tokens && blockBookApiForT.tokens.map(async (token: TokenType) => {
     // @ts-ignore
-    const getTokenData: any = await API.API().get(url, {
+    const getTokenData: any = await API.API.get(url, {
       params: {
         page: page,
         pageSize: 1000,
@@ -144,7 +144,7 @@ const blockBookApiTokensSearch: any = async (url: string, { page, type, limit }:
 };
 const bbDataFillter = async (url: string, { limit, page, type, selectedTokenFilter }: any) => {
 
-  const bbApi: any = await API.API().get(url, {
+  const bbApi: any = await API.API.get(url, {
     params: {
       page: page,
       pageSize: !type ? limit : 1000,

@@ -1,4 +1,3 @@
-import API from 'API/api'
 import ContentCopy from 'assets/icons/CopyIcons/ContentCopy'
 import ContentCopyed from 'assets/icons/CopyIcons/ContentCopyed'
 import ContentCopyedPopup from 'assets/icons/CopyIcons/ContentCopyedPopup'
