@@ -7,6 +7,12 @@ import { useNavigate } from 'react-router-dom'
 import { useDebounce } from '../../hooks/useDebounce'
 import { FindWideProps } from '../../pages/Home/home.interfaces'
 
+/*
+ * @param {FindWideProps} props - props passed from parent component
+ * @returns {JSX.Element}
+ * @name FindWide
+ * @version 1.0.0
+ */
 const FindWide: React.FC<FindWideProps> = ({ searchRef }) => {
 	const [name, setName] = useState<string>('')
 	const navigate = useNavigate()

@@ -3,7 +3,7 @@ import { useTypedSelector } from 'hooks/useTypedSelector'
 import useWindowSize from 'hooks/useWindowSize'
 import moment from 'moment'
 import { TabsProps } from 'pages/Addresses/AddressDetails/address-details.interface'
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from 'react'
 import { NavLink, useParams } from 'react-router-dom'
 import { setupStyle, toUniqueValueByBlock } from 'utils/helpers'
 import { sidePages } from 'utils/sidePages'

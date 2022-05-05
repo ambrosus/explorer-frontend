@@ -8,7 +8,6 @@ import './styles/Main.scss'
 
 const Main: React.FC = () => {
 	const { setAppDataAsync } = useActions()
-
 	useEffect(() => {
 		setAppDataAsync()
 	}, [])

@@ -53,3 +53,13 @@ export const Header = () => {
 		</div>
 	)
 }
+/*need jsDoc for Header function
+ * @param {IRoute[]} menuItems
+ * @param {boolean} isMobile
+ * @param {boolean} isDesctop
+ * @param {boolean} isOpen
+ * @param {() => void} toggleMenu
+ * @param {() => void} closeMenu
+ * @param {() => void} openMenu
+ * @returns {JSX.Element}
+ */
