@@ -32,8 +32,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 	const isMethod =
 		method === null ? null : (
 			<div ref={methodRef} className="addressDetails__thead-td">
-				<button
-					className=" universall__light2"
+				<div
 					style={{
 						display: 'flex',
 						alignItems: 'center',
@@ -41,11 +40,11 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 						fontSize: '0.86rem',
 						lineHeight: '1.77em',
 					}}
-					onClick={() => setIsShow(true)}
+					// onClick={() => setIsShow(true)}
 				>
 					{method}
-					<ArrowDown />
-				</button>
+					{/* <ArrowDown /> */}
+				</div>
 				<div ref={methodRef} className="methodModal__table">
 					{isShow &&
 						methodFilters.map((filter: { title: string; value: number }) => (
