@@ -2,12 +2,12 @@ import API from 'API/api'
 import { addDays } from 'date-fns'
 import { useOnClickOutside } from 'hooks/useOnClickOutside'
 import React, { useRef, useState } from 'react'
+import { DateRange } from 'react-date-range'
 import 'react-date-range/dist/styles.css'
 import 'react-date-range/dist/theme/default.css'
 import { useParams } from 'react-router-dom'
 
 import { TParams } from '../../types'
-import { DateRange } from "react-date-range";
 
 const Calendar = ({ setIsShow }: any) => {
 	const { address }: TParams = useParams()

@@ -1,4 +1,3 @@
-import API from 'API/api'
 import ContentCopy from 'assets/icons/ContentCopy'
 import ContentCopyed from 'assets/icons/ContentCopyed'
 import { Content } from 'components/Content'
@@ -14,6 +13,7 @@ import { shallowEqual } from 'react-redux'
 import { useParams } from 'react-router-dom'
 
 import useCopyContent from '../../../hooks/useCopyContent'
+import { getDataForAddress } from '../../../services/address.service'
 import { TParams } from '../../../types'
 
 import { TokenType, TransactionProps } from './address-details.interface'
@@ -62,10 +62,10 @@ export const AddressDetails = () => {
 	)
 
 	useEffect(() => {
-		if (  address || type|| filtered||tokenToSorted) {
+		if (address || type || filtered || tokenToSorted) {
 			setTx([])
 		}
-	}, [address, type, filtered,tokenToSorted])
+	}, [address, type, filtered, tokenToSorted])
 
 	useEffect(() => {
 		if (filtered && addressData?.tokens?.length) {
@@ -78,7 +78,7 @@ export const AddressDetails = () => {
 
 		if (!loading || errorData) {
 			if (addressData && addressData?.meta?.totalPages > pageNum) {
-				setPosition(API.getDataForAddress, address?.trim(), {
+				setPosition(getDataForAddress, address?.trim(), {
 					filtered:
 						addressData && addressData.filters ? addressData.filters : [],
 					selectedTokenFilter:
@@ -90,7 +90,7 @@ export const AddressDetails = () => {
 					page: pageNum,
 				})
 			} else {
-				setPosition(API.getDataForAddress, address?.trim(), {
+				setPosition(getDataForAddress, address?.trim(), {
 					filtered:
 						addressData && addressData.filters ? addressData.filters : [],
 					selectedTokenFilter:
@@ -117,23 +117,23 @@ export const AddressDetails = () => {
 	useEffect(() => {
 		if (addressData && addressData?.transactions) {
 			setTx((prevState) => {
-			if (filtered) {
-				const newTx: any = [...addressData.transactions].sort(
-					(a: any, b: any) => b.block - a.block
-				)
-				return newTx
-			}else {
-				const compare: any = new Map(
-					[...prevState, ...addressData.transactions].map((item) => [
-						item.block,
-						item,
-					])
-				).values()
-				const newTx: TransactionProps[] = [...compare].sort(
-					(a: any, b: any) => b.block - a.block
-				)
-				return newTx
-			}
+				if (filtered) {
+					const newTx: any = [...addressData.transactions].sort(
+						(a: any, b: any) => b.block - a.block
+					)
+					return newTx
+				} else {
+					const compare: any = new Map(
+						[...prevState, ...addressData.transactions].map((item) => [
+							item.block,
+							item,
+						])
+					).values()
+					const newTx: TransactionProps[] = [...compare].sort(
+						(a: any, b: any) => b.block - a.block
+					)
+					return newTx
+				}
 			})
 		}
 	}, [addressData])
@@ -181,13 +181,13 @@ export const AddressDetails = () => {
 						)}
 					</div>
 				</Content.Header>
-				<Content.Body isLoading={true}>
+				<Content.Body isLoading={filtered ? !loading : true}>
 					<Tabs
 						lastCardRef={lastCardRef}
 						onClick={setSelectedToken}
 						selectedToken={selectedToken}
 						transactionType={transactionType}
-						data={tx}
+						data={!!tx ? tx : []}
 						setTransactionType={setTransactionType}
 					/>
 				</Content.Body>
