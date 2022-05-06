@@ -163,6 +163,7 @@ const Tabs: FC<TabsProps> = ({
 									amount={transaction.amount}
 									txfee={transaction.txFee}
 									token={`${transaction?.token ? transaction?.token : null}`}
+									symbol={`${transaction?.symbol ? transaction?.symbol : null}`}
 								/>
 							) : (
 								<AddressBlock
@@ -177,6 +178,8 @@ const Tabs: FC<TabsProps> = ({
 									amount={transaction.amount}
 									txfee={transaction.txFee}
 									token={`${transaction?.token ? transaction?.token : null}`}
+									symbol={`${transaction?.symbol ? transaction?.symbol : null}`}
+
 								/>
 							)
 						)
