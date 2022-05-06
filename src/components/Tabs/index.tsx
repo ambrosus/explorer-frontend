@@ -179,7 +179,6 @@ const Tabs: FC<TabsProps> = ({
 									txfee={transaction.txFee}
 									token={`${transaction?.token ? transaction?.token : null}`}
 									symbol={`${transaction?.symbol ? transaction?.symbol : null}`}
-
 								/>
 							)
 						)
