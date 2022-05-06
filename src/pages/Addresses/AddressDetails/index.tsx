@@ -37,8 +37,8 @@ export const AddressDetails = () => {
 	const [pageNum, setPageNum] = useState(1)
 	const [limitNum] = useState(50)
 	const observer = useRef<IntersectionObserver>()
-
 	const { isCopy, isCopyPopup, copyContent } = useCopyContent(address)
+
 	const lastCardRef = useCallback(
 		(node) => {
 			if (loading) return
@@ -75,7 +75,6 @@ export const AddressDetails = () => {
 				)
 			)
 		}
-
 		if (!loading || errorData) {
 			if (addressData && addressData?.meta?.totalPages > pageNum) {
 				setPosition(getDataForAddress, address?.trim(), {
