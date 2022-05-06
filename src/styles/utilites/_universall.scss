@@ -9,6 +9,9 @@
 		color: #808a9d;
 	}
 	&__indent-icon {
+		display: flex;
+		align-items: center;
+		justify-content: center;
 		margin-right: 8px;
 	}
 }
