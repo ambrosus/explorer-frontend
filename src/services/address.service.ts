@@ -13,41 +13,33 @@ import { formatEther } from 'ethers/lib/utils'
 import { ethereum } from 'utils/constants'
 
 const getTokensBalance = async (tokensArr: TokenType[], address: string) => {
-	try {
-		const newTokens: TokenType[] | never = []
-		if (tokensArr?.length) {
-			tokensArr.map(async (token: TokenType) => {
-				try {
-					// TODO get data in incognito
-					// const ambProvider = new providers.JsonRpcProvider('https://network.ambrosus.io');
-					const ambProvider = new providers.Web3Provider(ethereum)
-					const tokenContract = await new ethers.Contract(
-						token.contract,
-						erc20Abi,
-						ambProvider,
-					)
-					const name = getTokenName(token)
-					const balance = Number(
-						formatEther(await tokenContract.balanceOf(String(address))),
-					).toFixed(2)
-					const totalSupply = Number(
-						formatEther(await tokenContract.totalSupply()),
-					)
-					token.balance = balance
-					token.totalSupply = totalSupply
-					token.name = name
-				} catch (e) {
-					console.log(e)
-				} finally {
-					newTokens.push(token)
-				}
-			})
-			return newTokens
+	return Promise.all(tokensArr.map(async (token) => {
+		const ambProvider = new ethers.providers.JsonRpcProvider(
+			'https://network.ambrosus.io',
+		);
+		// const ambProvider = new providers.Web3Provider(ethereum)
+		const tokenContract = new ethers.Contract(
+			token.contract,
+			erc20Abi,
+			ambProvider,
+		)
+		const name = getTokenName(token)
+		const balance = Number(
+			formatEther(await tokenContract.balanceOf(String(address))),
+		).toFixed(2)
+		const totalSupply = Number(
+			formatEther(await tokenContract.totalSupply()),
+		)
+		token.balance = balance
+		token.totalSupply = totalSupply
+		token.name = name
+		return {
+			...token,
+			balance,
+			totalSupply
 		}
-		return newTokens
-	} catch (e) {
-		console.log(e)
-	}
+	}))
+
 }
 const getTokenName = (token: TokenType) => {
 	const tokenName = typeof token === 'string' ? token : token.contract
@@ -247,6 +239,7 @@ export const getDataForAddress = async (address: string, params: any) => {
 			bbApi,
 			bbTxData,
 		}: TransactionProps[] | any = await bbDataFillter(url, params)
+
 		const defaultFilters: TokenType[] = await getTokensBalance(blockBookApiTokens, address) || []
 		const explorData: TransactionProps[] = await explorerData(address, params)
 		const latestTransactions: TransactionProps[] = await sortedLatestTransactionsData(defaultFilters, url, page) || []

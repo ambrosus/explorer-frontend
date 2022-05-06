@@ -26,7 +26,6 @@ export const AddressDetails = () => {
 		(state) => state.tokenFilters,
 		shallowEqual
 	)
-	console.log('type',type)
 	const {
 		loading,
 		data: addressData,
@@ -134,13 +133,11 @@ export const AddressDetails = () => {
 						(a: any, b: any) => b.block - a.block
 					)
 					const transfersDataTx: TransactionProps[] = newTx.filter(
-						(item: TransactionProps) => item.method === "Transfer"
-					);
-					return type === "transfers" ? transfersDataTx: newTx
+						(item: TransactionProps) => item.method === 'Transfer'
+					)
+					return type === 'transfers' ? transfersDataTx : newTx
 				}
 			})
-			console.log('tx', tx)
-			console.log('addressData.transactions', addressData.transactions)
 		}
 	}, [addressData])
 
