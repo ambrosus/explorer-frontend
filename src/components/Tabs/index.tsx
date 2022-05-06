@@ -1,9 +1,11 @@
 import SideMenu from 'assets/icons/SideMenu'
+import Calendar from 'components/Calendar'
+import { useOnClickOutside } from 'hooks/useOnClickOutside'
 import { useTypedSelector } from 'hooks/useTypedSelector'
 import useWindowSize from 'hooks/useWindowSize'
 import moment from 'moment'
 import { TabsProps } from 'pages/Addresses/AddressDetails/address-details.interface'
-import React, { FC, useState } from 'react'
+import React, { FC, useRef, useState } from 'react'
 import { NavLink, useParams } from 'react-router-dom'
 import { setupStyle, toUniqueValueByBlock } from 'utils/helpers'
 import { sidePages } from 'utils/sidePages'
@@ -23,7 +25,7 @@ const Tabs: FC<TabsProps> = ({
 	const { loading, data: addressData } = useTypedSelector(
 		(state: any) => state.position
 	)
-	console.log('data', data)
+
 	const headerBlock: any = type === 'ERC-20_Tx' ? null : 'Block'
 	const headerTxfee: any = type === 'ERC-20_Tx' ? null : 'txFee'
 	const headerToken: any = type === 'ERC-20_Tx' ? 'token' : null
@@ -34,11 +36,19 @@ const Tabs: FC<TabsProps> = ({
 	const [isShow, setIsShow] = useState(false)
 	const setActiveLink = ({ isActive }: any) =>
 		isActive ? 'tabs__link tabs__link-active' : 'tabs__link'
+	const mobileCalendarRef = useRef(null)
+
+	useOnClickOutside(mobileCalendarRef, () => setIsShow(false))
 
 	return (
 		<>
 			<div className="tabs" tabIndex={-1}>
 				<div className="tabs__filters" tabIndex={-1}>
+					{isShow && (
+						<div ref={mobileCalendarRef} className="tabs__exportModal-mobile">
+							<Calendar />
+						</div>
+					)}
 					{!filtered
 						? transactionFilters &&
 						  transactionFilters.length &&
@@ -71,23 +81,20 @@ const Tabs: FC<TabsProps> = ({
 								</NavLink>
 						  ))}
 				</div>
-				<div className="tabs__exportModal">
+				<div ref={mobileCalendarRef} className="tabs__exportModal">
 					{width > 760 ? (
 						<ExportCsv />
 					) : (
-						<div className="tabs__sideMenu">
-							<button
-								className="tabs__sideMenu-icon"
-								onClick={() => setIsShow(!isShow)}
-							>
-								<SideMenu />
-							</button>
-							{isShow && (
-								<div className="tabs__exportModal-mobile">
-									<ExportCsv />
-								</div>
-							)}
-						</div>
+						<>
+							<div className="tabs__sideMenu">
+								<button
+									className="tabs__sideMenu-icon"
+									onClick={() => setIsShow(!isShow)}
+								>
+									<SideMenu />
+								</button>
+							</div>
+						</>
 					)}
 				</div>
 			</div>

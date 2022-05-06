@@ -30,6 +30,11 @@
 			"@/utils": ["utils/*"]
 		}
 	},
-	"include": ["**/*.ts", "**/*.tsx"],
+	"include": [
+		"**/*.ts",
+		"**/*.tsx",
+		"src/components/Calendar/index.jsx",
+		"src/components/Calendar/index.jsx"
+	],
 	"exclude": ["node_modules"]
 }

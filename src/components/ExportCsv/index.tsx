@@ -25,7 +25,7 @@ const ExportCsv = () => {
 						<span className="tabs__exportCsv-text">ExportCsv</span>
 					</button>
 				</div>
-				{isShow && <Calendar setIsShow={setIsShow} calendarRef={calendarRef} />}
+				{isShow && <Calendar />}
 			</div>
 		</>
 	)
