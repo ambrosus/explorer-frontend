@@ -1,5 +1,6 @@
 import moment from 'moment'
-import { TransactionProps } from "../pages/Addresses/AddressDetails/address-details.interface";
+
+import { TransactionProps } from '../pages/Addresses/AddressDetails/address-details.interface'
 
 export const sliceData5 = (item: string | any) => {
 	if (!item) {
@@ -33,13 +34,10 @@ export const setupStyle = (item: string | undefined) => {
 	}
 }
 
-export 	const toUniqueValueByBlock = (arr:any) => {
+export const toUniqueValueByBlock = (arr: any) => {
 	const compare: any = new Map(
 		[...arr].map((item) => {
-			return [
-				item.hash ? item.hash : item.block ,
-				item,
-			]
+			return [item.hash ? item.hash : item.block, item]
 		})
 	).values()
 	const newTx: TransactionProps[] = [...compare].sort(
