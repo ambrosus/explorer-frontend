@@ -1,5 +1,6 @@
-import Eth from 'assets/icons/Cryptos/Eth'
 import React from 'react'
+
+import { getTokenIcon } from '../../utils/helpers'
 
 type TokenItemProps = {
 	token: any
@@ -8,6 +9,7 @@ type TokenItemProps = {
 }
 
 const TokenItem = ({ token, selectedToken, setToken }: TokenItemProps) => {
+	const Icon = getTokenIcon(token.symbol)
 	return (
 		<div
 			className="tokenItem"
@@ -25,15 +27,18 @@ const TokenItem = ({ token, selectedToken, setToken }: TokenItemProps) => {
 			}}
 		>
 			<div className="tokenItem__icon">
-				<Eth />
+				<Icon />
 			</div>
+
 			<div className="tokenItem__tokens">
 				<div>
 					{token?.name?.length > 40
 						? `${token?.name.slice(0, 40)}...`
 						: token?.name}
 				</div>
-				<div className="universall__light2">{token?.balance}</div>
+				<div className="universall__light2">
+					{token?.balance} {token?.symbol}
+				</div>
 			</div>
 			<div className="tokenItem__amount">
 				{/*<div>{token?.balance}</div>*/}

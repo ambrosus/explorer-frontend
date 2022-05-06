@@ -152,6 +152,7 @@ const Tabs: FC<TabsProps> = ({
 						renderData.map((transaction: any, index: number) =>
 							data.length - 1 === index && data.length > 20 ? (
 								<AddressBlock
+									isLatest={type === 'ERC-20_Tx' && !filtered}
 									lastCardRef={lastCardRef}
 									onClick={onClick}
 									key={transaction.txHash}
@@ -164,9 +165,11 @@ const Tabs: FC<TabsProps> = ({
 									amount={transaction.amount}
 									txfee={transaction.txFee}
 									token={`${transaction?.token ? transaction?.token : null}`}
+									symbol={`${transaction?.symbol ? transaction?.symbol : null}`}
 								/>
 							) : (
 								<AddressBlock
+									isLatest={type === 'ERC-20_Tx' && !filtered}
 									onClick={onClick}
 									key={transaction.txHash}
 									txhash={transaction.txHash}
@@ -178,6 +181,7 @@ const Tabs: FC<TabsProps> = ({
 									amount={transaction.amount}
 									txfee={transaction.txFee}
 									token={`${transaction?.token ? transaction?.token : null}`}
+									symbol={`${transaction?.symbol ? transaction?.symbol : null}`}
 								/>
 							)
 						)}

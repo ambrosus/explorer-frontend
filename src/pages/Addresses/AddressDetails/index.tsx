@@ -13,9 +13,9 @@ import { useTypedSelector } from 'hooks/useTypedSelector'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { shallowEqual } from 'react-redux'
 import { useParams } from 'react-router-dom'
+import { TParams } from 'types'
 
 import { getDataForAddress } from '../../../services/address.service'
-import { TParams } from 'types'
 
 import { TokenType, TransactionProps } from './address-details.interface'
 
@@ -26,7 +26,6 @@ export const AddressDetails = () => {
 		(state) => state.tokenFilters,
 		shallowEqual
 	)
-
 	const {
 		loading,
 		data: addressData,
@@ -38,8 +37,8 @@ export const AddressDetails = () => {
 	const [pageNum, setPageNum] = useState(1)
 	const [limitNum] = useState(50)
 	const observer = useRef<IntersectionObserver>()
-
 	const { isCopy, isCopyPopup, copyContent } = useCopyContent(address)
+
 	const lastCardRef = useCallback(
 		(node) => {
 			if (loading) return
@@ -76,7 +75,6 @@ export const AddressDetails = () => {
 				)
 			)
 		}
-
 		if (!loading || errorData) {
 			if (addressData && addressData?.meta?.totalPages > pageNum) {
 				setPosition(getDataForAddress, address?.trim(), {
@@ -133,7 +131,10 @@ export const AddressDetails = () => {
 					const newTx: TransactionProps[] = [...compare].sort(
 						(a: any, b: any) => b.block - a.block
 					)
-					return newTx
+					const transfersDataTx: TransactionProps[] = newTx.filter(
+						(item: TransactionProps) => item.method === 'Transfer'
+					)
+					return type === 'transfers' ? transfersDataTx : newTx
 				}
 			})
 		}

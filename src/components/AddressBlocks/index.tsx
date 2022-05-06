@@ -8,7 +8,7 @@ import { useTypedSelector } from 'hooks/useTypedSelector'
 import { AddressBlockProps } from 'pages/Addresses/AddressDetails/address-details.interface'
 import React from 'react'
 import { NavLink, useNavigate, useParams } from 'react-router-dom'
-import { sliceData5, sliceData10 } from 'utils/helpers'
+import { getTokenIcon, sliceData5, sliceData10 } from 'utils/helpers'
 
 import { TParams } from '../../types'
 
@@ -25,6 +25,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 	amount,
 	txfee,
 	token,
+	symbol,
 }) => {
 	const online: any = txfee === 'Pending' ? <OrangeCircle /> : <GreenCircle />
 	const { addFilter } = useActions()
@@ -87,15 +88,19 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 		type === 'ERC-20_Tx' ? null : (
 			<div className="addressDetails__tbody-td">{block}</div>
 		)
+
+	const Icon = getTokenIcon(symbol as string)
 	const isAmount =
 		amount === null ? null : (
 			<div className="addressDetails__tbody-td">
+				{type !== 'ERC-20_Tx' ? (
 				<span className="universall__indent-icon">
-					<Amb />
+					<Icon />
 				</span>
-				{amount}
-				{token ? (
-					<div
+				) : null}
+				<span>{amount}</span>
+				{symbol ? (
+					<span
 						style={{
 							padding: '0 5px',
 							cursor:
@@ -105,7 +110,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 								token !== 'AMB' && type !== 'ERC-20_Tx' ? 'underline' : 'none',
 						}}
 						onClick={() => {
-							addressData?.tokens.forEach((item: any) => {
+							addressData?.tokens?.forEach((item: any) => {
 								if (item.name === token) {
 									onClick(item)
 									addFilter(item)
@@ -118,9 +123,9 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 					>
 						{
 							// @ts-ignore
-							type !== 'ERC-20_Tx' ? token : ''
+							type !== 'ERC-20_Tx' ? symbol : ''
 						}
-					</div>
+					</span>
 				) : null}
 			</div>
 		)
@@ -142,14 +147,21 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 		type === 'ERC-20_Tx' ? (
 			<div
 				className="addressDetails__tbody-td universall__light2"
-				style={{ fontWeight: '600' }}
+				style={{ fontWeight: '600', cursor: isLatest ? 'pointer' : 'default' }}
 			>
+				{type === 'ERC-20_Tx' ? (
+					<span className="universall__indent-icon">
+					<Icon />
+				</span>
+				) : null}
 				{!isLatest ? (
-					token
+					<>
+						{token} ({symbol})
+					</>
 				) : (
-					<div
+					<span
+						className="addressDetails__tbody-td universall__light2"
 						onClick={() => {
-							// eslint-disable-next-line array-callback-return
 							addressData?.tokens.map((item: any) => {
 								if (item.name === token) {
 									onClick(item)
@@ -159,8 +171,8 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 							})
 						}}
 					>
-						{token}
-					</div>
+						{token} (aaa)
+					</span>
 				)}
 			</div>
 		) : null

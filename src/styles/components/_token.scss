@@ -134,6 +134,7 @@
 	}
 
 	&__tokens {
+		padding-left: 10px;
 		line-height: 1.33em;
 	}
 	&__tokens:hover {
@@ -144,5 +145,6 @@
 		line-height: 1.33em;
 	}
 	&__icon {
+		margin-right: 2px;
 	}
 }
