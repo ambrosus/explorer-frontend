@@ -1,5 +1,5 @@
 import { Addresses } from 'pages/Addresses'
-import { AddressDetails }  from 'pages/Addresses/AddressDetails'
+import { AddressDetails } from 'pages/Addresses/AddressDetails'
 import { Apollo } from 'pages/Apollo'
 import { Atlas } from 'pages/Atlas'
 import { Blocks } from 'pages/Blocks'

@@ -1,44 +1,45 @@
-import React from "react";
+import React from 'react'
+
 // import { Area, AreaChart, Tooltip, XAxis, YAxis } from "recharts";
 // import API from "API/api";
 // import { CustomTooltip } from "./Tooltip";
 // import moment from "moment";
 // import Loader from "../Loader";
-import { useTypedSelector } from "../../hooks/useTypedSelector";
+import { useTypedSelector } from '../../hooks/useTypedSelector'
 
 const Chart = () => {
-  const { data: appData } = useTypedSelector((state: any) => state.app);
-//   const [data, setData] = useState([]);
-// // const [type,setHistoryTransactionType] = useState("transfers");
-//   // @ts-ignore
-//   useEffect(async () => {
-//     // TODO : get transactions data
-//     const { data: explorerTrans }: any = await API.getTransactions({
-//       limit: 50000,
-//       type:'transactions'
-//     });
-//
-//     const last30Days :any= [];
-//     const today = new Date();
-//     const lastDay = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 30);
-//     for (let i = 0; i < 30; i++) {
-//       const date = new Date(lastDay.getFullYear(), lastDay.getMonth(), lastDay.getDate() + i);
-//       const dateInFormat = moment(date).format("MMM Do ");
-//       const transactionsCountPerDay = explorerTrans.filter(
-//         (transaction: any) =>
-//           moment(transaction.timestamp * 1000).format("MMM Do ") === dateInFormat
-//       ).length;
-//       last30Days.push({ date: dateInFormat, count: transactionsCountPerDay });
-//     }
-//     setData(last30Days);
-//   }, []);
-  return (
-    <div className="bundles-activity">
-      <div className="chart-header-title">BUNDLES ACTIVITY</div>
-      <div className="bundlesActivity">{appData?.netInfo?.bundlesActivity}</div>
-      <div className="days">Last 24 hours</div>
-    </div>
-    /* <div className="chart">
+	const { data: appData } = useTypedSelector((state: any) => state.app)
+	//   const [data, setData] = useState([]);
+	// // const [type,setHistoryTransactionType] = useState("transfers");
+	//   // @ts-ignore
+	//   useEffect(async () => {
+	//     // TODO : get transactions data
+	//     const { data: explorerTrans }: any = await API.getTransactions({
+	//       limit: 50000,
+	//       type:'transactions'
+	//     });
+	//
+	//     const last30Days :any= [];
+	//     const today = new Date();
+	//     const lastDay = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 30);
+	//     for (let i = 0; i < 30; i++) {
+	//       const date = new Date(lastDay.getFullYear(), lastDay.getMonth(), lastDay.getDate() + i);
+	//       const dateInFormat = moment(date).format("MMM Do ");
+	//       const transactionsCountPerDay = explorerTrans.filter(
+	//         (transaction: any) =>
+	//           moment(transaction.timestamp * 1000).format("MMM Do ") === dateInFormat
+	//       ).length;
+	//       last30Days.push({ date: dateInFormat, count: transactionsCountPerDay });
+	//     }
+	//     setData(last30Days);
+	//   }, []);
+	return (
+		<div className="bundles-activity">
+			<div className="chart-header-title">BUNDLES ACTIVITY</div>
+			<div className="bundlesActivity">{appData?.netInfo?.bundlesActivity}</div>
+			<div className="days">Last 24 hours</div>
+		</div>
+		/* <div className="chart">
      <div className="chart-header">
         <span> <DropDown
          placeholder="Select an option"
@@ -118,7 +119,7 @@ const Chart = () => {
      </div>
    </div>
      */
-  );
-};
+	)
+}
 
-export default Chart;
+export default Chart

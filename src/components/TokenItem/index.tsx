@@ -28,8 +28,8 @@ const TokenItem = ({ token, selectedToken, setToken }: TokenItemProps) => (
 		</div>
 		<div className="tokenItem__tokens">
 			<div>
-				{token?.name?.length > 13
-					? `${token?.name.slice(0, 11)}...`
+				{token?.name?.length > 40
+					? `${token?.name.slice(0, 40)}...`
 					: token?.name}
 			</div>
 			<div className="universall__light2">{token?.balance}</div>

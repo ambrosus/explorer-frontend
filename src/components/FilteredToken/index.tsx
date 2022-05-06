@@ -17,7 +17,6 @@ const FilteredToken: FC<FilteredTokenProps> = ({ setSelectedToken }) => {
 	const navigate = useNavigate()
 	const { filters } = useTypedSelector((state: any) => state.tokenFilters)
 
-
 	const backClick = () => {
 		setSelectedToken(null)
 		clearFilters()

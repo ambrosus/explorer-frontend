@@ -4,6 +4,10 @@ import { NavLink } from 'react-router-dom'
 import { AmbrosusLogoFooter } from './AmbrosusLogoFooter'
 import footerSocials from './SocialsIcon'
 
+/*
+ * @param {Component} Icon - icon of social network (Facebook, Twitter, Instagram, etc.)
+ * <Component /> - component of icon with props (name, link, etc.)
+ */
 const icons = footerSocials.map((Component) => <Component key={Component} />)
 
 export const Footer = () => (

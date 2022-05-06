@@ -1,4 +1,3 @@
-import ArrowDown from 'assets/icons/Arrows/ArrowDown'
 import { useOnClickOutside } from 'hooks/useOnClickOutside'
 import { AddressBlockProps } from 'pages/Addresses/AddressDetails/address-details.interface'
 import React, { useRef, useState } from 'react'

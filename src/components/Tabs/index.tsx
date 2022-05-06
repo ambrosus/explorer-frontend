@@ -5,7 +5,7 @@ import { useTypedSelector } from 'hooks/useTypedSelector'
 import useWindowSize from 'hooks/useWindowSize'
 import moment from 'moment'
 import { TabsProps } from 'pages/Addresses/AddressDetails/address-details.interface'
-import React, { FC, useRef, useState } from 'react'
+import React, { FC, useEffect, useRef, useState } from 'react'
 import { NavLink, useParams } from 'react-router-dom'
 import { setupStyle, toUniqueValueByBlock } from 'utils/helpers'
 import { sidePages } from 'utils/sidePages'
@@ -25,10 +25,29 @@ const Tabs: FC<TabsProps> = ({
 	const { loading, data: addressData } = useTypedSelector(
 		(state: any) => state.position
 	)
-
 	const headerBlock: any = type === 'ERC-20_Tx' ? null : 'Block'
 	const headerTxfee: any = type === 'ERC-20_Tx' ? null : 'txFee'
 	const headerToken: any = type === 'ERC-20_Tx' ? 'token' : null
+	const [renderData, setRenderData] = React.useState<any>(null)
+
+	useEffect(() => {
+		if (addressData) {
+			if (data?.length && filtered && type === 'ERC-20_Tx') {
+				setRenderData(toUniqueValueByBlock(data))
+			}
+			if (data?.length && type !== 'ERC-20_Tx' && !filtered) {
+				setRenderData(toUniqueValueByBlock(data))
+			}
+			if (
+				addressData &&
+				addressData?.latestTransactions?.length &&
+				type === 'ERC-20_Tx' &&
+				!filtered
+			) {
+				setRenderData(toUniqueValueByBlock(addressData.latestTransactions))
+			}
+		}
+	}, [addressData, data, filtered, type, loading])
 
 	const { width } = useWindowSize()
 
@@ -127,109 +146,43 @@ const Tabs: FC<TabsProps> = ({
 							<Loader />
 						</div>
 					)}
-					{addressData?.latestTransactions?.length &&
-					type === 'ERC-20_Tx' &&
-					!filtered
-						? toUniqueValueByBlock(addressData.latestTransactions).map(
-								(transaction: any, index: number) => (
-									<AddressBlock
-										isLatest={true}
-										onClick={onClick}
-										key={transaction.txHash}
-										txhash={transaction.txHash}
-										method={transaction.method}
-										from={transaction.from}
-										to={transaction.to}
-										date={moment(transaction.date).fromNow()}
-										block={transaction.block}
-										amount={transaction.amount}
-										txfee={transaction.txFee}
-										token={`${transaction?.token ? transaction?.token : null}`}
-									/>
-								)
-						  )
-						: null}
-					{data?.length && filtered && type === 'ERC-20_Tx'
-						? toUniqueValueByBlock(data).map(
-								(transaction: any, index: number) =>
-									data.length - 1 === index && data.length > 20 ? (
-										<AddressBlock
-											lastCardRef={lastCardRef}
-											isLatest={true}
-											onClick={onClick}
-											key={transaction.txHash}
-											txhash={transaction.txHash}
-											method={transaction.method}
-											from={transaction.from}
-											to={transaction.to}
-											date={moment(transaction.date).fromNow()}
-											block={transaction.block}
-											amount={transaction.amount}
-											txfee={transaction.txFee}
-											token={`${
-												transaction?.token ? transaction?.token : null
-											}`}
-										/>
-									) : (
-										<AddressBlock
-											isLatest={true}
-											onClick={onClick}
-											key={transaction.txHash}
-											txhash={transaction.txHash}
-											method={transaction.method}
-											from={transaction.from}
-											to={transaction.to}
-											date={moment(transaction.date).fromNow()}
-											block={transaction.block}
-											amount={transaction.amount}
-											txfee={transaction.txFee}
-											token={`${
-												transaction?.token ? transaction?.token : null
-											}`}
-										/>
-									)
-						  )
-						: null}
 
-					{data?.length && type !== 'ERC-20_Tx' && !filtered
-						? toUniqueValueByBlock(data).map(
-								(transaction: any, index: number) =>
-									data.length - 1 === index && data.length > 20 ? (
-										<AddressBlock
-											lastCardRef={lastCardRef}
-											onClick={onClick}
-											key={transaction.txHash}
-											txhash={transaction.txHash}
-											method={transaction.method}
-											from={transaction.from}
-											to={transaction.to}
-											date={moment(transaction.date).fromNow()}
-											block={transaction.block}
-											amount={transaction.amount}
-											txfee={transaction.txFee}
-											token={`${
-												transaction?.token ? transaction?.token : null
-											}`}
-										/>
-									) : (
-										<AddressBlock
-											onClick={onClick}
-											key={transaction.txHash}
-											txhash={transaction.txHash}
-											method={transaction.method}
-											from={transaction.from}
-											to={transaction.to}
-											date={moment(transaction.date).fromNow()}
-											block={transaction.block}
-											amount={transaction.amount}
-											txfee={transaction.txFee}
-											token={`${
-												transaction?.token ? transaction?.token : null
-											}`}
-										/>
-									)
-						  )
-						: null}
+					{renderData && renderData?.length ? (
+						renderData.map((transaction: any, index: number) =>
+							data.length - 1 === index && data.length > 20 ? (
+								<AddressBlock
+									lastCardRef={lastCardRef}
+									onClick={onClick}
+									key={transaction.txHash}
+									txhash={transaction.txHash}
+									method={transaction.method}
+									from={transaction.from}
+									to={transaction.to}
+									date={moment(transaction.date).fromNow()}
+									block={transaction.block}
+									amount={transaction.amount}
+									txfee={transaction.txFee}
+									token={`${transaction?.token ? transaction?.token : null}`}
+								/>
+							) : (
+								<AddressBlock
+									onClick={onClick}
+									key={transaction.txHash}
+									txhash={transaction.txHash}
+									method={transaction.method}
+									from={transaction.from}
+									to={transaction.to}
+									date={moment(transaction.date).fromNow()}
+									block={transaction.block}
+									amount={transaction.amount}
+									txfee={transaction.txFee}
+									token={`${transaction?.token ? transaction?.token : null}`}
+								/>
+							)
+						)
+					) : (
+						<Loader />
+					)}
 				</section>
 			</div>
 		</>
