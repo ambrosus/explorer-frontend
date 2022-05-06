@@ -132,22 +132,10 @@ const Tabs: FC<TabsProps> = ({
 						token={headerToken}
 						methodFilters={methodFilters}
 					/>
-					{loading && (
-						<div
-							style={{
-								position: 'absolute',
-								bottom: '-50px',
-								width: '100%',
-								display: 'flex',
-								alignItems: 'center',
-								justifyContent: 'center',
-							}}
-						>
-							<Loader />
-						</div>
-					)}
+					{}
 
-					{renderData && renderData?.length ? (
+					{renderData &&
+						renderData?.length &&
 						renderData.map((transaction: any, index: number) =>
 							data.length - 1 === index && data.length > 20 ? (
 								<AddressBlock
@@ -183,11 +171,19 @@ const Tabs: FC<TabsProps> = ({
 									symbol={`${transaction?.symbol ? transaction?.symbol : null}`}
 								/>
 							)
-						)
-					) : (
-						<Loader />
-					)}
+						)}
 				</section>
+				{loading && (
+					<div
+						style={{
+							position: 'relative',
+							bottom: '-50px',
+							width: '100%',
+						}}
+					>
+						<Loader />
+					</div>
+				)}
 			</div>
 		</>
 	)
