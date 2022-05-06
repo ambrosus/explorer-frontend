@@ -16,8 +16,6 @@ const getTokensBalance = async (tokensArr: TokenType[], address: string) => {
 		const ambProvider = new ethers.providers.JsonRpcProvider(
 			process.env.REACT_APP_EXPLORER_NETWORK,
 		);
-		// check provider
-		// const ambProvider = new providers.Web3Provider(ethereum)
 		const tokenContract = new ethers.Contract(
 			token.contract,
 			erc20Abi,
