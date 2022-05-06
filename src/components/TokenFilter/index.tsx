@@ -25,7 +25,7 @@ const TokenFilter = ({ onClick, selectedToken }: any) => {
 		addFilter(token)
 		setIsShow(false)
 		navigate(
-			`/addresses/${address}/ERC-20_Tx/${token.contract ? token.contract : ''}`
+			`/addresses/${address}/ERC-20_Tx/${token.contract ? token.contract : ''}/`
 		)
 	}
 

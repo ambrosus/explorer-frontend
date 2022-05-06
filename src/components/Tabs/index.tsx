@@ -136,7 +136,7 @@ const Tabs: FC<TabsProps> = ({
 						<div
 							style={{
 								position: 'absolute',
-								bottom: '-50px',
+								bottom: '0px',
 								width: '100%',
 								display: 'flex',
 								alignItems: 'center',
@@ -147,7 +147,8 @@ const Tabs: FC<TabsProps> = ({
 						</div>
 					)}
 
-					{renderData && renderData?.length ? (
+					{renderData &&
+						renderData?.length &&
 						renderData.map((transaction: any, index: number) =>
 							data.length - 1 === index && data.length > 20 ? (
 								<AddressBlock
@@ -179,10 +180,7 @@ const Tabs: FC<TabsProps> = ({
 									token={`${transaction?.token ? transaction?.token : null}`}
 								/>
 							)
-						)
-					) : (
-						<Loader />
-					)}
+						)}
 				</section>
 			</div>
 		</>

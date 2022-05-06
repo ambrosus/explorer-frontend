@@ -7,38 +7,40 @@ type TokenItemProps = {
 	setToken: any
 }
 
-const TokenItem = ({ token, selectedToken, setToken }: TokenItemProps) => (
-	<div
-		className="tokenItem"
-		onClick={() => {
-			setToken(token)
-		}}
-		style={{
-			// @ts-ignore
-			backgroundColor:
-				selectedToken &&
-				selectedToken?.name &&
-				selectedToken?.name === token?.name
-					? '#EFF2F5'
-					: null,
-		}}
-	>
-		<div className="tokenItem__icon">
-			<Eth />
-		</div>
-		<div className="tokenItem__tokens">
-			<div>
-				{token?.name?.length > 40
-					? `${token?.name.slice(0, 40)}...`
-					: token?.name}
+const TokenItem = ({ token, selectedToken, setToken }: TokenItemProps) => {
+	return (
+		<div
+			className="tokenItem"
+			onClick={() => {
+				setToken(token)
+			}}
+			style={{
+				// @ts-ignore
+				backgroundColor:
+					selectedToken &&
+					selectedToken?.name &&
+					selectedToken?.name === token?.name
+						? '#EFF2F5'
+						: null,
+			}}
+		>
+			<div className="tokenItem__icon">
+				<Eth />
 			</div>
-			<div className="universall__light2">{token?.balance}</div>
+			<div className="tokenItem__tokens">
+				<div>
+					{token?.name?.length > 40
+						? `${token?.name.slice(0, 40)}...`
+						: token?.name}
+				</div>
+				<div className="universall__light2">{token?.balance}</div>
+			</div>
+			<div className="tokenItem__amount">
+				{/*<div>{token?.balance}</div>*/}
+				{/*<div className="universall__light2 universall__line-height">@0.00</div>*/}
+			</div>
 		</div>
-		<div className="tokenItem__amount">
-			{/*<div>{token?.balance}</div>*/}
-			{/*<div className="universall__light2 universall__line-height">@0.00</div>*/}
-		</div>
-	</div>
-)
+	)
+}
 
 export default TokenItem
