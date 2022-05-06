@@ -1,13 +1,13 @@
-import { actionTypes } from '../action-types';
-import { FiltersAction } from '../actions';
+import { actionTypes } from '../action-types'
+import { FiltersAction } from '../actions'
 
 interface TokenFiltersReducerState {
-	filters: any[];
+	filters: any[]
 }
 
 const initialState = {
 	filters: [],
-};
+}
 
 export const tokenFiltersReducer = (
 	state: TokenFiltersReducerState = initialState,
@@ -19,21 +19,21 @@ export const tokenFiltersReducer = (
 			return {
 				...state,
 				filters: action.payload,
-			};
+			}
 		case actionTypes.REMOVE_FILTER: {
 			// @ts-ignore
 			const newFilters = !state.filters.includes(action.payload)
 				? state.filters
-				: state.filters.filter((filter) => filter !== action.payload);
+				: state.filters.filter((filter) => filter !== action.payload)
 			return {
 				...state,
 				filters: newFilters,
-			};
+			}
 		}
 		case actionTypes.CLEAR_FILTERS: {
-			return { filters: [] };
+			return { filters: [] }
 		}
 		default:
-			return state;
+			return state
 	}
-};
+}
