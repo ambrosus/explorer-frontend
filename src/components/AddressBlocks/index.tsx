@@ -93,9 +93,11 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 	const isAmount =
 		amount === null ? null : (
 			<div className="addressDetails__tbody-td">
+				{type !== 'ERC-20_Tx' ? (
 				<span className="universall__indent-icon">
 					<Icon />
 				</span>
+				) : null}
 				<span>{amount}</span>
 				{symbol ? (
 					<span
@@ -147,6 +149,11 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 				className="addressDetails__tbody-td universall__light2"
 				style={{ fontWeight: '600', cursor: isLatest ? 'pointer' : 'default' }}
 			>
+				{type === 'ERC-20_Tx' ? (
+					<span className="universall__indent-icon">
+					<Icon />
+				</span>
+				) : null}
 				{!isLatest ? (
 					<>
 						{token} ({symbol})
