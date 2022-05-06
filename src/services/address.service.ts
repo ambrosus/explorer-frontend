@@ -6,16 +6,15 @@ import {
 } from '../pages/Addresses/AddressDetails/address-details.interface'
 import erc20Abi from 'utils/abis/ERC20.json'
 
-import { ethers, providers } from 'ethers'
+import { ethers } from 'ethers'
 
 import { formatEther } from 'ethers/lib/utils'
 
-import { ethereum } from 'utils/constants'
 
 const getTokensBalance = async (tokensArr: TokenType[], address: string) => {
 	return Promise.all(tokensArr.map(async (token) => {
 		const ambProvider = new ethers.providers.JsonRpcProvider(
-			'https://network.ambrosus.io',
+			process.env.REACT_APP_EXPLORER_NETWORK,
 		);
 		// check provider
 		// const ambProvider = new providers.Web3Provider(ethereum)
@@ -43,7 +42,7 @@ const getTokensBalance = async (tokensArr: TokenType[], address: string) => {
 
 }
 const getTokenName = (token: TokenType) => {
-	const tokenName = typeof token === 'string' ? token : token.contract
+	const tokenName = typeof token === 'string' ? token : token.name
 	const tokenExample = [
 		{
 			token: '0x322269e52800e5094c008f3b01A3FD97BB3C8f5D',
@@ -59,7 +58,7 @@ const getTokenName = (token: TokenType) => {
 		},
 	]
 	const tokenNameFromExample = tokenExample.find(
-		(item: any) => typeof token === 'string' ? item.token === token : item.token === token?.contract,
+		(item: any) => typeof token === 'string' ? item.token === token : item.token === token?.name,
 	)
 	if (tokenNameFromExample) {
 		return tokenNameFromExample.contractName
@@ -85,7 +84,7 @@ const sortedLatestTransactionsData = async (
 				},
 			})
 			return tokensTransactions.txids.map(async (tx: string) => {
-				return fetch(`https://blockbook.ambrosus.io/api/v2/tx/${tx}`)
+				return fetch(`${process.env.REACT_APP_BLOCKBOOK_API}/api/v2/tx/${tx}`)
 					.then((res) => res.json())
 					.catch(e => console.log(e))
 			})[0]
@@ -106,7 +105,8 @@ const sortedLatestTransactionsData = async (
 				amount: t?.tokenTransfers
 					? Number(formatEther(t.tokenTransfers[0].value)).toFixed(2)
 					: Number(formatEther(t.value)).toFixed(2),
-				token: t?.tokenTransfers ? getTokenName(t.tokenTransfers[0].name) : 'No token',
+				token: t?.tokenTransfers ? getTokenName( t.tokenTransfers[0].name) : 'No token',
+				symbol: t?.tokenTransfers ? t.tokenTransfers[0]?.symbol : 'AMB',
 				txFee: Number(ethers.utils.formatEther(t.fees)),
 			})
 		})
@@ -163,7 +163,7 @@ const bbDataFillter = async (url: string, { limit, page, type, selectedTokenFilt
 
 		const blockBookApiTransactions =
 			bbApi && bbApi.txids ? bbApi.txids.map(async (tx: string) => {
-				return await fetch(`https://blockbook.ambrosus.io/api/v2/tx/${tx}`)
+				return await fetch(`${process.env.REACT_APP_BLOCKBOOK_API}/api/v2/tx/${tx}`)
 					.then((res) => res.json())
 					.catch(e => console.log(e))
 			}) : []
@@ -188,9 +188,9 @@ const bbDataFillter = async (url: string, { limit, page, type, selectedTokenFilt
 					amount: t?.tokenTransfers
 						? Number(formatEther(t.tokenTransfers[0].value)).toFixed(2)
 						: Number(formatEther(t.value)).toFixed(2),
-					token: t?.tokenTransfers ? getTokenName(t.tokenTransfers[0].name) : 'AMB',
+					token: t?.tokenTransfers ? getTokenName( t.tokenTransfers[0].name) : 'AMB',
+					symbol: t?.tokenTransfers ? getTokenName(t.tokenTransfers[0]?.symbol) : 'AMB',
 					txFee: Number(ethers.utils.formatEther(t.fees)),
-					erc20: 't?.tokenTransfers ? true : false',
 				})
 			},
 		)
@@ -219,9 +219,9 @@ async function explorerData(address: string, { page, limit, type }: any) {
 					block: t.blockNumber,
 					amount: Number(formatEther(t.value.wei)).toFixed(2),
 					// TODO add token symbol && token name
-					token: 'AMB',
+					token: 'Amber',
+					symbol: 'AMB',
 					txFee: Number(t.gasCost.ether),
-					erc20: false,
 				}
 			},
 		)
@@ -232,7 +232,7 @@ async function explorerData(address: string, { page, limit, type }: any) {
 
 export const getDataForAddress = async (address: string, params: any) => {
 	const { page, type, selectedTokenFilter } = params
-	const url = `https://blockbook.ambrosus.io/api/v2/address/${address}`
+	const url = `${process.env.REACT_APP_BLOCKBOOK_API}/api/v2/address/${address}`
 	try {
 		const blockBookApiTokens: any = await blockBookApiTokensSearch(url, params)
 		const {

@@ -25,6 +25,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 	amount,
 	txfee,
 	token,
+	symbol,
 }) => {
 	const online: any = txfee === 'Pending' ? <OrangeCircle /> : <GreenCircle />
 	const { addFilter } = useActions()
@@ -94,7 +95,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 					<Amb />
 				</span>
 				{amount}
-				{token ? (
+				{symbol ? (
 					<div
 						style={{
 							padding: '0 5px',
@@ -118,7 +119,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 					>
 						{
 							// @ts-ignore
-							type !== 'ERC-20_Tx' ? token : ''
+							type !== 'ERC-20_Tx' ? symbol : ''
 						}
 					</div>
 				) : null}
@@ -145,7 +146,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 				style={{ fontWeight: '600' }}
 			>
 				{!isLatest ? (
-					token
+					`${token} (${symbol})`
 				) : (
 					<div
 						onClick={() => {
@@ -159,7 +160,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 							})
 						}}
 					>
-						{token}
+						{token} (aaa)
 					</div>
 				)}
 			</div>

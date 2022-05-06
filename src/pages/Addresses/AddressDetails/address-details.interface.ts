@@ -52,6 +52,7 @@ export interface AddressBlockProps {
 	txhash: string | number;
 	method: string | number;
 	from: string | number;
+	symbol?:string | null;
 	lastCardRef?: any;
 to: string | number;
 	date: string | number;
