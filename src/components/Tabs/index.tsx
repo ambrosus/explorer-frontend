@@ -132,20 +132,7 @@ const Tabs: FC<TabsProps> = ({
 						token={headerToken}
 						methodFilters={methodFilters}
 					/>
-					{loading && (
-						<div
-							style={{
-								position: 'absolute',
-								bottom: '0px',
-								width: '100%',
-								display: 'flex',
-								alignItems: 'center',
-								justifyContent: 'center',
-							}}
-						>
-							<Loader />
-						</div>
-					)}
+					{}
 
 					{renderData &&
 						renderData?.length &&
@@ -186,6 +173,17 @@ const Tabs: FC<TabsProps> = ({
 							)
 						)}
 				</section>
+				{loading && (
+					<div
+						style={{
+							position: 'relative',
+							bottom: '-50px',
+							width: '100%',
+						}}
+					>
+						<Loader />
+					</div>
+				)}
 			</div>
 		</>
 	)
