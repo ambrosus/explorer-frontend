@@ -17,6 +17,7 @@ const getTokensBalance = async (tokensArr: TokenType[], address: string) => {
 		const ambProvider = new ethers.providers.JsonRpcProvider(
 			'https://network.ambrosus.io',
 		);
+		// check provider
 		// const ambProvider = new providers.Web3Provider(ethereum)
 		const tokenContract = new ethers.Contract(
 			token.contract,
