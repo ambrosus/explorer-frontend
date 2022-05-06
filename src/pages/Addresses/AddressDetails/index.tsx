@@ -13,9 +13,9 @@ import { useTypedSelector } from 'hooks/useTypedSelector'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { shallowEqual } from 'react-redux'
 import { useParams } from 'react-router-dom'
+import { TParams } from 'types'
 
 import { getDataForAddress } from '../../../services/address.service'
-import { TParams } from 'types'
 
 import { TokenType, TransactionProps } from './address-details.interface'
 
@@ -26,7 +26,7 @@ export const AddressDetails = () => {
 		(state) => state.tokenFilters,
 		shallowEqual
 	)
-
+	console.log('type',type)
 	const {
 		loading,
 		data: addressData,
@@ -133,9 +133,14 @@ export const AddressDetails = () => {
 					const newTx: TransactionProps[] = [...compare].sort(
 						(a: any, b: any) => b.block - a.block
 					)
-					return newTx
+					const transfersDataTx: TransactionProps[] = newTx.filter(
+						(item: TransactionProps) => item.method === "Transfer"
+					);
+					return type === "transfers" ? transfersDataTx: newTx
 				}
 			})
+			console.log('tx', tx)
+			console.log('addressData.transactions', addressData.transactions)
 		}
 	}, [addressData])
 
