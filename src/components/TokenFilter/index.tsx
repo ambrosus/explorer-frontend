@@ -1,45 +1,56 @@
-import React, { useRef, useState } from 'react';
-import ArrowDownBig from '../../assets/icons/Arrows/ArrowDownBig';
-import TokenModal from '../TokenModal';
-import { useActions } from '../../hooks/useActions';
-import { useTypedSelector } from '../../hooks/useTypedSelector';
-import { useOnClickOutside } from '../../hooks/useOnClickOutside';
+import ArrowDownBig from 'assets/icons/Arrows/ArrowDownBig'
+import ArrowUpBig from 'assets/icons/Arrows/ArrowUpBig'
+import { useActions } from 'hooks/useActions'
+import { useOnClickOutside } from 'hooks/useOnClickOutside'
+import { useTypedSelector } from 'hooks/useTypedSelector'
+import React, { useRef, useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
 
-const TokenFilter = ({ onClick }: React.SetStateAction<any>) => {
-	const { addFilter, removeFilter } = useActions();
-	const { filters } = useTypedSelector((state: any) => state.tokenFilters);
+import { TParams } from '../../types'
+import TokenModal from '../TokenModal'
 
-	const [isShow, setIsShow] = useState(false);
+const TokenFilter = ({ onClick, selectedToken }: any) => {
+	const { addFilter } = useActions()
+	const { data: addressData } = useTypedSelector((state: any) => state.position)
+	const [isShow, setIsShow] = useState(false)
+	const navigate = useNavigate()
+	const { address }: TParams = useParams()
+	const refTokensModal = useRef<HTMLDivElement>(null)
 
-	const handleSubmit = (e: any) => {
-		e.preventDefault();
-	};
+	useOnClickOutside(refTokensModal, () => setIsShow(false))
+	const toggleMenu = () => setIsShow(!isShow)
 
-	const toggleMenu = () => setIsShow(!isShow);
-
-	const refTokensModal = useRef(null);
-
-	useOnClickOutside(refTokensModal, () => setIsShow(false));
-
-	const handleSelect = (token: { contract: string }) => {
-		onClick(token);
-		!filters.includes(token) ? addFilter(token) : removeFilter(token);
-	};
+	const handleSelect = (token: any) => {
+		onClick(token)
+		addFilter(token)
+		setIsShow(false)
+		navigate(
+			`/addresses/${address}/ERC-20_Tx/${token.contract ? token.contract : token.address}`
+		)
+	}
 
 	return (
 		<>
-			<div ref={refTokensModal} tabIndex={0} className='tokenFilter' onSubmit={handleSubmit}>
-				<div className='tokenFilter__input'>
-					<span className='tokenFilter__input-rectangle'>{filters.length}</span>
-					<span className='tokenFilter__input-text'>{`> $ 152.35 USD`}</span>
-					<button className='tokenFilter__input-btn' type='button' onClick={toggleMenu}>
-						<ArrowDownBig />
+			<div ref={refTokensModal} tabIndex={0} className="tokenFilter">
+				<div className="tokenFilter__input">
+					<span className="tokenFilter__input-rectangle">
+						{addressData && addressData.tokens && addressData.tokens.length}
+					</span>
+					<button
+						className="tokenFilter__input-btn"
+						type="button"
+						onClick={toggleMenu}
+					>
+						<span className="tokenFilter__input-text">{''}</span>
+						{isShow ? <ArrowUpBig /> : <ArrowDownBig />}
 					</button>
 				</div>
-				{isShow && <TokenModal setToken={handleSelect} />}
+				{isShow && (
+					<TokenModal selectedToken={selectedToken} setToken={handleSelect} />
+				)}
 			</div>
 		</>
-	);
-};
+	)
+}
 
-export default TokenFilter;
+export default React.memo(TokenFilter)

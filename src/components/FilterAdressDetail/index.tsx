@@ -1,11 +1,11 @@
-import React from 'react';
+import React from 'react'
 
 const FilteredToken = () => {
 	return (
 		<>
 			<div>FilteredToken</div>
 		</>
-	);
-};
+	)
+}
 
-export default FilteredToken;
+export default FilteredToken

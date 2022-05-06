@@ -1,5 +1,5 @@
-import React from 'react';
-import { Content } from '../../components/Content';
+import { Content } from 'components/Content'
+import React from 'react'
 
 export const Hermes = () => (
 	<Content>
@@ -10,4 +10,4 @@ export const Hermes = () => (
 			<div>Hermes CONTENT</div>
 		</Content.Body>
 	</Content>
-);
+)

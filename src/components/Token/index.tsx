@@ -1,21 +1,22 @@
-import React from 'react';
+import { TokenType } from 'pages/Addresses/AddressDetails/address-details.interface'
+import React from 'react'
 
-import TokenFilter from '../TokenFilter';
+import TokenFilter from '../TokenFilter'
 
 export interface TokenProps {
-	selectedToken: Object;
-	onClick: (token: Object) => any;
+	selectedToken: TokenType | null
+	onClick: any
 }
 
-const Token: React.FC<TokenProps> = ({ selectedToken, onClick }) => {
+const Token: React.FC<TokenProps> = ({ onClick, selectedToken }) => {
 	return (
-		<div className='token' tabIndex={1}>
-			<div className='token__info'>
-				<span className='token__info-name'>Token</span>
+		<div className="token">
+			<div className="token__info">
+				<span className="token__info-name">Token</span>
 				<TokenFilter selectedToken={selectedToken} onClick={onClick} />
 			</div>
 		</div>
-	);
-};
+	)
+}
 
-export default Token;
+export default Token

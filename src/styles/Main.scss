@@ -1,8 +1,10 @@
+@import 'node_modules/react-redux-toastr/src/styles/index';
 // utilites
+@import './utilites/variables';
+@import './utilites/breakpoints';
 @import './utilites/base';
 @import './utilites/icons';
 @import './utilites/universall';
-@import './utilites/variables';
 
 // fonts
 @import './fonts/fonts';
@@ -18,6 +20,7 @@
 @import './pages/addresses';
 
 // components
+@import './components/token';
 @import './components/calendar';
 @import './components/content';
 @import './components/exportСsv';
@@ -28,4 +31,4 @@
 @import './components/mainInfo';
 @import './components/methodModal';
 @import './components/tabs';
-@import './components/token';
+@import './components/chart';

@@ -1,10 +1,17 @@
 .token {
+	height: 42px;
 	display: flex;
 	justify-content: flex-end;
+	@include for-device-medium {
+		display: flex;
+
+		justify-content: flex-start;
+	}
 	&__info {
 		display: flex;
 		position: absolute;
 		flex-direction: row;
+		z-index: 2;
 
 		&-name {
 			margin-right: 10px;
@@ -21,6 +28,10 @@
 .tokenModal {
 	display: flex;
 	flex-direction: column;
+	box-shadow: 4px 8px 8px rgba(0, 0, 0, 0.25);
+	border-bottom-left-radius: 16px;
+	border-bottom-right-radius: 16px;
+	width: 318px;
 	&__search {
 		width: 300px;
 		height: 40px;
@@ -42,7 +53,6 @@
 		border-top: 1px solid #eff2f5;
 		font-weight: 600;
 		line-height: 1.33em;
-		color: #05060f;
 	}
 }
 
@@ -54,8 +64,10 @@
 	min-width: 320px;
 	background: #fff;
 	border: 1px solid #eff2f5;
-	box-shadow: 4px 8px 8px rgba(0, 0, 0, 0.25);
 	border-radius: 16px;
+	@include for-device-xs {
+		min-width: 260px;
+	}
 
 	&__input {
 		display: flex;
@@ -78,7 +90,7 @@
 
 			width: 24px;
 			height: 24px;
-			background: #808a9d;
+			background: $main-light;
 			border-radius: 8px;
 		}
 		&-text {
@@ -104,25 +116,33 @@
 
 .tokenItem {
 	display: grid;
-	grid-template-columns: repeat(3, auto);
-	padding: 15px;
+	grid-template-columns: 22px 1fr 1fr;
+	padding: 12px;
 	border-top: 1px solid #eff2f5;
 	cursor: pointer;
-	margin: 1px 0;
 
 	&:focus {
 		outline: none;
 	}
-
 	&:hover {
 		background-color: #eff2f5;
+		border-top: 1px solid #fff;
+	}
+	&:hover:nth-last-child(1) {
+		border-bottom-left-radius: 16px;
+		border-bottom-right-radius: 16px;
 	}
 
 	&__tokens {
 		line-height: 1.33em;
 	}
+	&__tokens:hover {
+		background-color: #eff2f5;
+	}
 	&__amount {
 		text-align: end;
 		line-height: 1.33em;
+	}
+	&__icon {
 	}
 }

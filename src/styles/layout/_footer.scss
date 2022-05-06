@@ -1,42 +1,60 @@
 .footer {
-  width: 100%;
-  height: 99px;
-  background: linear-gradient(180deg, #212121 0%, #212121 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
+	width: 100%;
+	height: 99px;
+	background: linear-gradient(180deg, #212121 0%, #212121 100%);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: white;
+	margin-top: 130px;
 
-  &__container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
+	@include for-device-medium {
+		height: 250px;
+	}
 
-    .logo {
+	&__container {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		@include for-device-medium {
+			width: 320px;
+			margin: auto;
+			display: flex;
+			flex-direction: column;
+			height: 250px;
+			padding: 45px 0;
 
-    }
+			border-collapse: collapse;
+		}
 
-    .mail {
-      a {
-        text-decoration: none;
-        font-family: Proxima Nova;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 16px;
-        line-height: 140%;
-        text-align: center;
-        color: #8F8F8F;
-      }
-    }
+		.mail {
+			a {
+				text-decoration: none;
+				font-family: Proxima Nova;
+				font-style: normal;
+				font-weight: normal;
+				font-size: 16px;
+				line-height: 140%;
+				text-align: center;
+				color: #8f8f8f;
+			}
+		}
 
-    .socials-icons {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      max-width: 100%;
-      gap: 30px
-    }
-
-  }
+		.socials-icons {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			max-width: 100%;
+			gap: 30px;
+		}
+	}
+}
+.logoFooter {
+	@include for-device-medium {
+		display: flex;
+		justify-content: center;
+		border-top: 1px solid rgba(255, 255, 255, 0.3);
+		padding-top: 32px;
+		width: 320px;
+	}
 }

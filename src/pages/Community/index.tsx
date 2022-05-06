@@ -1,5 +1,5 @@
-import React from 'react';
-import { Content } from '../../components/Content';
+import { Content } from 'components/Content'
+import React from 'react'
 
 export const Community = () => (
 	<Content>
@@ -10,4 +10,4 @@ export const Community = () => (
 			<div>Community Body</div>
 		</Content.Body>
 	</Content>
-);
+)

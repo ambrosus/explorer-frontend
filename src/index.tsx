@@ -1,20 +1,25 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import { persistor, store } from './state';
-import {PersistGate} from 'redux-persist/integration/react';
-import Main from './Main';
-import Loader from './components/Loader';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { Provider } from 'react-redux'
+import { BrowserRouter } from 'react-router-dom'
 
-const rootNode = document.getElementById('root');
+import Main from './Main'
+import ReduxToastrLib from './components/ReduxToastr'
+import { store } from './state'
+
+const rootNode = document.getElementById('root')
+/*
+ * @param {Provider} store - redux store
+ * @param {ReduxToastrLib} ReduxToastrLib - redux toastr
+ * @param {BrowserRouter} BrowserRouter - react router
+ * @param {Main} Main - main component
+ */
 ReactDOM.render(
 	<Provider store={store}>
-		<PersistGate persistor={persistor} loading={<Loader/>}>
-			<BrowserRouter>
-				<Main />
-			</BrowserRouter>
-		</PersistGate>
+		<ReduxToastrLib />
+		<BrowserRouter>
+			<Main />
+		</BrowserRouter>
 	</Provider>,
-	rootNode,
-);
+	rootNode
+)

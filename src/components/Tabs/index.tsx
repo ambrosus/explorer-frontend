@@ -1,118 +1,195 @@
-import React from 'react';
-import { Link, useParams } from 'react-router-dom';
-import AddressBlocksHeader from '../AddressBlocksHeader';
-import AddressBlock from '../AddressBlocks';
-import ViewMoreBtn from '../ViewMoreBtn';
-import { formatEther } from 'ethers/lib/utils';
-import moment from 'moment';
-import ExportCsv from '../ExportCsv';
+import SideMenu from 'assets/icons/SideMenu'
+import Calendar from 'components/Calendar'
+import { useOnClickOutside } from 'hooks/useOnClickOutside'
+import { useTypedSelector } from 'hooks/useTypedSelector'
+import useWindowSize from 'hooks/useWindowSize'
+import moment from 'moment'
+import { TabsProps } from 'pages/Addresses/AddressDetails/address-details.interface'
+import React, { FC, useEffect, useRef, useState } from 'react'
+import { NavLink, useParams } from 'react-router-dom'
+import { setupStyle, toUniqueValueByBlock } from 'utils/helpers'
+import { sidePages } from 'utils/sidePages'
 
-//create functional component Tabs without store  with the following tabs: 'All','Transfers','ERC-20 Tx','Block
-// Rewards' following the pattern of the Tabs component in the UI. The Tabs component is used to display the
-// different tabs in the UI. need to add the following props:"transfers","block_rewards" ," ERC-20_Tx"  props will
-// come from API call to get the data for the tabs. The Tabs component will render the tabs based on the	props
-// passed to it.
+import AddressBlock from '../AddressBlocks'
+import AddressBlocksHeader from '../AddressBlocksHeader'
+import ExportCsv from '../ExportCsv'
+import Loader from '../Loader'
 
-const transactionFilters = [
-	{ title: 'All', value: '' },
-	{ title: 'Transfers', value: 'transfers' },
-	{ title: 'Block Rewards', value: 'block_rewards' },
-	{ title: 'ERC-20 Tx', value: 'ERC-20_Tx' },
-];
+const Tabs: FC<TabsProps> = ({
+	data,
+	lastCardRef,
+	onClick,
+	setTransactionType,
+}) => {
+	const { address, type, filtered } = useParams()
+	const { loading, data: addressData } = useTypedSelector(
+		(state: any) => state.position
+	)
+	const headerBlock: any = type === 'ERC-20_Tx' ? null : 'Block'
+	const headerTxfee: any = type === 'ERC-20_Tx' ? null : 'txFee'
+	const headerToken: any = type === 'ERC-20_Tx' ? 'token' : null
+	const [renderData, setRenderData] = React.useState<any>(null)
 
-const methodFilters = [
-	{ title: 'Transfers', value: 'transfers' },
-	{ title: 'Contracts', value: 'contracts' },
-	{ title: 'Fees', value: 'fees' },
-	{ title: 'Validator Proxy', value: 'validator_proxy' },
-	{ title: 'Bundle Uploads', value: 'bundle_uploads' },
-	{ title: 'Payouts', value: 'payouts' },
-];
-
-const Tabs = ({ data, setTransactionType }: any) => {
-	const { address, type } = useParams();
-
-	const headerBlock: any = type === 'ERC-20_Tx' ? null : 'Block';
-	const headerTxfee: any = type === 'ERC-20_Tx' ? null : 'txFee';
-	const headerToken: any = type === 'ERC-20_Tx' ? 'token' : null;
-
-	function style(item: any) {
-		let type: any = {
-			style,
-		};
-		switch (item) {
-			case '/':
-				return (type.style = { gridTemplateColumns: 'repeat(8, auto)' });
-
-			case 'ERC-20_Tx':
-				return (type.style = { gridTemplateColumns: 'repeat(7, auto)' });
-
-			default:
-				return (type.style = { gridTemplateColumns: 'repeat(8, auto)' });
+	useEffect(() => {
+		if (addressData) {
+			if (data?.length && filtered && type === 'ERC-20_Tx') {
+				setRenderData(toUniqueValueByBlock(data))
+			}
+			if (data?.length && type !== 'ERC-20_Tx' && !filtered) {
+				setRenderData(toUniqueValueByBlock(data))
+			}
+			if (
+				addressData &&
+				addressData?.latestTransactions?.length &&
+				type === 'ERC-20_Tx' &&
+				!filtered
+			) {
+				setRenderData(toUniqueValueByBlock(addressData.latestTransactions))
+			}
 		}
-	}
+	}, [addressData, data, filtered, type, loading])
+
+	const { width } = useWindowSize()
+
+	const { transactionFilters, ERC20Filters, methodFilters } = sidePages
+	const [isShow, setIsShow] = useState(false)
+	const setActiveLink = ({ isActive }: any) =>
+		isActive ? 'tabs__link tabs__link-active' : 'tabs__link'
+	const mobileCalendarRef = useRef(null)
+
+	useOnClickOutside(mobileCalendarRef, () => setIsShow(false))
 
 	return (
 		<>
-			<div className='tabs' tabIndex={-1}>
-				<div className='tabs__filters' tabIndex={-1}>
-					{transactionFilters &&
-						transactionFilters.map((filter) => (
-							<Link
-								key={filter.title}
-								to={`/addresses/${address}/${filter.value}`}
-								tabIndex={-1}
-								className='tabs__link'
-								onClick={() => setTransactionType(filter.value)}
-							>
-								{filter.title}
-							</Link>
-						))}
+			<div className="tabs" tabIndex={-1}>
+				<div className="tabs__filters" tabIndex={-1}>
+					{isShow && (
+						<div ref={mobileCalendarRef} className="tabs__exportModal-mobile">
+							<Calendar />
+						</div>
+					)}
+					{!filtered
+						? transactionFilters &&
+						  transactionFilters.length &&
+						  transactionFilters.map((filter) => (
+								<NavLink
+									key={filter.title}
+									to={`/addresses/${address}/${
+										filter.value ? filter.value : ''
+									}`}
+									className={setActiveLink}
+									onClick={(e) => {
+										setTransactionType(filter.value)
+									}}
+								>
+									{filter.title}
+								</NavLink>
+						  ))
+						: ERC20Filters &&
+						  ERC20Filters.length &&
+						  ERC20Filters.map((filter) => (
+								<NavLink
+									key={filter.title}
+									to={`/addresses/${address}/ERC-20_Tx/${filtered}/${filter.value}`}
+									className={setActiveLink}
+									onClick={(e) => {
+										setTransactionType(filter.value)
+									}}
+								>
+									{filter.title}
+								</NavLink>
+						  ))}
 				</div>
-				<ExportCsv />
+				<div ref={mobileCalendarRef} className="tabs__exportModal">
+					{width > 760 ? (
+						<ExportCsv />
+					) : (
+						<>
+							<div className="tabs__sideMenu">
+								<button
+									className="tabs__sideMenu-icon"
+									onClick={() => setIsShow(!isShow)}
+								>
+									<SideMenu />
+								</button>
+							</div>
+						</>
+					)}
+				</div>
 			</div>
 
 			<div>
-				<section className='addressDetails__table' style={style(type)}>
+				<section className="addressDetails__table" style={setupStyle(type)}>
 					<AddressBlocksHeader
-						txhash='txHash'
-						method='Method'
-						from='From'
-						to='To'
-						date='Date'
+						txhash="txHash"
+						method="Method"
+						from="From"
+						to="To"
+						date="Date"
 						block={headerBlock}
-						amount='Amount'
+						amount="Amount"
 						txfee={headerTxfee}
 						token={headerToken}
 						methodFilters={methodFilters}
-						setTransactionType={setTransactionType}
 					/>
+					{loading && (
+						<div
+							style={{
+								position: 'absolute',
+								bottom: '-50px',
+								width: '100%',
+								display: 'flex',
+								alignItems: 'center',
+								justifyContent: 'center',
+							}}
+						>
+							<Loader />
+						</div>
+					)}
 
-					{data &&
-						data &&
-						data.transactions &&
-						data.transactions.map((transaction: any, index: number) => {
-							return (
+					{renderData && renderData?.length ? (
+						renderData.map((transaction: any, index: number) =>
+							data.length - 1 === index && data.length > 20 ? (
 								<AddressBlock
-									key={transaction.hash}
-									txhash={`${transaction.hash.slice(0, 10)}...${transaction.hash.slice(transaction.hash.length - 10)}`}
-									method={transaction.type}
-									from={`${transaction.from.slice(0, 5)}...${transaction.from.slice(transaction.from.length - 5)}`}
-									to={`${transaction.to.slice(0, 5)}...${transaction.to.slice(transaction.to.length - 5)}`}
-									date={moment(transaction.timestamp * 1000).fromNow()}
-									block={transaction.blockNumber}
-									amount={`${Number(formatEther(transaction.value.wei)).toFixed(2)} ETH`}
-									txfee={`${Number(formatEther(transaction.gasCost.wei)).toFixed(5)} AMB`}
-									token={`${Number(formatEther(transaction.value.wei)).toFixed(2)} ETH`}
+									lastCardRef={lastCardRef}
+									onClick={onClick}
+									key={transaction.txHash}
+									txhash={transaction.txHash}
+									method={transaction.method}
+									from={transaction.from}
+									to={transaction.to}
+									date={moment(transaction.date).fromNow()}
+									block={transaction.block}
+									amount={transaction.amount}
+									txfee={transaction.txFee}
+									token={`${transaction?.token ? transaction?.token : null}`}
+									symbol={`${transaction?.symbol ? transaction?.symbol : null}`}
 								/>
-							);
-						})}
+							) : (
+								<AddressBlock
+									onClick={onClick}
+									key={transaction.txHash}
+									txhash={transaction.txHash}
+									method={transaction.method}
+									from={transaction.from}
+									to={transaction.to}
+									date={moment(transaction.date).fromNow()}
+									block={transaction.block}
+									amount={transaction.amount}
+									txfee={transaction.txFee}
+									token={`${transaction?.token ? transaction?.token : null}`}
+									symbol={`${transaction?.symbol ? transaction?.symbol : null}`}
+
+								/>
+							)
+						)
+					) : (
+						<Loader />
+					)}
 				</section>
-				<div style={{ marginTop: '10px', display: 'flex', alignItems: 'center' }}>
-					<ViewMoreBtn nameBtn='Load More' />
-				</div>
 			</div>
 		</>
-	);
-};
-export default Tabs;
+	)
+}
+
+export default Tabs

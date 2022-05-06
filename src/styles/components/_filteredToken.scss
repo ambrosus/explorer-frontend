@@ -6,13 +6,17 @@
 	border: 1px solid #eff2f5;
 	border-radius: 16px;
 	height: 96px;
-	width: 1140px;
+	white-space: nowrap;
+	@include for-device-medium {
+	}
 
 	&__head {
 		display: grid;
 		grid-template-columns: repeat(2, auto);
 		align-items: center;
 		padding: 0 16px;
+		@include for-device-medium {
+		}
 	}
 	&__body {
 		display: grid;
@@ -21,6 +25,8 @@
 		align-items: center;
 		border-top: 1px solid #eff2f5;
 		padding: 0 16px;
+		@include for-device-medium {
+		}
 	}
 	&__heading {
 		font-weight: 700;
@@ -41,11 +47,9 @@
 		&-bold {
 			font-weight: 700;
 			line-height: 2.22em;
-			color: #05060f;
 		}
 		&-normal {
 			line-height: 2.22em;
-			color: #05060f;
 		}
 	}
 }

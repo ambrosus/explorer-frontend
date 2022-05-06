@@ -1,204 +1,193 @@
-/*eslint-disable*/
-import axios from 'axios';
-import { ethers, providers } from 'ethers';
-import erc20Abi from '../utils/abis/ERC20.json';
-import { formatEther } from 'ethers/lib/utils';
-import { ethereum } from '../utils/constants';
+import axios from "axios";
 
+import { toastr } from "react-redux-toastr";
 const tokenApiUrl = process.env.REACT_APP_TOKEN_API_URL;
 
 const baseApiUrl = process.env.REACT_APP_API_ENDPOINT;
 const API = () => {
-	const api = axios.create({
-		baseURL: baseApiUrl,
-	});
+  const api = axios.create({
+    baseURL: baseApiUrl
+  });
 
-	function handleNotFound(err: any) {
-		if (err) {
-			console.error(err);
-		}
-		// window.location.replace('/notfound');
-	}
+  function handleNotFound(err: any) {
+    if (err) {
+      console.error(err);
+    }
+    toastr.error("404", "No matches found");
+  }
 
-	api.interceptors.response.use(
-		(response) => {
-			if (response.data) {
-				return response.data;
-			}
+  api.interceptors.response.use(
+    (response) => {
+      if (response.data) {
+        return response.data;
+      }
 
-			return response;
-		},
-		(error) => {
-			handleNotFound(error);
-		}
-	);
+      return response;
+    },
+    (error) => {
+      handleNotFound(error);
+    }
+  );
 
-	return api;
+  return api;
 };
 
 const getBlocks = async (params = {}) => {
-	return await API().get('blocks', {
-		params,
-	});
+  return await API().get("blocks", {
+    params
+  });
 };
 
-const getDataForAddress = async (address: string, params:any) => {
-	const { limit, type } = params;
-	const transactionsData = await getAccountTx(address, { limit, type });
-	const blockBookApi = await fetch(`https://blockbook.ambrosus.io/api/v2/address/${address}`).then((res) => res.json());
-	const tokens: { name: string; balance: string; contract: string; transfers: number; type: string }[] = [];
-	blockBookApi &&  blockBookApi?.tokens.forEach(async (token: { name: string; balance: string; contract: string; transfers: number; type: string }) => {
-			const tokenContract = new ethers.Contract(token.contract, erc20Abi, new providers.Web3Provider(ethereum).getSigner());
-			const tokenBalance = formatEther(await tokenContract.balanceOf(address));
-			tokens.push({
-				...token,
-				// @ts-ignore
-				tokenBalance,
-			});
 
-		});
-	return { transactions: transactionsData.data, tokens };
-}
+
 
 const getBlock = (hashOrNumber: any) => {
-	return API().get(`blocks/${hashOrNumber}`);
+  return API().get(`blocks/${hashOrNumber}`);
 };
 
 const getBlockTransactions = (hashOrNumber: any, params = {}) => {
-	return API().get(`blocks/${hashOrNumber}/transactions`, {
-		params,
-	});
+  return API().get(`blocks/${hashOrNumber}/transactions`, {
+    params
+  });
 };
 
 const getAccount = (address: any) => {
-	return API().get(`accounts/${address}`);
+  return API().get(`accounts/${address}`);
 };
 
 const getAtlas = (address: any) => {
-	return API().get(`atlases/${address}`);
+  return API().get(`atlases/${address}`);
 };
 
 const getAtlasBundles = (address: any, params: any) => {
-	return API().get(`atlases/${address}/bundles`, {
-		params,
-	});
+  return API().get(`atlases/${address}/bundles`, {
+    params
+  });
 };
 
 const getApollo = (address: any) => {
-	return API().get(`apollos/${address}`);
+  return API().get(`apollos/${address}`);
 };
 
 const getApolloRewards = (address: any, params: any) => {
-	const url = `apollos/${address}/rewards`;
-	return API().get(url, { params });
+  const url = `apollos/${address}/rewards`;
+  return API().get(url, { params });
 };
 
 const getTransaction = (hash: any) => {
-	return API().get(`transactions/${hash}`);
+  return API().get(`transactions/${hash}`);
 };
 
 const getTransactions = (params: any = {}) => {
-	const { type } = params;
-	if (type) {
-		delete params?.type;
-	}
-	const url = `transactions${type ? `/types/${type}` : ''}`;
-	return API().get(url, {
-		params,
-	});
+  const { type } = params;
+  if (type) {
+    delete params?.type;
+  }
+  const url = `transactions${type ? `/types/${type}` : ""}`;
+  return API().get(url, {
+    params
+  });
 };
 
 const getTransactionEvent = (hash: any) => {
-	return API().get(`transactions/${hash}/event`);
+  return API().get(`transactions/${hash}/event`);
 };
 
 const getSupTransaction = (address: any) => {
-	return API().get(`transactions/?parent=${address}`);
+  return API().get(`transactions/?parent=${address}`);
 };
 
 const getAccounts = (params = {}) => {
-	return API().get(`accounts`, {
-		params,
-	});
+  return API().get(`accounts`, {
+    params
+  });
 };
 
 const getApollos = (params = {}) => {
-	return API().get(`apollos`, {
-		params,
-	});
+  return API().get(`apollos`, {
+    params
+  });
 };
 
 const getAtlases = (params = {}) => {
-	return API().get(`atlases`, {
-		params,
-	});
+  return API().get(`atlases`, {
+    params
+  });
 };
 
-const getAccountTx = (address: any, params = {}) => {
-	return API().get(`accounts/${address}/transactions`, {
-		params,
-	});
+export const getAccountTx = (address: any, params = {}) => {
+  return API().get(`accounts/${address}/transactions`, {
+    params
+  });
 };
 
 const getBundle = (bundleId: any) => {
-	return API().get(`bundles/${bundleId}`);
+  return API().get(`bundles/${bundleId}`);
 };
 
 const getBundleAssets = (bundleId: any, params = {}) => {
-	return API().get(`bundles/${bundleId}/assets`, {
-		params,
-	});
+  return API().get(`bundles/${bundleId}/assets`, {
+    params
+  });
 };
 
 const getBundleEvents = (bundleId: any, params = {}) => {
-	return API().get(`bundles/${bundleId}/events`, {
-		params,
-	});
+  return API().get(`bundles/${bundleId}/events`, {
+    params
+  });
 };
 
 const getBundleWithEntries = (bundleId: any) => {
-	return axios.all([getBundle(bundleId), getBundleAssets(bundleId), getBundleEvents(bundleId)]).then(
-		axios.spread((bundle, assets, events) => {
-			return {
-				bundle,
-				assets,
-				events,
-			};
-		})
-	);
+  return axios
+    .all([
+      getBundle(bundleId),
+      getBundleAssets(bundleId),
+      getBundleEvents(bundleId)
+    ])
+    .then(
+      axios.spread((bundle, assets, events) => {
+        return {
+          bundle,
+          assets,
+          events
+        };
+      })
+    );
 };
 
 const searchItem = (term: any) => {
-	return API().get(`search/${term}`);
+  return API().get(`search/${term}`);
 };
 
 const getBundles = (params = {}) => {
-	return API().get(`bundles?cursor`, {
-		params,
-	});
+  return API().get(`bundles?cursor`, {
+    params
+  });
 };
 
 const getInfo = () => {
-	return API().get(`info/`);
+  return API().get(`info/`);
 };
 
 const getToken = () => {
-	// @ts-ignore
-	return axios.get(tokenApiUrl).then(({ data }) => data.data);
+  // @ts-ignore
+  return axios.get(tokenApiUrl).then(({ data }) => data.data);
 };
 
 const getTokenHistory = () => {
-	return axios.get(tokenApiUrl + '/history').then(({ data }) => data.data);
+  return axios.get(tokenApiUrl + "/history").then(({ data }) => data.data);
 };
 
 const getTokenMountPrice = () => {
-	return axios.get(tokenApiUrl + '/price').then(({ data }) => data.data);
+  return axios.get(tokenApiUrl + "/price").then(({ data }) => data.data);
 };
 
 const getTokenTotalSupply = () => {
-	return axios.get(`${process.env.REACT_APP_API_ENDPOINT}/blocks/total_supply`).then((response) => {
-		return response.data;
-	});
+  return axios
+    .get(`${process.env.REACT_APP_API_ENDPOINT}/blocks/total_supply`)
+    .then((response) => {
+      return response.data;
+    });
 };
 
 // const followTheLink = (time, address) => {
@@ -209,43 +198,41 @@ const getTokenTotalSupply = () => {
 //   }
 // }
 const followTheLinkRange = (fromDate: any, toDate: any, address: any) => {
-	const link = `${baseApiUrl}/transactions/csv/address/${address}`;
-	// @ts-ignore
-	const from = new Date(fromDate) / 1000;
-	// @ts-ignore
-	const to = new Date(toDate) / 1000;
-	window.open(`${link}/dateFrom/${from}/dateTo/${to}`, '_self');
+  const link = `${baseApiUrl}/transactions/csv/address/${address}`;
+  const from = fromDate / 1000;
+  const to = toDate / 1000;
+  window.open(`${link}/dateFrom/${from}/dateTo/${to}`, "_self");
+};
+const api={
+  API: API(),
+  getBlocks,
+  getBlockTransactions,
+  getTransactions,
+  getSupTransaction,
+  getAccounts,
+  getApollos,
+  getApollo,
+  getAtlas,
+  getAtlases,
+  getApolloRewards,
+  getInfo,
+  getToken,
+  getAccountTx,
+  getBlock,
+  getAccount,
+  getTransaction,
+  getTransactionEvent,
+  getBundles,
+  getBundle,
+  getBundleAssets,
+  getBundleEvents,
+  getBundleWithEntries,
+  searchItem,
+  getTokenHistory,
+  getTokenMountPrice,
+  getTokenTotalSupply,
+  getAtlasBundles,
+  followTheLinkRange
 };
 
-export default {
-	API: API(),
-	getDataForAddress,
-	getBlocks,
-	getBlockTransactions,
-	getTransactions,
-	getSupTransaction,
-	getAccounts,
-	getApollos,
-	getApollo,
-	getAtlas,
-	getAtlases,
-	getApolloRewards,
-	getInfo,
-	getToken,
-	getAccountTx,
-	getBlock,
-	getAccount,
-	getTransaction,
-	getTransactionEvent,
-	getBundles,
-	getBundle,
-	getBundleAssets,
-	getBundleEvents,
-	getBundleWithEntries,
-	searchItem,
-	getTokenHistory,
-	getTokenMountPrice,
-	getTokenTotalSupply,
-	getAtlasBundles,
-	followTheLinkRange,
-};
+export default api

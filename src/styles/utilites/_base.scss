@@ -6,15 +6,18 @@
 	font-family: Proxima Nova, sans-serif;
 	font-size: 14px;
 	line-height: 18px;
+	color: $main;
 }
 html {
 	width: 100%;
 	line-height: 1.15;
 	-webkit-text-size-adjust: 100%;
 }
+
 body {
 	margin: 0;
 }
+
 main {
 	display: block;
 }

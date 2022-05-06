@@ -1,7 +1,7 @@
 .tabs {
 	display: grid;
 	height: 56px;
-	grid-template-columns: repeat(2, auto);
+	grid-template-columns: 1fr 1fr;
 	grid-row-gap: 3vw;
 	border-bottom: 1px solid #eff2f5;
 
@@ -17,13 +17,16 @@
 		border-radius: 12px;
 		&-exportCsv {
 			position: relative;
-			left: 280px;
+			left: 240px;
 			bottom: 50px;
 			height: 40px;
 			width: 100px;
-			background-color: #05060f;
+			background-color: $main;
 			color: #fff;
 			border-radius: 4px;
+			@include for-device-small {
+				left: 24px;
+			}
 		}
 		&-exportCsv:hover {
 			box-shadow: 4px 8px 8px rgb(0 0 0 / 25%);
@@ -31,7 +34,7 @@
 	}
 
 	&__link {
-		color: #808a9d;
+		color: $main-light;
 		text-decoration: none;
 		font-weight: 700;
 		font-size: 1.28em;
@@ -39,13 +42,16 @@
 		margin-right: 32px;
 		display: flex;
 		align-items: center;
+		white-space: nowrap;
+		&-active {
+			color: $main;
+			border-bottom: 4px solid $main;
+			border-collapse: collapse;
+		}
 	}
-	&__link:hover,
-	&__link:focus,
-	&__link:enabled,
-	&__link:active {
-		color: #05060f;
-		border-bottom: 4px solid #05060f;
+	&__link:hover {
+		color: $main;
+		border-bottom: 4px solid $main;
 		border-collapse: collapse;
 	}
 	&__exportCsv {
@@ -64,10 +70,10 @@
 			box-sizing: border-box;
 			border-radius: 16px;
 		}
-		// &-btn:hover,
-		// :active {
-		// 	border: 1px solid #05060f;
-		// }
+		&-btn:hover {
+			border-color: $main;
+		}
+
 		&-text {
 			font-weight: 600;
 			line-height: 1.33em;
@@ -77,8 +83,35 @@
 	&__exportModal {
 		display: flex;
 		flex-direction: column;
-		justify-content: flex-end;
+		justify-content: center;
 		align-items: flex-end;
 		margin: 8px 0px;
+		@include for-device-medium {
+			width: 100%;
+		}
+		&-mobile {
+			margin-top: 50px;
+			position: absolute;
+			z-index: 1;
+			@include for-device-medium {
+				margin-top: 39px;
+			}
+		}
+	}
+	&__sideMenu {
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
+		@include for-device-medium {
+		}
+		&-icon {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 24px;
+			height: 24px;
+			background: #eff2f5;
+			border-radius: 8px;
+		}
 	}
 }

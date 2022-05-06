@@ -18,7 +18,7 @@
 }
 
 .rdrDateDisplay {
-	display: flex;
+	display: none;
 	width: 100%;
 }
 .rdrMonthAndYearWrapper {
@@ -29,6 +29,16 @@
 .rdrMonths {
 	order: 2;
 	width: 100%;
+	padding: 0 0.833em 2em 0.833em;
+	@include for-device-small {
+		padding: 0 0 2em 0;
+	}
+}
+.rdrMonth {
+	@include for-device-small {
+		width: 320px;
+		padding: 0 0 1.666em 0;
+	}
 }
 
 .rdrYearPicker {

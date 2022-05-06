@@ -1,62 +1,76 @@
-import React, { ChangeEvent, useState } from 'react';
-import TokenItem from '../TokenItem';
-import { useTypedSelector } from '../../hooks/useTypedSelector';
-import Loader from '../Loader';
-import { useActions } from '../../hooks/useActions';
+import { useTypedSelector } from 'hooks/useTypedSelector'
+import { FC, useEffect, useState } from 'react'
 
-type TokenModalProps = {
-	setToken: any;
-};
+import TokenItem from '../TokenItem'
 
-const TokenModal: React.FC<TokenModalProps> = ({ setToken }) => {
-	const [name, setName] = useState('');
-	const {addFilter,removeFilter} = useActions();
-	const {data : addressData} = useTypedSelector((state: any) => state.position)
-	const {tokens} = addressData
+/**
+ * @description TokenModal
+ * @param {TokenModalProps} props
+ * @returns {JSX.Element}
+ */
 
-	const changeInput = (e: ChangeEvent<HTMLInputElement>) => {
-		e.preventDefault();
-		setName(e.target.value);
-		tokens.map((token: any) => {
-			if (token.name.includes(e.target.value)) {
-				addFilter(token);
-			}else{
-				removeFilter(token);
+interface TokenModalProps {
+	selectedToken: string
+	setToken: (token: string) => void
+}
+
+const TokenModal: FC<TokenModalProps> = ({ selectedToken, setToken }) => {
+	const [name, setName] = useState('')
+	const { data: addressData } = useTypedSelector((state: any) => state.position)
+	const { tokens } = addressData
+	const [filteredTokensList, setFilteredTokensList] = useState([])
+
+	useEffect(() => {
+		if (name) {
+			const newTokensList = tokens.filter((token: any) =>
+				token.name.toLowerCase().includes(name.toLowerCase())
+			)
+			setFilteredTokensList(newTokensList || [])
+			if (!newTokensList.length) {
+				setFilteredTokensList(tokens)
 			}
-		});
-	};
+		}
+	}, [name, tokens, selectedToken])
 
 	return (
-		<div className='tokenModal'
-				 tabIndex={0}
-		>
+		<div className="tokenModal" tabIndex={0}>
 			<input
-				className='tokenModal__search'
-				placeholder='Search for Token Name'
-				type='text' value={name}
-				onChange={changeInput} />
-			{tokens ?
-			<>
-				<div>
-					<div className='tokenModal__tokens'>
-						ERC-20 Tokens
-						<span className='universall__light2' style={{ marginLeft: 4 }}>
-						{'>'}20
-					</span>
+				className="tokenModal__search"
+				placeholder="Search for Token Name"
+				type="text"
+				value={name}
+				onChange={(e) => setName(e.target.value)}
+			/>
+			{addressData && tokens && (
+				<>
+					<div>
+						<div className="tokenModal__tokens">
+							ERC-20 Tokens
+							<span className="universall__light2" style={{ marginLeft: 4 }} />
+						</div>
+						<div className="tokenModal__arrows" />
 					</div>
-					<div className='tokenModal__arrows'></div>
-				</div>
-				{tokens.map((token:any)=><div
-					onClick={()=>setToken(token)}
-					key={token.contract}>
-					<TokenItem setToken={setToken} token={token} />
-				</div>)}
-
-			</>
-			:<Loader/>}
-
+					{!filteredTokensList.length
+						? tokens.map((token: { name: string; idx: number }) => (
+								<TokenItem
+									key={token.name + token.idx}
+									selectedToken={selectedToken}
+									token={token}
+									setToken={setToken}
+								/>
+						  ))
+						: filteredTokensList.map((token: { name: string; idx: number }) => (
+								<TokenItem
+									key={token.name + token.idx}
+									selectedToken={selectedToken}
+									token={token}
+									setToken={setToken}
+								/>
+						  ))}
+				</>
+			)}
 		</div>
-	);
-};
+	)
+}
 
-export default TokenModal;
+export default TokenModal

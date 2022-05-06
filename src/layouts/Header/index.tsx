@@ -1,25 +1,65 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { routes as menuItems } from '../../routes';
-import AmbrosusLogoSvg from './AmbrosusLogoSvg';
+import DesctopMenu from 'components/DesctopMenu'
+import MobileMenu from 'components/MobileMenu'
+import useWindowSize from 'hooks/useWindowSize'
+import React from 'react'
+import { NavLink } from 'react-router-dom'
+import { routes as menuItems } from 'routes'
+import { IRoute } from 'types'
 
-const menu = menuItems.map((menuElement) => (
-	<Link to={menuElement.path} key={menuElement.key} className='menu__item'>
-		{menuElement.key}
-	</Link>
-));
+import AmbrosusLogoSvg from './AmbrosusLogoSvg'
 
-export const Header = () => (
-	<div className='header'>
-		<div className='container'>
-			<nav className='navigation'>
-				<div className='logo'>
-					<Link to='/'>
-						<AmbrosusLogoSvg />
-					</Link>
-				</div>
-				<div className='menu'>{menu}</div>
-			</nav>
+export const Header = () => {
+	const { width } = useWindowSize()
+
+	const menu = menuItems.map((menuElement: IRoute) => {
+		const activeStyle = {
+			color: '#fff',
+		}
+
+		const disableClick = (e: any) => {
+			e.preventDefault()
+		}
+		return (
+			<NavLink
+				to={menuElement.path}
+				key={menuElement.key}
+				className={width > 1100 ? 'menu__item' : 'menuMobile__item'}
+				style={({ isActive }) => ({
+					...(isActive ? activeStyle : null),
+				})}
+				onClick={(e) => disableClick(e)}
+			>
+				{menuElement.key}
+			</NavLink>
+		)
+	})
+
+	return (
+		<div className="header">
+			<div className="container">
+				<nav className="navigation">
+					<div className="logo">
+						<NavLink to="/">
+							<AmbrosusLogoSvg />
+						</NavLink>
+					</div>
+					{width > 1100 ? (
+						<DesctopMenu menu={menu} />
+					) : (
+						<MobileMenu menu={menu} />
+					)}
+				</nav>
+			</div>
 		</div>
-	</div>
-);
+	)
+}
+/*need jsDoc for Header function
+ * @param {IRoute[]} menuItems
+ * @param {boolean} isMobile
+ * @param {boolean} isDesctop
+ * @param {boolean} isOpen
+ * @param {() => void} toggleMenu
+ * @param {() => void} closeMenu
+ * @param {() => void} openMenu
+ * @returns {JSX.Element}
+ */

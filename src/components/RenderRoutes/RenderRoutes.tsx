@@ -1,13 +1,16 @@
-import React from 'react';
-// @ts-ignore
-import { Route, Routes } from 'react-router-dom';
+import React from 'react'
+import { Route, Routes } from 'react-router-dom'
+
+import Error404 from '../../pages/Error404'
+import Loader from '../Loader'
 
 export const RenderRoutes = (props: any) => {
-	const { routes } = props;
+	const { routes } = props
 	return (
 		<Routes>
 			{routes.routes.map((route: any) => (
 				<Route
+					suspense={<Loader />}
 					key={route.key}
 					path={route.path}
 					element={<route.component />}
@@ -16,12 +19,14 @@ export const RenderRoutes = (props: any) => {
 			))}
 			{routes.subRoutes.map((route: any) => (
 				<Route
+					suspense={<Loader />}
 					key={route.key}
 					path={route.path}
 					element={<route.component />}
 					{...route}
 				/>
 			))}
+			<Route path="*" element={<Error404 />} />
 		</Routes>
-	);
-};
+	)
+}

@@ -3,18 +3,18 @@ import thunk from "redux-thunk";
 import reducers from "./reducers/index";
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { createLogger } from "redux-logger";
-import {persistStore, persistReducer} from "redux-persist";
-import storage from  'redux-persist/lib/storage';
+// import {persistStore, persistReducer} from "redux-persist";
+// import storage from  'redux-persist/lib/storage';
 
 const middleware:Array<any>= [thunk];
 
-const persistConfig = {
-		key: 'root',
-		storage,
-		whitelist: ['position,tokenFilters'],
-			blacklist: ['app']
-};
-const persistedReducer = persistReducer(persistConfig, reducers);
+// const persistConfig = {
+// 		key: 'root',
+// 		storage,
+// 		// whitelist: ['position,tokenFilters'],
+// 		blacklist: ['position,tokenFilters,app']
+// };
+// const persistedReducer = persistReducer(persistConfig, reducers);
 
 const logger = createLogger({
 	collapsed: true,
@@ -33,5 +33,5 @@ const logger = createLogger({
 	middleware.push(logger);
 // }
 
-export const store = createStore(persistedReducer, {}, composeWithDevTools(applyMiddleware(...middleware)))
-export const persistor = persistStore(store);
+export const store = createStore(reducers, {}, composeWithDevTools(applyMiddleware(...middleware)))
+// export const persistor = persistStore(store);

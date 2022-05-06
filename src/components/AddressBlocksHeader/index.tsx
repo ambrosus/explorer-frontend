@@ -1,20 +1,9 @@
-import React, { useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import ArrowDown from '../../assets/icons/Arrows/ArrowDown';
+import { useOnClickOutside } from 'hooks/useOnClickOutside'
+import { AddressBlockProps } from 'pages/Addresses/AddressDetails/address-details.interface'
+import React, { useRef, useState } from 'react'
+import { NavLink, useParams } from 'react-router-dom'
 
-interface AddressBlockProps {
-	txhash: string | number;
-	method: string | number;
-	from: string | number;
-	to: string | number;
-	date: string | number;
-	block: string | number;
-	amount: any;
-	txfee: string | number;
-	token: string;
-	methodFilters: any;
-	setTransactionType: any;
-}
+import { TParams } from '../../types'
 
 const AddressBlock: React.FC<AddressBlockProps> = ({
 	txhash,
@@ -29,46 +18,76 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 	methodFilters,
 	setTransactionType,
 }) => {
-	const [isShow, setIsShow] = useState(false);
-	const { address } = useParams();
+	const [isShow, setIsShow] = useState(false)
+	const { address }: TParams = useParams()
+	const methodRef = useRef(null)
 
-	const sortMethod = () => setIsShow(!isShow);
+	useOnClickOutside(methodRef, () => setIsShow(false))
 
-	const isTxHash = txhash === null ? null : <div className='addressDetails__thead-td'>{txhash}</div>;
+	const isTxHash =
+		txhash === null ? null : (
+			<div className="addressDetails__thead-td">{txhash}</div>
+		)
 	const isMethod =
 		method === null ? null : (
-			<div className='addressDetails__thead-td'>
-				<button
-					className='universall__light2'
-					style={{ display: 'flex', alignItems: 'center', fontWeight: 700, fontSize: '0.86em', lineHeight: '1.77em' }}
-					onClick={sortMethod}
+			<div ref={methodRef} className="addressDetails__thead-td">
+				<div
+					style={{
+						display: 'flex',
+						alignItems: 'center',
+						fontWeight: 700,
+						fontSize: '0.86rem',
+						lineHeight: '1.77em',
+					}}
+					// onClick={() => setIsShow(true)}
 				>
 					{method}
-					<ArrowDown />
-				</button>
-				<div className='methodModal__table'>
+					{/* <ArrowDown /> */}
+				</div>
+				<div ref={methodRef} className="methodModal__table">
 					{isShow &&
-						methodFilters.map((filter: { title: string; value: any }) => (
-							<Link
+						methodFilters.map((filter: { title: string; value: number }) => (
+							<NavLink
 								key={filter.title}
 								to={`/addresses/${address}/${filter.value}`}
 								tabIndex={-1}
-								className='methodModal__link'
+								className="methodModal__link"
 								onClick={() => setTransactionType(filter.value)}
 							>
 								{filter.title}
-							</Link>
+							</NavLink>
 						))}
 				</div>
 			</div>
-		);
-	const isFrom = from === null ? null : <div className='addressDetails__thead-td'>{from}</div>;
-	const isTo = to === null ? null : <div className='addressDetails__thead-td'>{to}</div>;
-	const isDate = date === null ? null : <div className='addressDetails__thead-td'>{date}</div>;
-	const isBlock = block === null ? null : <div className='addressDetails__thead-td'>{block}</div>;
-	const isAmount = amount === null ? null : <div className='addressDetails__thead-td'>{amount}</div>;
-	const isTxFee = txfee === null ? null : <div className='addressDetails__thead-td'>{txfee}</div>;
-	const isToken = token === null ? null : <div className='addressDetails__thead-td'>{token}</div>;
+		)
+	const isFrom =
+		from === null ? null : (
+			<div className="addressDetails__thead-td">{from}</div>
+		)
+	const isTo =
+		to === null ? null : <div className="addressDetails__thead-td">{to}</div>
+	const isDate =
+		date === null ? null : (
+			<div className="addressDetails__thead-td">{date}</div>
+		)
+	const isBlock =
+		block === null ? null : (
+			<div className="addressDetails__thead-td">{block}</div>
+		)
+	const isAmount =
+		amount === null ? null : (
+			<div className="addressDetails__thead-td">{amount}</div>
+		)
+	const isTxFee =
+		txfee === null ? null : (
+			<div className="addressDetails__thead-td">{txfee}</div>
+		)
+	const isToken =
+		token === null ? null : (
+			<div className="addressDetails__thead-td">
+				{token && token[0].toUpperCase() + token.slice(1)}
+			</div>
+		)
 
 	return (
 		<>
@@ -82,7 +101,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 			{isTxFee}
 			{isToken}
 		</>
-	);
-};
+	)
+}
 
-export default AddressBlock;
+export default AddressBlock
