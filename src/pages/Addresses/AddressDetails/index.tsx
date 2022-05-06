@@ -35,7 +35,7 @@ export const AddressDetails = () => {
 	const [selectedToken, setSelectedToken] = useState<TokenType | null>(null)
 	const [tx, setTx] = useState<TransactionProps[] | []>([])
 	const [pageNum, setPageNum] = useState(1)
-	const [limitNum] = useState(50)
+	const [limitNum] = useState(22)
 	const observer = useRef<IntersectionObserver>()
 	const { isCopy, isCopyPopup, copyContent } = useCopyContent(address)
 
