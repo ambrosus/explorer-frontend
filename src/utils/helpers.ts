@@ -1,3 +1,5 @@
+import Amb from 'assets/icons/Cryptos/Amb'
+import Eth from 'assets/icons/Cryptos/Eth'
 import moment from 'moment'
 
 import { TransactionProps } from '../pages/Addresses/AddressDetails/address-details.interface'
@@ -44,4 +46,17 @@ export const toUniqueValueByBlock = (arr: any) => {
 		(a: any, b: any) => b.block - a.block
 	)
 	return newTx
+}
+
+export const getTokenIcon = (symbol: string) => {
+	switch (symbol) {
+		case 'SAMB':
+			return Amb
+		case 'WETH':
+			return Eth
+		case 'AMB':
+			return Amb
+		default:
+			return Amb
+	}
 }
