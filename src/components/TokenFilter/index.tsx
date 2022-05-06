@@ -27,7 +27,7 @@ const TokenFilter = ({ onClick, selectedToken }: any) => {
 		navigate(
 			`/addresses/${address}/ERC-20_Tx/${
 				token.contract ? token.contract : token.address
-			}`
+			}/`
 		)
 	}
 
