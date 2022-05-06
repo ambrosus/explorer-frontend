@@ -17,13 +17,16 @@
 		border-radius: 12px;
 		&-exportCsv {
 			position: relative;
-			left: 280px;
+			left: 240px;
 			bottom: 50px;
 			height: 40px;
 			width: 100px;
 			background-color: $main;
 			color: #fff;
 			border-radius: 4px;
+			@include for-device-small {
+				left: 24px;
+			}
 		}
 		&-exportCsv:hover {
 			box-shadow: 4px 8px 8px rgb(0 0 0 / 25%);
@@ -87,16 +90,20 @@
 			width: 100%;
 		}
 		&-mobile {
-			margin-top: 100px;
+			margin-top: 50px;
 			position: absolute;
 			z-index: 1;
+			@include for-device-medium {
+				margin-top: 39px;
+			}
 		}
 	}
 	&__sideMenu {
 		display: flex;
-		width: 140px;
 		align-items: center;
 		justify-content: flex-end;
+		@include for-device-medium {
+		}
 		&-icon {
 			display: flex;
 			align-items: center;

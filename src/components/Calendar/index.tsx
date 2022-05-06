@@ -8,7 +8,7 @@ import { useParams } from 'react-router-dom'
 
 import { TParams } from '../../types'
 
-const Calendar = ({ setIsShow, calendarRef }: any) => {
+const Calendar = () => {
 	const { address }: TParams = useParams()
 
 	const [dataRange, setDataRange] = useState([

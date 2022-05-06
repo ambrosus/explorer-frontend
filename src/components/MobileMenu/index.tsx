@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import { useOnClickOutside } from 'hooks/useOnClickOutside'
+import React, { useRef, useState } from 'react'
 
 import BurgerMenuClose from '../../assets/icons/MobileMenu/BurgerMenuClose'
 import BurgerMenuOpen from '../../assets/icons/MobileMenu/BurgerMenuOpen'
@@ -9,9 +10,13 @@ interface MobileMenuProps {
 }
 const MobileMenu: React.FC<MobileMenuProps> = ({ menu }) => {
 	const [isShow, setIsShow] = useState(false)
+	const menuRef = useRef(null)
+
+	useOnClickOutside(menuRef, () => setIsShow(false))
+
 	return (
 		<>
-			<div className="mobile">
+			<div ref={menuRef} className="mobile">
 				<button onClick={() => setIsShow(!isShow)} className="menu__btn">
 					{isShow ? <BurgerMenuClose /> : <BurgerMenuOpen />}
 				</button>
