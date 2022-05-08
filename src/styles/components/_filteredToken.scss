@@ -5,7 +5,6 @@
 	margin: 32px 0;
 	border: 1px solid #eff2f5;
 	border-radius: 16px;
-	height: 96px;
 	white-space: nowrap;
 	@include for-device-medium {
 	}
@@ -15,17 +14,24 @@
 		grid-template-columns: repeat(2, auto);
 		align-items: center;
 		padding: 0 16px;
+		border-bottom: 1px solid #eff2f5;
+
 		@include for-device-medium {
 		}
 	}
 	&__body {
 		display: grid;
-		grid-template-columns: repeat(5, auto);
+		grid-template-columns: repeat(2, auto);
 		gap: 2.3em;
 		align-items: center;
-		border-top: 1px solid #eff2f5;
+		justify-content: flex-start;
 		padding: 0 16px;
 		@include for-device-medium {
+			display: flex;
+			flex-direction: column;
+			margin-top: 12px;
+			gap: 0;
+			align-items: flex-start;
 		}
 	}
 	&__heading {
@@ -40,10 +46,19 @@
 	&__cells:nth-child(2) {
 		justify-content: flex-end;
 	}
+	&__cells:nth-child(1) {
+		@include for-device-medium {
+			display: flex;
+			flex-direction: column;
+			gap: 0;
+		}
+	}
 	&__cell {
 		display: flex;
 		gap: 8px;
 		align-items: center;
+		min-width: 120px;
+
 		&-bold {
 			font-weight: 700;
 			line-height: 2.22em;
