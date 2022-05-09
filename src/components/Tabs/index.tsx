@@ -31,7 +31,7 @@ const Tabs: FC<TabsProps> = ({
 	const [renderData, setRenderData] = React.useState<any>(null)
 
 	useEffect(() => {
-		if (addressData) {
+		if (addressData && !loading) {
 			if (data?.length && filtered && type === 'ERC-20_Tx') {
 				setRenderData(toUniqueValueByBlock(data))
 			}
@@ -54,7 +54,8 @@ const Tabs: FC<TabsProps> = ({
 	const { transactionFilters, ERC20Filters, methodFilters } = sidePages
 	const [isShow, setIsShow] = useState(false)
 	const setActiveLink = ({ isActive }: any) =>
-		isActive ? 'tabs__link tabs__link-active' : 'tabs__link'
+		!loading  && isActive
+			? 'tabs__link tabs__link-active' : 'tabs__link'
 	const mobileCalendarRef = useRef(null)
 
 	useOnClickOutside(mobileCalendarRef, () => setIsShow(false))
@@ -167,8 +168,8 @@ const Tabs: FC<TabsProps> = ({
 									block={transaction.block}
 									amount={transaction.amount}
 									txfee={transaction.txFee}
-									token={`${transaction?.token ? transaction?.token : null}`}
-									symbol={`${transaction?.symbol ? transaction?.symbol : null}`}
+									token={`${transaction?.token ? transaction?.token : 'AMB'}`}
+									symbol={`${transaction?.symbol ? transaction?.symbol : 'AMB'}`}
 								/>
 							)
 						)}
