@@ -7,6 +7,7 @@ import { useTypedSelector } from 'hooks/useTypedSelector'
 import { AddressBlockProps } from 'pages/Addresses/AddressDetails/address-details.interface'
 import React from 'react'
 import { NavLink, useNavigate, useParams } from 'react-router-dom'
+import ReactTooltip from 'react-tooltip'
 import { getTokenIcon, sliceData5, sliceData10 } from 'utils/helpers'
 
 import { TParams } from '../../types'
@@ -90,23 +91,37 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 
 	const Icon = getTokenIcon(symbol as string)
 	const isAmount =
-		amount === null ? <></> : (
+		amount === null ? (
+			<></>
+		) : (
 			<div className="addressDetails__tbody-td">
 				{type !== 'ERC-20_Tx' ? (
 					<span className="universall__indent-icon">
 						<Icon />
 					</span>
-				) : <></>}
+				) : (
+					<></>
+				)}
 				<span>{amount}</span>
-				{symbol && symbol!== null && symbol!== "null" ? (
+				{symbol && symbol !== null && symbol !== 'null' ? (
 					<span
 						style={{
 							padding: '0 5px',
 							cursor:
-								 symbol !== 'AMB' && symbol !== 'null' && symbol !== null && type !== 'ERC-20_Tx' ? 'pointer' : 'default',
+								symbol !== 'AMB' &&
+								symbol !== 'null' &&
+								symbol !== null &&
+								type !== 'ERC-20_Tx'
+									? 'pointer'
+									: 'default',
 							color: '#808a9d',
 							textDecoration:
-								 symbol !== 'AMB' && symbol !== 'null' && symbol !== null && type !== 'ERC-20_Tx' ? 'underline' : 'none',
+								symbol !== 'AMB' &&
+								symbol !== 'null' &&
+								symbol !== null &&
+								type !== 'ERC-20_Tx'
+									? 'underline'
+									: 'none',
 						}}
 						onClick={() => {
 							addressData?.tokens?.forEach((item: any) => {
@@ -122,10 +137,12 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 					>
 						{
 							// @ts-ignore
-							type !== 'ERC-20_Tx' ? <>{symbol  ?symbol :''}</> : ''
+							type !== 'ERC-20_Tx' ? <>{symbol ? symbol : ''}</> : ''
 						}
 					</span>
-				) : <></>}
+				) : (
+					<></>
+				)}
 			</div>
 		)
 
@@ -138,7 +155,13 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 				>
 					{online}
 				</span>
-				{txfee} AMB
+				<ReactTooltip />
+				<span
+					data-tip={txfee}
+					// cut to 6 character
+				>
+					{Number(txfee).toFixed(6)} AMB
+				</span>
 			</div>
 		)
 
@@ -155,7 +178,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 				) : null}
 				{!isLatest ? (
 					<>
-						{token? token:''} ({symbol ? symbol : ''})
+						{token ? token : ''} ({symbol ? symbol : ''})
 					</>
 				) : (
 					<span
@@ -170,11 +193,13 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 							})
 						}}
 					>
-						{token? token:''} ({symbol ? symbol : ''})
+						{token ? token : ''} ({symbol ? symbol : ''})
 					</span>
 				)}
 			</div>
-		) : <></>
+		) : (
+			<></>
+		)
 
 	return (
 		<>
