@@ -4,7 +4,10 @@ import { useOnClickOutside } from 'hooks/useOnClickOutside'
 import { useTypedSelector } from 'hooks/useTypedSelector'
 import useWindowSize from 'hooks/useWindowSize'
 import moment from 'moment'
-import { TabsProps, TransactionProps } from 'pages/Addresses/AddressDetails/address-details.interface'
+import {
+	TabsProps,
+	TransactionProps,
+} from 'pages/Addresses/AddressDetails/address-details.interface'
 import React, { FC, useEffect, useRef, useState } from 'react'
 import { NavLink, useParams } from 'react-router-dom'
 import { setupStyle, toUniqueValueByBlock } from 'utils/helpers'
@@ -35,13 +38,12 @@ const Tabs: FC<TabsProps> = ({
 			if (data?.length && type !== 'ERC-20_Tx' && !filtered) {
 				if (type === 'transfers') {
 					setRenderData(() => {
-							const transfersDataTx: TransactionProps[] = data.filter(
-								(item: TransactionProps) => item.method === 'Transfer'
-							)
-							return   transfersDataTx
-						}
-					)
-				}else {
+						const transfersDataTx: TransactionProps[] = data.filter(
+							(item: TransactionProps) => item.method === 'Transfer'
+						)
+						return transfersDataTx
+					})
+				} else {
 					setRenderData(toUniqueValueByBlock(data))
 				}
 			}
@@ -65,8 +67,7 @@ const Tabs: FC<TabsProps> = ({
 	const { transactionFilters, ERC20Filters, methodFilters } = sidePages
 	const [isShow, setIsShow] = useState(false)
 	const setActiveLink = ({ isActive }: any) =>
-		!loading  && isActive
-			? 'tabs__link tabs__link-active' : 'tabs__link'
+		!loading && isActive ? 'tabs__link tabs__link-active' : 'tabs__link'
 	const mobileCalendarRef = useRef(null)
 
 	useOnClickOutside(mobileCalendarRef, () => setIsShow(false))
@@ -180,7 +181,9 @@ const Tabs: FC<TabsProps> = ({
 									amount={transaction.amount}
 									txfee={transaction.txFee}
 									token={`${transaction?.token ? transaction?.token : 'AMB'}`}
-									symbol={`${transaction?.symbol ? transaction?.symbol : 'AMB'}`}
+									symbol={`${
+										transaction?.symbol ? transaction?.symbol : 'AMB'
+									}`}
 								/>
 							)
 						)}

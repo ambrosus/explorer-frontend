@@ -108,7 +108,9 @@ const sortedLatestTransactionsData = async (
 				token: t?.tokenTransfers
 					? getTokenName(t.tokenTransfers[0].name)
 					: 'No token',
-				symbol: t?.tokenTransfers ? getTokenName(t.tokenTransfers[0]?.symbol) : 'AMB',
+				symbol: t?.tokenTransfers
+					? getTokenName(t.tokenTransfers[0]?.symbol)
+					: 'AMB',
 				txFee: Number(ethers.utils.formatEther(t.fees)),
 			}
 		})
