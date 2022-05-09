@@ -28,7 +28,6 @@ const getTokensBalance = async (tokensArr: TokenType[], address: string) => {
 			token.balance = balance
 			token.totalSupply = totalSupply
 			token.name = name
-			token.symbol = token.symbol === 'WETH' ? 'ETH' : token.symbol
 			return {
 				...token,
 				balance,
@@ -39,9 +38,6 @@ const getTokensBalance = async (tokensArr: TokenType[], address: string) => {
 }
 const getTokenName = (token: TokenType) => {
 	const tokenName = typeof token === 'string' ? token : token.name
-	if (tokenName === 'WETH') {
-		return 'ETH'
-	}
 
 	const tokenExample = [
 		{

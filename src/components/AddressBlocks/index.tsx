@@ -1,4 +1,3 @@
-import Amb from 'assets/icons/Cryptos/Amb'
 import GreenCircle from 'assets/icons/StatusAction/GreenCircle'
 import IncomeTrasaction from 'assets/icons/StatusAction/IncomeTrasaction'
 import OrangeCircle from 'assets/icons/StatusAction/OrangeCircle'
@@ -162,7 +161,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 					<span
 						className="addressDetails__tbody-td universall__light2"
 						onClick={() => {
-							addressData?.tokens.map((item: any) => {
+							addressData?.tokens.forEach((item: any) => {
 								if (item.name === token) {
 									onClick(item)
 									addFilter(item)
