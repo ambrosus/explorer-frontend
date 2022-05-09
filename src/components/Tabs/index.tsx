@@ -4,7 +4,7 @@ import { useOnClickOutside } from 'hooks/useOnClickOutside'
 import { useTypedSelector } from 'hooks/useTypedSelector'
 import useWindowSize from 'hooks/useWindowSize'
 import moment from 'moment'
-import { TabsProps } from 'pages/Addresses/AddressDetails/address-details.interface'
+import { TabsProps, TransactionProps } from 'pages/Addresses/AddressDetails/address-details.interface'
 import React, { FC, useEffect, useRef, useState } from 'react'
 import { NavLink, useParams } from 'react-router-dom'
 import { setupStyle, toUniqueValueByBlock } from 'utils/helpers'
@@ -29,15 +29,26 @@ const Tabs: FC<TabsProps> = ({
 	const headerTxfee: any = type === 'ERC-20_Tx' ? null : 'txFee'
 	const headerToken: any = type === 'ERC-20_Tx' ? 'token' : null
 	const [renderData, setRenderData] = React.useState<any>(null)
-
+	console.log(renderData)
 	useEffect(() => {
 		if (addressData && !loading) {
+			if (data?.length && type !== 'ERC-20_Tx' && !filtered) {
+				if (type === 'transfers') {
+					setRenderData(() => {
+							const transfersDataTx: TransactionProps[] = data.filter(
+								(item: TransactionProps) => item.method === 'Transfer'
+							)
+							return   transfersDataTx
+						}
+					)
+				}else {
+					setRenderData(toUniqueValueByBlock(data))
+				}
+			}
 			if (data?.length && filtered && type === 'ERC-20_Tx') {
 				setRenderData(toUniqueValueByBlock(data))
 			}
-			if (data?.length && type !== 'ERC-20_Tx' && !filtered) {
-				setRenderData(toUniqueValueByBlock(data))
-			}
+
 			if (
 				addressData &&
 				addressData?.latestTransactions?.length &&
@@ -138,7 +149,7 @@ const Tabs: FC<TabsProps> = ({
 					{renderData &&
 						renderData?.length &&
 						renderData.map((transaction: any, index: number) =>
-							data.length - 1 === index && data.length > 20 ? (
+							data.length - 1 === index ? (
 								<AddressBlock
 									isLatest={type === 'ERC-20_Tx' && !filtered}
 									lastCardRef={lastCardRef}
