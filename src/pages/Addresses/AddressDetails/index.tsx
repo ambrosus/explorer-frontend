@@ -131,7 +131,7 @@ export const AddressDetails = () => {
 					const newTx: TransactionProps[] = [...compare].sort(
 						(a: any, b: any) => b.block - a.block
 					)
-				return newTx
+					return newTx
 				}
 			})
 		}
