@@ -28,6 +28,7 @@ const getTokensBalance = async (tokensArr: TokenType[], address: string) => {
 			token.balance = balance
 			token.totalSupply = totalSupply
 			token.name = name
+			token.symbol = token.symbol === 'WETH' ? 'ETH' : token.symbol
 			return {
 				...token,
 				balance,
@@ -38,6 +39,10 @@ const getTokensBalance = async (tokensArr: TokenType[], address: string) => {
 }
 const getTokenName = (token: TokenType) => {
 	const tokenName = typeof token === 'string' ? token : token.name
+	if (tokenName === 'WETH') {
+		return 'ETH'
+	}
+
 	const tokenExample = [
 		{
 			token: '0x322269e52800e5094c008f3b01A3FD97BB3C8f5D',
@@ -103,7 +108,7 @@ const sortedLatestTransactionsData = async (
 				token: t?.tokenTransfers
 					? getTokenName(t.tokenTransfers[0].name)
 					: 'No token',
-				symbol: t?.tokenTransfers ? t.tokenTransfers[0]?.symbol : 'AMB',
+				symbol: t?.tokenTransfers ? getTokenName(t.tokenTransfers[0]?.symbol) : 'AMB',
 				txFee: Number(ethers.utils.formatEther(t.fees)),
 			}
 		})
