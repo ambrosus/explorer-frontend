@@ -52,7 +52,7 @@ export const getTokenIcon = (symbol: string) => {
 	switch (symbol) {
 		case 'SAMB':
 			return Amb
-		case 'ETH':
+		case 'WETH':
 			return Eth
 		case 'AMB':
 			return Amb
