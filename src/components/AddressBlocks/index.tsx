@@ -91,23 +91,23 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 
 	const Icon = getTokenIcon(symbol as string)
 	const isAmount =
-		amount === null ? null : (
+		amount === null ? <></> : (
 			<div className="addressDetails__tbody-td">
 				{type !== 'ERC-20_Tx' ? (
 					<span className="universall__indent-icon">
 						<Icon />
 					</span>
-				) : null}
+				) : <></>}
 				<span>{amount}</span>
-				{symbol ? (
+				{symbol && symbol!== null && symbol!== "null" ? (
 					<span
 						style={{
 							padding: '0 5px',
 							cursor:
-								token !== 'AMB' && type !== 'ERC-20_Tx' ? 'pointer' : 'default',
+								 symbol !== 'AMB' && symbol !== 'null' && symbol !== null && type !== 'ERC-20_Tx' ? 'pointer' : 'default',
 							color: '#808a9d',
 							textDecoration:
-								token !== 'AMB' && type !== 'ERC-20_Tx' ? 'underline' : 'none',
+								 symbol !== 'AMB' && symbol !== 'null' && symbol !== null && type !== 'ERC-20_Tx' ? 'underline' : 'none',
 						}}
 						onClick={() => {
 							addressData?.tokens?.forEach((item: any) => {
@@ -123,10 +123,10 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 					>
 						{
 							// @ts-ignore
-							type !== 'ERC-20_Tx' ? symbol : ''
+							type !== 'ERC-20_Tx' ? <>{symbol  ?symbol :''}</> : ''
 						}
 					</span>
-				) : null}
+				) : <></>}
 			</div>
 		)
 
@@ -156,7 +156,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 				) : null}
 				{!isLatest ? (
 					<>
-						{token} ({symbol})
+						{token? token:''} ({symbol ? symbol : ''})
 					</>
 				) : (
 					<span
@@ -171,11 +171,11 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 							})
 						}}
 					>
-						{token} (aaa)
+						{token? token:''} ({symbol ? symbol : ''})
 					</span>
 				)}
 			</div>
-		) : null
+		) : <></>
 
 	return (
 		<>
