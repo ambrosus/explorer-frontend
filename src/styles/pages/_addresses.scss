@@ -10,6 +10,8 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		height: 52px;
+		border-bottom: 1px solid #eff2f5;
 		&-heading {
 			display: flex;
 			flex: 2;
@@ -48,6 +50,9 @@
 		display: grid;
 		grid-template-columns: 50px 470px 150px 158px repeat(1, auto);
 		gap: 36px;
+		height: 48px;
+		align-items: center;
+
 		&-cell {
 			display: flex;
 			font-weight: 700;
@@ -61,8 +66,11 @@
 	&__body {
 		display: grid;
 		grid-template-columns: 50px 470px 150px 158px repeat(1, auto);
-
+		height: 48px;
+		align-items: center;
 		gap: 36px;
+		border-bottom: 1px solid #eff2f5;
+
 		&-cell {
 			display: flex;
 			font-weight: 400;
