@@ -1,4 +1,3 @@
-import Amb from 'assets/icons/Cryptos/Amb'
 import GreenCircle from 'assets/icons/StatusAction/GreenCircle'
 import IncomeTrasaction from 'assets/icons/StatusAction/IncomeTrasaction'
 import OrangeCircle from 'assets/icons/StatusAction/OrangeCircle'
@@ -8,6 +7,7 @@ import { useTypedSelector } from 'hooks/useTypedSelector'
 import { AddressBlockProps } from 'pages/Addresses/AddressDetails/address-details.interface'
 import React from 'react'
 import { NavLink, useNavigate, useParams } from 'react-router-dom'
+import ReactTooltip from 'react-tooltip'
 import { getTokenIcon, sliceData5, sliceData10 } from 'utils/helpers'
 
 import { TParams } from '../../types'
@@ -155,7 +155,13 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 				>
 					{online}
 				</span>
-				{txfee} AMB
+				<ReactTooltip />
+				<span
+					data-tip={txfee}
+					// cut to 6 character
+				>
+					{Number(txfee).toFixed(6)} AMB
+				</span>
 			</div>
 		)
 
@@ -178,7 +184,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 					<span
 						className="addressDetails__tbody-td universall__light2"
 						onClick={() => {
-							addressData?.tokens.map((item: any) => {
+							addressData?.tokens.forEach((item: any) => {
 								if (item.name === token) {
 									onClick(item)
 									addFilter(item)
