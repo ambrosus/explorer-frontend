@@ -89,6 +89,7 @@ const sortedLatestTransactionsData = async (
 
 		return parsePromisesByToken.map((item: any) => {
 			const t = item.value
+			console.log('t.fees', t.fees)
 			return {
 				txHash: t.txid,
 				method: t?.tokenTransfers ? 'Transfer' : 'Transaction',
@@ -104,8 +105,10 @@ const sortedLatestTransactionsData = async (
 				token: t?.tokenTransfers
 					? getTokenName(t.tokenTransfers[0].name)
 					: 'No token',
-				symbol: t?.tokenTransfers ? getTokenName(t.tokenTransfers[0]?.symbol) : 'AMB',
-				txFee: Number(ethers.utils.formatEther(t.fees)),
+				symbol: t?.tokenTransfers
+					? getTokenName(t.tokenTransfers[0]?.symbol)
+					: 'AMB',
+				txFee: ethers.utils.formatEther(t.fees),
 			}
 		})
 	} catch (e) {
@@ -201,6 +204,7 @@ const bbDataFillter = async (
 			filteredBlockBookApiTransactionsData?.length &&
 			filteredBlockBookApiTransactionsData.map((item: any) => {
 				const t = item.value
+				console.log('t', t)
 				return {
 					txHash: t.txid,
 					method: t?.tokenTransfers ? 'Transfer' : 'Transaction',
@@ -221,7 +225,7 @@ const bbDataFillter = async (
 					symbol: t?.tokenTransfers
 						? getTokenName(t.tokenTransfers[0]?.symbol)
 						: 'AMB',
-					txFee: Number(ethers.utils.formatEther(t.fees)),
+					txFee: ethers.utils.formatUnits(t.fees, 18),
 				}
 			})
 		return {
@@ -250,11 +254,11 @@ async function explorerData(address: string, { page, limit, type }: any) {
 				to: t.to,
 				date: t.timestamp * 1000,
 				block: t.blockNumber,
-				amount: Number(formatEther(t.value.wei)).toFixed(2),
+				amount: Number(formatEther(t.value.wei)).toFixed(6),
 				// TODO add token symbol && token name
 				token: 'Amber',
 				symbol: 'AMB',
-				txFee: Number(t.gasCost.ether),
+				txFee: ethers.utils.formatUnits(String(t.gasCost.ether), 18),
 			}
 		})
 	} catch (e) {

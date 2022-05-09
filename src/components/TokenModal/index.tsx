@@ -21,9 +21,11 @@ const TokenModal: FC<TokenModalProps> = ({ selectedToken, setToken }) => {
 
 	useEffect(() => {
 		if (name) {
-			const newTokensList = addressData && addressData?.tokens.filter((token: any) =>
-				token.name.toLowerCase().includes(name.toLowerCase())
-			)
+			const newTokensList =
+				addressData &&
+				addressData?.tokens.filter((token: any) =>
+					token.name.toLowerCase().includes(name.toLowerCase())
+				)
 			setFilteredTokensList(newTokensList || [])
 			if (!newTokensList.length) {
 				setFilteredTokensList(addressData?.tokens || [])
@@ -50,14 +52,16 @@ const TokenModal: FC<TokenModalProps> = ({ selectedToken, setToken }) => {
 						<div className="tokenModal__arrows" />
 					</div>
 					{!filteredTokensList.length
-						? addressData?.tokens.map((token: { name: string; idx: number }) => (
-								<TokenItem
-									key={token.name + token.idx}
-									selectedToken={selectedToken}
-									token={token}
-									setToken={setToken}
-								/>
-						  ))
+						? addressData?.tokens.map(
+								(token: { name: string; idx: number }) => (
+									<TokenItem
+										key={token.name + token.idx}
+										selectedToken={selectedToken}
+										token={token}
+										setToken={setToken}
+									/>
+								)
+						  )
 						: filteredTokensList.map((token: { name: string; idx: number }) => (
 								<TokenItem
 									key={token.name + token.idx}
