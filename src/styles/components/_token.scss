@@ -58,12 +58,12 @@
 
 // tokenFilter
 @keyframes morph {
-	0% { opacity: 0.5; }
+	0% { opacity: 0.7; }
 	50% { opacity: 0.9; }
-	100% { opacity: 0.5; }
+	100% { opacity: 0.7; }
 }
 
-.toggle { animation: morph 3s linear; }
+.toggle { animation: morph 2s linear; }
 
 .tokenFilter {
 	display: flex;
