@@ -48,6 +48,7 @@ const FindWideMobile: React.FC<FindWideMobileProps> = ({
 					className="searchMobile__input"
 					placeholder="Search by Node, Address, Tx, Block, Toke..."
 					type="text"
+					style={{ fontSize: 16 }}
 					value={name}
 					onChange={(e: ChangeEvent<HTMLInputElement>) =>
 						setName(e.target.value)
