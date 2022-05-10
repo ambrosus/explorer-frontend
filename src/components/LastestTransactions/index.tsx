@@ -35,6 +35,7 @@ const LatestTransactions: React.FC<LatestTransactionsProps> = ({
 					</div>
 
 					<div className="lastestTransactions__p lastestTransactions__font-small">
+						<span style={{ marginRight: 16 }}></span>
 						{calcTime(timestamp)}
 					</div>
 				</div>
