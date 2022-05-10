@@ -99,8 +99,8 @@ const sortedLatestTransactionsData = async (
 				date: t.blockTime * 1000,
 				block: t.blockHeight,
 				amount: t?.tokenTransfers
-					? Number(formatEther(t.tokenTransfers[0].value)).toFixed(2)
-					: Number(formatEther(t.value)).toFixed(2),
+					? Number(formatEther(t.tokenTransfers[0].value))
+					: Number(formatEther(t.value)),
 				token: t?.tokenTransfers
 					? getTokenName(t.tokenTransfers[0].name)
 					: 'No token',
@@ -215,8 +215,8 @@ const bbDataFillter = async (
 					date: t.blockTime * 1000,
 					block: t.blockHeight,
 					amount: t?.tokenTransfers
-						? Number(formatEther(t.tokenTransfers[0].value)).toFixed(2)
-						: Number(formatEther(t.value)).toFixed(2),
+						? Number(formatEther(t.tokenTransfers[0].value))
+						: Number(formatEther(t.value)),
 					token: t?.tokenTransfers
 						? getTokenName(t.tokenTransfers[0].name)
 						: 'AMB',
@@ -252,7 +252,7 @@ async function explorerData(address: string, { page, limit, type }: any) {
 				to: t.to,
 				date: t.timestamp * 1000,
 				block: t.blockNumber,
-				amount: Number(formatEther(t.value.wei)).toFixed(6),
+				amount: Number(formatEther(t.value.wei)),
 				// TODO add token symbol && token name
 				token: 'Amber',
 				symbol: 'AMB',
