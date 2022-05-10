@@ -89,7 +89,6 @@ const sortedLatestTransactionsData = async (
 
 		return parsePromisesByToken.map((item: any) => {
 			const t = item.value
-			console.log('t.fees', t.fees)
 			return {
 				txHash: t.txid,
 				method: t?.tokenTransfers ? 'Transfer' : 'Transaction',
@@ -204,7 +203,6 @@ const bbDataFillter = async (
 			filteredBlockBookApiTransactionsData?.length &&
 			filteredBlockBookApiTransactionsData.map((item: any) => {
 				const t = item.value
-				console.log('t', t)
 				return {
 					txHash: t.txid,
 					method: t?.tokenTransfers ? 'Transfer' : 'Transaction',
@@ -258,7 +256,7 @@ async function explorerData(address: string, { page, limit, type }: any) {
 				// TODO add token symbol && token name
 				token: 'Amber',
 				symbol: 'AMB',
-				txFee: ethers.utils.formatUnits(String(t.gasCost.ether), 18),
+				txFee: t.gasCost.ether,
 			}
 		})
 	} catch (e) {
