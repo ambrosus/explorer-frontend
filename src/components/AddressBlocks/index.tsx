@@ -102,7 +102,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 				) : (
 					<></>
 				)}
-				<span>{amount}</span>
+				<span>{Number(amount).toFixed(6)}</span>
 				{symbol && symbol !== null && symbol !== 'null' ? (
 					<span
 						style={{
@@ -157,10 +157,10 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 				</span>
 				<ReactTooltip />
 				<span
-					data-tip={txfee}
+					data-tip={String(txfee).length > 12 ? txfee: null}
 					// cut to 6 character
 				>
-					{Number(txfee).toFixed(6)} AMB
+					{String(txfee).length > 12 ? String(txfee).slice(0,12) : txfee}
 				</span>
 			</div>
 		)

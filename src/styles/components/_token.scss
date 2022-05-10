@@ -57,6 +57,13 @@
 }
 
 // tokenFilter
+@keyframes morph {
+	0% { opacity: 0.5; }
+	50% { opacity: 0.9; }
+	100% { opacity: 0.5; }
+}
+
+.toggle { animation: morph 3s linear; }
 
 .tokenFilter {
 	display: flex;
@@ -76,6 +83,7 @@
 		border: 0px;
 		border-radius: 16px;
 		flex: 20;
+		/* (A1) ANIMATION KEYFRAMES - BACKGROUND COLOR SEQUENCE */
 
 		&-rectangle {
 			display: flex;
@@ -94,7 +102,7 @@
 			border-radius: 8px;
 		}
 		&-text {
-			line-height: 1.33 em;
+			line-height: 1.33em;
 			flex: 6;
 		}
 		&-btn {
