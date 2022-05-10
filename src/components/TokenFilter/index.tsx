@@ -12,7 +12,7 @@ import TokenModal from '../TokenModal'
 const TokenFilter = ({ onClick, selectedToken }: any) => {
 	const { addFilter } = useActions()
 	const { loading, data: addressData } = useTypedSelector(
-		(state: any) => state.position,
+		(state: any) => state.position
 	)
 	const [isShow, setIsShow] = useState(false)
 	const navigate = useNavigate()
@@ -20,8 +20,7 @@ const TokenFilter = ({ onClick, selectedToken }: any) => {
 	const refTokensModal = useRef<HTMLDivElement>(null)
 
 	useOnClickOutside(refTokensModal, () => setIsShow(false))
-	const toggleMenu = () => !loading ? setIsShow(!isShow) : null
-	// setIsShow(!isShow)
+	const toggleMenu = () => (!loading ? setIsShow(!isShow) : null)
 
 	const handleSelect = (token: any) => {
 		onClick(token)
@@ -30,32 +29,49 @@ const TokenFilter = ({ onClick, selectedToken }: any) => {
 		navigate(
 			`/addresses/${address}/ERC-20_Tx/${
 				token.contract ? token.contract : token.address
-			}/`,
+			}/`
 		)
 	}
 
 	return (
 		<>
-			<div ref={refTokensModal} tabIndex={0} className={`tokenFilter ${
-				loading && !addressData?.tokens?.length ? 'toggle' : loading ? 'toggle' : ''
-			}`}
-				// style={{
-				// opacity: addressData?.tokens?.length === 0 ? 0.5 : }}
+			<div
+				ref={refTokensModal}
+				tabIndex={0}
+				className={`tokenFilter ${
+					loading && !addressData?.tokens?.length
+						? 'toggle'
+						: loading
+						? 'toggle'
+						: ''
+				}`}
 			>
-				<div className='tokenFilter__input'>
+				<div className="tokenFilter__input">
 					<span
 						className={`tokenFilter__input-rectangle ${
-							loading && !addressData?.tokens?.length ? 'toggle' : loading ? 'toggle' : !addressData?.tokens?.length ? '' : 'toggle'
+							loading && !addressData?.tokens?.length
+								? 'toggle'
+								: loading
+								? 'toggle'
+								: !addressData?.tokens?.length
+								? ''
+								: 'toggle'
 						}`}
 					>
-						{loading && !addressData?.tokens?.length ? '' : loading ? !addressData?.tokens?.length : !addressData?.tokens?.length ? 0 : addressData.tokens.length}
+						{loading && !addressData?.tokens?.length
+							? ''
+							: loading
+							? !addressData?.tokens?.length
+							: !addressData?.tokens?.length
+							? 0
+							: addressData.tokens.length}
 					</span>
 					<button
-						className='tokenFilter__input-btn'
-						type='button'
+						className="tokenFilter__input-btn"
+						type="button"
 						onClick={toggleMenu}
 					>
-						<span className='tokenFilter__input-text'>{''}</span>
+						<span className="tokenFilter__input-text">{''}</span>
 						{isShow ? <ArrowUpBig /> : <ArrowDownBig />}
 					</button>
 				</div>
