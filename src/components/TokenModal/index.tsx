@@ -16,7 +16,7 @@ interface TokenModalProps {
 
 const TokenModal: FC<TokenModalProps> = ({ selectedToken, setToken }) => {
 	const [name] = useState('')
-	const { data: addressData } = useTypedSelector((state: any) => state.position)
+	const { loading,data: addressData } = useTypedSelector((state: any) => state.position)
 	const [filteredTokensList, setFilteredTokensList] = useState([])
 
 	useEffect(() => {
@@ -42,7 +42,7 @@ const TokenModal: FC<TokenModalProps> = ({ selectedToken, setToken }) => {
 			{/*	value={name}*/}
 			{/*	onChange={(e) => setName(e.target.value)}*/}
 			{/*/>*/}
-			{addressData && addressData?.tokens && (
+			{!loading && addressData && addressData?.tokens ? (
 				<>
 					<div>
 						<div className="tokenModal__tokens">
@@ -53,25 +53,33 @@ const TokenModal: FC<TokenModalProps> = ({ selectedToken, setToken }) => {
 					</div>
 					{!filteredTokensList.length
 						? addressData?.tokens.map(
-								(token: { name: string; idx: number }) => (
-									<TokenItem
-										key={token.name + token.idx}
-										selectedToken={selectedToken}
-										token={token}
-										setToken={setToken}
-									/>
-								)
-						  )
-						: filteredTokensList.map((token: { name: string; idx: number }) => (
+							(token: { name: string; idx: number }) => (
 								<TokenItem
 									key={token.name + token.idx}
 									selectedToken={selectedToken}
 									token={token}
 									setToken={setToken}
 								/>
-						  ))}
+							)
+						)
+						: filteredTokensList.map((token: { name: string; idx: number }) => (
+							<TokenItem
+								key={token.name + token.idx}
+								selectedToken={selectedToken}
+								token={token}
+								setToken={setToken}
+							/>
+						))}
 				</>
-			)}
+			):
+					<div>
+						<div className="tokenModal__tokens">
+							<div>You don't have tokens yet</div>
+							<span className="universall__light2" style={{ marginLeft: 4 }} />
+						</div>
+						<div className="tokenModal__arrows" />
+					</div>
+				}
 		</div>
 	)
 }
