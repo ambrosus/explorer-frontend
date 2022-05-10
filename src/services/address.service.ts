@@ -38,6 +38,7 @@ const getTokensBalance = async (tokensArr: TokenType[], address: string) => {
 }
 const getTokenName = (token: TokenType) => {
 	const tokenName = typeof token === 'string' ? token : token.name
+
 	const tokenExample = [
 		{
 			token: '0x322269e52800e5094c008f3b01A3FD97BB3C8f5D',
@@ -103,7 +104,9 @@ const sortedLatestTransactionsData = async (
 				token: t?.tokenTransfers
 					? getTokenName(t.tokenTransfers[0].name)
 					: 'No token',
-				symbol: t?.tokenTransfers ? t.tokenTransfers[0]?.symbol : 'AMB',
+				symbol: t?.tokenTransfers
+					? getTokenName(t.tokenTransfers[0]?.symbol)
+					: 'AMB',
 				txFee: Number(ethers.utils.formatEther(t.fees)),
 			}
 		})
@@ -220,7 +223,7 @@ const bbDataFillter = async (
 					symbol: t?.tokenTransfers
 						? getTokenName(t.tokenTransfers[0]?.symbol)
 						: 'AMB',
-					txFee: Number(ethers.utils.formatEther(t.fees)),
+					txFee: ethers.utils.formatUnits(t.fees, 18),
 				}
 			})
 		return {
@@ -249,11 +252,11 @@ async function explorerData(address: string, { page, limit, type }: any) {
 				to: t.to,
 				date: t.timestamp * 1000,
 				block: t.blockNumber,
-				amount: Number(formatEther(t.value.wei)).toFixed(2),
+				amount: Number(formatEther(t.value.wei)).toFixed(6),
 				// TODO add token symbol && token name
 				token: 'Amber',
 				symbol: 'AMB',
-				txFee: Number(t.gasCost.ether),
+				txFee: t.gasCost.ether,
 			}
 		})
 	} catch (e) {

@@ -131,10 +131,7 @@ export const AddressDetails = () => {
 					const newTx: TransactionProps[] = [...compare].sort(
 						(a: any, b: any) => b.block - a.block
 					)
-					const transfersDataTx: TransactionProps[] = newTx.filter(
-						(item: TransactionProps) => item.method === 'Transfer'
-					)
-					return type === 'transfers' ? transfersDataTx : newTx
+					return newTx
 				}
 			})
 		}

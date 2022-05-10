@@ -31,6 +31,7 @@ const LatestBlocks: React.FC<LatestBlocksProps> = ({
 					</div>
 
 					<div className="latestBlocks__p latestBlocks__font-small">
+						<span style={{ marginRight: 16 }}></span>
 						{calcTime(timestamp as number)}
 					</div>
 				</div>
