@@ -1,6 +1,6 @@
 import LatestTransactions from 'components/LastestTransactions'
 import LatestBlocks from 'components/LatestBlocks'
-import ViewMoreBtn from 'components/ViewMoreBtn'
+// import ViewMoreBtn from 'components/ViewMoreBtn'
 import React, { FC } from 'react'
 
 import { BlocksContentProps } from '../../pages/Home/home.interfaces'
@@ -23,7 +23,7 @@ const BlocksContent: FC<BlocksContentProps> = ({ data }) => {
 							name="name"
 						/>
 					))}
-					<ViewMoreBtn nameBtn="View all blocks" />
+					{/*<ViewMoreBtn nameBtn="View all blocks" />*/}
 				</div>
 			</div>
 
@@ -42,7 +42,7 @@ const BlocksContent: FC<BlocksContentProps> = ({ data }) => {
 							type={item.type}
 						/>
 					))}
-					<ViewMoreBtn nameBtn="View all transactions" />
+					{/*<ViewMoreBtn nameBtn="View all transactions" />*/}
 				</div>
 			</div>
 		</div>

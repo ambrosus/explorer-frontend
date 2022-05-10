@@ -15,7 +15,7 @@ interface TokenModalProps {
 }
 
 const TokenModal: FC<TokenModalProps> = ({ selectedToken, setToken }) => {
-	const [name, setName] = useState('')
+	const [name] = useState('')
 	const { data: addressData } = useTypedSelector((state: any) => state.position)
 	const [filteredTokensList, setFilteredTokensList] = useState([])
 
@@ -35,13 +35,13 @@ const TokenModal: FC<TokenModalProps> = ({ selectedToken, setToken }) => {
 
 	return (
 		<div className="tokenModal" tabIndex={0}>
-			<input
-				className="tokenModal__search"
-				placeholder="Search for Token Name"
-				type="text"
-				value={name}
-				onChange={(e) => setName(e.target.value)}
-			/>
+			{/*<input*/}
+			{/*	className="tokenModal__search"*/}
+			{/*	placeholder="Search for Token Name"*/}
+			{/*	type="text"*/}
+			{/*	value={name}*/}
+			{/*	onChange={(e) => setName(e.target.value)}*/}
+			{/*/>*/}
 			{addressData && addressData?.tokens && (
 				<>
 					<div>
