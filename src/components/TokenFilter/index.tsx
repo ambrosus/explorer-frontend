@@ -11,14 +11,17 @@ import TokenModal from '../TokenModal'
 
 const TokenFilter = ({ onClick, selectedToken }: any) => {
 	const { addFilter } = useActions()
-	const { loading,data: addressData } = useTypedSelector((state: any) => state.position)
+	const { loading, data: addressData } = useTypedSelector(
+		(state: any) => state.position
+	)
 	const [isShow, setIsShow] = useState(false)
 	const navigate = useNavigate()
 	const { address }: TParams = useParams()
 	const refTokensModal = useRef<HTMLDivElement>(null)
 
 	useOnClickOutside(refTokensModal, () => setIsShow(false))
-	const toggleMenu = () => addressData?.tokens?.length ? setIsShow(!isShow) : null
+	const toggleMenu = () =>
+		addressData?.tokens?.length ? setIsShow(!isShow) : null
 
 	const handleSelect = (token: any) => {
 		onClick(token)
@@ -35,7 +38,11 @@ const TokenFilter = ({ onClick, selectedToken }: any) => {
 		<>
 			<div ref={refTokensModal} tabIndex={0} className="tokenFilter">
 				<div className="tokenFilter__input">
-					<span className={`tokenFilter__input-rectangle ${loading ? 'toggle' : ''}`}>
+					<span
+						className={`tokenFilter__input-rectangle ${
+							loading ? 'toggle' : ''
+						}`}
+					>
 						{addressData?.tokens?.length ? addressData.tokens.length : 0}
 					</span>
 					<button
