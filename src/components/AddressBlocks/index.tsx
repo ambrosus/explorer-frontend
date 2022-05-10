@@ -125,7 +125,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 						}}
 						onClick={() => {
 							addressData?.tokens?.forEach((item: any) => {
-								if (item.name === token) {
+								if (item.name === token && symbol !== 'AMB') {
 									onClick(item)
 									addFilter(item)
 									navigate(`/addresses/${address}/ERC-20_Tx/${item.contract}`)
