@@ -1,34 +1,16 @@
+import AddressesHeader from 'components/AddressesHeader'
+import AddressesSort from 'components/AddressesSort'
 import { Content } from 'components/Content'
 import React from 'react'
 
 export const Addresses = () => (
 	<Content>
 		<Content.Header>
-			<div className="addressesHeader">
-				<h1 className="addressesHeader__heading">Accounts</h1>
-				<div className="addressesHeader__table">
-					<div className="addressesHeader__cells">
-						<div className="addressesHeader__cell">Total addresses</div>
-						<div className="addressesHeader__cell">17,870</div>
-					</div>
-					<div className="addressesHeader__cells">
-						<div className="addressesHeader__cell">Holders</div>
-						<div className="addressesHeader__cell">14,613</div>
-					</div>
-				</div>
-			</div>
+			<AddressesHeader />
 		</Content.Header>
 		<Content.Body>
 			<div className="addresses__mainTable">
-				<div className="addresses__sort">
-					<div className="addresses__sort-heading">Addresses</div>
-					<div className="addresses__sort-cells">
-						<div className="addresses__sort-cell">Sort by</div>
-						<button className="addresses__sort-cell">Addresses</button>
-						<button className="addresses__sort-cell">Balance</button>
-						<button className="addresses__sort-cell">Tx Count</button>
-					</div>
-				</div>
+				<AddressesSort />
 				<div className="addresses__table">
 					<div className="addresses__header">
 						<div className="addresses__header-cell">Rank</div>
