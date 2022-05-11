@@ -14,4 +14,10 @@
 		justify-content: center;
 		margin-right: 8px;
 	}
+	&__hover {
+		cursor: pointer !important;
+		&:hover {
+			color: #fff;
+		}
+	}
 }
