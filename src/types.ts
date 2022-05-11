@@ -5,6 +5,7 @@ export interface IRoute {
 	key: string
 	exact: boolean
 	component: React.FC
+	isClick: boolean
 }
 
 export type TParams = {
