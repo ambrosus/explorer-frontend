@@ -102,7 +102,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 				) : (
 					<></>
 				)}
-				<span>{Number(amount).toFixed(6)}</span>
+				<span>{Number(amount).toFixed(8)}</span>
 				{symbol && symbol !== null && symbol !== 'null' ? (
 					<span
 						style={{
