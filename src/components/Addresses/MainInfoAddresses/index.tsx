@@ -1,6 +1,6 @@
 import react from 'react'
 
-const AddressesSort = () => (
+const MainInfoAddresses = () => (
 	<div className="addressesHeader">
 		<h1 className="addressesHeader__heading">Accounts</h1>
 		<div className="addressesHeader__table">
@@ -16,4 +16,4 @@ const AddressesSort = () => (
 	</div>
 )
 
-export default AddressesSort
+export default MainInfoAddresses
