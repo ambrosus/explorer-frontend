@@ -245,6 +245,8 @@ async function explorerData(address: string, { page, limit, type }: any) {
 		})
 
 		return explorerTrans.map((t: ExplorerTxType) => {
+			console.log('t.gasCost.ether', t)
+
 			return {
 				txHash: t.hash,
 				method: t.type,
@@ -256,7 +258,7 @@ async function explorerData(address: string, { page, limit, type }: any) {
 				// TODO add token symbol && token name
 				token: 'Amber',
 				symbol: 'AMB',
-				txFee: t.gasCost.ether,
+				txFee: ethers.utils.formatUnits(t.gasCost.wei, 18)
 			}
 		})
 	} catch (e) {
