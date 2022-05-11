@@ -46,7 +46,7 @@ export interface ExplorerTxType {
 	timestamp: number
 	blockNumber: any
 	value: { wei: ethers.BigNumberish }
-	gasCost: { ether: any }
+	gasCost: { wei: any }
 }
 export interface AddressBlockProps {
 	txhash: string | number
