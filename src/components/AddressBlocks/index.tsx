@@ -58,7 +58,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 		)
 	const isFrom =
 		from === null ? null : address !== from ? (
-			<NavLink to={`/addresses/${from}/`}>
+			<NavLink to={`/addresses/${from}/`} style={{ display: 'flex' }}>
 				<div className="addressDetails__tbody-td universall__light2">
 					{sliceData5(from as string)}
 				</div>
@@ -70,7 +70,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 		)
 	const isTo =
 		to === null ? null : address !== to ? (
-			<NavLink to={`/addresses/${to}/`}>
+			<NavLink to={`/addresses/${to}/`} style={{ display: 'flex' }}>
 				<div className="addressDetails__tbody-td universall__light2">
 					{sliceData5(to as string)}
 				</div>
