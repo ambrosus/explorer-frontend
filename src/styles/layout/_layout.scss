@@ -1,8 +1,9 @@
 .layout {
+	display: flex;
 	min-height: 100vh;
 	max-width: 100%;
 	margin: auto;
-	display: flex;
+	justify-content: space-between;
 	flex-direction: column;
 	overflow: hidden;
 
