@@ -1,5 +1,3 @@
-import react from 'react'
-
 const MainInfoAddresses = () => (
 	<div className="addressesHeader">
 		<h1 className="addressesHeader__heading">Accounts</h1>

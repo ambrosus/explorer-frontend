@@ -1,5 +1,3 @@
-import react from 'react'
-
 const AddressesSort = () => (
 	<div className="addresses__sort">
 		<div className="addresses__sort-heading">Addresses</div>
