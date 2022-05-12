@@ -1,5 +1,3 @@
-import react from 'react'
-
 const AddressesBody = () => (
 	<div className="addresses__body">
 		<div className="addresses__body-cell">1</div>

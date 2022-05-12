@@ -1,7 +1,7 @@
 import API from 'API/api'
 import Search from 'assets/icons/Search'
 import { FindWideMobileProps } from 'pages/Home/home.interfaces'
-import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react'
+import React, { ChangeEvent, FormEvent, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 const FindWideMobile: React.FC<FindWideMobileProps> = ({

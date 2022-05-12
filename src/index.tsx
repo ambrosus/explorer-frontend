@@ -1,23 +1,30 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
+import React, { useEffect } from 'react'
+import { createRoot } from 'react-dom/client'
 import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
 
 import Main from './Main'
 import { store } from './state'
 
-const rootNode = document.getElementById('root')
 /*
  * @param {Provider} store - redux store
  * @param {ReduxToastrLib} ReduxToastrLib - redux toastr
  * @param {BrowserRouter} BrowserRouter - react router
  * @param {Main} Main - main component
  */
-ReactDOM.render(
-	<Provider store={store}>
+
+function AppWithCallbackAfterRender() {
+	useEffect(() => {
+		console.log('rendered');
+	});
+
+	return( <Provider store={store}>
 		<BrowserRouter>
 			<Main />
 		</BrowserRouter>
-	</Provider>,
-	rootNode
-)
+	</Provider>)
+}
+
+const container = document.getElementById('root') as HTMLElement
+const root = createRoot(container);
+root.render(<AppWithCallbackAfterRender />);
