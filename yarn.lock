@@ -2712,14 +2712,6 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react-redux-toastr@^7.6.2":
-  version "7.6.2"
-  resolved "https://registry.npmjs.org/@types/react-redux-toastr/-/react-redux-toastr-7.6.2.tgz"
-  integrity sha512-gVc5wn49OwkG6nh64iUXchNXWZ1A5vEhz6UyqcWgbL4VyNNp7u+K7GBPbYxmT3W/FcEY/OKLis2s8XM3B7zG1w==
-  dependencies:
-    "@types/react" "*"
-    redux "^3.6.0 || ^4.0.0"
-
 "@types/react-redux@^7.1.20":
   version "7.1.24"
   resolved "https://registry.npmjs.org/@types/react-redux/-/react-redux-7.1.24.tgz"
@@ -5338,11 +5330,6 @@ ethers@^5.0.0:
     "@ethersproject/wallet" "5.6.0"
     "@ethersproject/web" "5.6.0"
     "@ethersproject/wordlists" "5.6.0"
-
-eventemitter3@^3.1.0:
-  version "3.1.2"
-  resolved "https://registry.npmjs.org/eventemitter3/-/eventemitter3-3.1.2.tgz"
-  integrity sha512-tvtQIeLVHjDkJYnzf2dgVMxfuSGJeM/7UCG17TT4EumTfNtF+0nebF/4zWOIkCreAbtNqhGEboB6BWrwqNaw4Q==
 
 eventemitter3@^4.0.0, eventemitter3@^4.0.1:
   version "4.0.7"
@@ -9440,14 +9427,6 @@ react-notifications@^1.7.3:
     prop-types "^15.5.10"
     react-transition-group "^4.4.1"
 
-react-redux-toastr@^7.6.8:
-  version "7.6.8"
-  resolved "https://registry.yarnpkg.com/react-redux-toastr/-/react-redux-toastr-7.6.8.tgz#da6265844497a81191f16b5d1d9b054480aa4b97"
-  integrity sha512-ex2MzJG/SjPk2PQZCuhxZXoZbqGY/orxEgajgL3fXiYoBaKmjLrI2SiR5z5+fDFgL+aEzgqVl+ZAQK3Fgshf4Q==
-  dependencies:
-    classnames "^2.2.3"
-    eventemitter3 "^3.1.0"
-
 react-redux@^7.2.8:
   version "7.2.8"
   resolved "https://registry.npmjs.org/react-redux/-/react-redux-7.2.8.tgz"
@@ -9719,7 +9698,7 @@ redux@^3.6.0:
     loose-envify "^1.1.0"
     symbol-observable "^1.0.3"
 
-"redux@^3.6.0 || ^4.0.0", redux@^4.0.0, redux@^4.1.2:
+redux@^4.0.0, redux@^4.1.2:
   version "4.2.0"
   resolved "https://registry.npmjs.org/redux/-/redux-4.2.0.tgz"
   integrity sha512-oSBmcKKIuIR4ME29/AeNUnl5L+hvBq7OaJWzaptTQJAntaPvxIJqfnjbaEiCzzaIz+XmVILfqAM3Ob0aXLPfjA==

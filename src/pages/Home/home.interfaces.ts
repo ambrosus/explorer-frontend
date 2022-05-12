@@ -60,4 +60,5 @@ export type BlocksContentProps = {
 
 export type ViewMoreBtnProps = {
 	nameBtn: string
+	onclick: any
 }

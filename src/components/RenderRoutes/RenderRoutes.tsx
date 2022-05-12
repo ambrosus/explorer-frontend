@@ -27,6 +27,7 @@ export const RenderRoutes = (props: any) => {
 				/>
 			))}
 			<Route path="*" element={<Error404 />} />
+			<Route path="/notfound" element={<Error404 />} />
 		</Routes>
 	)
 }

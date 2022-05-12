@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { toastr } from 'react-redux-toastr'
 
 const tokenApiUrl = process.env.REACT_APP_TOKEN_API_URL
 
@@ -13,7 +12,7 @@ const API = () => {
 		if (err) {
 			console.error(err)
 		}
-		toastr.error('404', 'No matches found')
+		window.location.replace('/notfound')
 	}
 
 	api.interceptors.response.use(

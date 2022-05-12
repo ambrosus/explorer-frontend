@@ -1,7 +1,6 @@
 import API from 'API/api'
 import Search from 'assets/icons/Search'
 import React, { ChangeEvent, FormEvent, useState } from 'react'
-import { toastr } from 'react-redux-toastr'
 import { useNavigate } from 'react-router-dom'
 
 import { useDebounce } from '../../hooks/useDebounce'
@@ -38,11 +37,11 @@ const FindWide: React.FC<FindWideProps> = ({ searchRef }) => {
 				if (data.meta.search) {
 					navigate(`/${searchTerm}/`)
 				} else {
-					toastr.error('404', 'No matches found')
+					navigate(`/notfound`)
 				}
 			})
 			.catch(() => {
-				toastr.error('404', 'No matches found')
+				navigate(`/notfound`)
 			})
 	}
 	// const handleAllFilters = () => console.log('handleAllFilters')
