@@ -25,7 +25,9 @@ const Tabs: FC<TabsProps> = ({
 	setTransactionType,
 }) => {
 	const [isShow, setIsShow] = useState(false)
+	// @ts-ignore
 	const { address, type, filtered } = useParams()
+	const [prevType, setPrevType] = useState<any>(type)
 	const { loading, data: addressData } = useTypedSelector(
 		(state: any) => state.position
 	)
@@ -43,6 +45,12 @@ const Tabs: FC<TabsProps> = ({
 	const [renderData, setRenderData] = React.useState<any>(null)
 
 	useEffect(() => {
+		if (type) {
+			setPrevType(type)
+		}
+		if (prevType !== type) {
+			setRenderData(null)
+		}
 		if (addressData && !loading) {
 			if (data?.length && type !== 'ERC-20_Tx' && !filtered) {
 				if (type === 'transfers') {
@@ -70,8 +78,6 @@ const Tabs: FC<TabsProps> = ({
 			}
 		}
 	}, [addressData, data, filtered, type, loading])
-
-	console.log(renderData)
 
 	return (
 		<>
@@ -150,7 +156,7 @@ const Tabs: FC<TabsProps> = ({
 
 					{renderData && renderData?.length
 						? renderData.map((transaction: any, index: number) =>
-								data.length - 1 === index ? (
+								renderData.length - 1 === index ? (
 									<AddressBlock
 										isLatest={type === 'ERC-20_Tx' && !filtered}
 										lastCardRef={lastCardRef}

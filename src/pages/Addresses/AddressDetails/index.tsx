@@ -35,10 +35,10 @@ export const AddressDetails = () => {
 	const [selectedToken, setSelectedToken] = useState<TokenType | null>(null)
 	const [tx, setTx] = useState<TransactionProps[] | []>([])
 	const [pageNum, setPageNum] = useState(1)
-	const [limitNum] = useState(22)
+	const [limitNum] = useState(30)
 	const observer = useRef<IntersectionObserver>()
-	const { isCopy, isCopyPopup, copyContent } = useCopyContent(address)
 
+	const { isCopy, isCopyPopup, copyContent } = useCopyContent(address)
 	const lastCardRef = useCallback(
 		(node) => {
 			if (loading) return
@@ -75,6 +75,7 @@ export const AddressDetails = () => {
 				)
 			)
 		}
+
 		if (!loading || errorData) {
 			if (addressData && addressData?.meta?.totalPages > pageNum) {
 				setPosition(getDataForAddress, address?.trim(), {
@@ -116,22 +117,32 @@ export const AddressDetails = () => {
 	useEffect(() => {
 		if (addressData && addressData?.transactions) {
 			setTx((prevState) => {
-				if (filtered) {
-					const newTx: any = [...addressData.transactions].sort(
+				console.log('setTx')
+				const compareState = [...prevState, ...addressData.transactions]
+				const addressDataState = [...addressData.transactions]
+				if (type === 'ERC-20_Tx' && !filtered) {
+					const newTx: any = addressDataState.sort(
 						(a: any, b: any) => b.block - a.block
 					)
 					return newTx
-				} else {
+				}
+				if (type === 'ERC-20_Tx' && filtered) {
+					const newTx: any = addressDataState.sort(
+						(a: any, b: any) => b.block - a.block
+					)
+					return newTx
+				}
+				if (!type || type === 'transfers') {
 					const compare: any = new Map(
-						[...prevState, ...addressData.transactions].map((item) => [
-							item.block,
-							item,
-						])
+						compareState.map((item) => [item.block, item])
 					).values()
 					const newTx: TransactionProps[] = [...compare].sort(
 						(a: any, b: any) => b.block - a.block
 					)
-					return newTx
+					const transfersDataTx: TransactionProps[] = newTx.filter(
+						(item: TransactionProps) => item.method === 'Transfer'
+					)
+					return type === 'transfers' ? transfersDataTx : newTx
 				}
 			})
 		}
@@ -198,7 +209,7 @@ export const AddressDetails = () => {
 						onClick={setSelectedToken}
 						selectedToken={selectedToken}
 						transactionType={transactionType}
-						data={!!tx ? tx : []}
+						data={tx ? tx : []}
 						setTransactionType={setTransactionType}
 					/>
 				</Content.Body>
