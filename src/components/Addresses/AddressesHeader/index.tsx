@@ -1,5 +1,3 @@
-import react from 'react'
-
 const AddressesHeader = () => (
 	<div className="addresses__header">
 		<div className="addresses__header-cell">Rank</div>
