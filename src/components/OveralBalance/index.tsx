@@ -6,9 +6,7 @@ const OverallBalance: React.FC<OverallBalanceProps> = ({ addressBalance }) => {
 	const [amountInUsd, setAmountInUsd] = useState(0)
 	const { data: appData } = useTypedSelector((state: any) => state.app)
 
-	// @ts-ignore
-	// eslint-disable-next-line
-	useEffect(async () => {
+	useEffect(() => {
 		if (appData && appData?.total_price_usd && appData.total_price_usd) {
 			setAmountInUsd(appData.total_price_usd * Number(addressBalance))
 		}
