@@ -258,7 +258,7 @@ async function explorerData(address: string, { page, limit, type }: any) {
 				// TODO add token symbol && token name
 				token: 'Amber',
 				symbol: 'AMB',
-				txFee: ethers.utils.formatUnits(t.gasCost.wei, 18)
+				txFee: ethers.utils.formatUnits(t.gasCost.wei, 18),
 			}
 		})
 	} catch (e) {

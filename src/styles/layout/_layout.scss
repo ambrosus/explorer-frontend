@@ -3,16 +3,16 @@
 	min-height: 100vh;
 	max-width: 100%;
 	margin: auto;
-	justify-content: space-between;
+	position: relative;
 	flex-direction: column;
-	overflow: hidden;
-
+	padding-bottom: 10vh;
 	.page {
 		color: #212121;
 		display: flex;
-		align-items: center;
 		justify-content: center;
+
 		width: 100%;
+		padding-bottom: 130px;
 		.content {
 			background-color: #f6f6f6;
 			width: 100%;
@@ -29,7 +29,7 @@
 
 			&__body {
 				display: flex;
-				min-height: 40vh;
+				overflow: auto;
 				width: 100%;
 				flex-direction: column;
 				align-items: center;
