@@ -6,6 +6,8 @@
 	align-items: center;
 	justify-content: center;
 	color: white;
+	flex-shrink: 0;
+
 	@include for-device-medium {
 		height: 60px;
 	}
