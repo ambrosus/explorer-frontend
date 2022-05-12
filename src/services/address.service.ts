@@ -245,8 +245,6 @@ async function explorerData(address: string, { page, limit, type }: any) {
 		})
 
 		return explorerTrans.map((t: ExplorerTxType) => {
-			console.log('t.gasCost.ether', t)
-
 			return {
 				txHash: t.hash,
 				method: t.type,
