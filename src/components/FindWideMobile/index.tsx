@@ -2,7 +2,6 @@ import API from 'API/api'
 import Search from 'assets/icons/Search'
 import { FindWideMobileProps } from 'pages/Home/home.interfaces'
 import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react'
-import { toastr } from 'react-redux-toastr'
 import { useNavigate } from 'react-router-dom'
 
 const FindWideMobile: React.FC<FindWideMobileProps> = ({
@@ -32,11 +31,11 @@ const FindWideMobile: React.FC<FindWideMobileProps> = ({
 				if (data.meta.search) {
 					navigate(`/${searchTerm}/`)
 				} else {
-					toastr.error('404', 'No matches found')
+					navigate(`/notfound`)
 				}
 			})
 			.catch(() => {
-				toastr.error('404', 'No matches found')
+				navigate(`/notfound`)
 			})
 		setTimeout(() => setIsShow(false), 0)
 	}

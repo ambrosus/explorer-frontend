@@ -16,9 +16,7 @@ interface TokenModalProps {
 
 const TokenModal: FC<TokenModalProps> = ({ selectedToken, setToken }) => {
 	const [name] = useState('')
-	const { loading, data: addressData } = useTypedSelector(
-		(state: any) => state.position
-	)
+	const { data: addressData } = useTypedSelector((state: any) => state.position)
 	const [filteredTokensList, setFilteredTokensList] = useState([])
 
 	useEffect(() => {

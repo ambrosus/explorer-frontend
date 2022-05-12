@@ -43,7 +43,7 @@ const BlocksContentMobile: FC<BlocksContentProps> = ({ data }) => {
 								name="name"
 							/>
 						))}
-						<ViewMoreBtn nameBtn="View all blocks" />
+						<ViewMoreBtn onclick={() => {}} nameBtn="View all blocks" />
 					</div>
 				) : null}
 				{index === 2 ? (
@@ -61,7 +61,7 @@ const BlocksContentMobile: FC<BlocksContentProps> = ({ data }) => {
 									type={item.type}
 								/>
 							))}
-							<ViewMoreBtn nameBtn="View all transactions" />
+							<ViewMoreBtn onclick={() => {}} nameBtn="View all transactions" />
 						</div>
 					</div>
 				) : null}
