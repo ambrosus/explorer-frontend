@@ -1,8 +1,9 @@
 .layout {
+	display: flex;
 	min-height: 100vh;
 	max-width: 100%;
 	margin: auto;
-	display: flex;
+	justify-content: space-between;
 	flex-direction: column;
 	overflow: hidden;
 
@@ -12,14 +13,11 @@
 		align-items: center;
 		justify-content: center;
 		width: 100%;
-		min-height: 78vh;
-
 		.content {
-			background-color: #ffffff;
+			background-color: #f6f6f6;
 			width: 100%;
 			display: flex;
 			flex-direction: column;
-			min-height: 78vh;
 
 			&__header {
 				background-color: #f6f6f6;
@@ -30,11 +28,14 @@
 			}
 
 			&__body {
-				width: 100%;
 				display: flex;
+				min-height: 40vh;
+				width: 100%;
 				flex-direction: column;
 				align-items: center;
-				justify-content: center;
+				background-color: #fff;
+				border-top-left-radius: 32px;
+				border-top-right-radius: 32px;
 			}
 		}
 	}
