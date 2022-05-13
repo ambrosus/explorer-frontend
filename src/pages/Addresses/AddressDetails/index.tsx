@@ -117,7 +117,6 @@ export const AddressDetails = () => {
 	useEffect(() => {
 		if (addressData && addressData?.transactions) {
 			setTx((prevState) => {
-				console.log('setTx')
 				const compareState = [...prevState, ...addressData.transactions]
 				const addressDataState = [...addressData.transactions]
 				if (type === 'ERC-20_Tx' && !filtered) {
