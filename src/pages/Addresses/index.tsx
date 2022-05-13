@@ -31,7 +31,6 @@ export const Addresses = () => {
 	useEffect(() => {
 		if (inView) {
 			const next = accounts.pagination.next
-			console.log('next', next)
 			getAccountsData(sortTerm, next).then((res: any) => {
 				setAccounts((prev: any) => {
 					return {

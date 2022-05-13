@@ -44,7 +44,6 @@ const FindWide: React.FC<FindWideProps> = ({ searchRef }) => {
 				navigate(`/notfound`)
 			})
 	}
-	// const handleAllFilters = () => console.log('handleAllFilters')
 
 	return (
 		<>
