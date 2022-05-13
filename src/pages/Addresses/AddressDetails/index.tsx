@@ -40,7 +40,7 @@ export const AddressDetails = () => {
 
 	const { isCopy, isCopyPopup, copyContent } = useCopyContent(address)
 	const lastCardRef = useCallback(
-		(node:any) => {
+		(node: any) => {
 			if (loading) return
 			if (observer.current) {
 				observer.current.disconnect()

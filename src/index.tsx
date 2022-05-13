@@ -14,17 +14,15 @@ import { store } from './state'
  */
 
 function AppWithCallbackAfterRender() {
-	useEffect(() => {
-		console.log('rendered');
-	});
-
-	return( <Provider store={store}>
-		<BrowserRouter>
-			<Main />
-		</BrowserRouter>
-	</Provider>)
+	return (
+		<Provider store={store}>
+			<BrowserRouter>
+				<Main />
+			</BrowserRouter>
+		</Provider>
+	)
 }
 
 const container = document.getElementById('root') as HTMLElement
-const root = createRoot(container);
-root.render(<AppWithCallbackAfterRender />);
+const root = createRoot(container)
+root.render(<AppWithCallbackAfterRender />)
