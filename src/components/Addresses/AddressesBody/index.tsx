@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 import { useTypedSelector } from '../../../hooks/useTypedSelector'
 
 const AddressesBody = ({
@@ -15,10 +17,13 @@ const AddressesBody = ({
 	const holdingPercentage = (ambBalance / totalSupply) * 100
 
 	return (
-		appData && address && (
+		appData &&
+		address && (
 			<div className="addresses__body" ref={lastCardRef}>
 				<div className="addresses__body-cell">{rank}</div>
-				<div className="addresses__body-cell">{address}</div>
+				<Link to={`/addresses/${address}`} className="addresses__body-cell">
+					{address}
+				</Link>
 				<div className="addresses__body-cell">{txCount}</div>
 				<div className="addresses__body-cell">{ambBalance.toFixed(2)} AMB</div>
 

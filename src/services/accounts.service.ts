@@ -1,13 +1,10 @@
 import API from '../API/api'
 
-export const getAccountsData = async (
-	sortTerm: string,
-	pageNum: number,
-) => {
+export const getAccountsData = async (sortTerm: any, next: any) => {
 	const data: any = await API.getAccounts({
 		limit: 20,
 		sort: sortTerm,
-		page: pageNum,
+		next: next,
 	})
 	return data
 }
