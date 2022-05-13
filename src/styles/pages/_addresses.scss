@@ -38,6 +38,12 @@
 				color: #05060f;
 			}
 		}
+		.pointer{
+			cursor: pointer;
+		}
+		&-active{
+			color: #05060f;
+		}
 	}
 	&__table {
 		display: flex;
