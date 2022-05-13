@@ -58,7 +58,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 		)
 	const isFrom =
 		from === null ? null : address !== from ? (
-			<NavLink to={`/addresses/${from}/`} style={{ display: 'flex' }}>
+			<NavLink to={`/addresses/${from}/`} style={{ display: 'content' }}>
 				<div className="addressDetails__tbody-td universall__light2">
 					{sliceData5(from as string)}
 				</div>
@@ -70,7 +70,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 		)
 	const isTo =
 		to === null ? null : address !== to ? (
-			<NavLink to={`/addresses/${to}/`} style={{ display: 'flex' }}>
+			<NavLink to={`/addresses/${to}/`} style={{ display: 'content' }}>
 				<div className="addressDetails__tbody-td universall__light2">
 					{sliceData5(to as string)}
 				</div>
@@ -102,9 +102,10 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 				) : (
 					<></>
 				)}
-				<span>{Number(amount).toFixed(8)}</span>
+				<span style={{ minWidth: 77 }}>{Number(amount).toFixed(8)}</span>
 				{symbol && symbol !== null && symbol !== 'null' ? (
 					<span
+						className="addressDetails__tbody-icon"
 						style={{
 							padding: '0 5px',
 							cursor:
@@ -115,13 +116,13 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 									? 'pointer'
 									: 'default',
 							color: '#808a9d',
-							textDecoration:
-								symbol !== 'AMB' &&
-								symbol !== 'null' &&
-								symbol !== null &&
-								type !== 'ERC-20_Tx'
-									? 'underline'
-									: 'none',
+							// textDecoration:
+							// symbol !== 'AMB' &&
+							// symbol !== 'null' &&
+							// symbol !== null &&
+							// type !== 'ERC-20_Tx'
+							// 	? 'underline'
+							// 	: 'none',
 						}}
 						onClick={() => {
 							addressData?.tokens?.forEach((item: any) => {

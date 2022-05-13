@@ -9,9 +9,9 @@ const Loader = () => (
 			height: 0,
 			margin: '0 auto',
 			display: 'flex',
-			alignItems: 'center',
 			justifyContent: 'center',
 			width: '100%',
+			top: 60,
 		}}
 	>
 		<div className="Loader">
