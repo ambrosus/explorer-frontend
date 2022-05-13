@@ -1,3 +1,4 @@
+import Amb from 'assets/icons/Cryptos/Amb'
 import { Link } from 'react-router-dom'
 
 import { useTypedSelector } from '../../../hooks/useTypedSelector'
@@ -25,7 +26,10 @@ const AddressesBody = ({
 					{address}
 				</Link>
 				<div className="addresses__body-cell">{txCount}</div>
-				<div className="addresses__body-cell">{ambBalance.toFixed(2)} AMB</div>
+				<div className="addresses__body-cell">
+					<Amb />&nbsp;&nbsp;
+					{ambBalance.toFixed(2)} AMB
+				</div>
 
 				<div className="addresses__body-cell">
 					{(holdingPercentage || 0).toFixed(2)} %
