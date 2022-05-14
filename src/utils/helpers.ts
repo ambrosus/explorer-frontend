@@ -96,3 +96,7 @@ export default function removeArrayDuplicates(array: any, key = '_id') {
 		}
 	})
 }
+
+export const numWithCommas = (val:number) => {
+	return val ? val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : 0;
+};
