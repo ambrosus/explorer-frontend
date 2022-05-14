@@ -8,21 +8,19 @@ import { store } from './state'
 
 /*
  * @param {Provider} store - redux store
- * @param {ReduxToastrLib} ReduxToastrLib - redux toastr
  * @param {BrowserRouter} BrowserRouter - react router
  * @param {Main} Main - main component
  */
 
-function AppWithCallbackAfterRender() {
-	return (
-		<Provider store={store}>
-			<BrowserRouter>
-				<Main />
-			</BrowserRouter>
-		</Provider>
-	)
+const App = () :JSX.Element=> {
+  return (
+    <Provider store={store}>
+      <BrowserRouter>
+        <Main />
+      </BrowserRouter>
+    </Provider>
+  )
 }
-
 const container = document.getElementById('root') as HTMLElement
 const root = createRoot(container)
-root.render(<AppWithCallbackAfterRender />)
+root.render(<App/>)
