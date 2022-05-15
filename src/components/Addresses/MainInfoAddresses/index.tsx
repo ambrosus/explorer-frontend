@@ -1,11 +1,12 @@
-import { numWithCommas } from '../../../utils/helpers'
 import { useTypedSelector } from '../../../hooks/useTypedSelector'
+import { numWithCommas } from '../../../utils/helpers'
 
 const MainInfoAddresses = () => {
 	const { data: appData } = useTypedSelector((state: any) => state.app)
 
-	const totalAddresses = appData && numWithCommas(appData.netInfo.accounts.total);
-	const holders =appData &&  numWithCommas(appData.netInfo.accounts.withBalance);
+	const totalAddresses =
+		appData && numWithCommas(appData.netInfo.accounts.total)
+	const holders = appData && numWithCommas(appData.netInfo.accounts.withBalance)
 	return (
 		<div className="addressesHeader">
 			<h1 className="addressesHeader__heading">Accounts</h1>

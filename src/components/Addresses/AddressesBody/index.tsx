@@ -27,7 +27,8 @@ const AddressesBody = ({
 				</Link>
 				<div className="addresses__body-cell">{txCount}</div>
 				<div className="addresses__body-cell">
-					<Amb />&nbsp;&nbsp;
+					<Amb />
+					&nbsp;&nbsp;
 					{ambBalance.toFixed(2)} AMB
 				</div>
 
