@@ -1,7 +1,6 @@
 import Amb from 'assets/icons/Cryptos/Amb'
+import { useTypedSelector } from 'hooks/useTypedSelector'
 import { Link } from 'react-router-dom'
-
-import { useTypedSelector } from '../../../hooks/useTypedSelector'
 
 const AddressesBody = ({
 	address,

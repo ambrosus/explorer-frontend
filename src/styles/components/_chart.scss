@@ -1,5 +1,5 @@
 .custom-tooltip {
-	background: #ffffff;
+	background: $white;
 	border: 1px solid #f4f5f6;
 	opacity: 0.96;
 
@@ -12,7 +12,7 @@
 		line-height: 13px;
 		display: flex;
 		align-items: center;
-		color: #a6b0c3;
+		color: $secondary-medium;
 	}
 	.label-name {
 		font-family: 'Proxima Nova';
@@ -22,7 +22,7 @@
 		line-height: 24px;
 		display: flex;
 		align-items: center;
-		color: #58667e;
+		color: $main-medium;
 	}
 	.label {
 		width: 100%;
@@ -34,7 +34,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		color: #58667e;
+		color: $main-medium;
 	}
 }
 
@@ -51,7 +51,7 @@
 		font-size: 14px;
 		line-height: 16px;
 		text-transform: uppercase;
-		color: #58667e;
+		color: $main-medium;
 	}
 	.days {
 		font-family: 'Proxima Nova';
@@ -61,7 +61,7 @@
 		line-height: 24px;
 		display: flex;
 		align-items: center;
-		color: #212121;
+		color: $black;
 	}
 }
 
@@ -86,7 +86,7 @@
 		font-size: 14px !important;
 		line-height: 16px !important;
 		text-transform: uppercase;
-		color: #58667e;
+		color: $main-medium;
 	}
 	.bundlesActivity {
 		font-family: 'Proxima Nova';
@@ -98,7 +98,7 @@
 		text-align: center;
 
 		line-height: 24px;
-		color: #000000;
+		color: $main;
 	}
 	.days {
 		font-family: 'Proxima Nova';
@@ -107,6 +107,6 @@
 		text-align: center;
 		font-size: 12px;
 		line-height: 24px;
-		color: #58667e;
+		color: $main-medium;
 	}
 }

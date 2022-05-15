@@ -2,8 +2,7 @@ import { useOnClickOutside } from 'hooks/useOnClickOutside'
 import { AddressBlockProps } from 'pages/Addresses/AddressDetails/address-details.interface'
 import React, { useRef, useState } from 'react'
 import { NavLink, useParams } from 'react-router-dom'
-
-import { TParams } from '../../types'
+import { TParams } from 'types'
 
 const AddressBlock: React.FC<AddressBlockProps> = ({
 	txhash,
