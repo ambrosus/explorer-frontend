@@ -287,7 +287,8 @@
 		margin-top: 16px;
 		position: relative;
 		white-space: nowrap;
-		overflow: auto;
+		overflow-x: auto;
+
 		@include for-device-small {
 		}
 	}
@@ -301,7 +302,6 @@
 
 	&__tbody {
 		&-icon {
-			// text-decoration: underline;
 			text-decoration: underline solid #05060f;
 		}
 

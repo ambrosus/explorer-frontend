@@ -199,17 +199,7 @@ const Tabs: FC<TabsProps> = ({
 						  )
 						: null}
 				</section>
-				{loading && (
-					<div
-						style={{
-							position: 'relative',
-							bottom: '-50px',
-							width: '100%',
-						}}
-					>
-						<Loader />
-					</div>
-				)}
+				{loading && <Loader />}
 			</div>
 		</>
 	)

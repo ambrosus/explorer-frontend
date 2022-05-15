@@ -3,7 +3,6 @@ import ContentCopyed from 'assets/icons/CopyIcons/ContentCopyed'
 import ContentCopyedPopup from 'assets/icons/CopyIcons/ContentCopyedPopup'
 import { Content } from 'components/Content'
 import FilteredToken from 'components/FilteredToken'
-import Loader from 'components/Loader'
 import OverallBalance from 'components/OveralBalance'
 import Tabs from 'components/Tabs'
 import Token from 'components/Token'
@@ -201,7 +200,6 @@ export const AddressDetails = () => {
 							<FilteredToken setSelectedToken={setSelectedToken} />
 						)}
 					</div>
-					<div className="loader">{loading && <Loader />}</div>
 				</Content.Header>
 				<Content.Body isLoading={filtered ? !loading : true}>
 					<Tabs
