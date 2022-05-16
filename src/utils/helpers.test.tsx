@@ -1,4 +1,5 @@
-import { calcTime, sliceData5, sliceData10 } from './helpers'
+import { calcTime, sliceData5, sliceData10, toUniqueValueByBlock } from './helpers'
+import { TransactionProps } from '../pages/Addresses/AddressDetails/address-details.interface'
 
 describe('sliceData5 & sliceData10', () => {
 	it('should slice data less then correctly value', () => {
@@ -25,7 +26,7 @@ describe('sliceData5 & sliceData10', () => {
 	})
 })
 
-describe('should return the date in a specific format', () => {
+describe('calcTime', () => {
 	it('Invalid date', () => {
 		const tNull = null
 		const tUndefined = undefined
@@ -90,4 +91,39 @@ describe('should return the date in a specific format', () => {
 		expect(calcTime(time)).not.toEqual('')
 		expect(calcTime(time)).not.toEqual('Invalid date')
 	})
+})
+
+// test toUniqueValueByBlock
+
+describe('toUniqueValueByBlock' ,()=>{
+  it('should return unique value', () => {
+    const data = [
+      {
+        hash:1,
+        block: 1,
+        value: '0xB500558a3886e42142121B54c4bd1ef378D34'
+      },
+    ]
+    const data2 = [
+      {
+        hash:1,
+        block: 1,
+        value: '0xB500558a3886e42142121B54c4bd1ef378D34'
+      },
+      {
+        hash:2,
+        block: 2,
+        value: '0xB500558a3886e42142121B54c4bd1ef378D34'
+      },
+    ]
+    expect(toUniqueValueByBlock([...data,...data2])).toEqual([{"block": 2, "hash": 2, "value": "0xB500558a3886e42142121B54c4bd1ef378D34"}, {"block": 1, "hash": 1, "value": "0xB500558a3886e42142121B54c4bd1ef378D34"}])
+  })
+
+  it("Negative checking cases", () => {
+    const notValidObjects = [undefined, null, [], {}, "string", 1];
+    for (let int = 1; int < notValidObjects.length; int++) {
+      expect(toUniqueValueByBlock(notValidObjects[int])).toMatchObject(notValidObjects[int] || notValidObjects || []);
+    }
+  })
+
 })
