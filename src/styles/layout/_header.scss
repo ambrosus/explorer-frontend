@@ -1,11 +1,12 @@
 .header {
 	width: 100%;
-	height: 96px;
+	height: 13vh;
+
 	background: linear-gradient(180deg, #212121 0%, #212121 100%);
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	color: white;
+	color: $white;
 	flex-shrink: 0;
 
 	@include for-device-medium {
@@ -44,9 +45,6 @@
 		letter-spacing: 0.22em;
 		text-transform: uppercase;
 		color: #4d4d4d;
-		// &:hover {
-		// 	color: #fff;
-		// }
 	}
 	@include for-device-large {
 		// display: none;

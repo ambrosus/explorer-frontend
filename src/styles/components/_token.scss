@@ -4,7 +4,6 @@
 	justify-content: flex-end;
 	@include for-device-medium {
 		display: flex;
-
 		justify-content: flex-start;
 	}
 	&__info {
@@ -37,21 +36,21 @@
 		width: 300px;
 		height: 40px;
 		background: #f4f5f6;
-		border: 1px solid #eff2f5;
+		border: 1px solid $secondary;
 		border-radius: 16px;
 		margin: 10px auto;
 		padding-left: 12px;
 	}
 	&__search::placeholder {
 		line-height: 1.33em;
-		color: #a6b0c3;
+		color: $secondary-medium;
 	}
 	&__tokens {
 		display: flex;
 		align-items: center;
 		padding-left: 12px;
 		height: 32px;
-		border-top: 1px solid #eff2f5;
+		border-top: 1px solid $secondary;
 		font-weight: 600;
 		line-height: 1.33em;
 	}
@@ -78,8 +77,8 @@
 	display: flex;
 	flex-direction: column;
 	min-width: 320px;
-	background: #fff;
-	border: 1px solid #eff2f5;
+	background: $white;
+	border: 1px solid $secondary;
 	border-radius: 16px;
 	@include for-device-xs {
 		min-width: 260px;
@@ -100,7 +99,7 @@
 			align-items: center;
 			margin: 8px;
 
-			color: #ffffff;
+			color: $white;
 			font-weight: 700;
 			font-size: 0.78em;
 			line-height: 1.33em;
@@ -118,7 +117,7 @@
 			display: flex;
 			justify-content: flex-end;
 			margin-right: 17px;
-			background: #ffffff;
+			background: $white;
 			border-radius: 16px;
 			border: 0px;
 			flex: 1;
@@ -135,15 +134,15 @@
 	display: grid;
 	grid-template-columns: 22px 2fr 1fr;
 	padding: 12px;
-	border-top: 1px solid #eff2f5;
+	border-top: 1px solid $secondary;
 	cursor: pointer;
 
 	&:focus {
 		outline: none;
 	}
 	&:hover {
-		background-color: #eff2f5;
-		border-top: 1px solid #fff;
+		background-color: $secondary;
+		border-top: 1px solid $white;
 	}
 	&:hover:nth-last-child(1) {
 		border-bottom-left-radius: 16px;
@@ -155,7 +154,7 @@
 		line-height: 1.33em;
 	}
 	&__tokens:hover {
-		background-color: #eff2f5;
+		background-color: $secondary;
 	}
 	&__amount {
 		text-align: end;

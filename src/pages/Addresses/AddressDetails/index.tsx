@@ -13,9 +13,8 @@ import { useTypedSelector } from 'hooks/useTypedSelector'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { shallowEqual } from 'react-redux'
 import { useParams } from 'react-router-dom'
+import { getDataForAddress } from 'services/address.service'
 import { TParams } from 'types'
-
-import { getDataForAddress } from '../../../services/address.service'
 
 import { TokenType, TransactionProps } from './address-details.interface'
 

@@ -8,9 +8,8 @@ import { AddressBlockProps } from 'pages/Addresses/AddressDetails/address-detail
 import React from 'react'
 import { NavLink, useNavigate, useParams } from 'react-router-dom'
 import ReactTooltip from 'react-tooltip'
+import { TParams } from 'types'
 import { getTokenIcon, sliceData5, sliceData10 } from 'utils/helpers'
-
-import { TParams } from '../../types'
 
 const AddressBlock: React.FC<AddressBlockProps> = ({
 	onClick,
@@ -58,10 +57,11 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 		)
 	const isFrom =
 		from === null ? null : address !== from ? (
-			<NavLink to={`/addresses/${from}/`} style={{ display: 'content' }}>
-				<div className="addressDetails__tbody-td universall__light2">
-					{sliceData5(from as string)}
-				</div>
+			<NavLink
+				to={`/addresses/${from}/`}
+				className="addressDetails__tbody-td universall__light2"
+			>
+				{sliceData5(from as string)}
 			</NavLink>
 		) : (
 			<div className="addressDetails__tbody-td universall__light2">
@@ -70,10 +70,12 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 		)
 	const isTo =
 		to === null ? null : address !== to ? (
-			<NavLink to={`/addresses/${to}/`} style={{ display: 'content' }}>
-				<div className="addressDetails__tbody-td universall__light2">
-					{sliceData5(to as string)}
-				</div>
+			<NavLink
+				to={`/addresses/${to}/`}
+				style={{ display: 'content' }}
+				className="addressDetails__tbody-td universall__light2"
+			>
+				{sliceData5(to as string)}
 			</NavLink>
 		) : (
 			<div className="addressDetails__tbody-td universall__light2">
@@ -136,10 +138,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 							})
 						}}
 					>
-						{
-							// @ts-ignore
-							type !== 'ERC-20_Tx' ? <>{symbol ? symbol : ''}</> : ''
-						}
+						{type !== 'ERC-20_Tx' ? <>{symbol ? symbol : ''}</> : ''}
 					</span>
 				) : (
 					<></>
