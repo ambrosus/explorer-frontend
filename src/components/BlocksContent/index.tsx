@@ -1,9 +1,7 @@
 import LatestTransactions from 'components/LastestTransactions'
 import LatestBlocks from 'components/LatestBlocks'
-// import ViewMoreBtn from 'components/ViewMoreBtn'
+import { BlocksContentProps } from 'pages/Home/home.interfaces'
 import React, { FC } from 'react'
-
-import { BlocksContentProps } from '../../pages/Home/home.interfaces'
 
 const BlocksContent: FC<BlocksContentProps> = ({ data }) => {
 	return (
