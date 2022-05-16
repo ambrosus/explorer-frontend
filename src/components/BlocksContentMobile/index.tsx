@@ -1,9 +1,8 @@
 import LatestTransactions from 'components/LastestTransactions'
 import LatestBlocks from 'components/LatestBlocks'
 import ViewMoreBtn from 'components/ViewMoreBtn'
+import { BlocksContentProps } from 'pages/Home/home.interfaces'
 import React, { FC, useState } from 'react'
-
-import { BlocksContentProps } from '../../pages/Home/home.interfaces'
 
 const BlocksContentMobile: FC<BlocksContentProps> = ({ data }) => {
 	const [index, setIndex] = useState<number>(1)

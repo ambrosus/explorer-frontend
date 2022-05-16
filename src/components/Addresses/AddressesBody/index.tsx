@@ -1,7 +1,6 @@
 import Amb from 'assets/icons/Cryptos/Amb'
+import { useTypedSelector } from 'hooks/useTypedSelector'
 import { Link } from 'react-router-dom'
-
-import { useTypedSelector } from '../../../hooks/useTypedSelector'
 
 const AddressesBody = ({
 	address,
@@ -27,7 +26,8 @@ const AddressesBody = ({
 				</Link>
 				<div className="addresses__body-cell">{txCount}</div>
 				<div className="addresses__body-cell">
-					<Amb />&nbsp;&nbsp;
+					<Amb />
+					&nbsp;&nbsp;
 					{ambBalance.toFixed(2)} AMB
 				</div>
 

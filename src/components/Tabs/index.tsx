@@ -31,6 +31,8 @@ const Tabs: FC<TabsProps> = ({
 	const { loading, data: addressData } = useTypedSelector(
 		(state: any) => state.position
 	)
+	// console.log(useTypedSelector((state) => console.log(state)))
+
 	const mobileCalendarRef = useRef(null)
 	const { width } = useWindowSize()
 	const { transactionFilters, ERC20Filters, methodFilters } = sidePages
@@ -197,17 +199,7 @@ const Tabs: FC<TabsProps> = ({
 						  )
 						: null}
 				</section>
-				{loading && (
-					<div
-						style={{
-							position: 'relative',
-							bottom: '-50px',
-							width: '100%',
-						}}
-					>
-						<Loader />
-					</div>
-				)}
+				{loading && <Loader />}
 			</div>
 		</>
 	)

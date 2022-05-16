@@ -6,12 +6,14 @@
 		flex-direction: column;
 		margin-left: 10px;
 	}
+
 	&__sort {
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		height: 52px;
 		border-bottom: 1px solid #eff2f5;
+
 		&-heading {
 			display: flex;
 			flex: 2;
@@ -22,29 +24,35 @@
 				display: none;
 			}
 		}
+
 		&-cells {
 			display: flex;
 			flex: 3;
 			gap: 12px;
 		}
+
 		&-cell {
 			font-weight: 400;
 			font-size: 12px;
 			line-height: 32px;
 			color: #808a9d;
 			white-space: nowrap;
+
 			&:nth-child(1) {
 				font-weight: 700;
 				color: #05060f;
 			}
 		}
-		.pointer{
+
+		.pointer {
 			cursor: pointer;
 		}
-		&-active{
+
+		&-active {
 			color: #05060f;
 		}
 	}
+
 	&__table {
 		display: flex;
 		flex-direction: column;
@@ -52,7 +60,10 @@
 		overflow: auto;
 		margin-left: 10px;
 	}
+
 	&__header {
+		padding: 0px 15px;
+
 		display: grid;
 		grid-template-columns: 50px 470px 150px 158px repeat(1, auto);
 		gap: 36px;
@@ -64,27 +75,37 @@
 			font-weight: 700;
 			font-size: 12px;
 			line-height: 32px;
+
 			&:nth-last-child(1) {
 				justify-content: flex-end;
 			}
 		}
 	}
+
 	&__body {
 		display: grid;
 		grid-template-columns: 50px 470px 150px 158px repeat(1, auto);
 		height: 48px;
 		align-items: center;
 		gap: 36px;
+		padding: 0px 15px;
+
 		border-bottom: 1px solid #eff2f5;
+
+		&:hover {
+			background-color: #eff2f5;
+		}
 
 		&-cell {
 			display: flex;
 			font-weight: 400;
 			font-size: 14px;
 			line-height: 24px;
+
 			&:nth-last-child(1) {
 				justify-content: flex-end;
 			}
+
 			&:nth-child(2) {
 				font-weight: 600;
 				color: #808a9d;
@@ -111,12 +132,14 @@
 		height: 100%;
 		margin: 26px 0px;
 	}
+
 	&__heading {
 		flex: 1;
 		@include for-device-small {
 			margin: 6px 0px;
 		}
 	}
+
 	&__table {
 		display: flex;
 		align-items: center;
@@ -130,6 +153,7 @@
 	&__cells {
 		display: flex;
 	}
+
 	&__cells {
 		display: flex;
 
@@ -138,13 +162,16 @@
 			margin: 6px 0px;
 		}
 	}
+
 	&__cell {
 		margin: 8px;
 		font-size: 18px;
 		line-height: 32px;
+
 		&:nth-child(odd) {
 			font-weight: 700;
 		}
+
 		@include for-device-small {
 			margin: 0px;
 		}
@@ -164,6 +191,7 @@
 			align-items: flex-start;
 		}
 	}
+
 	&__copy {
 		display: flex;
 		align-items: center;
@@ -182,6 +210,7 @@
 		@include for-device-small {
 			font-size: 0.88rem;
 		}
+
 		&-btn {
 			display: flex;
 			align-items: center;
@@ -194,6 +223,7 @@
 			background: #f6f6f6;
 			border-radius: 8px;
 			color: #fff;
+
 			&-copyed {
 				display: flex;
 				align-items: center;
@@ -208,6 +238,7 @@
 				color: #fff;
 			}
 		}
+
 		&-popup {
 			position: absolute;
 			margin-top: 70px;
@@ -234,6 +265,7 @@
 			line-height: 2.28em;
 		}
 	}
+
 	&__div {
 		display: flex;
 		gap: 4px;
@@ -245,6 +277,7 @@
 			line-height: 2.28em;
 		}
 	}
+
 	&__table {
 		min-height: 30px;
 		width: 100%;
@@ -254,27 +287,31 @@
 		margin-top: 16px;
 		position: relative;
 		white-space: nowrap;
-		overflow: auto;
+		overflow-x: auto;
+
 		@include for-device-small {
 		}
 	}
 
 	&__thead-td {
+		height: 100%;
 		font-weight: 700;
 		font-size: 0.86em;
 		line-height: 1.77em;
 	}
+
 	&__tbody {
 		&-icon {
-			// text-decoration: underline;
 			text-decoration: underline solid #05060f;
 		}
+
 		&-td {
 			display: flex;
 			align-items: center;
 			border-bottom: 1px solid #eff2f5;
 		}
 	}
+
 	&__button {
 		display: flex;
 		border-bottom: 1px solid #eff2f5;

@@ -1,9 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`setActiveLink is active link 1`] = `"tabs__link tabs__link-active"`;
-
-exports[`setActiveLink not active link 1`] = `"tabs__link "`;
-
 exports[`should return the date in a specific format a few seconds ago 1`] = `"a few seconds ago"`;
 
 exports[`sliceData5 & sliceData10 should slice data correctly value 1`] = `"0xB500558a...d1ef378D34"`;
