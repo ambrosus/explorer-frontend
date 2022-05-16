@@ -42,7 +42,6 @@ const BlocksContentMobile: FC<BlocksContentProps> = ({ data }) => {
 								name="name"
 							/>
 						))}
-						<ViewMoreBtn onclick={() => {}} nameBtn="View all blocks" />
 					</div>
 				) : null}
 				{index === 2 ? (
@@ -60,7 +59,6 @@ const BlocksContentMobile: FC<BlocksContentProps> = ({ data }) => {
 									type={item.type}
 								/>
 							))}
-							<ViewMoreBtn onclick={() => {}} nameBtn="View all transactions" />
 						</div>
 					</div>
 				) : null}
