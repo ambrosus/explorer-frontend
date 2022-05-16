@@ -178,7 +178,10 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 				) : null}
 				{!isLatest ? (
 					<>
-						{token ? token : ''} ({symbol ? symbol : ''})
+						{token ? token : ''}
+						<div className="addressDetails__tbody-icon universall__light2">
+							({symbol ? symbol : ''})
+						</div>
 					</>
 				) : (
 					<span
@@ -188,7 +191,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 								if (item.name === token) {
 									onClick(item)
 									addFilter(item)
-									navigate(`/addresses/${address}/ERC-20_Tx/${item.contract}`)
+									navigate(`/addresses/${address}/ERC-20_Tx/${item.contract}/`)
 								}
 							})
 						}}
