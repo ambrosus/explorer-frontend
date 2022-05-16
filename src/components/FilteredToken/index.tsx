@@ -20,7 +20,7 @@ const FilteredToken: FC<FilteredTokenProps> = ({ setSelectedToken }) => {
 	const backClick = () => {
 		setSelectedToken(null)
 		clearFilters()
-		navigate(`/addresses/${address}/ERC-20_Tx`)
+		navigate(`/addresses/${address}/ERC-20_Tx/`)
 	}
 
 	return (

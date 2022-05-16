@@ -21,7 +21,7 @@ const AddressesBody = ({
 		address && (
 			<div className="addresses__body" ref={lastCardRef}>
 				<div className="addresses__body-cell">{rank}</div>
-				<Link to={`/addresses/${address}`} className="addresses__body-cell">
+				<Link to={`/addresses/${address}/`} className="addresses__body-cell">
 					{address}
 				</Link>
 				<div className="addresses__body-cell">{txCount}</div>
