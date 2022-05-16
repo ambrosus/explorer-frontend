@@ -1,3 +1,4 @@
+import Eth from 'assets/icons/Cryptos/Eth'
 import GreenCircle from 'assets/icons/StatusAction/GreenCircle'
 import IncomeTrasaction from 'assets/icons/StatusAction/IncomeTrasaction'
 import OrangeCircle from 'assets/icons/StatusAction/OrangeCircle'
@@ -92,6 +93,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 		)
 
 	const Icon = getTokenIcon(symbol as string)
+
 	const isAmount =
 		amount === null ? (
 			<></>
@@ -178,9 +180,8 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 				) : null}
 				{!isLatest ? (
 					<>
-						{token ? token : ''}
 						<div className="addressDetails__tbody-icon universall__light2">
-							({symbol ? symbol : ''})
+							{token ? token : ''} ({symbol ? symbol : ''})
 						</div>
 					</>
 				) : (
@@ -196,7 +197,9 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 							})
 						}}
 					>
-						{token ? token : ''} ({symbol ? symbol : ''})
+						<div className="addressDetails__tbody-icon universall__light2">
+							{token ? token : ''} ({symbol ? symbol : ''})
+						</div>
 					</span>
 				)}
 			</div>
