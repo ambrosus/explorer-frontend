@@ -17,7 +17,7 @@ Content.Header = ({ children, isLoading = true }: IContentProps) => (
 Content.Body = ({ children, isLoading = true }: IContentProps) => (
 	<div key="1" className="content__body">
 		{!isLoading ? (
-			<div style={{ minHeight: 400, marginTop: 200 }}>
+			<div style={{ minHeight: 400, marginTop: 20 }}>
 				<Loader />
 			</div>
 		) : (
