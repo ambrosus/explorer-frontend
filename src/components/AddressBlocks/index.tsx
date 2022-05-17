@@ -9,7 +9,12 @@ import React from 'react'
 import { NavLink, useNavigate, useParams } from 'react-router-dom'
 import ReactTooltip from 'react-tooltip'
 import { TParams } from 'types'
-import { getTokenIcon, isFloat, sliceData5, sliceData10 } from 'utils/helpers'
+import {
+	displayAmount,
+	getTokenIcon,
+	sliceData5,
+	sliceData10,
+} from 'utils/helpers'
 
 const AddressBlock: React.FC<AddressBlockProps> = ({
 	onClick,
@@ -43,7 +48,6 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 				{sliceData10(txhash as string)}
 			</div>
 		)
-
 	const isMethod =
 		method === null ? null : (
 			<div className="addressDetails__tbody-td">
@@ -55,8 +59,9 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 				{method}
 			</div>
 		)
+
 	const isFrom =
-		from === null ? null : address !== from ? (
+		from === null ? null : address !== from && String(from).trim().length ? (
 			<NavLink
 				to={`/addresses/${from}/`}
 				className="addressDetails__tbody-td universall__light2"
@@ -105,9 +110,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 				) : (
 					<></>
 				)}
-				<span style={{ minWidth: 77 }}>
-					{isFloat(amount) ? Number(amount).toFixed(8) : Number(amount).toFixed(2)}
-				</span>
+				<span style={{ minWidth: 77 }}>{displayAmount(amount)}</span>
 				{symbol && symbol !== null && symbol !== 'null' ? (
 					<span
 						className="addressDetails__tbody-icon"
