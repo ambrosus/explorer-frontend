@@ -280,8 +280,8 @@ export const getDataForAddress = async (address: string, params: any) => {
 			(await sortedLatestTransactionsData(defaultFilters, url, page)) || []
 
 		const transactionsAll: TransactionProps[] = [
-			...bbTxData,
 			...explorData,
+			...bbTxData,
 		].sort((a: any, b: any) => b.block - a.block)
 		return {
 			balance: addressBalance,
