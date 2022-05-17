@@ -50,7 +50,7 @@ export const routes: IRoute[] = [
 		key: 'Addresses',
 		exact: true,
 		component: () => <Addresses />,
-		isClick: false,
+		isClick: true,
 	},
 	{
 		path: '/blocks',

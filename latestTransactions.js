@@ -1,6 +1,7 @@
 const obj = {
 	_id: '624fe84f0405680031a2852f',
-	blockHash: '0x0fe947761d4928a5ada0315ba9ce32064c0328c2305e0fed61ea3b16deb9b158',
+	blockHash:
+		'0x0fe947761d4928a5ada0315ba9ce32064c0328c2305e0fed61ea3b16deb9b158',
 	blockNumber: 17874073,
 	from: '0xA361Dead2677Dba77aE97fD97Ae2835ec220B72F',
 	gasCost: {
@@ -11,16 +12,21 @@ const obj = {
 	gasSent: 6000000,
 	gasUsed: 390443,
 	hash: '0x3641ce7efa910bf3ce10c7f1a0c9079fdbd3d44a515bcd318f4e21617c4736f6',
-	input: '0x5c23bdf555ea78fd4528aa444f20776d62218e7adaed18dc9b8d634895b4479dc29cf279',
+	input:
+		'0x5c23bdf555ea78fd4528aa444f20776d62218e7adaed18dc9b8d634895b4479dc29cf279',
 	logs: [
 		{
 			address: '0x2A89a139eCe52995F3E9B2D72693C13f3D7C833B',
-			topics: ['0xeb687f41634dc064abd8231b4a7fc182cd16d2372b98e207c39a9cb436d2dccc'],
+			topics: [
+				'0xeb687f41634dc064abd8231b4a7fc182cd16d2372b98e207c39a9cb436d2dccc',
+			],
 			data: '0xa1ca98a7d03b19d3dce5b2273391ad1918bc4e1a9feee1b94aaaa5e229c15ff1000000000000000000000000a361dead2677dba77ae97fd97ae2835ec220b72f',
 		},
 		{
 			address: '0xc0096484Fa870C5476A3E589028e67E8Fa0CC152',
-			topics: ['0xc41c4f7876f06c7cc0a703943640fa09462f0cf52a72f1581647105e923b1515'],
+			topics: [
+				'0xc41c4f7876f06c7cc0a703943640fa09462f0cf52a72f1581647105e923b1515',
+			],
 			data: '0x000000000000000000000000a733eb0bf30d54a7387019851a9ea65f2b277043a1ca98a7d03b19d3dce5b2273391ad1918bc4e1a9feee1b94aaaa5e229c15ff155ea78fd4528aa444f20776d62218e7adaed18dc9b8d634895b4479dc29cf279000000000000000000000000a361dead2677dba77ae97fd97ae2835ec220b72f',
 		},
 	],
@@ -31,11 +37,15 @@ const obj = {
 	transactionIndex: 0,
 	type: 'Challenges::resolve',
 	determinedType: 'Challenge',
-	addressesInvolved: ['0xA361Dead2677Dba77aE97fD97Ae2835ec220B72F', '0x9Ec10A7bC6D0A5e5e72d27b2197E5699403905C3'],
+	addressesInvolved: [
+		'0xA361Dead2677Dba77aE97fD97Ae2835ec220B72F',
+		'0x9Ec10A7bC6D0A5e5e72d27b2197E5699403905C3',
+	],
 	parent: null,
 	inners: [
 		{
-			blockHash: '0x0fe947761d4928a5ada0315ba9ce32064c0328c2305e0fed61ea3b16deb9b158',
+			blockHash:
+				'0x0fe947761d4928a5ada0315ba9ce32064c0328c2305e0fed61ea3b16deb9b158',
 			blockNumber: 17874073,
 			from: '0x9Ec10A7bC6D0A5e5e72d27b2197E5699403905C3',
 			gasCost: {
@@ -56,11 +66,16 @@ const obj = {
 			transactionIndex: null,
 			type: 'ChallengesStore::transferFee',
 			determinedType: 'Challenge',
-			addressesInvolved: ['0x9Ec10A7bC6D0A5e5e72d27b2197E5699403905C3', '0xa884A42a93042BF4F5afccfe66cD986e123087fD'],
-			parent: '0x3641ce7efa910bf3ce10c7f1a0c9079fdbd3d44a515bcd318f4e21617c4736f6',
+			addressesInvolved: [
+				'0x9Ec10A7bC6D0A5e5e72d27b2197E5699403905C3',
+				'0xa884A42a93042BF4F5afccfe66cD986e123087fD',
+			],
+			parent:
+				'0x3641ce7efa910bf3ce10c7f1a0c9079fdbd3d44a515bcd318f4e21617c4736f6',
 			inners: [
 				{
-					blockHash: '0x0fe947761d4928a5ada0315ba9ce32064c0328c2305e0fed61ea3b16deb9b158',
+					blockHash:
+						'0x0fe947761d4928a5ada0315ba9ce32064c0328c2305e0fed61ea3b16deb9b158',
 					blockNumber: 17874073,
 					from: '0xa884A42a93042BF4F5afccfe66cD986e123087fD',
 					gasCost: {
@@ -80,8 +95,12 @@ const obj = {
 					transactionIndex: null,
 					type: 'Transfer',
 					determinedType: 'Transfer',
-					addressesInvolved: ['0xa884A42a93042BF4F5afccfe66cD986e123087fD', '0x9Ec10A7bC6D0A5e5e72d27b2197E5699403905C3'],
-					parent: '0x93f4eb814480e3035117b5edf214797859e3231ecc3dd1f23ce52df229717186',
+					addressesInvolved: [
+						'0xa884A42a93042BF4F5afccfe66cD986e123087fD',
+						'0x9Ec10A7bC6D0A5e5e72d27b2197E5699403905C3',
+					],
+					parent:
+						'0x93f4eb814480e3035117b5edf214797859e3231ecc3dd1f23ce52df229717186',
 					value: {
 						wei: '0x1c98cf85144a10000',
 						ether: 32.97,
@@ -98,7 +117,8 @@ const obj = {
 			_id: '624fe84f0405680031a28530',
 		},
 		{
-			blockHash: '0x0fe947761d4928a5ada0315ba9ce32064c0328c2305e0fed61ea3b16deb9b158',
+			blockHash:
+				'0x0fe947761d4928a5ada0315ba9ce32064c0328c2305e0fed61ea3b16deb9b158',
 			blockNumber: 17874073,
 			from: '0x9Ec10A7bC6D0A5e5e72d27b2197E5699403905C3',
 			gasCost: {
@@ -119,11 +139,16 @@ const obj = {
 			transactionIndex: null,
 			type: 'Sheltering::addShelterer',
 			determinedType: 'Undetermined',
-			addressesInvolved: ['0x9Ec10A7bC6D0A5e5e72d27b2197E5699403905C3', '0x871A02278EAd35957EAB37c69Da267536566c0F2'],
-			parent: '0x3641ce7efa910bf3ce10c7f1a0c9079fdbd3d44a515bcd318f4e21617c4736f6',
+			addressesInvolved: [
+				'0x9Ec10A7bC6D0A5e5e72d27b2197E5699403905C3',
+				'0x871A02278EAd35957EAB37c69Da267536566c0F2',
+			],
+			parent:
+				'0x3641ce7efa910bf3ce10c7f1a0c9079fdbd3d44a515bcd318f4e21617c4736f6',
 			inners: [
 				{
-					blockHash: '0x0fe947761d4928a5ada0315ba9ce32064c0328c2305e0fed61ea3b16deb9b158',
+					blockHash:
+						'0x0fe947761d4928a5ada0315ba9ce32064c0328c2305e0fed61ea3b16deb9b158',
 					blockNumber: 17874073,
 					from: '0x871A02278EAd35957EAB37c69Da267536566c0F2',
 					gasCost: {
@@ -144,11 +169,16 @@ const obj = {
 					transactionIndex: null,
 					type: 'Payouts::grantShelteringReward',
 					determinedType: 'Payout',
-					addressesInvolved: ['0x871A02278EAd35957EAB37c69Da267536566c0F2', '0xB040E8C55F0bFE4e7f3de6eE570Ebf95EA689023'],
-					parent: '0x7b200f8e143ebdefa2cdb7ac9108a7ee4ac020f970ecbdcabde627ab8cbc73da',
+					addressesInvolved: [
+						'0x871A02278EAd35957EAB37c69Da267536566c0F2',
+						'0xB040E8C55F0bFE4e7f3de6eE570Ebf95EA689023',
+					],
+					parent:
+						'0x7b200f8e143ebdefa2cdb7ac9108a7ee4ac020f970ecbdcabde627ab8cbc73da',
 					inners: [
 						{
-							blockHash: '0x0fe947761d4928a5ada0315ba9ce32064c0328c2305e0fed61ea3b16deb9b158',
+							blockHash:
+								'0x0fe947761d4928a5ada0315ba9ce32064c0328c2305e0fed61ea3b16deb9b158',
 							blockNumber: 17874073,
 							from: '0xB040E8C55F0bFE4e7f3de6eE570Ebf95EA689023',
 							gasCost: {
@@ -169,8 +199,12 @@ const obj = {
 							transactionIndex: null,
 							type: 'PayoutsStore::grantForPeriods',
 							determinedType: 'Payout',
-							addressesInvolved: ['0xB040E8C55F0bFE4e7f3de6eE570Ebf95EA689023', '0x41C50F7373908336Be4a20181c5b9e708C5D8Ca6'],
-							parent: '0x305acaca3383906ff85f19eb42e56b6067ca666958a610494a8c7d7ebc338ff0',
+							addressesInvolved: [
+								'0xB040E8C55F0bFE4e7f3de6eE570Ebf95EA689023',
+								'0x41C50F7373908336Be4a20181c5b9e708C5D8Ca6',
+							],
+							parent:
+								'0x305acaca3383906ff85f19eb42e56b6067ca666958a610494a8c7d7ebc338ff0',
 							value: {
 								wei: '0x164e3b77296cf8000',
 								ether: 25.7166,
@@ -179,7 +213,8 @@ const obj = {
 							_id: '624fe84f0405680031a28534',
 						},
 						{
-							blockHash: '0x0fe947761d4928a5ada0315ba9ce32064c0328c2305e0fed61ea3b16deb9b158',
+							blockHash:
+								'0x0fe947761d4928a5ada0315ba9ce32064c0328c2305e0fed61ea3b16deb9b158',
 							blockNumber: 17874073,
 							from: '0xB040E8C55F0bFE4e7f3de6eE570Ebf95EA689023',
 							gasCost: {
@@ -200,8 +235,12 @@ const obj = {
 							transactionIndex: null,
 							type: 'PayoutsStore::grantForPeriods',
 							determinedType: 'Payout',
-							addressesInvolved: ['0xB040E8C55F0bFE4e7f3de6eE570Ebf95EA689023', '0x41C50F7373908336Be4a20181c5b9e708C5D8Ca6'],
-							parent: '0x305acaca3383906ff85f19eb42e56b6067ca666958a610494a8c7d7ebc338ff0',
+							addressesInvolved: [
+								'0xB040E8C55F0bFE4e7f3de6eE570Ebf95EA689023',
+								'0x41C50F7373908336Be4a20181c5b9e708C5D8Ca6',
+							],
+							parent:
+								'0x305acaca3383906ff85f19eb42e56b6067ca666958a610494a8c7d7ebc338ff0',
 							value: {
 								wei: '0x64a940deadd18000',
 								ether: 7.2534,
@@ -260,4 +299,4 @@ const obj = {
 		timestamp: 1649403978,
 		totalTx: 1,
 	},
-};
+}
