@@ -1,6 +1,7 @@
 import Amb from 'assets/icons/Cryptos/Amb'
 import { useTypedSelector } from 'hooks/useTypedSelector'
 import { Link } from 'react-router-dom'
+import { isFloat } from '../../../utils/helpers'
 
 const AddressesBody = ({
 	address,
@@ -28,7 +29,8 @@ const AddressesBody = ({
 				<div className="addresses__body-cell">
 					<Amb />
 					&nbsp;&nbsp;
-					{ambBalance.toFixed(2)} AMB
+					{isFloat(ambBalance) ? Number(ambBalance).toFixed(8) : Number(ambBalance).toFixed(2)} AMB
+
 				</div>
 
 				<div className="addresses__body-cell">

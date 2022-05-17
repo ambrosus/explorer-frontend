@@ -200,7 +200,7 @@ const bbDataFillter = async (
 			)
 		const bbTxData =
 			filteredBlockBookApiTransactionsData &&
-			filteredBlockBookApiTransactionsData?.length &&
+			filteredBlockBookApiTransactionsData?.length ?
 			filteredBlockBookApiTransactionsData.map((item: any) => {
 				const t = item.value
 				return {
@@ -225,7 +225,7 @@ const bbDataFillter = async (
 						: 'AMB',
 					txFee: ethers.utils.formatUnits(t.fees, 18),
 				}
-			})
+			}):[]
 		return {
 			bbApi,
 			addressBalance,
@@ -279,8 +279,8 @@ export const getDataForAddress = async (address: string, params: any) => {
 			(await sortedLatestTransactionsData(defaultFilters, url, page)) || []
 
 		const transactionsAll: TransactionProps[] = [
-			...explorData,
 			...bbTxData,
+			...explorData,
 		].sort((a: any, b: any) => b.block - a.block)
 		return {
 			balance: addressBalance,
