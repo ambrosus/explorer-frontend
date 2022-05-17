@@ -1,4 +1,3 @@
-import Eth from 'assets/icons/Cryptos/Eth'
 import GreenCircle from 'assets/icons/StatusAction/GreenCircle'
 import IncomeTrasaction from 'assets/icons/StatusAction/IncomeTrasaction'
 import OrangeCircle from 'assets/icons/StatusAction/OrangeCircle'
