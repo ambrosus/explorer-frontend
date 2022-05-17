@@ -39,6 +39,9 @@
 		min-width: 30px;
 		line-height: 1.33em;
 		font-weight: 600;
+		@include for-device-xs {
+			font-size: 12px;
+		}
 	}
 	&__font-small {
 		min-width: 30px;
@@ -46,6 +49,9 @@
 		line-height: 0.88 em;
 		font-weight: 400;
 		color: $main-medium;
+		@include for-device-xs {
+			font-size: 10px;
+		}
 	}
 
 	&__btn {
