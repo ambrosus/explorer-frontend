@@ -12,7 +12,7 @@ import removeArrayDuplicates from 'utils/helpers'
 
 export const Addresses = () => {
 	const [accounts, setAccounts] = React.useState<any>([])
-	const [sortTerm, setSortTerm] = React.useState('')
+	const [sortTerm, setSortTerm] = React.useState('address')
 	const { ref, inView } = useInView()
 	const { loading } = useTypedSelector((state: any) => state.app)
 
@@ -57,11 +57,13 @@ export const Addresses = () => {
 					<div className="addresses__table">
 						<AddressesHeader />
 						{accounts && accounts.data && accounts.data.length
-							? accounts.data.map((account: any, index: number) =>
-									account && accounts.data.length - 1 === index ? (
+							? accounts.data.map((account: any, index: number) => {
+									console.log('account',account)
+									return account && accounts.data.length - 1 === index ? (
 										<AddressesBody
 											key={account && account._id ? account._id : index}
 											lastCardRef={ref}
+											isContract={account && account.isContract? account.isContract : null}
 											address={
 												account && account.address ? account.address : null
 											}
@@ -76,6 +78,7 @@ export const Addresses = () => {
 									) : (
 										<AddressesBody
 											key={account && account._id ? account._id : index}
+											isContract={account && account.isContract? account.isContract : null}
 											address={
 												account && account.address ? account.address : null
 											}
@@ -88,6 +91,7 @@ export const Addresses = () => {
 											}
 										/>
 									)
+								}
 							  )
 							: null}
 					</div>
