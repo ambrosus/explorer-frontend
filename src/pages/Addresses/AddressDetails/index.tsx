@@ -61,6 +61,12 @@ export const AddressDetails = () => {
 	)
 
 	useEffect(() => {
+		return () => {
+			setPosition(null)
+		}
+	}, [])
+
+	useEffect(() => {
 		if (address || type || filtered || tokenToSorted) {
 			setTx([])
 		}
