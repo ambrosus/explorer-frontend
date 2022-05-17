@@ -1,6 +1,5 @@
 import LatestTransactions from 'components/LastestTransactions'
 import LatestBlocks from 'components/LatestBlocks'
-import ViewMoreBtn from 'components/ViewMoreBtn'
 import { BlocksContentProps } from 'pages/Home/home.interfaces'
 import React, { FC, useState } from 'react'
 
@@ -42,7 +41,6 @@ const BlocksContentMobile: FC<BlocksContentProps> = ({ data }) => {
 								name="name"
 							/>
 						))}
-						<ViewMoreBtn onclick={() => {}} nameBtn="View all blocks" />
 					</div>
 				) : null}
 				{index === 2 ? (
@@ -60,7 +58,6 @@ const BlocksContentMobile: FC<BlocksContentProps> = ({ data }) => {
 									type={item.type}
 								/>
 							))}
-							<ViewMoreBtn onclick={() => {}} nameBtn="View all transactions" />
 						</div>
 					</div>
 				) : null}

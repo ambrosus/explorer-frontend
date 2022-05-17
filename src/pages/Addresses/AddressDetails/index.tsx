@@ -19,8 +19,6 @@ import { TParams } from 'types'
 import { TokenType, TransactionProps } from './address-details.interface'
 
 export const AddressDetails = () => {
-	const { address, type, filtered, tokenToSorted }: TParams = useParams()
-	const { setPosition, addFilter } = useActions()
 	const { filters } = useTypedSelector(
 		(state) => state.tokenFilters,
 		shallowEqual
@@ -30,6 +28,8 @@ export const AddressDetails = () => {
 		data: addressData,
 		error: errorData,
 	} = useTypedSelector((state: any) => state.position)
+	const { address, type, filtered, tokenToSorted }: TParams = useParams()
+	const { setPosition, addFilter } = useActions()
 	const [transactionType, setTransactionType] = useState(type)
 	const [selectedToken, setSelectedToken] = useState<TokenType | null>(null)
 	const [tx, setTx] = useState<TransactionProps[] | []>([])
@@ -38,6 +38,7 @@ export const AddressDetails = () => {
 	const observer = useRef<IntersectionObserver>()
 
 	const { isCopy, isCopyPopup, copyContent } = useCopyContent(address)
+
 	const lastCardRef = useCallback(
 		(node: any) => {
 			if (loading) return
@@ -59,6 +60,12 @@ export const AddressDetails = () => {
 		},
 		[loading]
 	)
+
+	useEffect(() => {
+		return () => {
+			setPosition(null)
+		}
+	}, [])
 
 	useEffect(() => {
 		if (address || type || filtered || tokenToSorted) {

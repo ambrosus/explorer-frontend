@@ -97,6 +97,7 @@
 		}
 
 		&-cell {
+			white-space: nowrap;
 			display: flex;
 			font-weight: 400;
 			font-size: 14px;
@@ -309,6 +310,7 @@
 			display: flex;
 			align-items: center;
 			border-bottom: 1px solid #eff2f5;
+			padding-right: 32px;
 		}
 	}
 

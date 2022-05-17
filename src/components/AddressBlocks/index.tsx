@@ -9,7 +9,7 @@ import React from 'react'
 import { NavLink, useNavigate, useParams } from 'react-router-dom'
 import ReactTooltip from 'react-tooltip'
 import { TParams } from 'types'
-import { getTokenIcon, sliceData5, sliceData10 } from 'utils/helpers'
+import { getTokenIcon, isFloat, sliceData5, sliceData10 } from 'utils/helpers'
 
 const AddressBlock: React.FC<AddressBlockProps> = ({
 	onClick,
@@ -92,6 +92,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 		)
 
 	const Icon = getTokenIcon(symbol as string)
+
 	const isAmount =
 		amount === null ? (
 			<></>
@@ -104,7 +105,9 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 				) : (
 					<></>
 				)}
-				<span style={{ minWidth: 77 }}>{Number(amount).toFixed(8)}</span>
+				<span style={{ minWidth: 77 }}>
+					{isFloat(amount) ? Number(amount).toFixed(8) : Number(amount).toFixed(2)}
+				</span>
 				{symbol && symbol !== null && symbol !== 'null' ? (
 					<span
 						className="addressDetails__tbody-icon"
@@ -178,7 +181,9 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 				) : null}
 				{!isLatest ? (
 					<>
-						{token ? token : ''} ({symbol ? symbol : ''})
+						<div className="addressDetails__tbody-icon universall__light2">
+							{token ? token : ''} ({symbol ? symbol : ''})
+						</div>
 					</>
 				) : (
 					<span
@@ -188,12 +193,14 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 								if (item.name === token) {
 									onClick(item)
 									addFilter(item)
-									navigate(`/addresses/${address}/ERC-20_Tx/${item.contract}`)
+									navigate(`/addresses/${address}/ERC-20_Tx/${item.contract}/`)
 								}
 							})
 						}}
 					>
-						{token ? token : ''} ({symbol ? symbol : ''})
+						<div className="addressDetails__tbody-icon universall__light2">
+							{token ? token : ''} ({symbol ? symbol : ''})
+						</div>
 					</span>
 				)}
 			</div>
