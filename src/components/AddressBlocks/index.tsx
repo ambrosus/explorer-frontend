@@ -9,7 +9,7 @@ import React from 'react'
 import { NavLink, useNavigate, useParams } from 'react-router-dom'
 import ReactTooltip from 'react-tooltip'
 import { TParams } from 'types'
-import { getTokenIcon, sliceData5, sliceData10 } from 'utils/helpers'
+import { getTokenIcon, isFloat, sliceData5, sliceData10 } from 'utils/helpers'
 
 const AddressBlock: React.FC<AddressBlockProps> = ({
 	onClick,
@@ -105,7 +105,9 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 				) : (
 					<></>
 				)}
-				<span style={{ minWidth: 77 }}>{Number(amount).toFixed(8)}</span>
+				<span style={{ minWidth: 77 }}>
+					{isFloat(amount) ? Number(amount).toFixed(8) : Number(amount).toFixed(2)}
+				</span>
 				{symbol && symbol !== null && symbol !== 'null' ? (
 					<span
 						className="addressDetails__tbody-icon"
