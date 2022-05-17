@@ -62,9 +62,9 @@
   }
 
   &__header {
-	  padding: 0px 15px;
+    padding: 0px 15px;
 
-	  display: grid;
+    display: grid;
     grid-template-columns: 50px 470px 150px 158px repeat(1, auto);
     gap: 36px;
     height: 48px;
@@ -89,18 +89,25 @@
     align-items: center;
     gap: 36px;
     padding: 0px 15px;
-
+    position: relative;
     border-bottom: 1px solid #eff2f5;
 
     &:hover {
-      background-color: #EFF2F5;
+      background-color: #eff2f5;
+    }
+
+    .balance {
+     width: max-content;
+      white-space: nowrap;
     }
 
     &-cell {
+      white-space: nowrap;
       display: flex;
       font-weight: 400;
       font-size: 14px;
       line-height: 24px;
+      position: relative;
 
       &:nth-last-child(1) {
         justify-content: flex-end;
@@ -109,6 +116,15 @@
       &:nth-child(2) {
         font-weight: 600;
         color: #808a9d;
+      }
+
+      .is-contract {
+        position: absolute;
+        height: 20px;
+        width: 20px;
+        top: 3px;
+        z-index: 20;
+        left: -25px;
       }
     }
   }
@@ -287,12 +303,14 @@
     margin-top: 16px;
     position: relative;
     white-space: nowrap;
-    overflow: auto;
+    overflow-x: auto;
+
     @include for-device-small {
     }
   }
 
   &__thead-td {
+    height: 100%;
     font-weight: 700;
     font-size: 0.86em;
     line-height: 1.77em;
@@ -300,7 +318,6 @@
 
   &__tbody {
     &-icon {
-      // text-decoration: underline;
       text-decoration: underline solid #05060f;
     }
 
@@ -308,6 +325,7 @@
       display: flex;
       align-items: center;
       border-bottom: 1px solid #eff2f5;
+      padding-right: 32px;
     }
   }
 

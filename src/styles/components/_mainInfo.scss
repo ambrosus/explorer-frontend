@@ -11,7 +11,7 @@
 	&__table {
 		display: grid;
 		grid-template-columns: repeat(3, auto);
-		background: #ffffff;
+		background: $white;
 		border-radius: 1.15em 0 0 1.15em;
 		@include for-device-large {
 			border-radius: 1.15em 1.15em 0 0;
@@ -31,15 +31,17 @@
 		justify-content: flex-start;
 		height: 105px;
 		border: 0.5px solid #f6f6f6;
+		@include for-device-small {
+			height: 64px;
+		}
 	}
 	&__chart {
 		height: 210px;
 		width: 370px;
 		border: 1px solid #f6f6f6;
-		background-color: #fff;
+		background-color: $white;
 		border-radius: 0 1.15em 1.15em 0;
 		@include for-device-large {
-			// display: flex;
 			border-radius: 0 0 1.15em 1.15em;
 			width: 100%;
 		}
@@ -66,13 +68,13 @@
 	&__span-light {
 		font-weight: 400;
 		line-height: 0.88em;
-		color: #58667e;
+		color: $main-medium;
 	}
 	&__span-dark {
 		font-style: normal;
 		font-weight: 600;
 		font-size: 1.28em;
 		line-height: 1.33em;
-		color: #05060f;
+		color: $main;
 	}
 }

@@ -10,14 +10,14 @@ export const Content: FC<IContentProps> & ITabsComposition = ({
 
 Content.Header = ({ children, isLoading = true }: IContentProps) => (
 	<div key="0" className="content__header">
-		{!isLoading ? <Loader /> : <div className="container">{children}</div>}{' '}
+		{!isLoading ? <Loader /> : <div className="container">{children}</div>}
 	</div>
 )
 
 Content.Body = ({ children, isLoading = true }: IContentProps) => (
 	<div key="1" className="content__body">
 		{!isLoading ? (
-			<div style={{ minHeight: 400, marginTop: 200 }}>
+			<div style={{ minHeight: 400, marginTop: 20 }}>
 				<Loader />
 			</div>
 		) : (

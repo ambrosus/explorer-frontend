@@ -2,7 +2,7 @@
 	&__table {
 		position: absolute;
 		z-index: 1;
-		background: #fff;
+		background: $white;
 		border: 1px solid #eff2f5;
 		border-radius: 16px;
 	}
@@ -18,16 +18,16 @@
 		font-weight: 400;
 		line-height: 1.22em;
 		text-decoration: none;
-		border-top: 1px solid #eff2f5;
+		border-top: 1px solid $secondary;
 	}
 	&__link:hover,
 	&__link:focus,
 	&__link:enabled,
 	&__link:active {
-		background-color: #eff2f5;
+		background-color: $secondary;
 		border-radius: 16px;
 	}
 	&__link:nth-child(1) {
-		border-top: 0px solid #eff2f5;
+		border-top: 0px solid $secondary;
 	}
 }

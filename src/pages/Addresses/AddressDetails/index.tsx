@@ -13,15 +13,12 @@ import { useTypedSelector } from 'hooks/useTypedSelector'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { shallowEqual } from 'react-redux'
 import { useParams } from 'react-router-dom'
+import { getDataForAddress } from 'services/address.service'
 import { TParams } from 'types'
-
-import { getDataForAddress } from '../../../services/address.service'
 
 import { TokenType, TransactionProps } from './address-details.interface'
 
 export const AddressDetails = () => {
-	const { address, type, filtered, tokenToSorted }: TParams = useParams()
-	const { setPosition, addFilter } = useActions()
 	const { filters } = useTypedSelector(
 		(state) => state.tokenFilters,
 		shallowEqual
@@ -31,6 +28,8 @@ export const AddressDetails = () => {
 		data: addressData,
 		error: errorData,
 	} = useTypedSelector((state: any) => state.position)
+	const { address, type, filtered, tokenToSorted }: TParams = useParams()
+	const { setPosition, addFilter } = useActions()
 	const [transactionType, setTransactionType] = useState(type)
 	const [selectedToken, setSelectedToken] = useState<TokenType | null>(null)
 	const [tx, setTx] = useState<TransactionProps[] | []>([])
@@ -39,6 +38,7 @@ export const AddressDetails = () => {
 	const observer = useRef<IntersectionObserver>()
 
 	const { isCopy, isCopyPopup, copyContent } = useCopyContent(address)
+
 	const lastCardRef = useCallback(
 		(node: any) => {
 			if (loading) return
@@ -60,6 +60,12 @@ export const AddressDetails = () => {
 		},
 		[loading]
 	)
+
+	useEffect(() => {
+		return () => {
+			setPosition(null)
+		}
+	}, [])
 
 	useEffect(() => {
 		if (address || type || filtered || tokenToSorted) {

@@ -105,3 +105,11 @@ export const toUniqueValueByBlock = (arr: any) => {
   export const numWithCommas = (val: number) => {
     return val ? val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : 0
   }
+
+export const isFloat = (n: number | string) => {
+	return Number(n) === n && n % 1 !== 0
+}
+
+export const displayAmount = (n: number | string) => {
+	return isFloat(n) ? Number(n).toFixed(8) : Number(n).toFixed(2)
+}

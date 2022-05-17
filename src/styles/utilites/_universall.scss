@@ -8,11 +8,13 @@
 	&__light2 {
 		color: #808a9d;
 	}
-	&__indent-icon {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		margin-right: 8px;
+	&__indent {
+		&-icon {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			margin-right: 8px;
+		}
 	}
 	&__hover {
 		cursor: pointer !important;
@@ -20,4 +22,10 @@
 			color: #fff;
 		}
 	}
+}
+
+.loader {
+	position: relative;
+	top: 40px;
+	z-index: 3;
 }

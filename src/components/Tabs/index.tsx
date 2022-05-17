@@ -25,24 +25,23 @@ const Tabs: FC<TabsProps> = ({
 	setTransactionType,
 }) => {
 	const [isShow, setIsShow] = useState(false)
-	// @ts-ignore
 	const { address, type, filtered } = useParams()
 	const [prevType, setPrevType] = useState<any>(type)
+	const [renderData, setRenderData] = React.useState<any>(null)
 	const { loading, data: addressData } = useTypedSelector(
 		(state: any) => state.position
 	)
 	const mobileCalendarRef = useRef(null)
 	const { width } = useWindowSize()
 	const { transactionFilters, ERC20Filters, methodFilters } = sidePages
+	const headerBlock: any = type === 'ERC-20_Tx' ? null : 'Block'
+	const headerTxfee: any = type === 'ERC-20_Tx' ? null : 'txFee'
+	const headerToken: any = type === 'ERC-20_Tx' ? 'token' : null
+
 	const setActiveLink = ({ isActive }: any) =>
 		!loading && isActive ? 'tabs__link tabs__link-active' : 'tabs__link'
 
 	useOnClickOutside(mobileCalendarRef, () => setIsShow(false))
-
-	const headerBlock: any = type === 'ERC-20_Tx' ? null : 'Block'
-	const headerTxfee: any = type === 'ERC-20_Tx' ? null : 'txFee'
-	const headerToken: any = type === 'ERC-20_Tx' ? 'token' : null
-	const [renderData, setRenderData] = React.useState<any>(null)
 
 	useEffect(() => {
 		if (type) {
@@ -152,8 +151,6 @@ const Tabs: FC<TabsProps> = ({
 						token={headerToken}
 						methodFilters={methodFilters}
 					/>
-					{}
-
 					{renderData && renderData?.length
 						? renderData.map((transaction: any, index: number) =>
 								renderData.length - 1 === index ? (
@@ -197,17 +194,7 @@ const Tabs: FC<TabsProps> = ({
 						  )
 						: null}
 				</section>
-				{loading && (
-					<div
-						style={{
-							position: 'relative',
-							bottom: '-50px',
-							width: '100%',
-						}}
-					>
-						<Loader />
-					</div>
-				)}
+				{loading && <Loader />}
 			</div>
 		</>
 	)
