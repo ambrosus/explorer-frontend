@@ -29,7 +29,7 @@ const AddressesBody = ({
 				<Link to={`/addresses/${address}/`} className="addresses__body-cell">
 					{isContract && <div className='is-contract'><IsContract/></div>}{address}
 				</Link>
-				<div className="addresses__body-cell">{txCount}</div>
+				<div className="addresses__body-cell">{txCount || 0}</div>
 				<div className="addresses__body-cell balance">
 					<Amb />
 					&nbsp;&nbsp;
