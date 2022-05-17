@@ -106,3 +106,7 @@ export const numWithCommas = (val: number) => {
 export const isFloat = (n: number | string) => {
 	return Number(n) === n && n % 1 !== 0
 }
+
+export const displayAmount = (n: number | string) => {
+	return isFloat(n) ? Number(n).toFixed(8) : Number(n).toFixed(2)
+}
