@@ -89,18 +89,25 @@
 		align-items: center;
 		gap: 36px;
 		padding: 0px 15px;
-
+		position: relative;
 		border-bottom: 1px solid #eff2f5;
 
 		&:hover {
 			background-color: #eff2f5;
 		}
 
+		.balance {
+			width: max-content;
+			white-space: nowrap;
+		}
+
 		&-cell {
+			white-space: nowrap;
 			display: flex;
 			font-weight: 400;
 			font-size: 14px;
 			line-height: 24px;
+			position: relative;
 
 			&:nth-last-child(1) {
 				justify-content: flex-end;
@@ -109,6 +116,15 @@
 			&:nth-child(2) {
 				font-weight: 600;
 				color: #808a9d;
+			}
+
+			.is-contract {
+				position: absolute;
+				height: 20px;
+				width: 20px;
+				top: 3px;
+				z-index: 20;
+				left: -25px;
 			}
 		}
 	}
@@ -181,8 +197,6 @@
 // AddressDetails
 
 .addressDetails {
-	background-color: #f6f6f6;
-
 	&__h1 {
 		display: flex;
 		align-items: center;

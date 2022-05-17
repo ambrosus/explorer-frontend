@@ -200,32 +200,33 @@ const bbDataFillter = async (
 			)
 		const bbTxData =
 			filteredBlockBookApiTransactionsData &&
-			filteredBlockBookApiTransactionsData?.length &&
-			filteredBlockBookApiTransactionsData.map((item: any) => {
-				const t = item.value
-				return {
-					txHash: t.txid,
-					method: t?.tokenTransfers ? 'Transfer' : 'Transaction',
-					from: t?.tokenTransfers
-						? t.tokenTransfers[0].from
-						: t.vin[0].addresses[0],
-					to: t?.tokenTransfers
-						? t.tokenTransfers[0].to
-						: t.vout[0].addresses[0],
-					date: t.blockTime * 1000,
-					block: t.blockHeight,
-					amount: t?.tokenTransfers
-						? Number(formatEther(t.tokenTransfers[0].value))
-						: Number(formatEther(t.value)),
-					token: t?.tokenTransfers
-						? getTokenName(t.tokenTransfers[0].name)
-						: 'AMB',
-					symbol: t?.tokenTransfers
-						? getTokenName(t.tokenTransfers[0]?.symbol)
-						: 'AMB',
-					txFee: ethers.utils.formatUnits(t.fees, 18),
-				}
-			})
+			filteredBlockBookApiTransactionsData?.length
+				? filteredBlockBookApiTransactionsData.map((item: any) => {
+						const t = item.value
+						return {
+							txHash: t.txid,
+							method: t?.tokenTransfers ? 'Transfer' : 'Transaction',
+							from: t?.tokenTransfers
+								? t.tokenTransfers[0].from
+								: t.vin[0].addresses[0],
+							to: t?.tokenTransfers
+								? t.tokenTransfers[0].to
+								: t.vout[0].addresses[0],
+							date: t.blockTime * 1000,
+							block: t.blockHeight,
+							amount: t?.tokenTransfers
+								? Number(formatEther(t.tokenTransfers[0].value))
+								: Number(formatEther(t.value)),
+							token: t?.tokenTransfers
+								? getTokenName(t.tokenTransfers[0].name)
+								: 'AMB',
+							symbol: t?.tokenTransfers
+								? getTokenName(t.tokenTransfers[0]?.symbol)
+								: 'AMB',
+							txFee: ethers.utils.formatUnits(t.fees, 18),
+						}
+				  })
+				: []
 		return {
 			bbApi,
 			addressBalance,
