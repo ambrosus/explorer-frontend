@@ -2,15 +2,15 @@ import Amb from 'assets/icons/Cryptos/Amb'
 import { useTypedSelector } from 'hooks/useTypedSelector'
 import { Link } from 'react-router-dom'
 
-import { displayAmount } from '../../../utils/helpers'
 import IsContract from '../../../pages/Addresses/components/IsContract'
+import { displayAmount } from '../../../utils/helpers'
 
 const AddressesBody = ({
 	address,
 	balance,
 	rank,
 	isContract,
-	txCount =  0,
+	txCount = 0,
 	lastCardRef,
 }: any) => {
 	const { data: appData } = useTypedSelector((state: any) => state.app)
@@ -27,7 +27,12 @@ const AddressesBody = ({
 				<div className="addresses__body-cell">{rank}</div>
 
 				<Link to={`/addresses/${address}/`} className="addresses__body-cell">
-					{isContract && <div className='is-contract'><IsContract/></div>}{address}
+					{isContract && (
+						<div className="is-contract">
+							<IsContract />
+						</div>
+					)}
+					{address}
 				</Link>
 				<div className="addresses__body-cell">{txCount || 0}</div>
 				<div className="addresses__body-cell balance">

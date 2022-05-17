@@ -13,7 +13,7 @@ import { NavLink, useParams } from 'react-router-dom'
 import { setupStyle, toUniqueValueByBlock } from 'utils/helpers'
 import { sidePages } from 'utils/sidePages'
 
-import AddressBlock from '../AddressBlocks'
+import AddressBlock from '../AddressBlocks/AddressBlock'
 import AddressBlocksHeader from '../AddressBlocksHeader'
 import ExportCsv from '../ExportCsv'
 import Loader from '../Loader'

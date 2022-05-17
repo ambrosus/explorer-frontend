@@ -58,12 +58,16 @@ export const Addresses = () => {
 						<AddressesHeader />
 						{accounts && accounts.data && accounts.data.length
 							? accounts.data.map((account: any, index: number) => {
-									console.log('account',account)
+									console.log('account', account)
 									return account && accounts.data.length - 1 === index ? (
 										<AddressesBody
 											key={account && account._id ? account._id : index}
 											lastCardRef={ref}
-											isContract={account && account.isContract? account.isContract : null}
+											isContract={
+												account && account.isContract
+													? account.isContract
+													: null
+											}
 											address={
 												account && account.address ? account.address : null
 											}
@@ -78,7 +82,11 @@ export const Addresses = () => {
 									) : (
 										<AddressesBody
 											key={account && account._id ? account._id : index}
-											isContract={account && account.isContract? account.isContract : null}
+											isContract={
+												account && account.isContract
+													? account.isContract
+													: null
+											}
 											address={
 												account && account.address ? account.address : null
 											}
@@ -91,8 +99,7 @@ export const Addresses = () => {
 											}
 										/>
 									)
-								}
-							  )
+							  })
 							: null}
 					</div>
 				</div>
