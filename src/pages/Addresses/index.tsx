@@ -12,7 +12,7 @@ import removeArrayDuplicates from 'utils/helpers';
 
 export const Addresses = () => {
   const [accounts, setAccounts] = React.useState<any>([]);
-  const [sortTerm, setSortTerm] = React.useState('address');
+  const [sortTerm, setSortTerm] = React.useState('balance');
   const { ref, inView } = useInView();
   const { loading } = useTypedSelector((state: any) => state.app);
 
