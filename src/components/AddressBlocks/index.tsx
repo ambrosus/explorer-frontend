@@ -129,12 +129,12 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
                   : 'default',
               color: '#808a9d',
               textDecoration:
-              symbol !== 'AMB' &&
-              symbol !== 'null' &&
-              symbol !== null &&
-              type !== 'ERC-20_Tx'
-              	? 'underline'
-              	: 'none',
+                symbol !== 'AMB' &&
+                symbol !== 'null' &&
+                symbol !== null &&
+                type !== 'ERC-20_Tx'
+                  ? 'underline'
+                  : 'none',
             }}
             onClick={() => {
               addressData?.tokens?.forEach((item: any) => {
