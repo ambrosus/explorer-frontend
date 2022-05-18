@@ -1,9 +1,10 @@
 .layout {
 	display: flex;
 	height: 100vh;
-	width: 100%;
+	width: 100vw;
 	margin: auto;
 	flex-direction: column;
+	// overflow: hidden;
 	.page {
 		display: flex;
 		// min-height: 100vh;
