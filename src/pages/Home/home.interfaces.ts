@@ -1,64 +1,64 @@
-import React from 'react'
+import React from 'react';
 
 export type ResultHomePageData = {
-	header?: HeaderProps[] | []
-	latestBlocks: LatestBlocksProps[]
-	latestTransactions: LatestTransactionsProps[]
-}
+  header?: HeaderProps[] | [];
+  latestBlocks: LatestBlocksProps[];
+  latestTransactions: LatestTransactionsProps[];
+};
 
 export type HeaderProps = {
-	name: string
-	value: any
-}
+  name: string;
+  value: any;
+};
 export interface FindWideMobileProps {
-	searchRef?: React.Ref<HTMLFormElement>
-	setIsShow: Function
+  searchRef?: React.Ref<HTMLFormElement>;
+  setIsShow: Function;
 }
 export type LatestBlocksProps = {
-	number?: number
-	timestamp?: number
-	miner?: string
-	totalTransactions?: number
-	blockRewards?: number
-	key?: number
-	index?: any
-	validator?: string
-	blockReward?: number
-	name?: string
-}
+  number?: number;
+  timestamp?: number;
+  miner?: string;
+  totalTransactions?: number;
+  blockRewards?: number;
+  key?: number;
+  index?: any;
+  validator?: string;
+  blockReward?: number;
+  name?: string;
+};
 
 export type LatestTransactionsProps = {
-	_id?: React.Key | null | undefined
-	status: string
-	hash: any
-	amount?: number
-	timestamp: number
-	from: string
-	to: string
-	value?: { ether?: number }
-	type: any
-}
+  _id?: React.Key | null | undefined;
+  status: string;
+  hash: any;
+  amount?: number;
+  timestamp: number;
+  from: string;
+  to: string;
+  value?: { ether?: number };
+  type: any;
+};
 
 export interface FindWideProps {
-	searchRef?: React.Ref<HTMLFormElement>
+  searchRef?: React.Ref<HTMLFormElement>;
 }
 
 export type MainInfoProps = {
-	name: string
-	value: any
-}
+  name: string;
+  value: any;
+};
 
 export type CustomTooltipProps = {
-	payload?: any
-	label?: string
-	active?: boolean
-}
+  payload?: any;
+  label?: string;
+  active?: boolean;
+};
 
 export type BlocksContentProps = {
-	data: ResultHomePageData
-}
+  data: ResultHomePageData;
+};
 
 export type ViewMoreBtnProps = {
-	nameBtn: string
-	onclick: any
-}
+  nameBtn: string;
+  onclick: any;
+};
