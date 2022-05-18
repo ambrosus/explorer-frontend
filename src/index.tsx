@@ -14,11 +14,13 @@ import { BrowserRouter } from 'react-router-dom';
 
 function AppWithCallbackAfterRender() {
   return (
+    <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
         <Main />
       </BrowserRouter>
     </Provider>
+    </React.StrictMode>
   );
 }
 
