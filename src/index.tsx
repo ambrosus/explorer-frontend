@@ -1,10 +1,9 @@
-import React from 'react'
-import { createRoot } from 'react-dom/client'
-import { Provider } from 'react-redux'
-import { BrowserRouter } from 'react-router-dom'
-
-import Main from 'components/Main'
-import { store } from './state'
+import { store } from './state';
+import Main from 'components/Main';
+import React from 'react';
+import { createRoot } from 'react-dom/client';
+import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
 
 /*
  * @param {Provider} store - redux store
@@ -13,13 +12,13 @@ import { store } from './state'
  */
 
 export const App = (): JSX.Element => (
-		<Provider store={store}>
-			<BrowserRouter>
-				<Main />
-			</BrowserRouter>
-		</Provider>
-	)
+  <Provider store={store}>
+    <BrowserRouter>
+      <Main />
+    </BrowserRouter>
+  </Provider>
+);
 
-const container = document.getElementById('root') as HTMLElement
-const root = createRoot(container)
-root.render(<App />)
+const container = document.getElementById('root') as HTMLElement;
+const root = createRoot(container);
+root.render(<App />);

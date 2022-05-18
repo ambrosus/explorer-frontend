@@ -1,4 +1,4 @@
-import AddressBlock from '../AddressBlocks';
+import AddressBlock from '../AddressBlocks/AddressBlock';
 import AddressBlocksHeader from '../AddressBlocksHeader';
 import ExportCsv from '../ExportCsv';
 import Loader from '../Loader';

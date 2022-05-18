@@ -186,19 +186,13 @@ const getTokenTotalSupply = () => {
     });
 };
 
-// const followTheLink = (time, address) => {
-//   const link = `${baseApiUrl}/transactions/address/csv?`;
-//   if (time !== "") {
-//     const date = new Date(time) / 1000;
-//     window.open(`${link}address=${address}&date=${date}`, '_self');
-//   }
-// }
 const followTheLinkRange = (fromDate: any, toDate: any, address: any) => {
   const link = `${baseApiUrl}/transactions/csv/address/${address}`;
   const from = fromDate / 1000;
   const to = toDate / 1000;
   window.open(`${link}/dateFrom/${from}/dateTo/${to}`, '_self');
 };
+
 const api = {
   API: API(),
   getBlocks,
