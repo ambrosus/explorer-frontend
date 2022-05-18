@@ -349,3 +349,16 @@
     border-top-color: #808A9D !important;
   }
 }
+
+.flex-between{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.flex-row{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
