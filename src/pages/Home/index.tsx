@@ -19,13 +19,11 @@ export const Index: React.FC = () => {
       header: [],
       latestBlocks: (await API.getBlocks({ limit: 8 })).data,
       latestTransactions: (await API.getTransactions({ limit: 3000 })).data
-        .filter(
-          (item: LatestTransactionsProps) => item.type !== 'BlockReward',
-        )
+        .filter((item: LatestTransactionsProps) => item.type !== 'BlockReward')
         .slice(0, 8),
     };
 
-    result.header = await appData && [
+    result.header = (await appData) && [
       { name: 'MARKET CAP', value: appData.tokenInfo.market_cap_usd },
       { name: 'TOTAL SUPPLY', value: appData.netInfo.totalSupply },
       {
