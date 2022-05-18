@@ -13,6 +13,7 @@ import React, { useEffect, useState } from 'react';
 export const Index: React.FC = () => {
   const [data, setData] = useState<ResultHomePageData>();
   const { data: appData } = useTypedSelector((state: any) => state.app);
+  console.log(data);
 
   useEffect(() => {
     const getHomePageData: () => Promise<ResultHomePageData> = async () => {

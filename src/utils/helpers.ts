@@ -109,3 +109,32 @@ export const isFloat = (n: number | string) => {
 export const displayAmount = (n: number | string) => {
   return isFloat(n) ? Number(n).toFixed(8) : Number(n).toFixed(2);
 };
+
+const blockHeader = {
+  accounts: {
+    rank: 'Rank',
+    address: 'Address',
+    txCount: 'Tx Count',
+    balance: 'Balance',
+    holding: 'Holding',
+    column: 5,
+  },
+  atlasNodes: {
+    rank: 'Rank',
+    address: 'Address',
+    status: 'Status',
+    totalBundles: 'Total bundles',
+    balance: 'Balance',
+    holding: 'Holding',
+    column: 6,
+  },
+  apolloNodes: {
+    rank: 'Rank',
+    address: 'Address',
+    status: 'Status',
+    totalBlocks: 'Total blocks',
+    balance: 'Balance',
+    holding: 'Holding',
+    column: 6,
+  },
+};
