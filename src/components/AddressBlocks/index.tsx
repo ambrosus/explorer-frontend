@@ -17,20 +17,20 @@ import {
 } from 'utils/helpers'
 
 const AddressBlock: React.FC<AddressBlockProps> = ({
-																										 onClick,
-																										 lastCardRef,
-																										 isLatest,
-																										 txhash,
-																										 method,
-																										 from,
-																										 to,
-																										 date,
-																										 block,
-																										 amount,
-																										 txfee,
-																										 token,
-																										 symbol,
-																									 }) => {
+	onClick,
+	lastCardRef,
+	isLatest,
+	txhash,
+	method,
+	from,
+	to,
+	date,
+	block,
+	amount,
+	txfee,
+	token,
+	symbol,
+}) => {
 	const online: any = txfee === 'Pending' ? <OrangeCircle /> : <GreenCircle />
 	const { addFilter } = useActions()
 	const { address, type }: TParams = useParams()
@@ -42,7 +42,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 		txhash === null ? null : (
 			<div
 				ref={lastCardRef}
-				className='addressDetails__tbody-td universall__light2'
+				className="addressDetails__tbody-td universall__light2"
 				style={{ fontWeight: '600' }}
 			>
 				{sliceData10(txhash as string)}
@@ -50,7 +50,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 		)
 	const isMethod =
 		method === null ? null : (
-			<div className='addressDetails__tbody-td'>
+			<div className="addressDetails__tbody-td">
 				{from && from === address ? (
 					<OutgoingTransaction />
 				) : (
@@ -64,12 +64,12 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 		from === null ? null : address !== from && String(from).trim().length ? (
 			<NavLink
 				to={`/addresses/${from}/`}
-				className='addressDetails__tbody-td universall__light2'
+				className="addressDetails__tbody-td universall__light2"
 			>
 				{sliceData5(from as string)}
 			</NavLink>
 		) : (
-			<div className='addressDetails__tbody-td universall__light2'>
+			<div className="addressDetails__tbody-td universall__light2">
 				{sliceData5(from as string)}
 			</div>
 		)
@@ -78,22 +78,22 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 			<NavLink
 				to={`/addresses/${to}/`}
 				style={{ display: 'content' }}
-				className='addressDetails__tbody-td universall__light2'
+				className="addressDetails__tbody-td universall__light2"
 			>
 				{sliceData5(to as string)}
 			</NavLink>
 		) : (
-			<div className='addressDetails__tbody-td universall__light2'>
+			<div className="addressDetails__tbody-td universall__light2">
 				{sliceData5(to as string)}
 			</div>
 		)
 	const isDate =
 		date === null ? null : (
-			<div className='addressDetails__tbody-td'>{date}</div>
+			<div className="addressDetails__tbody-td">{date}</div>
 		)
 	const isBlock: any =
 		type === 'ERC-20_Tx' ? null : (
-			<div className='addressDetails__tbody-td'>{block}</div>
+			<div className="addressDetails__tbody-td">{block}</div>
 		)
 
 	const Icon = getTokenIcon(symbol as string)
@@ -102,9 +102,9 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 		amount === null ? (
 			<></>
 		) : (
-			<div className='addressDetails__tbody-td'>
+			<div className="addressDetails__tbody-td">
 				{type !== 'ERC-20_Tx' ? (
-					<span className='universall__indent-icon'>
+					<span className="universall__indent-icon">
 						<Icon />
 					</span>
 				) : (
@@ -113,7 +113,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 				<span style={{ minWidth: 77 }}>{displayAmount(amount)}</span>
 				{symbol && symbol !== null && symbol !== 'null' ? (
 					<span
-						className='addressDetails__tbody-icon'
+						className="addressDetails__tbody-icon"
 						style={{
 							padding: '0 5px',
 							cursor:
@@ -154,9 +154,9 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 
 	const isTxFee: any =
 		type === 'ERC-20_Tx' ? null : (
-			<div className='addressDetails__tbody-td' style={{ padding: 0 }}>
+			<div className="addressDetails__tbody-td" style={{ padding: 0 }}>
 				<span
-					className='universall__indent-icon'
+					className="universall__indent-icon"
 					style={{ display: 'flex', alignItems: 'center' }}
 				>
 					{online}
@@ -174,23 +174,25 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 	const isToken: any =
 		type === 'ERC-20_Tx' ? (
 			<div
-				className='addressDetails__tbody-td universall__light2'
+				className="addressDetails__tbody-td universall__light2"
 				style={{ fontWeight: '600', cursor: isLatest ? 'pointer' : 'default' }}
 			>
 				{type === 'ERC-20_Tx' ? (
-					<span className='universall__indent-icon'>
+					<span className="universall__indent-icon">
 						<Icon />
 					</span>
-				) : ''}
+				) : (
+					''
+				)}
 				{!isLatest ? (
 					<>
-						<div className='addressDetails__tbody-icon universall__light2'>
-							{token ? token : ''} {!symbol  ? '(AMB)' : `(${symbol})`}
+						<div className="addressDetails__tbody-icon universall__light2">
+							{token ? token : ''} {!symbol ? '(AMB)' : `(${symbol})`}
 						</div>
 					</>
 				) : (
 					<span
-						className='addressDetails__tbody-td universall__light2'
+						className="addressDetails__tbody-td universall__light2"
 						onClick={() => {
 							addressData?.tokens.forEach((item: any) => {
 								if (item.name === token) {
@@ -201,8 +203,9 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 							})
 						}}
 					>
-						<div className='addressDetails__tbody-icon universall__light2'>
-							{token ? token : ''} {!symbol || symbol.trim() === 'null'   ? '(AMB)' : `(${symbol})`}
+						<div className="addressDetails__tbody-icon universall__light2">
+							{token ? token : ''}{' '}
+							{!symbol || symbol.trim() === 'null' ? '(AMB)' : `(${symbol})`}
 						</div>
 					</span>
 				)}
