@@ -1,5 +1,5 @@
 import AddressesBody from './index';
-import { render } from '@testing-library/react';
+import renderWithReduxAndRouter from '../../../utils/test-helpers/renderWithReduxAndRouter'
 
 describe('AddressesBody', () => {
   it('should render AddressesBody Component', () => {
@@ -13,7 +13,7 @@ describe('AddressesBody', () => {
       txCount: 100,
       lastCardRef: null,
     };
-    const { container } = render(<AddressesBody {...props} />);
+    const { container } = renderWithReduxAndRouter(<AddressesBody {...props} />);
     expect(container).toMatchSnapshot();
   });
 });

@@ -10,14 +10,16 @@ import reducers from 'state/reducers';
 const middleware = [ReduxThunk];
 const renderWithReduxAndRouter = (
   component: any,
+  preloadedState:any = {},
   {
     store = createStore(
       reducers,
-      {},
+      preloadedState || {},
       composeWithDevTools(applyMiddleware(...middleware)),
     ),
   }: any = {},
 ) => {
+  // console.log('store',store.getState().position)
   return {
     ...render(
       <Provider store={store}>

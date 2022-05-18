@@ -7,7 +7,13 @@ import thunk from 'redux-thunk';
 // import {persistStore, persistReducer} from "redux-persist";
 // import storage from  'redux-persist/lib/storage';
 
-const middleware: Array<any> = [thunk];
+//need function middleware
+const getStateMiddleware = (store:any) => (next:any) => (action:any) => {
+    console.log('action', action);
+    console.log('state', store.getState());
+    return next(action);
+};
+const middleware: Array<any> = [thunk,getStateMiddleware];
 
 // const persistConfig = {
 // 		key: 'root',
@@ -34,14 +40,14 @@ const logger = createLogger({
 // middleware.push(logger);
 // }
 
-if (
+// if (
   // @ts-ignore
-  process.env.REACT_APP_API_ENDPOINT.includes('test') ||
+  // process.env.REACT_APP_API_ENDPOINT.includes('test') ||
   // @ts-ignore
-  process.env.REACT_APP_API_ENDPOINT.includes('dev')
-) {
+  // process.env.REACT_APP_API_ENDPOINT.includes('dev')
+// ) {
   middleware.push(logger);
-}
+// }
 
 export const store = createStore(
   reducers,

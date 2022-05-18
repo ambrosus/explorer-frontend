@@ -1,9 +1,9 @@
 import { Addresses } from './index';
-import { render } from '@testing-library/react';
+import renderWithReduxAndRouter from '../../utils/test-helpers/renderWithReduxAndRouter'
 
 describe('Addresses', () => {
   it('should render Addresses Component', () => {
-    const { container } = render(<Addresses />);
+    const { container } = renderWithReduxAndRouter(<Addresses />);
     expect(container).toMatchSnapshot();
   });
 });

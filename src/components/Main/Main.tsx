@@ -1,4 +1,4 @@
-import { Layout } from './layouts/Layout';
+import { Layout } from '../layouts/Layout';
 import { RenderRoutes } from 'components/RenderRoutes/RenderRoutes';
 import { useActions } from 'hooks/useActions';
 import React, { useEffect } from 'react';
