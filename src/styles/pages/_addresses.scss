@@ -97,7 +97,7 @@
     }
 
     .balance {
-     width: max-content;
+      width: max-content;
       white-space: nowrap;
     }
 
@@ -332,5 +332,20 @@
   &__button {
     display: flex;
     border-bottom: 1px solid #eff2f5;
+  }
+}
+
+#centered-tooltip {
+  background-color: #808A9D !important;
+  color: #FFFFFF !important;
+  border-radius: 8px;
+
+  font-family: 'Proxima Nova';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 11px;
+  padding: 6px;
+  &:before {
+    border-top-color: #808A9D !important;
   }
 }
