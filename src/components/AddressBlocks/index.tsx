@@ -105,14 +105,14 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
       <></>
     ) : (
       <div className="addressDetails__tbody-td flex-between">
-        <span style={{ minWidth: 77 }} className='flex-row'>
-           {type !== 'ERC-20_Tx' ? (
-             <span className="universall__indent-icon">
-            <Icon />
-          </span>
-           ) : (
-             <></>
-           )}
+        <span style={{ minWidth: 77 }} className="flex-row">
+          {type !== 'ERC-20_Tx' ? (
+            <span className="universall__indent-icon">
+              <Icon />
+            </span>
+          ) : (
+            <></>
+          )}
           {displayAmount(amount)}
         </span>
         {symbol && symbol !== null && symbol !== 'null' ? (
@@ -128,13 +128,13 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
                   ? 'pointer'
                   : 'default',
               color: '#808a9d',
-              // textDecoration:
-              // symbol !== 'AMB' &&
-              // symbol !== 'null' &&
-              // symbol !== null &&
-              // type !== 'ERC-20_Tx'
-              // 	? 'underline'
-              // 	: 'none',
+              textDecoration:
+              symbol !== 'AMB' &&
+              symbol !== 'null' &&
+              symbol !== null &&
+              type !== 'ERC-20_Tx'
+              	? 'underline'
+              	: 'none',
             }}
             onClick={() => {
               addressData?.tokens?.forEach((item: any) => {
