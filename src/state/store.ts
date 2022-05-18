@@ -30,9 +30,14 @@ const logger = createLogger({
   },
 });
 
-// if (process.env.NODE_ENV === 'development') {
-middleware.push(logger);
+// if () {
+// middleware.push(logger);
 // }
+
+// @ts-ignore
+if (process.env.REACT_APP_API_ENDPOINT.includes('test') || process.env.REACT_APP_API_ENDPOINT.includes('dev')) {
+  middleware.push(logger);
+}
 
 export const store = createStore(
   reducers,

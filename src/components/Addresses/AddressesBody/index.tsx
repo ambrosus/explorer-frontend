@@ -1,16 +1,16 @@
+import { AddressesBodyProps } from '../../../pages/Addresses/addresses.interface';
 import IsContract from '../../../pages/Addresses/components/IsContract';
 import { displayAmount } from '../../../utils/helpers';
 import Amb from 'assets/icons/Cryptos/Amb';
 import { useTypedSelector } from 'hooks/useTypedSelector';
-import React, { FC } from 'react'
+import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
-import { AddressesBodyProps } from '../../../pages/Addresses/addresses.interface'
 
-const AddressesBody:FC<AddressesBodyProps> = ({
-  address= '',
+const AddressesBody: FC<AddressesBodyProps> = ({
+  address = '',
   balance = 0,
-  rank=0,
+  rank = 0,
   isContract = false,
   txCount = 0,
   lastCardRef,
