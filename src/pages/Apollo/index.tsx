@@ -1,3 +1,5 @@
+import BlocksBody from 'components/Blocks/BlocksBody';
+import BlocksHeader from 'components/Blocks/BlocksHeader';
 import { Content } from 'components/Content';
 import React, { useEffect } from 'react';
 
@@ -16,14 +18,26 @@ export const Apollo = () => {
       .then((response) => response.json())
       .then((json) => console.log(json));
   }, []);
-
+  const num = 6;
   return (
     <Content>
       <Content.Header>
         <h1>Apollo</h1>
       </Content.Header>
       <Content.Body>
-        <div>Apollo CONTENT</div>
+        <div
+          className="blocks"
+          style={{ gridTemplateColumns: `repeat(${num}, auto)` }}
+        >
+          <BlocksHeader />
+          <BlocksBody />
+          <BlocksBody />
+          <BlocksBody />
+          <BlocksBody />
+          <BlocksBody />
+          <BlocksBody />
+          <BlocksBody />
+        </div>
       </Content.Body>
     </Content>
   );

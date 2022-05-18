@@ -119,6 +119,7 @@ const blockHeader = {
     holding: 'Holding',
     column: 5,
   },
+
   atlasNodes: {
     rank: 'Rank',
     address: 'Address',
