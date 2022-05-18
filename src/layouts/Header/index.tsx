@@ -1,6 +1,7 @@
 import DesctopMenu from 'components/DesctopMenu'
 import MobileMenu from 'components/MobileMenu'
 import useWindowSize from 'hooks/useWindowSize'
+import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { routes as menuItems } from 'routes'
 import { IRoute } from 'types'
@@ -9,6 +10,7 @@ import AmbrosusLogoSvg from './AmbrosusLogoSvg'
 
 export const Header = () => {
 	const { width } = useWindowSize()
+	const [isShow, setIsShow] = useState(false)
 
 	const isMobileStyle = width > 1100 ? 'menu__item' : 'menuMobile__item'
 
@@ -19,7 +21,8 @@ export const Header = () => {
 			cursor: cursor,
 		}
 		const disableClick = (e: any) => {
-			e.preventDefault()
+			!menuElement.isClick && e.preventDefault()
+			menuElement.isClick && setIsShow(false)
 		}
 
 		return (
@@ -30,7 +33,7 @@ export const Header = () => {
 				style={({ isActive }) => ({
 					...(isActive ? activeStyle : null),
 				})}
-				onClick={(e) => !menuElement.isClick && disableClick(e)}
+				onClick={disableClick}
 			>
 				{menuElement.key}
 			</NavLink>
@@ -46,10 +49,10 @@ export const Header = () => {
 							<AmbrosusLogoSvg />
 						</NavLink>
 					</div>
-					{width > 1100 ? (
+					{width > 1108 ? (
 						<DesctopMenu menu={menu} />
 					) : (
-						<MobileMenu menu={menu} />
+						<MobileMenu menu={menu} setIsShow={setIsShow} isShow={isShow} />
 					)}
 				</nav>
 			</div>
