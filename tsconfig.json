@@ -24,6 +24,7 @@
 			"@/config": ["config/*"],
 			"@/hooks": ["hooks/*"],
 			"@/layouts": ["layouts/*"],
+			"@/services": ["services/*"],
 			"@/pages": ["pages/*"],
 			"@/state": ["state/*"],
 			"@/style": ["style/*"],
@@ -33,8 +34,6 @@
 	"include": [
 		"**/*.ts",
 		"**/*.tsx",
-		"src/components/Calendar/index.jsx",
-		"src/components/Calendar/index.jsx"
 	],
 	"exclude": ["node_modules"]
 }
