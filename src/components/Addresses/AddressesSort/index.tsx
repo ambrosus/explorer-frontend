@@ -1,19 +1,7 @@
-const AddressesSort = ({ sortTerm, setSortTerm }: any) => {
-  const sortOptions = [
-    {
-      label: 'Total Tx',
-      value: 'totalTx',
-    },
-    {
-      label: 'Address',
-      value: 'address',
-    },
-    {
-      label: 'Balance',
-      value: 'balance',
-    },
-  ];
-  return (
+import { FC } from 'react'
+import { PAddressesSort, TAddressesSortProps } from '../../../pages/Addresses/addresses.interface'
+
+const AddressesSort :FC<PAddressesSort> = ({ sortTerm, setSortTerm }) => (
     <div className="addresses__sort">
       <div className="addresses__sort-heading">Addresses</div>
       <div className="addresses__sort-cells">
@@ -34,6 +22,20 @@ const AddressesSort = ({ sortTerm, setSortTerm }: any) => {
       </div>
     </div>
   );
-};
 
 export default AddressesSort;
+
+const sortOptions : TAddressesSortProps[] = [
+  {
+    label: 'Address',
+    value: 'address',
+  },
+  {
+    label: 'Balance',
+    value: 'balance',
+  },
+  {
+    label: 'Total Tx',
+    value: 'totalTx',
+  },
+];

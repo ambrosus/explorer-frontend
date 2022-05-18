@@ -2,21 +2,22 @@ import IsContract from '../../../pages/Addresses/components/IsContract';
 import { displayAmount } from '../../../utils/helpers';
 import Amb from 'assets/icons/Cryptos/Amb';
 import { useTypedSelector } from 'hooks/useTypedSelector';
+import React, { FC } from 'react'
 import { Link } from 'react-router-dom';
+import ReactTooltip from 'react-tooltip';
+import { AddressesBodyProps } from '../../../pages/Addresses/addresses.interface'
 
-const AddressesBody = ({
-  address,
-  balance,
-  rank,
-  isContract,
+const AddressesBody:FC<AddressesBodyProps> = ({
+  address= '',
+  balance = 0,
+  rank=0,
+  isContract = false,
   txCount = 0,
   lastCardRef,
-}: any) => {
+}) => {
   const { data: appData } = useTypedSelector((state: any) => state.app);
   const totalSupply = appData && appData.tokenInfo.total_supply;
-
   const ambBalance = balance && balance.ether ? balance.ether : 0;
-
   const holdingPercentage = (ambBalance / totalSupply) * 100;
 
   return (
@@ -26,8 +27,18 @@ const AddressesBody = ({
         <div className="addresses__body-cell">{rank}</div>
 
         <Link to={`/addresses/${address}/`} className="addresses__body-cell">
+          <ReactTooltip
+            id="centered-tooltip"
+            effect="solid"
+            place="bottom"
+            backgroundColor="#808A9D"
+          />
           {isContract && (
-            <div className="is-contract">
+            <div
+              data-tip="Contract"
+              data-for="centered-tooltip"
+              className="is-contract"
+            >
               <IsContract />
             </div>
           )}
