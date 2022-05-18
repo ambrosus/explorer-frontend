@@ -1,58 +1,58 @@
 .layout {
-	display: flex;
-	height: 100vh;
-	width: 100vw;
-	margin: auto;
-	flex-direction: column;
-	// overflow: hidden;
-	.page {
-		display: flex;
-		// min-height: 100vh;
-		color: #212121;
-		justify-content: center;
-		width: 100%;
-		flex: 1 0 auto;
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  margin: auto;
+  flex-direction: column;
+  // overflow: hidden;
+  .page {
+    display: flex;
+    // min-height: 100vh;
+    color: #212121;
+    justify-content: center;
+    width: 100%;
+    flex: 1 0 auto;
 
-		.content {
-			height: 100%;
-			width: 100%;
-			display: flex;
-			flex-direction: column;
+    .content {
+      height: 100%;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
 
-			&__header {
-				background-color: #f6f6f6;
-				width: 100%;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-			}
+      &__header {
+        background-color: #f6f6f6;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
 
-			&__body {
-				display: flex;
-				min-height: 100%;
-				height: auto;
-				width: 100%;
-				flex-direction: column;
-				align-items: center;
-				background-color: $white;
-				border-top-left-radius: 32px;
-				border-top-right-radius: 32px;
-				padding-bottom: 90px;
-				@include for-device-small {
-					padding-bottom: 60px;
-				}
-				@include for-device-large {
-					min-height: 400px;
-				}
-			}
-		}
-	}
+      &__body {
+        display: flex;
+        height: 100%;
+        height: auto;
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+        background-color: $white;
+        border-top-left-radius: 32px;
+        border-top-right-radius: 32px;
+        padding-bottom: 90px;
+        @include for-device-small {
+          padding-bottom: 60px;
+        }
+        @include for-device-large {
+          min-height: 400px;
+        }
+      }
+    }
+  }
 }
 
 .container {
-	width: 100%;
-	max-width: 1140px;
-	@include for-device-large {
-		padding: 0 20px;
-	}
+  width: 100%;
+  max-width: 1140px;
+  @include for-device-large {
+    padding: 0 20px;
+  }
 }
