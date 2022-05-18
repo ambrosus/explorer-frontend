@@ -1,16 +1,16 @@
 const AddressesSort = ({ sortTerm, setSortTerm }: any) => {
   const sortOptions = [
     {
-      label: 'Total Tx',
-      value: 'totalTx',
-    },
-    {
       label: 'Address',
       value: 'address',
     },
     {
       label: 'Balance',
       value: 'balance',
+    },
+    {
+      label: 'Total Tx',
+      value: 'totalTx',
     },
   ];
   return (
