@@ -218,10 +218,10 @@ const bbDataFillter = async (
               amount: t?.tokenTransfers
                 ? Number(formatEther(t.tokenTransfers[0].value))
                 : Number(formatEther(t.value)),
-              token: t?.tokenTransfers
+              token: t?.tokenTransfers[0]?.name
                 ? getTokenName(t.tokenTransfers[0].name)
                 : 'AMB',
-              symbol: t?.tokenTransfers
+              symbol: t?.tokenTransfers[0]?.symbol
                 ? getTokenName(t.tokenTransfers[0]?.symbol)
                 : 'AMB',
               txFee: ethers.utils.formatUnits(t.fees, 18),
