@@ -39,7 +39,7 @@ const logger = createLogger({
 //   process.env.REACT_APP_API_ENDPOINT.includes('test') ||
 //   process.env.REACT_APP_API_ENDPOINT.includes('dev')
 // ) {
-  middleware.push(logger);
+middleware.push(logger);
 // }
 
 export const store = createStore(
