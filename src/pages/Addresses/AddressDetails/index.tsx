@@ -1,3 +1,4 @@
+import { toUniqueValueByBlock } from '../../../utils/helpers';
 import { TokenType, TransactionProps } from './address-details.interface';
 import ContentCopy from 'assets/icons/CopyIcons/ContentCopy';
 import ContentCopyed from 'assets/icons/CopyIcons/ContentCopyed';
@@ -17,7 +18,6 @@ import { shallowEqual } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getDataForAddress } from 'services/address.service';
 import { TParams } from 'types';
-import { toUniqueValueByBlock } from '../../../utils/helpers'
 
 export const AddressDetails = () => {
   const { filters } = useTypedSelector(
@@ -133,14 +133,13 @@ export const AddressDetails = () => {
           return newTx;
         }
         if (type === 'ERC-20_Tx' && filtered) {
-
           const newTx: any = addressDataState.sort(
             (a: any, b: any) => b.block - a.block,
           );
           return newTx;
         }
         if (!type || type === 'transfers') {
-          const newTx: TransactionProps[] = toUniqueValueByBlock(compareState)
+          const newTx: TransactionProps[] = toUniqueValueByBlock(compareState);
           const transfersDataTx: TransactionProps[] = newTx.filter(
             (item: TransactionProps) => item.method === 'Transfer',
           );
