@@ -47,8 +47,7 @@ export const toUniqueValueByBlock = (arr: any) => {
       return [item.txHash, item];
     }),
   ).values();
-  const newTx: TransactionProps[] = [...compare]
-    .sort(
+  const newTx: TransactionProps[] = [...compare].sort(
     (a: any, b: any) => b.block - a.block,
   );
   return newTx;

@@ -37,7 +37,8 @@ const Tabs: FC<TabsProps> = ({
   const headerTxfee: any = type === 'ERC-20_Tx' ? null : 'txFee';
   const headerToken: any = type === 'ERC-20_Tx' ? 'token' : null;
 
-  const setActiveLink = ({ isActive }: any) => isActive ? 'tabs__link tabs__link-active' : 'tabs__link';
+  const setActiveLink = ({ isActive }: any) =>
+    isActive ? 'tabs__link tabs__link-active' : 'tabs__link';
 
   useOnClickOutside(mobileCalendarRef, () => setIsShow(false));
 
@@ -148,12 +149,19 @@ const Tabs: FC<TabsProps> = ({
           token={headerToken}
           methodFilters={methodFilters}
         />
-        {loading && !renderData?.length ?<div style={{
-          width:'100%',
-          paddingTop:20,
-          height:200,
-          position:'absolute'
-        }}> <Loader /></div> : null}
+        {loading && !renderData?.length ? (
+          <div
+            style={{
+              width: '100%',
+              paddingTop: 20,
+              height: 200,
+              position: 'absolute',
+            }}
+          >
+            {' '}
+            <Loader />
+          </div>
+        ) : null}
 
         {renderData && renderData?.length
           ? renderData.map((transaction: any, index: number) =>
@@ -195,14 +203,20 @@ const Tabs: FC<TabsProps> = ({
               ),
             )
           : null}
-
       </section>
-      {loading && renderData?.length ?<div style={{
-        width:'100%',
-        paddingTop:0,
-        height:200,
-        position:'absolute'
-      }}> <Loader /></div> : null}
+      {loading && renderData?.length ? (
+        <div
+          style={{
+            width: '100%',
+            paddingTop: 0,
+            height: 200,
+            position: 'absolute',
+          }}
+        >
+          {' '}
+          <Loader />
+        </div>
+      ) : null}
     </>
   );
 };
