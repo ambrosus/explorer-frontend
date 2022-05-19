@@ -19,6 +19,7 @@ const getTokensBalance = async (tokensArr: TokenType[], address: string) => {
         erc20Abi,
         ambProvider,
       );
+      const symbol = token?.symbol ?  token.symbol : 'AMB'
       const name = getTokenName(token);
       const balance = Number(
         formatEther(await tokenContract.balanceOf(String(address))),
@@ -29,6 +30,7 @@ const getTokensBalance = async (tokensArr: TokenType[], address: string) => {
       token.balance = balance;
       token.totalSupply = totalSupply;
       token.name = name;
+      token.symbol = symbol;
       return {
         ...token,
         balance,
