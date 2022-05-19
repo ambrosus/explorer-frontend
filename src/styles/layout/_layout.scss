@@ -52,7 +52,6 @@
 .container {
   width: 100%;
   max-width: 1140px;
-  overflow: auto;
   @include for-device-large {
     padding: 0 20px;
   }

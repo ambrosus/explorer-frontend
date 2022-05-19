@@ -4,20 +4,15 @@ import ArrowDownBig from 'assets/icons/Arrows/ArrowDownBig';
 import ArrowUpBig from 'assets/icons/Arrows/ArrowUpBig';
 import { useActions } from 'hooks/useActions';
 import { useOnClickOutside } from 'hooks/useOnClickOutside';
-import { useTypedSelector } from 'hooks/useTypedSelector';
 import React, { useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-const TokenFilter = ({ onClick, selectedToken }: any) => {
+const TokenFilter = ({ loading, addressData, onClick, selectedToken }: any) => {
   const { addFilter } = useActions();
-  const { loading, data: addressData } = useTypedSelector(
-    (state: any) => state.position,
-  );
   const [isShow, setIsShow] = useState(false);
   const navigate = useNavigate();
   const { address }: TParams = useParams();
   const refTokensModal = useRef<HTMLDivElement>(null);
-
   useOnClickOutside(refTokensModal, () => setIsShow(false));
   const toggleMenu = () => (!loading ? setIsShow(!isShow) : null);
 
@@ -31,7 +26,6 @@ const TokenFilter = ({ onClick, selectedToken }: any) => {
       }/`,
     );
   };
-
   return (
     <>
       <div
@@ -75,7 +69,7 @@ const TokenFilter = ({ onClick, selectedToken }: any) => {
           </button>
         </div>
         {isShow && (
-          <TokenModal selectedToken={selectedToken} setToken={handleSelect} />
+          <TokenModal  addressData={addressData} selectedToken={selectedToken} setToken={handleSelect} />
         )}
       </div>
     </>
