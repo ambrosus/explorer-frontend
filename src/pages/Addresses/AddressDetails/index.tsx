@@ -127,15 +127,12 @@ export const AddressDetails = () => {
         const compareState = [...prevState, ...addressData.transactions];
         const addressDataState = [...addressData.transactions];
         if (type === 'ERC-20_Tx' && !filtered) {
-          console.log('3')
-
           const newTx: any = addressDataState.sort(
             (a: any, b: any) => b.block - a.block,
           );
           return newTx;
         }
         if (type === 'ERC-20_Tx' && filtered) {
-          console.log('2')
 
           const newTx: any = addressDataState.sort(
             (a: any, b: any) => b.block - a.block,
@@ -143,10 +140,7 @@ export const AddressDetails = () => {
           return newTx;
         }
         if (!type || type === 'transfers') {
-          console.log('1')
-          console.log('compareState',compareState)
           const newTx: TransactionProps[] = toUniqueValueByBlock(compareState)
-          console.log('newTx',newTx)
           const transfersDataTx: TransactionProps[] = newTx.filter(
             (item: TransactionProps) => item.method === 'Transfer',
           );
