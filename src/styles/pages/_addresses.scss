@@ -2,10 +2,10 @@
 
 .addresses {
   &__mainTable {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+
     margin-left: 10px;
-    overflow: scroll;
+    width: 100%;
   }
 
   &__sort {
@@ -14,11 +14,8 @@
     justify-content: center;
     height: 52px;
     border-bottom: 1px solid #eff2f5;
-    overflow: auto;
 
     &-heading {
-      overflow: auto;
-
       display: flex;
       flex: 2;
       font-weight: 700;
@@ -60,22 +57,20 @@
   &__table {
     display: grid;
     grid-template-columns: repeat(5, auto);
-
-    overflow: auto;
+    width: 100%;
+    overflow-x: scroll;
   }
 
   &__header {
     &-cell {
-      display: none;
-
-      // display: flex;
+      display: flex;
       align-items: center;
-
       font-weight: 700;
       font-size: 12px;
       line-height: 32px;
       height: 48px;
       white-space: nowrap;
+      padding-right: 32px;
       // &:nth-child(5) {
       //   justify-content: center;
       // }
@@ -101,6 +96,7 @@
       font-size: 14px;
       line-height: 24px;
       height: 48px;
+      padding-right: 32px;
 
       // &:nth-child(1n +5) {
       //   justify-content: center;
@@ -295,14 +291,14 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
     min-height: 110px;
-
+    width: 100%;
     display: grid;
     grid-row-gap: 32px;
 
     margin-top: 16px;
     position: relative;
     white-space: nowrap;
-    overflow: auto;
+    overflow-x: scroll;
 
     @include for-device-small {
     }
