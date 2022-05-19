@@ -1,117 +1,117 @@
 .tabs {
-	display: grid;
-	height: 56px;
-	grid-template-columns: 1fr 1fr;
-	grid-row-gap: 3vw;
-	border-bottom: 1px solid $secondary;
+  display: grid;
+  height: 56px;
+  grid-template-columns: 1fr 1fr;
+  grid-row-gap: 3vw;
+  border-bottom: 1px solid $secondary;
 
-	&__filters {
-		display: flex;
-		height: 56px;
-		padding: 8px 0;
-	}
+  &__filters {
+    display: flex;
+    height: 56px;
+    padding: 8px 0;
+  }
 
-	&__calendar {
-		margin-top: 8px;
-		z-index: 1;
-		border-radius: 12px;
-		&-exportCsv {
-			position: relative;
-			left: 240px;
-			bottom: 50px;
-			height: 40px;
-			width: 100px;
-			background-color: $main;
-			color: $white;
-			border-radius: 4px;
-			@include for-device-small {
-				left: 24px;
-			}
-		}
-		&-exportCsv:hover {
-			box-shadow: 4px 8px 8px rgb(0 0 0 / 25%);
-		}
-	}
+  &__calendar {
+    margin-top: 8px;
+    z-index: 1;
+    border-radius: 12px;
+    &-exportCsv {
+      position: relative;
+      right: -24px;
+      bottom: 56px;
+      height: 40px;
+      width: 100px;
+      background-color: $main;
+      color: $white;
+      border-radius: 4px;
+      @include for-device-small {
+        left: 24px;
+      }
+    }
+    &-exportCsv:hover {
+      box-shadow: 4px 8px 8px rgb(0 0 0 / 25%);
+    }
+  }
 
-	&__link {
-		color: $main-light;
-		text-decoration: none;
-		font-weight: 700;
-		font-size: 1.28em;
-		line-height: 1.78em;
-		margin-right: 32px;
-		display: flex;
-		align-items: center;
-		white-space: nowrap;
-		&-active {
-			color: $main;
-			border-bottom: 4px solid $main;
-			border-collapse: collapse;
-		}
-	}
-	&__link:hover {
-		color: $main;
-		border-bottom: 4px solid $main;
-		border-collapse: collapse;
-	}
-	&__exportCsv {
-		display: flex;
-		justify-content: flex-end;
-		align-items: center;
-		flex: 1;
+  &__link {
+    color: $main-light;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.28em;
+    line-height: 1.78em;
+    margin-right: 32px;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    &-active {
+      color: $main;
+      border-bottom: 4px solid $main;
+      border-collapse: collapse;
+    }
+  }
+  &__link:hover {
+    color: $main;
+    border-bottom: 4px solid $main;
+    border-collapse: collapse;
+  }
+  &__exportCsv {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex: 1;
 
-		&-btn {
-			display: flex;
-			justify-content: flex-end;
-			align-items: center;
-			width: 139px;
-			height: 40px;
-			border: 1px solid $secondary;
-			box-sizing: border-box;
-			border-radius: 16px;
-		}
-		&-btn:hover {
-			border-color: $main;
-		}
+    &-btn {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      width: 139px;
+      height: 40px;
+      border: 1px solid $secondary;
+      box-sizing: border-box;
+      border-radius: 16px;
+    }
+    &-btn:hover {
+      border-color: $main;
+    }
 
-		&-text {
-			font-weight: 600;
-			line-height: 1.33em;
-			margin: 8px 16px;
-		}
-	}
-	&__exportModal {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: flex-end;
-		margin: 8px 0px;
-		@include for-device-medium {
-			width: 100%;
-		}
-		&-mobile {
-			margin-top: 50px;
-			position: absolute;
-			z-index: 3;
-			@include for-device-medium {
-				margin-top: 39px;
-			}
-		}
-	}
-	&__sideMenu {
-		display: flex;
-		align-items: center;
-		justify-content: flex-end;
-		@include for-device-medium {
-		}
-		&-icon {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			width: 24px;
-			height: 24px;
-			background: $secondary;
-			border-radius: 8px;
-		}
-	}
+    &-text {
+      font-weight: 600;
+      line-height: 1.33em;
+      margin: 8px 16px;
+    }
+  }
+  &__exportModal {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    margin: 8px 0px;
+    @include for-device-medium {
+      width: 100%;
+    }
+    &-mobile {
+      margin-top: 50px;
+      position: absolute;
+      z-index: 3;
+      @include for-device-medium {
+        margin-top: 39px;
+      }
+    }
+  }
+  &__sideMenu {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    @include for-device-medium {
+    }
+    &-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      background: $secondary;
+      border-radius: 8px;
+    }
+  }
 }
