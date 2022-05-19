@@ -59,16 +59,20 @@ export const setupStyle = (item: string | undefined) => {
  * @returns {Array}
  */
 export const toUniqueValueByBlock = (arr: any) => {
-  const compare: any = new Map(
-    [...arr].map((item) => {
-      return [item.txHash, item];
-    }),
-  ).values();
-  const newTx: TransactionProps[] = [...compare]
-    .sort(
-    (a: any, b: any) => b.block - a.block,
-  );
-  return newTx;
+ try {
+   const compare: any = new Map(
+     [...arr].map((item) => {
+       return [item.txHash, item];
+     }),
+   ).values();
+   const newTx: TransactionProps[] = [...compare]
+     .sort(
+       (a: any, b: any) => b.block - a.block,
+     );
+   return newTx;
+ }catch {
+   return arr
+ }
 };
 
 export const getTokenIcon = (symbol: string) => {

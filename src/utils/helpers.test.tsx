@@ -103,26 +103,26 @@ describe('toUniqueValueByBlock', () => {
   it('should return unique value', () => {
     const data = [
       {
-        hash: 1,
+        txHash: 1,
         block: 1,
         value: '0xB500558a3886e42142121B54c4bd1ef378D34',
       },
     ];
     const data2 = [
       {
-        hash: 1,
+        txHash: 1,
         block: 1,
         value: '0xB500558a3886e42142121B54c4bd1ef378D34',
       },
       {
-        hash: 2,
+        txHash: 2,
         block: 2,
         value: '0xB500558a3886e42142121B54c4bd1ef378D34',
       },
     ];
     expect(toUniqueValueByBlock([...data, ...data2])).toEqual([
-      { block: 2, hash: 2, value: '0xB500558a3886e42142121B54c4bd1ef378D34' },
-      { block: 1, hash: 1, value: '0xB500558a3886e42142121B54c4bd1ef378D34' },
+      { block: 2, txHash: 2, value: '0xB500558a3886e42142121B54c4bd1ef378D34' },
+      { block: 1, txHash: 1, value: '0xB500558a3886e42142121B54c4bd1ef378D34' },
     ]);
   });
 
