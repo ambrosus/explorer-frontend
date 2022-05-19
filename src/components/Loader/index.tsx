@@ -5,7 +5,7 @@ const Loader = () => (
   <div
     style={{
       position: 'relative',
-      height: 0,
+      height: 100,
       margin: '0 auto',
       display: 'flex',
       justifyContent: 'center',
