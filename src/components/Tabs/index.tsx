@@ -137,19 +137,7 @@ const Tabs: FC<TabsProps> = ({
       </div>
 
       <section className="addressDetails__table" style={setupStyle(type)}>
-        <AddressBlocksHeader
-          txhash="txHash"
-          method="Method"
-          from="From"
-          to="To"
-          date="Date"
-          block={headerBlock}
-          amount="Amount"
-          txfee={headerTxfee}
-          token={headerToken}
-          methodFilters={methodFilters}
-        />
-        {loading && !renderData?.length ? (
+        {loading && !renderData?.length && (
           <div
             style={{
               width: '100%',
@@ -158,11 +146,23 @@ const Tabs: FC<TabsProps> = ({
               position: 'absolute',
             }}
           >
-            {' '}
             <Loader />
           </div>
-        ) : null}
-
+        )}
+        {renderData && (
+          <AddressBlocksHeader
+            txhash="txHash"
+            method="Method"
+            from="From"
+            to="To"
+            date="Date"
+            block={headerBlock}
+            amount="Amount"
+            txfee={headerTxfee}
+            token={headerToken}
+            methodFilters={methodFilters}
+          />
+        )}
         {renderData && renderData?.length
           ? renderData.map((transaction: any, index: number) =>
               renderData.length - 1 === index ? (
@@ -204,19 +204,8 @@ const Tabs: FC<TabsProps> = ({
             )
           : null}
       </section>
-      {loading && renderData?.length ? (
-        <div
-          style={{
-            width: '100%',
-            paddingTop: 0,
-            height: 200,
-            position: 'absolute',
-          }}
-        >
-          {' '}
-          <Loader />
-        </div>
-      ) : null}
+
+      {loading && renderData?.length && <Loader />}
     </>
   );
 };
