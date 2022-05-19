@@ -47,4 +47,4 @@ const TokenItem = ({ token, selectedToken, setToken }: TokenItemProps) => {
   );
 };
 
-export default TokenItem;
+export default React.memo(TokenItem);
