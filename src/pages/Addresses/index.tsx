@@ -58,7 +58,7 @@ export const Addresses = () => {
         <div className="addresses__mainTable">
           <AddressesSort sortTerm={sortTerm} setSortTerm={setSortTerm} />
           <div className="addresses__table">
-            {/* <AddressesHeader /> */}
+            <AddressesHeader />
             {accounts && accounts.data && accounts.data.length
               ? accounts.data.map((account: Account, index: number) => {
                   return account && accounts.data.length - 1 === index ? (
