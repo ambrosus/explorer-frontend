@@ -178,11 +178,11 @@ export const AddressDetails = () => {
                   <>
                     <ContentCopyed />
 
-                    {isCopyPopup && (
+                    {/* {isCopyPopup && (
                       <span className={'addressDetails__copy-popup'}>
                         <ContentCopyedPopup />
                       </span>
-                    )}
+                    )} */}
                   </>
                 ) : (
                   <ContentCopy />

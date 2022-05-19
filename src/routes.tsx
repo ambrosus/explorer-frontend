@@ -28,7 +28,7 @@ export const routes: IRoute[] = [
     key: 'Apollo',
     exact: true,
     component: () => <Apollo />,
-    isClick: false,
+    isClick: true,
   },
   {
     path: '/atlas',
