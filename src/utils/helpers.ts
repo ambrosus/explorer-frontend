@@ -44,10 +44,11 @@ export const setupStyle = (item: string | undefined) => {
 export const toUniqueValueByBlock = (arr: any) => {
   const compare: any = new Map(
     [...arr].map((item) => {
-      return [item.hash ? item.hash : item.block, item];
+      return [item.txHash, item];
     }),
   ).values();
-  const newTx: TransactionProps[] = [...compare].sort(
+  const newTx: TransactionProps[] = [...compare]
+    .sort(
     (a: any, b: any) => b.block - a.block,
   );
   return newTx;
