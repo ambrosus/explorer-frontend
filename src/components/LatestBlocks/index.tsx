@@ -47,7 +47,7 @@ const LatestBlocks: React.FC<LatestBlocksProps> = ({
             <div className="latestBlocks__font-small"></div>
             <div
               className="latestBlocks__font-small"
-              style={{ marginLeft: '1px' }}
+              style={{ marginLeft: '1px', color: '#05060F', fontWeight: 600 }}
             >{`${totalTransactions} txns`}</div>
           </div>
         </div>

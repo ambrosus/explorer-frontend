@@ -1,31 +1,35 @@
 .universall {
-	&__dark {
-		color: $main;
-	}
-	&__light1 {
-		color: #58667e;
-	}
-	&__light2 {
-		color: #808a9d;
-	}
-	&__indent {
-		&-icon {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			margin-right: 8px;
-		}
-	}
-	&__hover {
-		cursor: pointer !important;
-		&:hover {
-			color: #fff;
-		}
-	}
+  &__dark {
+    color: $main;
+  }
+  &__light1 {
+    color: #58667e;
+  }
+  &__light2 {
+    color: #808a9d;
+  }
+  &__indent {
+    &-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 8px;
+    }
+  }
+  &__hover {
+    cursor: pointer !important;
+    &:hover {
+      color: #fff;
+    }
+  }
 }
 
 .loader {
-	position: relative;
-	top: 40px;
-	z-index: 3;
+  position: relative;
+  top: 40px;
+  z-index: 3;
+}
+
+.style {
+  display: grid;
 }
