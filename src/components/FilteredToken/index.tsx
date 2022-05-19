@@ -1,4 +1,5 @@
 import { TParams } from '../../types';
+import { getTokenIcon } from '../../utils/helpers';
 import Eth from 'assets/icons/Cryptos/Eth';
 import Discard from 'assets/icons/Discard';
 import { useActions } from 'hooks/useActions';
@@ -21,6 +22,7 @@ const FilteredToken: FC<FilteredTokenProps> = ({ setSelectedToken }) => {
     clearFilters();
     navigate(`/addresses/${address}/ERC-20_Tx/`);
   };
+  const Icon = getTokenIcon(filters.symbol as string);
 
   return (
     <div className="filteredToken">
@@ -30,7 +32,7 @@ const FilteredToken: FC<FilteredTokenProps> = ({ setSelectedToken }) => {
             Filtered by token
           </div>
           <div className="filteredToken__cell">
-            <Eth />
+            <Icon />
             {filters && filters.name}
           </div>
         </div>
