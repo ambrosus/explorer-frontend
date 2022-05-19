@@ -23,8 +23,10 @@ const AddressesBody: FC<AddressesBodyProps> = ({
   return (
     appData &&
     address && (
-      <div className="addresses__body" ref={lastCardRef}>
-        <div className="addresses__body-cell">{rank}</div>
+      <>
+        <div className="addresses__body-cell" ref={lastCardRef}>
+          {rank}
+        </div>
 
         <Link to={`/addresses/${address}/`} className="addresses__body-cell">
           <ReactTooltip
@@ -54,7 +56,7 @@ const AddressesBody: FC<AddressesBodyProps> = ({
         <div className="addresses__body-cell">
           {(holdingPercentage || 0).toFixed(2)} %
         </div>
-      </div>
+      </>
     )
   );
 };
