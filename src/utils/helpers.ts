@@ -52,26 +52,24 @@ export const setupStyle = (item: string | undefined) => {
   }
 }
 
+/* toUniqueValueByBlock  jsDoc
+ * @param {Array} data
+ * @param {String} key
+ *
+ * @returns {Array}
+ */
 export const toUniqueValueByBlock = (arr: any) => {
-  /*
-   * @param {Array} data
-   * @param {String} key
-   * @returns {Array}
-   */
-  try {
-    const compare: any = new Map(
-      [...arr].map((item) => {
-        return [item.hash ? item.hash : item.block, item]
-      }),
-    ).values()
-    const newTx: TransactionProps[] = [...compare].sort(
-      (a: any, b: any) => b.block - a.block,
-    )
-    return newTx
-  } catch {
-    return arr
-  }
-}
+  const compare: any = new Map(
+    [...arr].map((item) => {
+      return [item.txHash, item];
+    }),
+  ).values();
+  const newTx: TransactionProps[] = [...compare]
+    .sort(
+    (a: any, b: any) => b.block - a.block,
+  );
+  return newTx;
+};
 
 export const getTokenIcon = (symbol: string) => {
   /*
@@ -131,3 +129,33 @@ export const displayAmount = (n: number | string) => {
    */
   return isFloat(n) ? Number(n).toFixed(8) : Number(n).toFixed(2)
 }
+
+const blockHeader = {
+  accounts: {
+    rank: 'Rank',
+    address: 'Address',
+    txCount: 'Tx Count',
+    balance: 'Balance',
+    holding: 'Holding',
+    column: 5,
+  },
+
+  atlasNodes: {
+    rank: 'Rank',
+    address: 'Address',
+    status: 'Status',
+    totalBundles: 'Total bundles',
+    balance: 'Balance',
+    holding: 'Holding',
+    column: 6,
+  },
+  apolloNodes: {
+    rank: 'Rank',
+    address: 'Address',
+    status: 'Status',
+    totalBlocks: 'Total blocks',
+    balance: 'Balance',
+    holding: 'Holding',
+    column: 6,
+  },
+};

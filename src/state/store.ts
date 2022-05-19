@@ -40,13 +40,12 @@ const logger = createLogger({
 // middleware.push(logger);
 // }
 
+// @ts-ignore
 // if (
-  // @ts-ignore
-  // process.env.REACT_APP_API_ENDPOINT.includes('test') ||
-  // @ts-ignore
-  // process.env.REACT_APP_API_ENDPOINT.includes('dev')
+//   process.env.REACT_APP_API_ENDPOINT.includes('test') ||
+//   process.env.REACT_APP_API_ENDPOINT.includes('dev')
 // ) {
-  middleware.push(logger);
+middleware.push(logger);
 // }
 
 export const store = createStore(

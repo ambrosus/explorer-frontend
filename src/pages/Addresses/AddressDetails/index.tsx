@@ -11,11 +11,13 @@ import { formatEther } from 'ethers/lib/utils';
 import { useActions } from 'hooks/useActions';
 import useCopyContent from 'hooks/useCopyContent';
 import { useTypedSelector } from 'hooks/useTypedSelector';
+import useWindowSize from 'hooks/useWindowSize';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { shallowEqual } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getDataForAddress } from 'services/address.service';
 import { TParams } from 'types';
+import { toUniqueValueByBlock } from '../../../utils/helpers'
 
 export const AddressDetails = () => {
   const { filters } = useTypedSelector(
@@ -131,18 +133,14 @@ export const AddressDetails = () => {
           return newTx;
         }
         if (type === 'ERC-20_Tx' && filtered) {
+
           const newTx: any = addressDataState.sort(
             (a: any, b: any) => b.block - a.block,
           );
           return newTx;
         }
         if (!type || type === 'transfers') {
-          const compare: any = new Map(
-            compareState.map((item) => [item.block, item]),
-          ).values();
-          const newTx: TransactionProps[] = [...compare].sort(
-            (a: any, b: any) => b.block - a.block,
-          );
+          const newTx: TransactionProps[] = toUniqueValueByBlock(compareState)
           const transfersDataTx: TransactionProps[] = newTx.filter(
             (item: TransactionProps) => item.method === 'Transfer',
           );
@@ -162,6 +160,8 @@ export const AddressDetails = () => {
     }
   }, [addressData]);
 
+  const { width } = useWindowSize();
+
   return (
     <Content>
       <section className="addressDetails">
@@ -178,7 +178,7 @@ export const AddressDetails = () => {
                   <>
                     <ContentCopyed />
 
-                    {isCopyPopup && (
+                    {width > 500 && isCopyPopup && (
                       <span className={'addressDetails__copy-popup'}>
                         <ContentCopyedPopup />
                       </span>

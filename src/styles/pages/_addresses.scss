@@ -298,17 +298,18 @@
     &::-webkit-scrollbar {
       display: none;
     }
+
     -ms-overflow-style: none;
     scrollbar-width: none;
     min-height: 30px;
-    width: 100%;
+
     display: grid;
     grid-row-gap: 32px;
 
     margin-top: 16px;
     position: relative;
     white-space: nowrap;
-    overflow-x: auto;
+    overflow: auto;
 
     @include for-device-small {
     }
@@ -341,8 +342,8 @@
 }
 
 #centered-tooltip {
-  background-color: #808A9D !important;
-  color: #FFFFFF !important;
+  background-color: #808a9d !important;
+  color: #ffffff !important;
   border-radius: 8px;
 
   font-family: 'Proxima Nova';
@@ -351,18 +352,18 @@
   font-size: 11px;
   padding: 6px;
   &:before {
-    border-top-color: #808A9D !important;
+    border-top-color: #808a9d !important;
   }
 }
 
-.flex-between{
+.flex-between {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 }
 
-.flex-row{
+.flex-row {
   display: flex;
   flex-direction: row;
   align-items: center;

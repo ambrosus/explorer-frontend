@@ -4,7 +4,7 @@
   width: 100vw;
   margin: auto;
   flex-direction: column;
-  // overflow: hidden;
+  // overflow: auto;
   .page {
     display: flex;
     // min-height: 100vh;
@@ -12,11 +12,12 @@
     justify-content: center;
     width: 100%;
     flex: 1 0 auto;
+    background-color: #f6f6f6;
 
     .content {
       height: 100%;
       width: 100%;
-      display: flex;
+      display: grid;
       flex-direction: column;
 
       &__header {
@@ -30,6 +31,8 @@
       &__body {
         display: flex;
         height: 100%;
+        min-height: 500px;
+
         height: auto;
         width: 100%;
         flex-direction: column;
@@ -41,9 +44,6 @@
         @include for-device-small {
           padding-bottom: 60px;
         }
-        @include for-device-large {
-          min-height: 400px;
-        }
       }
     }
   }
@@ -52,6 +52,7 @@
 .container {
   width: 100%;
   max-width: 1140px;
+  overflow: auto;
   @include for-device-large {
     padding: 0 20px;
   }

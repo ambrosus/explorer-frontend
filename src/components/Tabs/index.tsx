@@ -136,65 +136,61 @@ const Tabs: FC<TabsProps> = ({
         </div>
       </div>
 
-      <div>
-        <section className="addressDetails__table" style={setupStyle(type)}>
-          <AddressBlocksHeader
-            txhash="txHash"
-            method="Method"
-            from="From"
-            to="To"
-            date="Date"
-            block={headerBlock}
-            amount="Amount"
-            txfee={headerTxfee}
-            token={headerToken}
-            methodFilters={methodFilters}
-          />
-          {renderData && renderData?.length
-            ? renderData.map((transaction: any, index: number) =>
-                renderData.length - 1 === index ? (
-                  <AddressBlock
-                    isLatest={type === 'ERC-20_Tx' && !filtered}
-                    lastCardRef={lastCardRef}
-                    onClick={onClick}
-                    key={transaction.txHash}
-                    txhash={transaction.txHash}
-                    method={transaction.method}
-                    from={transaction.from}
-                    to={transaction.to}
-                    date={moment(transaction.date).fromNow()}
-                    block={transaction.block}
-                    amount={transaction.amount}
-                    txfee={transaction.txFee}
-                    token={`${transaction?.token ? transaction?.token : null}`}
-                    symbol={`${
-                      transaction?.symbol ? transaction?.symbol : null
-                    }`}
-                  />
-                ) : (
-                  <AddressBlock
-                    isLatest={type === 'ERC-20_Tx' && !filtered}
-                    onClick={onClick}
-                    key={transaction.txHash}
-                    txhash={transaction.txHash}
-                    method={transaction.method}
-                    from={transaction.from}
-                    to={transaction.to}
-                    date={moment(transaction.date).fromNow()}
-                    block={transaction.block}
-                    amount={transaction.amount}
-                    txfee={transaction.txFee}
-                    token={`${transaction?.token ? transaction?.token : 'AMB'}`}
-                    symbol={`${
-                      transaction?.symbol ? transaction?.symbol : 'AMB'
-                    }`}
-                  />
-                ),
-              )
-            : null}
-        </section>
-        {loading && <Loader />}
-      </div>
+      <section className="addressDetails__table" style={setupStyle(type)}>
+        <AddressBlocksHeader
+          txhash="txHash"
+          method="Method"
+          from="From"
+          to="To"
+          date="Date"
+          block={headerBlock}
+          amount="Amount"
+          txfee={headerTxfee}
+          token={headerToken}
+          methodFilters={methodFilters}
+        />
+        {renderData && renderData?.length
+          ? renderData.map((transaction: any, index: number) =>
+              renderData.length - 1 === index ? (
+                <AddressBlock
+                  isLatest={type === 'ERC-20_Tx' && !filtered}
+                  lastCardRef={lastCardRef}
+                  onClick={onClick}
+                  key={transaction.txHash}
+                  txhash={transaction.txHash}
+                  method={transaction.method}
+                  from={transaction.from}
+                  to={transaction.to}
+                  date={moment(transaction.date).fromNow()}
+                  block={transaction.block}
+                  amount={transaction.amount}
+                  txfee={transaction.txFee}
+                  token={`${transaction?.token ? transaction?.token : null}`}
+                  symbol={`${transaction?.symbol ? transaction?.symbol : null}`}
+                />
+              ) : (
+                <AddressBlock
+                  isLatest={type === 'ERC-20_Tx' && !filtered}
+                  onClick={onClick}
+                  key={transaction.txHash}
+                  txhash={transaction.txHash}
+                  method={transaction.method}
+                  from={transaction.from}
+                  to={transaction.to}
+                  date={moment(transaction.date).fromNow()}
+                  block={transaction.block}
+                  amount={transaction.amount}
+                  txfee={transaction.txFee}
+                  token={`${transaction?.token ? transaction?.token : 'AMB'}`}
+                  symbol={`${
+                    transaction?.symbol ? transaction?.symbol : 'AMB'
+                  }`}
+                />
+              ),
+            )
+          : null}
+      </section>
+      {loading && <Loader />}
     </>
   );
 };
