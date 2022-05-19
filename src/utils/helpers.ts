@@ -1,7 +1,7 @@
-import { TransactionProps } from '../pages/Addresses/AddressDetails/address-details.interface'
-import Amb from 'assets/icons/Cryptos/Amb'
-import Eth from 'assets/icons/Cryptos/Eth'
-import moment from 'moment'
+import { TransactionProps } from '../pages/Addresses/AddressDetails/address-details.interface';
+import Amb from 'assets/icons/Cryptos/Amb';
+import Eth from 'assets/icons/Cryptos/Eth';
+import moment from 'moment';
 
 export const sliceData5 = (item: string | any) => {
   /*
@@ -9,31 +9,31 @@ export const sliceData5 = (item: string | any) => {
    * @returns {string}
    */
   if (!item) {
-    return ''
+    return '';
   }
   return item.length > 5
     ? `${item.slice(0, 5)}...${item.slice(item.length - 5)}`
-    : item
-}
+    : item;
+};
 export const sliceData10 = (item: string | any) => {
   /*
    * @param {string} item
    * @returns {string}
    */
   if (!item) {
-    return ''
+    return '';
   }
   return item.length > 10
     ? `${item.slice(0, 10)}...${item.slice(item.length - 10)}`
-    : item
-}
+    : item;
+};
 export const calcTime = (time: any) => {
   /*
    * @param {string} time
    * @returns {string}
    */
-  return moment(time).isValid() ? moment(time * 1000).fromNow() : ''
-}
+  return moment(time).isValid() ? moment(time * 1000).fromNow() : '';
+};
 
 export const setupStyle = (item: string | undefined) => {
   /*
@@ -42,15 +42,15 @@ export const setupStyle = (item: string | undefined) => {
    */
   let type: { style: object } = {
     style: {},
-  }
+  };
   switch (item) {
     case 'ERC-20_Tx':
-      return (type.style = { gridTemplateColumns: 'repeat(7, auto)' })
+      return (type.style = { gridTemplateColumns: 'repeat(7, auto)' });
 
     default:
-      return (type.style = { gridTemplateColumns: 'repeat(8, auto)' })
+      return (type.style = { gridTemplateColumns: 'repeat(8, auto)' });
   }
-}
+};
 
 /* toUniqueValueByBlock  jsDoc
  * @param {Array} data
@@ -59,20 +59,19 @@ export const setupStyle = (item: string | undefined) => {
  * @returns {Array}
  */
 export const toUniqueValueByBlock = (arr: any) => {
- try {
-   const compare: any = new Map(
-     [...arr].map((item) => {
-       return [item.txHash, item];
-     }),
-   ).values();
-   const newTx: TransactionProps[] = [...compare]
-     .sort(
-       (a: any, b: any) => b.block - a.block,
-     );
-   return newTx;
- }catch {
-   return arr
- }
+  try {
+    const compare: any = new Map(
+      [...arr].map((item) => {
+        return [item.txHash, item];
+      }),
+    ).values();
+    const newTx: TransactionProps[] = [...compare].sort(
+      (a: any, b: any) => b.block - a.block,
+    );
+    return newTx;
+  } catch {
+    return arr;
+  }
 };
 
 export const getTokenIcon = (symbol: string) => {
@@ -82,15 +81,15 @@ export const getTokenIcon = (symbol: string) => {
    */
   switch (symbol) {
     case 'SAMB':
-      return Amb
+      return Amb;
     case 'WETH':
-      return Eth
+      return Eth;
     case 'AMB':
-      return Amb
+      return Amb;
     default:
-      return Amb
+      return Amb;
   }
-}
+};
 
 export default function removeArrayDuplicates(array: any, key = '_id') {
   /*
@@ -98,16 +97,16 @@ export default function removeArrayDuplicates(array: any, key = '_id') {
    * @param {string} key - Element's key to filter by
    * @returns {array}
    */
-  const ids: any = []
+  const ids: any = [];
   return array.filter((item: any) => {
     if (ids.indexOf(item[key]) < 0) {
-      ids.push(item[key])
-      return item
+      ids.push(item[key]);
+      return item;
     } else {
-      console.warn(`Duplicate found in an array: `, item[key])
-      return false
+      console.warn(`Duplicate found in an array: `, item[key]);
+      return false;
     }
-  })
+  });
 }
 
 export const numWithCommas = (val: number) => {
@@ -115,24 +114,24 @@ export const numWithCommas = (val: number) => {
    * @param {number} x - Number to format
    * @returns {string}
    */
-  return val ? val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : 0
-}
+  return val ? val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : 0;
+};
 
 export const isFloat = (n: number | string) => {
   /* jsDoc
    * @param {number | string} n - Number to check
    * @returns {boolean}
    */
-  return Number(n) === n && n % 1 !== 0
-}
+  return Number(n) === n && n % 1 !== 0;
+};
 
 export const displayAmount = (n: number | string) => {
   /* jsDoc
    * @param {number | string} n - Number to check
    * @returns {string}
    */
-  return isFloat(n) ? Number(n).toFixed(8) : Number(n).toFixed(2)
-}
+  return isFloat(n) ? Number(n).toFixed(8) : Number(n).toFixed(2);
+};
 
 const blockHeader = {
   accounts: {

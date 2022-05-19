@@ -98,7 +98,6 @@ describe('calcTime', () => {
   });
 });
 
-
 describe('toUniqueValueByBlock', () => {
   it('should return unique value', () => {
     const data = [
@@ -129,7 +128,9 @@ describe('toUniqueValueByBlock', () => {
   it('Negative checking cases', () => {
     const notValidObjects = [undefined, null, [], {}, 'string', 1];
     for (let int = 1; int < notValidObjects.length; int++) {
-      expect(toUniqueValueByBlock([notValidObjects[int]])).toEqual([notValidObjects[int]]);
+      expect(toUniqueValueByBlock([notValidObjects[int]])).toEqual([
+        notValidObjects[int],
+      ]);
     }
   });
 });

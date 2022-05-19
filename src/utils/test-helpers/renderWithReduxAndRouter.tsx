@@ -10,7 +10,7 @@ import reducers from 'state/reducers';
 const middleware = [ReduxThunk];
 const renderWithReduxAndRouter = (
   component: any,
-  preloadedState:any = {},
+  preloadedState: any = {},
   {
     store = createStore(
       reducers,

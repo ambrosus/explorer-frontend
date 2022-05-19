@@ -1,5 +1,5 @@
+import renderWithReduxAndRouter from '../../../utils/test-helpers/renderWithReduxAndRouter';
 import AddressesBody from './index';
-import renderWithReduxAndRouter from '../../../utils/test-helpers/renderWithReduxAndRouter'
 
 describe('AddressesBody', () => {
   it('should render AddressesBody Component', () => {
@@ -13,7 +13,9 @@ describe('AddressesBody', () => {
       txCount: 100,
       lastCardRef: null,
     };
-    const { container } = renderWithReduxAndRouter(<AddressesBody {...props} />);
+    const { container } = renderWithReduxAndRouter(
+      <AddressesBody {...props} />,
+    );
     expect(container).toMatchSnapshot();
   });
 });
