@@ -19,7 +19,7 @@ const getTokensBalance = async (tokensArr: TokenType[], address: string) => {
         erc20Abi,
         ambProvider,
       );
-      const symbol = token?.symbol ?  token.symbol : 'AMB'
+      const symbol = token?.symbol ? token.symbol : 'AMB';
       const name = getTokenName(token);
       const balance = Number(
         formatEther(await tokenContract.balanceOf(String(address))),
@@ -198,7 +198,7 @@ const bbDataFillter = async (
     );
 
     const filteredBlockBookApiTransactionsData =
-      blockBookApiTransactionsData.filter(
+      (await blockBookApiTransactionsData) && blockBookApiTransactionsData.filter(
         (item: any) => item.value !== undefined,
       );
     const bbTxData =
@@ -279,13 +279,14 @@ export const getDataForAddress = async (address: string, params: any) => {
     const defaultFilters: TokenType[] =
       (await getTokensBalance(blockBookApiTokens, address)) || [];
     const explorData: TransactionProps[] = await explorerData(address, params);
+
     const latestTransactions: TransactionProps[] =
       (await sortedLatestTransactionsData(defaultFilters, url, page)) || [];
 
     const transactionsAll: TransactionProps[] = [
-      ...explorData,
       ...bbTxData,
-    ].sort((a: any, b: any) => b.block - a.block);
+      ...explorData,
+    ]
     return {
       balance: addressBalance,
       transactions:
