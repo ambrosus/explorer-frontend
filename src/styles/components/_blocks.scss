@@ -4,6 +4,11 @@
   gap: 36px;
   align-items: center;
   padding: 0px 15px;
+  &_mainTable {
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+  }
   &_header {
     display: flex;
     font-weight: 700;
@@ -16,5 +21,50 @@
     font-weight: 400;
     font-size: 14px;
     line-height: 24px;
+  }
+  &_sort {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 52px;
+    border-bottom: 1px solid #eff2f5;
+
+    &_heading {
+      display: flex;
+      flex: 2;
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 32px;
+      @include for-device-small {
+        display: none;
+      }
+    }
+
+    &_cells {
+      display: flex;
+      flex: 3;
+      gap: 12px;
+    }
+
+    &_cell {
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 32px;
+      color: #808a9d;
+      white-space: nowrap;
+
+      &:nth-child(1) {
+        font-weight: 700;
+        color: #05060f;
+      }
+    }
+
+    .pointer {
+      cursor: pointer;
+    }
+
+    &_active {
+      color: #05060f;
+    }
   }
 }
