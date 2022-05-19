@@ -18,15 +18,15 @@ describe('TokenFilter',()=>{
 
   test('render correctly with tokens array', () => {
     const { container,getByText, getByRole } = renderWithReduxAndRouter(<TokenFilter  />,{
-      "position": {
-        "loading": false,
-        "error": null,
-        "data": {
+      position: {
+        loading: false,
+        error: null,
+        data: {
           tokens:[
             {
               "type": "ERC20",
               "name": "Ganymede pool token",
-              "contract": "0xE984ACe36F2B6f10Fec8dd6fc1bB19c7b1D2F2c6",
+              "contract": "0x13243210d4747a1fe03395095c21213",
               "transfers": 4,
               "idx": 1,
               "balance": "0.00",
