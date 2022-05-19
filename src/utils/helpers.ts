@@ -48,7 +48,6 @@ export const toUniqueValueByBlock = (arr: any) => {
     }),
   ).values();
   const newTx: TransactionProps[] = [...compare]
-    .filter(t=>t.amount !== 0)
     .sort(
     (a: any, b: any) => b.block - a.block,
   );
