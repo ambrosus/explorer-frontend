@@ -298,17 +298,18 @@
     &::-webkit-scrollbar {
       display: none;
     }
+
     -ms-overflow-style: none;
     scrollbar-width: none;
     min-height: 30px;
-    width: 100%;
+
     display: grid;
     grid-row-gap: 32px;
 
     margin-top: 16px;
     position: relative;
     white-space: nowrap;
-    overflow-x: auto;
+    overflow: auto;
 
     @include for-device-small {
     }

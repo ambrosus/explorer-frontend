@@ -11,6 +11,7 @@ import { formatEther } from 'ethers/lib/utils';
 import { useActions } from 'hooks/useActions';
 import useCopyContent from 'hooks/useCopyContent';
 import { useTypedSelector } from 'hooks/useTypedSelector';
+import useWindowSize from 'hooks/useWindowSize';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { shallowEqual } from 'react-redux';
 import { useParams } from 'react-router-dom';
@@ -162,6 +163,8 @@ export const AddressDetails = () => {
     }
   }, [addressData]);
 
+  const { width } = useWindowSize();
+
   return (
     <Content>
       <section className="addressDetails">
@@ -178,11 +181,11 @@ export const AddressDetails = () => {
                   <>
                     <ContentCopyed />
 
-                    {/* {isCopyPopup && (
+                    {width > 500 && isCopyPopup && (
                       <span className={'addressDetails__copy-popup'}>
                         <ContentCopyedPopup />
                       </span>
-                    )} */}
+                    )}
                   </>
                 ) : (
                   <ContentCopy />
