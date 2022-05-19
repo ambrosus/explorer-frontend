@@ -16,7 +16,6 @@ export const Addresses = () => {
   const [sortTerm, setSortTerm] = React.useState<string>('balance');
   const { ref, inView } = useInView();
   const { loading } = useTypedSelector((state) => state.app);
-  console.log(inView);
 
   useEffect(() => {
     const next = '';

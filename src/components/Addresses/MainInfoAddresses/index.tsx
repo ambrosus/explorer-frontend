@@ -4,9 +4,9 @@ import { numWithCommas } from 'utils/helpers';
 const MainInfoAddresses = () => {
   const { data: appData } = useTypedSelector((state: any) => state.app);
 
-  const totalAddresses :number =
+  const totalAddresses: number =
     appData && numWithCommas(appData.netInfo.accounts.total);
-  const holders :number =
+  const holders: number =
     appData && numWithCommas(appData.netInfo.accounts.withBalance);
   return (
     <div className="addressesHeader">
