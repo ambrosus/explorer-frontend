@@ -1,6 +1,6 @@
+import DesctopMenu from '../../menu/DesctopMenu';
+import MobileMenu from '../../menu/MobileMenu';
 import AmbrosusLogoSvg from './AmbrosusLogoSvg';
-import DesctopMenu from 'components/DesctopMenu';
-import MobileMenu from 'components/MobileMenu';
 import useWindowSize from 'hooks/useWindowSize';
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';

@@ -1,4 +1,4 @@
-import { ViewMoreBtnProps } from '../../pages/Home/home.interfaces';
+import { ViewMoreBtnProps } from 'pages/Home/home.interfaces';
 import React from 'react';
 
 const ViewMoreBtn: React.FC<ViewMoreBtnProps> = ({ nameBtn, onclick }) => (

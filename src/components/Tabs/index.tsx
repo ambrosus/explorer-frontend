@@ -1,5 +1,3 @@
-import AddressBlock from '../AddressBlocks/AddressBlock';
-import AddressBlocksHeader from '../AddressBlocksHeader';
 import ExportCsv from '../ExportCsv';
 import Loader from '../Loader';
 import SideMenu from 'assets/icons/SideMenu';
@@ -12,6 +10,8 @@ import {
   TabsProps,
   TransactionProps,
 } from 'pages/Addresses/AddressDetails/address-details.interface';
+import AddressBlock from 'pages/Addresses/AddressDetails/components/AddressBlocks/AddressBlock';
+import AddressBlocksHeader from 'pages/Addresses/AddressDetails/components/AddressBlocksHeader';
 import React, { FC, useEffect, useRef, useState } from 'react';
 import { NavLink, useParams } from 'react-router-dom';
 import { setupStyle, toUniqueValueByBlock } from 'utils/helpers';
@@ -94,7 +94,7 @@ const Tabs: FC<TabsProps> = ({
                   key={filter.title}
                   to={`/addresses/${address}/${
                     filter.value ? filter.value : ''
-                  }`}
+                  }/`}
                   className={setActiveLink}
                   onClick={(e) => {
                     setTransactionType(filter.value);

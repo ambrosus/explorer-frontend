@@ -4,10 +4,6 @@ import Eth from 'assets/icons/Cryptos/Eth';
 import moment from 'moment';
 
 export const sliceData5 = (item: string | any) => {
-  /*
-   * @param {string} item
-   * @returns {string}
-   */
   if (!item) {
     return '';
   }
@@ -16,10 +12,6 @@ export const sliceData5 = (item: string | any) => {
     : item;
 };
 export const sliceData10 = (item: string | any) => {
-  /*
-   * @param {string} item
-   * @returns {string}
-   */
   if (!item) {
     return '';
   }
@@ -131,34 +123,4 @@ export const displayAmount = (n: number | string) => {
    * @returns {string}
    */
   return isFloat(n) ? Number(n).toFixed(8) : Number(n).toFixed(2);
-};
-
-const blockHeader = {
-  accounts: {
-    rank: 'Rank',
-    address: 'Address',
-    txCount: 'Tx Count',
-    balance: 'Balance',
-    holding: 'Holding',
-    column: 5,
-  },
-
-  atlasNodes: {
-    rank: 'Rank',
-    address: 'Address',
-    status: 'Status',
-    totalBundles: 'Total bundles',
-    balance: 'Balance',
-    holding: 'Holding',
-    column: 6,
-  },
-  apolloNodes: {
-    rank: 'Rank',
-    address: 'Address',
-    status: 'Status',
-    totalBlocks: 'Total blocks',
-    balance: 'Balance',
-    holding: 'Holding',
-    column: 6,
-  },
 };

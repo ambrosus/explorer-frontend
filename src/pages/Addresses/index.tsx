@@ -1,8 +1,8 @@
 import { Account, AccountsData } from './addresses.interface';
-import AddressesBody from 'components/Addresses/AddressesBody';
-import AddressesHeader from 'components/Addresses/AddressesHeader';
-import AddressesSort from 'components/Addresses/AddressesSort';
-import MainInfoAddresses from 'components/Addresses/MainInfoAddresses';
+import AddressesBody from './components/AddressesBody';
+import AddressesHeader from './components/AddressesHeader';
+import AddressesSort from './components/AddressesSort';
+import MainInfoAddresses from './components/MainInfoAddresses';
 import { Content } from 'components/Content';
 import Loader from 'components/Loader';
 import { useTypedSelector } from 'hooks/useTypedSelector';

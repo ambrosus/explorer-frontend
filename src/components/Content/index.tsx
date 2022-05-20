@@ -1,4 +1,4 @@
-import Loader from '../Loader';
+import Loader from 'components/Loader';
 import React, { FC } from 'react';
 
 export const Content: FC<IContentProps> & ITabsComposition = ({

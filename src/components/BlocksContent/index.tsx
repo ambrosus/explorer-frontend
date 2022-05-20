@@ -1,5 +1,5 @@
-import LatestTransactions from 'components/LastestTransactions';
-import LatestBlocks from 'components/LatestBlocks';
+import LatestTransactions from 'pages/Home/components/LastestTransactions';
+import LatestBlocks from 'pages/Home/components/LatestBlocks';
 import { BlocksContentProps } from 'pages/Home/home.interfaces';
 import React, { FC } from 'react';
 
