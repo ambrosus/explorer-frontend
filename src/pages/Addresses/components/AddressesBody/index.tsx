@@ -1,11 +1,11 @@
-import { AddressesBodyProps } from 'pages/Addresses/addresses.interface';
-import IsContract from 'pages/Addresses/components/IsContract';
-import { displayAmount } from '../../../utils/helpers';
 import Amb from 'assets/icons/Cryptos/Amb';
 import { useTypedSelector } from 'hooks/useTypedSelector';
+import { AddressesBodyProps } from 'pages/Addresses/addresses.interface';
+import IsContract from 'pages/Addresses/components/IsContract';
 import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
+import { displayAmount } from 'utils/helpers';
 
 const AddressesBody: FC<AddressesBodyProps> = ({
   address = '',

@@ -1,7 +1,7 @@
 import {
   PAddressesSort,
   TAddressesSortProps,
-} from '../../../pages/Addresses/addresses.interface';
+} from 'pages/Addresses/addresses.interface';
 import { FC } from 'react';
 
 const AddressesSort: FC<PAddressesSort> = ({ sortTerm, setSortTerm }) => (
