@@ -42,7 +42,7 @@ export type AddressesBodyProps = {
   address: string;
   balance: any;
   rank: number;
-  isContract: boolean;
+  isContract?: boolean;
   txCount: number;
   lastCardRef?: any;
 };

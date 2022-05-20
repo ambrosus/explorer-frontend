@@ -11,10 +11,14 @@ import { FC, useEffect, useState } from 'react';
 interface TokenModalProps {
   selectedToken: string;
   setToken: (token: string) => void;
-  addressData:any
+  addressData: any;
 }
 
-const TokenModal: FC<TokenModalProps> = ({ addressData,selectedToken, setToken }) => {
+const TokenModal: FC<TokenModalProps> = ({
+  addressData,
+  selectedToken,
+  setToken,
+}) => {
   const [name] = useState('');
   const [filteredTokensList, setFilteredTokensList] = useState([]);
 

@@ -1,0 +1,15 @@
+.atlas {
+  &_main {
+    display: grid;
+    width: 100%;
+    &_table {
+      width: 100%;
+      overflow-x: scroll;
+    }
+  }
+}
+
+@import './components/atlas_blocks_body';
+@import './components/atlas_blocks_header';
+@import './components/atlas_blocks_sort';
+@import './components/main_info_atlas.scss';
