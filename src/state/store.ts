@@ -7,7 +7,13 @@ import thunk from 'redux-thunk';
 // import {persistStore, persistReducer} from "redux-persist";
 // import storage from  'redux-persist/lib/storage';
 
-const middleware: Array<any> = [thunk];
+//need function middleware
+const getStateMiddleware = (store: any) => (next: any) => (action: any) => {
+  console.log('action', action);
+  console.log('state', store.getState());
+  return next(action);
+};
+const middleware: Array<any> = [thunk, getStateMiddleware];
 
 // const persistConfig = {
 // 		key: 'root',

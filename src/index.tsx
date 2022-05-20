@@ -1,4 +1,4 @@
-import Main from './Main';
+import Main from './components/Main/Main';
 import { store } from './state';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
@@ -7,23 +7,17 @@ import { BrowserRouter } from 'react-router-dom';
 
 /*
  * @param {Provider} store - redux store
- * @param {ReduxToastrLib} ReduxToastrLib - redux toastr
  * @param {BrowserRouter} BrowserRouter - react router
  * @param {Main} Main - main component
  */
-
-function AppWithCallbackAfterRender() {
-  return (
-    <React.StrictMode>
-      <Provider store={store}>
-        <BrowserRouter>
-          <Main />
-        </BrowserRouter>
-      </Provider>
-    </React.StrictMode>
-  );
-}
+export const App = (): JSX.Element => (
+  <Provider store={store}>
+    <BrowserRouter>
+      <Main />
+    </BrowserRouter>
+  </Provider>
+);
 
 const container = document.getElementById('root') as HTMLElement;
 const root = createRoot(container);
-root.render(<AppWithCallbackAfterRender />);
+root.render(<App />);
