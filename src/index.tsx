@@ -4,6 +4,7 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
+import ScrollToTop from './components/ScrollToTop'
 
 /*
  * @param {Provider} store - redux store
@@ -13,6 +14,7 @@ import { BrowserRouter } from 'react-router-dom';
 export const App = (): JSX.Element => (
   <Provider store={store}>
     <BrowserRouter>
+      <ScrollToTop/>
       <Main />
     </BrowserRouter>
   </Provider>
