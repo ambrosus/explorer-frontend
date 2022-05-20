@@ -69,7 +69,11 @@ const TokenFilter = ({ loading, addressData, onClick, selectedToken }: any) => {
           </button>
         </div>
         {isShow && (
-          <TokenModal  addressData={addressData} selectedToken={selectedToken} setToken={handleSelect} />
+          <TokenModal
+            addressData={addressData}
+            selectedToken={selectedToken}
+            setToken={handleSelect}
+          />
         )}
       </div>
     </>
