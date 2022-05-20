@@ -28,13 +28,13 @@ export type AccountsData =
     }
   | any;
 
-export type PBlocksSort = {
+export type PAtlasSort = {
   setSortTerm: (value: string) => void;
   sortTerm: string;
-  sortOptions: any;
+  // sortOptions: any;
 };
 
-export type TAddressesSortProps = {
+export type TAtlasSortProps = {
   label: string;
   value: string;
 };

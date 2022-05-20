@@ -1,4 +1,4 @@
-const apolloBody = () => (
+const ApolloBlocksBody = () => (
   <div className="apollo_blocks_body">
     <div className="apollo_blocks_body_cell">1</div>
     <div className="apollo_blocks_body_cell">
@@ -14,4 +14,4 @@ const apolloBody = () => (
   </div>
 );
 
-export default apolloBody;
+export default ApolloBlocksBody;

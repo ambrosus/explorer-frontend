@@ -1,7 +1,7 @@
 import { PApolloSort, TApolloSortProps } from '../../apolloBlocks.interface';
 import { FC } from 'react';
 
-const apolloSort: FC<PApolloSort> = ({ sortTerm, setSortTerm }) => (
+const ApolloBlocksSort: FC<PApolloSort> = ({ sortTerm, setSortTerm }) => (
   <div className="apollo_blocks_sort">
     <div className="apollo_blocks_sort_heading">Nodes</div>
     <div className="apollo_blocks_sort_cells">
@@ -23,7 +23,7 @@ const apolloSort: FC<PApolloSort> = ({ sortTerm, setSortTerm }) => (
   </div>
 );
 
-export default apolloSort;
+export default ApolloBlocksSort;
 
 const sortOptions: TApolloSortProps[] = [
   {
