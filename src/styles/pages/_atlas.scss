@@ -1,0 +1,76 @@
+.atlas {
+  &_mainTable {
+    display: grid;
+    margin-left: 10px;
+    width: 100%;
+  }
+
+  &_sort {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 56px;
+    border-bottom: 1px solid #eff2f5;
+
+    &_heading {
+      display: flex;
+      flex: 2;
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 32px;
+      @include for-device-small {
+        display: none;
+      }
+    }
+
+    &_cells {
+      display: flex;
+      flex: 3;
+      gap: 12px;
+    }
+
+    &_cell {
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 32px;
+      color: #808a9d;
+      white-space: nowrap;
+
+      &:nth-child(1) {
+        font-weight: 700;
+        color: #05060f;
+      }
+    }
+
+    .pointer {
+      cursor: pointer;
+    }
+
+    &_active {
+      color: #05060f;
+    }
+  }
+
+  &_table {
+    display: grid;
+    grid-template-columns: repeat(5, auto);
+    width: 100%;
+    overflow-x: scroll;
+  }
+
+  &__header {
+    &-cell {
+      display: flex;
+      align-items: center;
+      font-weight: 700;
+      font-size: 12px;
+      line-height: 32px;
+      height: 48px;
+      white-space: nowrap;
+      padding-right: 32px;
+      // &:nth-child(5) {
+      //   justify-content: center;
+      // }
+    }
+  }
+}

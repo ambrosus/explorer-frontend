@@ -1,0 +1,34 @@
+.apollo {
+  &_main {
+    display: grid;
+    margin-left: 10px;
+    width: 100%;
+    &_table {
+      display: grid;
+      grid-template-columns: repeat(5, auto);
+      width: 100%;
+      overflow-x: scroll;
+    }
+  }
+
+  &__header {
+    &-cell {
+      display: flex;
+      align-items: center;
+      font-weight: 700;
+      font-size: 12px;
+      line-height: 32px;
+      height: 48px;
+      white-space: nowrap;
+      padding-right: 32px;
+      // &:nth-child(5) {
+      //   justify-content: center;
+      // }
+    }
+  }
+}
+
+@import './components/apollo_blocks_body';
+@import './components/apollo_blocks_header';
+@import './components/apollo_blocks_sort';
+@import './components/main_info_apollo.scss';

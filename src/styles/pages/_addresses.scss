@@ -3,7 +3,6 @@
 .addresses {
   &__mainTable {
     display: grid;
-
     margin-left: 10px;
     width: 100%;
   }
@@ -12,7 +11,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 52px;
+    height: 56px;
     border-bottom: 1px solid #eff2f5;
 
     &-heading {

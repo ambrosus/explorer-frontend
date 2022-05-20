@@ -1,4 +1,4 @@
-import { PBlocksSort, TAddressesSortProps } from '../tableBlocks.interface';
+import { PBlocksSort, TAddressesSortProps } from '../atlasBlocks.interface';
 import { FC } from 'react';
 
 const BlocksSort: FC<PBlocksSort> = ({ sortTerm, setSortTerm }) => (
