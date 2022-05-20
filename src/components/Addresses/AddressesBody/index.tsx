@@ -1,5 +1,5 @@
-import { AddressesBodyProps } from '../../../pages/Addresses/addresses.interface';
-import IsContract from '../../../pages/Addresses/components/IsContract';
+import { AddressesBodyProps } from 'pages/Addresses/addresses.interface';
+import IsContract from 'pages/Addresses/components/IsContract';
 import { displayAmount } from '../../../utils/helpers';
 import Amb from 'assets/icons/Cryptos/Amb';
 import { useTypedSelector } from 'hooks/useTypedSelector';
