@@ -1,6 +1,6 @@
-import BurgerMenuClose from '../../assets/icons/MobileMenu/BurgerMenuClose';
-import BurgerMenuOpen from '../../assets/icons/MobileMenu/BurgerMenuOpen';
-import FindWideMobile from '../../components/FindWideMobile';
+import BurgerMenuClose from 'assets/icons/MobileMenu/BurgerMenuClose';
+import BurgerMenuOpen from 'assets/icons/MobileMenu/BurgerMenuOpen';
+import FindWideMobile from 'components/Find/FindWideMobile';
 import { useOnClickOutside } from 'hooks/useOnClickOutside';
 import React, { useRef } from 'react';
 

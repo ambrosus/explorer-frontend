@@ -1,5 +1,5 @@
 import { TParams } from '../../types';
-import TokenFilter from '../TokenFilter';
+import TokenFilter from './TokenFilter';
 import { TokenType } from 'pages/Addresses/AddressDetails/address-details.interface';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
@@ -17,7 +17,7 @@ const Token: React.FC<TokenProps> = ({
   onClick,
   selectedToken,
 }) => {
-  const { address, type, filtered, tokenToSorted }: TParams = useParams();
+  const { address }: TParams = useParams();
 
   const [prevAddress, setPrevAddress] = useState(address);
 

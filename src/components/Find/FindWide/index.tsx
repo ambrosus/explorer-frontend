@@ -1,16 +1,10 @@
-import { useDebounce } from '../../hooks/useDebounce';
-import { FindWideProps } from '../../pages/Home/home.interfaces';
 import API from 'API/api';
 import Search from 'assets/icons/Search';
+import { useDebounce } from 'hooks/useDebounce';
+import { FindWideProps } from 'pages/Home/home.interfaces';
 import React, { ChangeEvent, FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-/*
- * @param {FindWideProps} props - props passed from parent component
- * @returns {JSX.Element}
- * @name FindWide
- * @version 1.0.0
- */
 const FindWide: React.FC<FindWideProps> = ({ searchRef }) => {
   const [name, setName] = useState<string>('');
   const navigate = useNavigate();

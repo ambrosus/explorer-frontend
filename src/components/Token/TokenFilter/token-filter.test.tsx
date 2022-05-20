@@ -1,4 +1,4 @@
-import TokenFilter from '../TokenFilter';
+import TokenFilter from '.';
 import { fireEvent } from '@testing-library/dom';
 import renderWithReduxAndRouter from 'utils/test-helpers/renderWithReduxAndRouter';
 

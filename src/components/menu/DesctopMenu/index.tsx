@@ -1,5 +1,5 @@
 import Find from 'components/Find';
-import FindWide from 'components/FindWide';
+import FindWide from 'components/Find/FindWide';
 import { useOnClickOutside } from 'hooks/useOnClickOutside';
 import React, { useRef, useState } from 'react';
 

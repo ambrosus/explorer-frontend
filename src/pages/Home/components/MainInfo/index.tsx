@@ -1,5 +1,5 @@
-import getMainInfoIcon from '../../config';
-import { MainInfoProps } from '../../pages/Home/home.interfaces';
+import getMainInfoIcon from '../../../../config';
+import { MainInfoProps } from '../../home.interfaces';
 import React from 'react';
 
 const MainInfo: React.FC<MainInfoProps> = ({ name, value }) => {

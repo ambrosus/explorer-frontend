@@ -1,5 +1,5 @@
-import { getTokenIcon } from '../../utils/helpers';
 import React from 'react';
+import { getTokenIcon } from 'utils/helpers';
 
 type TokenItemProps = {
   token: any;

@@ -1,4 +1,3 @@
-import { TParams } from '../../types';
 import TokenModal from '../TokenModal';
 import ArrowDownBig from 'assets/icons/Arrows/ArrowDownBig';
 import ArrowUpBig from 'assets/icons/Arrows/ArrowUpBig';
@@ -6,6 +5,7 @@ import { useActions } from 'hooks/useActions';
 import { useOnClickOutside } from 'hooks/useOnClickOutside';
 import React, { useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { TParams } from 'types';
 
 const TokenFilter = ({ loading, addressData, onClick, selectedToken }: any) => {
   const { addFilter } = useActions();

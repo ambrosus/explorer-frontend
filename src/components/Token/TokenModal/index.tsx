@@ -1,12 +1,5 @@
 import TokenItem from '../TokenItem';
-import { useTypedSelector } from 'hooks/useTypedSelector';
 import { FC, useEffect, useState } from 'react';
-
-/**
- * @description TokenModal
- * @param {TokenModalProps} props
- * @returns {JSX.Element}
- */
 
 interface TokenModalProps {
   selectedToken: string;
@@ -38,13 +31,6 @@ const TokenModal: FC<TokenModalProps> = ({
 
   return (
     <div className="tokenModal" tabIndex={0}>
-      {/*<input*/}
-      {/*	className="tokenModal__search"*/}
-      {/*	placeholder="Search for Token Name"*/}
-      {/*	type="text"*/}
-      {/*	value={name}*/}
-      {/*	onChange={(e) => setName(e.target.value)}*/}
-      {/*/>*/}
       {addressData?.tokens?.length ? (
         <>
           <div>

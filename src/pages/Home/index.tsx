@@ -4,10 +4,10 @@ import BlocksContent from 'components/BlocksContent';
 import BlocksContentMobile from 'components/BlocksContentMobile';
 import Chart from 'components/Chart';
 import { Content } from 'components/Content';
-import FindWide from 'components/FindWide';
-import MainInfo from 'components/MainInfo';
+import FindWide from 'components/Find/FindWide';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import useWindowSize from 'hooks/useWindowSize';
+import MainInfo from 'pages/Home/components/MainInfo';
 import React, { useEffect, useState } from 'react';
 
 export const Index: React.FC = () => {

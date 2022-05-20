@@ -1,16 +1,14 @@
-import { useDebounce } from '../../hooks/useDebounce';
-import { TParams } from '../../types';
+import { useDebounce } from 'hooks/useDebounce';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import { OverallBalanceProps } from 'pages/Addresses/AddressDetails/address-details.interface';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { TParams } from 'types';
 
 const OverallBalance: React.FC<OverallBalanceProps> = ({
   addressBalance = 0,
 }) => {
-  const { loading, data: appData } = useTypedSelector(
-    (state: any) => state.app,
-  );
+  const { data: appData } = useTypedSelector((state: any) => state.app);
   const { address }: TParams = useParams();
   const [balance, setBalance] = useState<any>(Number(addressBalance));
   const [amountInUsd, setAmountInUsd] = useState<any>(Number(addressBalance));

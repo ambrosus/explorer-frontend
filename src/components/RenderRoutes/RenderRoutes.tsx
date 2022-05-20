@@ -1,6 +1,5 @@
-import Error404 from '../../pages/Error404';
 import Loader from '../Loader';
-import React from 'react';
+import Error404 from 'pages/Error404';
 import { Route, Routes } from 'react-router-dom';
 
 export const RenderRoutes = (props: any) => {

@@ -1,6 +1,5 @@
 import { TParams } from '../../types';
 import { getTokenIcon } from '../../utils/helpers';
-import Eth from 'assets/icons/Cryptos/Eth';
 import Discard from 'assets/icons/Discard';
 import { useActions } from 'hooks/useActions';
 import { useTypedSelector } from 'hooks/useTypedSelector';
