@@ -82,7 +82,6 @@ export const AddressDetails = () => {
         ),
       );
     }
-
     if (!loading || errorData) {
       if (addressData && addressData?.meta?.totalPages > pageNum) {
         setPosition(getDataForAddress, address?.trim(), {
@@ -120,7 +119,6 @@ export const AddressDetails = () => {
     pageNum,
     type,
   ]);
-
   useEffect(() => {
     if (addressData && addressData?.transactions) {
       setTx((prevState) => {
@@ -199,7 +197,12 @@ export const AddressDetails = () => {
                 }
               />
 
-              <Token selectedToken={selectedToken} onClick={setSelectedToken} />
+              <Token
+                loading={loading}
+                addressData={addressData}
+                selectedToken={selectedToken}
+                onClick={setSelectedToken}
+              />
             </div>
             {selectedToken && (
               <FilteredToken setSelectedToken={setSelectedToken} />

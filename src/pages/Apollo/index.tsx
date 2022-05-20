@@ -1,9 +1,10 @@
-import { AccountsData } from './addresses.interface';
+import { AccountsData } from './11addresses.interface';
+import ApolloBlocksBody from './components/ApolloBlocksBody';
+import ApolloBlocksHeader from './components/ApolloBlocksHeader';
+import ApolloBlocksSort from './components/ApolloBlocksSort';
+import MainInfoApollo from './components/MainInfoApollo';
 import { Content } from 'components/Content';
 import Loader from 'components/Loader';
-import TableBlocksBody from 'components/TableBlocks/TableBlocksBody';
-import TableBlocksHeader from 'components/TableBlocks/TableBlocksHeader';
-import TableBlocksSort from 'components/TableBlocks/TableBlocksSort';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import React, { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
@@ -53,21 +54,25 @@ export const Apollo = () => {
   return (
     <Content>
       <Content.Header>
-        <h1>Apollo</h1>
+        <MainInfoApollo />
       </Content.Header>
       <Content.Body>
-        <div
-          className="blocks"
-          style={{ gridTemplateColumns: `repeat(${num}, auto)` }}
-        >
-          <TableBlocksHeader />
-          <TableBlocksBody />
-          <TableBlocksBody />
-          <TableBlocksBody />
-          <TableBlocksBody />
-          <TableBlocksBody />
-          <TableBlocksBody />
-          <TableBlocksBody />
+        <div className="apollo_main">
+          <ApolloBlocksSort sortTerm={sortTerm} setSortTerm={setSortTerm} />
+
+          <div
+            className="apollo_main_table"
+            style={{ gridTemplateColumns: `repeat(${num}, auto)` }}
+          >
+            <ApolloBlocksHeader />
+            <ApolloBlocksBody />
+            <ApolloBlocksBody />
+            <ApolloBlocksBody />
+            <ApolloBlocksBody />
+            <ApolloBlocksBody />
+            <ApolloBlocksBody />
+            <ApolloBlocksBody />
+          </div>
         </div>
       </Content.Body>
     </Content>

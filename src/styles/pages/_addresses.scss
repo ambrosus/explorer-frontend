@@ -2,16 +2,16 @@
 
 .addresses {
   &__mainTable {
-    display: flex;
-    flex-direction: column;
+    display: grid;
     margin-left: 10px;
+    width: 100%;
   }
 
   &__sort {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 52px;
+    height: 56px;
     border-bottom: 1px solid #eff2f5;
 
     &-heading {
@@ -54,44 +54,29 @@
   }
 
   &__table {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    overflow: auto;
-    margin-left: 10px;
+    display: grid;
+    grid-template-columns: repeat(5, auto);
+    width: 100%;
+    overflow-x: scroll;
   }
 
   &__header {
-    padding: 0px 15px;
-
-    display: grid;
-    grid-template-columns: 50px 470px 150px 158px repeat(1, auto);
-    gap: 36px;
-    height: 48px;
-    align-items: center;
-
     &-cell {
       display: flex;
+      align-items: center;
       font-weight: 700;
       font-size: 12px;
       line-height: 32px;
-
-      &:nth-last-child(1) {
-        justify-content: flex-end;
-      }
+      height: 48px;
+      white-space: nowrap;
+      padding-right: 32px;
+      // &:nth-child(5) {
+      //   justify-content: center;
+      // }
     }
   }
 
   &__body {
-    display: grid;
-    grid-template-columns: 50px 470px 150px 158px repeat(1, auto);
-    height: 48px;
-    align-items: center;
-    gap: 36px;
-    padding: 0px 15px;
-    position: relative;
-    border-bottom: 1px solid #eff2f5;
-
     &:hover {
       background-color: #eff2f5;
     }
@@ -102,16 +87,19 @@
     }
 
     &-cell {
+      align-items: center;
+      border-bottom: 1px solid #eff2f5;
       white-space: nowrap;
       display: flex;
       font-weight: 400;
       font-size: 14px;
       line-height: 24px;
-      position: relative;
+      height: 48px;
+      padding-right: 32px;
 
-      &:nth-last-child(1) {
-        justify-content: flex-end;
-      }
+      // &:nth-child(1n +5) {
+      //   justify-content: center;
+      // }
 
       &:nth-child(2) {
         font-weight: 600;
@@ -301,15 +289,15 @@
 
     -ms-overflow-style: none;
     scrollbar-width: none;
-    min-height: 30px;
-
+    min-height: 110px;
+    width: 100%;
     display: grid;
     grid-row-gap: 32px;
 
     margin-top: 16px;
     position: relative;
     white-space: nowrap;
-    overflow: auto;
+    overflow-x: scroll;
 
     @include for-device-small {
     }

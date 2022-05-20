@@ -52,7 +52,6 @@ export const Addresses = () => {
     <Content>
       <Content.Header>
         <MainInfoAddresses />
-        <div className="loader">{loading && <Loader />}</div>
       </Content.Header>
       <Content.Body>
         <div className="addresses__mainTable">
@@ -84,6 +83,7 @@ export const Addresses = () => {
                 })
               : null}
           </div>
+          {loading && <Loader />}
         </div>
       </Content.Body>
     </Content>
