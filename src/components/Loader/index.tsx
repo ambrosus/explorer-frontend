@@ -10,6 +10,7 @@ const Loader = () => (
       display: 'flex',
       justifyContent: 'center',
       width: '100%',
+      // top: 140,
     }}
   >
     <div className="Loader">

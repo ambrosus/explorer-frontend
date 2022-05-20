@@ -35,7 +35,7 @@ export const routes: IRoute[] = [
     key: 'Atlas',
     exact: true,
     component: () => <Atlas />,
-    isClick: false,
+    isClick: true,
   },
   {
     path: '/hermes',
