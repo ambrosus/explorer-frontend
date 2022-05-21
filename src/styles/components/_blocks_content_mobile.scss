@@ -23,4 +23,24 @@
     color: #1e1e1f;
     white-space: nowrap;
   }
+  &_head {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-bottom: 1px solid $secondary;
+  }
+
+  &_heading {
+    white-space: nowrap;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 32px;
+    color: $main-light;
+    padding-bottom: 12px;
+  }
+
+  &_active {
+    border-bottom: 4px solid #1e1e1f;
+    color: #1e1e1f;
+  }
 }

@@ -9,18 +9,18 @@ const BlocksContentMobile: FC<BlocksContentProps> = ({ data }) => {
   return (
     <div className="blocks_content_mobile">
       <div className="blocks_content_mobile_table">
-        <div className="latestBlocks__head">
+        <div className="blocks_content_mobile_head">
           <button
             className={`blocks_content_mobile_heading ${
-              index === 1 ? 'latestBlocks__mobile-active' : ''
+              index === 1 ? 'blocks_content_mobile_active' : ''
             }`}
             onClick={() => setIndex(1)}
           >
             Lastest Blocks
           </button>
           <button
-            className={`latestBlocks__mobile-heading ${
-              index === 2 ? 'latestBlocks__mobile-active' : ''
+            className={`blocks_content_mobile_heading ${
+              index === 2 ? 'blocks_content_mobile_active' : ''
             }`}
             onClick={() => setIndex(2)}
           >

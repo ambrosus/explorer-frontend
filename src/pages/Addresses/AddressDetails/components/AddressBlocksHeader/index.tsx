@@ -25,11 +25,11 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 
   const isTxHash =
     txhash === null ? null : (
-      <div className="addressDetails__thead-td">{txhash}</div>
+      <div className="address_blocks_header">{txhash}</div>
     );
   const isMethod =
     method === null ? null : (
-      <div ref={methodRef} className="addressDetails__thead-td">
+      <div ref={methodRef} className="address_blocks_header">
         <div
           style={{
             display: 'flex',
@@ -38,52 +38,32 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
             fontSize: '0.86rem',
             lineHeight: '1.77em',
           }}
-          // onClick={() => setIsShow(true)}
         >
           {method}
-          {/* <ArrowDown /> */}
-        </div>
-        <div ref={methodRef} className="methodModal__table">
-          {isShow &&
-            methodFilters.map((filter: { title: string; value: number }) => (
-              <NavLink
-                key={filter.title}
-                to={`/addresses/${address}/${filter.value}`}
-                tabIndex={-1}
-                className="methodModal__link"
-                onClick={() => setTransactionType(filter.value)}
-              >
-                {filter.title}
-              </NavLink>
-            ))}
         </div>
       </div>
     );
   const isFrom =
-    from === null ? null : (
-      <div className="addressDetails__thead-td">{from}</div>
-    );
+    from === null ? null : <div className="address_blocks_header">{from}</div>;
   const isTo =
-    to === null ? null : <div className="addressDetails__thead-td">{to}</div>;
+    to === null ? null : <div className="address_blocks_header">{to}</div>;
   const isDate =
-    date === null ? null : (
-      <div className="addressDetails__thead-td">{date}</div>
-    );
+    date === null ? null : <div className="address_blocks_header">{date}</div>;
   const isBlock =
     block === null ? null : (
-      <div className="addressDetails__thead-td">{block}</div>
+      <div className="address_blocks_header">{block}</div>
     );
   const isAmount =
     amount === null ? null : (
-      <div className="addressDetails__thead-td">{amount}</div>
+      <div className="address_blocks_header">{amount}</div>
     );
   const isTxFee =
     txfee === null ? null : (
-      <div className="addressDetails__thead-td">{txfee}</div>
+      <div className="address_blocks_header">{txfee}</div>
     );
   const isToken =
     token === null ? null : (
-      <div className="addressDetails__thead-td">
+      <div className="address_blocks_header">
         {token && token[0].toUpperCase() + token.slice(1)}
       </div>
     );

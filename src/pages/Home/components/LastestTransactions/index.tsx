@@ -27,38 +27,38 @@ const LatestTransactions: React.FC<LatestTransactionsProps> = ({
 
   return (
     <>
-      <div className="lastestTransactions__cells">
-        <div className="lastestTransactions__cell">
-          <div className="lastestTransactions__cell-content lastestTransactions__font-big">
+      <div className="lastest_transactions_cells">
+        <div className="lastest_transactions_cell">
+          <div className="lastest_transactions_cell-content lastest_transactions_font_big">
             <span>{isOnline(status)}</span>
             {sliceData5(hash)}
           </div>
 
-          <div className="lastestTransactions__p lastestTransactions__font-small">
+          <div className="lastest_transactions_p lastest_transactions_font_small">
             <span style={{ marginRight: 16 }}></span>
             {calcTime(timestamp)}
           </div>
         </div>
 
-        <div className="lastestTransactions__cell">
-          <div className="lastestTransactions__cell-content">
-            <div className="lastestTransactions__font-small">From</div>
-            <div className="lastestTransactions__font-big lastestTransactions__margin-left">
+        <div className="lastest_transactions_cell">
+          <div className="lastest_transactions_cell_content">
+            <div className="lastest_transactions_font_small">From</div>
+            <div className="lastest_transactions_font_big lastest_transactions_margin_left">
               {sliceData5(from)}
             </div>
           </div>
-          <div className="lastestTransactions__cell-content">
-            <div className="lastestTransactions__font-small">To</div>
-            <div className="lastestTransactions__font-big lastestTransactions__margin-left">
+          <div className="lastest_transactions_cell_content">
+            <div className="lastest_transactions_font_small">To</div>
+            <div className="lastest_transactions_font_big lastest_transactions_margin_left">
               {sliceData5(to)}
             </div>
           </div>
         </div>
-        <div className="lastestTransactions__cell">
-          <div className="lastestTransactions__cell-content lastestTransactions__font-small">
+        <div className="lastest_transactions_cell">
+          <div className="lastest_transactions_cell-content lastest_transactions_font_small">
             {type}
           </div>
-          <div className="lastestTransactions__cell-content lastestTransactions__font-big">{`${amount?.toFixed(
+          <div className="lastest_transactions_cell-content lastest_transactions_font_big">{`${amount?.toFixed(
             5,
           )} AMB`}</div>
         </div>

@@ -22,7 +22,7 @@ const BlocksContent: FC<BlocksContentProps> = ({ data }) => {
         ))}
       </div>
 
-      <div className="blocks_content">
+      <div className="blocks_content_table">
         <div className="blocks_content_heading">Lastest Transactions</div>
         {data?.latestTransactions.map((item) => (
           <LatestTransactions
