@@ -1,2 +1,89 @@
 .main_info {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  margin: 30px auto;
+
+  @include for-device-large {
+    display: flex;
+    flex-direction: column;
+    margin: 30px auto;
+  }
+  &_table {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    background: $white;
+    border-radius: 1.15em 0 0 1.15em;
+    @include for-device-large {
+      border-radius: 1.15em 1.15em 0 0;
+    }
+    @include for-device-medium {
+      grid-template-columns: repeat(2, auto);
+    }
+    @include for-device-small {
+      grid-template-columns: repeat(1, auto);
+      min-width: 320px;
+    }
+  }
+
+  &_td {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    height: 105px;
+    border: 0.5px solid #f6f6f6;
+    @include for-device-small {
+      height: 64px;
+    }
+  }
+  &_chart {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 210px;
+    width: 370px;
+    border: 1px solid #f6f6f6;
+    background-color: $white;
+    border-radius: 0 1.15em 1.15em 0;
+    @include for-device-large {
+      border-radius: 0 0 1.15em 1.15em;
+      width: 100%;
+    }
+    @include for-device-medium {
+      height: 168px;
+    }
+  }
+  &_text {
+    margin: 0 12px;
+    white-space: nowrap;
+    width: 168px;
+    @include for-device-large {
+      width: 155px;
+    }
+    @include for-device-small {
+      padding-top: 7px;
+    }
+  }
+  &_icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto 0;
+    margin-left: 32px;
+    border: 1px solid #f4f5f6;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+  }
+  &_span_light {
+    font-weight: 400;
+    line-height: 0.88em;
+    color: $main-medium;
+  }
+  &_span_dark {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 1.28em;
+    line-height: 1.33em;
+    color: $main;
+  }
 }

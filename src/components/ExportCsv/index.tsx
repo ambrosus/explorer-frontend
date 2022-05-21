@@ -12,16 +12,16 @@ const ExportCsv = () => {
   return (
     <>
       <div ref={calendarRef} style={{ zIndex: 1 }}>
-        <div className="tabs__exportCsv">
+        <div className="export_csv">
           <button
-            className="tabs__exportCsv-btn"
+            className="export_csv_btn"
             style={style}
             onClick={() => {
               setIsShow(!isShow);
             }}
           >
             <CalendarIcon />
-            <span className="tabs__exportCsv-text">ExportCsv</span>
+            <span className="export_csv_text">ExportCsv</span>
           </button>
         </div>
         {isShow && <Calendar />}

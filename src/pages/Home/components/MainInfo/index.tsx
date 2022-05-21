@@ -23,11 +23,11 @@ const MainInfo: React.FC<MainInfoProps> = ({ name, value }) => {
 
   return (
     <>
-      <div className="mainInfo__td">
-        <div className="mainInfo__icon">{getMainInfoIcon(name)}</div>
-        <div className="mainInfo__text">
-          <p className="mainInfo__span-light">{name}</p>
-          <p className="mainInfo__span-dark">{updatedValue}</p>
+      <div className="main_info_td">
+        <div className="main_info_icon">{getMainInfoIcon(name)}</div>
+        <div className="main_info_text">
+          <p className="main_info_span-light">{name}</p>
+          <p className="main_info_span-dark">{updatedValue}</p>
         </div>
       </div>
     </>

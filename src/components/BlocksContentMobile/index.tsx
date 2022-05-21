@@ -7,11 +7,11 @@ const BlocksContentMobile: FC<BlocksContentProps> = ({ data }) => {
   const [index, setIndex] = useState<number>(1);
 
   return (
-    <div className="home__table">
-      <div className="home__content">
+    <div className="blocks_content_mobile">
+      <div className="blocks_content_mobile_table">
         <div className="latestBlocks__head">
           <button
-            className={`latestBlocks__mobile-heading ${
+            className={`blocks_content_mobile_heading ${
               index === 1 ? 'latestBlocks__mobile-active' : ''
             }`}
             onClick={() => setIndex(1)}
@@ -28,7 +28,7 @@ const BlocksContentMobile: FC<BlocksContentProps> = ({ data }) => {
           </button>
         </div>
         {index === 1 ? (
-          <div className="latestBlocks__body">
+          <>
             {data?.latestBlocks.map((item, index: any) => (
               <LatestBlocks
                 key={item.number}
@@ -41,25 +41,23 @@ const BlocksContentMobile: FC<BlocksContentProps> = ({ data }) => {
                 name="name"
               />
             ))}
-          </div>
+          </>
         ) : null}
         {index === 2 ? (
-          <div className="home__content">
-            <div className="latestBlocks__body">
-              {data?.latestTransactions.map((item) => (
-                <LatestTransactions
-                  key={item._id}
-                  status={item.status}
-                  hash={item.hash}
-                  timestamp={item.timestamp}
-                  from={item.from}
-                  to={item.to}
-                  amount={item?.value?.ether}
-                  type={item.type}
-                />
-              ))}
-            </div>
-          </div>
+          <>
+            {data?.latestTransactions.map((item) => (
+              <LatestTransactions
+                key={item._id}
+                status={item.status}
+                hash={item.hash}
+                timestamp={item.timestamp}
+                from={item.from}
+                to={item.to}
+                amount={item?.value?.ether}
+                type={item.type}
+              />
+            ))}
+          </>
         ) : null}
       </div>
     </div>

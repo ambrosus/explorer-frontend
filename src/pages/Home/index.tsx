@@ -55,8 +55,8 @@ export const Index: React.FC = () => {
           <Content.Header>
             <h1 className="home__heading">Ambrosus Network Explorer</h1>
             <FindWide />
-            <div className="mainInfo">
-              <div className="mainInfo__table">
+            <div className="main_info">
+              <div className="main_info_table">
                 {data?.header?.length
                   ? data.header.map((item) => (
                       <MainInfo
@@ -67,7 +67,7 @@ export const Index: React.FC = () => {
                     ))
                   : null}
               </div>
-              <div className="mainInfo__chart">
+              <div className="main_info_chart">
                 <Chart />
               </div>
             </div>

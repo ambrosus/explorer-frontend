@@ -34,14 +34,14 @@ const Calendar = () => {
   };
 
   return (
-    <div className="tabs__calendar">
+    <div className="calendar">
       <DateRange
         editableDateInputs={true}
         onChange={changeData}
         moveRangeOnFirstSelection={false}
         ranges={dataRange}
       />
-      <button className="tabs__calendar-exportCsv" onClick={exportData}>
+      <button className="calendar-export_csv" onClick={exportData}>
         Export CSV
       </button>
     </div>
