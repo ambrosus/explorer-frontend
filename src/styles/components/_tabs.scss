@@ -114,4 +114,24 @@
       border-radius: 8px;
     }
   }
+  &_table {
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    min-height: 110px;
+    width: 100%;
+    display: grid;
+    grid-row-gap: 32px;
+
+    margin-top: 16px;
+    position: relative;
+    white-space: nowrap;
+    overflow-x: scroll;
+
+    @include for-device-small {
+    }
+  }
 }

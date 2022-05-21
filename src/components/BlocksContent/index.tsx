@@ -5,9 +5,9 @@ import React, { FC } from 'react';
 
 const BlocksContent: FC<BlocksContentProps> = ({ data }) => {
   return (
-    <div className="home__table">
-      <div className="home__content">
-        <div className="latestBlocks__heading">Lastest Blocks</div>
+    <div className="blocks_content">
+      <div className="blocks_content_table">
+        <div className="blocks_content_heading">Lastest Blocks</div>
         <div className="latestBlocks__body">
           {data?.latestBlocks.map((item, index: any) => (
             <LatestBlocks
@@ -21,12 +21,11 @@ const BlocksContent: FC<BlocksContentProps> = ({ data }) => {
               name="name"
             />
           ))}
-          {/*<ViewMoreBtn nameBtn="View all blocks" />*/}
         </div>
       </div>
 
-      <div className="home__content">
-        <div className="latestBlocks__heading">Lastest Transactions</div>
+      <div className="blocks_content">
+        <div className="blocks_content_heading">Lastest Transactions</div>
         <div className="latestBlocks__body">
           {data?.latestTransactions.map((item) => (
             <LatestTransactions
@@ -40,7 +39,6 @@ const BlocksContent: FC<BlocksContentProps> = ({ data }) => {
               type={item.type}
             />
           ))}
-          {/*<ViewMoreBtn nameBtn="View all transactions" />*/}
         </div>
       </div>
     </div>

@@ -136,7 +136,7 @@ const Tabs: FC<TabsProps> = ({
         </div>
       </div>
 
-      <section className="addressDetails__table" style={setupStyle(type)}>
+      <section className="tabs_table" style={setupStyle(type)}>
         {loading && !renderData?.length && (
           <div
             style={{
