@@ -42,9 +42,13 @@ const FindWideMobile: React.FC<FindWideMobileProps> = ({
 
   return (
     <>
-      <form ref={searchRef} className="searchMobile" onSubmit={handleSubmit}>
+      <form
+        ref={searchRef}
+        className="find_wide_mobile"
+        onSubmit={handleSubmit}
+      >
         <input
-          className="searchMobile__input"
+          className="find_wide_mobile_input"
           placeholder="Search by Node, Address, Tx, Block, Toke..."
           type="text"
           style={{ fontSize: 16 }}
@@ -54,7 +58,7 @@ const FindWideMobile: React.FC<FindWideMobileProps> = ({
           }
         />
 
-        <button className="searchMobile__btn" type="submit">
+        <button className="find_wide_mobile_btn" type="submit">
           <Search fill={'#808A9D'} />
         </button>
       </form>

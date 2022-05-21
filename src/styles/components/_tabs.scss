@@ -11,28 +11,6 @@
     padding: 8px 0;
   }
 
-  &__calendar {
-    margin-top: 8px;
-    z-index: 1;
-    border-radius: 12px;
-    &-exportCsv {
-      position: relative;
-      right: -24px;
-      bottom: 56px;
-      height: 40px;
-      width: 100px;
-      background-color: $main;
-      color: $white;
-      border-radius: 4px;
-      @include for-device-small {
-        left: 24px;
-      }
-    }
-    &-exportCsv:hover {
-      box-shadow: 4px 8px 8px rgb(0 0 0 / 25%);
-    }
-  }
-
   &__link {
     color: $main-light;
     text-decoration: none;
@@ -54,32 +32,7 @@
     border-bottom: 4px solid $main;
     border-collapse: collapse;
   }
-  &__exportCsv {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    flex: 1;
 
-    &-btn {
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      width: 139px;
-      height: 40px;
-      border: 1px solid $secondary;
-      box-sizing: border-box;
-      border-radius: 16px;
-    }
-    &-btn:hover {
-      border-color: $main;
-    }
-
-    &-text {
-      font-weight: 600;
-      line-height: 1.33em;
-      margin: 8px 16px;
-    }
-  }
   &__exportModal {
     display: flex;
     flex-direction: column;
@@ -112,6 +65,26 @@
       height: 24px;
       background: $secondary;
       border-radius: 8px;
+    }
+  }
+  &_table {
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    min-height: 110px;
+    width: 100%;
+    display: grid;
+    grid-row-gap: 32px;
+
+    margin-top: 16px;
+    position: relative;
+    white-space: nowrap;
+    overflow-x: scroll;
+
+    @include for-device-small {
     }
   }
 }

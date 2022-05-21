@@ -7,7 +7,7 @@ interface FindProps {
 const Find: React.FC<FindProps> = ({ setIsShow }) => {
   return (
     <>
-      <button className="navigation__search" onClick={() => setIsShow(true)}>
+      <button className="find" onClick={() => setIsShow(true)}>
         <Search fill={'#fff'} />
       </button>
     </>

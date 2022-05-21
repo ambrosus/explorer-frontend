@@ -1,3 +1,25 @@
+.calendar {
+  margin-top: 8px;
+  z-index: 1;
+  border-radius: 12px;
+  &_export_csv {
+    position: relative;
+    right: -24px;
+    bottom: 56px;
+    height: 40px;
+    width: 100px;
+    background-color: $main;
+    color: $white;
+    border-radius: 4px;
+    @include for-device-small {
+      left: 24px;
+    }
+  }
+  &_export_csv:hover {
+    box-shadow: 4px 8px 8px rgb(0 0 0 / 25%);
+  }
+}
+
 .rdrCalendarWrapper {
   display: flex;
   flex-flow: wrap;

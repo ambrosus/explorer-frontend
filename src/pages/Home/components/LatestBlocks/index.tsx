@@ -23,39 +23,39 @@ const LatestBlocks: React.FC<LatestBlocksProps> = ({
       .toFixed(5);
   return (
     <>
-      <div className="latestBlocks__cells">
-        <div className="latestBlocks__cell">
-          <div className="latestBlocks__cell-content latestBlocks__font-big">
+      <div className="latest_blocks_cells">
+        <div className="latest_blocks_cell">
+          <div className="latest_blocks_cell_content latest_blocks_font_big">
             <span>{online}</span>
             {number}
           </div>
 
-          <div className="latestBlocks__p latestBlocks__font-small">
+          <div className="latest_blocks_p latest_blocks_font_small">
             <span style={{ marginRight: 16 }}></span>
             {calcTime(timestamp as number)}
           </div>
         </div>
 
-        <div className="latestBlocks__cell">
-          <div className="latestBlocks__cell-content">
-            <div className="latestBlocks__font-small">Validator</div>
-            <div className="latestBlocks__font-big latestBlocks__margin-left">
+        <div className="latest_blocks_cell">
+          <div className="latest_blocks_cell_content">
+            <div className="latest_blocks_font_small">Validator</div>
+            <div className="latest_blocks_font_big latest_blocks_margin-left">
               {sliceData5(validator as string)}
             </div>
           </div>
-          <div className="latestBlocks__cell-content">
-            <div className="latestBlocks__font-small"></div>
+          <div className="latest_blocks_cell_content">
+            <div className="latest_blocks_font_small"></div>
             <div
-              className="latestBlocks__font-small"
+              className="latest_blocks_font_small"
               style={{ marginLeft: '1px', color: '#05060F', fontWeight: 600 }}
             >{`${totalTransactions} txns`}</div>
           </div>
         </div>
-        <div className="latestBlocks__cell">
-          <div className="latestBlocks__cell-content latestBlocks__font-small">
+        <div className="latest_blocks_cell">
+          <div className="latest_blocks_cell_content latest_blocks_font_small">
             Block Reward
           </div>
-          <div className="latestBlocks__cell-content latestBlocks__font-big">{`${calckBlocks(
+          <div className="latest_blocks_cell_content latest_blocks_font_big">{`${calckBlocks(
             blockReward,
           )} AMB`}</div>
         </div>

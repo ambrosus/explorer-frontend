@@ -1,9 +1,28 @@
 .export_csv {
-}
-.exportCsv {
   display: flex;
-  justify-content: flex-end;
-  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
   flex: 1;
-  height: 40px;
+  z-index: 3;
+
+  &_btn {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 139px;
+    height: 40px;
+    border: 1px solid $secondary;
+    box-sizing: border-box;
+    border-radius: 16px;
+  }
+  &_btn:hover {
+    border-color: $main;
+  }
+
+  &_text {
+    font-weight: 600;
+    line-height: 1.33em;
+    margin: 8px 16px;
+  }
 }

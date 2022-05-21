@@ -1,2 +1,11 @@
 .overal_balance {
+  display: flex;
+  gap: 4px;
+
+  &_cell {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.28em;
+    line-height: 2.28em;
+  }
 }

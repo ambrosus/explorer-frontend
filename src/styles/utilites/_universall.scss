@@ -1,22 +1,22 @@
 .universall {
-  &__dark {
+  &_dark {
     color: $main;
   }
-  &__light1 {
+  &_light1 {
     color: #58667e;
   }
-  &__light2 {
+  &_light2 {
     color: #808a9d;
   }
-  &__indent {
-    &-icon {
+  &_indent {
+    &_icon {
       display: flex;
       align-items: center;
       justify-content: center;
       margin-right: 8px;
     }
   }
-  &__hover {
+  &_hover {
     cursor: pointer !important;
     &:hover {
       color: #fff;

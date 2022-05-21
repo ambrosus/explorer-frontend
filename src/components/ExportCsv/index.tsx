@@ -10,23 +10,19 @@ const ExportCsv = () => {
   useOnClickOutside(calendarRef, () => setIsShow(false));
 
   return (
-    <>
-      <div ref={calendarRef} style={{ zIndex: 1 }}>
-        <div className="tabs__exportCsv">
-          <button
-            className="tabs__exportCsv-btn"
-            style={style}
-            onClick={() => {
-              setIsShow(!isShow);
-            }}
-          >
-            <CalendarIcon />
-            <span className="tabs__exportCsv-text">ExportCsv</span>
-          </button>
-        </div>
-        {isShow && <Calendar />}
-      </div>
-    </>
+    <div ref={calendarRef} className="export_csv">
+      <button
+        className="export_csv_btn"
+        style={style}
+        onClick={() => {
+          setIsShow(!isShow);
+        }}
+      >
+        <CalendarIcon />
+        <span className="export_csv_text">ExportCsv</span>
+      </button>
+      {isShow && <Calendar />}
+    </div>
   );
 };
 

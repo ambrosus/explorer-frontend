@@ -54,7 +54,7 @@ export const Addresses = () => {
         <MainInfoAddresses />
       </Content.Header>
       <Content.Body>
-        <div className="addresses__mainTable">
+        <div className="addresses__main_table">
           <AddressesSort sortTerm={sortTerm} setSortTerm={setSortTerm} />
           <div className="addresses__table">
             <AddressesHeader />
