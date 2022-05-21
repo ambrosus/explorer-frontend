@@ -40,20 +40,20 @@ const OverallBalance: React.FC<OverallBalanceProps> = ({
   }, [addressBalance, address, amountInUsd]);
 
   return (
-    <div className="addressDetails__div">
+    <div className="overal_balance">
       <span
-        className="addressDetails__div-span universall__dark"
+        className="overal_balance_cell universall_dark"
         style={{ fontWeight: 700 }}
       >
         Balance
       </span>
-      <span className="addressDetails__div-span universall__dark">
+      <span className="overal_balance_cell universall_dark">
         {`${
           balMemo ? Number(balMemo).toFixed(2) : Number(balance).toFixed(2)
         } AMB`}{' '}
       </span>
-      <span className="addressDetails__div-span universall__dark">/</span>
-      <span className="addressDetails__div-span universall__light2">{`$ ${
+      <span className="overal_balance_cell universall_dark">/</span>
+      <span className="overal_balance_cell universall_light2">{`$ ${
         amountInUsd ? amountInUsd.toFixed(2) : deboucePrice.toFixed(2)
       }`}</span>
     </div>

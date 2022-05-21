@@ -41,7 +41,7 @@ const Calendar = () => {
         moveRangeOnFirstSelection={false}
         ranges={dataRange}
       />
-      <button className="calendar-export_csv" onClick={exportData}>
+      <button className="calendar_export_csv" onClick={exportData}>
         Export CSV
       </button>
     </div>

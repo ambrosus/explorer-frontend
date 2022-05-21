@@ -2,9 +2,9 @@ import { ViewMoreBtnProps } from 'pages/Home/home.interfaces';
 import React from 'react';
 
 const ViewMoreBtn: React.FC<ViewMoreBtnProps> = ({ nameBtn, onclick }) => (
-  <div className="latestBlocks__btn">
+  <div className="view_more_btn">
     <button
-      className="latestBlocks__btn-content"
+      className="view_more_btn_content"
       onClick={onclick ? onclick : () => {}}
     >
       {nameBtn}
