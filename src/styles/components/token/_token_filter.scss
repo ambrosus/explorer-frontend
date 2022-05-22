@@ -1,2 +1,54 @@
 .token_filter {
+  display: flex;
+  flex-direction: column;
+  min-width: 320px;
+  background: $white;
+  border: 1px solid $secondary;
+  border-radius: 16px;
+  @include for-device-xs {
+    min-width: 260px;
+  }
+
+  &_input {
+    display: flex;
+    align-items: center;
+    height: 48px;
+    border: 0px;
+    border-radius: 16px;
+    flex: 20;
+    /* (A1) ANIMATION KEYFRAMES - BACKGROUND COLOR SEQUENCE */
+
+    &_rectangle {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 8px;
+
+      color: $white;
+      font-weight: 700;
+      font-size: 0.78em;
+      line-height: 1.33em;
+
+      width: 24px;
+      height: 24px;
+      background: $main-light;
+      border-radius: 8px;
+    }
+    &_text {
+      line-height: 1.33em;
+      flex: 6;
+    }
+    &_btn {
+      display: flex;
+      justify-content: flex-end;
+      margin-right: 17px;
+      background: $white;
+      border-radius: 16px;
+      border: 0px;
+      flex: 1;
+    }
+  }
+  &_input::placeholder {
+    color: $secondary-medium;
+  }
 }

@@ -50,7 +50,7 @@
     background-color: #212121;
   }
 }
-.menuMobile {
+.menu_mobile {
   display: grid;
   grid-template-rows: repeat(8, auto);
   position: absolute;
@@ -62,7 +62,7 @@
   @include for-device-small {
     width: 100%;
   }
-  &__item {
+  &_item {
     text-decoration: none;
     font-family: Proxima Nova, Aktiv Grotesk Corp;
     font-style: normal;

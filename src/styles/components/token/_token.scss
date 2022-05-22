@@ -1,166 +1,42 @@
 .token {
-	height: 42px;
-	display: flex;
-	justify-content: flex-end;
-	@include for-device-medium {
-		display: flex;
-		justify-content: flex-start;
-	}
-	&__info {
-		display: flex;
-		position: absolute;
-		flex-direction: row;
-		z-index: 2;
+  height: 42px;
+  display: flex;
+  justify-content: flex-end;
+  @include for-device-medium {
+    display: flex;
+    justify-content: flex-start;
+  }
+  &__info {
+    display: flex;
+    position: absolute;
+    flex-direction: row;
+    z-index: 2;
 
-		&-name {
-			margin-right: 10px;
-			font-weight: 700;
-			font-size: 1.28em;
-			line-height: 2.28em;
-			height: 100%;
-		}
-	}
-}
-
-// tokenModal
-
-.tokenModal {
-	display: flex;
-	flex-direction: column;
-	box-shadow: 4px 8px 8px rgba(0, 0, 0, 0.25);
-	border-bottom-left-radius: 16px;
-	border-bottom-right-radius: 16px;
-	position: relative;
-	z-index: 5;
-	&__search {
-		width: 300px;
-		height: 40px;
-		background: #f4f5f6;
-		border: 1px solid $secondary;
-		border-radius: 16px;
-		margin: 10px auto;
-		padding-left: 12px;
-	}
-	&__search::placeholder {
-		line-height: 1.33em;
-		color: $secondary-medium;
-	}
-	&__tokens {
-		display: flex;
-		align-items: center;
-		padding-left: 12px;
-		height: 32px;
-		border-top: 1px solid $secondary;
-		font-weight: 600;
-		line-height: 1.33em;
-	}
+    &-name {
+      margin-right: 10px;
+      font-weight: 700;
+      font-size: 1.28em;
+      line-height: 2.28em;
+      height: 100%;
+    }
+  }
 }
 
 // tokenFilter
 @keyframes morph {
-	0% {
-		opacity: 0.7;
-	}
-	50% {
-		opacity: 0.9;
-	}
-	100% {
-		opacity: 0.7;
-	}
+  0% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0.7;
+  }
 }
 
 .toggle {
-	animation: morph 2s linear;
-}
-
-.tokenFilter {
-	display: flex;
-	flex-direction: column;
-	min-width: 320px;
-	background: $white;
-	border: 1px solid $secondary;
-	border-radius: 16px;
-	@include for-device-xs {
-		min-width: 260px;
-	}
-
-	&__input {
-		display: flex;
-		align-items: center;
-		height: 48px;
-		border: 0px;
-		border-radius: 16px;
-		flex: 20;
-		/* (A1) ANIMATION KEYFRAMES - BACKGROUND COLOR SEQUENCE */
-
-		&-rectangle {
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			margin: 8px;
-
-			color: $white;
-			font-weight: 700;
-			font-size: 0.78em;
-			line-height: 1.33em;
-
-			width: 24px;
-			height: 24px;
-			background: $main-light;
-			border-radius: 8px;
-		}
-		&-text {
-			line-height: 1.33em;
-			flex: 6;
-		}
-		&-btn {
-			display: flex;
-			justify-content: flex-end;
-			margin-right: 17px;
-			background: $white;
-			border-radius: 16px;
-			border: 0px;
-			flex: 1;
-		}
-	}
-	&__input::placeholder {
-		color: $secondary-medium;
-	}
+  animation: morph 2s linear;
 }
 
 // tokenItem
-
-.tokenItem {
-	display: grid;
-	grid-template-columns: 22px 2fr 1fr;
-	padding: 12px;
-	border-top: 1px solid $secondary;
-	cursor: pointer;
-
-	&:focus {
-		outline: none;
-	}
-	&:hover {
-		background-color: $secondary;
-		border-top: 1px solid $white;
-	}
-	&:hover:nth-last-child(1) {
-		border-bottom-left-radius: 16px;
-		border-bottom-right-radius: 16px;
-	}
-
-	&__tokens {
-		padding-left: 10px;
-		line-height: 1.33em;
-	}
-	&__tokens:hover {
-		background-color: $secondary;
-	}
-	&__amount {
-		text-align: end;
-		line-height: 1.33em;
-	}
-	&__icon {
-		margin-right: 2px;
-	}
-}
