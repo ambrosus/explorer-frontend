@@ -53,10 +53,10 @@ export const Index: React.FC = () => {
       {data && (
         <div className="home">
           <Content.Header>
-            <h1 className="home__heading">Ambrosus Network Explorer</h1>
+            <h1 className="home_heading">Ambrosus Network Explorer</h1>
             <FindWide />
-            <div className="main_info">
-              <div className="main_info_table">
+            <div className="home_info">
+              <div className="home_info_table">
                 {data?.header?.length
                   ? data.header.map((item) => (
                       <MainInfo
@@ -67,9 +67,7 @@ export const Index: React.FC = () => {
                     ))
                   : null}
               </div>
-              <div className="main_info_chart">
-                <Chart />
-              </div>
+              <Chart />
             </div>
           </Content.Header>
           <Content.Body>

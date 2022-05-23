@@ -11,10 +11,10 @@ export const Header = () => {
   const { width } = useWindowSize();
   const [isShow, setIsShow] = useState(false);
 
-  const isMobileStyle = width > 1100 ? 'menu__item' : 'menuMobile__item';
+  const isMobileStyle = width > 1100 ? 'menu__item' : 'menu_mobile_item';
 
   const menu = menuItems.map((menuElement: IRoute) => {
-    const cursor = menuElement.isClick ? 'universall__hover' : '';
+    const cursor = menuElement.isClick ? 'universall_hover' : '';
     const activeStyle = {
       color: '#fff',
       cursor: cursor,
@@ -58,13 +58,3 @@ export const Header = () => {
     </div>
   );
 };
-/*need jsDoc for Header function
- * @param {IRoute[]} menuItems
- * @param {boolean} isMobile
- * @param {boolean} isDesctop
- * @param {boolean} isOpen
- * @param {() => void} toggleMenu
- * @param {() => void} closeMenu
- * @param {() => void} openMenu
- * @returns {JSX.Element}
- */

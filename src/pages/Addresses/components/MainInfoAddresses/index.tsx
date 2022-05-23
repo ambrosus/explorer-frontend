@@ -9,16 +9,16 @@ const MainInfoAddresses = () => {
   const holders: number =
     appData && numWithCommas(appData.netInfo.accounts.withBalance);
   return (
-    <div className="addressesHeader">
-      <h1 className="addressesHeader__heading">Addresses</h1>
-      <div className="addressesHeader__table">
-        <div className="addressesHeader__cells">
-          <div className="addressesHeader__cell">Total addresses</div>
-          <div className="addressesHeader__cell">{totalAddresses}</div>
+    <div className="main_info_addresses">
+      <h1 className="main_info_addresses_heading">Addresses</h1>
+      <div className="main_info_addresses_table">
+        <div className="main_info_addresses_cells">
+          <div className="main_info_addresses_cell">Total addresses</div>
+          <div className="main_info_addresses_cell">{totalAddresses}</div>
         </div>
-        <div className="addressesHeader__cells">
-          <div className="addressesHeader__cell">Holders</div>
-          <div className="addressesHeader__cell">{holders}</div>
+        <div className="main_info_addresses_cells">
+          <div className="main_info_addresses_cell">Holders</div>
+          <div className="main_info_addresses_cell">{holders}</div>
         </div>
       </div>
     </div>

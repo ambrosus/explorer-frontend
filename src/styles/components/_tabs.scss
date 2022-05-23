@@ -5,13 +5,13 @@
   grid-row-gap: 3vw;
   border-bottom: 1px solid $secondary;
 
-  &__filters {
+  &_filters {
     display: flex;
     height: 56px;
     padding: 8px 0;
   }
 
-  &__link {
+  &_link {
     color: $main-light;
     text-decoration: none;
     font-weight: 700;
@@ -27,13 +27,13 @@
       border-collapse: collapse;
     }
   }
-  &__link:hover {
+  &_link:hover {
     color: $main;
     border-bottom: 4px solid $main;
     border-collapse: collapse;
   }
 
-  &__exportModal {
+  &_export_modal {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -42,7 +42,7 @@
     @include for-device-medium {
       width: 100%;
     }
-    &-mobile {
+    &_mobile {
       margin-top: 50px;
       position: absolute;
       z-index: 3;
@@ -51,13 +51,13 @@
       }
     }
   }
-  &__sideMenu {
+  &_side_menu {
     display: flex;
     align-items: center;
     justify-content: flex-end;
     @include for-device-medium {
     }
-    &-icon {
+    &_icon {
       display: flex;
       align-items: center;
       justify-content: center;

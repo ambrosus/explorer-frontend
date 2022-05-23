@@ -38,7 +38,7 @@ const Tabs: FC<TabsProps> = ({
   const headerToken: any = type === 'ERC-20_Tx' ? 'token' : null;
 
   const setActiveLink = ({ isActive }: any) =>
-    isActive ? 'tabs__link tabs__link-active' : 'tabs__link';
+    isActive ? 'tabs_link tabs_link-active' : 'tabs_link';
 
   useOnClickOutside(mobileCalendarRef, () => setIsShow(false));
 
@@ -80,9 +80,9 @@ const Tabs: FC<TabsProps> = ({
   return (
     <>
       <div className="tabs" tabIndex={-1}>
-        <div className="tabs__filters" tabIndex={-1}>
+        <div className="tabs_filters" tabIndex={-1}>
           {isShow && (
-            <div ref={mobileCalendarRef} className="tabs__exportModal-mobile">
+            <div ref={mobileCalendarRef} className="tabs_export_modal_mobile">
               <Calendar />
             </div>
           )}
@@ -118,14 +118,14 @@ const Tabs: FC<TabsProps> = ({
                 </NavLink>
               ))}
         </div>
-        <div ref={mobileCalendarRef} className="tabs__exportModal">
+        <div ref={mobileCalendarRef} className="tabs_export_modal">
           {width > 760 ? (
             <ExportCsv />
           ) : (
             <>
-              <div className="tabs__sideMenu">
+              <div className="tabs_side_menu">
                 <button
-                  className="tabs__sideMenu-icon"
+                  className="tabs_side_menu_icon"
                   onClick={() => setIsShow(!isShow)}
                 >
                   <SideMenu />

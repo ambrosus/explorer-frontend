@@ -30,15 +30,15 @@ const TokenModal: FC<TokenModalProps> = ({
   }, [name, addressData?.tokens, selectedToken]);
 
   return (
-    <div className="tokenModal" tabIndex={0}>
+    <div className="token_modal" tabIndex={0}>
       {addressData?.tokens?.length ? (
         <>
           <div>
-            <div className="tokenModal__tokens">
+            <div className="token_modal_tokens">
               ERC-20 Tokens
-              <span className="universall__light2" style={{ marginLeft: 4 }} />
+              <span className="universall_light2" style={{ marginLeft: 4 }} />
             </div>
-            <div className="tokenModal__arrows" />
+            <div className="token_modal_arrows" />
           </div>
           {!filteredTokensList.length
             ? addressData?.tokens.map(
@@ -62,11 +62,11 @@ const TokenModal: FC<TokenModalProps> = ({
         </>
       ) : (
         <div>
-          <div className="tokenModal__tokens">
+          <div className="token_modal_tokens">
             <div>You don't have tokens yet</div>
-            <span className="universall__light2" style={{ marginLeft: 4 }} />
+            <span className="universall_light2" style={{ marginLeft: 4 }} />
           </div>
-          <div className="tokenModal__arrows" />
+          <div className="token_modal_arrows" />
         </div>
       )}
     </div>

@@ -11,7 +11,7 @@ const TokenItem = ({ token, selectedToken, setToken }: TokenItemProps) => {
   const Icon = getTokenIcon(token.symbol);
   return (
     <div
-      className="tokenItem"
+      className="token_item"
       onClick={() => {
         setToken(token);
       }}
@@ -25,24 +25,21 @@ const TokenItem = ({ token, selectedToken, setToken }: TokenItemProps) => {
             : null,
       }}
     >
-      <div className="tokenItem__icon">
+      <div className="token_item_icon">
         <Icon />
       </div>
 
-      <div className="tokenItem__tokens">
+      <div className="token_item_tokens">
         <div>
           {token?.name?.length > 40
             ? `${token?.name.slice(0, 40)}...`
             : token?.name}
         </div>
-        <div className="universall__light2">
+        <div className="universall_light2">
           {token?.balance} {token?.symbol}
         </div>
       </div>
-      <div className="tokenItem__amount">
-        {/*<div>{token?.balance}</div>*/}
-        {/*<div className="universall__light2 universall__line-height">@0.00</div>*/}
-      </div>
+      <div className="token_item_amount"></div>
     </div>
   );
 };

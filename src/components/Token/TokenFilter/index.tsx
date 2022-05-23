@@ -31,7 +31,7 @@ const TokenFilter = ({ loading, addressData, onClick, selectedToken }: any) => {
       <div
         ref={refTokensModal}
         tabIndex={0}
-        className={`tokenFilter ${
+        className={`token_filter ${
           loading && !addressData?.tokens?.length
             ? 'toggle'
             : loading
@@ -39,9 +39,9 @@ const TokenFilter = ({ loading, addressData, onClick, selectedToken }: any) => {
             : ''
         }`}
       >
-        <div className="tokenFilter__input">
+        <div className="token_filter_input">
           <span
-            className={`tokenFilter__input-rectangle ${
+            className={`token_filter_input_rectangle ${
               loading && !addressData?.tokens?.length
                 ? 'toggle'
                 : loading
@@ -60,11 +60,11 @@ const TokenFilter = ({ loading, addressData, onClick, selectedToken }: any) => {
               : addressData.tokens.length}
           </span>
           <button
-            className="tokenFilter__input-btn"
+            className="token_filter_input_btn"
             type="button"
             onClick={toggleMenu}
           >
-            <span className="tokenFilter__input-text">{''}</span>
+            <span className="token_filter_input_text">{''}</span>
             {isShow ? <ArrowUpBig /> : <ArrowDownBig />}
           </button>
         </div>
