@@ -1,7 +1,8 @@
+import Chart from '../Chart';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import { numWithCommas } from 'utils/helpers';
 
-const MainInfoApollo = () => {
+const MainInfoApollo = ({ apollosStats, chartData }: any) => {
   const { data: appData } = useTypedSelector((state: any) => state.app);
 
   const totalAddresses: number =
@@ -14,7 +15,9 @@ const MainInfoApollo = () => {
       <div className="main_info_apollo_table">
         <div className="main_info_apollo_cell">
           <span className="main_info_apollo_cell_primary">TOTAL NODES</span>
-          <span className="main_info_apollo_cell_secondary">192</span>
+          <span className="main_info_apollo_cell_secondary">
+            {apollosStats.total}
+          </span>
         </div>
         <div className="main_info_apollo_cell">
           <span className="main_info_apollo_cell_primary">Online</span>
@@ -24,16 +27,20 @@ const MainInfoApollo = () => {
               color: '#1acd8c',
             }}
           >
-            182
+            {apollosStats.online}
           </span>
         </div>
         <div className="main_info_apollo_cell">
           <span className="main_info_apollo_cell_primary">offline</span>
-          <span className="main_info_apollo_cell_secondary">5</span>
+          <span className="main_info_apollo_cell_secondary">
+            {apollosStats.offline}
+          </span>
         </div>
         <div className="main_info_apollo_cell">
           <span className="main_info_apollo_cell_primary">CONNECTING</span>
-          <span className="main_info_apollo_cell_secondary">2</span>
+          <span className="main_info_apollo_cell_secondary">
+            {apollosStats.connecting}
+          </span>
         </div>
         <div className="main_info_apollo_cell">
           <span className="main_info_apollo_cell_primary">
@@ -41,7 +48,9 @@ const MainInfoApollo = () => {
           </span>
           <span className="main_info_apollo_cell_secondary">5.16 sec</span>
         </div>
-        <div className="main_info_apollo_cell">Chart cell</div>
+        <div className="main_info_apollo_cell" style={{ padding: 5 }}>
+          <Chart chartData={chartData} />
+        </div>
       </div>
     </div>
   );
