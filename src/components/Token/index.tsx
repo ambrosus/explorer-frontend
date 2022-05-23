@@ -1,3 +1,4 @@
+import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { TParams } from '../../types';
 import TokenFilter from './TokenFilter';
 import { TokenType } from 'pages/Addresses/AddressDetails/address-details.interface';
@@ -7,18 +8,13 @@ import { useParams } from 'react-router-dom';
 export interface TokenProps {
   selectedToken: TokenType | null;
   onClick: any;
-  loading: any;
-  addressData: any;
 }
 
-const Token: React.FC<TokenProps> = ({
-  loading,
-  addressData,
-  onClick,
-  selectedToken,
-}) => {
+const Token: React.FC<TokenProps> = ({ onClick, selectedToken }) => {
   const { address }: TParams = useParams();
-
+  const { loading, data: addressData } = useTypedSelector(
+    (state: any) => state.position,
+  );
   const [prevAddress, setPrevAddress] = useState(address);
 
   const [newData, setNewData] = useState({});
@@ -38,6 +34,9 @@ const Token: React.FC<TokenProps> = ({
     if (addressData) {
       setNewData(addressData);
     }
+    return () => {
+      setNewData({});
+    };
   }, [addressData]);
 
   return (

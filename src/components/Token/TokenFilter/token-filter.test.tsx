@@ -18,26 +18,21 @@ describe('TokenFilter', () => {
 
   test('render correctly with tokens array', () => {
     const { container, getByText, getByRole } = renderWithReduxAndRouter(
-      <TokenFilter />,
-      {
-        position: {
-          loading: false,
-          error: null,
-          data: {
-            tokens: [
-              {
-                type: 'ERC20',
-                name: 'Ganymede pool token',
-                contract: '0x13243210d4747a1fe03395095c21213',
-                transfers: 4,
-                idx: 1,
-                balance: '0.00',
-                totalSupply: 0,
-              },
-            ],
-          },
-        },
-      },
+      <TokenFilter
+        addressData={{
+          tokens: [
+            {
+              type: 'ERC20',
+              name: 'Ganymede pool token',
+              contract: '0x13243210d4747a1fe03395095c21213',
+              transfers: 4,
+              idx: 1,
+              balance: '0.00',
+              totalSupply: 0,
+            },
+          ],
+        }}
+      />,
     );
     const matchesBefore = container.querySelectorAll('div');
     expect(matchesBefore).toHaveLength(2);
