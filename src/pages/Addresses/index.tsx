@@ -12,7 +12,8 @@ import { getAccountsData } from 'services/accounts.service';
 export const Addresses = () => {
   const { loading } = useTypedSelector((state) => state.app);
 
-  const { ref, sortTerm, setSortTerm, accounts } = useSortData(getAccountsData);
+  const { ref, sortTerm, setSortTerm, renderData } =
+    useSortData(getAccountsData);
   return (
     <Content>
       <Content.Header>
@@ -23,9 +24,9 @@ export const Addresses = () => {
           <AddressesSort sortTerm={sortTerm} setSortTerm={setSortTerm} />
           <div className="addresses_table">
             <AddressesHeader />
-            {accounts && accounts.data && accounts.data.length
-              ? accounts.data.map((account: Account, index: number) => {
-                  return account && accounts.data.length - 1 === index ? (
+            {renderData && renderData.data && renderData.data.length
+              ? renderData.data.map((account: Account, index: number) => {
+                  return account && renderData.data.length - 1 === index ? (
                     <AddressesBody
                       key={account._id}
                       lastCardRef={ref}
