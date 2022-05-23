@@ -1,0 +1,40 @@
+.home {
+  // overflow: auto;
+  &_info {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    margin: 30px auto;
+
+    @include for-device-large {
+      display: flex;
+      flex-direction: column;
+      margin: 30px auto;
+    }
+
+    &_table {
+      display: grid;
+      grid-template-columns: repeat(3, auto);
+      background: $white;
+      border-radius: 1.15em 0 0 1.15em;
+      @include for-device-large {
+        border-radius: 1.15em 1.15em 0 0;
+      }
+      @include for-device-medium {
+        grid-template-columns: repeat(2, auto);
+      }
+      @include for-device-small {
+        grid-template-columns: repeat(1, auto);
+        min-width: 320px;
+      }
+    }
+  }
+  &_heading {
+    margin: 30px auto;
+    @include for-device-small {
+      font-size: 27px;
+    }
+    @include for-device-xs {
+      font-size: 25px;
+    }
+  }
+}

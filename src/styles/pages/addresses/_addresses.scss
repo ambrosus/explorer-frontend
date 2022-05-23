@@ -1,0 +1,16 @@
+// Address
+
+.addresses {
+  &_main_table {
+    display: grid;
+    margin-left: 10px;
+    width: 100%;
+  }
+
+  &_table {
+    display: grid;
+    grid-template-columns: repeat(5, auto);
+    width: 100%;
+    overflow-x: scroll;
+  }
+}

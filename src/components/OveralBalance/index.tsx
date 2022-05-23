@@ -1,22 +1,19 @@
-import { useDebounce } from '../../hooks/useDebounce';
-import { TParams } from '../../types';
+// import { useDebounce } from 'hooks/useDebounce';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import { OverallBalanceProps } from 'pages/Addresses/AddressDetails/address-details.interface';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { TParams } from 'types';
 
 const OverallBalance: React.FC<OverallBalanceProps> = ({
   addressBalance = 0,
 }) => {
-  const { loading, data: appData } = useTypedSelector(
-    (state: any) => state.app,
-  );
+  const { data: appData } = useTypedSelector((state: any) => state.app);
   const { address }: TParams = useParams();
   const [balance, setBalance] = useState<any>(Number(addressBalance));
-  const [amountInUsd, setAmountInUsd] = useState<any>(Number(addressBalance));
-
+  const [amountInUsd, setAmountInUsd] = useState<any>(0);
   const balMemo = useMemo(
-    () => (balance ? Number(addressBalance) : Number(addressBalance)),
+    () => balance !== 0 && Number(addressBalance),
     [address, addressBalance],
   );
   let amountInUsdMemo = useMemo(() => {
@@ -27,11 +24,10 @@ const OverallBalance: React.FC<OverallBalanceProps> = ({
         appData.total_price_usd * Number(addressBalance)) ||
       0
     );
-  }, [appData, address]);
+  }, [appData, balance !==addressBalance, address]);
 
-  const deboucePrice = useDebounce(amountInUsdMemo, 1000);
   useEffect(() => {
-    if (!balMemo || address) {
+    if (address) {
       if (addressBalance) {
         setBalance(addressBalance);
       }
@@ -40,23 +36,28 @@ const OverallBalance: React.FC<OverallBalanceProps> = ({
       }
     }
   }, [addressBalance, address, amountInUsd]);
-
+  useEffect(() => {
+    return () => {
+      setBalance(0);
+      setAmountInUsd(0);
+    };
+  }, []);
   return (
-    <div className="addressDetails__div">
+    <div className="overal_balance">
       <span
-        className="addressDetails__div-span universall__dark"
+        className="overal_balance_cell universall_dark"
         style={{ fontWeight: 700 }}
       >
         Balance
       </span>
-      <span className="addressDetails__div-span universall__dark">
+      <span className="overal_balance_cell universall_dark">
         {`${
           balMemo ? Number(balMemo).toFixed(2) : Number(balance).toFixed(2)
         } AMB`}{' '}
       </span>
-      <span className="addressDetails__div-span universall__dark">/</span>
-      <span className="addressDetails__div-span universall__light2">{`$ ${
-        amountInUsd ? amountInUsd.toFixed(2) : deboucePrice.toFixed(2)
+      <span className="overal_balance_cell universall_dark">/</span>
+      <span className="overal_balance_cell universall_light2">{`$ ${
+        amountInUsdMemo ? amountInUsdMemo.toFixed(2) : amountInUsd.toFixed(2)
       }`}</span>
     </div>
   );

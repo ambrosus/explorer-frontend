@@ -4,10 +4,10 @@ import BlocksContent from 'components/BlocksContent';
 import BlocksContentMobile from 'components/BlocksContentMobile';
 import Chart from 'components/Chart';
 import { Content } from 'components/Content';
-import FindWide from 'components/FindWide';
-import MainInfo from 'components/MainInfo';
+import FindWide from 'components/Find/FindWide';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import useWindowSize from 'hooks/useWindowSize';
+import MainInfo from 'pages/Home/components/MainInfo';
 import React, { useEffect, useState } from 'react';
 
 export const Index: React.FC = () => {
@@ -53,10 +53,10 @@ export const Index: React.FC = () => {
       {data && (
         <div className="home">
           <Content.Header>
-            <h1 className="home__heading">Ambrosus Network Explorer</h1>
+            <h1 className="home_heading">Ambrosus Network Explorer</h1>
             <FindWide />
-            <div className="mainInfo">
-              <div className="mainInfo__table">
+            <div className="home_info">
+              <div className="home_info_table">
                 {data?.header?.length
                   ? data.header.map((item) => (
                       <MainInfo
@@ -67,9 +67,7 @@ export const Index: React.FC = () => {
                     ))
                   : null}
               </div>
-              <div className="mainInfo__chart">
-                <Chart />
-              </div>
+              <Chart />
             </div>
           </Content.Header>
           <Content.Body>

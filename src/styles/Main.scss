@@ -1,37 +1,14 @@
 // utilites
-@import './utilites/variables';
-@import './utilites/breakpoints';
-@import './utilites/base';
-@import './utilites/icons';
-@import './utilites/universall';
+@import './utilites/index';
 
 // fonts
-@import './fonts/fonts';
+@import './fonts/index';
 
 // layout
-@import './layout/footer';
-@import './layout/header';
-@import './layout/layout';
+@import './layout/index';
 
 // pages
-@import './pages/home';
-@import './pages/businesses';
-@import './pages/addresses';
-@import './pages/apollo/apollo';
-@import './pages/atlas/atlas';
-@import './pages/error-page';
+@import './pages/index';
 
 // components
-@import './components/token';
-@import './components/calendar';
-@import './components/content';
-@import './components/exportСsv';
-@import './components/filteredToken';
-@import './components/findWide';
-@import './components/lastestTransactions';
-@import './components/latestBlocks';
-@import './components/mainInfo';
-@import './components/methodModal';
-@import './components/tabs';
-@import './components/chart';
-@import './components/blocks';
+@import './components/index';

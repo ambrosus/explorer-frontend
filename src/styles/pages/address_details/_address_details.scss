@@ -1,0 +1,131 @@
+.address_details {
+  &_h1 {
+    display: flex;
+    align-items: center;
+    margin: 30px auto;
+    white-space: nowrap;
+    @include for-device-large {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+
+  &_copy {
+    display: flex;
+    align-items: center;
+    margin: 12px;
+    font-size: 2.3rem;
+    line-height: 2.2rem;
+    font-style: normal;
+    font-weight: 400;
+    @include for-device-large {
+      margin-left: 0px;
+      font-size: 2rem;
+    }
+    @include for-device-medium {
+      font-size: 1.5rem;
+    }
+    @include for-device-small {
+      font-size: 0.88rem;
+    }
+
+    &_btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 45px;
+      height: 24px;
+      font-weight: 700;
+      font-size: 11px;
+      line-height: 32px;
+      background: #f6f6f6;
+      border-radius: 8px;
+      color: #fff;
+
+      //   &_copyed {
+      //     display: flex;
+      //     align-items: center;
+      //     justify-content: center;
+      //     width: 56px;
+      //     height: 24px;
+      //     font-weight: 700;
+      //     font-size: 11px;
+      //     line-height: 32px;
+      //     background: #1acd8c;
+      //     border-radius: 8px;
+      //     color: #fff;
+      //   }
+    }
+
+    &_popup {
+      position: absolute;
+      margin-top: 70px;
+    }
+  }
+
+  &_info {
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    grid-row-gap: 3vw;
+    margin-bottom: 32px;
+    @include for-device-medium {
+      display: flex;
+      flex-direction: column;
+      grid-row-gap: 16px;
+    }
+
+    // &_tokenName {
+    //   display: flex;
+    //   align-self: center;
+    //   margin-right: 10px;
+    //   font-weight: 700;
+    //   font-size: 1.28em;
+    //   line-height: 2.28em;
+    // }
+  }
+
+  //   &_div {
+  //     display: flex;
+  //     gap: 4px;
+
+  //     &_span {
+  //       font-style: normal;
+  //       font-weight: 400;
+  //       font-size: 1.28em;
+  //       line-height: 2.28em;
+  //     }
+  //   }
+
+  //   &_button {
+  //     display: flex;
+  //     border-bottom: 1px solid #eff2f5;
+  //   }
+}
+
+#centered-tooltip {
+  background-color: #808a9d !important;
+  color: #ffffff !important;
+  border-radius: 8px;
+
+  font-family: 'Proxima Nova';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 11px;
+  padding: 6px;
+  &:before {
+    border-top-color: #808a9d !important;
+  }
+}
+
+.flex-between {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}

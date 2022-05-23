@@ -1,0 +1,42 @@
+.token {
+  height: 42px;
+  display: flex;
+  justify-content: flex-end;
+  @include for-device-medium {
+    display: flex;
+    justify-content: flex-start;
+  }
+  &__info {
+    display: flex;
+    position: absolute;
+    flex-direction: row;
+    z-index: 2;
+
+    &-name {
+      margin-right: 10px;
+      font-weight: 700;
+      font-size: 1.28em;
+      line-height: 2.28em;
+      height: 100%;
+    }
+  }
+}
+
+// tokenFilter
+@keyframes morph {
+  0% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0.7;
+  }
+}
+
+.toggle {
+  animation: morph 2s linear;
+}
+
+// tokenItem

@@ -5,35 +5,13 @@
   grid-row-gap: 3vw;
   border-bottom: 1px solid $secondary;
 
-  &__filters {
+  &_filters {
     display: flex;
     height: 56px;
     padding: 8px 0;
   }
 
-  &__calendar {
-    margin-top: 8px;
-    z-index: 1;
-    border-radius: 12px;
-    &-exportCsv {
-      position: relative;
-      right: -24px;
-      bottom: 56px;
-      height: 40px;
-      width: 100px;
-      background-color: $main;
-      color: $white;
-      border-radius: 4px;
-      @include for-device-small {
-        left: 24px;
-      }
-    }
-    &-exportCsv:hover {
-      box-shadow: 4px 8px 8px rgb(0 0 0 / 25%);
-    }
-  }
-
-  &__link {
+  &_link {
     color: $main-light;
     text-decoration: none;
     font-weight: 700;
@@ -49,38 +27,13 @@
       border-collapse: collapse;
     }
   }
-  &__link:hover {
+  &_link:hover {
     color: $main;
     border-bottom: 4px solid $main;
     border-collapse: collapse;
   }
-  &__exportCsv {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    flex: 1;
 
-    &-btn {
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      width: 139px;
-      height: 40px;
-      border: 1px solid $secondary;
-      box-sizing: border-box;
-      border-radius: 16px;
-    }
-    &-btn:hover {
-      border-color: $main;
-    }
-
-    &-text {
-      font-weight: 600;
-      line-height: 1.33em;
-      margin: 8px 16px;
-    }
-  }
-  &__exportModal {
+  &_export_modal {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -89,7 +42,7 @@
     @include for-device-medium {
       width: 100%;
     }
-    &-mobile {
+    &_mobile {
       margin-top: 50px;
       position: absolute;
       z-index: 3;
@@ -98,13 +51,13 @@
       }
     }
   }
-  &__sideMenu {
+  &_side_menu {
     display: flex;
     align-items: center;
     justify-content: flex-end;
     @include for-device-medium {
     }
-    &-icon {
+    &_icon {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -112,6 +65,26 @@
       height: 24px;
       background: $secondary;
       border-radius: 8px;
+    }
+  }
+  &_table {
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    min-height: 110px;
+    width: 100%;
+    display: grid;
+    grid-row-gap: 32px;
+
+    margin-top: 16px;
+    position: relative;
+    white-space: nowrap;
+    overflow-x: scroll;
+
+    @include for-device-small {
     }
   }
 }

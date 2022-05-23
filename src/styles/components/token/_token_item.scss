@@ -1,0 +1,35 @@
+.token_item {
+  display: grid;
+  grid-template-columns: 22px 2fr 1fr;
+  padding: 12px;
+  border-top: 1px solid $secondary;
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
+  }
+  &:hover {
+    background-color: $secondary;
+    border-top: 1px solid $white;
+  }
+  &:hover:nth-last-child(1) {
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
+  }
+
+  &_tokens {
+    padding-left: 10px;
+    line-height: 1.33em;
+    &:hover {
+      background-color: $secondary;
+    }
+  }
+
+  &_amount {
+    text-align: end;
+    line-height: 1.33em;
+  }
+  &_icon {
+    margin-right: 2px;
+  }
+}

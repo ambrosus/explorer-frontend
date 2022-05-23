@@ -9,7 +9,7 @@ export const CustomTooltip = ({
   if (active) {
     return (
       <div
-        className="custom-tooltip"
+        className="chart_custom_tooltip"
         style={{
           background: '#FFFFFF',
           border: '1px solid #F4F5F6',
@@ -26,13 +26,13 @@ export const CustomTooltip = ({
           color: '#333',
         }}
       >
-        <p className="intro">{label}</p>
-        <p className="label">
-          <span className="label-name">Date :</span>{' '}
+        <p className="chart_intro">{label}</p>
+        <p className="chart_label">
+          <span className="chart_label_name">Date :</span>{' '}
           <span>{`${payload[0].payload?.date}`}</span>
         </p>
-        <p className="label">
-          <span className="label-name">Transactions :</span>
+        <p className="chart_label">
+          <span className="chart_label_name">Transactions :</span>
           <span>{`${payload[0].payload?.count}`}</span>
         </p>
       </div>

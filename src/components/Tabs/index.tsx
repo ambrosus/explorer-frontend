@@ -1,5 +1,4 @@
-import AddressBlock from '../AddressBlocks/AddressBlock';
-import AddressBlocksHeader from '../AddressBlocksHeader';
+import AddressBlock from '../../pages/Addresses/AddressDetails/components/AddressBlocks/AddressBlock';
 import ExportCsv from '../ExportCsv';
 import Loader from '../Loader';
 import SideMenu from 'assets/icons/SideMenu';
@@ -12,6 +11,7 @@ import {
   TabsProps,
   TransactionProps,
 } from 'pages/Addresses/AddressDetails/address-details.interface';
+import AddressBlocksHeader from 'pages/Addresses/AddressDetails/components/AddressBlocksHeader';
 import React, { FC, useEffect, useRef, useState } from 'react';
 import { NavLink, useParams } from 'react-router-dom';
 import { setupStyle, toUniqueValueByBlock } from 'utils/helpers';
@@ -38,7 +38,7 @@ const Tabs: FC<TabsProps> = ({
   const headerToken: any = type === 'ERC-20_Tx' ? 'token' : null;
 
   const setActiveLink = ({ isActive }: any) =>
-    isActive ? 'tabs__link tabs__link-active' : 'tabs__link';
+    isActive ? 'tabs_link tabs_link-active' : 'tabs_link';
 
   useOnClickOutside(mobileCalendarRef, () => setIsShow(false));
 
@@ -80,9 +80,9 @@ const Tabs: FC<TabsProps> = ({
   return (
     <>
       <div className="tabs" tabIndex={-1}>
-        <div className="tabs__filters" tabIndex={-1}>
+        <div className="tabs_filters" tabIndex={-1}>
           {isShow && (
-            <div ref={mobileCalendarRef} className="tabs__exportModal-mobile">
+            <div ref={mobileCalendarRef} className="tabs_export_modal_mobile">
               <Calendar />
             </div>
           )}
@@ -91,10 +91,11 @@ const Tabs: FC<TabsProps> = ({
               transactionFilters.length &&
               transactionFilters.map((filter) => (
                 <NavLink
+                  replace
                   key={filter.title}
                   to={`/addresses/${address}/${
                     filter.value ? filter.value : ''
-                  }`}
+                  }/`}
                   className={setActiveLink}
                   onClick={(e) => {
                     setTransactionType(filter.value);
@@ -107,6 +108,7 @@ const Tabs: FC<TabsProps> = ({
               ERC20Filters.length &&
               ERC20Filters.map((filter) => (
                 <NavLink
+                  replace
                   key={filter.title}
                   to={`/addresses/${address}/ERC-20_Tx/${filtered}/${filter.value}`}
                   className={setActiveLink}
@@ -118,14 +120,14 @@ const Tabs: FC<TabsProps> = ({
                 </NavLink>
               ))}
         </div>
-        <div ref={mobileCalendarRef} className="tabs__exportModal">
+        <div ref={mobileCalendarRef} className="tabs_export_modal">
           {width > 760 ? (
             <ExportCsv />
           ) : (
             <>
-              <div className="tabs__sideMenu">
+              <div className="tabs_side_menu">
                 <button
-                  className="tabs__sideMenu-icon"
+                  className="tabs_side_menu_icon"
                   onClick={() => setIsShow(!isShow)}
                 >
                   <SideMenu />
@@ -136,7 +138,7 @@ const Tabs: FC<TabsProps> = ({
         </div>
       </div>
 
-      <section className="addressDetails__table" style={setupStyle(type)}>
+      <section className="tabs_table" style={setupStyle(type)}>
         {loading && !renderData?.length && (
           <div
             style={{
