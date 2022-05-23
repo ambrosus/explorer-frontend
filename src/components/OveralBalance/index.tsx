@@ -12,7 +12,6 @@ const OverallBalance: React.FC<OverallBalanceProps> = ({
   const { address }: TParams = useParams();
   const [balance, setBalance] = useState<any>(Number(addressBalance));
   const [amountInUsd, setAmountInUsd] = useState<any>(0);
-  console.log('addressBalance', addressBalance);
   const balMemo = useMemo(
     () => balance !== 0 && Number(addressBalance),
     [address, addressBalance],
@@ -25,7 +24,7 @@ const OverallBalance: React.FC<OverallBalanceProps> = ({
         appData.total_price_usd * Number(addressBalance)) ||
       0
     );
-  }, [appData, address]);
+  }, [appData, balance !==addressBalance, address]);
 
   useEffect(() => {
     if (address) {

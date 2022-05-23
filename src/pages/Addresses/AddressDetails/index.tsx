@@ -197,7 +197,12 @@ export const AddressDetails = () => {
                 }
               />
 
-              <Token selectedToken={selectedToken} onClick={setSelectedToken} />
+              <Token
+                loading={loading}
+                addressData={addressData}
+                selectedToken={selectedToken}
+                onClick={setSelectedToken}
+              />
             </div>
             {selectedToken && (
               <FilteredToken setSelectedToken={setSelectedToken} />
