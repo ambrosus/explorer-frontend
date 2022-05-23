@@ -61,7 +61,9 @@ const getTokenName = (token: TokenType) => {
       ? item.token === token
       : item.token === token?.name,
   );
-    return tokenNameFromExample?.contractName ?tokenNameFromExample?.contractName :tokenName
+  return tokenNameFromExample?.contractName
+    ? tokenNameFromExample?.contractName
+    : tokenName;
 };
 const sortedLatestTransactionsData = async (
   filters: any,
@@ -282,7 +284,7 @@ export const getDataForAddress = async (address: string, params: any) => {
     const latestTransactions: TransactionProps[] =
       (await sortedLatestTransactionsData(defaultFilters, url, page)) || [];
 
-    const transactionsAll: TransactionProps[] = [ ...explorData,...bbTxData];
+    const transactionsAll: TransactionProps[] = [...explorData, ...bbTxData];
     return {
       balance: addressBalance,
       transactions:

@@ -3,7 +3,7 @@ import { useTypedSelector } from 'hooks/useTypedSelector';
 import { AddressesBodyProps } from 'pages/Addresses/addresses.interface';
 import IsContract from 'pages/Addresses/components/IsContract';
 import React, { FC } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
 import { displayAmount } from 'utils/helpers';
 
@@ -28,7 +28,10 @@ const AddressesBody: FC<AddressesBodyProps> = ({
           {rank}
         </div>
 
-        <NavLink to={`/addresses/${address}/`} className="addresses_body_cell">
+        <NavLink
+          to={`/addresses/${address}/`}
+          className="addresses_body_cell universall_light2"
+        >
           <ReactTooltip
             id="centered-tooltip"
             effect="solid"

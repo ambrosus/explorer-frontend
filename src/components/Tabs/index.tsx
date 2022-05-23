@@ -1,20 +1,18 @@
 import AddressBlock from '../../pages/Addresses/AddressDetails/components/AddressBlocks/AddressBlock';
 import ExportCsv from '../ExportCsv';
 import Loader from '../Loader';
+import useTabs from './useTabs';
 import SideMenu from 'assets/icons/SideMenu';
 import Calendar from 'components/Calendar';
 import { useOnClickOutside } from 'hooks/useOnClickOutside';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import useWindowSize from 'hooks/useWindowSize';
 import moment from 'moment';
-import {
-  TabsProps,
-  TransactionProps,
-} from 'pages/Addresses/AddressDetails/address-details.interface';
+import { TabsProps } from 'pages/Addresses/AddressDetails/address-details.interface';
 import AddressBlocksHeader from 'pages/Addresses/AddressDetails/components/AddressBlocksHeader';
-import React, { FC, useEffect, useRef, useState } from 'react';
+import { FC, useRef, useState } from 'react';
 import { NavLink, useParams } from 'react-router-dom';
-import { setupStyle, toUniqueValueByBlock } from 'utils/helpers';
+import { setupStyle } from 'utils/helpers';
 import { sidePages } from 'utils/sidePages';
 
 const Tabs: FC<TabsProps> = ({
@@ -25,11 +23,7 @@ const Tabs: FC<TabsProps> = ({
 }) => {
   const [isShow, setIsShow] = useState(false);
   const { address, type, filtered } = useParams();
-  const [prevType, setPrevType] = useState<any>(type);
-  const [renderData, setRenderData] = React.useState<any>(null);
-  const { loading, data: addressData } = useTypedSelector(
-    (state: any) => state.position,
-  );
+  const { loading } = useTypedSelector((state: any) => state.position);
   const mobileCalendarRef = useRef(null);
   const { width } = useWindowSize();
   const { transactionFilters, ERC20Filters, methodFilters } = sidePages;
@@ -42,40 +36,7 @@ const Tabs: FC<TabsProps> = ({
 
   useOnClickOutside(mobileCalendarRef, () => setIsShow(false));
 
-  useEffect(() => {
-    if (type) {
-      setPrevType(type);
-    }
-    if (prevType !== type) {
-      setRenderData(null);
-    }
-    if (addressData && !loading) {
-      if (data?.length && type !== 'ERC-20_Tx' && !filtered) {
-        if (type === 'transfers') {
-          setRenderData(() => {
-            const transfersDataTx: TransactionProps[] = data.filter(
-              (item: TransactionProps) => item.method === 'Transfer',
-            );
-            return transfersDataTx || [];
-          });
-        } else {
-          setRenderData(toUniqueValueByBlock(data));
-        }
-      }
-      if (data?.length && filtered && type === 'ERC-20_Tx') {
-        setRenderData(toUniqueValueByBlock(data));
-      }
-
-      if (
-        addressData &&
-        addressData?.latestTransactions?.length &&
-        type === 'ERC-20_Tx' &&
-        !filtered
-      ) {
-        setRenderData(toUniqueValueByBlock(addressData.latestTransactions));
-      }
-    }
-  }, [addressData, data, filtered, type, loading]);
+  const { renderData } = useTabs(data);
 
   return (
     <>
@@ -98,7 +59,7 @@ const Tabs: FC<TabsProps> = ({
                     key={filter.title}
                     to={`/addresses/${address}/${
                       filter.value ? filter.value : ''
-                    }/`}
+                    }`}
                     className={setActiveLink}
                     onClick={(e) => {
                       setTransactionType(filter.value);
