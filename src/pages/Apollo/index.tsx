@@ -7,7 +7,7 @@ import useSortData from 'hooks/useSortData';
 import { getApolloData } from 'services/apollo.service';
 
 export const Apollo = () => {
-  const { ref, sortTerm, setSortTerm, accounts } = useSortData(getApolloData);
+  const { sortTerm, setSortTerm } = useSortData(getApolloData);
 
   const num = 6;
 

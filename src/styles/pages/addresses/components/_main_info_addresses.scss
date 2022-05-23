@@ -6,11 +6,11 @@
   white-space: nowrap;
   height: 103px;
 
-  @include for-device-medium {
+  @include for_tablet {
     height: 100%;
     height: 103px;
   }
-  @include for-device-small {
+  @include for_phone {
     flex-direction: column;
     align-items: flex-start;
     height: 100%;
@@ -19,7 +19,7 @@
 
   &_heading {
     flex: 1;
-    @include for-device-small {
+    @include for_phone {
       margin: 6px 0px;
     }
   }
@@ -28,7 +28,7 @@
     display: flex;
     align-items: center;
     flex: 2;
-    @include for-device-small {
+    @include for_phone {
       flex-direction: column;
       align-items: flex-start;
     }
@@ -37,7 +37,7 @@
   &_cells {
     display: flex;
 
-    @include for-device-medium {
+    @include for_tablet {
       flex-direction: row;
       margin: 6px 0px;
     }
@@ -52,7 +52,7 @@
       font-weight: 700;
     }
 
-    @include for-device-small {
+    @include for_phone {
       margin: 0px;
     }
   }

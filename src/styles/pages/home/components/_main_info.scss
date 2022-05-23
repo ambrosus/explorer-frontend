@@ -5,7 +5,7 @@
     justify-content: flex-start;
     height: 105px;
     border: 0.5px solid #f6f6f6;
-    @include for-device-small {
+    @include for_phone {
       height: 64px;
     }
   }
@@ -18,11 +18,11 @@
     border: 1px solid #f6f6f6;
     background-color: $white;
     border-radius: 0 1.15em 1.15em 0;
-    @include for-device-large {
+    @include for_laptop {
       border-radius: 0 0 1.15em 1.15em;
       width: 100%;
     }
-    @include for-device-medium {
+    @include for_tablet {
       height: 168px;
     }
   }
@@ -30,10 +30,10 @@
     margin: 0 12px;
     white-space: nowrap;
     width: 168px;
-    @include for-device-large {
+    @include for_laptop {
       width: 155px;
     }
-    @include for-device-small {
+    @include for_phone {
       padding-top: 7px;
     }
   }

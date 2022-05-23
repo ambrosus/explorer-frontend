@@ -7,11 +7,11 @@
   height: 210px;
   justify-content: center;
   width: 370px;
-  @include for-device-large {
+  @include for_laptop {
     border-radius: 0 0 1.15em 1.15em;
     width: 100%;
   }
-  @include for-device-medium {
+  @include for_tablet {
     height: 168px;
   }
   &_header {

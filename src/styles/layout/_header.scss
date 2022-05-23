@@ -9,7 +9,7 @@
   color: $white;
   flex: 0 0 auto;
 
-  @include for-device-medium {
+  @include for_tablet {
     height: 60px;
   }
 }

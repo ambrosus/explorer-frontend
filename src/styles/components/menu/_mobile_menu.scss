@@ -23,7 +23,7 @@
     margin-top: 40px;
     width: 360px;
     z-index: 5;
-    @include for-device-small {
+    @include for_phone {
       width: 100%;
     }
   }

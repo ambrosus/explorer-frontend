@@ -74,7 +74,7 @@
     &_big {
       line-height: 1.33em;
       font-weight: 600;
-      @include for-device-xs {
+      @include for_small_phone {
         font-size: 12px;
       }
     }
@@ -83,11 +83,11 @@
       line-height: 0.88 em;
       font-weight: 400;
       color: #58667e;
-      @include for-device-xs {
+      @include for_small_phone {
         font-size: 10px;
       }
     }
-    @include for-device-xs {
+    @include for_small_phone {
       min-width: 30px;
     }
   }

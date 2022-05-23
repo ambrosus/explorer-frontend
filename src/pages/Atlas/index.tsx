@@ -7,7 +7,7 @@ import useSortData from 'hooks/useSortData';
 import { getAtlasData } from 'services/atlas.service';
 
 export const Atlas = () => {
-  const { ref, sortTerm, setSortTerm, accounts } = useSortData(getAtlasData);
+  const { sortTerm, setSortTerm } = useSortData(getAtlasData);
 
   const num = 6;
 

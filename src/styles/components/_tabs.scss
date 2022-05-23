@@ -17,14 +17,14 @@
       justify-content: center;
       align-items: flex-end;
       margin: 8px 0px;
-      @include for-device-medium {
+      @include for_tablet {
         width: 100%;
       }
       &_mobile {
         margin-top: 50px;
         position: absolute;
         z-index: 3;
-        @include for-device-medium {
+        @include for_tablet {
           margin-top: 39px;
         }
       }
@@ -48,7 +48,7 @@
     white-space: nowrap;
     overflow-x: scroll;
 
-    @include for-device-small {
+    @include for_phone {
     }
   }
 
@@ -78,7 +78,7 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    @include for-device-medium {
+    @include for_tablet {
     }
     &_icon {
       display: flex;

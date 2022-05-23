@@ -2,7 +2,7 @@
   height: 42px;
   display: flex;
   justify-content: flex-end;
-  @include for-device-medium {
+  @include for_tablet {
     display: flex;
     justify-content: flex-start;
   }
