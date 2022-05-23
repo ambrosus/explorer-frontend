@@ -61,12 +61,12 @@ export const AddressDetails = () => {
     },
     [loading],
   );
-
-  useEffect(() => {
-    return () => {
-      setPosition(null);
-    };
-  }, []);
+  //
+  // useEffect(() => {
+  //   return () => {
+  //     setPosition(null);
+  //   };
+  // }, []);
 
   useEffect(() => {
     if (address || type || filtered || tokenToSorted) {
@@ -191,9 +191,9 @@ export const AddressDetails = () => {
             <div className="address_details_info">
               <OverallBalance
                 addressBalance={
-                  addressData && addressData.balance
-                    ? Number(formatEther(addressData.balance)).toFixed(2)
-                    : 0
+                  addressData &&
+                  addressData.balance &&
+                  Number(formatEther(addressData.balance)).toFixed(2)
                 }
               />
 

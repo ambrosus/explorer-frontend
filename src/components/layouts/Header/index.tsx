@@ -26,6 +26,7 @@ export const Header = () => {
 
     return (
       <NavLink
+        replace
         to={menuElement.path}
         key={menuElement.key}
         className={`${isMobileStyle} ${cursor}`}
@@ -44,7 +45,7 @@ export const Header = () => {
       <div className="container">
         <nav className="navigation">
           <div className="logo">
-            <NavLink to="/">
+            <NavLink replace to="/">
               <AmbrosusLogoSvg />
             </NavLink>
           </div>

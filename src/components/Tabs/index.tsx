@@ -91,6 +91,7 @@ const Tabs: FC<TabsProps> = ({
               transactionFilters.length &&
               transactionFilters.map((filter) => (
                 <NavLink
+                  replace
                   key={filter.title}
                   to={`/addresses/${address}/${
                     filter.value ? filter.value : ''
@@ -107,6 +108,7 @@ const Tabs: FC<TabsProps> = ({
               ERC20Filters.length &&
               ERC20Filters.map((filter) => (
                 <NavLink
+                  replace
                   key={filter.title}
                   to={`/addresses/${address}/ERC-20_Tx/${filtered}/${filter.value}`}
                   className={setActiveLink}
