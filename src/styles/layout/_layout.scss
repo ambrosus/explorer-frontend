@@ -16,7 +16,7 @@
 .container {
   width: 100%;
   max-width: 1140px;
-  @include for-device-large {
+  @include for_laptop {
     padding: 0 20px;
   }
 }

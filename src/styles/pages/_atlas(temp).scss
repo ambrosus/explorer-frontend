@@ -18,7 +18,7 @@
       font-weight: 700;
       font-size: 18px;
       line-height: 32px;
-      @include for-device-small {
+      @include for_phone {
         display: none;
       }
     }

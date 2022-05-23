@@ -1,53 +1,18 @@
-import { Account, AccountsData } from './addresses.interface';
+import { Account } from './addresses.interface';
 import AddressesBody from './components/AddressesBody';
 import AddressesHeader from './components/AddressesHeader';
 import AddressesSort from './components/AddressesSort';
 import MainInfoAddresses from './components/MainInfoAddresses';
 import { Content } from 'components/Content';
 import Loader from 'components/Loader';
+import useSortData from 'hooks/useSortData';
 import { useTypedSelector } from 'hooks/useTypedSelector';
-import React, { useEffect } from 'react';
-import { useInView } from 'react-intersection-observer';
 import { getAccountsData } from 'services/accounts.service';
-import removeArrayDuplicates from 'utils/helpers';
 
 export const Addresses = () => {
-  const [accounts, setAccounts] = React.useState<AccountsData>([]);
-  const [sortTerm, setSortTerm] = React.useState<string>('balance');
-  const { ref, inView } = useInView();
   const { loading } = useTypedSelector((state) => state.app);
 
-  useEffect(() => {
-    const next = '';
-    getAccountsData(sortTerm, next).then((res: AccountsData) => {
-      setAccounts(res);
-    });
-  }, []);
-
-  useEffect(() => {
-    const next = '';
-    getAccountsData(sortTerm, next).then((res: AccountsData) => {
-      setAccounts(res);
-    });
-  }, [sortTerm]);
-
-  useEffect(() => {
-    if (inView) {
-      const next: string = accounts?.pagination.next;
-      if (next) {
-        getAccountsData(sortTerm, next).then((res: AccountsData) => {
-          setAccounts((prev: AccountsData) => {
-            return {
-              ...prev,
-              data: removeArrayDuplicates([...prev.data, ...res?.data]),
-              pagination: res.pagination,
-            };
-          });
-        });
-      }
-    }
-  }, [inView]);
-
+  const { ref, sortTerm, setSortTerm, accounts } = useSortData(getAccountsData);
   return (
     <Content>
       <Content.Header>

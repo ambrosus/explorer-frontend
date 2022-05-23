@@ -11,7 +11,7 @@
     flex: 20;
     padding: 12px;
     font-size: 16px;
-    @include for-device-xs {
+    @include for_small_phone {
       font-size: 16px;
     }
   }
