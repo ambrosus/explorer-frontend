@@ -16,12 +16,12 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ menu, setIsShow, isShow }) => {
 
   return (
     <>
-      <div ref={menuRef} className="mobile">
-        <button onClick={() => setIsShow(!isShow)} className="menu__btn">
+      <div ref={menuRef} className="mobile_menu">
+        <button onClick={() => setIsShow(!isShow)} className="mobile_menu_btn">
           {isShow ? <BurgerMenuClose /> : <BurgerMenuOpen />}
         </button>
         {isShow && (
-          <div className="menu_mobile">
+          <div className="menu_mobile_find">
             <span style={{ backgroundColor: '#212121' }}>
               <FindWideMobile setIsShow={setIsShow} />
             </span>

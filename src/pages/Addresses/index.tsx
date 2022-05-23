@@ -54,9 +54,9 @@ export const Addresses = () => {
         <MainInfoAddresses />
       </Content.Header>
       <Content.Body>
-        <div className="addresses__main_table">
+        <div className="addresses_main_table">
           <AddressesSort sortTerm={sortTerm} setSortTerm={setSortTerm} />
-          <div className="addresses__table">
+          <div className="addresses_table">
             <AddressesHeader />
             {accounts && accounts.data && accounts.data.length
               ? accounts.data.map((account: Account, index: number) => {
