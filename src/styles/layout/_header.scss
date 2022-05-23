@@ -22,7 +22,7 @@
   display: flex;
   flex-direction: row;
   gap: 32px;
-  &__item {
+  &_item {
     display: flex;
     align-items: center;
     text-decoration: none;
@@ -36,10 +36,8 @@
     text-transform: uppercase;
     color: #4d4d4d;
   }
-  @include for-device-large {
-    // display: none;
-  }
-  &__btn {
+
+  &_btn {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -50,39 +48,7 @@
     background-color: #212121;
   }
 }
-.menu_mobile {
-  display: grid;
-  grid-template-rows: repeat(8, auto);
-  position: absolute;
-  background-color: #212121;
-  right: 0px;
-  margin-top: 40px;
-  width: 360px;
-  z-index: 3;
-  @include for-device-small {
-    width: 100%;
-  }
-  &_item {
-    text-decoration: none;
-    font-family: Proxima Nova, Aktiv Grotesk Corp;
-    font-style: normal;
-    font-weight: 600;
-    font-size: 11px;
-    line-height: 34px;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: #4d4d4d;
 
-    margin: 0 0 25px 20px;
-  }
-}
-.mobile {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  height: 100%;
-  width: 100px;
-}
 .logo {
   margin-right: 40px;
 }

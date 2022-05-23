@@ -11,7 +11,7 @@ export const Header = () => {
   const { width } = useWindowSize();
   const [isShow, setIsShow] = useState(false);
 
-  const isMobileStyle = width > 1100 ? 'menu__item' : 'menu_mobile_item';
+  const isMobileStyle = width > 1100 ? 'menu_item' : 'mobile_menu_item';
 
   const menu = menuItems.map((menuElement: IRoute) => {
     const cursor = menuElement.isClick ? 'universall_hover' : '';

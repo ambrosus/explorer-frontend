@@ -18,13 +18,9 @@
   }
 
   &_cell {
-    margin: 8px;
-    font-size: 18px;
+    font-size: 12px;
     line-height: 32px;
-
-    &:nth-child(odd) {
-      font-weight: 700;
-    }
+    font-weight: 700;
 
     @include for-device-small {
       margin: 0px;

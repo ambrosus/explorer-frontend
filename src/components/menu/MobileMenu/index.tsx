@@ -21,7 +21,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ menu, setIsShow, isShow }) => {
           {isShow ? <BurgerMenuClose /> : <BurgerMenuOpen />}
         </button>
         {isShow && (
-          <div className="menu_mobile_find">
+          <div className="mobile_menu_modal">
             <span style={{ backgroundColor: '#212121' }}>
               <FindWideMobile setIsShow={setIsShow} />
             </span>
