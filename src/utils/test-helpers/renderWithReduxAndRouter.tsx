@@ -7,7 +7,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import ReduxThunk from 'redux-thunk';
 import reducers from 'state/reducers';
 
-const middleware = [ReduxThunk];
+const middleware: Array<any> = [ReduxThunk];
 const renderWithReduxAndRouter = (
   component: any,
   preloadedState: any = {},
@@ -19,7 +19,7 @@ const renderWithReduxAndRouter = (
     ),
   }: any = {},
 ) => {
-  // console.log('store',store.getState().position)
+  // console.log('store', store.getState().position);
   return {
     ...render(
       <Provider store={store}>

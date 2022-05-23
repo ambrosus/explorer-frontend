@@ -65,6 +65,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
   const isFrom =
     from === null ? null : address !== from && String(from).trim().length ? (
       <NavLink
+        replace
         to={`/addresses/${from}/`}
         className="address_blocks_td universall_light2"
       >
@@ -78,6 +79,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
   const isTo =
     to === null ? null : address !== to ? (
       <NavLink
+        replace
         to={`/addresses/${to}/`}
         style={{ display: 'content' }}
         className="address_blocks_td universall_light2"
@@ -123,6 +125,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
                 symbol !== 'null' &&
                 symbol !== null &&
                 type !== 'ERC-20_Tx'
+                || token.includes('token')
                   ? 'pointer'
                   : 'default',
               color: '#808a9d',
@@ -130,13 +133,13 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
                 symbol !== 'AMB' &&
                 symbol !== 'null' &&
                 symbol !== null &&
-                type !== 'ERC-20_Tx'
+                type !== 'ERC-20_Tx' || token.includes('token')
                   ? 'underline'
                   : 'none',
             }}
             onClick={() => {
               addressData?.tokens?.forEach((item: any) => {
-                if (item.name === token && symbol !== 'AMB') {
+                if (item.name === token && symbol !== 'AMB' || token.includes('token')) {
                   onClick(item);
                   addFilter(item);
                   navigate(`/addresses/${address}/ERC-20_Tx/${item.contract}`);
@@ -146,7 +149,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
               });
             }}
           >
-            {type !== 'ERC-20_Tx' ? <>{symbol ? symbol : ''}</> : ''}
+            {type !== 'ERC-20_Tx' ? <> {token.includes('token') ? token : symbol}</> : ''}
           </span>
         ) : (
           <></>
@@ -172,7 +175,6 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
         </span>
       </div>
     );
-
   const isToken: any =
     type === 'ERC-20_Tx' ? (
       <div

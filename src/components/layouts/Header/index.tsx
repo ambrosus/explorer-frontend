@@ -1,6 +1,6 @@
-import DesctopMenu from '../../menu/DesctopMenu';
 import MobileMenu from '../../menu/MobileMenu';
 import AmbrosusLogoSvg from './AmbrosusLogoSvg';
+import DesctopMenu from 'components/menu/DesctopMenu';
 import useWindowSize from 'hooks/useWindowSize';
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
@@ -26,6 +26,7 @@ export const Header = () => {
 
     return (
       <NavLink
+        replace
         to={menuElement.path}
         key={menuElement.key}
         className={`${isMobileStyle} ${cursor}`}
@@ -44,7 +45,7 @@ export const Header = () => {
       <div className="container">
         <nav className="navigation">
           <div className="logo">
-            <NavLink to="/">
+            <NavLink replace to="/">
               <AmbrosusLogoSvg />
             </NavLink>
           </div>

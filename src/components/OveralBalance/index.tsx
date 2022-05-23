@@ -1,4 +1,4 @@
-import { useDebounce } from 'hooks/useDebounce';
+// import { useDebounce } from 'hooks/useDebounce';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import { OverallBalanceProps } from 'pages/Addresses/AddressDetails/address-details.interface';
 import React, { useEffect, useMemo, useState } from 'react';
@@ -11,10 +11,9 @@ const OverallBalance: React.FC<OverallBalanceProps> = ({
   const { data: appData } = useTypedSelector((state: any) => state.app);
   const { address }: TParams = useParams();
   const [balance, setBalance] = useState<any>(Number(addressBalance));
-  const [amountInUsd, setAmountInUsd] = useState<any>(Number(addressBalance));
-
+  const [amountInUsd, setAmountInUsd] = useState<any>(0);
   const balMemo = useMemo(
-    () => (balance ? Number(addressBalance) : Number(addressBalance)),
+    () => balance !== 0 && Number(addressBalance),
     [address, addressBalance],
   );
   let amountInUsdMemo = useMemo(() => {
@@ -25,11 +24,10 @@ const OverallBalance: React.FC<OverallBalanceProps> = ({
         appData.total_price_usd * Number(addressBalance)) ||
       0
     );
-  }, [appData, address]);
+  }, [appData, balance !==addressBalance, address]);
 
-  const deboucePrice = useDebounce(amountInUsdMemo, 1000);
   useEffect(() => {
-    if (!balMemo || address) {
+    if (address) {
       if (addressBalance) {
         setBalance(addressBalance);
       }
@@ -38,7 +36,12 @@ const OverallBalance: React.FC<OverallBalanceProps> = ({
       }
     }
   }, [addressBalance, address, amountInUsd]);
-
+  useEffect(() => {
+    return () => {
+      setBalance(0);
+      setAmountInUsd(0);
+    };
+  }, []);
   return (
     <div className="overal_balance">
       <span
@@ -54,7 +57,7 @@ const OverallBalance: React.FC<OverallBalanceProps> = ({
       </span>
       <span className="overal_balance_cell universall_dark">/</span>
       <span className="overal_balance_cell universall_light2">{`$ ${
-        amountInUsd ? amountInUsd.toFixed(2) : deboucePrice.toFixed(2)
+        amountInUsdMemo ? amountInUsdMemo.toFixed(2) : amountInUsd.toFixed(2)
       }`}</span>
     </div>
   );
