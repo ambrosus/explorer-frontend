@@ -24,7 +24,7 @@ const OverallBalance: React.FC<OverallBalanceProps> = ({
         appData.total_price_usd * Number(addressBalance)) ||
       0
     );
-  }, [appData, balance !==addressBalance, address]);
+  }, [appData, balance !== addressBalance, address]);
 
   useEffect(() => {
     if (address) {

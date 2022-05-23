@@ -1,6 +1,8 @@
 import { TransactionProps } from '../pages/Addresses/AddressDetails/address-details.interface';
 import Amb from 'assets/icons/Cryptos/Amb';
 import Eth from 'assets/icons/Cryptos/Eth';
+import GreenCircle from 'assets/icons/StatusAction/GreenCircle';
+import OrangeCircle from 'assets/icons/StatusAction/OrangeCircle';
 import moment from 'moment';
 
 export const sliceData5 = (item: string | any) => {
@@ -123,4 +125,24 @@ export const displayAmount = (n: number | string) => {
    * @returns {string}
    */
   return isFloat(n) ? Number(n).toFixed(8) : Number(n).toFixed(2);
+};
+
+export const calckBlocks = (blockReward: any) =>
+  blockReward
+    .reduce(
+      (acc: any, item: { reward: { ether: any } }) => acc + item.reward.ether,
+      0,
+    )
+    .toFixed(5);
+
+export const isOnline = (status: string) => {
+  switch (status) {
+    case 'SUCCESS':
+      return <GreenCircle />;
+
+    case 'PENDING':
+      return <OrangeCircle />;
+    default:
+      return null;
+  }
 };

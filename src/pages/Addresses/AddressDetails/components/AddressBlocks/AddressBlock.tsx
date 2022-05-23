@@ -121,25 +121,29 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
             style={{
               padding: '0 5px',
               cursor:
-                symbol !== 'AMB' &&
-                symbol !== 'null' &&
-                symbol !== null &&
-                type !== 'ERC-20_Tx'
-                || token.includes('token')
+                (symbol !== 'AMB' &&
+                  symbol !== 'null' &&
+                  symbol !== null &&
+                  type !== 'ERC-20_Tx') ||
+                token.includes('token')
                   ? 'pointer'
                   : 'default',
               color: '#808a9d',
               textDecoration:
-                symbol !== 'AMB' &&
-                symbol !== 'null' &&
-                symbol !== null &&
-                type !== 'ERC-20_Tx' || token.includes('token')
+                (symbol !== 'AMB' &&
+                  symbol !== 'null' &&
+                  symbol !== null &&
+                  type !== 'ERC-20_Tx') ||
+                token.includes('token')
                   ? 'underline'
                   : 'none',
             }}
             onClick={() => {
               addressData?.tokens?.forEach((item: any) => {
-                if (item.name === token && symbol !== 'AMB' || token.includes('token')) {
+                if (
+                  (item.name === token && symbol !== 'AMB') ||
+                  token.includes('token')
+                ) {
                   onClick(item);
                   addFilter(item);
                   navigate(`/addresses/${address}/ERC-20_Tx/${item.contract}`);
@@ -149,7 +153,11 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
               });
             }}
           >
-            {type !== 'ERC-20_Tx' ? <> {token.includes('token') ? token : symbol}</> : ''}
+            {type !== 'ERC-20_Tx' ? (
+              <> {token.includes('token') ? token : symbol}</>
+            ) : (
+              ''
+            )}
           </span>
         ) : (
           <></>
