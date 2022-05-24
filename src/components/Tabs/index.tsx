@@ -27,6 +27,7 @@ const Tabs: FC<TabsProps> = ({
   const mobileCalendarRef = useRef(null);
   const { width } = useWindowSize();
   const { transactionFilters, ERC20Filters, methodFilters } = sidePages;
+
   const headerBlock: any = type === 'ERC-20_Tx' ? null : 'Block';
   const headerTxfee: any = type === 'ERC-20_Tx' ? null : 'txFee';
   const headerToken: any = type === 'ERC-20_Tx' ? 'token' : null;
