@@ -4,14 +4,28 @@ import renderWithReduxAndRouter from 'utils/test-helpers/renderWithReduxAndRoute
 
 describe('TokenFilter', () => {
   test('render correctly', () => {
-    const { container } = renderWithReduxAndRouter(<TokenFilter />);
+    const { container } = renderWithReduxAndRouter(
+      <TokenFilter
+        loading={false}
+        addressData={undefined}
+        onClick={undefined}
+        selectedToken={null}
+      />,
+    );
     expect(container).not.toBeNull();
     const matches = container.querySelectorAll('div');
     expect(matches).toHaveLength(2);
   });
 
   test('render correctly without tokens', () => {
-    const { getByText, getByRole } = renderWithReduxAndRouter(<TokenFilter />);
+    const { getByText, getByRole } = renderWithReduxAndRouter(
+      <TokenFilter
+        loading={false}
+        addressData={undefined}
+        onClick={undefined}
+        selectedToken={null}
+      />,
+    );
     fireEvent.click(getByRole('button'));
     expect(getByText(/You don't have tokens yet/i)).toMatchSnapshot();
   });
@@ -32,6 +46,9 @@ describe('TokenFilter', () => {
             },
           ],
         }}
+        loading={false}
+        onClick={undefined}
+        selectedToken={null}
       />,
     );
     const matchesBefore = container.querySelectorAll('div');

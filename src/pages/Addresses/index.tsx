@@ -14,6 +14,7 @@ export const Addresses = () => {
 
   const { ref, sortTerm, setSortTerm, renderData } =
     useSortData(getAccountsData);
+
   return (
     <Content>
       <Content.Header>

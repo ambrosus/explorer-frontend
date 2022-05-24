@@ -4,7 +4,10 @@ import OrangeCircle from 'assets/icons/StatusAction/OrangeCircle';
 import OutgoingTransaction from 'assets/icons/StatusAction/OutgoingTransaction';
 import { useActions } from 'hooks/useActions';
 import { useTypedSelector } from 'hooks/useTypedSelector';
-import { AddressBlockProps } from 'pages/Addresses/AddressDetails/address-details.interface';
+import {
+  AddressBlockProps,
+  TokenType,
+} from 'pages/Addresses/AddressDetails/address-details.interface';
 import React from 'react';
 import { NavLink, useNavigate, useParams } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
@@ -31,7 +34,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
   token,
   symbol,
 }) => {
-  const online: any = txfee === 'Pending' ? <OrangeCircle /> : <GreenCircle />;
+  const online = txfee === 'Pending' ? <OrangeCircle /> : <GreenCircle />;
   const { addFilter } = useActions();
   const { address, type }: TParams = useParams();
 
@@ -93,7 +96,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
     );
   const isDate =
     date === null ? null : <div className="address_blocks_td">{date}</div>;
-  const isBlock: any =
+  const isBlock =
     type === 'ERC-20_Tx' ? null : (
       <div className="address_blocks_td">{block}</div>
     );
@@ -139,7 +142,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
                   : 'none',
             }}
             onClick={() => {
-              addressData?.tokens?.forEach((item: any) => {
+              addressData?.tokens?.forEach((item: TokenType) => {
                 if (
                   (item.name === token && symbol !== 'AMB') ||
                   token.includes('token')
@@ -165,7 +168,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
       </div>
     );
 
-  const isTxFee: any =
+  const isTxFee =
     type === 'ERC-20_Tx' ? null : (
       <div className="address_blocks_td" style={{ padding: 0 }}>
         <span
@@ -183,7 +186,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
         </span>
       </div>
     );
-  const isToken: any =
+  const isToken =
     type === 'ERC-20_Tx' ? (
       <div
         className="address_blocks_td universall_light2"
@@ -206,7 +209,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
           <span
             className="address_blocks_td universall_light2"
             onClick={() => {
-              addressData?.tokens.forEach((item: any) => {
+              addressData?.tokens.forEach((item: TokenType) => {
                 if (item.name === token) {
                   onClick(item);
                   addFilter(item);

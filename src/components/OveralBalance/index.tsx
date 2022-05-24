@@ -10,8 +10,10 @@ const OverallBalance: React.FC<OverallBalanceProps> = ({
 }) => {
   const { data: appData } = useTypedSelector((state: any) => state.app);
   const { address }: TParams = useParams();
-  const [balance, setBalance] = useState<any>(Number(addressBalance));
-  const [amountInUsd, setAmountInUsd] = useState<any>(0);
+  const [balance, setBalance] = useState<string | number>(
+    Number(addressBalance),
+  );
+  const [amountInUsd, setAmountInUsd] = useState<number>(0);
   const balMemo = useMemo(
     () => balance !== 0 && Number(addressBalance),
     [address, addressBalance],
