@@ -62,7 +62,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
         ) : (
           <IncomeTrasaction />
         )}
-        {method}
+        <span style={{ width: 78, whiteSpace: 'normal' }}>{method}</span>
       </div>
     );
 
