@@ -1,11 +1,12 @@
-.error-page{
+.error-page {
   padding-top: 60px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 16px;
-  svg{
+
+  svg {
     margin-bottom: 16px;
   }
 }

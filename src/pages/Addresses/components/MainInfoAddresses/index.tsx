@@ -3,11 +3,11 @@ import { numWithCommas } from 'utils/helpers';
 
 const MainInfoAddresses = () => {
   const { data: appData } = useTypedSelector((state: any) => state.app);
-
   const totalAddresses: number =
     appData && numWithCommas(appData.netInfo.accounts.total);
   const holders: number =
     appData && numWithCommas(appData.netInfo.accounts.withBalance);
+
   return (
     <div className="main_info_addresses">
       <h1 className="main_info_addresses_heading">Addresses</h1>

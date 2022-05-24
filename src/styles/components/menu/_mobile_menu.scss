@@ -4,6 +4,7 @@
   align-items: flex-end;
   height: 100%;
   width: 100px;
+
   &_btn {
     display: flex;
     align-items: center;
@@ -14,6 +15,7 @@
     border-radius: 16px;
     background-color: #212121;
   }
+
   &_modal {
     display: grid;
     grid-template-rows: repeat(8, auto);
@@ -27,6 +29,7 @@
       width: 100%;
     }
   }
+
   &_item {
     text-decoration: none;
     font-style: normal;

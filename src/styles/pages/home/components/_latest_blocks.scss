@@ -15,12 +15,14 @@
     color: #1e1e1f;
     white-space: nowrap;
   }
+
   &_heading:nth-child(2) {
     display: flex;
     justify-content: flex-end;
 
     width: 100%;
   }
+
   &_mobile {
     display: flex;
 
@@ -38,12 +40,14 @@
       color: #1e1e1f;
     }
   }
+
   &_cells {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     height: 72px;
     border-bottom: 1px solid #eff2f5;
   }
+
   &_cell {
     display: grid;
     align-items: center;
@@ -54,13 +58,16 @@
       gap: 8px;
     }
   }
+
   &_cell:nth-child(2) {
     margin: 0px auto;
     justify-content: flex-start;
   }
+
   &_cell:nth-child(2) {
     margin: 0px auto;
   }
+
   &_cell:nth-child(3) {
     justify-items: end;
   }
@@ -68,6 +75,7 @@
   &_circle {
     margin-right: 8px;
   }
+
   &_font {
     min-width: 50px;
 
@@ -78,15 +86,17 @@
         font-size: 12px;
       }
     }
+
     &_small {
       font-size: 0.86em;
-      line-height: 0.88 em;
+      line-height: 0.88em;
       font-weight: 400;
       color: #58667e;
       @include for_small_phone {
         font-size: 10px;
       }
     }
+
     @include for_small_phone {
       min-width: 30px;
     }
@@ -95,6 +105,7 @@
   &_btn {
     display: flex;
     margin-top: 15px;
+
     &-content {
       width: 180px;
       height: 32px;

@@ -2,6 +2,7 @@
   margin-top: 8px;
   z-index: 1;
   border-radius: 12px;
+
   &_export_csv {
     position: relative;
     right: -24px;
@@ -15,6 +16,7 @@
       left: 24px;
     }
   }
+
   &_export_csv:hover {
     box-shadow: 4px 8px 8px rgb(0 0 0 / 25%);
   }
@@ -35,6 +37,7 @@
     width: 320px;
   }
 }
+
 .rdrDateDisplayWrapper {
   display: grid;
   grid-template-columns: 2fr 1fr;
@@ -48,6 +51,7 @@
   display: none;
   width: 100%;
 }
+
 .rdrMonthAndYearWrapper {
   order: 1;
   width: 100%;
@@ -62,6 +66,7 @@
     padding: 0 0 2em 0;
   }
 }
+
 .rdrMonth {
   width: 100%;
   height: 100%;
@@ -70,6 +75,7 @@
     padding: 0 0 1.666em 0;
   }
 }
+
 .rdrDays {
   border-bottom: 1px solid #f6f6f6;
   width: 100%;

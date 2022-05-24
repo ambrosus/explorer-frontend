@@ -1,5 +1,5 @@
 import { ethers } from 'ethers';
-import React, { ReactNode } from 'react';
+import React from 'react';
 
 export type TokenType = {
   address: string;
@@ -49,6 +49,7 @@ export interface ExplorerTxType {
   value: { wei: ethers.BigNumberish };
   gasCost: { wei: any };
 }
+
 export interface AddressBlockProps {
   txhash: string | number;
   method: string | number;

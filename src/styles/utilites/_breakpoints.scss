@@ -3,11 +3,13 @@
     @content;
   }
 }
+
 @mixin for_big_tablet {
   @media screen and (max-width: 990px) {
     @content;
   }
 }
+
 @mixin for_tablet {
   @media screen and (max-width: 768px) {
     @content;
@@ -19,6 +21,7 @@
     @content;
   }
 }
+
 @mixin for_small_phone {
   @media screen and (max-width: 385px) {
     @content;

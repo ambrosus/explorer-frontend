@@ -34,10 +34,12 @@
       background: $main-light;
       border-radius: 8px;
     }
+
     &_text {
       line-height: 1.33em;
       flex: 6;
     }
+
     &_btn {
       display: flex;
       justify-content: flex-end;
@@ -48,6 +50,7 @@
       flex: 1;
     }
   }
+
   &_input::placeholder {
     color: $secondary-medium;
   }
