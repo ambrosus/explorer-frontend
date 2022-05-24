@@ -4,30 +4,30 @@ import { useInView } from 'react-intersection-observer';
 import removeArrayDuplicates from 'utils/helpers';
 
 const useSortData = (getData: any) => {
-  const [accounts, setAccounts] = React.useState<AccountsData>([]);
+  const [renderData, setRenderData] = React.useState<AccountsData>([]);
   const [sortTerm, setSortTerm] = React.useState<string>('balance');
   const { ref, inView } = useInView();
 
   useEffect(() => {
     const next = '';
     getData(sortTerm, next).then((res: AccountsData) => {
-      setAccounts(res);
+      setRenderData(res);
     });
   }, []);
 
   useEffect(() => {
     const next = '';
     getData(sortTerm, next).then((res: AccountsData) => {
-      setAccounts(res);
+      setRenderData(res);
     });
   }, [sortTerm]);
 
   useEffect(() => {
     if (inView) {
-      const next: string = accounts?.pagination.next;
+      const next: string = renderData?.pagination.next;
       if (next) {
         getData(sortTerm, next).then((res: AccountsData) => {
-          setAccounts((prev: AccountsData) => {
+          setRenderData((prev: AccountsData) => {
             return {
               ...prev,
               data: removeArrayDuplicates([...prev.data, ...res?.data]),
@@ -39,7 +39,7 @@ const useSortData = (getData: any) => {
     }
   }, [inView]);
 
-  return { ref, sortTerm, setSortTerm, accounts };
+  return { ref, sortTerm, setSortTerm, renderData };
 };
 
 export default useSortData;
