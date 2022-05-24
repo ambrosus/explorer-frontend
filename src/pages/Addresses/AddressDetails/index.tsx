@@ -174,12 +174,6 @@ export const AddressDetails = () => {
                 {isCopy ? (
                   <>
                     <ContentCopyed />
-
-                    {width > 500 && isCopyPopup && (
-                      <span className={'address_details_copy_popup'}>
-                        <ContentCopyedPopup />
-                      </span>
-                    )}
                   </>
                 ) : (
                   <ContentCopy />
