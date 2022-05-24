@@ -1,9 +1,6 @@
 import { TParams } from '../../types';
 import TokenFilter from './TokenFilter';
-import {
-  TokenProps,
-  TokenType,
-} from 'pages/Addresses/AddressDetails/address-details.interface';
+import { TokenProps } from 'pages/Addresses/AddressDetails/address-details.interface';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
