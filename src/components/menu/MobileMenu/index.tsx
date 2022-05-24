@@ -9,6 +9,7 @@ interface MobileMenuProps {
   setIsShow: any;
   isShow: any;
 }
+
 const MobileMenu: React.FC<MobileMenuProps> = ({ menu, setIsShow, isShow }) => {
   const menuRef = useRef(null);
 

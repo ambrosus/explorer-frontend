@@ -1,13 +1,5 @@
-import { useTypedSelector } from 'hooks/useTypedSelector';
-import { numWithCommas } from 'utils/helpers';
-
 const MainInfoAtlas = () => {
-  const { data: appData } = useTypedSelector((state: any) => state.app);
-
-  const totalAddresses: number =
-    appData && numWithCommas(appData.netInfo.accounts.total);
-  const holders: number =
-    appData && numWithCommas(appData.netInfo.accounts.withBalance);
+  // const { data: appData } = useTypedSelector((state: any) => state.app);
   return (
     <div className="main_info_atlas">
       <h1 className="main_info_atlas_heading">atlas Nodes</h1>

@@ -11,6 +11,7 @@
   border-bottom-right-radius: 16px;
   position: relative;
   z-index: 5;
+
   &_search {
     width: 300px;
     height: 40px;
@@ -20,10 +21,12 @@
     margin: 10px auto;
     padding-left: 12px;
   }
+
   &_search::placeholder {
     line-height: 1.33em;
     color: $secondary-medium;
   }
+
   &_tokens {
     display: flex;
     align-items: center;

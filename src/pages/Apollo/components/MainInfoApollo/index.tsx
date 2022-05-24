@@ -1,14 +1,4 @@
-import { useTypedSelector } from 'hooks/useTypedSelector';
-import { numWithCommas } from 'utils/helpers';
-
-const MainInfoApollo = () => {
-  const { data: appData } = useTypedSelector((state: any) => state.app);
-
-  const totalAddresses: number =
-    appData && numWithCommas(appData.netInfo.accounts.total);
-  const holders: number =
-    appData && numWithCommas(appData.netInfo.accounts.withBalance);
-  return (
+const MainInfoApollo = () => (
     <div className="main_info_apollo">
       <h1 className="main_info_apollo_heading">Apollo Nodes</h1>
       <div className="main_info_apollo_table">
@@ -45,6 +35,5 @@ const MainInfoApollo = () => {
       </div>
     </div>
   );
-};
 
 export default MainInfoApollo;

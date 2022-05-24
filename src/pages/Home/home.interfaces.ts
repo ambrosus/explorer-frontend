@@ -10,10 +10,12 @@ export type HeaderProps = {
   name: string;
   value: any;
 };
+
 export interface FindWideMobileProps {
   searchRef?: React.Ref<HTMLFormElement>;
   setIsShow: Function;
 }
+
 export type LatestBlocksProps = {
   number?: number;
   timestamp?: number;
