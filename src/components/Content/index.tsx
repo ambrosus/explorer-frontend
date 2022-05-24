@@ -1,3 +1,4 @@
+import { IContentProps, ITabsComposition } from '../layouts/layout.interface';
 import Loader from 'components/Loader';
 import React, { FC } from 'react';
 
@@ -24,13 +25,3 @@ Content.Body = ({ children, isLoading = true }: IContentProps) => (
     )}
   </div>
 );
-
-type IContentProps = {
-  children: any;
-  isLoading?: boolean;
-};
-
-interface ITabsComposition {
-  Header: React.FC<IContentProps>;
-  Body: React.FC<IContentProps>;
-}

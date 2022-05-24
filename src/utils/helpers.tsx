@@ -146,3 +146,16 @@ export const isOnline = (status: string) => {
       return null;
   }
 };
+
+export const getAmbTokenSymbol = (tokenName: string) => {
+  switch (tokenName.trim()) {
+    case 'Hera pool token':
+      return 'HPT';
+    case 'Plutus pool token':
+      return 'PPT';
+    case 'Ganymede pool token':
+      return 'GPT';
+    default:
+      return 'AMB';
+  }
+};

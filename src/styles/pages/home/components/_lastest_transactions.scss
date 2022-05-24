@@ -6,6 +6,7 @@
     border-bottom: 1px solid $secondary;
     padding-bottom: 15px;
   }
+
   &_cells {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -15,6 +16,7 @@
       white-space: nowrap;
     }
   }
+
   &_cell {
     display: grid;
     align-items: center;
@@ -28,6 +30,7 @@
   &_cell:nth-child(2) {
     margin: 0px auto;
   }
+
   &_cell:nth-child(3) {
     justify-items: end;
   }
@@ -35,6 +38,7 @@
   &_circle {
     margin-right: 8px;
   }
+
   &_font_big {
     min-width: 30px;
     line-height: 1.33em;
@@ -43,10 +47,11 @@
       font-size: 12px;
     }
   }
+
   &_font_small {
     min-width: 30px;
     font-size: 0.86em;
-    line-height: 0.88 em;
+    line-height: 0.88em;
     font-weight: 400;
     color: $main-medium;
     @include for_small_phone {
@@ -57,6 +62,7 @@
   &_btn {
     display: flex;
     margin-top: 15px;
+
     &-content {
       width: 180px;
       height: 32px;

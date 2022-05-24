@@ -8,7 +8,10 @@ import { useOnClickOutside } from 'hooks/useOnClickOutside';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import useWindowSize from 'hooks/useWindowSize';
 import moment from 'moment';
-import { TabsProps } from 'pages/Addresses/AddressDetails/address-details.interface';
+import {
+  TabsProps,
+  TransactionProps,
+} from 'pages/Addresses/AddressDetails/address-details.interface';
 import AddressBlocksHeader from 'pages/Addresses/AddressDetails/components/AddressBlocksHeader';
 import { FC, useRef, useState } from 'react';
 import { NavLink, useParams } from 'react-router-dom';
@@ -27,13 +30,12 @@ const Tabs: FC<TabsProps> = ({
   const mobileCalendarRef = useRef(null);
   const { width } = useWindowSize();
   const { transactionFilters, ERC20Filters, methodFilters } = sidePages;
+  const headerBlock: string | null = type === 'ERC-20_Tx' ? null : 'Block';
+  const headerTxfee: string | null = type === 'ERC-20_Tx' ? null : 'txFee';
+  const headerToken: string | null = type === 'ERC-20_Tx' ? 'token' : null;
 
-  const headerBlock: any = type === 'ERC-20_Tx' ? null : 'Block';
-  const headerTxfee: any = type === 'ERC-20_Tx' ? null : 'txFee';
-  const headerToken: any = type === 'ERC-20_Tx' ? 'token' : null;
-
-  const setActiveLink = ({ isActive }: any) =>
-    isActive ? 'tabs_link tabs_link_active' : 'tabs_link';
+  const setActiveLink = (props: { isActive: boolean }): string =>
+    props.isActive ? 'tabs_link tabs_link_active' : 'tabs_link';
 
   useOnClickOutside(mobileCalendarRef, () => setIsShow(false));
 
@@ -130,7 +132,7 @@ const Tabs: FC<TabsProps> = ({
             />
           )}
           {renderData && renderData?.length
-            ? renderData.map((transaction: any, index: number) =>
+            ? renderData.map((transaction: TransactionProps, index: number) =>
                 renderData.length - 1 === index ? (
                   <AddressBlock
                     isLatest={type === 'ERC-20_Tx' && !filtered}

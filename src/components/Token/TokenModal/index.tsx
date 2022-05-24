@@ -1,11 +1,9 @@
 import TokenItem from '../TokenItem';
+import {
+  TokenModalProps,
+  TokenType,
+} from 'pages/Addresses/AddressDetails/address-details.interface';
 import { FC, useEffect, useState } from 'react';
-
-interface TokenModalProps {
-  selectedToken: string;
-  setToken: (token: string) => void;
-  addressData: any;
-}
 
 const TokenModal: FC<TokenModalProps> = ({
   addressData,
@@ -19,7 +17,7 @@ const TokenModal: FC<TokenModalProps> = ({
     if (name) {
       const newTokensList =
         addressData &&
-        addressData?.tokens.filter((token: any) =>
+        addressData?.tokens.filter((token: TokenType) =>
           token.name.toLowerCase().includes(name.toLowerCase()),
         );
       setFilteredTokensList(newTokensList || []);

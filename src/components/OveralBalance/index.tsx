@@ -1,66 +1,56 @@
-// import { useDebounce } from 'hooks/useDebounce';
-import { useTypedSelector } from 'hooks/useTypedSelector';
-import { OverallBalanceProps } from 'pages/Addresses/AddressDetails/address-details.interface';
-import React, { useEffect, useMemo, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { TParams } from 'types';
+import { TParams } from '../../types'
+import { useTypedSelector } from 'hooks/useTypedSelector'
+import { OverallBalanceProps } from 'pages/Addresses/AddressDetails/address-details.interface'
+import React, { useEffect, useMemo, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import { useDebounce } from '../../hooks/useDebounce'
 
 const OverallBalance: React.FC<OverallBalanceProps> = ({
-  addressBalance = 0,
-}) => {
-  const { data: appData } = useTypedSelector((state: any) => state.app);
-  const { address }: TParams = useParams();
-  const [balance, setBalance] = useState<any>(Number(addressBalance));
-  const [amountInUsd, setAmountInUsd] = useState<any>(0);
-  const balMemo = useMemo(
-    () => balance !== 0 && Number(addressBalance),
-    [address, addressBalance],
-  );
-  let amountInUsdMemo = useMemo(() => {
-    return (
-      (appData &&
-        appData?.total_price_usd &&
-        appData.total_price_usd &&
-        appData.total_price_usd * Number(addressBalance)) ||
-      0
-    );
-  }, [appData, balance !== addressBalance, address]);
+                                                         addressBalance = 0,
+                                                       }) => {
+  const {  loading,data: appData } = useTypedSelector(
+    (state: any) => state.app,
+  )
+  const { address }: TParams = useParams()
+  const [balance, setBalance] = useState<any>(Number(addressBalance))
+  const [amountInUsd, setAmountInUsd] = useState<any>(Number(addressBalance))
 
+
+  const balMemo = useMemo(() => balance ? Number(addressBalance) : Number(addressBalance), [address, addressBalance])
+  let amountInUsdMemo = useMemo(() => {
+    return appData && appData?.total_price_usd && appData.total_price_usd && appData.total_price_usd * Number(addressBalance) || 0
+  }, [appData, address])
+
+  const deboucePrice = useDebounce(amountInUsdMemo, 1000)
   useEffect(() => {
-    if (address) {
+    if (!balMemo || address) {
       if (addressBalance) {
-        setBalance(addressBalance);
+        setBalance(addressBalance)
       }
       if (appData && appData?.total_price_usd && appData.total_price_usd) {
-        setAmountInUsd(appData.total_price_usd * Number(addressBalance));
+        setAmountInUsd(appData.total_price_usd * Number(addressBalance))
       }
     }
-  }, [addressBalance, address, amountInUsd]);
-  useEffect(() => {
-    return () => {
-      setBalance(0);
-      setAmountInUsd(0);
-    };
-  }, []);
+  }, [addressBalance, address, amountInUsd])
+
+
   return (
-    <div className="overal_balance">
+    <div className='addressDetails__div'>
       <span
-        className="overal_balance_cell universall_dark"
+        className='addressDetails__div-span universall__dark'
         style={{ fontWeight: 700 }}
       >
         Balance
       </span>
-      <span className="overal_balance_cell universall_dark">
-        {`${
-          balMemo ? Number(balMemo).toFixed(2) : Number(balance).toFixed(2)
-        } AMB`}{' '}
+      <span className='addressDetails__div-span universall__dark'>
+        {`${balMemo ? Number(balMemo).toFixed(2) : Number(balance).toFixed(2)} AMB`}{' '}
       </span>
-      <span className="overal_balance_cell universall_dark">/</span>
-      <span className="overal_balance_cell universall_light2">{`$ ${
-        amountInUsdMemo ? amountInUsdMemo.toFixed(2) : amountInUsd.toFixed(2)
+      <span className='addressDetails__div-span universall__dark'>/</span>
+      <span className='addressDetails__div-span universall__light2'>{`$ ${
+        amountInUsd ? amountInUsd.toFixed(2) : deboucePrice.toFixed(2)
       }`}</span>
     </div>
-  );
-};
+  )
+}
 
-export default OverallBalance;
+export default OverallBalance
