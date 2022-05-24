@@ -1,5 +1,4 @@
 import AnimatedLoader from './LoaderSvg';
-import React from 'react';
 
 const Loader = () => (
   <div
@@ -10,7 +9,6 @@ const Loader = () => (
       display: 'flex',
       justifyContent: 'center',
       width: '100%',
-      // top: 140,
     }}
   >
     <div className="Loader">

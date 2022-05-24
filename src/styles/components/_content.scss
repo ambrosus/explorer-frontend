@@ -1,0 +1,31 @@
+.content {
+  height: 100%;
+  width: 100%;
+  display: grid;
+  flex-direction: column;
+
+  &_header {
+    background-color: #f6f6f6;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &_body {
+    display: flex;
+    // height: 100%;
+    min-height: 500px;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    background-color: $white;
+    border-top-left-radius: 32px;
+    border-top-right-radius: 32px;
+    padding-bottom: 90px;
+
+    @include for_phone {
+      padding-bottom: 60px;
+    }
+  }
+}

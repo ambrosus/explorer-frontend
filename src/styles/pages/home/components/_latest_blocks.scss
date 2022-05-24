@@ -1,0 +1,109 @@
+.latest_blocks {
+  &_head {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-bottom: 1px solid $secondary;
+  }
+
+  &_heading {
+    font-weight: 700;
+    font-size: 1.29em;
+    line-height: 1.78em;
+    border-bottom: 1px solid $secondary;
+    padding-bottom: 15px;
+    color: #1e1e1f;
+    white-space: nowrap;
+  }
+  &_heading:nth-child(2) {
+    display: flex;
+    justify-content: flex-end;
+
+    width: 100%;
+  }
+  &_mobile {
+    display: flex;
+
+    &-heading {
+      white-space: nowrap;
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 32px;
+      color: $main-light;
+      padding-bottom: 12px;
+    }
+
+    &-active {
+      border-bottom: 4px solid #1e1e1f;
+      color: #1e1e1f;
+    }
+  }
+  &_cells {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    height: 72px;
+    border-bottom: 1px solid #eff2f5;
+  }
+  &_cell {
+    display: grid;
+    align-items: center;
+    white-space: nowrap;
+
+    &_content {
+      display: flex;
+      gap: 8px;
+    }
+  }
+  &_cell:nth-child(2) {
+    margin: 0px auto;
+    justify-content: flex-start;
+  }
+  &_cell:nth-child(2) {
+    margin: 0px auto;
+  }
+  &_cell:nth-child(3) {
+    justify-items: end;
+  }
+
+  &_circle {
+    margin-right: 8px;
+  }
+  &_font {
+    min-width: 50px;
+
+    &_big {
+      line-height: 1.33em;
+      font-weight: 600;
+      @include for_small_phone {
+        font-size: 12px;
+      }
+    }
+    &_small {
+      font-size: 0.86em;
+      line-height: 0.88 em;
+      font-weight: 400;
+      color: #58667e;
+      @include for_small_phone {
+        font-size: 10px;
+      }
+    }
+    @include for_small_phone {
+      min-width: 30px;
+    }
+  }
+
+  &_btn {
+    display: flex;
+    margin-top: 15px;
+    &-content {
+      width: 180px;
+      height: 32px;
+      color: $main-light;
+      margin: auto;
+      background: #ffffff;
+      border: 1px solid #eff2f5;
+      box-sizing: border-box;
+      border-radius: 16px;
+    }
+  }
+}

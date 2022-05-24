@@ -1,3 +1,25 @@
+.calendar {
+  margin-top: 8px;
+  z-index: 1;
+  border-radius: 12px;
+  &_export_csv {
+    position: relative;
+    right: -24px;
+    bottom: 56px;
+    height: 40px;
+    width: 100px;
+    background-color: $main;
+    color: $white;
+    border-radius: 4px;
+    @include for_phone {
+      left: 24px;
+    }
+  }
+  &_export_csv:hover {
+    box-shadow: 4px 8px 8px rgb(0 0 0 / 25%);
+  }
+}
+
 .rdrCalendarWrapper {
   display: flex;
   flex-flow: wrap;
@@ -9,7 +31,7 @@
   border-collapse: collapse;
   height: 385px;
   width: 400px;
-  @include for-device-xs {
+  @include for_small_phone {
     width: 320px;
   }
 }
@@ -36,7 +58,7 @@
   width: 100%;
   padding: 0 0.833em 2em 0.833em;
 
-  @include for-device-small {
+  @include for_phone {
     padding: 0 0 2em 0;
   }
 }
@@ -44,7 +66,7 @@
   width: 100%;
   height: 100%;
 
-  @include for-device-small {
+  @include for_phone {
     padding: 0 0 1.666em 0;
   }
 }

@@ -161,25 +161,19 @@ export const AddressDetails = () => {
 
   return (
     <Content>
-      <section className="addressDetails">
+      <section className="address_details">
         <Content.Header>
-          <h1 className="addressDetails__h1">
+          <h1 className="address_details_h1">
             Address Details
-            <div className="addressDetails__copy">
+            <div className="address_details_copy">
               {address}
               <button
-                className={'addressDetails__copy-btn'}
+                className={'address_details_copy_btn'}
                 onClick={copyContent}
               >
                 {isCopy ? (
                   <>
                     <ContentCopyed />
-
-                    {width > 500 && isCopyPopup && (
-                      <span className={'addressDetails__copy-popup'}>
-                        <ContentCopyedPopup />
-                      </span>
-                    )}
                   </>
                 ) : (
                   <ContentCopy />
@@ -187,13 +181,13 @@ export const AddressDetails = () => {
               </button>
             </div>
           </h1>
-          <div className="addressDetails__section">
-            <div className="addressDetails__info">
+          <div className="address_details_section">
+            <div className="address_details_info">
               <OverallBalance
                 addressBalance={
-                  addressData && addressData.balance
-                    ? Number(formatEther(addressData.balance)).toFixed(2)
-                    : 0
+                  addressData &&
+                  addressData.balance &&
+                  Number(formatEther(addressData.balance)).toFixed(2)
                 }
               />
 

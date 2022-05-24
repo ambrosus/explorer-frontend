@@ -1,5 +1,5 @@
-import { Content } from '../../components/Content';
-import ViewMoreBtn from '../../components/ViewMoreBtn';
+import { Content } from 'components/Content';
+import ViewMoreBtn from 'components/ViewMoreBtn';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 

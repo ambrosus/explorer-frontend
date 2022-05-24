@@ -3,18 +3,14 @@ import footerSocials from './SocialsIcon';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-/*
- * @param {Component} Icon - icon of social network (Facebook, Twitter, Instagram, etc.)
- * <Component /> - component of icon with props (name, link, etc.)
- */
 const icons = footerSocials.map((Component) => <Component key={Component} />);
 
 export const Footer = () => (
   <footer className="footer">
     <div className="container">
-      <div className="footer__container">
+      <div className="footer_container">
         <div className="logoFooter">
-          <NavLink to="/">
+          <NavLink replace to="/">
             <AmbrosusLogoFooter />
           </NavLink>
         </div>

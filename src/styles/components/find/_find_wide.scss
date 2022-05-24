@@ -1,0 +1,40 @@
+.find_wide {
+  display: flex;
+  background: $white;
+  border-radius: 16px;
+  min-width: 320px;
+  width: 100%;
+  &_input {
+    height: 48px;
+    border: 0px;
+    border-radius: 16px;
+    flex: 20;
+    padding: 12px;
+    font-size: 16px;
+    @include for_small_phone {
+      font-size: 16px;
+    }
+  }
+  &_input::placeholder {
+    color: $secondary-medium;
+  }
+
+  &_filters {
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    color: $main-light;
+  }
+  &_btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: $white;
+    border-radius: 16px;
+    border: 0px;
+    flex: 1;
+    min-width: 50px;
+  }
+}

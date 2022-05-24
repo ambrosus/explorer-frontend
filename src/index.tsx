@@ -1,4 +1,5 @@
 import Main from './components/Main/Main';
+import ScrollToTop from './components/ScrollToTop';
 import { store } from './state';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
@@ -13,6 +14,7 @@ import { BrowserRouter } from 'react-router-dom';
 export const App = (): JSX.Element => (
   <Provider store={store}>
     <BrowserRouter>
+      <ScrollToTop />
       <Main />
     </BrowserRouter>
   </Provider>

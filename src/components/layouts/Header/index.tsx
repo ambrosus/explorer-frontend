@@ -1,6 +1,6 @@
+import MobileMenu from '../../menu/MobileMenu';
 import AmbrosusLogoSvg from './AmbrosusLogoSvg';
-import DesctopMenu from 'components/DesctopMenu';
-import MobileMenu from 'components/MobileMenu';
+import DesctopMenu from 'components/menu/DesctopMenu';
 import useWindowSize from 'hooks/useWindowSize';
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
@@ -11,10 +11,10 @@ export const Header = () => {
   const { width } = useWindowSize();
   const [isShow, setIsShow] = useState(false);
 
-  const isMobileStyle = width > 1100 ? 'menu__item' : 'menuMobile__item';
+  const isMobileStyle = width > 1100 ? 'menu_item' : 'mobile_menu_item';
 
   const menu = menuItems.map((menuElement: IRoute) => {
-    const cursor = menuElement.isClick ? 'universall__hover' : '';
+    const cursor = menuElement.isClick ? 'universall_hover' : '';
     const activeStyle = {
       color: '#fff',
       cursor: cursor,
@@ -26,6 +26,7 @@ export const Header = () => {
 
     return (
       <NavLink
+        replace
         to={menuElement.path}
         key={menuElement.key}
         className={`${isMobileStyle} ${cursor}`}
@@ -44,7 +45,7 @@ export const Header = () => {
       <div className="container">
         <nav className="navigation">
           <div className="logo">
-            <NavLink to="/">
+            <NavLink replace to="/">
               <AmbrosusLogoSvg />
             </NavLink>
           </div>
@@ -58,13 +59,3 @@ export const Header = () => {
     </div>
   );
 };
-/*need jsDoc for Header function
- * @param {IRoute[]} menuItems
- * @param {boolean} isMobile
- * @param {boolean} isDesctop
- * @param {boolean} isOpen
- * @param {() => void} toggleMenu
- * @param {() => void} closeMenu
- * @param {() => void} openMenu
- * @returns {JSX.Element}
- */
