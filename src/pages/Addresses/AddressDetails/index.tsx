@@ -2,7 +2,6 @@ import { toUniqueValueByBlock } from '../../../utils/helpers';
 import { TokenType, TransactionProps } from './address-details.interface';
 import ContentCopy from 'assets/icons/CopyIcons/ContentCopy';
 import ContentCopyed from 'assets/icons/CopyIcons/ContentCopyed';
-import ContentCopyedPopup from 'assets/icons/CopyIcons/ContentCopyedPopup';
 import { Content } from 'components/Content';
 import FilteredToken from 'components/FilteredToken';
 import OverallBalance from 'components/OveralBalance';
@@ -33,15 +32,15 @@ export const AddressDetails = () => {
   const { setPosition, addFilter } = useActions();
   const [transactionType, setTransactionType] = useState(type);
   const [selectedToken, setSelectedToken] = useState<TokenType | null>(null);
-  const [tx, setTx] = useState<TransactionProps[] | []>([]);
+  const [tx, setTx] = useState<TransactionProps[] | any>([]);
   const [pageNum, setPageNum] = useState(1);
   const [limitNum] = useState(30);
   const observer = useRef<IntersectionObserver>();
 
-  const { isCopy, isCopyPopup, copyContent } = useCopyContent(address);
+  const { isCopy, copyContent } = useCopyContent(address);
 
   const lastCardRef = useCallback(
-    (node: any) => {
+    (node: Element) => {
       if (loading) return;
       if (observer.current) {
         observer.current.disconnect();
@@ -121,19 +120,15 @@ export const AddressDetails = () => {
   ]);
   useEffect(() => {
     if (addressData && addressData?.transactions) {
-      setTx((prevState) => {
+      setTx((prevState: TransactionProps[]) => {
         const compareState = [...prevState, ...addressData.transactions];
         const addressDataState = [...addressData.transactions];
         if (type === 'ERC-20_Tx' && !filtered) {
-          const newTx: any = addressDataState.sort(
-            (a: any, b: any) => b.block - a.block,
-          );
+          const newTx = addressDataState.sort((a, b) => b.block - a.block);
           return newTx;
         }
         if (type === 'ERC-20_Tx' && filtered) {
-          const newTx: any = addressDataState.sort(
-            (a: any, b: any) => b.block - a.block,
-          );
+          const newTx = addressDataState.sort((a, b) => b.block - a.block);
           return newTx;
         }
         if (!type || type === 'transfers') {

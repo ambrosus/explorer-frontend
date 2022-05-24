@@ -1,13 +1,8 @@
+import { ITokenItemProps } from 'pages/Addresses/AddressDetails/address-details.interface';
 import React from 'react';
 import { getTokenIcon } from 'utils/helpers';
 
-type TokenItemProps = {
-  token: any;
-  selectedToken: any;
-  setToken: any;
-};
-
-const TokenItem = ({ token, selectedToken, setToken }: TokenItemProps) => {
+const TokenItem = ({ token, selectedToken, setToken }: ITokenItemProps) => {
   const Icon = getTokenIcon(token.symbol);
   return (
     <div
@@ -39,7 +34,7 @@ const TokenItem = ({ token, selectedToken, setToken }: TokenItemProps) => {
           {token?.balance} {token?.symbol}
         </div>
       </div>
-      <div className="token_item_amount"></div>
+      <div className="token_item_amount" />
     </div>
   );
 };

@@ -1,8 +1,5 @@
-import { useOnClickOutside } from 'hooks/useOnClickOutside';
 import { AddressBlockProps } from 'pages/Addresses/AddressDetails/address-details.interface';
-import React, { useRef, useState } from 'react';
-import { NavLink, useParams } from 'react-router-dom';
-import { TParams } from 'types';
+import React, { useRef } from 'react';
 
 const AddressBlock: React.FC<AddressBlockProps> = ({
   txhash,
@@ -14,15 +11,8 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
   amount,
   txfee,
   token,
-  methodFilters,
-  setTransactionType,
 }) => {
-  const [isShow, setIsShow] = useState(false);
-  const { address }: TParams = useParams();
   const methodRef = useRef(null);
-
-  useOnClickOutside(methodRef, () => setIsShow(false));
-
   const isTxHash =
     txhash === null ? null : (
       <div className="address_blocks_header">{txhash}</div>

@@ -2,7 +2,7 @@ import MobileMenu from '../../menu/MobileMenu';
 import AmbrosusLogoSvg from './AmbrosusLogoSvg';
 import DesctopMenu from 'components/menu/DesctopMenu';
 import useWindowSize from 'hooks/useWindowSize';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { routes as menuItems } from 'routes';
 import { IRoute } from 'types';
@@ -19,7 +19,7 @@ export const Header = () => {
       color: '#fff',
       cursor: cursor,
     };
-    const disableClick = (e: any) => {
+    const disableClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
       !menuElement.isClick && e.preventDefault();
       menuElement.isClick && setIsShow(false);
     };
