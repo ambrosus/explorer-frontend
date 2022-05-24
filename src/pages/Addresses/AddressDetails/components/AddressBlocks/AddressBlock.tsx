@@ -17,6 +17,7 @@ import {
   getTokenIcon,
   sliceData5,
   sliceData10,
+  getAmbTokenSymbol,
 } from 'utils/helpers';
 
 const AddressBlock: React.FC<AddressBlockProps> = ({
@@ -157,7 +158,10 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
             }}
           >
             {type !== 'ERC-20_Tx' ? (
-              <> {token.includes('token') ? token : symbol}</>
+              <>
+                {' '}
+                {token.includes('token') ? getAmbTokenSymbol(token) : symbol}
+              </>
             ) : (
               ''
             )}
