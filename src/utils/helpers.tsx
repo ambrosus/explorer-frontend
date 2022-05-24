@@ -152,7 +152,7 @@ export const getAmbTokenSymbol = (tokenName: string) => {
     case 'Hera pool token':
       return 'HPT';
     case 'Plutus pool token':
-      return 'PTP';
+      return 'PPT';
     case 'Ganymede pool token':
       return 'GPT';
     default:
