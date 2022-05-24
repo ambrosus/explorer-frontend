@@ -163,13 +163,7 @@ export const AddressDetails = () => {
                 className={'address_details_copy_btn'}
                 onClick={copyContent}
               >
-                {isCopy ? (
-                  <>
-                    <ContentCopyed />
-                  </>
-                ) : (
-                  <ContentCopy />
-                )}
+                {isCopy ? <ContentCopyed /> : <ContentCopy />}
               </button>
             </div>
           </h1>

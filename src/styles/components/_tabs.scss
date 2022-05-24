@@ -8,7 +8,7 @@
     grid-row-gap: 3vw;
     border-bottom: 1px solid $secondary;
     background-color: white;
-    z-index: 2;
+    z-index: 1;
 
     &_filters {
       display: flex;
@@ -47,7 +47,6 @@
     min-height: 110px;
     width: 100%;
     display: grid;
-    grid-row-gap: 32px;
 
     margin-top: 16px;
     position: relative;

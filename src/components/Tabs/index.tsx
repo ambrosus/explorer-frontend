@@ -117,7 +117,7 @@ const Tabs: FC<TabsProps> = ({
               <Loader />
             </div>
           )}
-          {renderData && (
+          {renderData && renderData?.length !== 0 && (
             <AddressBlocksHeader
               txhash="txHash"
               method="Method"
@@ -174,7 +174,6 @@ const Tabs: FC<TabsProps> = ({
               )
             : null}
         </section>
-        {loading && renderData?.length && <Loader />}
       </div>
     </>
   );

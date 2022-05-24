@@ -23,7 +23,7 @@
       font-size: 2rem;
     }
     @include for_tablet {
-      font-size: 1.5rem;
+      font-size: 1.4rem;
     }
     @include for_phone {
       font-size: 0.88rem;
@@ -84,17 +84,17 @@
     // }
   }
 
-  //   &_div {
-  //     display: flex;
-  //     gap: 4px;
+  &_div {
+    display: flex;
+    gap: 4px;
 
-  //     &_span {
-  //       font-style: normal;
-  //       font-weight: 400;
-  //       font-size: 1.28em;
-  //       line-height: 2.28em;
-  //     }
-  //   }
+    &_span {
+      font-style: normal;
+      font-weight: 400;
+      font-size: 1.28em;
+      line-height: 2.28em;
+    }
+  }
 
   //   &_button {
   //     display: flex;
