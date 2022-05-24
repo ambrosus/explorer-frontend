@@ -1,6 +1,7 @@
 .apollo_blocks_header {
   display: grid;
   grid-template-columns: 82px 405px 190px 117px 180px 192px;
+
   &_cell {
     display: flex;
     align-items: center;

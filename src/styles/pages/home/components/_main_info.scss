@@ -9,6 +9,7 @@
       height: 64px;
     }
   }
+
   &_chart {
     display: flex;
     align-items: center;
@@ -26,6 +27,7 @@
       height: 168px;
     }
   }
+
   &_text {
     margin: 0 12px;
     white-space: nowrap;
@@ -37,6 +39,7 @@
       padding-top: 7px;
     }
   }
+
   &_icon {
     display: flex;
     align-items: center;
@@ -48,11 +51,13 @@
     height: 32px;
     border-radius: 50%;
   }
+
   &_span_light {
     font-weight: 400;
     line-height: 0.88em;
     color: $main-medium;
   }
+
   &_span_dark {
     font-style: normal;
     font-weight: 600;

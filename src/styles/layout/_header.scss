@@ -13,15 +13,18 @@
     height: 60px;
   }
 }
+
 .navigation {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
+
 .menu {
   display: flex;
   flex-direction: row;
   gap: 32px;
+
   &_item {
     display: flex;
     align-items: center;

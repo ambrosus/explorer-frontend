@@ -33,10 +33,12 @@ const Chart = () => {
   //     setData(last30Days);
   //   }, []);
   return (
-    <div className="bundles-activity">
-      <div className="chart-header-title">BUNDLES ACTIVITY</div>
-      <div className="bundlesActivity">{appData?.netInfo?.bundlesActivity}</div>
-      <div className="days">Last 24 hours</div>
+    <div className="chart">
+      <div className="chart_activity">
+        <div className="chart_header_title">BUNDLES ACTIVITY</div>
+        <div className="chart_body">{appData?.netInfo?.bundlesActivity}</div>
+        <div className="chart_days">Last 24 hours</div>
+      </div>
     </div>
     /* <div className="chart">
      <div className="chart-header">

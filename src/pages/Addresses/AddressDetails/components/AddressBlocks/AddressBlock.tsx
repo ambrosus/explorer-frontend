@@ -14,10 +14,10 @@ import ReactTooltip from 'react-tooltip';
 import { TParams } from 'types';
 import {
   displayAmount,
-  getTokenIcon,
-  sliceData5,
-  sliceData10,
   getAmbTokenSymbol,
+  getTokenIcon,
+  sliceData10,
+  sliceData5,
 } from 'utils/helpers';
 
 const AddressBlock: React.FC<AddressBlockProps> = ({

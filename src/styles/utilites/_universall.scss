@@ -2,12 +2,15 @@
   &_dark {
     color: $main;
   }
+
   &_light1 {
     color: #58667e;
   }
+
   &_light2 {
     color: #808a9d;
   }
+
   &_indent {
     &_icon {
       display: flex;
@@ -16,8 +19,10 @@
       margin-right: 8px;
     }
   }
+
   &_hover {
     cursor: pointer !important;
+
     &:hover {
       color: #fff;
     }

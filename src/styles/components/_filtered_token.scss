@@ -16,6 +16,7 @@
     padding: 0 16px;
     border-bottom: 1px solid $secondary;
   }
+
   &_body {
     display: grid;
     grid-template-columns: repeat(2, auto);
@@ -32,15 +33,18 @@
       padding-bottom: 12px;
     }
   }
+
   &_heading {
     font-weight: 700;
     font-size: 1.28em;
     line-height: 1.77em;
   }
+
   &_cells {
     display: flex;
     gap: 0.85em;
   }
+
   &_cells:nth-child(2) {
     height: 100%;
     align-items: flex-start;
@@ -48,6 +52,7 @@
     padding-top: 12px;
     gap: 0;
   }
+
   &_cells:nth-child(1) {
     @include for_phone {
       display: flex;
@@ -56,11 +61,13 @@
       padding-right: 12px;
     }
   }
+
   &_cell {
     display: flex;
     gap: 8px;
     align-items: center;
     min-width: 120px;
+
     &:nth-child(2) {
       min-width: 0px;
     }
@@ -69,10 +76,12 @@
       font-weight: 700;
       line-height: 2.22em;
     }
+
     &_normal {
       line-height: 2.22em;
     }
   }
+
   &_cell:nth-child(2) {
     min-width: 0px;
   }

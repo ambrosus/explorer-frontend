@@ -22,6 +22,7 @@ const TokenFilter = ({
   const navigate = useNavigate();
   const { address }: TParams = useParams();
   const refTokensModal = useRef<HTMLDivElement>(null);
+
   useOnClickOutside(refTokensModal, () => setIsShow(false));
   const toggleMenu = () => (!loading ? setIsShow(!isShow) : null);
 
