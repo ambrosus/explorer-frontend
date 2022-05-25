@@ -13,7 +13,6 @@
     &_filters {
       display: flex;
       height: 56px;
-      padding: 8px 0;
     }
 
     &_export_modal {
@@ -21,7 +20,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: flex-end;
-      margin: 8px 0px;
+
       @include for_tablet {
         width: 100%;
       }
@@ -48,13 +47,12 @@
     width: 100%;
     display: grid;
 
-    margin-top: 16px;
+    padding-top: 16px;
     position: relative;
     white-space: nowrap;
     overflow-x: scroll;
     @include for_phone {
-      padding-top: 60px;
-      position: absolute;
+      position: relative;
       max-height: 500px;
       overflow-y: scroll;
     }

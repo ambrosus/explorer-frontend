@@ -11,7 +11,7 @@ const useCopyContent = (address: any) => {
   };
   useEffect(() => {
     const timer = setTimeout(() => setIsCopy(false), 1800);
-    const timerPopup = setTimeout(() => setIsCopyPopup(true), 500);
+    const timerPopup = setTimeout(() => setIsCopyPopup(true), 1000);
     return () => {
       clearTimeout(timer);
       clearTimeout(timerPopup);
