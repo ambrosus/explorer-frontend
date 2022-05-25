@@ -127,7 +127,7 @@ const blockBookApiTokensSearch: any = async (
     const blockBookApiForT: any = await API.API.get(url, {
       params: {
         page: page,
-        pageSize: !type ? limit : 1000,
+        pageSize: !type ? limit : 500,
       },
     });
 
@@ -176,7 +176,7 @@ const bbDataFillter = async (
       params: {
         page: page,
         // pageSize: limit,
-        pageSize: !type ? limit : 100,
+        pageSize: !type ? limit : 1000,
         contract: selectedTokenFilter,
       },
     });

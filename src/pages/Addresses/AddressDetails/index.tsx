@@ -81,7 +81,7 @@ export const AddressDetails = () => {
         ),
       );
     }
-    if (!loading || errorData) {
+    if (!tx?.length || errorData) {
       if (addressData && addressData?.meta?.totalPages > pageNum) {
         setPosition(getDataForAddress, address?.trim(), {
           filtered:
@@ -95,17 +95,19 @@ export const AddressDetails = () => {
           page: pageNum,
         });
       } else {
-        setPosition(getDataForAddress, address?.trim(), {
-          filtered:
-            addressData && addressData.filters ? addressData.filters : [],
-          selectedTokenFilter:
-            selectedToken && selectedToken?.contract
-              ? selectedToken.contract
-              : filtered,
-          limit: limitNum,
-          type: transactionType,
-          page: pageNum,
-        });
+       if (type || filtered || tokenToSorted || address) {
+         setPosition(getDataForAddress, address?.trim(), {
+           filtered:
+             addressData && addressData.filters ? addressData.filters : [],
+           selectedTokenFilter:
+             selectedToken && selectedToken?.contract
+               ? selectedToken.contract
+               : filtered,
+           limit: limitNum,
+           type: transactionType,
+           page: pageNum,
+         });
+       }
       }
     }
   }, [
