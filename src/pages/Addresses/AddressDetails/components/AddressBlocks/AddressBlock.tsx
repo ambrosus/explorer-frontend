@@ -56,13 +56,17 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
     );
   const isMethod =
     method === null ? null : (
-      <div className="address_blocks_td">
+      <div className="address_blocks_td" style={{ gap: 4 }}>
         {from && from === address ? (
           <OutgoingTransaction />
         ) : (
           <IncomeTrasaction />
         )}
-        {method}
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          {method.split('::').map((item, index) => (
+            <span key={index + 1}>{item}</span>
+          ))}
+        </div>
       </div>
     );
 
@@ -204,7 +208,11 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
         {!isLatest ? (
           <>
             <div className="address_blocks_icon universall_light2">
-              {token ? token : ''} {!symbol ? '(AMB)' : `(${symbol})`}
+              {token ? token : ''}{' '}
+              {token &&
+                `(${token.split(' ').reduce((acc: any, token: any) => {
+                  return (acc += token.charAt(0).toUpperCase());
+                }, '')})`}
             </div>
           </>
         ) : (
@@ -222,8 +230,11 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
           >
             <NavLink className="address_blocks_icon universall_light2" to={'/'}>
               {token ? token : ''}{' '}
-              {!symbol || symbol.trim() === 'null' ? '(AMB)' : `(${symbol})`}
-            </NavLink>
+              {token &&
+                `(${token.split(' ').reduce((acc: any, token: any) => {
+                  return (acc += token.charAt(0).toUpperCase());
+                }, '')})`}
+            </div>
           </span>
         )}
       </div>

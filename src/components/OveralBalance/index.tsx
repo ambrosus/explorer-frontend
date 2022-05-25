@@ -8,9 +8,7 @@ import { useParams } from 'react-router-dom';
 const OverallBalance: React.FC<OverallBalanceProps> = ({
   addressBalance = 0,
 }) => {
-  const { loading, data: appData } = useTypedSelector(
-    (state: any) => state.app,
-  );
+  const { data: appData } = useTypedSelector((state: any) => state.app);
   const { address }: TParams = useParams();
   const [balance, setBalance] = useState<any>(Number(addressBalance));
   const [amountInUsd, setAmountInUsd] = useState<any>(Number(addressBalance));
@@ -42,22 +40,31 @@ const OverallBalance: React.FC<OverallBalanceProps> = ({
   }, [addressBalance, address, amountInUsd]);
 
   return (
-    <div className="addressDetails__div">
+    <div className="address_details_info_text">
       <span
-        className="addressDetails__div-span universall__dark"
-        style={{ fontWeight: 700 }}
+        className="address_details_info_text_span universall_dark"
+        style={{ fontWeight: 700, marginRight: 8 }}
       >
         Balance
       </span>
-      <span className="addressDetails__div-span universall__dark">
-        {`${
-          balMemo ? Number(balMemo).toFixed(2) : Number(balance).toFixed(2)
-        } AMB`}{' '}
-      </span>
-      <span className="addressDetails__div-span universall__dark">/</span>
-      <span className="addressDetails__div-span universall__light2">{`$ ${
-        amountInUsd ? amountInUsd.toFixed(2) : deboucePrice.toFixed(2)
-      }`}</span>
+      <div
+        style={{
+          display: 'flex',
+          gap: 4,
+        }}
+      >
+        <span className="address_details_info_text_span universall_dark">
+          {`${
+            balMemo ? Number(balMemo).toFixed(2) : Number(balance).toFixed(2)
+          } AMB`}{' '}
+        </span>
+        <span className="address_details_info_text_span universall_dark">
+          /
+        </span>
+        <span className="address_details_info_text_span universall_light2">{`$ ${
+          amountInUsd ? amountInUsd.toFixed(2) : deboucePrice.toFixed(2)
+        }`}</span>
+      </div>
     </div>
   );
 };
