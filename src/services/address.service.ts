@@ -4,10 +4,10 @@ import {
   TokenType,
   TransactionProps,
 } from '../pages/Addresses/AddressDetails/address-details.interface';
+import { log } from '../utils/helpers';
 import { ethers } from 'ethers';
 import { formatEther } from 'ethers/lib/utils';
 import erc20Abi from 'utils/abis/ERC20.json';
-import { log } from '../utils/helpers';
 
 const getTokensBalance = async (tokensArr: TokenType[], address: string) => {
   return Promise.all(
