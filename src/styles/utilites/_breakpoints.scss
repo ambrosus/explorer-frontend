@@ -23,7 +23,7 @@
 }
 
 @mixin for_small_phone {
-  @media screen and (max-width: 385px) {
+  @media screen and (max-width: 415px) {
     @content;
   }
 }

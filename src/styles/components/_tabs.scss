@@ -8,12 +8,11 @@
     grid-row-gap: 3vw;
     border-bottom: 1px solid $secondary;
     background-color: white;
-    z-index: 2;
+    z-index: 1;
 
     &_filters {
       display: flex;
       height: 56px;
-      padding: 8px 0;
     }
 
     &_export_modal {
@@ -21,7 +20,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: flex-end;
-      margin: 8px 0px;
+
       @include for_tablet {
         width: 100%;
       }
@@ -47,15 +46,11 @@
     min-height: 110px;
     width: 100%;
     display: grid;
-    grid-row-gap: 32px;
-
-    margin-top: 16px;
     position: relative;
     white-space: nowrap;
     overflow-x: scroll;
     @include for_phone {
-      padding-top: 60px;
-      position: absolute;
+      position: relative;
       max-height: 500px;
       overflow-y: scroll;
     }
@@ -100,6 +95,18 @@
       height: 24px;
       background: $secondary;
       border-radius: 8px;
+    }
+  }
+  &_not_found {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    &_text {
+      margin-top: 32px;
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 40px;
+      color: #05060f;
     }
   }
 }

@@ -2,6 +2,7 @@ import AddressBlock from '../../pages/Addresses/AddressDetails/components/Addres
 import ExportCsv from '../ExportCsv';
 import Loader from '../Loader';
 import useTabs from './useTabs';
+import NotFoundIcon from 'assets/icons/Errors/NotFoundIcon';
 import SideMenu from 'assets/icons/SideMenu';
 import Calendar from 'components/Calendar';
 import { useOnClickOutside } from 'hooks/useOnClickOutside';
@@ -40,6 +41,8 @@ const Tabs: FC<TabsProps> = ({
   useOnClickOutside(mobileCalendarRef, () => setIsShow(false));
 
   const { renderData } = useTabs(data);
+
+  const isRender = renderData && renderData?.length;
 
   return (
     <>
@@ -104,7 +107,14 @@ const Tabs: FC<TabsProps> = ({
           </div>
         </div>
 
-        <section className="tabs_table" style={setupStyle(type)}>
+        <section
+          className="tabs_table"
+          style={
+            isRender
+              ? setupStyle(type)
+              : { display: 'flex', justifyContent: 'center', paddingTop: 100 }
+          }
+        >
           {loading && !renderData?.length && (
             <div
               style={{
@@ -117,7 +127,7 @@ const Tabs: FC<TabsProps> = ({
               <Loader />
             </div>
           )}
-          {renderData && (
+          {renderData && renderData?.length !== 0 && (
             <AddressBlocksHeader
               txhash="txHash"
               method="Method"
@@ -131,7 +141,7 @@ const Tabs: FC<TabsProps> = ({
               methodFilters={methodFilters}
             />
           )}
-          {renderData && renderData?.length
+          {isRender
             ? renderData.map((transaction: TransactionProps, index: number) =>
                 renderData.length - 1 === index ? (
                   <AddressBlock
@@ -172,9 +182,16 @@ const Tabs: FC<TabsProps> = ({
                   />
                 ),
               )
-            : null}
+            : !loading && (
+                <div className="tabs_not_found">
+                  <NotFoundIcon />
+                  <span className="tabs_not_found_text">
+                    No results were found for this query.
+                  </span>
+                </div>
+              )}
         </section>
-        {loading && renderData?.length && <Loader />}
+        {loading && <Loader />}
       </div>
     </>
   );
