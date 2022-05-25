@@ -176,7 +176,7 @@ const bbDataFillter = async (
       params: {
         page: page,
         // pageSize: limit,
-        pageSize: !type ? limit : 100,
+        pageSize: !type ? limit : 1000,
         contract: selectedTokenFilter,
       },
     });
