@@ -57,7 +57,6 @@ export const setPosition: any = (promiseFunc: any, ...params: any) => {
       type: actionTypes.SET_POSITION__START,
     });
     try {
-      // @ts-ignore
       const result = await promiseFunc(...params);
       dispatch({
         type: actionTypes.SET_POSITION__SUCCESS,

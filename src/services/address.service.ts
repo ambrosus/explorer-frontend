@@ -7,6 +7,7 @@ import {
 import { ethers } from 'ethers';
 import { formatEther } from 'ethers/lib/utils';
 import erc20Abi from 'utils/abis/ERC20.json';
+import { log } from '../utils/helpers';
 
 const getTokensBalance = async (tokensArr: TokenType[], address: string) => {
   return Promise.all(
@@ -83,7 +84,7 @@ const sortedLatestTransactionsData = async (
       return tokensTransactions.txids.map(async (tx: string) => {
         return fetch(`${process.env.REACT_APP_BLOCKBOOK_API}/api/v2/tx/${tx}`)
           .then((res) => res.json())
-          .catch((e) => console.log(e));
+          .catch((e) => log(e));
       })[0];
     });
     const parsePromisesByToken = await Promise.allSettled(byToken);
@@ -114,7 +115,7 @@ const sortedLatestTransactionsData = async (
       };
     });
   } catch (e) {
-    console.log(e);
+    log(e);
   }
 };
 
@@ -134,7 +135,6 @@ const blockBookApiTokensSearch: any = async (
       blockBookApiForT &&
       blockBookApiForT.tokens &&
       blockBookApiForT.tokens.map(async (token: TokenType) => {
-        // @ts-ignore
         const getTokenData: any = await API.API.get(url, {
           params: {
             page: page,
@@ -163,7 +163,7 @@ const blockBookApiTokensSearch: any = async (
         })
       : [];
   } catch (e) {
-    console.log(e);
+    log(e);
   }
 };
 
@@ -189,7 +189,7 @@ const bbDataFillter = async (
               `${process.env.REACT_APP_BLOCKBOOK_API}/api/v2/tx/${tx}`,
             )
               .then((res) => res.json())
-              .catch((e) => console.log(e));
+              .catch((e) => log(e));
           })
         : [];
 
@@ -265,7 +265,7 @@ async function explorerData(address: string, { page, limit, type }: any) {
       };
     });
   } catch (e) {
-    console.log(e);
+    log(e);
   }
 }
 
@@ -296,6 +296,6 @@ export const getDataForAddress = async (address: string, params: any) => {
       meta: bbApi,
     };
   } catch (e) {
-    console.log(e);
+    log(e);
   }
 };

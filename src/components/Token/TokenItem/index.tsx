@@ -11,13 +11,12 @@ const TokenItem = ({ token, selectedToken, setToken }: ITokenItemProps) => {
         setToken(token);
       }}
       style={{
-        // @ts-ignore
         backgroundColor:
           selectedToken &&
           selectedToken?.name &&
           selectedToken?.name === token?.name
             ? '#EFF2F5'
-            : null,
+            : '#FFFFFF',
       }}
     >
       <div className="token_item_icon">
