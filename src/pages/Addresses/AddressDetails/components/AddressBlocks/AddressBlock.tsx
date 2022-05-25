@@ -210,7 +210,11 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
         {!isLatest ? (
           <>
             <div className="address_blocks_icon universall_light2">
-              {token ? token : ''} {!symbol ? '(AMB)' : `(${symbol})`}
+              {token ? token : ''}{' '}
+              {token &&
+                `(${token.split(' ').reduce((acc: any, token: any) => {
+                  return (acc += token.charAt(0).toUpperCase());
+                }, '')})`}
             </div>
           </>
         ) : (
@@ -228,7 +232,10 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
           >
             <div className="address_blocks_icon universall_light2">
               {token ? token : ''}{' '}
-              {!symbol || symbol.trim() === 'null' ? '(AMB)' : `(${symbol})`}
+              {token &&
+                `(${token.split(' ').reduce((acc: any, token: any) => {
+                  return (acc += token.charAt(0).toUpperCase());
+                }, '')})`}
             </div>
           </span>
         )}
