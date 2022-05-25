@@ -135,7 +135,6 @@ const blockBookApiTokensSearch: any = async (
       blockBookApiForT &&
       blockBookApiForT.tokens &&
       blockBookApiForT.tokens.map(async (token: TokenType) => {
-        // @ts-ignore
         const getTokenData: any = await API.API.get(url, {
           params: {
             page: page,
