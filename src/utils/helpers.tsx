@@ -4,6 +4,7 @@ import Eth from 'assets/icons/Cryptos/Eth';
 import GreenCircle from 'assets/icons/StatusAction/GreenCircle';
 import OrangeCircle from 'assets/icons/StatusAction/OrangeCircle';
 import moment from 'moment';
+import { ENABLE_LOGS } from './constants';
 
 export const sliceData5 = (item: string | any) => {
   if (!item) {
@@ -159,3 +160,11 @@ export const getAmbTokenSymbol = (tokenName: string) => {
       return 'AMB';
   }
 };
+
+export const log=(...args: any)=> {
+  /*
+   * @param {any} args
+   * @returns {void}
+   */
+  return ENABLE_LOGS && console.log(...args);
+}
