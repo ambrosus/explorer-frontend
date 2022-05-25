@@ -1,6 +1,4 @@
-const MainInfoAtlas = () => {
-  // const { data: appData } = useTypedSelector((state: any) => state.app);
-  return (
+const MainInfoAtlas = () => (
     <div className="main_info_atlas">
       <h1 className="main_info_atlas_heading">atlas Nodes</h1>
       <div className="main_info_atlas_table">
@@ -37,6 +35,5 @@ const MainInfoAtlas = () => {
       </div>
     </div>
   );
-};
 
 export default MainInfoAtlas;
