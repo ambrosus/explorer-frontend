@@ -234,7 +234,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
                 `(${token.split(' ').reduce((acc: any, token: any) => {
                   return (acc += token.charAt(0).toUpperCase());
                 }, '')})`}
-            </div>
+            </NavLink>
           </span>
         )}
       </div>

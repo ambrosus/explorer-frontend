@@ -34,21 +34,19 @@ const useSortData = (getData: any) => {
     if (inView) {
       const next: string = renderData?.pagination.next;
       if (next) {
-        loadingMock()
+        loadingMock();
         getData(sortTerm, next).then((res: AccountsData) => {
           setRenderData((prev: AccountsData) => {
             return {
               ...prev,
               data: removeArrayDuplicates([...prev.data, ...res?.data]),
-              pagination: res.pagination
+              pagination: res.pagination,
             };
           });
         });
       }
     }
-
   }, [inView]);
-
 
   return { ref, sortTerm, setSortTerm, renderData, loading };
 };
