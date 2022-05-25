@@ -1,6 +1,8 @@
 .address_blocks_header {
-  height: 100%;
+  display: flex;
+  align-items: center;
   font-weight: 700;
   font-size: 0.86em;
   line-height: 1.77em;
+  height: 48px;
 }

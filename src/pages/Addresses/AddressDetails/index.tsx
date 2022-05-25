@@ -1,7 +1,8 @@
-import { toUniqueValueByBlock } from '../../../utils/helpers';
 import { TokenType, TransactionProps } from './address-details.interface';
+import useLastCardRef from './useLastCardRef';
 import ContentCopy from 'assets/icons/CopyIcons/ContentCopy';
 import ContentCopyed from 'assets/icons/CopyIcons/ContentCopyed';
+import CopyPopUp from 'assets/icons/CopyIcons/CopyPopUp';
 import { Content } from 'components/Content';
 import FilteredToken from 'components/FilteredToken';
 import OverallBalance from 'components/OveralBalance';
@@ -10,12 +11,15 @@ import Token from 'components/Token';
 import { formatEther } from 'ethers/lib/utils';
 import { useActions } from 'hooks/useActions';
 import useCopyContent from 'hooks/useCopyContent';
+import useHover from 'hooks/useHover';
 import { useTypedSelector } from 'hooks/useTypedSelector';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import useWindowSize from 'hooks/useWindowSize';
+import React, { useEffect, useState } from 'react';
 import { shallowEqual } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getDataForAddress } from 'services/address.service';
 import { TParams } from 'types';
+import { toUniqueValueByBlock } from 'utils/helpers';
 
 export const AddressDetails = () => {
   const { filters } = useTypedSelector(
@@ -32,33 +36,11 @@ export const AddressDetails = () => {
   const [transactionType, setTransactionType] = useState(type);
   const [selectedToken, setSelectedToken] = useState<TokenType | null>(null);
   const [tx, setTx] = useState<TransactionProps[] | any>([]);
-  const [pageNum, setPageNum] = useState(1);
   const [limitNum] = useState(30);
-  const observer = useRef<IntersectionObserver>();
 
-  const { isCopy, copyContent } = useCopyContent(address);
+  const { isCopy, copyContent, isCopyPopup } = useCopyContent(address);
 
-  const lastCardRef = useCallback(
-    (node: Element) => {
-      if (loading) return;
-      if (observer.current) {
-        observer.current.disconnect();
-      }
-      observer.current = new IntersectionObserver((entries) => {
-        if (
-          entries[0].isIntersecting &&
-          addressData &&
-          pageNum < addressData?.meta?.totalPages
-        ) {
-          setPageNum((prevNum) => prevNum + 1);
-        }
-      });
-      if (node) {
-        observer.current.observe(node);
-      }
-    },
-    [loading],
-  );
+  const { lastCardRef, pageNum } = useLastCardRef();
 
   useEffect(() => {
     return () => {
@@ -150,6 +132,8 @@ export const AddressDetails = () => {
       );
     }
   }, [addressData]);
+  const [copyBtnRef, isHover] = useHover();
+  const { width } = useWindowSize();
 
   return (
     <Content>
@@ -160,16 +144,24 @@ export const AddressDetails = () => {
             <div className="address_details_copy">
               {address}
               <button
-                className={'address_details_copy_btn'}
+                ref={copyBtnRef}
+                className="address_details_copy_btn"
                 onClick={copyContent}
               >
-                {isCopy ? (
-                  <>
-                    <ContentCopyed />
-                  </>
-                ) : (
-                  <ContentCopy />
-                )}
+                {isCopy ? <ContentCopyed /> : <ContentCopy />}
+
+                <div className="address_details_copy_btn_copyed">
+                  {width > 768 ? (
+                    !isCopy && isHover ? (
+                      <CopyPopUp x={10} y={20} values="Copy" />
+                    ) : (
+                      null ||
+                      (isCopyPopup && isCopy && (
+                        <CopyPopUp x={3} y={20} values="Copyed" />
+                      ))
+                    )
+                  ) : null}
+                </div>
               </button>
             </div>
           </h1>
