@@ -156,7 +156,7 @@ export const AddressDetails = () => {
                       <CopyPopUp x={10} y={20} values="Copy" />
                     ) : (
                       null ||
-                      (!isCopyPopup && (
+                      (isCopyPopup && isCopy && (
                         <CopyPopUp x={3} y={20} values="Copyed" />
                       ))
                     )

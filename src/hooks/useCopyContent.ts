@@ -16,7 +16,7 @@ const useCopyContent = (address: any) => {
       clearTimeout(timer);
       clearTimeout(timerPopup);
     };
-  }, [isCopy]);
+  }, [isCopy, isCopyPopup]);
 
   return { isCopy, isCopyPopup, copyContent };
 };
