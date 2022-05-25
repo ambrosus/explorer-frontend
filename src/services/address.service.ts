@@ -175,8 +175,8 @@ const bbDataFillter = async (
     const bbApi: any = await API.API.get(url, {
       params: {
         page: page,
-        pageSize: limit,
-        // pageSize: !type ? limit : 1000,
+        // pageSize: limit,
+        pageSize: !type ? limit : 100,
         contract: selectedTokenFilter,
       },
     });
