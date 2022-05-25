@@ -52,7 +52,7 @@ export interface ExplorerTxType {
 
 export interface AddressBlockProps {
   txhash: string | number;
-  method: string | number;
+  method: string;
   from: string | number;
   symbol?: string | null;
   lastCardRef?: any;

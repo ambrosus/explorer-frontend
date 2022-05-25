@@ -62,7 +62,13 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
         ) : (
           <IncomeTrasaction />
         )}
-        <span style={{ width: 78, whiteSpace: 'normal' }}>{method}</span>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          {method.split('::').map((item, index) => (
+            <span key={index + 1} style={{ width: 78, whiteSpace: 'normal' }}>
+              {item}
+            </span>
+          ))}
+        </div>
       </div>
     );
 

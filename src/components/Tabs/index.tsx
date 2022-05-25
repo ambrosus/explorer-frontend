@@ -191,6 +191,7 @@ const Tabs: FC<TabsProps> = ({
                 </div>
               )}
         </section>
+        {loading && <Loader />}
       </div>
     </>
   );
