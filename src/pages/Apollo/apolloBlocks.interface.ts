@@ -31,7 +31,6 @@ export type AccountsData =
 export type PApolloSort = {
   setSortTerm: (value: string) => void;
   sortTerm: string;
-  // sortOptions: any;
 };
 
 export type TApolloSortProps = {

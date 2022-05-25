@@ -186,7 +186,6 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
         <ReactTooltip />
         <span
           data-tip={String(txfee).length > 12 ? txfee : null}
-          // cut to 6 character
         >
           {String(txfee).length > 12 ? String(txfee).slice(0, 12) : txfee}
         </span>
