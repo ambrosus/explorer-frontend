@@ -6,13 +6,10 @@ import MainInfoAddresses from './components/MainInfoAddresses';
 import { Content } from 'components/Content';
 import Loader from 'components/Loader';
 import useSortData from 'hooks/useSortData';
-import { useTypedSelector } from 'hooks/useTypedSelector';
 import { getAccountsData } from 'services/accounts.service';
 
 export const Addresses = () => {
-  const { loading } = useTypedSelector((state) => state.app);
-
-  const { ref, sortTerm, setSortTerm, renderData } =
+  const { ref, sortTerm, setSortTerm, renderData, loading } =
     useSortData(getAccountsData);
 
   return (

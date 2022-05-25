@@ -1,4 +1,5 @@
 .addresses_body {
+  position: relative;
   &:hover {
     background-color: #eff2f5;
   }
@@ -9,6 +10,7 @@
   }
 
   &_cell {
+    position: relative;
     align-items: center;
     border-bottom: 1px solid #eff2f5;
     white-space: nowrap;
@@ -23,14 +25,14 @@
       font-weight: 600;
       color: #808a9d;
     }
-
     .is-contract {
       position: absolute;
-      height: 20px;
-      width: 20px;
-      top: 3px;
+      height: 16px;
+      width: 16px;
+      top: 15px;
       z-index: 20;
       left: -25px;
     }
   }
+
 }
