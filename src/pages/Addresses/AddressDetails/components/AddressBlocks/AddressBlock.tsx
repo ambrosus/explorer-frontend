@@ -56,7 +56,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
     );
   const isMethod =
     method === null ? null : (
-      <div className="address_blocks_td">
+      <div className="address_blocks_td" style={{ gap: 4 }}>
         {from && from === address ? (
           <OutgoingTransaction />
         ) : (
@@ -64,9 +64,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
         )}
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           {method.split('::').map((item, index) => (
-            <span key={index + 1} style={{ width: 78, whiteSpace: 'normal' }}>
-              {item}
-            </span>
+            <span key={index + 1}>{item}</span>
           ))}
         </div>
       </div>
