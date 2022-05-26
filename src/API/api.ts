@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const tokenApiUrl :any= process.env.REACT_APP_TOKEN_API_URL;
+const tokenApiUrl: any = process.env.REACT_APP_TOKEN_API_URL;
 
 const baseApiUrl = process.env.REACT_APP_API_ENDPOINT;
 const API = () => {
