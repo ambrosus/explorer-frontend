@@ -40,7 +40,7 @@ const Tabs: FC<TabsProps> = ({
   const headerToken: any = type === 'ERC-20_Tx' ? 'token' : null;
 
   const setActiveLink = ({ isActive }: any) =>
-    isActive ? 'tabs_link tabs_link-active' : 'tabs_link';
+    isActive ? 'tabs_link tabs_link_active' : 'tabs_link';
 
   const noDtaFound = () => {
     setTimeout(() => {
