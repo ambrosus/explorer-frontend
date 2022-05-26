@@ -73,6 +73,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
   const isFrom =
     from === null ? null : address !== from && String(from).trim().length ? (
       <NavLink
+        replace
         to={`/addresses/${from}/`}
         className="address_blocks_td universall_light2"
       >
@@ -86,6 +87,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
   const isTo =
     to === null ? null : address !== to ? (
       <NavLink
+        replace
         to={`/addresses/${to}/`}
         style={{ display: 'content' }}
         className="address_blocks_td universall_light2"
@@ -184,9 +186,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
           {online}
         </span>
         <ReactTooltip />
-        <span
-          data-tip={String(txfee).length > 12 ? txfee : null}
-        >
+        <span data-tip={String(txfee).length > 12 ? txfee : null}>
           {String(txfee).length > 12 ? String(txfee).slice(0, 12) : txfee}
         </span>
       </div>
@@ -227,7 +227,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
               });
             }}
           >
-            <NavLink className="address_blocks_icon universall_light2" to={'/'}>
+            <NavLink replace className="address_blocks_icon universall_light2" to={'/'}>
               {token ? token : ''}{' '}
               {token &&
                 `(${token.split(' ').reduce((acc: any, token: any) => {

@@ -95,19 +95,19 @@ export const AddressDetails = () => {
           page: pageNum,
         });
       } else {
-       if (type || filtered || tokenToSorted || address) {
-         setPosition(getDataForAddress, address?.trim(), {
-           filtered:
-             addressData && addressData.filters ? addressData.filters : [],
-           selectedTokenFilter:
-             selectedToken && selectedToken?.contract
-               ? selectedToken.contract
-               : filtered,
-           limit: limitNum,
-           type: transactionType,
-           page: pageNum,
-         });
-       }
+        if (type || filtered || tokenToSorted || address) {
+          setPosition(getDataForAddress, address?.trim(), {
+            filtered:
+              addressData && addressData.filters ? addressData.filters : [],
+            selectedTokenFilter:
+              selectedToken && selectedToken?.contract
+                ? selectedToken.contract
+                : filtered,
+            limit: limitNum,
+            type: transactionType,
+            page: pageNum,
+          });
+        }
       }
     }
   }, [
@@ -154,7 +154,6 @@ export const AddressDetails = () => {
     }
   }, [addressData]);
 
-  const { width } = useWindowSize();
 
   return (
     <Content>
