@@ -12,7 +12,7 @@ const OverallBalance: React.FC<OverallBalanceProps> = ({
   const { data: appData } = useTypedSelector((state: any) => state.app);
 
   useEffect(() => {
-    if (addressBalance !== undefined && appData?.total_price_usd) {
+    if (addressBalance !== undefined && addressBalance !== null && appData?.total_price_usd) {
       const usdPrice = appData.total_price_usd * +addressBalance;
       amountInUsdBuffer = usdPrice
       setAmountInUsd(usdPrice);
