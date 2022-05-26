@@ -225,10 +225,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
               });
             }}
           >
-            <NavLink
-              className="address_blocks_icon universall_light2"
-              to={'/'}
-            >
+            <NavLink className="address_blocks_icon universall_light2" to={'/'}>
               {token ? token : ''}{' '}
               {token &&
                 `(${token.split(' ').reduce((acc: any, token: any) => {
