@@ -184,7 +184,7 @@ const bbDataFillter = async (
     const addressBalance: string = bbApi.balance;
 
     const blockBookApiTransactions =
-      bbApi && bbApi.txids
+      bbApi && bbApi?.txids && bbApi?.txids.length
         ? bbApi.txids.map(async (tx: string) => {
             return await fetch(
               `${process.env.REACT_APP_BLOCKBOOK_API}/api/v2/tx/${tx}`,

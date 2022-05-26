@@ -62,19 +62,10 @@ const Tabs: FC<TabsProps> = ({
       setRenderData(null);
     }
     if (addressData && !loading) {
-      if (data?.length && type !== 'ERC-20_Tx' && !filtered) {
-        if (type === 'transfers') {
-          setRenderData(() => {
-            const transfersDataTx: TransactionProps[] = data.filter(
-              (item: TransactionProps) => item.method === 'Transfer',
-            );
-            return transfersDataTx || [];
-          });
-        } else {
+      if (addressData.transactions?.length && type !== 'ERC-20_Tx' && !filtered) {
           setRenderData(toUniqueValueByBlock(data));
-        }
       }
-      if (data?.length && filtered && type === 'ERC-20_Tx') {
+      if (addressData.transactions?.length && filtered && type === 'ERC-20_Tx') {
         setRenderData(toUniqueValueByBlock(data));
       }
 
@@ -93,7 +84,8 @@ const Tabs: FC<TabsProps> = ({
     return () => {
       setRenderData([]);
     };
-  }, [type]);
+  }, []);
+
   return (
     <>
       <div className="tabs">

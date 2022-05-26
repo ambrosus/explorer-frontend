@@ -133,16 +133,18 @@ export const AddressDetails = () => {
           const newTx = addressDataState.sort((a, b) => b.block - a.block);
           return newTx;
         }
-        if (!type || type === 'transfers') {
-          const newTx: TransactionProps[] = toUniqueValueByBlock(compareState);
+        console.log('type',type);
+        if ( String(type).trim() === 'transfers' || !type ) {
+          const newTx: TransactionProps[] = compareState
           const transfersDataTx: TransactionProps[] = newTx.filter(
             (item: TransactionProps) => item.method === 'Transfer',
           );
-          return type === 'transfers' ? transfersDataTx : newTx;
+          return String(type).trim() === 'transfers' ? transfersDataTx : newTx;
         }
       });
+      console.log('tx',tx);
     }
-  }, [addressData]);
+  }, [addressData,type]);
 
   useEffect(() => {
     if (addressData && addressData?.tokens && !selectedToken) {
@@ -204,7 +206,7 @@ export const AddressDetails = () => {
             onClick={setSelectedToken}
             selectedToken={selectedToken}
             transactionType={transactionType}
-            data={tx ? tx : []}
+            data={tx}
             setTransactionType={setTransactionType}
           />
         </Content.Body>
