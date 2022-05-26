@@ -1,9 +1,8 @@
 import MobileMenu from '../../menu/MobileMenu';
 import AmbrosusLogoSvg from './AmbrosusLogoSvg';
 import DesctopMenu from 'components/menu/DesctopMenu';
-import useHover from 'hooks/useHover';
 import useWindowSize from 'hooks/useWindowSize';
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { routes as menuItems } from 'routes';
 import { IRoute } from 'types';
@@ -11,17 +10,17 @@ import { IRoute } from 'types';
 export const Header = () => {
   const { width } = useWindowSize();
   const [isShow, setIsShow] = useState(false);
+  const isHovered1 = false;
 
   const isMobileStyle = width > 1100 ? 'menu_item' : 'mobile_menu_item';
-  // const menuRef = useRef(null);
-  // const [hoverRef, isHovered] = useHover({ refs: menuRef });
 
   const menu = menuItems.map((menuElement: IRoute, index: number) => {
     const cursor = menuElement.isClick ? 'universall_hover' : '';
+    const isHover = menuElement.isClick ? 'menu_item_hover' : '';
+    const isColor = menuElement.isClick ? '#fff' : '';
     const activeStyle = {
       color: '#fff',
       cursor: cursor,
-      // borderBottom: '4px solid #fff',
     };
     const disableClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
       !menuElement.isClick && e.preventDefault();
@@ -32,14 +31,20 @@ export const Header = () => {
       <NavLink
         to={menuElement.path}
         key={menuElement.key}
-        className={`${isMobileStyle} ${cursor}`}
+        className={({ isActive }) =>
+          `${isMobileStyle} ${cursor} ${isHover} ${
+            isActive ? 'menu_item_active' : ''
+          }`
+        }
         style={({ isActive }) => ({
           ...(isActive ? activeStyle : null),
+          color: isColor,
         })}
         onClick={disableClick}
       >
         {menuElement.key}
-        {/* {isHovered ? <span className="menu_item_hover"></span> : ''} */}
+        {isHovered1 ? <span className="menu_item_hover"></span> : ''}
+        <span className="menu_item_hover"></span>
       </NavLink>
     );
   });

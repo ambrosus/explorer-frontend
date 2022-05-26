@@ -1,16 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 
-const useHover = ({ refs }: any) => {
+const useHover = () => {
   const [value, setValue] = useState(false);
-  const ref: any = useRef(refs);
-  // console.log(ref);
+  const ref: any = useRef(null);
 
   const handleMouseOver = () => setValue(true);
   const handleMouseOut = () => setValue(false);
   useEffect(
     () => {
       const node: any = ref.current;
-      console.log(node);
 
       if (node) {
         node.addEventListener('mouseover', handleMouseOver);
