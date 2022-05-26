@@ -22,28 +22,28 @@ export const AddressDetails = () => {
   const { filters } = useTypedSelector(
     (state) => state.tokenFilters,
     shallowEqual,
-  )
+  );
   const {
     loading,
     data: addressData,
     error: errorData,
-  } = useTypedSelector((state: any) => state.position)
-  const { address, type, filtered, tokenToSorted }: TParams = useParams()
-  const { setPosition, addFilter } = useActions()
-  const [transactionType, setTransactionType] = useState(type)
-  const [selectedToken, setSelectedToken] = useState<TokenType | null>(null)
-  const [tx, setTx] = useState<TransactionProps[] | []>([])
-  const [pageNum, setPageNum] = useState(1)
-  const [limitNum] = useState(30)
-  const observer = useRef<IntersectionObserver>()
+  } = useTypedSelector((state: any) => state.position);
+  const { address, type, filtered, tokenToSorted }: TParams = useParams();
+  const { setPosition, addFilter } = useActions();
+  const [transactionType, setTransactionType] = useState(type);
+  const [selectedToken, setSelectedToken] = useState<TokenType | null>(null);
+  const [tx, setTx] = useState<TransactionProps[] | []>([]);
+  const [pageNum, setPageNum] = useState(1);
+  const [limitNum] = useState(30);
+  const observer = useRef<IntersectionObserver>();
 
-  const { isCopy, copyContent } = useCopyContent(address)
+  const { isCopy, copyContent } = useCopyContent(address);
 
   const lastCardRef = useCallback(
     (node: any) => {
-      if (loading) return
+      if (loading) return;
       if (observer.current) {
-        observer.current.disconnect()
+        observer.current.disconnect();
       }
       observer.current = new IntersectionObserver((entries) => {
         if (
@@ -51,27 +51,27 @@ export const AddressDetails = () => {
           addressData &&
           pageNum < addressData?.meta?.totalPages
         ) {
-          setPageNum((prevNum) => prevNum + 1)
+          setPageNum((prevNum) => prevNum + 1);
         }
-      })
+      });
       if (node) {
-        observer.current.observe(node)
+        observer.current.observe(node);
       }
     },
     [loading],
-  )
+  );
 
   useEffect(() => {
     return () => {
-      setPosition(null)
-    }
-  }, [])
+      setPosition(null);
+    };
+  }, []);
 
   useEffect(() => {
     if (address || type || filtered || tokenToSorted) {
-      setTx([])
+      setTx([]);
     }
-  }, [address, type, filtered, tokenToSorted])
+  }, [address, type, filtered, tokenToSorted]);
 
   useEffect(() => {
     if (filtered && addressData?.tokens?.length) {
@@ -79,7 +79,7 @@ export const AddressDetails = () => {
         addressData.tokens.find(
           (token: TokenType) => token.contract === filtered,
         ),
-      )
+      );
     }
     if (!loading || errorData) {
       if (addressData && addressData?.meta?.totalPages > pageNum) {
@@ -93,7 +93,7 @@ export const AddressDetails = () => {
           limit: limitNum,
           type: transactionType,
           page: pageNum,
-        })
+        });
       } else {
         setPosition(getDataForAddress, address?.trim(), {
           filtered:
@@ -105,7 +105,7 @@ export const AddressDetails = () => {
           limit: limitNum,
           type: transactionType,
           page: pageNum,
-        })
+        });
       }
     }
   }, [
@@ -117,34 +117,34 @@ export const AddressDetails = () => {
     address,
     pageNum,
     type,
-  ])
+  ]);
   useEffect(() => {
     if (addressData && addressData?.transactions) {
       setTx((prevState) => {
-        const compareState = [...prevState, ...addressData.transactions]
-        const addressDataState = [...addressData.transactions]
+        const compareState = [...prevState, ...addressData.transactions];
+        const addressDataState = [...addressData.transactions];
         if (type === 'ERC-20_Tx' && !filtered) {
           const newTx: any = addressDataState.sort(
             (a: any, b: any) => b.block - a.block,
-          )
-          return newTx
+          );
+          return newTx;
         }
         if (type === 'ERC-20_Tx' && filtered) {
           const newTx: any = addressDataState.sort(
             (a: any, b: any) => b.block - a.block,
-          )
-          return newTx
+          );
+          return newTx;
         }
         if (!type || type === 'transfers') {
-          const newTx: TransactionProps[] = toUniqueValueByBlock(compareState)
+          const newTx: TransactionProps[] = toUniqueValueByBlock(compareState);
           const transfersDataTx: TransactionProps[] = newTx.filter(
             (item: TransactionProps) => item.method === 'Transfer',
-          )
-          return type === 'transfers' ? transfersDataTx : newTx
+          );
+          return type === 'transfers' ? transfersDataTx : newTx;
         }
-      })
+      });
     }
-  }, [addressData,type])
+  }, [addressData, type]);
 
   useEffect(() => {
     if (addressData && addressData?.tokens && !selectedToken) {
@@ -152,11 +152,11 @@ export const AddressDetails = () => {
         addressData.tokens.find(
           (token: TokenType) => token.contract === filtered,
         ),
-      )
+      );
     }
-  }, [addressData])
+  }, [addressData]);
 
-  const { width } = useWindowSize()
+  const { width } = useWindowSize();
 
   return (
     <Content>
