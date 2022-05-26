@@ -11,7 +11,7 @@ const Loader = () => (
       width: '100%',
     }}
   >
-    <div className="Loader">
+    <div className="loader">
       <div className="Spinner">
         <AnimatedLoader />
       </div>
