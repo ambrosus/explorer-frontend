@@ -10,7 +10,7 @@ export const Footer = () => (
     <div className="container">
       <div className="footer_container">
         <div className="logoFooter">
-          <NavLink  to="/">
+          <NavLink to="/">
             <AmbrosusLogoFooter />
           </NavLink>
         </div>

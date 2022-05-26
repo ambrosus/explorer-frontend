@@ -154,7 +154,6 @@ export const AddressDetails = () => {
     }
   }, [addressData]);
 
-
   return (
     <Content>
       <section className="address_details">
