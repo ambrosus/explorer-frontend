@@ -154,7 +154,6 @@ export const AddressDetails = () => {
     }
   }, [addressData]);
 
-  const { width } = useWindowSize();
 
   return (
     <Content>
