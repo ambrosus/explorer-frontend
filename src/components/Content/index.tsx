@@ -9,20 +9,20 @@ export const Content: FC<IContentProps> & ITabsComposition = ({
   !isLoading ? (
     <Loader />
   ) : (
-    <div key={'CONTENT'} className="content">
+    <div  className="content">
       {children}
     </div>
   );
 Content.displayName = 'CONTENT';
 const H = ({ children, isLoading = true }: IContentProps) => (
-  <div key={'CONTENT_HEADER'} className="content_header">
+  <div  className="content_header">
     {!isLoading ? <Loader /> : <div className="container">{children}</div>}
   </div>
 );
 Content.Header = H;
 Content.Header.displayName = 'CONTENT_HEADER';
 const B = ({ children, isLoading = true }: IContentProps) => (
-  <div key={'CONTENT_BODY'} className="content_body">
+  <div  className="content_body">
     {!isLoading ? (
       <div style={{ minHeight: 400, marginTop: 20 }}>
         <Loader />

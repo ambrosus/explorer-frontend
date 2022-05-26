@@ -26,7 +26,6 @@ export const Header = () => {
 
     return (
       <NavLink
-        replace
         to={menuElement.path}
         key={menuElement.key}
         className={`${isMobileStyle} ${cursor}`}
