@@ -168,3 +168,19 @@ export const log = (...args: any) => {
    */
   return ENABLE_LOGS && console.log(...args);
 };
+
+export  const numberWithCommas = (number: string | number) =>
+  number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
+export  const currenCurrency = (value:string | number,nameCurrency: string | number) => {
+  switch (nameCurrency) {
+    case 'TOTAL SUPPLY':
+      return `${Number(value).toFixed()} AMB`;
+
+    case 'MARKET CAP':
+      return `${Number(value).toFixed()} USD`;
+
+    default:
+      return value;
+  }
+};
