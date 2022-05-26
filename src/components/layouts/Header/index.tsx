@@ -1,8 +1,9 @@
 import MobileMenu from '../../menu/MobileMenu';
 import AmbrosusLogoSvg from './AmbrosusLogoSvg';
 import DesctopMenu from 'components/menu/DesctopMenu';
+import useHover from 'hooks/useHover';
 import useWindowSize from 'hooks/useWindowSize';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { routes as menuItems } from 'routes';
 import { IRoute } from 'types';
@@ -12,12 +13,17 @@ export const Header = () => {
   const [isShow, setIsShow] = useState(false);
 
   const isMobileStyle = width > 1100 ? 'menu_item' : 'mobile_menu_item';
+  const menuRef = useRef(null);
+  const [hoverRef, isHovered] = useHover({ refs: menuRef });
 
-  const menu = menuItems.map((menuElement: IRoute) => {
+  console.log(isHovered);
+
+  const menu = menuItems.map((menuElement: IRoute, index: number) => {
     const cursor = menuElement.isClick ? 'universall_hover' : '';
     const activeStyle = {
       color: '#fff',
       cursor: cursor,
+      // borderBottom: '4px solid #fff',
     };
     const disableClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
       !menuElement.isClick && e.preventDefault();
@@ -26,9 +32,9 @@ export const Header = () => {
 
     return (
       <NavLink
-        replace
-        to={menuElement.path}
+        ref={hoverRef[index]}
         key={menuElement.key}
+        to={menuElement.path}
         className={`${isMobileStyle} ${cursor}`}
         style={({ isActive }) => ({
           ...(isActive ? activeStyle : null),
@@ -36,6 +42,7 @@ export const Header = () => {
         onClick={disableClick}
       >
         {menuElement.key}
+        {isHovered ? <span className="menu_item_hover"></span> : ''}
       </NavLink>
     );
   });
@@ -50,7 +57,9 @@ export const Header = () => {
             </NavLink>
           </div>
           {width > 1108 ? (
-            <DesctopMenu menu={menu} />
+            <div>
+              <DesctopMenu menu={menu} />
+            </div>
           ) : (
             <MobileMenu menu={menu} setIsShow={setIsShow} isShow={isShow} />
           )}

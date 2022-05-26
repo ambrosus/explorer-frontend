@@ -27,7 +27,9 @@
 
   &_item {
     display: flex;
-    align-items: center;
+    flex-direction: column;
+
+    justify-self: center;
     text-decoration: none;
     cursor: default;
     font-family: Proxima Nova, Aktiv Grotesk Corp;
@@ -38,6 +40,15 @@
     letter-spacing: 0.22em;
     text-transform: uppercase;
     color: #4d4d4d;
+
+    &_active {
+      border-bottom: 4px solid #fff;
+      width: 14px;
+    }
+    &_hover {
+      border-bottom: 4px solid #4d4d4d;
+      width: 14px;
+    }
   }
 
   &_btn {
