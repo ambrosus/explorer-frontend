@@ -45,7 +45,7 @@ export const Header = () => {
       <div className="container">
         <nav className="navigation">
           <div className="logo">
-            <NavLink  to="/">
+            <NavLink to="/">
               <AmbrosusLogoSvg />
             </NavLink>
           </div>
