@@ -35,8 +35,8 @@ const Token: React.FC<TokenProps> = ({
 
   return (
     <div className="token">
-      <div className="token__info">
-        <span className="token__info-name">Token</span>
+      <div className="token_info">
+        <span className="token_info_name">Token</span>
         <TokenFilter
           loading={Object.keys(newDataCallback())?.length ? false : loading}
           addressData={
