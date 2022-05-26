@@ -24,6 +24,7 @@ export interface TabsProps {
   data: any;
   onClick: any;
   setTransactionType: any;
+
 }
 
 export type TransactionProps = {
