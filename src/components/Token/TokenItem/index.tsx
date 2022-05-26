@@ -6,17 +6,15 @@ const TokenItem = ({ token, selectedToken, setToken }: ITokenItemProps) => {
   const Icon = getTokenIcon(token.symbol);
   return (
     <div
-      className="token_item"
+      className={
+        selectedToken &&
+        selectedToken?.name &&
+        selectedToken?.name === token?.name
+          ? 'token_item token_item_active'
+          : 'token_item'
+      }
       onClick={() => {
         setToken(token);
-      }}
-      style={{
-        backgroundColor:
-          selectedToken &&
-          selectedToken?.name &&
-          selectedToken?.name === token?.name
-            ? '#EFF2F5'
-            : '#FFFFFF',
       }}
     >
       <div className="token_item_icon">
