@@ -4,7 +4,7 @@ import {
   TokenType,
   TransactionProps,
 } from '../pages/Addresses/AddressDetails/address-details.interface';
-import { log } from '../utils/helpers';
+import { log, toUniqueValueByBlock } from '../utils/helpers';
 import { ethers } from 'ethers';
 import { formatEther } from 'ethers/lib/utils';
 import erc20Abi from 'utils/abis/ERC20.json';
@@ -124,12 +124,7 @@ const blockBookApiTokensSearch: any = async (
   { page, type, limit }: any,
 ) => {
   try {
-    const blockBookApiForT: any = await API.API.get(url, {
-      params: {
-        page: page,
-        pageSize: !type ? limit : 500,
-      },
-    });
+    const blockBookApiForT: any = await API.API.get(url);
 
     const array: any =
       blockBookApiForT &&
@@ -184,7 +179,7 @@ const bbDataFillter = async (
     const addressBalance: string = bbApi.balance;
 
     const blockBookApiTransactions =
-      bbApi && bbApi.txids
+      bbApi && bbApi?.txids && bbApi?.txids.length
         ? bbApi.txids.map(async (tx: string) => {
             return await fetch(
               `${process.env.REACT_APP_BLOCKBOOK_API}/api/v2/tx/${tx}`,
@@ -245,9 +240,9 @@ const bbDataFillter = async (
 async function explorerData(address: string, { page, limit, type }: any) {
   try {
     const { data: explorerTrans } = await API.getAccountTx(address, {
-      page,
-      limit,
-      type,
+      page: page ? page : 1,
+      limit: limit ? limit : 30,
+      type: type ? type : '',
     });
 
     return explorerTrans.map((t: ExplorerTxType) => {

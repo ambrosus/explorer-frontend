@@ -32,7 +32,7 @@ export const AddressDetails = () => {
   const { setPosition, addFilter } = useActions();
   const [transactionType, setTransactionType] = useState(type);
   const [selectedToken, setSelectedToken] = useState<TokenType | null>(null);
-  const [tx, setTx] = useState<TransactionProps[] | any>([]);
+  const [tx, setTx] = useState<TransactionProps[] | []>([]);
   const [pageNum, setPageNum] = useState(1);
   const [limitNum] = useState(30);
   const observer = useRef<IntersectionObserver>();
@@ -40,7 +40,7 @@ export const AddressDetails = () => {
   const { isCopy, copyContent } = useCopyContent(address);
 
   const lastCardRef = useCallback(
-    (node: Element) => {
+    (node: any) => {
       if (loading) return;
       if (observer.current) {
         observer.current.disconnect();
@@ -81,7 +81,7 @@ export const AddressDetails = () => {
         ),
       );
     }
-    if (!tx?.length || errorData) {
+    if (!loading || errorData) {
       if (addressData && addressData?.meta?.totalPages > pageNum) {
         setPosition(getDataForAddress, address?.trim(), {
           filtered:
@@ -95,19 +95,17 @@ export const AddressDetails = () => {
           page: pageNum,
         });
       } else {
-        if (type || filtered || tokenToSorted || address) {
-          setPosition(getDataForAddress, address?.trim(), {
-            filtered:
-              addressData && addressData.filters ? addressData.filters : [],
-            selectedTokenFilter:
-              selectedToken && selectedToken?.contract
-                ? selectedToken.contract
-                : filtered,
-            limit: limitNum,
-            type: transactionType,
-            page: pageNum,
-          });
-        }
+        setPosition(getDataForAddress, address?.trim(), {
+          filtered:
+            addressData && addressData.filters ? addressData.filters : [],
+          selectedTokenFilter:
+            selectedToken && selectedToken?.contract
+              ? selectedToken.contract
+              : filtered,
+          limit: limitNum,
+          type: transactionType,
+          page: pageNum,
+        });
       }
     }
   }, [
@@ -122,15 +120,19 @@ export const AddressDetails = () => {
   ]);
   useEffect(() => {
     if (addressData && addressData?.transactions) {
-      setTx((prevState: TransactionProps[]) => {
+      setTx((prevState) => {
         const compareState = [...prevState, ...addressData.transactions];
         const addressDataState = [...addressData.transactions];
         if (type === 'ERC-20_Tx' && !filtered) {
-          const newTx = addressDataState.sort((a, b) => b.block - a.block);
+          const newTx: any = addressDataState.sort(
+            (a: any, b: any) => b.block - a.block,
+          );
           return newTx;
         }
         if (type === 'ERC-20_Tx' && filtered) {
-          const newTx = addressDataState.sort((a, b) => b.block - a.block);
+          const newTx: any = addressDataState.sort(
+            (a: any, b: any) => b.block - a.block,
+          );
           return newTx;
         }
         if (!type || type === 'transfers') {
@@ -142,7 +144,7 @@ export const AddressDetails = () => {
         }
       });
     }
-  }, [addressData]);
+  }, [addressData, type]);
 
   useEffect(() => {
     if (addressData && addressData?.tokens && !selectedToken) {

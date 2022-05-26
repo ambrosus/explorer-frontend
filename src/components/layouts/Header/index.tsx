@@ -13,10 +13,8 @@ export const Header = () => {
   const [isShow, setIsShow] = useState(false);
 
   const isMobileStyle = width > 1100 ? 'menu_item' : 'mobile_menu_item';
-  const menuRef = useRef(null);
-  const [hoverRef, isHovered] = useHover({ refs: menuRef });
-
-  console.log(isHovered);
+  // const menuRef = useRef(null);
+  // const [hoverRef, isHovered] = useHover({ refs: menuRef });
 
   const menu = menuItems.map((menuElement: IRoute, index: number) => {
     const cursor = menuElement.isClick ? 'universall_hover' : '';
@@ -32,9 +30,8 @@ export const Header = () => {
 
     return (
       <NavLink
-        ref={hoverRef[index]}
-        key={menuElement.key}
         to={menuElement.path}
+        key={menuElement.key}
         className={`${isMobileStyle} ${cursor}`}
         style={({ isActive }) => ({
           ...(isActive ? activeStyle : null),
@@ -42,7 +39,7 @@ export const Header = () => {
         onClick={disableClick}
       >
         {menuElement.key}
-        {isHovered ? <span className="menu_item_hover"></span> : ''}
+        {/* {isHovered ? <span className="menu_item_hover"></span> : ''} */}
       </NavLink>
     );
   });
@@ -52,7 +49,7 @@ export const Header = () => {
       <div className="container">
         <nav className="navigation">
           <div className="logo">
-            <NavLink replace to="/">
+            <NavLink to="/">
               <AmbrosusLogoSvg />
             </NavLink>
           </div>
