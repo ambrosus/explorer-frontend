@@ -10,11 +10,14 @@ import { IRoute } from 'types';
 export const Header = () => {
   const { width } = useWindowSize();
   const [isShow, setIsShow] = useState(false);
+  const isHovered1 = false;
 
   const isMobileStyle = width > 1100 ? 'menu_item' : 'mobile_menu_item';
 
-  const menu = menuItems.map((menuElement: IRoute) => {
+  const menu = menuItems.map((menuElement: IRoute, index: number) => {
     const cursor = menuElement.isClick ? 'universall_hover' : '';
+    const isHover = menuElement.isClick ? 'menu_item_hover' : '';
+    const isColor = menuElement.isClick ? '#fff' : '';
     const activeStyle = {
       color: '#fff',
       cursor: cursor,
@@ -28,13 +31,20 @@ export const Header = () => {
       <NavLink
         to={menuElement.path}
         key={menuElement.key}
-        className={`${isMobileStyle} ${cursor}`}
+        className={({ isActive }) =>
+          `${isMobileStyle} ${cursor} ${isHover} ${
+            isActive ? 'menu_item_active' : ''
+          }`
+        }
         style={({ isActive }) => ({
           ...(isActive ? activeStyle : null),
+          color: isColor,
         })}
         onClick={disableClick}
       >
         {menuElement.key}
+        {isHovered1 ? <span className="menu_item_hover"></span> : ''}
+        <span className="menu_item_hover"></span>
       </NavLink>
     );
   });
@@ -49,7 +59,9 @@ export const Header = () => {
             </NavLink>
           </div>
           {width > 1108 ? (
-            <DesctopMenu menu={menu} />
+            <div>
+              <DesctopMenu menu={menu} />
+            </div>
           ) : (
             <MobileMenu menu={menu} setIsShow={setIsShow} isShow={isShow} />
           )}

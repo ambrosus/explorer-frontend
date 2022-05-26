@@ -241,8 +241,8 @@ async function explorerData(address: string, { page, limit, type }: any) {
   try {
     const { data: explorerTrans } = await API.getAccountTx(address, {
       page: page ? page : 1,
-      limit:limit ? limit : 30,
-      type:type ? type : '',
+      limit: limit ? limit : 30,
+      type: type ? type : '',
     });
 
     return explorerTrans.map((t: ExplorerTxType) => {
