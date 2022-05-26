@@ -12,7 +12,7 @@ const API = () => {
     if (err) {
       console.error(err);
     }
-    window.location.replace('/notfound');
+    // window.location.replace('/notfound');
   }
 
   api.interceptors.response.use(
