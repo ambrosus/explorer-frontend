@@ -1,32 +1,29 @@
 import API from '../API/api';
-import {
-  ExplorerTxType,
-  TokenType,
-  TransactionProps,
-} from '../pages/Addresses/AddressDetails/address-details.interface';
+import { TokenType, TransactionProps } from '../pages/Addresses/AddressDetails/address-details.interface';
+import { log } from '../utils/helpers';
 import { ethers } from 'ethers';
 import { formatEther } from 'ethers/lib/utils';
+import _ from 'lodash';
 import erc20Abi from 'utils/abis/ERC20.json';
-import { log } from '../utils/helpers';
 
 const getTokensBalance = async (tokensArr: TokenType[], address: string) => {
   return Promise.all(
-    tokensArr.map(async (token) => {
+    _.map(tokensArr, async (token) => {
       const ambProvider = new ethers.providers.JsonRpcProvider(
-        process.env.REACT_APP_EXPLORER_NETWORK,
+        process.env.REACT_APP_EXPLORER_NETWORK
       );
       const tokenContract = new ethers.Contract(
         token.contract,
         erc20Abi,
-        ambProvider,
+        ambProvider
       );
       const symbol = token?.symbol ? token.symbol : 'AMB';
       const name = getTokenName(token);
       const balance = Number(
-        formatEther(await tokenContract.balanceOf(String(address))),
+        formatEther(await tokenContract.balanceOf(String(address)))
       ).toFixed(2);
       const totalSupply = Number(
-        formatEther(await tokenContract.totalSupply()),
+        formatEther(await tokenContract.totalSupply())
       );
       token.balance = balance;
       token.totalSupply = totalSupply;
@@ -35,9 +32,9 @@ const getTokensBalance = async (tokensArr: TokenType[], address: string) => {
       return {
         ...token,
         balance,
-        totalSupply,
+        totalSupply
       };
-    }),
+    })
   );
 };
 const getTokenName = (token: TokenType) => {
@@ -46,21 +43,21 @@ const getTokenName = (token: TokenType) => {
   const tokenExample = [
     {
       token: '0x322269e52800e5094c008f3b01A3FD97BB3C8f5D',
-      contractName: 'Hera pool token',
+      contractName: 'Hera pool token'
     },
     {
       token: '0xEB8386a50Edd613cc43f061E9C5A915b0443C5d4',
-      contractName: 'Plutus pool token',
+      contractName: 'Plutus pool token'
     },
     {
       token: '0xE984ACe36F2B6f10Fec8dd6fc1bB19c7b1D2F2c6',
-      contractName: 'Ganymede pool token',
-    },
+      contractName: 'Ganymede pool token'
+    }
   ];
-  const tokenNameFromExample = tokenExample.find((item: any) =>
+  const tokenNameFromExample = _.find(tokenExample, (item: any) =>
     typeof token === 'string'
       ? item.token === token
-      : item.token === token?.name,
+      : item.token === token?.name
   );
   return tokenNameFromExample?.contractName
     ? tokenNameFromExample?.contractName
@@ -69,19 +66,20 @@ const getTokenName = (token: TokenType) => {
 const sortedLatestTransactionsData = async (
   filters: any,
   url: any,
-  page: any,
+  page: any
 ) => {
   try {
-    const includesTokens = filters.filter((token: TokenType) => token.contract);
+    const includesTokens = _.filter(filters, (token: TokenType) => token.contract);
+
     const byToken = includesTokens.map(async (token: TokenType) => {
       const tokensTransactions: any = await API.API.get(url, {
         params: {
           page: page,
           pageSize: 1000,
-          contract: token.contract,
-        },
+          contract: token.contract
+        }
       });
-      return tokensTransactions.txids.map(async (tx: string) => {
+      return tokensTransactions && tokensTransactions.txids && _.map(tokensTransactions.txids, async (tx: string) => {
         return fetch(`${process.env.REACT_APP_BLOCKBOOK_API}/api/v2/tx/${tx}`)
           .then((res) => res.json())
           .catch((e) => log(e));
@@ -89,7 +87,7 @@ const sortedLatestTransactionsData = async (
     });
     const parsePromisesByToken = await Promise.allSettled(byToken);
 
-    return parsePromisesByToken.map((item: any) => {
+    return _.map(parsePromisesByToken, (item: any) => {
       const t = item.value;
       return {
         txHash: t?.txid,
@@ -111,7 +109,7 @@ const sortedLatestTransactionsData = async (
         symbol: t?.tokenTransfers?.[0]?.symbol
           ? getTokenName(t?.tokenTransfers[0]?.symbol)
           : 'AMB',
-        txFee: Number(ethers.utils.formatEther(t?.fees)),
+        txFee: Number(ethers.utils.formatEther(t?.fees))
       };
     });
   } catch (e) {
@@ -121,33 +119,32 @@ const sortedLatestTransactionsData = async (
 
 const blockBookApiTokensSearch: any = async (
   url: string,
-  { page, type, limit }: any,
+  { page, type, limit }: any
 ) => {
   try {
     const blockBookApiForT: any = await API.API.get(url, {
       params: {
         page: page,
-        pageSize: !type ? limit : 1000,
-      },
+        pageSize: !type ? limit : 1000
+      }
     });
 
     const array: any =
       blockBookApiForT &&
       blockBookApiForT.tokens &&
-      blockBookApiForT.tokens.map(async (token: TokenType) => {
-        // @ts-ignore
+      _.map(blockBookApiForT.tokens, async (token: TokenType) => {
         const getTokenData: any = await API.API.get(url, {
           params: {
             page: page,
             pageSize: 1000,
-            contract: token.contract,
-          },
+            contract: token.contract
+          }
         });
         return (
           getTokenData &&
           getTokenData.tokens &&
           getTokenData?.tokens.find(
-            (item: TokenType) => token.contract === item.contract,
+            (item: TokenType) => token.contract === item.contract
           )
         );
       });
@@ -159,7 +156,7 @@ const blockBookApiTokensSearch: any = async (
       ? flatMap.map((token: TokenType, index: number) => {
         return {
           ...token,
-          idx: index + 1,
+          idx: index + 1
         };
       })
       : [];
@@ -170,24 +167,24 @@ const blockBookApiTokensSearch: any = async (
 
 const bbDataFillter = async (
   url: string,
-  { limit, page, type, selectedTokenFilter }: any,
+  { limit, page, type, selectedTokenFilter }: any
 ) => {
   try {
     const bbApi: any = await API.API.get(url, {
       params: {
         page: page,
-        pageSize: !type ? limit : selectedTokenFilter ?  1000 : 499,
-        contract: selectedTokenFilter ? selectedTokenFilter : '',
-      },
+        pageSize: !type ? limit : selectedTokenFilter ? 1000 : 499,
+        contract: selectedTokenFilter ? selectedTokenFilter : ''
+      }
     });
 
     const addressBalance: string = bbApi.balance;
 
     const blockBookApiTransactions =
       bbApi && bbApi.txids
-        ? bbApi.txids.map(async (tx: string) => {
+        ? _.map(bbApi.txids, async (tx: string) => {
           return await fetch(
-            `${process.env.REACT_APP_BLOCKBOOK_API}/api/v2/tx/${tx}`,
+            `${process.env.REACT_APP_BLOCKBOOK_API}/api/v2/tx/${tx}`
           )
             .then((res) => res.json())
             .catch((e) => log(e));
@@ -195,18 +192,14 @@ const bbDataFillter = async (
         : [];
 
     const blockBookApiTransactionsData = await Promise.allSettled(
-      blockBookApiTransactions,
+      blockBookApiTransactions
     );
-    const filteredBlockBookApiTransactionsData =
-      (await blockBookApiTransactionsData) &&
-      blockBookApiTransactionsData.filter(
-        (item: any) => item.value !== undefined,
-      );
+    const filteredBlockBookApiTransactionsData = (await blockBookApiTransactionsData) && _.filter(blockBookApiTransactionsData, (item: any) => item.value !== undefined);
 
     const bbTxData =
       filteredBlockBookApiTransactionsData &&
       filteredBlockBookApiTransactionsData?.length
-        ? filteredBlockBookApiTransactionsData.map((item: any) => {
+        ? _.map(filteredBlockBookApiTransactionsData, (item: any) => {
           const t = item.value;
           return {
             txHash: t?.txid,
@@ -228,14 +221,14 @@ const bbDataFillter = async (
             symbol: t?.tokenTransfers?.[0]?.symbol
               ? getTokenName(t?.tokenTransfers[0]?.symbol)
               : 'AMB',
-            txFee: ethers.utils.formatUnits(t?.fees, 18),
+            txFee: ethers.utils.formatUnits(t?.fees, 18)
           };
         })
         : [];
     return {
       bbApi,
       addressBalance,
-      bbTxData,
+      bbTxData
     };
   } catch (e) {
     log(e);
@@ -247,31 +240,28 @@ async function explorerData(address: string, { page, limit, type }: any) {
     const { data: explorerTrans } = await API.getAccountTx(address, {
       page,
       limit,
-      type,
+      type
     });
-
-    return explorerTrans.map((t: ExplorerTxType) => {
-      return {
-        txHash: t?.hash,
-        method: t?.type,
-        from: t?.from,
-        to: t?.to,
-        date: t?.timestamp * 1000,
-        block: t?.blockNumber,
-        amount: Number(formatEther(t?.value.wei)),
-        // TODO add token symbol && token name
-        token: 'Amber',
-        symbol: 'AMB',
-        txFee: ethers.utils.formatUnits(t?.gasCost?.wei, 18),
-      };
-    });
+    return _.map(explorerTrans, (t) => ({
+      txHash: t?.hash,
+      method: t?.type,
+      from: t?.from,
+      to: t?.to,
+      date: t?.timestamp * 1000,
+      block: t?.blockNumber,
+      amount: Number(formatEther(t?.value.wei)),
+      // TODO add token symbol && token name
+      token: 'Amber',
+      symbol: 'AMB',
+      txFee: ethers.utils.formatUnits(t?.gasCost?.wei, 18)
+    }));
   } catch (e) {
     log(e);
   }
 }
 
 export const getDataForAddress = async (address: string, params: any) => {
-  const { page, type, selectedTokenFilter } = params;
+  const { page, type } = params;
   const url = `${process.env.REACT_APP_BLOCKBOOK_API}/api/v2/address/${address}`;
   try {
     const blockBookApiTokens: any = await blockBookApiTokensSearch(url, params);
@@ -281,24 +271,21 @@ export const getDataForAddress = async (address: string, params: any) => {
 
     const defaultFilters: TokenType[] =
       (await getTokensBalance(blockBookApiTokens, address)) || [];
-    const explorData: TransactionProps[] = await explorerData(address, params);
+    const explorData = await explorerData(address, params);
 
     const latestTransactions: TransactionProps[] =
       (await sortedLatestTransactionsData(defaultFilters, url, page)) || [];
 
-   const filterBB :TransactionProps[] = type !== 'transfers' ? bbTxData : bbTxData.filter((item:TransactionProps) => item.method === 'Transfer') || []
-   const filterExplorer :TransactionProps[] = type !== 'transfers' ? explorData : explorData.filter((item:TransactionProps) => item.method === 'Transfer') || []
-    const transactionsAll: TransactionProps[] = [...filterExplorer, ...filterBB];
+    const transactionsAll: TransactionProps[] = _.uniq(
+      _.concat(explorData,bbTxData )
+    );
 
     return {
       balance: addressBalance,
-      transactions:
-        type === 'ERC-20_Tx'
-          ? bbTxData
-          : transactionsAll,
+      transactions: type === 'ERC-20_Tx' ? bbTxData : transactionsAll,
       tokens: [...defaultFilters],
       latestTransactions,
-      meta: bbApi,
+      meta: bbApi
     };
   } catch (e) {
     log(e);
