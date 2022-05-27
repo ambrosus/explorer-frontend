@@ -176,7 +176,7 @@ const bbDataFillter = async (
     const bbApi: any = await API.API.get(url, {
       params: {
         page: page,
-        pageSize: !type ? limit : selectedTokenFilter ?  1000 : 200,
+        pageSize: !type ? limit : selectedTokenFilter ?  1000 : 499,
         contract: selectedTokenFilter ? selectedTokenFilter : '',
       },
     });
@@ -275,6 +275,7 @@ export const getDataForAddress = async (address: string, params: any) => {
   const url = `${process.env.REACT_APP_BLOCKBOOK_API}/api/v2/address/${address}`;
   try {
     const blockBookApiTokens: any = await blockBookApiTokensSearch(url, params);
+
     const { addressBalance, bbApi, bbTxData }: TransactionProps[] | any =
       await bbDataFillter(url, params);
 
@@ -285,8 +286,9 @@ export const getDataForAddress = async (address: string, params: any) => {
     const latestTransactions: TransactionProps[] =
       (await sortedLatestTransactionsData(defaultFilters, url, page)) || [];
 
-    const transactionsAll: TransactionProps[] = [...explorData, ...bbTxData];
-
+   const filterBB :TransactionProps[] = type !== 'transfers' ? bbTxData : bbTxData.filter((item:TransactionProps) => item.method === 'Transfer') || []
+   const filterExplorer :TransactionProps[] = type !== 'transfers' ? explorData : explorData.filter((item:TransactionProps) => item.method === 'Transfer') || []
+    const transactionsAll: TransactionProps[] = [...filterExplorer, ...filterBB];
 
     return {
       balance: addressBalance,
