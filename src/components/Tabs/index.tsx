@@ -157,7 +157,6 @@ const Tabs: FC<TabsProps> = ({
             )}
           </div>
         </div>
-        {loading && <Loader />}
 
         <section
           className="tabs_table"
@@ -194,6 +193,7 @@ const Tabs: FC<TabsProps> = ({
               methodFilters={methodFilters}
             />
           )}
+
           {renderData && renderData?.length !== 0
             ? renderData.map((transaction: TransactionProps, index: number) =>
                 renderData.length - 1 === index ? (
@@ -236,6 +236,7 @@ const Tabs: FC<TabsProps> = ({
                 ),
               )
             : null}
+
           {!loading && !renderData?.length && noDtaFound() && (
             <div className="tabs_not_found">
               <NotFoundIcon />
@@ -245,6 +246,11 @@ const Tabs: FC<TabsProps> = ({
             </div>
           )}
         </section>
+        {loading && (
+          <div style={{ top: '-20px', position: 'relative' }}>
+            <Loader />
+          </div>
+        )}
       </div>
     </>
   );
