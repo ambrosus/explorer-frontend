@@ -169,10 +169,13 @@ export const log = (...args: any) => {
   return ENABLE_LOGS && console.log(...args);
 };
 
-export  const numberWithCommas = (number: string | number) =>
+export const numberWithCommas = (number: string | number) =>
   number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 
-export  const currenCurrency = (value:string | number,nameCurrency: string | number) => {
+export const currenCurrency = (
+  value: string | number,
+  nameCurrency: string | number,
+) => {
   switch (nameCurrency) {
     case 'TOTAL SUPPLY':
       return `${Number(value).toFixed()} AMB`;
@@ -183,4 +186,12 @@ export  const currenCurrency = (value:string | number,nameCurrency: string | num
     default:
       return value;
   }
+};
+
+export const wrapString = (string: string) => {
+  return string.split('::').map((item, index) => (
+    <span key={index + 1} style={{ fontSize: 'inherit' }}>
+      {item}
+    </span>
+  ));
 };

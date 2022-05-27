@@ -44,7 +44,9 @@ export const Home: React.FC = () => {
   };
   useEffect(() => {
     getHomePageData().then((result: ResultHomePageData) => setData(result));
-  }, [appData, data]);
+  }, []);
+
+  // appData, data
 
   const { width } = useWindowSize();
 

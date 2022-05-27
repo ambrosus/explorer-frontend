@@ -19,7 +19,7 @@ const LatestBlocks: React.FC<LatestBlocksProps> = ({
       <div className="latest_blocks_cells">
         <div className="latest_blocks_cell">
           <div className="latest_blocks_cell_content latest_blocks_font_big">
-            <span>{online}</span>
+            <span style={{ marginRight: 8 }}>{online}</span>
             {number}
           </div>
 
@@ -31,7 +31,9 @@ const LatestBlocks: React.FC<LatestBlocksProps> = ({
 
         <div className="latest_blocks_cell">
           <div className="latest_blocks_cell_content">
-            <div className="latest_blocks_font_small">Validator</div>
+            <div className="latest_blocks_font_small" style={{ width: 54 }}>
+              Validator
+            </div>
             <div className="latest_blocks_font_big latest_blocks_margin-left">
               {sliceData5(validator as string)}
             </div>
