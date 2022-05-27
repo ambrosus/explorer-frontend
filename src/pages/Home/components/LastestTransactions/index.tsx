@@ -1,6 +1,6 @@
 import { LatestTransactionsProps } from 'pages/Home/home.interfaces';
 import React from 'react';
-import { calcTime, isOnline, sliceData5 } from 'utils/helpers';
+import { calcTime, isOnline, sliceData5, wrapString } from 'utils/helpers';
 
 const LatestTransactions: React.FC<LatestTransactionsProps> = ({
   hash,
@@ -15,7 +15,7 @@ const LatestTransactions: React.FC<LatestTransactionsProps> = ({
     <div className="lastest_transactions_cells">
       <div className="lastest_transactions_cell">
         <div className="lastest_transactions_cell_content lastest_transactions_font_big">
-          <span>{isOnline(status)}</span>
+          <span style={{ marginRight: 8 }}>{isOnline(status)}</span>
           {sliceData5(hash)}
         </div>
 
@@ -40,8 +40,11 @@ const LatestTransactions: React.FC<LatestTransactionsProps> = ({
         </div>
       </div>
       <div className="lastest_transactions_cell">
-        <div className="lastest_transactions_cell_content lastest_transactions_font_small">
-          {type}
+        <div
+          className="lastest_transactions_cell_content lastest_transactions_font_small"
+          style={{ flexDirection: 'column', gap: 0, alignItems: 'flex-start' }}
+        >
+          {wrapString(type)}
         </div>
         <div className="lastest_transactions_cell_content lastest_transactions_font_big">{`${amount?.toFixed(
           5,

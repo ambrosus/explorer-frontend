@@ -18,6 +18,7 @@ import {
   getTokenIcon,
   sliceData10,
   sliceData5,
+  wrapString,
 } from 'utils/helpers';
 
 const AddressBlock: React.FC<AddressBlockProps> = ({
@@ -63,9 +64,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
           <IncomeTrasaction />
         )}
         <div style={{ display: 'flex', flexDirection: 'column' }}>
-          {method.split('::').map((item, index) => (
-            <span key={index + 1}>{item}</span>
-          ))}
+          {wrapString(method)}
         </div>
       </div>
     );
