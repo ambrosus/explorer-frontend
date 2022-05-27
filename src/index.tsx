@@ -2,7 +2,7 @@ import Main from './components/Main/Main';
 import ScrollToTop from './components/ScrollToTop';
 import { store } from './state';
 import React from 'react';
-import { createRoot } from 'react-dom/client';
+import ReactDOM  from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 
@@ -21,5 +21,6 @@ export const App = (): JSX.Element => (
 );
 
 const container = document.getElementById('root') as HTMLElement;
-const root = createRoot(container);
-root.render(<App />);
+ReactDOM.render(<App />, container, () => {
+  console.log('rendered');
+});
