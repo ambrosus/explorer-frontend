@@ -205,10 +205,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
           <>
             <div className="address_blocks_icon universall_light2">
               {token ? token : ''}{' '}
-              {token &&
-                `(${token.split(' ').reduce((acc: any, token: any) => {
-                  return (acc += token.charAt(0).toUpperCase());
-                }, '')})`}
+              {token.includes('token') ? `(${getAmbTokenSymbol(token)})` : !symbol || symbol.trim() === 'null' ? '(AMB)' : `(${symbol})`}
             </div>
           </>
         ) : (
@@ -224,12 +221,18 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
               });
             }}
           >
-            <NavLink className="address_blocks_icon universall_light2" to={'/'}>
+            <NavLink className="address_blocks_icon universall_light2" to={`${()=> {
+              addressData?.tokens.forEach((item: TokenType) => {
+                if (item.name === token) {
+                  onClick(item);
+                  addFilter(item);
+                  return `/addresses/${address}/ERC-20_Tx/${item.contract}/`;
+                }
+              });
+            }}`}>
               {token ? token : ''}{' '}
-              {token &&
-                `(${token.split(' ').reduce((acc: any, token: any) => {
-                  return (acc += token.charAt(0).toUpperCase());
-                }, '')})`}
+              {token.includes('token') ? `(${getAmbTokenSymbol(token)})` : !symbol || symbol.trim() === 'null' ? '(AMB)' : `(${symbol})`}
+
             </NavLink>
           </span>
         )}
