@@ -59,9 +59,7 @@ export const Header = () => {
             </NavLink>
           </div>
           {width > 1108 ? (
-            <div>
-              <DesctopMenu menu={menu} />
-            </div>
+            <DesctopMenu menu={menu} />
           ) : (
             <MobileMenu menu={menu} setIsShow={setIsShow} isShow={isShow} />
           )}

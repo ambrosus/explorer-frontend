@@ -42,6 +42,7 @@ const FindWide: React.FC<FindWideProps> = ({ searchRef }) => {
     <>
       <form ref={searchRef} className="find_wide" onSubmit={handleSubmit}>
         <input
+          role='search'
           className="find_wide_input"
           placeholder="Search by Node, Address, Tx, Block, Token, Bundle"
           type="text"
@@ -51,7 +52,7 @@ const FindWide: React.FC<FindWideProps> = ({ searchRef }) => {
           }
         />
 
-        <button className="find_wide_btn" type="submit">
+        <button role='find' className="find_wide_btn" type="submit">
           <Search fill={'#808A9D'} />
         </button>
       </form>

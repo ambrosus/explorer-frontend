@@ -2,6 +2,7 @@ import { toUniqueValueByBlock } from '../../../utils/helpers';
 import { TokenType, TransactionProps } from './address-details.interface';
 import ContentCopy from 'assets/icons/CopyIcons/ContentCopy';
 import ContentCopyed from 'assets/icons/CopyIcons/ContentCopyed';
+import CopyPopUp from 'assets/icons/CopyIcons/CopyPopUp';
 import { Content } from 'components/Content';
 import FilteredToken from 'components/FilteredToken';
 import OverallBalance from 'components/OveralBalance';
@@ -37,7 +38,7 @@ export const AddressDetails = () => {
   const [limitNum] = useState(30);
   const observer = useRef<IntersectionObserver>();
 
-  const { isCopy, copyContent } = useCopyContent(address);
+  const { isCopy, copyContent, isCopyPopup } = useCopyContent(address);
 
   const lastCardRef = useCallback(
     (node: any) => {
@@ -176,6 +177,11 @@ export const AddressDetails = () => {
                   </>
                 ) : (
                   <ContentCopy />
+                )}
+                {width > 786 && isCopyPopup && isCopy && (
+                  <div className="address_details_copyed">
+                    <CopyPopUp x={3} y={20} values="Copyed" />
+                  </div>
                 )}
               </button>
             </div>

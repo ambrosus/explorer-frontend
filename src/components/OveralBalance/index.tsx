@@ -4,19 +4,23 @@ import React, { useEffect, useState } from 'react';
 
 let amountInUsdBuffer = 0;
 
-const OverallBalance: React.FC<OverallBalanceProps> = ({
-  addressBalance,
-}) => {
+const OverallBalance: React.FC<OverallBalanceProps> = ({ addressBalance }) => {
   const [amountInUsd, setAmountInUsd] = useState(amountInUsdBuffer);
-  const [addressBalanceBuffer, setAddressBalanceBuffer] = useState(+addressBalance);
+  const [addressBalanceBuffer, setAddressBalanceBuffer] = useState(
+    +addressBalance,
+  );
   const { data: appData } = useTypedSelector((state: any) => state.app);
 
   useEffect(() => {
-    if (addressBalance !== undefined && addressBalance !== null && appData?.total_price_usd) {
+    if (
+      addressBalance !== undefined &&
+      addressBalance !== null &&
+      appData?.total_price_usd
+    ) {
       const usdPrice = appData.total_price_usd * +addressBalance;
-      amountInUsdBuffer = usdPrice
+      amountInUsdBuffer = usdPrice;
       setAmountInUsd(usdPrice);
-      setAddressBalanceBuffer(+addressBalance)
+      setAddressBalanceBuffer(+addressBalance);
     }
   }, [addressBalance]);
 
