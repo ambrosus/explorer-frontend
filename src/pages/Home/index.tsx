@@ -10,7 +10,7 @@ import useWindowSize from 'hooks/useWindowSize';
 import MainInfo from 'pages/Home/components/MainInfo';
 import React, { useEffect, useState } from 'react';
 
-export const Index: React.FC = () => {
+export const Home: React.FC = () => {
   const [data, setData] = useState<ResultHomePageData>();
   const { data: appData } = useTypedSelector((state: any) => state.app);
 
@@ -44,7 +44,9 @@ export const Index: React.FC = () => {
   };
   useEffect(() => {
     getHomePageData().then((result: ResultHomePageData) => setData(result));
-  }, [appData, data]);
+  }, []);
+
+  // appData, data
 
   const { width } = useWindowSize();
 

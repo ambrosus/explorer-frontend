@@ -144,7 +144,7 @@ export const isOnline = (status: string) => {
     case 'PENDING':
       return <OrangeCircle />;
     default:
-      return null;
+      return <GreenCircle />;
   }
 };
 
@@ -167,4 +167,31 @@ export const log = (...args: any) => {
    * @returns {void}
    */
   return ENABLE_LOGS && console.log(...args);
+};
+
+export const numberWithCommas = (number: string | number) =>
+  number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
+export const currenCurrency = (
+  value: string | number,
+  nameCurrency: string | number,
+) => {
+  switch (nameCurrency) {
+    case 'TOTAL SUPPLY':
+      return `${Number(value).toFixed()} AMB`;
+
+    case 'MARKET CAP':
+      return `${Number(value).toFixed()} USD`;
+
+    default:
+      return value;
+  }
+};
+
+export const wrapString = (string: string) => {
+  return string.split('::').map((item, index) => (
+    <span key={index + 1} style={{ fontSize: 'inherit' }}>
+      {item}
+    </span>
+  ));
 };

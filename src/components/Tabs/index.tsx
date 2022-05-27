@@ -139,6 +139,7 @@ const Tabs: FC<TabsProps> = ({
                   </NavLink>
                 ))}
           </div>
+
           <div ref={mobileCalendarRef} className="tabs_heading_export_modal">
             {width > 760 ? (
               <ExportCsv />
@@ -156,6 +157,7 @@ const Tabs: FC<TabsProps> = ({
             )}
           </div>
         </div>
+        {loading && <Loader />}
 
         <section
           className="tabs_table"
@@ -177,6 +179,7 @@ const Tabs: FC<TabsProps> = ({
               <Loader />
             </div>
           )}
+
           {renderData && renderData?.length !== 0 && (
             <AddressBlocksHeader
               txhash="txHash"
@@ -242,7 +245,6 @@ const Tabs: FC<TabsProps> = ({
             </div>
           )}
         </section>
-        {loading && <Loader />}
       </div>
     </>
   );

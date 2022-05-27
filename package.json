@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@types/testing-library__jest-dom": "^5.14.3",
     "autoprefixer": "^10.4.5",
     "eslint": "^8.14.0",
     "ethers": "^5.0.0",

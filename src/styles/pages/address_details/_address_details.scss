@@ -31,6 +31,15 @@
     @include for_small_phone {
       font-size: 0.8rem;
     }
+    .address_details_copyed {
+      position: absolute;
+      margin: 70px 0 0 10px;
+    }
+    &_copyed {
+      position: relative;
+      top: -35px;
+      left: -33px;
+    }
 
     &_btn {
       display: flex;
