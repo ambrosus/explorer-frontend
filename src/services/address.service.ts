@@ -4,10 +4,10 @@ import {
   TokenType,
   TransactionProps,
 } from '../pages/Addresses/AddressDetails/address-details.interface';
-import { log, toUniqueValueByBlock } from '../utils/helpers';
 import { ethers } from 'ethers';
 import { formatEther } from 'ethers/lib/utils';
 import erc20Abi from 'utils/abis/ERC20.json';
+import { log } from '../utils/helpers';
 
 const getTokensBalance = async (tokensArr: TokenType[], address: string) => {
   return Promise.all(
@@ -124,12 +124,18 @@ const blockBookApiTokensSearch: any = async (
   { page, type, limit }: any,
 ) => {
   try {
-    const blockBookApiForT: any = await API.API.get(url);
+    const blockBookApiForT: any = await API.API.get(url, {
+      params: {
+        page: page,
+        pageSize: !type ? limit : 1000,
+      },
+    });
 
     const array: any =
       blockBookApiForT &&
       blockBookApiForT.tokens &&
       blockBookApiForT.tokens.map(async (token: TokenType) => {
+        // @ts-ignore
         const getTokenData: any = await API.API.get(url, {
           params: {
             page: page,
@@ -151,11 +157,11 @@ const blockBookApiTokensSearch: any = async (
       : [];
     return flatMap
       ? flatMap.map((token: TokenType, index: number) => {
-          return {
-            ...token,
-            idx: index + 1,
-          };
-        })
+        return {
+          ...token,
+          idx: index + 1,
+        };
+      })
       : [];
   } catch (e) {
     log(e);
@@ -170,61 +176,61 @@ const bbDataFillter = async (
     const bbApi: any = await API.API.get(url, {
       params: {
         page: page,
-        pageSize: limit,
-        // pageSize: !type ? limit : 999,
+        pageSize: !type ? limit : selectedTokenFilter ?  1000 : 200,
+        contract: selectedTokenFilter ? selectedTokenFilter : '',
       },
     });
 
     const addressBalance: string = bbApi.balance;
 
     const blockBookApiTransactions =
-      bbApi && bbApi?.txids && bbApi?.txids.length
+      bbApi && bbApi.txids
         ? bbApi.txids.map(async (tx: string) => {
-            return await fetch(
-              `${process.env.REACT_APP_BLOCKBOOK_API}/api/v2/tx/${tx}`,
-            )
-              .then((res) => res.json())
-              .catch((e) => log(e));
-          })
+          return await fetch(
+            `${process.env.REACT_APP_BLOCKBOOK_API}/api/v2/tx/${tx}`,
+          )
+            .then((res) => res.json())
+            .catch((e) => log(e));
+        })
         : [];
 
     const blockBookApiTransactionsData = await Promise.allSettled(
       blockBookApiTransactions,
     );
-
     const filteredBlockBookApiTransactionsData =
       (await blockBookApiTransactionsData) &&
       blockBookApiTransactionsData.filter(
         (item: any) => item.value !== undefined,
       );
+
     const bbTxData =
       filteredBlockBookApiTransactionsData &&
       filteredBlockBookApiTransactionsData?.length
         ? filteredBlockBookApiTransactionsData.map((item: any) => {
-            const t = item.value;
-            return {
-              txHash: t?.txid,
-              method: t?.tokenTransfers ? 'Transfer' : 'Transaction',
-              from: t?.tokenTransfers
-                ? t?.tokenTransfers?.[0]?.from
-                : t?.vin?.[0]?.addresses?.[0],
-              to: t?.tokenTransfers
-                ? t?.tokenTransfers?.[0]?.to
-                : t?.vout?.[0]?.addresses?.[0],
-              date: t?.blockTime * 1000,
-              block: t?.blockHeight,
-              amount: t?.tokenTransfers
-                ? Number(formatEther(t?.tokenTransfers[0].value))
-                : Number(formatEther(t?.value)),
-              token: t?.tokenTransfers?.[0]?.name
-                ? getTokenName(t?.tokenTransfers[0].name)
-                : 'AMB',
-              symbol: t?.tokenTransfers?.[0]?.symbol
-                ? getTokenName(t?.tokenTransfers[0]?.symbol)
-                : 'AMB',
-              txFee: ethers.utils.formatUnits(t?.fees, 18),
-            };
-          })
+          const t = item.value;
+          return {
+            txHash: t?.txid,
+            method: t?.tokenTransfers ? 'Transfer' : 'Transaction',
+            from: t?.tokenTransfers
+              ? t?.tokenTransfers?.[0]?.from
+              : t?.vin?.[0]?.addresses?.[0],
+            to: t?.tokenTransfers
+              ? t?.tokenTransfers?.[0]?.to
+              : t?.vout?.[0]?.addresses?.[0],
+            date: t?.blockTime * 1000,
+            block: t?.blockHeight,
+            amount: t?.tokenTransfers
+              ? Number(formatEther(t?.tokenTransfers[0].value))
+              : Number(formatEther(t?.value)),
+            token: t?.tokenTransfers?.[0]?.name
+              ? getTokenName(t?.tokenTransfers[0].name)
+              : 'AMB',
+            symbol: t?.tokenTransfers?.[0]?.symbol
+              ? getTokenName(t?.tokenTransfers[0]?.symbol)
+              : 'AMB',
+            txFee: ethers.utils.formatUnits(t?.fees, 18),
+          };
+        })
         : [];
     return {
       bbApi,
@@ -232,16 +238,16 @@ const bbDataFillter = async (
       bbTxData,
     };
   } catch (e) {
-    console.log(e);
+    log(e);
   }
 };
 
 async function explorerData(address: string, { page, limit, type }: any) {
   try {
     const { data: explorerTrans } = await API.getAccountTx(address, {
-      page: page ? page : 1,
-      limit: limit ? limit : 30,
-      type: type ? type : '',
+      page,
+      limit,
+      type,
     });
 
     return explorerTrans.map((t: ExplorerTxType) => {
@@ -280,10 +286,12 @@ export const getDataForAddress = async (address: string, params: any) => {
       (await sortedLatestTransactionsData(defaultFilters, url, page)) || [];
 
     const transactionsAll: TransactionProps[] = [...explorData, ...bbTxData];
+
+
     return {
       balance: addressBalance,
       transactions:
-        type === 'ERC-20_Tx' || selectedTokenFilter
+        type === 'ERC-20_Tx'
           ? bbTxData
           : transactionsAll,
       tokens: [...defaultFilters],

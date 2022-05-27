@@ -1,47 +1,37 @@
 import { TParams } from '../../types';
 import TokenFilter from './TokenFilter';
 import { TokenProps } from 'pages/Addresses/AddressDetails/address-details.interface';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
+let dataBuffer: any = null;
+let load: any = false;
+
 const Token: React.FC<TokenProps> = ({
-  loading,
-  addressData,
-  onClick,
-  selectedToken,
-}) => {
-  const { address }: TParams = useParams();
-
-  const [prevAddress, setPrevAddress] = useState(address);
-
-  const [newData, setNewData] = useState({});
-
-  const newDataCallback = useCallback(() => {
-    return addressData || newData;
-  }, [prevAddress !== address]);
+                                       addressData,
+                                       onClick,
+                                       selectedToken
+                                     }) => {
+  const { address } = useParams<TParams>();
+  const [isLoading, setIsLoading] = useState(load);
+  const [data, setData] = useState<any>(dataBuffer);
 
   useEffect(() => {
-    setPrevAddress(address);
-    if (!newDataCallback()) {
-      setNewData(addressData);
+    if (addressData && addressData !== dataBuffer && Object.keys(addressData).length ) {
+      setIsLoading(true);
+      dataBuffer = addressData;
+      setData(addressData);
+      setIsLoading(false);
     }
-  }, [addressData]);
-
-  useEffect(() => {
-    if (addressData) {
-      setNewData(addressData);
-    }
-  }, [addressData]);
+  }, [addressData,address]);
 
   return (
-    <div className="token">
-      <div className="token_info">
-        <span className="token_info_name">Token</span>
+    <div className='token'>
+      <div className='token_info'>
+        <span className='token_info_name'>Token</span>
         <TokenFilter
-          loading={Object.keys(newDataCallback())?.length ? false : loading}
-          addressData={
-            Object.keys(newDataCallback())?.length ? newDataCallback() : newData
-          }
+          loading={isLoading}
+          addressData={data}
           selectedToken={selectedToken}
           onClick={onClick}
         />
@@ -50,4 +40,4 @@ const Token: React.FC<TokenProps> = ({
   );
 };
 
-export default Token;
+export default React.memo(Token)
