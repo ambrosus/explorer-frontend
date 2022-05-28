@@ -98,7 +98,7 @@ export default function removeArrayDuplicates(array: any, key = '_id') {
       ids.push(item[key]);
       return item;
     } else {
-      console.warn(`Duplicate found in an array: `, item[key]);
+      log(`Duplicate found in an array: `, item[key]);
       return false;
     }
   });
@@ -157,7 +157,7 @@ export const getAmbTokenSymbol = (tokenName: string) => {
     case 'Ganymede pool token':
       return 'GPT';
     default:
-      return 'AMB';
+      return tokenName;
   }
 };
 

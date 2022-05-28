@@ -64,13 +64,14 @@ export const AddressDetails = () => {
 
   useEffect(() => {
     return () => {
-      setPosition(null);
+      setPosition(()=>null);
     };
-  }, []);
+  }, [address]);
 
   useEffect(() => {
     if (address || type || filtered || tokenToSorted) {
       setTx([]);
+      setPageNum(1);
     }
   }, [address, type, filtered, tokenToSorted]);
 
@@ -129,14 +130,12 @@ export const AddressDetails = () => {
             (a: any, b: any) => b.block - a.block,
           );
           return newTx;
-        }
-        if (type === 'ERC-20_Tx' && filtered) {
+        }else if (type === 'ERC-20_Tx' && filtered) {
           const newTx: any = addressDataState.sort(
             (a: any, b: any) => b.block - a.block,
           );
           return newTx;
-        }
-        if (!type || type === 'transfers') {
+        }else {
           const newTx: TransactionProps[] = toUniqueValueByBlock(compareState);
           const transfersDataTx: TransactionProps[] = newTx.filter(
             (item: TransactionProps) => item.method === 'Transfer',
@@ -214,7 +213,7 @@ export const AddressDetails = () => {
             onClick={setSelectedToken}
             selectedToken={selectedToken}
             transactionType={transactionType}
-            data={tx ? tx : []}
+            data={tx || []}
             setTransactionType={setTransactionType}
           />
         </Content.Body>
