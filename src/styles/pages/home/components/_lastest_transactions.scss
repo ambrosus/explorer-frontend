@@ -11,6 +11,7 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 6px;
+    height: 73px;
 
     border-bottom: 1px solid $secondary;
     @include for_phone {
@@ -21,9 +22,13 @@
   &_cell {
     display: grid;
     align-items: center;
-    grid-template-rows: 50px auto;
-    padding: 12px 0;
+    grid-template-rows: repeat(2, auto);
     gap: 8px;
+    padding: 12px 0;
+
+    @include for_small_phone {
+      padding: 0;
+    }
 
     &_content {
       display: flex;
