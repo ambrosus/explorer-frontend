@@ -27,7 +27,7 @@
     padding: 12px 0;
 
     @include for_small_phone {
-      padding: 0;
+      padding: 12px 0 9px 0;
     }
 
     &_content {
