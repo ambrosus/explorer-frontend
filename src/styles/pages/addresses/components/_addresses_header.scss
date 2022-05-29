@@ -16,7 +16,12 @@
     height: 100%;
     margin: 26px 0px;
   }
-
+  &_cells {
+    display: grid;
+    grid-template-columns:
+      minmax(50px, 1fr) minmax(370px, 7fr) minmax(80px, 2fr)
+      minmax(240px, 4fr) minmax(50px, 1fr);
+  }
   &_cell {
     font-size: 12px;
     line-height: 32px;
