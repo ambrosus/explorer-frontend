@@ -7,7 +7,6 @@ import Calendar from 'components/Calendar';
 import useDeviceSize from 'hooks/useDeviceSize';
 import { useOnClickOutside } from 'hooks/useOnClickOutside';
 import { useTypedSelector } from 'hooks/useTypedSelector';
-import useWindowSize from 'hooks/useWindowSize';
 import moment from 'moment';
 import {
   TabsProps,
@@ -34,7 +33,7 @@ const Tabs: FC<TabsProps> = ({
     (state: any) => state.position,
   );
   const mobileCalendarRef = useRef(null);
-  const { width } = useWindowSize();
+
   const { transactionFilters, ERC20Filters, methodFilters } = sidePages;
   const headerBlock: any = type === 'ERC-20_Tx' ? null : 'Block';
   const headerTxfee: any = type === 'ERC-20_Tx' ? null : 'txFee';

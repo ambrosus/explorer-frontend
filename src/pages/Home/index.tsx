@@ -5,11 +5,9 @@ import Chart from 'components/Chart';
 import { Content } from 'components/Content';
 import FindWide from 'components/Find/FindWide';
 import useDeviceSize from 'hooks/useDeviceSize';
-import useWindowSize from 'hooks/useWindowSize';
 import MainInfo from 'pages/Home/components/MainInfo';
 
 export const Home: React.FC = () => {
-  const { width } = useWindowSize();
   const data = useHomeData();
   const { FOR_BIG_TABLET } = useDeviceSize();
 
