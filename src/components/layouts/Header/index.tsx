@@ -2,18 +2,15 @@ import MobileMenu from '../../menu/MobileMenu';
 import AmbrosusLogoSvg from './AmbrosusLogoSvg';
 import DesctopMenu from 'components/menu/DesctopMenu';
 import useDeviceSize from 'hooks/useDeviceSize';
-import useWindowSize from 'hooks/useWindowSize';
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { routes as menuItems } from 'routes';
 import { IRoute } from 'types';
 
 export const Header = () => {
-  const { width } = useWindowSize();
-  const { FOR_BIG_TABLET, FOR_TABLET } = useDeviceSize();
+  const { FOR_BIG_TABLET } = useDeviceSize();
 
   const [isShow, setIsShow] = useState(false);
-  const isHovered1 = false;
 
   const isMobileStyle = FOR_BIG_TABLET ? 'menu_item' : 'mobile_menu_item';
 
