@@ -44,7 +44,7 @@
   &_cells {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    height: 72px;
+    height: 73px;
     border-bottom: 1px solid #eff2f5;
   }
 
@@ -52,6 +52,7 @@
     display: grid;
     align-items: center;
     white-space: nowrap;
+    padding: 12px 0;
 
     &_content {
       display: flex;
@@ -83,7 +84,7 @@
       line-height: 1.33em;
       font-weight: 600;
       @include for_small_phone {
-        font-size: 12px;
+        font-size: 13px;
       }
     }
 
@@ -93,7 +94,7 @@
       font-weight: 400;
       color: #58667e;
       @include for_small_phone {
-        font-size: 10px;
+        font-size: 11px;
       }
     }
 
