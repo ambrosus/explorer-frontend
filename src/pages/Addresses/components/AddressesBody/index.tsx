@@ -22,7 +22,7 @@ const AddressesBody: FC<AddressesBodyProps> = ({
   return (
     appData &&
     address && (
-      <>
+      <div className="addresses_body_cells">
         <div className="addresses_body_cell" ref={lastCardRef}>
           {rank}
         </div>
@@ -50,7 +50,9 @@ const AddressesBody: FC<AddressesBodyProps> = ({
         </NavLink>
         <div className="addresses_body_cell">{txCount || 0}</div>
         <div className="addresses_body_cell balance">
-          <Amb />
+          <span style={{ paddingRight: 2 }}>
+            <Amb />
+          </span>
           &nbsp;&nbsp;
           {displayAmount(ambBalance)} AMB
         </div>
@@ -58,7 +60,7 @@ const AddressesBody: FC<AddressesBodyProps> = ({
         <div className="addresses_body_cell">
           {(holdingPercentage || 0).toFixed(2)} %
         </div>
-      </>
+      </div>
     )
   );
 };
