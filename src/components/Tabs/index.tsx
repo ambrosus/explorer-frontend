@@ -4,6 +4,7 @@ import Loader from '../Loader';
 import NotFoundIcon from 'assets/icons/Errors/NotFoundIcon';
 import SideMenu from 'assets/icons/SideMenu';
 import Calendar from 'components/Calendar';
+import useDeviceSize from 'hooks/useDeviceSize';
 import { useOnClickOutside } from 'hooks/useOnClickOutside';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import useWindowSize from 'hooks/useWindowSize';
@@ -95,6 +96,8 @@ const Tabs: FC<TabsProps> = ({
     }
   }, [address, type, filtered, tokenToSorted]);
 
+  const { FOR_TABLET } = useDeviceSize();
+
   return (
     <>
       <div className="tabs">
@@ -142,7 +145,7 @@ const Tabs: FC<TabsProps> = ({
           </div>
 
           <div ref={mobileCalendarRef} className="tabs_heading_export_modal">
-            {width > 760 ? (
+            {FOR_TABLET ? (
               <ExportCsv />
             ) : (
               <>
