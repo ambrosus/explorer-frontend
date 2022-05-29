@@ -2,7 +2,9 @@
   margin-top: 8px;
   z-index: 1;
   border-radius: 12px;
-
+  @include for_tablet {
+    margin-top: 16px;
+  }
   &_export_csv {
     position: relative;
     right: -24px;
