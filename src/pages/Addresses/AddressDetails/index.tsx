@@ -64,7 +64,7 @@ export const AddressDetails = () => {
 
   useEffect(() => {
     return () => {
-      setPosition(()=>null);
+      setPosition(() => null);
     };
   }, [address]);
 
@@ -130,12 +130,12 @@ export const AddressDetails = () => {
             (a: any, b: any) => b.block - a.block,
           );
           return newTx;
-        }else if (type === 'ERC-20_Tx' && filtered) {
+        } else if (type === 'ERC-20_Tx' && filtered) {
           const newTx: any = addressDataState.sort(
             (a: any, b: any) => b.block - a.block,
           );
           return newTx;
-        }else {
+        } else {
           const newTx: TransactionProps[] = toUniqueValueByBlock(compareState);
           const transfersDataTx: TransactionProps[] = newTx.filter(
             (item: TransactionProps) => item.method === 'Transfer',
