@@ -1,8 +1,8 @@
+import _ from 'lodash';
 import { AccountsData } from 'pages/Addresses/addresses.interface';
 import React, { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 import removeArrayDuplicates from 'utils/helpers';
-import _ from 'lodash';
 
 const useSortData = (getData: any) => {
   const [renderData, setRenderData] = React.useState<AccountsData>([]);
@@ -34,7 +34,9 @@ const useSortData = (getData: any) => {
             setLoading(false);
             return {
               ...prev,
-              data: removeArrayDuplicates(_.uniq(_.concat(prev.data, res?.data))),
+              data: removeArrayDuplicates(
+                _.uniq(_.concat(prev.data, res?.data)),
+              ),
               pagination: res.pagination,
             };
           });

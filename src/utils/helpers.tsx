@@ -4,8 +4,8 @@ import Amb from 'assets/icons/Cryptos/Amb';
 import Eth from 'assets/icons/Cryptos/Eth';
 import GreenCircle from 'assets/icons/StatusAction/GreenCircle';
 import OrangeCircle from 'assets/icons/StatusAction/OrangeCircle';
-import moment from 'moment';
 import _ from 'lodash';
+import moment from 'moment';
 
 export const sliceData5 = (item: string | any) => {
   if (!item) {
@@ -56,7 +56,9 @@ export const setupStyle = (item: string | undefined) => {
  */
 export const toUniqueValueByBlock = (arr: any) => {
   try {
-    const compare: any = new Map(_.map([...arr],(item) => [item.txHash, item])).values();
+    const compare: any = new Map(
+      _.map([...arr], (item) => [item.txHash, item]),
+    ).values();
     const newTx: TransactionProps[] = [...compare].sort(
       (a: any, b: any) => b.block - a.block,
     );
@@ -185,7 +187,7 @@ export const currenCurrency = (
   }
 };
 
-export const wrapString = (string:string) => {
+export const wrapString = (string: string) => {
   return _.split(string, '::').map((item, index) => (
     <span key={index + 1} style={{ fontSize: 'inherit' }}>
       {item}

@@ -13,22 +13,22 @@ import { useActions } from 'hooks/useActions';
 import useCopyContent from 'hooks/useCopyContent';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import useWindowSize from 'hooks/useWindowSize';
+import _ from 'lodash';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { shallowEqual } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getDataForAddress } from 'services/address.service';
 import { TParams } from 'types';
-import _ from 'lodash';
 
 export const AddressDetails = () => {
   const { filters } = useTypedSelector(
     (state) => state.tokenFilters,
-    shallowEqual
+    shallowEqual,
   );
   const {
     loading,
     data: addressData,
-    error: errorData
+    error: errorData,
   } = useTypedSelector((state: any) => state.position);
   const { address, type, filtered, tokenToSorted }: TParams = useParams();
   const { setPosition, addFilter } = useActions();
@@ -60,7 +60,7 @@ export const AddressDetails = () => {
         observer.current.observe(node);
       }
     },
-    [loading]
+    [loading],
   );
 
   useEffect(() => {
@@ -79,7 +79,10 @@ export const AddressDetails = () => {
   useEffect(() => {
     if (filtered && addressData?.tokens?.length) {
       addFilter(
-        _.find(addressData.tokens, (token: TokenType) => token.contract === filtered)
+        _.find(
+          addressData.tokens,
+          (token: TokenType) => token.contract === filtered,
+        ),
       );
     }
     if (!loading || errorData) {
@@ -93,7 +96,7 @@ export const AddressDetails = () => {
               : filtered,
           limit: limitNum,
           type: transactionType,
-          page: pageNum
+          page: pageNum,
         });
       } else {
         setPosition(getDataForAddress, address?.trim(), {
@@ -105,7 +108,7 @@ export const AddressDetails = () => {
               : filtered,
           limit: limitNum,
           type: transactionType,
-          page: pageNum
+          page: pageNum,
         });
       }
     }
@@ -117,13 +120,13 @@ export const AddressDetails = () => {
     tokenToSorted,
     address,
     pageNum,
-    type
+    type,
   ]);
   useEffect(() => {
     if (addressData && addressData?.transactions) {
       setTx((prevState) => {
         const compareState = _.uniq(
-          _.concat(prevState, addressData.transactions)
+          _.concat(prevState, addressData.transactions),
         );
         const addressDataState = _.clone(addressData.transactions);
         if (type === 'ERC-20_Tx' && !filtered) {
@@ -138,7 +141,9 @@ export const AddressDetails = () => {
           return newTx;
         } else {
           const newTx: TransactionProps[] = toUniqueValueByBlock(compareState);
-          const transfersDataTx: TransactionProps[] = _.filter(newTx, (item: TransactionProps) => item.method === 'Transfer'
+          const transfersDataTx: TransactionProps[] = _.filter(
+            newTx,
+            (item: TransactionProps) => item.method === 'Transfer',
           );
 
           return type === 'transfers' ? transfersDataTx : newTx;
@@ -150,7 +155,10 @@ export const AddressDetails = () => {
   useEffect(() => {
     if (addressData && addressData?.tokens && !selectedToken) {
       setSelectedToken(
-        _.find(addressData.tokens, (token: TokenType) => token.contract === filtered)
+        _.find(
+          addressData.tokens,
+          (token: TokenType) => token.contract === filtered,
+        ),
       );
     }
   }, [addressData]);
@@ -159,11 +167,11 @@ export const AddressDetails = () => {
 
   return (
     <Content>
-      <section className='address_details'>
+      <section className="address_details">
         <Content.Header>
-          <h1 className='address_details_h1'>
+          <h1 className="address_details_h1">
             Address Details
-            <div className='address_details_copy'>
+            <div className="address_details_copy">
               {address}
               <button
                 className={'address_details_copy_btn'}
@@ -177,15 +185,15 @@ export const AddressDetails = () => {
                   <ContentCopy />
                 )}
                 {width > 786 && isCopyPopup && isCopy && (
-                  <div className='address_details_copyed'>
-                    <CopyPopUp x={3} y={20} values='Copyed' />
+                  <div className="address_details_copyed">
+                    <CopyPopUp x={3} y={20} values="Copyed" />
                   </div>
                 )}
               </button>
             </div>
           </h1>
-          <div className='address_details_section'>
-            <div className='address_details_info'>
+          <div className="address_details_section">
+            <div className="address_details_info">
               <OverallBalance
                 addressBalance={
                   addressData &&
@@ -208,6 +216,7 @@ export const AddressDetails = () => {
         </Content.Header>
         <Content.Body isLoading={filtered ? !loading : true}>
           <Tabs
+            pageNum={pageNum}
             lastCardRef={lastCardRef}
             onClick={setSelectedToken}
             selectedToken={selectedToken}

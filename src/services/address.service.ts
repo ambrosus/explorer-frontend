@@ -70,7 +70,6 @@ const sortedLatestTransactionsData = async (
 ) => {
   try {
     const includesTokens = _.filter(filters, (token: TokenType) => token.contract);
-
     const byToken = includesTokens.map(async (token: TokenType) => {
       const tokensTransactions: any = await API.API.get(url, {
         params: {

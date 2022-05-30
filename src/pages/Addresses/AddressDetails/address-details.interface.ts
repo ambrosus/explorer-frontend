@@ -19,6 +19,7 @@ export type OverallBalanceProps = {
 
 export interface TabsProps {
   lastCardRef?: any;
+  pageNum: number;
   selectedToken: TokenType | null;
   transactionType?: string;
   data: any;
