@@ -48,7 +48,6 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
   const isTxHash: JSX.Element | null =
     txhash === null ? null : (
       <div
-        ref={lastCardRef}
         className="address_blocks_td universall_light2"
         style={{ fontWeight: '600' }}
       >
@@ -68,7 +67,6 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
         </div>
       </div>
     );
-
   const isFrom =
     from === null ? null : address !== from && String(from).trim().length ? (
       <NavLink
@@ -83,7 +81,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
       </div>
     );
   const isTo =
-    to === null ? null : address !== to ? (
+    to === null || to === undefined ? <div></div> : address !== to && String(to).trim().length ? (
       <NavLink
         to={`/addresses/${to}/`}
         style={{ display: 'content' }}
@@ -151,7 +149,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
                 ) {
                   onClick(item);
                   addFilter(item);
-                  navigate(`/addresses/${address}/ERC-20_Tx/${item.contract}`);
+                  navigate(`/addresses/${address}/ERC-20_Tx/${item.contract}`,{replace:true});
                 } else {
                   return '';
                 }
@@ -216,26 +214,23 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
           <span
             className="address_blocks_td  universall_light2"
             onClick={() => {
-              addressData?.tokens.forEach((item: TokenType) => {
-                if (item.name === token) {
+              addressData?.tokens?.forEach((item: TokenType) => {
+                if (
+                  (item.name === token && symbol !== 'AMB') ||
+                  token.includes('token')
+                ) {
                   onClick(item);
                   addFilter(item);
-                  navigate(`/addresses/${address}/ERC-20_Tx/${item.contract}/`);
+                  navigate(`/addresses/${address}/ERC-20_Tx/${item.contract}`,{replace:true});
+                } else {
+                  return '';
                 }
               });
             }}
           >
             <NavLink
               className="address_blocks_icon universall_light2"
-              to={`${() => {
-                addressData?.tokens.forEach((item: TokenType) => {
-                  if (item.name === token) {
-                    onClick(item);
-                    addFilter(item);
-                    return `/addresses/${address}/ERC-20_Tx/${item.contract}/`;
-                  }
-                });
-              }}`}
+              to={``}
             >
               {token ? token : ''}{' '}
               {token.includes('token')
