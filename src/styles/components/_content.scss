@@ -1,7 +1,7 @@
 .content {
   height: 100%;
   width: 100%;
-  display: grid;
+  display: flex;
   flex-direction: column;
 
   &_header {
@@ -10,11 +10,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    min-height: 100px;
   }
 
   &_body {
     display: flex;
-    // height: 100%;
+
     min-height: 500px;
     width: 100%;
     flex-direction: column;

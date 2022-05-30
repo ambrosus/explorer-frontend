@@ -1,3 +1,4 @@
+import useDeviceSize from 'hooks/useDeviceSize';
 import useWindowSize from 'hooks/useWindowSize';
 import { LatestTransactionsProps } from 'pages/Home/home.interfaces';
 import React from 'react';
@@ -12,7 +13,7 @@ const LatestTransactions: React.FC<LatestTransactionsProps> = ({
   amount,
   type,
 }) => {
-  const { width } = useWindowSize();
+  const { FOR_SMALL_PHONE } = useDeviceSize();
   return (
     <>
       <div className="lastest_transactions_cells">
@@ -52,7 +53,7 @@ const LatestTransactions: React.FC<LatestTransactionsProps> = ({
               justifyContent: 'center',
             }}
           >
-            {width > 415 ? type : wrapString(type)}
+            {FOR_SMALL_PHONE ? type : wrapString(type)}
           </div>
           <div className="lastest_transactions_cell_content lastest_transactions_font_big">{`${amount?.toFixed(
             5,

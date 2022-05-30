@@ -21,6 +21,10 @@
     grid-template-columns:
       minmax(50px, 1fr) minmax(370px, 7fr) minmax(80px, 2fr)
       minmax(240px, 4fr) minmax(50px, 1fr);
+    padding-left: 6px;
+    height: 36px;
+    padding-top: 12px;
+    align-content: flex-end;
   }
   &_cell {
     font-size: 12px;
