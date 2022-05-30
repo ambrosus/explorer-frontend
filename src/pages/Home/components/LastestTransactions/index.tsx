@@ -1,4 +1,4 @@
-import moment from 'moment';
+import useWindowSize from 'hooks/useWindowSize';
 import { LatestTransactionsProps } from 'pages/Home/home.interfaces';
 import React from 'react';
 import { calcTime, isOnline, sliceData5, wrapString } from 'utils/helpers';
@@ -12,6 +12,7 @@ const LatestTransactions: React.FC<LatestTransactionsProps> = ({
   amount,
   type,
 }) => {
+  const { width } = useWindowSize();
   return (
     <>
       <div className="lastest_transactions_cells">
@@ -48,9 +49,10 @@ const LatestTransactions: React.FC<LatestTransactionsProps> = ({
               flexDirection: 'column',
               gap: 0,
               alignItems: 'flex-start',
+              justifyContent: 'center',
             }}
           >
-            {wrapString(type)}
+            {width > 415 ? type : wrapString(type)}
           </div>
           <div className="lastest_transactions_cell_content lastest_transactions_font_big">{`${amount?.toFixed(
             5,

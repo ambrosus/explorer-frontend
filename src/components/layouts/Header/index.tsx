@@ -1,18 +1,18 @@
 import MobileMenu from '../../menu/MobileMenu';
 import AmbrosusLogoSvg from './AmbrosusLogoSvg';
 import DesctopMenu from 'components/menu/DesctopMenu';
-import useWindowSize from 'hooks/useWindowSize';
+import useDeviceSize from 'hooks/useDeviceSize';
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { routes as menuItems } from 'routes';
 import { IRoute } from 'types';
 
 export const Header = () => {
-  const { width } = useWindowSize();
-  const [isShow, setIsShow] = useState(false);
-  const isHovered1 = false;
+  const { FOR_BIG_TABLET } = useDeviceSize();
 
-  const isMobileStyle = width > 1100 ? 'menu_item' : 'mobile_menu_item';
+  const [isShow, setIsShow] = useState(false);
+
+  const isMobileStyle = FOR_BIG_TABLET ? 'menu_item' : 'mobile_menu_item';
 
   const menu = menuItems.map((menuElement: IRoute, index: number) => {
     const cursor = menuElement.isClick ? 'universall_hover' : '';
@@ -43,8 +43,6 @@ export const Header = () => {
         onClick={disableClick}
       >
         {menuElement.key}
-        {isHovered1 ? <span className="menu_item_hover"></span> : ''}
-        <span className="menu_item_hover"></span>
       </NavLink>
     );
   });
@@ -58,7 +56,7 @@ export const Header = () => {
               <AmbrosusLogoSvg />
             </NavLink>
           </div>
-          {width > 1108 ? (
+          {FOR_BIG_TABLET ? (
             <DesctopMenu menu={menu} />
           ) : (
             <MobileMenu menu={menu} setIsShow={setIsShow} isShow={isShow} />

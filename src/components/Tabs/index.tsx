@@ -4,9 +4,9 @@ import Loader from '../Loader';
 import NotFoundIcon from 'assets/icons/Errors/NotFoundIcon';
 import SideMenu from 'assets/icons/SideMenu';
 import Calendar from 'components/Calendar';
+import useDeviceSize from 'hooks/useDeviceSize';
 import { useOnClickOutside } from 'hooks/useOnClickOutside';
 import { useTypedSelector } from 'hooks/useTypedSelector';
-import useWindowSize from 'hooks/useWindowSize';
 import _ from 'lodash';
 import moment from 'moment';
 import {
@@ -35,7 +35,7 @@ const Tabs: FC<TabsProps> = ({
     (state: any) => state.position,
   );
   const mobileCalendarRef = useRef(null);
-  const { width } = useWindowSize();
+
   const { transactionFilters, ERC20Filters, methodFilters } = sidePages;
   const headerBlock: any = type === 'ERC-20_Tx' ? null : 'Block';
   const headerTxfee: any = type === 'ERC-20_Tx' ? null : 'txFee';
@@ -100,6 +100,8 @@ const Tabs: FC<TabsProps> = ({
     }
   }, [address, type, filtered, tokenToSorted]);
 
+  const { FOR_TABLET } = useDeviceSize();
+
   return (
     <>
       <div className="tabs">
@@ -147,7 +149,7 @@ const Tabs: FC<TabsProps> = ({
           </div>
 
           <div ref={mobileCalendarRef} className="tabs_heading_export_modal">
-            {width > 760 ? (
+            {FOR_TABLET ? (
               <ExportCsv />
             ) : (
               <>
