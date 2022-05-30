@@ -44,7 +44,8 @@
   }
 
   &_cell {
-    margin: 8px;
+    margin-right: 8px;
+
     font-size: 18px;
     line-height: 32px;
 
@@ -53,7 +54,7 @@
     }
 
     @include for_phone {
-      margin: 0px;
+      //
     }
   }
 }

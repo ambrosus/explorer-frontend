@@ -13,6 +13,7 @@
     grid-template-columns:
       minmax(50px, 1fr) minmax(370px, 7fr) minmax(80px, 2fr)
       minmax(240px, 4fr) minmax(50px, 1fr);
+    padding-left: 6px;
     &:hover {
       background-color: #eff2f5;
     }

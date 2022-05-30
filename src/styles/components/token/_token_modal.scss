@@ -1,9 +1,4 @@
 .token_modal {
-}
-
-// tokenModal
-
-.token_modal {
   display: flex;
   flex-direction: column;
   box-shadow: 4px 8px 8px rgba(0, 0, 0, 0.25);
@@ -12,6 +7,10 @@
   position: relative;
   z-index: 5;
 
+  &_scroll {
+    height: 345px;
+    overflow-y: scroll;
+  }
   &_search {
     width: 300px;
     height: 40px;

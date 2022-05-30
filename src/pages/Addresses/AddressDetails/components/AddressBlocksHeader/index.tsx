@@ -27,6 +27,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
             fontWeight: 700,
             fontSize: '0.86rem',
             lineHeight: '1.77em',
+            color: '#808A9D',
           }}
         >
           {method}
