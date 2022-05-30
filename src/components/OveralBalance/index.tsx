@@ -39,13 +39,13 @@ const OverallBalance: React.FC<OverallBalanceProps> = ({ addressBalance }) => {
         }}
       >
         <span className="address_details_info_text_span universall_dark">
-          {`${addressBalanceBuffer} AMB`}{' '}
+          {`${ addressBalanceBuffer === NaN  ? 0.00 : addressBalanceBuffer} AMB`}{' '}
         </span>
         <span className="address_details_info_text_span universall_dark">
           /
         </span>
         <span className="address_details_info_text_span universall_light2">{`$ ${
-          amountInUsd && amountInUsd.toFixed(2)
+          amountInUsd === NaN  ? 0.00 :amountInUsd.toFixed(2)
         }`}</span>
       </div>
     </div>

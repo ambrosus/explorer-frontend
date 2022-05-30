@@ -45,9 +45,10 @@ const Tabs: FC<TabsProps> = ({
     isActive ? 'tabs_link tabs_link_active' : 'tabs_link';
 
   const noDtaFound = () => {
-    if ( pageNum < addressData?.meta?.totalPages && type !== 'ERC-20_Tx') {
-      return false
-    }
+    // console.log(pageNum);
+    // if ( pageNum < addressData?.meta?.totalPages && type !== 'ERC-20_Tx') {
+    //   return false
+    // }
     setTimeout(() => {
       if (!loading && !renderData?.length) {
         setNotFound(true);
@@ -99,7 +100,6 @@ const Tabs: FC<TabsProps> = ({
       setRenderData(null);
     }
   }, [address, type, filtered, tokenToSorted]);
-
   const { FOR_TABLET } = useDeviceSize();
 
   return (
@@ -251,7 +251,7 @@ const Tabs: FC<TabsProps> = ({
               )
             : null}
 
-          {!loading && !renderData?.length && type !== 'ERC-20_Tx' &&  pageNum < addressData?.meta?.totalPages && (<div ref={lastCardRef} />)}
+          {/*{!loading && !renderData?.length && type !== 'ERC-20_Tx' &&  pageNum < addressData?.meta?.totalPages && (<div ref={lastCardRef} />)}*/}
           {!loading && !renderData?.length && noDtaFound() && (
             <div className="tabs_not_found">
               <NotFoundIcon />
