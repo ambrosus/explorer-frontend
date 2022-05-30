@@ -5,6 +5,11 @@ import { Dispatch } from 'redux';
 import { CLIENT_VERSION } from 'utils/constants';
 
 export const setAppDataAsync = () => {
+  /*
+  @param {void}
+  @returns {Promise<AppDataAction>}
+   */
+
   return async (dispatch: Dispatch<AppDataAction>) => {
     dispatch({
       type: actionTypes.SET_APP_DATA__START,
@@ -34,7 +39,6 @@ export const setAppDataAsync = () => {
         total_price_usd: total_price_usd,
       };
       /*
-       * Получаем данные из сервера
        * @param {string} url - адрес запроса
        * @returns {Promise<AppDataAction>}
        */
@@ -79,14 +83,7 @@ export const addFilter: any = (filter: object) => {
     });
   };
 };
-export const removeFilter: any = (filter: object) => {
-  return async (dispatch: Dispatch<FiltersAction>) => {
-    dispatch({
-      type: actionTypes.REMOVE_FILTER,
-      payload: filter,
-    });
-  };
-};
+
 export const clearFilters: any = () => {
   return async (dispatch: Dispatch<FiltersAction>) => {
     dispatch({
