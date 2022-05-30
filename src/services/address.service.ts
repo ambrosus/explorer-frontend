@@ -286,8 +286,8 @@ export const getDataForAddress = async (address: string, params: any) => {
     const latestTransactions: TransactionProps[] =
       (await sortedLatestTransactionsData(defaultFilters, url, page)) || [];
 
-   const filterBB :TransactionProps[] = type !== 'transfers' ? bbTxData : bbTxData.filter((item:TransactionProps) => item.method === 'Transfer') || []
-   const filterExplorer :TransactionProps[] = type !== 'transfers' ? explorData : explorData.filter((item:TransactionProps) => item.method === 'Transfer') || []
+    const filterBB :TransactionProps[] = type !== 'transfers' ? bbTxData : bbTxData.filter((item:TransactionProps) => item.method === 'Transfer') || []
+    const filterExplorer :TransactionProps[] = type !== 'transfers' ? explorData : explorData.filter((item:TransactionProps) => item.method === 'Transfer') || []
     const transactionsAll: TransactionProps[] = [...filterExplorer, ...filterBB];
 
     return {
@@ -304,3 +304,4 @@ export const getDataForAddress = async (address: string, params: any) => {
     log(e);
   }
 };
+

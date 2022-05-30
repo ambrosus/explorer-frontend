@@ -8,27 +8,31 @@ let dataBuffer: any = null;
 let load: any = false;
 
 const Token: React.FC<TokenProps> = ({
-                                       addressData,
-                                       onClick,
-                                       selectedToken
-                                     }) => {
+  addressData,
+  onClick,
+  selectedToken,
+}) => {
   const { address } = useParams<TParams>();
   const [isLoading, setIsLoading] = useState(load);
   const [data, setData] = useState<any>(dataBuffer);
 
   useEffect(() => {
-    if (addressData && addressData !== dataBuffer && Object.keys(addressData).length ) {
+    if (
+      addressData &&
+      addressData !== dataBuffer &&
+      Object.keys(addressData).length
+    ) {
       setIsLoading(true);
       dataBuffer = addressData;
       setData(addressData);
       setIsLoading(false);
     }
-  }, [addressData,address]);
+  }, [addressData, address]);
 
   return (
-    <div className='token'>
-      <div className='token_info'>
-        <span className='token_info_name'>Token</span>
+    <div className="token">
+      <div className="token_info">
+        <span className="token_info_name">Token</span>
         <TokenFilter
           loading={isLoading}
           addressData={data}
@@ -40,4 +44,4 @@ const Token: React.FC<TokenProps> = ({
   );
 };
 
-export default React.memo(Token)
+export default React.memo(Token);

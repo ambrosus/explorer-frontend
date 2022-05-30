@@ -2,7 +2,7 @@ import Main from './components/Main/Main';
 import ScrollToTop from './components/ScrollToTop';
 import { store } from './state';
 import React from 'react';
-import ReactDOM  from 'react-dom';
+import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 

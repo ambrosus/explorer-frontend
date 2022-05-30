@@ -19,15 +19,6 @@ export const tokenFiltersReducer = (
         ...state,
         filters: action.payload,
       };
-    case actionTypes.REMOVE_FILTER: {
-      const newFilters = !state.filters.includes(action.payload)
-        ? state.filters
-        : state.filters.filter((filter) => filter !== action.payload);
-      return {
-        ...state,
-        filters: newFilters,
-      };
-    }
     case actionTypes.CLEAR_FILTERS: {
       return { filters: [] };
     }

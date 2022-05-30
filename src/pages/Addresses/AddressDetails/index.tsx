@@ -11,8 +11,9 @@ import Token from 'components/Token';
 import { formatEther } from 'ethers/lib/utils';
 import { useActions } from 'hooks/useActions';
 import useCopyContent from 'hooks/useCopyContent';
+import useDeviceSize from 'hooks/useDeviceSize';
 import { useTypedSelector } from 'hooks/useTypedSelector';
-import useWindowSize from 'hooks/useWindowSize';
+import _ from 'lodash';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { shallowEqual } from 'react-redux';
 import { useParams } from 'react-router-dom';
@@ -29,6 +30,7 @@ export const AddressDetails = () => {
     data: addressData,
     error: errorData,
   } = useTypedSelector((state: any) => state.position);
+
   const { address, type, filtered, tokenToSorted }: TParams = useParams();
   const { setPosition, addFilter } = useActions();
   const [transactionType, setTransactionType] = useState(type);
@@ -64,7 +66,7 @@ export const AddressDetails = () => {
 
   useEffect(() => {
     return () => {
-      setPosition(()=>null);
+      setPosition(() => null);
     };
   }, [address]);
 
@@ -78,7 +80,8 @@ export const AddressDetails = () => {
   useEffect(() => {
     if (filtered && addressData?.tokens?.length) {
       addFilter(
-        addressData.tokens.find(
+        _.find(
+          addressData.tokens,
           (token: TokenType) => token.contract === filtered,
         ),
       );
@@ -123,23 +126,27 @@ export const AddressDetails = () => {
   useEffect(() => {
     if (addressData && addressData?.transactions) {
       setTx((prevState) => {
-        const compareState = [...prevState, ...addressData.transactions];
-        const addressDataState = [...addressData.transactions];
+        const compareState = _.uniq(
+          _.concat(prevState, addressData.transactions),
+        );
+        const addressDataState = _.clone(addressData.transactions);
         if (type === 'ERC-20_Tx' && !filtered) {
           const newTx: any = addressDataState.sort(
             (a: any, b: any) => b.block - a.block,
           );
           return newTx;
-        }else if (type === 'ERC-20_Tx' && filtered) {
+        } else if (type === 'ERC-20_Tx' && filtered) {
           const newTx: any = addressDataState.sort(
             (a: any, b: any) => b.block - a.block,
           );
           return newTx;
-        }else {
+        } else {
           const newTx: TransactionProps[] = toUniqueValueByBlock(compareState);
-          const transfersDataTx: TransactionProps[] = newTx.filter(
+          const transfersDataTx: TransactionProps[] = _.filter(
+            newTx,
             (item: TransactionProps) => item.method === 'Transfer',
           );
+
           return type === 'transfers' ? transfersDataTx : newTx;
         }
       });
@@ -149,15 +156,15 @@ export const AddressDetails = () => {
   useEffect(() => {
     if (addressData && addressData?.tokens && !selectedToken) {
       setSelectedToken(
-        addressData.tokens.find(
+        _.find(
+          addressData.tokens,
           (token: TokenType) => token.contract === filtered,
         ),
       );
     }
   }, [addressData]);
 
-  const { width } = useWindowSize();
-
+  const { FOR_TABLET } = useDeviceSize();
   return (
     <Content>
       <section className="address_details">
@@ -177,7 +184,7 @@ export const AddressDetails = () => {
                 ) : (
                   <ContentCopy />
                 )}
-                {width > 786 && isCopyPopup && isCopy && (
+                {FOR_TABLET && isCopyPopup && isCopy && (
                   <div className="address_details_copyed">
                     <CopyPopUp x={3} y={20} values="Copyed" />
                   </div>
@@ -209,6 +216,7 @@ export const AddressDetails = () => {
         </Content.Header>
         <Content.Body isLoading={filtered ? !loading : true}>
           <Tabs
+            pageNum={pageNum}
             lastCardRef={lastCardRef}
             onClick={setSelectedToken}
             selectedToken={selectedToken}
