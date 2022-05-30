@@ -11,9 +11,8 @@ import Token from 'components/Token';
 import { formatEther } from 'ethers/lib/utils';
 import { useActions } from 'hooks/useActions';
 import useCopyContent from 'hooks/useCopyContent';
-import useDeviceSize from 'hooks/useDeviceSize';
 import { useTypedSelector } from 'hooks/useTypedSelector';
-import _ from 'lodash';
+import useWindowSize from 'hooks/useWindowSize';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { shallowEqual } from 'react-redux';
 import { useParams } from 'react-router-dom';
@@ -30,7 +29,6 @@ export const AddressDetails = () => {
     data: addressData,
     error: errorData,
   } = useTypedSelector((state: any) => state.position);
-
   const { address, type, filtered, tokenToSorted }: TParams = useParams();
   const { setPosition, addFilter } = useActions();
   const [transactionType, setTransactionType] = useState(type);
@@ -54,7 +52,9 @@ export const AddressDetails = () => {
           addressData &&
           pageNum < addressData?.meta?.totalPages
         ) {
-          setPageNum((prevNum) => prevNum + 1);
+          if (type !== 'ERC-20_Tx') {
+            setPageNum((prevNum) => prevNum + 1);
+          }
         }
       });
       if (node) {
@@ -66,22 +66,20 @@ export const AddressDetails = () => {
 
   useEffect(() => {
     return () => {
-      setPosition(() => null);
+      setPosition(null);
     };
-  }, [address]);
+  }, []);
 
   useEffect(() => {
     if (address || type || filtered || tokenToSorted) {
       setTx([]);
-      setPageNum(1);
     }
   }, [address, type, filtered, tokenToSorted]);
 
   useEffect(() => {
     if (filtered && addressData?.tokens?.length) {
       addFilter(
-        _.find(
-          addressData.tokens,
+        addressData.tokens.find(
           (token: TokenType) => token.contract === filtered,
         ),
       );
@@ -126,27 +124,25 @@ export const AddressDetails = () => {
   useEffect(() => {
     if (addressData && addressData?.transactions) {
       setTx((prevState) => {
-        const compareState = _.uniq(
-          _.concat(prevState, addressData.transactions),
-        );
-        const addressDataState = _.clone(addressData.transactions);
+        const compareState = [...prevState, ...addressData.transactions];
+        const addressDataState = [...addressData.transactions];
         if (type === 'ERC-20_Tx' && !filtered) {
           const newTx: any = addressDataState.sort(
             (a: any, b: any) => b.block - a.block,
           );
           return newTx;
-        } else if (type === 'ERC-20_Tx' && filtered) {
+        }
+        if (type === 'ERC-20_Tx' && filtered) {
           const newTx: any = addressDataState.sort(
             (a: any, b: any) => b.block - a.block,
           );
           return newTx;
-        } else {
+        }
+        if (!type || type === 'transfers') {
           const newTx: TransactionProps[] = toUniqueValueByBlock(compareState);
-          const transfersDataTx: TransactionProps[] = _.filter(
-            newTx,
+          const transfersDataTx: TransactionProps[] = newTx.filter(
             (item: TransactionProps) => item.method === 'Transfer',
           );
-
           return type === 'transfers' ? transfersDataTx : newTx;
         }
       });
@@ -156,15 +152,15 @@ export const AddressDetails = () => {
   useEffect(() => {
     if (addressData && addressData?.tokens && !selectedToken) {
       setSelectedToken(
-        _.find(
-          addressData.tokens,
+        addressData.tokens.find(
           (token: TokenType) => token.contract === filtered,
         ),
       );
     }
   }, [addressData]);
 
-  const { FOR_TABLET } = useDeviceSize();
+  const { width } = useWindowSize();
+
   return (
     <Content>
       <section className="address_details">
@@ -184,7 +180,7 @@ export const AddressDetails = () => {
                 ) : (
                   <ContentCopy />
                 )}
-                {FOR_TABLET && isCopyPopup && isCopy && (
+                {width > 786 && isCopyPopup && isCopy && (
                   <div className="address_details_copyed">
                     <CopyPopUp x={3} y={20} values="Copyed" />
                   </div>
@@ -221,7 +217,7 @@ export const AddressDetails = () => {
             onClick={setSelectedToken}
             selectedToken={selectedToken}
             transactionType={transactionType}
-            data={tx || []}
+            data={tx ? tx : []}
             setTransactionType={setTransactionType}
           />
         </Content.Body>

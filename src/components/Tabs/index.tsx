@@ -45,16 +45,17 @@ const Tabs: FC<TabsProps> = ({
     isActive ? 'tabs_link tabs_link_active' : 'tabs_link';
 
   const noDtaFound = () => {
-    if ( pageNum < addressData?.meta?.totalPages && type !== 'ERC-20_Tx') {
-      return false
+    if (pageNum < addressData?.meta?.totalPages && type !== 'ERC-20_Tx') {
+      return false;
+    } else {
+      setTimeout(() => {
+        if (!loading && !renderData?.length) {
+          setNotFound(true);
+        } else {
+          setNotFound(false);
+        }
+      }, 500);
     }
-    setTimeout(() => {
-      if (!loading && !renderData?.length) {
-        setNotFound(true);
-      } else {
-        setNotFound(false);
-      }
-    }, 3000);
     return notFound;
   };
   useOnClickOutside(mobileCalendarRef, () => setIsShow(false));
@@ -92,14 +93,13 @@ const Tabs: FC<TabsProps> = ({
         setRenderData(toUniqueValueByBlock(addressData.latestTransactions));
       }
     }
-  }, [addressData, data, filtered, type, loading]);
+  }, [addressData, data, filtered, type, loading, pageNum]);
 
   useEffect(() => {
     if (address || type || filtered || tokenToSorted) {
       setRenderData(null);
     }
   }, [address, type, filtered, tokenToSorted]);
-
   const { FOR_TABLET } = useDeviceSize();
 
   return (
@@ -205,53 +205,31 @@ const Tabs: FC<TabsProps> = ({
           {renderData && renderData?.length !== 0
             ? _.map(
                 renderData,
-                (transaction: TransactionProps, index: number) =>
-                  renderData.length - 1 === index && type !== 'ERC-20_Tx' ? (
-                    <AddressBlock
-                      isLatest={type === 'ERC-20_Tx' && !filtered}
-                      lastCardRef={lastCardRef}
-                      onClick={onClick}
-                      key={transaction.txHash}
-                      txhash={transaction.txHash}
-                      method={transaction.method}
-                      from={transaction.from}
-                      to={transaction.to}
-                      date={moment(transaction.date).fromNow()}
-                      block={transaction.block}
-                      amount={transaction.amount}
-                      txfee={transaction.txFee}
-                      token={`${
-                        transaction?.token ? transaction?.token : null
-                      }`}
-                      symbol={`${
-                        transaction?.symbol ? transaction?.symbol : null
-                      }`}
-                    />
-                  ) : (
-                    <AddressBlock
-                      isLatest={type === 'ERC-20_Tx' && !filtered}
-                      onClick={onClick}
-                      key={transaction.txHash}
-                      txhash={transaction.txHash}
-                      method={transaction.method}
-                      from={transaction.from}
-                      to={transaction.to}
-                      date={moment(transaction.date).fromNow()}
-                      block={transaction.block}
-                      amount={transaction.amount}
-                      txfee={transaction.txFee}
-                      token={`${
-                        transaction?.token ? transaction?.token : 'AMB'
-                      }`}
-                      symbol={`${
-                        transaction?.symbol ? transaction?.symbol : 'AMB'
-                      }`}
-                    />
-                  ),
+                (transaction: TransactionProps, index: number) => (
+                  <AddressBlock
+                    isLatest={type === 'ERC-20_Tx' && !filtered}
+                    onClick={onClick}
+                    key={transaction.txHash}
+                    txhash={transaction.txHash}
+                    method={transaction.method}
+                    from={transaction.from}
+                    to={transaction.to}
+                    date={moment(transaction.date).fromNow()}
+                    block={transaction.block}
+                    amount={transaction.amount}
+                    txfee={transaction.txFee}
+                    token={`${transaction?.token ? transaction?.token : 'AMB'}`}
+                    symbol={`${
+                      transaction?.symbol ? transaction?.symbol : 'AMB'
+                    }`}
+                  />
+                ),
               )
             : null}
 
-          {!loading && !renderData?.length && type !== 'ERC-20_Tx' &&  pageNum < addressData?.meta?.totalPages && (<div ref={lastCardRef} />)}
+          {!loading && pageNum < addressData?.meta?.totalPages && (
+            <div ref={lastCardRef} />
+          )}
           {!loading && !renderData?.length && noDtaFound() && (
             <div className="tabs_not_found">
               <NotFoundIcon />
