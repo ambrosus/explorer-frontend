@@ -52,7 +52,9 @@ export const AddressDetails = () => {
           addressData &&
           pageNum < addressData?.meta?.totalPages
         ) {
-          setPageNum((prevNum) => prevNum + 1);
+          if (type !== 'ERC-20_Tx') {
+            setPageNum((prevNum) => prevNum + 1);
+          }
         }
       });
       if (node) {
