@@ -142,6 +142,7 @@ export const isOnline = (status: string) => {
 
     case 'PENDING':
       return <OrangeCircle />;
+
     default:
       return <GreenCircle />;
   }

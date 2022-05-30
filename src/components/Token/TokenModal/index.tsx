@@ -3,6 +3,7 @@ import {
   TokenModalProps,
   TokenType,
 } from 'pages/Addresses/AddressDetails/address-details.interface';
+import { is } from 'ramda';
 import { FC, useEffect, useState } from 'react';
 
 const TokenModal: FC<TokenModalProps> = ({
@@ -27,8 +28,13 @@ const TokenModal: FC<TokenModalProps> = ({
     }
   }, [name, addressData?.tokens, selectedToken]);
 
+  const isScroll =
+    addressData?.tokens?.length > 5
+      ? 'token_modal token_modal_scroll'
+      : 'token_modal';
+
   return (
-    <div className="token_modal" tabIndex={0}>
+    <div className={isScroll}>
       {addressData?.tokens?.length ? (
         <>
           <div>

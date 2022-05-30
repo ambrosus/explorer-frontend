@@ -10,11 +10,7 @@ const Error404 = () => {
   return (
     <Content>
       <Content.Header>
-        <div
-          style={{
-            height: 111,
-          }}
-        />
+        <></>
       </Content.Header>
       <Content.Body>
         <div className="error_page">
