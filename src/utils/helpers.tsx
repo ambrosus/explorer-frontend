@@ -4,6 +4,7 @@ import Amb from 'assets/icons/Cryptos/Amb';
 import Eth from 'assets/icons/Cryptos/Eth';
 import GreenCircle from 'assets/icons/StatusAction/GreenCircle';
 import OrangeCircle from 'assets/icons/StatusAction/OrangeCircle';
+import _ from 'lodash';
 import moment from 'moment';
 
 export const sliceData5 = (item: string | any) => {
@@ -47,7 +48,7 @@ export const setupStyle = (item: string | undefined) => {
   }
 };
 
-/* toUniqueValueByBlock  jsDoc
+/*
  * @param {Array} data
  * @param {String} key
  *
@@ -56,9 +57,7 @@ export const setupStyle = (item: string | undefined) => {
 export const toUniqueValueByBlock = (arr: any) => {
   try {
     const compare: any = new Map(
-      [...arr].map((item) => {
-        return [item.txHash, item];
-      }),
+      _.map([...arr], (item) => [item.txHash, item]),
     ).values();
     const newTx: TransactionProps[] = [...compare].sort(
       (a: any, b: any) => b.block - a.block,
@@ -93,7 +92,7 @@ export default function removeArrayDuplicates(array: any, key = '_id') {
    * @returns {array}
    */
   const ids: any = [];
-  return array.filter((item: any) => {
+  return _.filter(array, (item: any) => {
     if (ids.indexOf(item[key]) < 0) {
       ids.push(item[key]);
       return item;
@@ -189,7 +188,7 @@ export const currenCurrency = (
 };
 
 export const wrapString = (string: string) => {
-  return string.split('::').map((item, index) => (
+  return _.split(string, '::').map((item, index) => (
     <span key={index + 1} style={{ fontSize: 'inherit' }}>
       {item}
     </span>

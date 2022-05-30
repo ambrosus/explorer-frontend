@@ -9,6 +9,5 @@ export enum actionTypes {
   SET_POSITION__FAIL = 'SET_POSITION__FAIL',
   // ****** tokens filter actions ******
   ADD_FILTER = 'ADD_FILTER',
-  REMOVE_FILTER = 'REMOVE_FILTER',
   CLEAR_FILTERS = 'CLEAR_FILTERS',
 }

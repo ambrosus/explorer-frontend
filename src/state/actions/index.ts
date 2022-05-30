@@ -49,17 +49,9 @@ interface SetFiltersTokenAction {
   payload: object | never;
 }
 
-interface RemoveFiltersTokenAction {
-  type: actionTypes.REMOVE_FILTER;
-  payload: object | never;
-}
-
 interface ClearFiltersTokenAction {
   type: actionTypes.CLEAR_FILTERS;
   payload: Array<any> | null;
 }
 
-export type FiltersAction =
-  | SetFiltersTokenAction
-  | RemoveFiltersTokenAction
-  | ClearFiltersTokenAction;
+export type FiltersAction = SetFiltersTokenAction | ClearFiltersTokenAction;

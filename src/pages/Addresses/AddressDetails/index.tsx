@@ -13,6 +13,7 @@ import { useActions } from 'hooks/useActions';
 import useCopyContent from 'hooks/useCopyContent';
 import useDeviceSize from 'hooks/useDeviceSize';
 import { useTypedSelector } from 'hooks/useTypedSelector';
+import _ from 'lodash';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { shallowEqual } from 'react-redux';
 import { useParams } from 'react-router-dom';
@@ -79,7 +80,8 @@ export const AddressDetails = () => {
   useEffect(() => {
     if (filtered && addressData?.tokens?.length) {
       addFilter(
-        addressData.tokens.find(
+        _.find(
+          addressData.tokens,
           (token: TokenType) => token.contract === filtered,
         ),
       );
@@ -124,8 +126,10 @@ export const AddressDetails = () => {
   useEffect(() => {
     if (addressData && addressData?.transactions) {
       setTx((prevState) => {
-        const compareState = [...prevState, ...addressData.transactions];
-        const addressDataState = [...addressData.transactions];
+        const compareState = _.uniq(
+          _.concat(prevState, addressData.transactions),
+        );
+        const addressDataState = _.clone(addressData.transactions);
         if (type === 'ERC-20_Tx' && !filtered) {
           const newTx: any = addressDataState.sort(
             (a: any, b: any) => b.block - a.block,
@@ -138,9 +142,11 @@ export const AddressDetails = () => {
           return newTx;
         } else {
           const newTx: TransactionProps[] = toUniqueValueByBlock(compareState);
-          const transfersDataTx: TransactionProps[] = newTx.filter(
+          const transfersDataTx: TransactionProps[] = _.filter(
+            newTx,
             (item: TransactionProps) => item.method === 'Transfer',
           );
+
           return type === 'transfers' ? transfersDataTx : newTx;
         }
       });
@@ -150,7 +156,8 @@ export const AddressDetails = () => {
   useEffect(() => {
     if (addressData && addressData?.tokens && !selectedToken) {
       setSelectedToken(
-        addressData.tokens.find(
+        _.find(
+          addressData.tokens,
           (token: TokenType) => token.contract === filtered,
         ),
       );
@@ -209,6 +216,7 @@ export const AddressDetails = () => {
         </Content.Header>
         <Content.Body isLoading={filtered ? !loading : true}>
           <Tabs
+            pageNum={pageNum}
             lastCardRef={lastCardRef}
             onClick={setSelectedToken}
             selectedToken={selectedToken}
