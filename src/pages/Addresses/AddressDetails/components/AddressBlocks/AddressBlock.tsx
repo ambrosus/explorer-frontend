@@ -48,7 +48,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
   const isTxHash: JSX.Element | null =
     txhash === null ? null : (
       <div
-        className="address_blocks_td universall_light2"
+        className="address_blocks_cell universall_light2"
         style={{ fontWeight: '600' }}
       >
         {sliceData10(txhash as string)}
@@ -56,7 +56,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
     );
   const isMethod =
     method === null ? null : (
-      <div className="address_blocks_td" style={{ gap: 4 }}>
+      <div className="address_blocks_cell" style={{ gap: 4 }}>
         {from && from === address ? (
           <OutgoingTransaction />
         ) : (
@@ -71,12 +71,12 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
     from === null ? null : address !== from && String(from).trim().length ? (
       <NavLink
         to={`/addresses/${from}/`}
-        className="address_blocks_td universall_light2"
+        className="address_blocks_cell universall_light2"
       >
         {sliceData5(from as string)}
       </NavLink>
     ) : (
-      <div className="address_blocks_td universall_light2">
+      <div className="address_blocks_cell universall_light2">
         {sliceData5(from as string)}
       </div>
     );
@@ -87,20 +87,20 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
       <NavLink
         to={`/addresses/${to}/`}
         style={{ display: 'content' }}
-        className="address_blocks_td universall_light2"
+        className="address_blocks_cell universall_light2"
       >
         {sliceData5(to as string)}
       </NavLink>
     ) : (
-      <div className="address_blocks_td universall_light2">
+      <div className="address_blocks_cell universall_light2">
         {sliceData5(to as string)}
       </div>
     );
   const isDate =
-    date === null ? null : <div className="address_blocks_td">{date}</div>;
+    date === null ? null : <div className="address_blocks_cell">{date}</div>;
   const isBlock =
     type === 'ERC-20_Tx' ? null : (
-      <div className="address_blocks_td">{block}</div>
+      <div className="address_blocks_cell">{block}</div>
     );
 
   const Icon = getTokenIcon(symbol as string);
@@ -109,7 +109,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
     amount === null ? (
       <></>
     ) : (
-      <div className="address_blocks_td flex-between">
+      <div className="address_blocks_cell flex-between">
         <span style={{ minWidth: 77 }} className="flex-row">
           {type !== 'ERC-20_Tx' ? (
             <span className="universall_indent_icon">
@@ -177,7 +177,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 
   const isTxFee =
     type === 'ERC-20_Tx' ? null : (
-      <div className="address_blocks_td" style={{ padding: 0 }}>
+      <div className="address_blocks_cell" style={{ padding: 0 }}>
         <span
           className="universall_indent_icon"
           style={{ display: 'flex', alignItems: 'center' }}
@@ -193,7 +193,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
   const isToken =
     type === 'ERC-20_Tx' ? (
       <div
-        className="address_blocks_td universall_light2"
+        className="address_blocks_cell universall_light2"
         style={{ fontWeight: '600', cursor: isLatest ? 'pointer' : 'default' }}
       >
         {type === 'ERC-20_Tx' ? (
@@ -216,7 +216,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
           </>
         ) : (
           <span
-            className="address_blocks_td  universall_light2"
+            className="address_blocks_cell  universall_light2"
             onClick={() => {
               addressData?.tokens?.forEach((item: TokenType) => {
                 if (
@@ -250,7 +250,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
     );
 
   return (
-    <>
+    <div className="address_blocks_cells">
       {isTxHash}
       {isMethod}
       {isFrom}
@@ -260,7 +260,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
       {isAmount}
       {isTxFee}
       {isToken}
-    </>
+    </div>
   );
 };
 

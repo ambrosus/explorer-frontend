@@ -32,19 +32,12 @@ export const calcTime = (time: any) => {
 };
 
 export const setupStyle = (item: string | undefined) => {
-  /*
-   * @param {string} item
-   * @returns {string}
-   */
-  let type: { style: object } = {
-    style: {},
-  };
   switch (item) {
     case 'ERC-20_Tx':
-      return (type.style = { gridTemplateColumns: 'repeat(7, auto)' });
+      return 'address_blocks_erc20';
 
     default:
-      return (type.style = { gridTemplateColumns: 'repeat(8, auto)' });
+      return 'address_blocks_cells';
   }
 };
 

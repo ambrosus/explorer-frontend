@@ -3,7 +3,18 @@
     text-decoration: underline solid #05060f;
   }
 
-  &_td {
+  &_cells {
+    display: grid;
+    grid-template-columns:
+      minmax(200px, 2.5fr) minmax(120px, 1.5fr) minmax(120px, 1.5fr)
+      minmax(120px, 1.5fr) minmax(110px, 1.5fr) minmax(80px, 1fr)
+      minmax(180px, 2.5fr) minmax(80px, 1fr);
+  }
+  &_erc20 {
+    display: grid;
+    grid-template-columns: repeat(7, auto);
+  }
+  &_cell {
     display: flex;
     align-items: center;
     border-bottom: 1px solid #eff2f5;

@@ -171,7 +171,7 @@ const Tabs: FC<TabsProps> = ({
           </div>
         </div>
 
-        <section className="tabs_table" style={isTableColumn}>
+        <section className="tabs_table">
           {loading && !renderData?.length && (
             <div
               style={{

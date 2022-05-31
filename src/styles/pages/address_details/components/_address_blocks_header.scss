@@ -1,10 +1,24 @@
 .address_blocks_header {
-  display: flex;
-  align-items: center;
-  font-weight: 700;
-  font-size: 0.86em;
-  line-height: 1.77em;
-  height: 36px;
-  padding-top: 12px;
-  align-content: flex-end;
+  &_cells {
+    display: grid;
+    grid-template-columns:
+      minmax(200px, 2.5fr) minmax(120px, 1.5fr) minmax(120px, 1.5fr)
+      minmax(120px, 1.5fr) minmax(110px, 1.5fr) minmax(80px, 1fr)
+      minmax(180px, 2.5fr) minmax(80px, 1fr);
+  }
+  &_erc20 {
+    display: grid;
+    grid-template-columns: repeat(7, auto);
+  }
+
+  &_cell {
+    display: flex;
+    align-items: center;
+    font-weight: 700;
+    font-size: 0.86em;
+    line-height: 1.77em;
+    height: 36px;
+    padding-top: 12px;
+    align-content: flex-end;
+  }
 }
