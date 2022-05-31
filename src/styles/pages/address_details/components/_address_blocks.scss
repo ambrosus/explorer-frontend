@@ -9,10 +9,16 @@
       minmax(200px, 2.5fr) minmax(120px, 1.5fr) minmax(120px, 1.5fr)
       minmax(120px, 1.5fr) minmax(110px, 1.5fr) minmax(80px, 1fr)
       minmax(180px, 2.5fr) minmax(80px, 1fr);
+    &:hover {
+      background-color: #eff2f5;
+    }
   }
   &_erc20 {
     display: grid;
-    grid-template-columns: repeat(7, auto);
+    grid-template-columns:
+      minmax(200px, 2fr) minmax(110px, 1.1fr) minmax(120px, 1.2fr)
+      minmax(120px, 1.2fr) minmax(120px, 1.2fr) minmax(120px, 1.2fr)
+      minmax(280px, 3fr);
   }
   &_cell {
     display: flex;

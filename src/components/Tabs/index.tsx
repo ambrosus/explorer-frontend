@@ -105,7 +105,7 @@ const Tabs: FC<TabsProps> = ({
   const isTableColumn =
     renderData && renderData?.length
       ? setupStyle(type)
-      : { display: 'flex', justifyContent: 'center', paddingTop: 100 };
+      : 'addresses_body_no_data';
 
   return (
     <>
@@ -197,6 +197,7 @@ const Tabs: FC<TabsProps> = ({
               txfee={headerTxfee}
               token={headerToken}
               methodFilters={methodFilters}
+              isTableColumn={isTableColumn}
             />
           )}
 
@@ -220,6 +221,7 @@ const Tabs: FC<TabsProps> = ({
                     symbol={`${
                       transaction?.symbol ? transaction?.symbol : 'AMB'
                     }`}
+                    isTableColumn={isTableColumn}
                   />
                 ),
               )

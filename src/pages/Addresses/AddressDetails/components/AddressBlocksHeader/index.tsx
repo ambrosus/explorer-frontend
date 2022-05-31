@@ -11,6 +11,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
   amount,
   txfee,
   token,
+  isTableColumn,
 }) => {
   const methodRef = useRef(null);
   const isTxHash =
@@ -64,7 +65,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
     );
 
   return (
-    <div className="address_blocks_header_cells">
+    <div className={isTableColumn}>
       {isTxHash}
       {isMethod}
       {isFrom}

@@ -35,6 +35,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
   txfee,
   token,
   symbol,
+  isTableColumn,
 }) => {
   const online = txfee === 'Pending' ? <OrangeCircle /> : <GreenCircle />;
   const { addFilter } = useActions();
@@ -250,7 +251,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
     );
 
   return (
-    <div className="address_blocks_cells">
+    <div className={isTableColumn}>
       {isTxHash}
       {isMethod}
       {isFrom}
