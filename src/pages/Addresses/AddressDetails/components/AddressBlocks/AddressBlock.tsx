@@ -81,7 +81,9 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
       </div>
     );
   const isTo =
-    to === null || to === undefined ? <div></div> : address !== to && String(to).trim().length ? (
+    to === null || to === undefined ? (
+      <div></div>
+    ) : address !== to && String(to).trim().length ? (
       <NavLink
         to={`/addresses/${to}/`}
         style={{ display: 'content' }}
@@ -149,7 +151,9 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
                 ) {
                   onClick(item);
                   addFilter(item);
-                  navigate(`/addresses/${address}/ERC-20_Tx/${item.contract}`,{replace:true});
+                  navigate(`/addresses/${address}/ERC-20_Tx/${item.contract}`, {
+                    replace: true,
+                  });
                 } else {
                   return '';
                 }
@@ -221,17 +225,16 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
                 ) {
                   onClick(item);
                   addFilter(item);
-                  navigate(`/addresses/${address}/ERC-20_Tx/${item.contract}`,{replace:true});
+                  navigate(`/addresses/${address}/ERC-20_Tx/${item.contract}`, {
+                    replace: true,
+                  });
                 } else {
                   return '';
                 }
               });
             }}
           >
-            <NavLink
-              className="address_blocks_icon universall_light2"
-              to={``}
-            >
+            <NavLink className="address_blocks_icon universall_light2" to={``}>
               {token ? token : ''}{' '}
               {token.includes('token')
                 ? `(${getAmbTokenSymbol(token)})`
