@@ -18,6 +18,11 @@
       background-color: #eff2f5;
     }
   }
+  &_no_data {
+    display: 'flex';
+    justify-content: 'center';
+    padding-top: 100;
+  }
   &_cell {
     position: relative;
     align-items: center;
