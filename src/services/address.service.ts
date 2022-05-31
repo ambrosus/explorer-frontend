@@ -274,7 +274,7 @@ export const getDataForAddress = async (address: string, params: any) => {
   const { page, type, selectedTokenFilter } = params;
   const url = `${process.env.REACT_APP_BLOCKBOOK_API}/api/v2/address/${address}`;
   try {
-    console.log('selectedTokenFilter',selectedTokenFilter);
+    console.log('selectedTokenFilter', selectedTokenFilter);
     const blockBookApiTokens: any = await blockBookApiTokensSearch(url, params);
 
     const { addressBalance, bbApi, bbTxData }: TransactionProps[] | any =
@@ -306,7 +306,10 @@ export const getDataForAddress = async (address: string, params: any) => {
 
     return {
       balance: addressBalance,
-      transactions: type === 'ERC-20_Tx' || selectedTokenFilter !== undefined ? bbTxData : transactionsAll,
+      transactions:
+        type === 'ERC-20_Tx' || selectedTokenFilter !== undefined
+          ? bbTxData
+          : transactionsAll,
       tokens: [...defaultFilters],
       latestTransactions,
       meta: bbApi,
