@@ -102,6 +102,11 @@ const Tabs: FC<TabsProps> = ({
   }, [address, type, filtered, tokenToSorted]);
   const { FOR_TABLET } = useDeviceSize();
 
+  const isTableColumn =
+    renderData && renderData?.length
+      ? setupStyle(type)
+      : { display: 'flex', justifyContent: 'center', paddingTop: 100 };
+
   return (
     <>
       <div className="tabs">
@@ -166,14 +171,7 @@ const Tabs: FC<TabsProps> = ({
           </div>
         </div>
 
-        <section
-          className="tabs_table"
-          style={
-            renderData && renderData?.length
-              ? setupStyle(type)
-              : { display: 'flex', justifyContent: 'center', paddingTop: 100 }
-          }
-        >
+        <section className="tabs_table" style={isTableColumn}>
           {loading && !renderData?.length && (
             <div
               style={{
