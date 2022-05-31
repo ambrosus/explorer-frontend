@@ -102,6 +102,11 @@ const Tabs: FC<TabsProps> = ({
   }, [address, type, filtered, tokenToSorted]);
   const { FOR_TABLET } = useDeviceSize();
 
+  const isTableColumn =
+    renderData && renderData?.length
+      ? setupStyle(type)
+      : 'addresses_body_no_data';
+
   return (
     <>
       <div className="tabs">
@@ -166,14 +171,7 @@ const Tabs: FC<TabsProps> = ({
           </div>
         </div>
 
-        <section
-          className="tabs_table"
-          style={
-            renderData && renderData?.length
-              ? setupStyle(type)
-              : { display: 'flex', justifyContent: 'center', paddingTop: 100 }
-          }
-        >
+        <section className="tabs_table">
           {loading && !renderData?.length && (
             <div
               style={{
@@ -199,6 +197,7 @@ const Tabs: FC<TabsProps> = ({
               txfee={headerTxfee}
               token={headerToken}
               methodFilters={methodFilters}
+              isTableColumn={isTableColumn}
             />
           )}
 
@@ -222,6 +221,7 @@ const Tabs: FC<TabsProps> = ({
                     symbol={`${
                       transaction?.symbol ? transaction?.symbol : 'AMB'
                     }`}
+                    isTableColumn={isTableColumn}
                   />
                 ),
               )
