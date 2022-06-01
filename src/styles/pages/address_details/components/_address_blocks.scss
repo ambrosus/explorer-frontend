@@ -8,20 +8,18 @@
 
   &_cells {
     display: grid;
-    grid-template-columns:
-      minmax(200px, 2.5fr) minmax(150px, 2fr) minmax(100px, 1.5fr)
-      minmax(110px, 1.5fr) minmax(90px, 1.5fr) minmax(75px, 1fr)
-      minmax(200px, 3fr) minmax(90px, 1.5fr);
+    grid-template-columns: 200px 150px 115px 115px 110px 100px 220px 110px;
+    // grid-template-columns:
+    //   minmax(200px, 2.5fr) minmax(150px, 2fr) minmax(100px, 1.5fr)
+    //   minmax(110px, 1.5fr) minmax(90px, 1.5fr) minmax(75px, 1fr)
+    //   minmax(200px, 3fr) minmax(90px, 1.5fr);
     &:hover {
       background-color: #eff2f5;
     }
   }
   &_erc20 {
     display: grid;
-    grid-template-columns:
-      minmax(200px, 2fr) minmax(110px, 1.1fr) minmax(120px, 1.2fr)
-      minmax(120px, 1.2fr) minmax(120px, 1.2fr) minmax(120px, 1.2fr)
-      minmax(280px, 3fr);
+    grid-template-columns: 200px 150px 150px 150px 150px 150px 200px;
   }
   &_cell {
     display: flex;
