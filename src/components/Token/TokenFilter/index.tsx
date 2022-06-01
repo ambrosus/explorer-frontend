@@ -41,24 +41,14 @@ const TokenFilter = ({
       <div
         ref={refTokensModal}
         tabIndex={0}
-        className={`token_filter ${
-          loading && !addressData?.tokens?.length
-            ? 'toggle'
-            : loading
-            ? 'toggle'
-            : ''
-        }`}
+        className={`token_filter`}
       >
         <div className="token_filter_input">
           <span
             className={`token_filter_input_rectangle ${
-              loading && !addressData?.tokens?.length
+              loading
                 ? 'toggle'
-                : loading
-                ? 'toggle'
-                : !addressData?.tokens?.length
-                ? ''
-                : 'toggle'
+                : ''
             }`}
           >
             {loading && !addressData?.tokens?.length
