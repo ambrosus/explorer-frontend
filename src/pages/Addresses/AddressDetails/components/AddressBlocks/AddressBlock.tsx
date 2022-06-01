@@ -69,7 +69,9 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
       </div>
     );
   const isFrom =
-    from === null ? null : address !== from && String(from).trim().length ? (
+    from === null ? (
+      <div className="address_blocks_cell"></div>
+    ) : address !== from && String(from).trim().length ? (
       <NavLink
         to={`/addresses/${from}/`}
         className="address_blocks_cell universall_light2"
@@ -83,7 +85,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
     );
   const isTo =
     to === null || to === undefined ? (
-      <div></div>
+      <div className="address_blocks_cell"></div>
     ) : address !== to && String(to).trim().length ? (
       <NavLink
         to={`/addresses/${to}/`}
