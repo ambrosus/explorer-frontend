@@ -1,7 +1,6 @@
 .address_blocks_header {
   &_cells {
     display: grid;
-
     grid-template-columns: 200px 150px 115px 115px 110px 100px 220px 110px;
   }
   &_erc20 {
