@@ -110,15 +110,13 @@
   }
 }
 
-.flex-between {
-  display: flex;
+.flex_between {
   flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
 }
 
-.flex-row {
+.flex_row {
   display: flex;
-  flex-direction: row;
   align-items: center;
+  flex-shrink: 0;
+  min-width: 155px;
 }
