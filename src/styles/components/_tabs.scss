@@ -48,7 +48,6 @@
     position: relative;
     white-space: nowrap;
     overflow-x: scroll;
-    padding: 0 6px;
     @include for_phone {
       position: relative;
       max-height: 500px;
