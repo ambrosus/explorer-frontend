@@ -15,7 +15,7 @@ let filtersBuffer: any = {
   name: '',
   balance: 0,
   totalSupply: 0,
-}
+};
 
 const FilteredToken: FC<FilteredTokenProps> = ({ setSelectedToken }) => {
   const { clearFilters } = useActions();
@@ -25,10 +25,7 @@ const FilteredToken: FC<FilteredTokenProps> = ({ setSelectedToken }) => {
   const { filters } = useTypedSelector((state: any) => state.tokenFilters);
 
   useEffect(() => {
-    if (
-      filtersBuffer !== undefined &&
-      filtersBuffer !== null
-    ) {
+    if (filtersBuffer !== undefined && filtersBuffer !== null) {
       filtersBuffer = filters;
       setFilter(filters);
     }
@@ -75,9 +72,7 @@ const FilteredToken: FC<FilteredTokenProps> = ({ setSelectedToken }) => {
           <div className="filtered_token_cell">
             <span className="filtered_token_cell_bold">Total supply</span>
             <span className="filtered_token_cell_normal">
-              {filter.totalSupply
-                ? Number(filter.totalSupply).toFixed(2)
-                : '-'}
+              {filter.totalSupply ? Number(filter.totalSupply).toFixed(2) : '-'}
             </span>
           </div>
         </div>
