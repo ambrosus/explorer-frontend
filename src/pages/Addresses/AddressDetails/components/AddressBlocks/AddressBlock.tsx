@@ -178,7 +178,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 
   const isTxFee =
     type === 'ERC-20_Tx' ? null : (
-      <div className="address_blocks_cell" style={{ padding: 0 }}>
+      <div className="address_blocks_cell">
         <span
           className="universall_indent_icon"
           style={{ display: 'flex', alignItems: 'center' }}
