@@ -251,7 +251,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
     );
 
   return (
-    <div className={isTableColumn}>
+    <div className={isTableColumn} ref={lastCardRef}>
       {isTxHash}
       {isMethod}
       {isFrom}
