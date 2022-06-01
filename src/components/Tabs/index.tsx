@@ -204,32 +204,60 @@ const Tabs: FC<TabsProps> = ({
           {renderData && renderData?.length !== 0
             ? _.map(
                 renderData,
-                (transaction: TransactionProps, index: number) => (
-                  <AddressBlock
-                    isLatest={type === 'ERC-20_Tx' && !filtered}
-                    onClick={onClick}
-                    key={transaction.txHash}
-                    txhash={transaction.txHash}
-                    method={transaction.method}
-                    from={transaction.from}
-                    to={transaction.to}
-                    date={moment(transaction.date).fromNow()}
-                    block={transaction.block}
-                    amount={transaction.amount}
-                    txfee={transaction.txFee}
-                    token={`${transaction?.token ? transaction?.token : 'AMB'}`}
-                    symbol={`${
-                      transaction?.symbol ? transaction?.symbol : 'AMB'
-                    }`}
-                    isTableColumn={isTableColumn}
-                  />
-                ),
+                (transaction: TransactionProps, index: number) =>
+                  renderData.length - 1 === index && type !== 'ERC-20_Tx' ? (
+                    <AddressBlock
+                      lastCardRef={lastCardRef}
+                      isLatest={type === 'ERC-20_Tx' && !filtered}
+                      onClick={onClick}
+                      key={transaction.txHash}
+                      txhash={transaction.txHash}
+                      method={transaction.method}
+                      from={transaction.from}
+                      to={transaction.to}
+                      date={moment(transaction.date).fromNow()}
+                      block={transaction.block}
+                      amount={transaction.amount}
+                      txfee={transaction.txFee}
+                      token={`${
+                        transaction?.token ? transaction?.token : null
+                      }`}
+                      symbol={`${
+                        transaction?.symbol ? transaction?.symbol : null
+                      }`}
+                    />
+                  ) : (
+                    <AddressBlock
+                      isLatest={type === 'ERC-20_Tx' && !filtered}
+                      onClick={onClick}
+                      key={transaction.txHash}
+                      txhash={transaction.txHash}
+                      method={transaction.method}
+                      from={transaction.from}
+                      to={transaction.to}
+                      date={moment(transaction.date).fromNow()}
+                      block={transaction.block}
+                      amount={transaction.amount}
+                      txfee={transaction.txFee}
+                      token={`${
+                        transaction?.token ? transaction?.token : 'AMB'
+                      }`}
+                      symbol={`${
+                        transaction?.symbol ? transaction?.symbol : 'AMB'
+                      }`}
+                      isTableColumn={isTableColumn}
+                    />
+                  ),
               )
             : null}
 
-          {!loading && pageNum < addressData?.meta?.totalPages && (
-            <div ref={lastCardRef} />
-          )}
+          {!loading &&
+            !renderData?.length &&
+            noDtaFound() &&
+            pageNum < addressData?.meta?.totalPages && (
+              <div style={{ height: 10, width: '100%' }} ref={lastCardRef} />
+            )}
+
           {!loading && !renderData?.length && noDtaFound() && (
             <div className="tabs_not_found">
               <NotFoundIcon />

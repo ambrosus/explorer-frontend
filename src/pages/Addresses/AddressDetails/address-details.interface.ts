@@ -67,7 +67,7 @@ export interface AddressBlockProps {
   setTransactionType?: any;
   onClick?: any;
   isLatest?: boolean;
-  isTableColumn: string;
+  isTableColumn?: string;
 }
 
 export interface TokenProps {
