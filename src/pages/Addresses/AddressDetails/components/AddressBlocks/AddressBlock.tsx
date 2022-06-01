@@ -110,8 +110,8 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
     amount === null ? (
       <></>
     ) : (
-      <div className="address_blocks_cell flex-between">
-        <span style={{ minWidth: 77 }} className="flex-row">
+      <div className="address_blocks_cell flex_between">
+        <span className="flex_row">
           {type !== 'ERC-20_Tx' ? (
             <span className="universall_indent_icon">
               <Icon />

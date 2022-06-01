@@ -1,14 +1,17 @@
 .address_blocks {
-  &-icon {
-    text-decoration: underline solid #05060f;
+  &_icon {
+    display: flex;
+    margin-right: 4px;
+    // text-decoration: underline solid #05060f;
+    flex-shrink: 0;
   }
 
   &_cells {
     display: grid;
     grid-template-columns:
-      minmax(200px, 2.5fr) minmax(120px, 1.5fr) minmax(120px, 1.5fr)
-      minmax(120px, 1.5fr) minmax(110px, 1.5fr) minmax(80px, 1fr)
-      minmax(180px, 2.5fr) minmax(80px, 1fr);
+      minmax(200px, 2.5fr) minmax(120px, 1.5fr) minmax(100px, 1.5fr)
+      minmax(110px, 1.5fr) minmax(90px, 1.5fr) minmax(75px, 1fr)
+      minmax(200px, 3fr) minmax(80px, 1fr);
     &:hover {
       background-color: #eff2f5;
     }
