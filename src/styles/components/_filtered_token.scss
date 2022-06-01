@@ -6,6 +6,7 @@
   border: 1px solid $secondary;
   border-radius: 16px;
   white-space: nowrap;
+  min-height: 96px;
   @include for_phone {
   }
 
@@ -47,10 +48,15 @@
 
   &_cells:nth-child(2) {
     height: 100%;
-    align-items: flex-start;
+    align-items: center;
     justify-content: flex-end;
-    padding-top: 12px;
+
     gap: 0;
+    @include for_phone {
+      align-items: center;
+
+      padding-bottom: 24px;
+    }
   }
 
   &_cells:nth-child(1) {
