@@ -4,18 +4,36 @@ import Discard from 'assets/icons/Discard';
 import { useActions } from 'hooks/useActions';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import { TokenType } from 'pages/Addresses/AddressDetails/address-details.interface';
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 export type FilteredTokenProps = {
   setSelectedToken: (token: TokenType | null) => void;
 };
+
+let filtersBuffer: any = {
+  name: '',
+  balance: 0,
+  totalSupply: 0,
+}
+
 const FilteredToken: FC<FilteredTokenProps> = ({ setSelectedToken }) => {
   const { clearFilters } = useActions();
+  const [filter, setFilter] = useState(filtersBuffer);
   const { address }: TParams = useParams();
   const navigate = useNavigate();
   const { filters } = useTypedSelector((state: any) => state.tokenFilters);
 
+  useEffect(() => {
+    if (
+      filtersBuffer !== undefined &&
+      filtersBuffer !== null
+    ) {
+      filtersBuffer = filters;
+      setFilter(filters);
+    }
+    filtersBuffer = filters;
+  }, [filters]);
   const backClick = () => {
     setSelectedToken(null);
     clearFilters();
@@ -32,7 +50,7 @@ const FilteredToken: FC<FilteredTokenProps> = ({ setSelectedToken }) => {
           </div>
           <div className="filtered_token_cell">
             <Icon />
-            {filters && filters.name}
+            {filter && filter.name}
           </div>
         </div>
         <div className="filtered_token_cells">
@@ -45,20 +63,20 @@ const FilteredToken: FC<FilteredTokenProps> = ({ setSelectedToken }) => {
           </button>
         </div>
       </div>
-      {filters?.balance && (
+      {filter?.balance && (
         <div className="filtered_token_body">
           <div className="filtered_token_cell">
             <span className="filtered_token_cell_bold">Balance</span>
             <span className="filtered_token_cell_normal">
-              {filters.balance ? Number(filters.balance).toFixed(2) : '-'}
+              {filter.balance ? Number(filter.balance).toFixed(2) : '-'}
             </span>
           </div>
 
           <div className="filtered_token_cell">
             <span className="filtered_token_cell_bold">Total supply</span>
             <span className="filtered_token_cell_normal">
-              {filters.totalSupply
-                ? Number(filters.totalSupply).toFixed(2)
+              {filter.totalSupply
+                ? Number(filter.totalSupply).toFixed(2)
                 : '-'}
             </span>
           </div>
