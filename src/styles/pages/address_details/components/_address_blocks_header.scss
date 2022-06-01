@@ -2,9 +2,9 @@
   &_cells {
     display: grid;
     grid-template-columns:
-      minmax(200px, 2.5fr) minmax(120px, 1.5fr) minmax(120px, 1.5fr)
-      minmax(120px, 1.5fr) minmax(110px, 1.5fr) minmax(80px, 1fr)
-      minmax(180px, 2.5fr) minmax(80px, 1fr);
+      minmax(200px, 2.5fr) minmax(150px, 2fr) minmax(100px, 1.5fr)
+      minmax(110px, 1.5fr) minmax(90px, 1.5fr) minmax(75px, 1fr)
+      minmax(200px, 3fr) minmax(90px, 1.5fr);
   }
   &_erc20 {
     display: grid;
