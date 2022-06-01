@@ -225,6 +225,7 @@ const Tabs: FC<TabsProps> = ({
                       symbol={`${
                         transaction?.symbol ? transaction?.symbol : null
                       }`}
+                      isTableColumn={isTableColumn}
                     />
                   ) : (
                     <AddressBlock
