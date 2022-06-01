@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { log } from '../utils/helpers';
 
 const tokenApiUrl: any = process.env.REACT_APP_TOKEN_API_URL;
 
@@ -10,7 +11,7 @@ const API = () => {
 
   function handleNotFound(err: any) {
     if (err) {
-      console.error(err);
+      log(err);
     }
     // window.location.replace('/notfound');
   }
