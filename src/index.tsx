@@ -1,10 +1,10 @@
 import Main from './components/Main/Main';
-import ScrollToTop from './components/ScrollToTop';
 import { store } from './state';
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
+import ScrollToTop from './components/ScrollToTop'
 
 /*
  * @param {Provider} store - redux store
@@ -14,13 +14,12 @@ import { BrowserRouter } from 'react-router-dom';
 export const App = (): JSX.Element => (
   <Provider store={store}>
     <BrowserRouter>
-      <ScrollToTop />
+      <ScrollToTop/>
       <Main />
     </BrowserRouter>
   </Provider>
 );
 
 const container = document.getElementById('root') as HTMLElement;
-ReactDOM.render(<App />, container, () => {
-  console.log('rendered');
-});
+const root = createRoot(container);
+root.render(<App />);
