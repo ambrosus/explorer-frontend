@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 let dataBuffer: any = null;
-let load: any = false;
+let load: any = true;
 
 const Token: React.FC<TokenProps> = ({
   addressData,
