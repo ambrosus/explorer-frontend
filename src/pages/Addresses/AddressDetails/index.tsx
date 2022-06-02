@@ -15,9 +15,10 @@ import { useTypedSelector } from 'hooks/useTypedSelector';
 import useWindowSize from 'hooks/useWindowSize';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { shallowEqual } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { getDataForAddress } from 'services/address.service';
 import { TParams } from 'types';
+import API from '../../../API/api';
 
 export const AddressDetails = () => {
   const { filters } = useTypedSelector(
@@ -37,6 +38,7 @@ export const AddressDetails = () => {
   const [pageNum, setPageNum] = useState(1);
   const [limitNum] = useState(30);
   const observer = useRef<IntersectionObserver>();
+  const navigate = useNavigate();
 
   const { isCopy, copyContent, isCopyPopup } = useCopyContent(address);
 
@@ -65,6 +67,19 @@ export const AddressDetails = () => {
   );
 
   useEffect(() => {
+   if (address){
+     API.searchItem(address)
+       .then((data: any) => {
+         if (data.meta.search.includes('addresses')) {
+          return
+         } else {
+           navigate(`/notfound`,{replace: true})
+         }
+       })
+       .catch(() => {
+         navigate(`/notfound`);
+       });
+   }
     return () => {
       setPosition(null);
     };
