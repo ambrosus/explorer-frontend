@@ -5,6 +5,7 @@
       minmax(200px, 1fr) minmax(140px, 1fr) minmax(110px, 1fr)
       minmax(110px, 1fr) minmax(100px, 1fr) minmax(100px, 1fr)
       minmax(220px, 1fr) minmax(110px, 1fr);
+    padding-left: 6px;
   }
   &_erc20 {
     display: grid;
@@ -12,6 +13,7 @@
       minmax(220px, 1fr) minmax(150px, 1fr) minmax(120px, 1fr)
       minmax(120px, 1fr) minmax(120px, 1fr) minmax(120px, 1fr)
       minmax(220px, 1fr);
+    padding-left: 6px;
   }
 
   &_cell {
