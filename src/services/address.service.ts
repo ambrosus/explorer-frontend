@@ -7,8 +7,8 @@ import {
 import { log } from '../utils/helpers';
 import { ethers } from 'ethers';
 import { formatEther } from 'ethers/lib/utils';
-import erc20Abi from 'utils/abis/ERC20.json';
 import _ from 'lodash';
+import erc20Abi from 'utils/abis/ERC20.json';
 
 const getTokensBalance = async (tokensArr: TokenType[], address: string) => {
   return Promise.all(
@@ -288,7 +288,7 @@ export const getDataForAddress = async (address: string, params: any) => {
       (await sortedLatestTransactionsData(defaultFilters, url, page)) || [];
 
     const transactionsAll: TransactionProps[] = _.uniq(
-      _.concat(explorData, bbTxData)
+      _.concat(explorData, bbTxData),
     );
 
     return {

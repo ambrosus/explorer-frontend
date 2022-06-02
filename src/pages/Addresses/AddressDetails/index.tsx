@@ -1,3 +1,4 @@
+import API from '../../../API/api';
 import { toUniqueValueByBlock } from '../../../utils/helpers';
 import { TokenType, TransactionProps } from './address-details.interface';
 import ContentCopy from 'assets/icons/CopyIcons/ContentCopy';
@@ -18,7 +19,6 @@ import { shallowEqual } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getDataForAddress } from 'services/address.service';
 import { TParams } from 'types';
-import API from '../../../API/api';
 
 export const AddressDetails = () => {
   const { filters } = useTypedSelector(
@@ -67,19 +67,30 @@ export const AddressDetails = () => {
   );
 
   useEffect(() => {
-   if (address){
-     API.searchItem(address)
-       .then((data: any) => {
-         if (data.meta.search.includes('addresses')) {
-          return
-         } else {
-           navigate(`/notfound`,{replace: true})
-         }
-       })
-       .catch(() => {
-         navigate(`/notfound`);
-       });
-   }
+    console.log('tokenToSorted',tokenToSorted);
+
+    if (tokenToSorted === 'transfers' || tokenToSorted !== '') {
+    } else {
+      navigate(`/notfound`, { replace: true });
+    }
+    if (type === 'ERC-20_Tx' || type === 'transfers' || !type) {
+    } else {
+      navigate(`/notfound`, { replace: true });
+    }
+
+    if (address) {
+      API.searchItem(address)
+        .then((data: any) => {
+          if (data.meta.search.includes('addresses')) {
+            return;
+          } else {
+            navigate(`/notfound`, { replace: true });
+          }
+        })
+        .catch(() => {
+          navigate(`/notfound`, { replace: true });
+        });
+    }
     return () => {
       setPosition(null);
     };
