@@ -3,7 +3,6 @@ import {
   TokenModalProps,
   TokenType,
 } from 'pages/Addresses/AddressDetails/address-details.interface';
-import { is } from 'ramda';
 import { FC, useEffect, useState } from 'react';
 
 const TokenModal: FC<TokenModalProps> = ({
