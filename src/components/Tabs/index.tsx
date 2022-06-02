@@ -172,19 +172,6 @@ const Tabs: FC<TabsProps> = ({
         </div>
 
         <section className="tabs_table">
-          {loading && !renderData?.length && (
-            <div
-              style={{
-                width: '100%',
-                paddingTop: 20,
-                height: 200,
-                position: 'absolute',
-              }}
-            >
-              <Loader />
-            </div>
-          )}
-
           {renderData && renderData?.length !== 0 && (
             <AddressBlocksHeader
               txhash="txHash"
@@ -279,3 +266,16 @@ const Tabs: FC<TabsProps> = ({
 };
 
 export default Tabs;
+
+// {loading && !renderData?.length && (
+//   <div
+//     style={{
+//       width: '100%',
+//       paddingTop: 20,
+//       height: 200,
+//       position: 'absolute',
+//     }}
+//   >
+//     <Loader />
+//   </div>
+// )}
