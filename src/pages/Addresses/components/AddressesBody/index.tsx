@@ -22,10 +22,8 @@ const AddressesBody: FC<AddressesBodyProps> = ({
   return (
     appData &&
     address && (
-      <div className="addresses_body_cells">
-        <div className="addresses_body_cell" ref={lastCardRef}>
-          {rank}
-        </div>
+      <div className="addresses_body_cells" ref={lastCardRef}>
+        <div className="addresses_body_cell">{rank}</div>
 
         <NavLink
           to={`/addresses/${address}/`}
