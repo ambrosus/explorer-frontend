@@ -1,5 +1,5 @@
-import axios from 'axios';
 import { log } from '../utils/helpers';
+import axios from 'axios';
 
 const tokenApiUrl: any = process.env.REACT_APP_TOKEN_API_URL;
 
