@@ -8,6 +8,7 @@ import { log } from '../utils/helpers';
 import { ethers } from 'ethers';
 import { formatEther } from 'ethers/lib/utils';
 import erc20Abi from 'utils/abis/ERC20.json';
+import _ from 'lodash';
 
 const getTokensBalance = async (tokensArr: TokenType[], address: string) => {
   return Promise.all(
@@ -286,22 +287,9 @@ export const getDataForAddress = async (address: string, params: any) => {
     const latestTransactions: TransactionProps[] =
       (await sortedLatestTransactionsData(defaultFilters, url, page)) || [];
 
-    const filterBB: TransactionProps[] =
-      type !== 'transfers'
-        ? bbTxData
-        : bbTxData.filter(
-            (item: TransactionProps) => item.method === 'Transfer',
-          ) || [];
-    const filterExplorer: TransactionProps[] =
-      type !== 'transfers'
-        ? explorData
-        : explorData.filter(
-            (item: TransactionProps) => item.method === 'Transfer',
-          ) || [];
-    const transactionsAll: TransactionProps[] = [
-      ...filterExplorer,
-      ...filterBB,
-    ];
+    const transactionsAll: TransactionProps[] = _.uniq(
+      _.concat(explorData, bbTxData)
+    );
 
     return {
       balance: addressBalance,
