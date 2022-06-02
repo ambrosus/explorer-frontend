@@ -8,15 +8,23 @@
 
   &_cells {
     display: grid;
-    grid-template-columns: 200px 150px 115px 115px 110px 100px 220px 110px;
-
+    grid-template-columns:
+      minmax(200px, 1fr) minmax(140px, 1fr) minmax(110px, 1fr)
+      minmax(110px, 1fr) minmax(100px, 1fr) minmax(100px, 1fr)
+      minmax(220px, 1fr) minmax(110px, 1fr);
+    padding-left: 6px;
     &:hover {
       background-color: #eff2f5;
     }
   }
   &_erc20 {
     display: grid;
-    grid-template-columns: 220px 160px 150px 150px 150px 150px 220px;
+    grid-template-columns:
+      minmax(220px, 1fr) minmax(150px, 1fr) minmax(120px, 1fr)
+      minmax(120px, 1fr) minmax(120px, 1fr) minmax(120px, 1fr)
+      minmax(220px, 1fr);
+    padding-left: 6px;
+
     &:hover {
       background-color: #eff2f5;
     }
@@ -28,5 +36,17 @@
     border-bottom: 1px solid #eff2f5;
     padding-right: 32px;
     height: 48px;
+    &_token {
+      display: flex;
+      position: relative;
+      align-items: center;
+    }
+    &_last {
+      display: flex;
+      position: relative;
+      align-items: center;
+      border-bottom: 1px solid #eff2f5;
+      height: 48px;
+    }
   }
 }

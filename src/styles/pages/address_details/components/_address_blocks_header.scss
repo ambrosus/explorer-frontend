@@ -1,11 +1,19 @@
 .address_blocks_header {
   &_cells {
     display: grid;
-    grid-template-columns: 200px 150px 115px 115px 110px 100px 220px 110px;
+    grid-template-columns:
+      minmax(200px, 1fr) minmax(140px, 1fr) minmax(110px, 1fr)
+      minmax(110px, 1fr) minmax(100px, 1fr) minmax(100px, 1fr)
+      minmax(220px, 1fr) minmax(110px, 1fr);
+    padding-left: 6px;
   }
   &_erc20 {
     display: grid;
-    grid-template-columns: 220px 160px 150px 150px 150px 150px 220px;
+    grid-template-columns:
+      minmax(220px, 1fr) minmax(150px, 1fr) minmax(120px, 1fr)
+      minmax(120px, 1fr) minmax(120px, 1fr) minmax(120px, 1fr)
+      minmax(220px, 1fr);
+    padding-left: 6px;
   }
 
   &_cell {
