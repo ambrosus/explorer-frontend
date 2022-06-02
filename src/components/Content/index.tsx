@@ -21,15 +21,9 @@ const Header = ({ children, isLoading = true }: IContentProps) => (
 );
 Content.Header = Header;
 Content.Header.displayName = 'CONTENT_HEADER';
-const Body = ({ children, isLoading = true }: IContentProps) => (
+const Body = ({ children }: IContentProps) => (
   <div className="content_body">
-    {!isLoading ? (
-      <div style={{ minHeight: 400, marginTop: 20 }}>
-        <Loader />
-      </div>
-    ) : (
-      <div className="container">{children}</div>
-    )}
+    <div className="container">{children}</div>
   </div>
 );
 Content.Body = Body;

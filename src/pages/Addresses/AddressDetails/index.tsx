@@ -67,7 +67,7 @@ export const AddressDetails = () => {
   );
 
   useEffect(() => {
-    console.log('tokenToSorted',tokenToSorted);
+    console.log('tokenToSorted', tokenToSorted);
 
     if (tokenToSorted === 'transfers' || tokenToSorted !== '') {
     } else {
@@ -218,8 +218,7 @@ export const AddressDetails = () => {
             <div className="address_details_info">
               <OverallBalance
                 addressBalance={
-                  addressData &&
-                  addressData.balance &&
+                  addressData?.balance &&
                   Number(formatEther(addressData.balance)).toFixed(2)
                 }
               />
@@ -231,9 +230,8 @@ export const AddressDetails = () => {
                 onClick={setSelectedToken}
               />
             </div>
-            {selectedToken && (
-              <FilteredToken setSelectedToken={setSelectedToken} />
-            )}
+
+            <FilteredToken setSelectedToken={setSelectedToken} />
           </div>
         </Content.Header>
         <Content.Body isLoading={filtered ? !loading : true}>
