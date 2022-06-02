@@ -180,7 +180,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 
   const isTxFee =
     type === 'ERC-20_Tx' ? null : (
-      <div className="address_blocks_cell">
+      <div className="address_blocks_cell_last">
         <span
           className="universall_indent_icon"
           style={{ display: 'flex', alignItems: 'center' }}
@@ -196,7 +196,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
   const isToken =
     type === 'ERC-20_Tx' ? (
       <div
-        className="address_blocks_cell universall_light2"
+        className="address_blocks_cell_last universall_light2"
         style={{ fontWeight: '600', cursor: isLatest ? 'pointer' : 'default' }}
       >
         {type === 'ERC-20_Tx' ? (
@@ -219,7 +219,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
           </>
         ) : (
           <span
-            className="address_blocks_cell  universall_light2"
+            className="address_blocks_cell_token  universall_light2"
             onClick={() => {
               addressData?.tokens?.forEach((item: TokenType) => {
                 if (
