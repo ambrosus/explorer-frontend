@@ -12,8 +12,8 @@ import Token from 'components/Token';
 import { formatEther } from 'ethers/lib/utils';
 import { useActions } from 'hooks/useActions';
 import useCopyContent from 'hooks/useCopyContent';
+import useDeviceSize from 'hooks/useDeviceSize';
 import { useTypedSelector } from 'hooks/useTypedSelector';
-import useWindowSize from 'hooks/useWindowSize';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { shallowEqual } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -185,7 +185,7 @@ export const AddressDetails = () => {
     }
   }, [addressData]);
 
-  const { width } = useWindowSize();
+  const { FOR_TABLET } = useDeviceSize();
 
   return (
     <Content>
@@ -206,7 +206,7 @@ export const AddressDetails = () => {
                 ) : (
                   <ContentCopy />
                 )}
-                {width > 786 && isCopyPopup && isCopy && (
+                {FOR_TABLET && isCopyPopup && isCopy && (
                   <div className="address_details_copyed">
                     <CopyPopUp x={3} y={20} values="Copyed" />
                   </div>
@@ -231,7 +231,9 @@ export const AddressDetails = () => {
               />
             </div>
 
-            <FilteredToken setSelectedToken={setSelectedToken} />
+            {selectedToken && (
+              <FilteredToken setSelectedToken={setSelectedToken} />
+            )}
           </div>
         </Content.Header>
         <Content.Body isLoading={filtered ? !loading : true}>
