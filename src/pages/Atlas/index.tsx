@@ -3,11 +3,10 @@ import AtlasBlocksHeader from './components/AtlasBlocksHeader';
 import AtlasBlocksSort from './components/AtlasBlocksSort';
 import MainInfoAtlas from './components/MainInfoAtlas';
 import { Content } from 'components/Content';
-import useSortData from 'hooks/useSortData';
-import { getAtlasData } from 'services/atlas.service';
+import React from 'react';
 
 export const Atlas = () => {
-  const { sortTerm, setSortTerm } = useSortData(getAtlasData);
+  const [sortTerm, setSortTerm] = React.useState<string>('balance');
 
   const num = 6;
 

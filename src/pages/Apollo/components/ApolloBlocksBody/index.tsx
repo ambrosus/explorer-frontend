@@ -1,16 +1,25 @@
-const ApolloBlocksBody = () => (
+import { Currency } from '../../../../components/UI/Currency';
+import { statusMessage } from '../../utils';
+
+const ApolloBlocksBody = ({ index, item }: any) => (
   <div className="apollo_blocks_body">
-    <div className="apollo_blocks_body_cell">1</div>
+    <div className="apollo_blocks_body_cell">{index}</div>
+    <div className="apollo_blocks_body_cell">{item.address}</div>
     <div className="apollo_blocks_body_cell">
-      0xF977814e90dA44bFA03b6295A0616a897441aceC
+      {statusMessage(item, 'Apollo')}
     </div>
-    <div className="apollo_blocks_body_cell">Uptime 16 Minutes</div>
-    <div className="apollo_blocks_body_cell">12.234</div>
+    <div className="apollo_blocks_body_cell">{item.totalBlocks}</div>
     <div className="apollo_blocks_body_cell">
-      <span>1.33345</span>
+      <span>{item.balance.ether.toFixed(5)}</span>
       <span>AMB</span>
     </div>
-    <div className="apollo_blocks_body_cell">1,000,000.00 AMB</div>
+    <div className="apollo_blocks_body_cell">
+      <Currency
+        value={item ? `${item.stake.ether}` : '0'}
+        symbol="AMB"
+        fixed={2}
+      />
+    </div>
   </div>
 );
 

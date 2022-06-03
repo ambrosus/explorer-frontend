@@ -67,7 +67,6 @@ export const AddressDetails = () => {
   );
 
   useEffect(() => {
-    console.log('tokenToSorted', tokenToSorted);
 
     if (tokenToSorted === 'transfers' || tokenToSorted !== '') {
     } else {
