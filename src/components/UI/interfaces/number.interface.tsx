@@ -12,5 +12,5 @@ export interface INumber extends Element {
     thousands?: string;
     decimals?: string;
   };
-  discharge?:string
+  discharge?: string;
 }

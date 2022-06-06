@@ -1,3 +1,4 @@
+import Loader from '../../components/Loader';
 import removeArrayDuplicates from '../../utils/helpers';
 import { IApolloInfo } from './apolloBlocks.interface';
 import ApolloBlocksBody from './components/ApolloBlocksBody';
@@ -7,7 +8,6 @@ import MainInfoApollo from './components/MainInfoApollo';
 import { getApollosNetworkInfo } from './utils';
 import { Content } from 'components/Content';
 import React, { useEffect, useState } from 'react';
-import Loader from '../../components/Loader';
 
 export const Apollo = () => {
   const [sortTerm, setSortTerm] = React.useState<string>('address');
@@ -18,7 +18,7 @@ export const Apollo = () => {
     total: 0,
     online: 0,
     offline: 0,
-    connecting: 0
+    connecting: 0,
   });
   const [loading, setLoading] = useState<any>(false);
 
@@ -64,18 +64,18 @@ export const Apollo = () => {
   };
 
   useEffect(() => {
-      setLoading(true);
-      (async function() {
-        await getDataFromApi(sortTerm).then((data) => {
-          if (data && !pagination?.hasNext && pagination?.hasPrevious) {
-            setTableData(data);
-            const info = getApollosNetworkInfo(data);
-            setApollosStatus(info);
-            setData(data);
-            setLoading(false);
-          }
-        });
-      })();
+    setLoading(true);
+    (async function () {
+      await getDataFromApi(sortTerm).then((data) => {
+        if (data && !pagination?.hasNext && pagination?.hasPrevious) {
+          setTableData(data);
+          const info = getApollosNetworkInfo(data);
+          setApollosStatus(info);
+          setData(data);
+          setLoading(false);
+        }
+      });
+    })();
   }, [pagination]);
 
   useEffect(() => {
@@ -93,19 +93,21 @@ export const Apollo = () => {
         <MainInfoApollo info={apollosStatus} data={tableData} />
       </Content.Header>
       <Content.Body>
-        <div className='apollo_main'>
+        <div className="apollo_main">
           <ApolloBlocksSort sortTerm={sortTerm} setSortTerm={setSortTerm} />
 
           <div
-            className='apollo_main_table'
+            className="apollo_main_table"
             style={{ gridTemplateColumns: `repeat(${num}, auto)` }}
           >
             <ApolloBlocksHeader />
             {loading ? (
               <Loader />
-            ) : tableData.map((item: any, index: number) => (
-              <ApolloBlocksBody key={index} index={index + 1} item={item} />
-            ))}
+            ) : (
+              tableData.map((item: any, index: number) => (
+                <ApolloBlocksBody key={index} index={index + 1} item={item} />
+              ))
+            )}
           </div>
         </div>
       </Content.Body>
