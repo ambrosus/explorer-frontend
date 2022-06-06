@@ -67,7 +67,6 @@ export const AddressDetails = () => {
   );
 
   useEffect(() => {
-
     if (tokenToSorted === 'transfers' || tokenToSorted !== '') {
     } else {
       navigate(`/notfound`, { replace: true });

@@ -288,7 +288,7 @@ export const getDataForAddress = async (address: string, params: any) => {
       (await sortedLatestTransactionsData(defaultFilters, url, page)) || [];
 
     const transactionsAll: TransactionProps[] = _.uniq(
-      _.concat(explorData, bbTxData),
+      _.concat(bbTxData, explorData),
     );
 
     return {
