@@ -1,7 +1,6 @@
 .apollo_blocks_body {
   display: grid;
-  // grid-template-columns: repeat(6, auto);
-  grid-template-columns: 82px 405px 190px 117px 180px 192px;
+  grid-template-columns: 82px 405px 190px 117px 190px 192px;
 
   //   flex-direction: column;
   .balance {
@@ -24,6 +23,17 @@
     height: 48px;
     padding-right: 32px;
     padding-left: 5px;
+    &_token {
+      padding-right: 6px;
+    }
+    &_value {
+      padding-right: 6px;
+    }
+
+    &_status {
+      color: #1acd8c;
+      padding-right: 4px;
+    }
 
     // &:nth-child(1) {
     //   padding-left: 10px;

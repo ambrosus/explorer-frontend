@@ -28,14 +28,14 @@ export const routes: IRoute[] = [
     key: 'Apollo',
     exact: true,
     component: () => <Apollo />,
-    isClick: false,
+    isClick: true,
   },
   {
     path: '/atlas',
     key: 'Atlas',
     exact: true,
     component: () => <Atlas />,
-    isClick: false,
+    isClick: true,
   },
   {
     path: '/hermes',
