@@ -1,16 +1,21 @@
+import ApolloDetailsBalance from './components/ApolloDetailsBalance';
+import ApolloDetailsMain from './components/ApolloDetailsMain';
+import ApolloDetailsMiningStats from './components/ApolloDetailsMiningStats';
+import { Content } from 'components/Content';
+
 export const ApolloDetails = () => {
   return (
-    <>
-      <div>
-        <div>
-          <div>ND Apollo</div>
-          <div>Online</div>
+    <Content>
+      <Content.Header>
+        <div className="apollo_details_header">
+          <ApolloDetailsMain />
+          <ApolloDetailsBalance />
+          {/* <ApolloDetailsMiningStats /> */}
         </div>
-        <div></div>
-      </div>
-      <div></div>
-      <div></div>
-      <div>ApolloDetails</div>
-    </>
+      </Content.Header>
+      <Content.Body>
+        <></>
+      </Content.Body>
+    </Content>
   );
 };

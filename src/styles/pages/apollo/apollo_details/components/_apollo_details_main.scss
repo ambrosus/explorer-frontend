@@ -1,0 +1,22 @@
+.apollo_details_main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  &_nd {
+    display: flex;
+    flex-direction: column;
+  }
+  &_address {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  &_cell {
+    display: flex;
+    font-size: 18px;
+    line-height: 40px;
+  }
+  &_online {
+    color: #1acd8c;
+  }
+}
