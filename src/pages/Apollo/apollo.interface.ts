@@ -39,5 +39,6 @@ export type TAddressesSortProps = {
 };
 
 export type ApolloBodyProps = {
-  isOnline: boolean;
+ index:number
+ item:any
 };
