@@ -1,0 +1,16 @@
+.AMB-Currency {
+  margin: 0 !important;
+
+  > .symbol {
+    font-size: 0.9em;
+    opacity: 1;
+
+    &.left {
+      margin-right: 0.3em;
+    }
+
+    &.right {
+      margin-left: 0.3em;
+    }
+  }
+}

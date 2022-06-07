@@ -16,7 +16,7 @@ import useDeviceSize from 'hooks/useDeviceSize';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { shallowEqual } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { getDataForAddress } from 'services/address.service';
 import { TParams } from 'types';
 
@@ -26,7 +26,7 @@ export const AddressDetails = () => {
     shallowEqual,
   );
   const {
-    loading,
+    loading:addressDataLoading,
     data: addressData,
     error: errorData,
   } = useTypedSelector((state: any) => state.position);
@@ -34,11 +34,13 @@ export const AddressDetails = () => {
   const { setPosition, addFilter } = useActions();
   const [transactionType, setTransactionType] = useState(type);
   const [selectedToken, setSelectedToken] = useState<TokenType | null>(null);
+  const [loading, setLoading] = useState(false);
   const [tx, setTx] = useState<TransactionProps[] | []>([]);
   const [pageNum, setPageNum] = useState(1);
   const [limitNum] = useState(30);
   const observer = useRef<IntersectionObserver>();
   const navigate = useNavigate();
+  const location = useLocation()
 
   const { isCopy, copyContent, isCopyPopup } = useCopyContent(address);
 
@@ -67,8 +69,15 @@ export const AddressDetails = () => {
   );
 
   useEffect(() => {
-    console.log('tokenToSorted', tokenToSorted);
-
+    console.log('setLoading');
+    if (!type){
+      console.log('location',location);
+      const path = location.pathname.split('/')
+      console.log(path);
+      if (!path?.[3]){
+        navigate(`${location.pathname}/`,{replace:true})
+      }
+    }
     if (tokenToSorted === 'transfers' || tokenToSorted !== '') {
     } else {
       navigate(`/notfound`, { replace: true });
@@ -91,18 +100,23 @@ export const AddressDetails = () => {
           navigate(`/notfound`, { replace: true });
         });
     }
-    return () => {
-      setPosition(null);
-    };
   }, []);
 
   useEffect(() => {
     if (address || type || filtered || tokenToSorted) {
+      setPageNum(0)
+      setPosition(null);
       setTx([]);
     }
+    return () => {
+      setPageNum(0)
+      setPosition(null);
+      setTx([]);
+    };
   }, [address, type, filtered, tokenToSorted]);
 
   useEffect(() => {
+    setLoading(true);
     if (filtered && addressData?.tokens?.length) {
       addFilter(
         addressData.tokens.find(
@@ -172,6 +186,7 @@ export const AddressDetails = () => {
           return type === 'transfers' ? transfersDataTx : newTx;
         }
       });
+      setLoading(false);
     }
   }, [addressData, type]);
 

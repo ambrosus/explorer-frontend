@@ -27,12 +27,12 @@ export default ApolloBlocksSort;
 
 const sortOptions: TApolloSortProps[] = [
   {
-    label: 'Address',
+    label: 'Addresses',
     value: 'address',
   },
   {
     label: 'Total blocks',
-    value: 'totalBlocks',
+    value: ' ',
   },
   {
     label: 'Balance',
