@@ -34,7 +34,16 @@ export const RenderRoutes = (props: any) => {
           {...route}
         />
       ))}
-      {routes.addressesRoutes.map((route: any) => (
+      {routes.apolloRoutes.map((route: any) => (
+        <Route
+          suspense={<Loader />}
+          key={route.key}
+          path={route.path}
+          element={<route.component />}
+          {...route}
+        />
+      ))}
+      {routes.atlasRoutes.map((route: any) => (
         <Route
           suspense={<Loader />}
           key={route.key}
