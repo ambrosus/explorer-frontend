@@ -9,10 +9,7 @@ import { useOnClickOutside } from 'hooks/useOnClickOutside';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import _ from 'lodash';
 import moment from 'moment';
-import {
-  TabsProps,
-  TransactionProps,
-} from 'pages/Addresses/AddressDetails/address-details.interface';
+import { TabsProps, TransactionProps } from 'pages/Addresses/AddressDetails/address-details.interface';
 import AddressBlocksHeader from 'pages/Addresses/AddressDetails/components/AddressBlocksHeader';
 import { FC, useEffect, useRef, useState } from 'react';
 import { NavLink, useParams } from 'react-router-dom';
@@ -20,19 +17,19 @@ import { setupStyle, toUniqueValueByBlock } from 'utils/helpers';
 import { sidePages } from 'utils/sidePages';
 
 const Tabs: FC<TabsProps> = ({
-  data,
-  lastCardRef,
-  onClick,
-  setTransactionType,
-  pageNum,
-}) => {
+                               data,
+                               lastCardRef,
+                               onClick,
+                               setTransactionType,
+                               pageNum
+                             }) => {
   const [isShow, setIsShow] = useState(false);
   const { address, type, filtered, tokenToSorted } = useParams();
   const [prevType, setPrevType] = useState<any>(type);
   const [renderData, setRenderData] = useState<any>(null);
   const [notFound, setNotFound] = useState<any>(false);
   const { loading, data: addressData } = useTypedSelector(
-    (state: any) => state.position,
+    (state: any) => state.position
   );
   const mobileCalendarRef = useRef(null);
 
@@ -64,17 +61,31 @@ const Tabs: FC<TabsProps> = ({
     if (type) {
       setPrevType(type);
     }
-    if (prevType !== type) {
-      setRenderData(null);
+    if (
+      addressData &&
+      addressData?.latestTransactions?.length &&
+      type === 'ERC-20_Tx' &&
+      !filtered
+    ) {
+      setRenderData(toUniqueValueByBlock(addressData.latestTransactions));
     }
+
     if (addressData && !loading) {
       if (data?.length && type !== 'ERC-20_Tx' && !filtered) {
         if (type === 'transfers') {
-          setRenderData(() => {
-            const transfersDataTx: TransactionProps[] = data.filter(
-              (item: TransactionProps) => item.method === 'Transfer',
-            );
-            return transfersDataTx || [];
+          let transfersDataTx: TransactionProps[];
+          setRenderData((prev: any) => {
+            if (prev === null) {
+              transfersDataTx = data.filter(
+                (item: TransactionProps) => item.method === 'Transfer'
+              );
+              return transfersDataTx ? toUniqueValueByBlock(transfersDataTx) : toUniqueValueByBlock(prev);
+            } else {
+              transfersDataTx = [...prev, ...data].filter(
+                (item: TransactionProps) => item.method === 'Transfer'
+              );
+              return toUniqueValueByBlock(transfersDataTx) || [];
+            }
           });
         } else {
           setRenderData(toUniqueValueByBlock(data));
@@ -84,15 +95,13 @@ const Tabs: FC<TabsProps> = ({
         setRenderData(toUniqueValueByBlock(data));
       }
 
-      if (
-        addressData &&
-        addressData?.latestTransactions?.length &&
-        type === 'ERC-20_Tx' &&
-        !filtered
-      ) {
-        setRenderData(toUniqueValueByBlock(addressData.latestTransactions));
-      }
+
     }
+    return () => {
+      if (prevType !== type) {
+        setRenderData(null);
+      }
+    };
   }, [addressData, data, filtered, type, loading, pageNum]);
 
   useEffect(() => {
@@ -109,58 +118,58 @@ const Tabs: FC<TabsProps> = ({
 
   return (
     <>
-      <div className="tabs">
-        <div className="tabs_heading" tabIndex={-1}>
-          <div className="tabs_heading_filters" tabIndex={-1}>
+      <div className='tabs'>
+        <div className='tabs_heading' tabIndex={-1}>
+          <div className='tabs_heading_filters' tabIndex={-1}>
             {isShow && (
               <div
                 ref={mobileCalendarRef}
-                className="tabs_heading_export_modal_mobile"
+                className='tabs_heading_export_modal_mobile'
               >
                 <Calendar />
               </div>
             )}
             {!filtered
               ? transactionFilters &&
-                transactionFilters.length &&
-                _.map(transactionFilters, (filter) => (
-                  <NavLink
-                    key={filter.title}
-                    to={`/addresses/${address}/${
-                      filter.value ? filter.value : ''
-                    }`}
-                    className={setActiveLink}
-                    onClick={(e) => {
-                      setTransactionType(filter.value);
-                    }}
-                  >
-                    {filter.title}
-                  </NavLink>
-                ))
+              transactionFilters.length &&
+              _.map(transactionFilters, (filter) => (
+                <NavLink
+                  key={filter.title}
+                  to={`/addresses/${address}/${
+                    filter.value ? filter.value : ''
+                  }`}
+                  className={setActiveLink}
+                  onClick={(e) => {
+                    setTransactionType(filter.value);
+                  }}
+                >
+                  {filter.title}
+                </NavLink>
+              ))
               : ERC20Filters &&
-                ERC20Filters.length &&
-                _.map(ERC20Filters, (filter) => (
-                  <NavLink
-                    key={filter.title}
-                    to={`/addresses/${address}/ERC-20_Tx/${filtered}/${filter.value}`}
-                    className={setActiveLink}
-                    onClick={(e) => {
-                      setTransactionType(filter.value);
-                    }}
-                  >
-                    {filter.title}
-                  </NavLink>
-                ))}
+              ERC20Filters.length &&
+              _.map(ERC20Filters, (filter) => (
+                <NavLink
+                  key={filter.title}
+                  to={`/addresses/${address}/ERC-20_Tx/${filtered}/${filter.value}`}
+                  className={setActiveLink}
+                  onClick={(e) => {
+                    setTransactionType(filter.value);
+                  }}
+                >
+                  {filter.title}
+                </NavLink>
+              ))}
           </div>
 
-          <div ref={mobileCalendarRef} className="tabs_heading_export_modal">
+          <div ref={mobileCalendarRef} className='tabs_heading_export_modal'>
             {FOR_TABLET ? (
               <ExportCsv />
             ) : (
               <>
-                <div className="tabs_side_menu">
+                <div className='tabs_side_menu'>
                   <button
-                    className="tabs_side_menu_icon"
+                    className='tabs_side_menu_icon'
                     onClick={() => setIsShow(!isShow)}
                   >
                     <SideMenu />
@@ -171,16 +180,16 @@ const Tabs: FC<TabsProps> = ({
           </div>
         </div>
 
-        <section className="tabs_table">
+        <section className='tabs_table'>
           {renderData && renderData?.length !== 0 && (
             <AddressBlocksHeader
-              txhash="txHash"
-              method="Method"
-              from="From"
-              to="To"
-              date="Date"
+              txhash='txHash'
+              method='Method'
+              from='From'
+              to='To'
+              date='Date'
               block={headerBlock}
-              amount="Amount"
+              amount='Amount'
               txfee={headerTxfee}
               token={headerToken}
               methodFilters={methodFilters}
@@ -190,66 +199,66 @@ const Tabs: FC<TabsProps> = ({
 
           {renderData && renderData?.length !== 0
             ? _.map(
-                renderData,
-                (transaction: TransactionProps, index: number) =>
-                  renderData.length - 1 === index && type !== 'ERC-20_Tx' ? (
-                    <AddressBlock
-                      lastCardRef={lastCardRef}
-                      isLatest={type === 'ERC-20_Tx' && !filtered}
-                      onClick={onClick}
-                      key={transaction.txHash}
-                      txhash={transaction.txHash}
-                      method={transaction.method}
-                      from={transaction.from}
-                      to={transaction.to}
-                      date={moment(transaction.date).fromNow()}
-                      block={transaction.block}
-                      amount={transaction.amount}
-                      txfee={transaction.txFee}
-                      token={`${
-                        transaction?.token ? transaction?.token : null
-                      }`}
-                      symbol={`${
-                        transaction?.symbol ? transaction?.symbol : null
-                      }`}
-                      isTableColumn={isTableColumn}
-                    />
-                  ) : (
-                    <AddressBlock
-                      isLatest={type === 'ERC-20_Tx' && !filtered}
-                      onClick={onClick}
-                      key={transaction.txHash}
-                      txhash={transaction.txHash}
-                      method={transaction.method}
-                      from={transaction.from}
-                      to={transaction.to}
-                      date={moment(transaction.date).fromNow()}
-                      block={transaction.block}
-                      amount={transaction.amount}
-                      txfee={transaction.txFee}
-                      token={`${
-                        transaction?.token ? transaction?.token : 'AMB'
-                      }`}
-                      symbol={`${
-                        transaction?.symbol ? transaction?.symbol : 'AMB'
-                      }`}
-                      isTableColumn={isTableColumn}
-                    />
-                  ),
-              )
+              renderData,
+              (transaction: TransactionProps, index: number) =>
+                renderData.length - 1 === index && type !== 'ERC-20_Tx' ? (
+                  <AddressBlock
+                    lastCardRef={lastCardRef}
+                    isLatest={type === 'ERC-20_Tx' && !filtered}
+                    onClick={onClick}
+                    key={transaction.txHash}
+                    txhash={transaction.txHash}
+                    method={transaction.method}
+                    from={transaction.from}
+                    to={transaction.to}
+                    date={moment(transaction.date).fromNow()}
+                    block={transaction.block}
+                    amount={transaction.amount}
+                    txfee={transaction.txFee}
+                    token={`${
+                      transaction?.token ? transaction?.token : null
+                    }`}
+                    symbol={`${
+                      transaction?.symbol ? transaction?.symbol : null
+                    }`}
+                    isTableColumn={isTableColumn}
+                  />
+                ) : (
+                  <AddressBlock
+                    isLatest={type === 'ERC-20_Tx' && !filtered}
+                    onClick={onClick}
+                    key={transaction.txHash}
+                    txhash={transaction.txHash}
+                    method={transaction.method}
+                    from={transaction.from}
+                    to={transaction.to}
+                    date={moment(transaction.date).fromNow()}
+                    block={transaction.block}
+                    amount={transaction.amount}
+                    txfee={transaction.txFee}
+                    token={`${
+                      transaction?.token ? transaction?.token : 'AMB'
+                    }`}
+                    symbol={`${
+                      transaction?.symbol ? transaction?.symbol : 'AMB'
+                    }`}
+                    isTableColumn={isTableColumn}
+                  />
+                )
+            )
             : null}
 
           {!loading &&
-            !renderData?.length &&
-            noDtaFound() &&
-            pageNum < addressData?.meta?.totalPages && (
-              <div style={{ height: 10, width: '100%' }} ref={lastCardRef} />
-            )}
+          !renderData?.length &&
+          noDtaFound() &&
+          pageNum < addressData?.meta?.totalPages && (
+            <div style={{ height: 10, width: '100%' }} ref={lastCardRef} />
+          )}
 
-          {!loading && !renderData?.length && noDtaFound() && (
-            <div className="tabs_not_found">
+          {!loading && renderData?.length === 0 && noDtaFound() && (
+            <div className='tabs_not_found' ref={lastCardRef}>
               <NotFoundIcon />
-              <span className="tabs_not_found_text">
+              <span className='tabs_not_found_text'>
                 No results were found for this query.
               </span>
             </div>
