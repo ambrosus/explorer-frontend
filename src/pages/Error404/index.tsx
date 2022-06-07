@@ -16,7 +16,7 @@ const Error404 = () => {
         <div className="error_page">
           <Error404Icon />
           <h1>Oops! Page not found!</h1>
-          <ViewMoreBtn onclick={() => navigate(`/`)} nameBtn="Back to Index" />
+          <ViewMoreBtn onclick={() => navigate(`/`)} nameBtn="Back to Home" />
         </div>
       </Content.Body>
     </Content>

@@ -1,19 +1,28 @@
-@import './address_details/address_details';
-@import './address_details/components/address_blocks';
-@import './address_details/components/address_blocks_header';
-
+// addresses
 @import './addresses/addresses';
 @import './addresses/components/addresses_body';
 @import './addresses/components/addresses_header';
 @import './addresses/components/addresses_sort';
 @import './addresses/components/main_info_addresses';
 
+@import './addresses/address_details/address_details';
+@import './addresses/address_details/components/address_blocks';
+@import './addresses/address_details/components/address_blocks_header';
+
+// apollo
 @import './apollo/apollo';
 @import './apollo/components/apollo_blocks_body';
 @import './apollo/components/apollo_blocks_header';
 @import './apollo/components/apollo_blocks_sort';
 @import './apollo/components/main_info_apollo.scss';
 
+// apolloDetails
+@import './apollo/apollo_details/apollo_details';
+@import './apollo/apollo_details/components/apollo_details_balance';
+@import './apollo/apollo_details/components/apollo_details_main';
+@import './apollo/apollo_details/components/apollo_details_mining_stats';
+
+// atlas
 @import './atlas/atlas';
 @import './atlas/components/atlas_blocks_body';
 @import './atlas/components/atlas_blocks_header';

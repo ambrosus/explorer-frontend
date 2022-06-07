@@ -85,7 +85,6 @@ export const Apollo = () => {
       setPagination({});
     }
   }, [sortTerm]);
-  const num = 6;
 
   return (
     <Content>
@@ -96,10 +95,7 @@ export const Apollo = () => {
         <div className="apollo_main">
           <ApolloBlocksSort sortTerm={sortTerm} setSortTerm={setSortTerm} />
 
-          <div
-            className="apollo_main_table"
-            style={{ gridTemplateColumns: `repeat(${num}, auto)` }}
-          >
+          <div className="apollo_main_table">
             <ApolloBlocksHeader />
             {loading ? (
               <Loader />
