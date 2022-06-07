@@ -1,4 +1,4 @@
-import React  from 'react';
+import React from 'react';
 
 export const getApollosNetworkInfo = (data: any) => {
   let total = 0,
@@ -11,6 +11,7 @@ export const getApollosNetworkInfo = (data: any) => {
     apollo.status === 'OFFLINE' && apollo.state !== 'RETIRED' && offline++;
     apollo.status === 'CONNECTING' && connecting++;
   }
+
   return { total, online, offline, connecting };
 };
 
@@ -51,15 +52,20 @@ export const statusMessage = (node: any, nodeName: string) => {
   if (nodeName === 'Apollo') {
     switch (node.status) {
       case 'ONLINE':
-        return <><div className='apollo_blocks_body_cell_online'>Uptime</div> {timeSince(
-        node && node.statusHistory && node.statusHistory[0]
-          ? node.statusHistory[0].timestamp
-          : '',
-      )}</>;
+        return (
+          <>
+            <div className="apollo_blocks_body_cell_online">Uptime</div>{' '}
+            {timeSince(
+              node && node.statusHistory && node.statusHistory[0]
+                ? node.statusHistory[0].timestamp
+                : '',
+            )}
+          </>
+        );
       case 'CONNECTING':
         return 'Connecting...';
       default:
-        return <div className='apollo_blocks_body_cell_offline' >Offline</div>
+        return <div className="apollo_blocks_body_cell_offline">Offline</div>;
     }
   } else {
     switch (node.state) {

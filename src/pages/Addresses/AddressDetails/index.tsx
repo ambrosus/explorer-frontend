@@ -26,7 +26,7 @@ export const AddressDetails = () => {
     shallowEqual,
   );
   const {
-    loading:addressDataLoading,
+    loading: addressDataLoading,
     data: addressData,
     error: errorData,
   } = useTypedSelector((state: any) => state.position);
@@ -40,7 +40,7 @@ export const AddressDetails = () => {
   const [limitNum] = useState(30);
   const observer = useRef<IntersectionObserver>();
   const navigate = useNavigate();
-  const location = useLocation()
+  const location = useLocation();
 
   const { isCopy, copyContent, isCopyPopup } = useCopyContent(address);
 
@@ -70,12 +70,12 @@ export const AddressDetails = () => {
 
   useEffect(() => {
     console.log('setLoading');
-    if (!type){
-      console.log('location',location);
-      const path = location.pathname.split('/')
+    if (!type) {
+      console.log('location', location);
+      const path = location.pathname.split('/');
       console.log(path);
-      if (!path?.[3]){
-        navigate(`${location.pathname}/`,{replace:true})
+      if (!path?.[3]) {
+        navigate(`${location.pathname}/`, { replace: true });
       }
     }
     if (tokenToSorted === 'transfers' || tokenToSorted !== '') {
@@ -104,12 +104,12 @@ export const AddressDetails = () => {
 
   useEffect(() => {
     if (address || type || filtered || tokenToSorted) {
-      setPageNum(0)
+      setPageNum(0);
       setPosition(null);
       setTx([]);
     }
     return () => {
-      setPageNum(0)
+      setPageNum(0);
       setPosition(null);
       setTx([]);
     };

@@ -1,155 +1,121 @@
-import API from '../../API/api';
-import { AccountsData } from './11addresses.interface';
+import Loader from '../../components/Loader';
+import removeArrayDuplicates from '../../utils/helpers';
+import { IApolloInfo } from './apolloBlocks.interface';
 import ApolloBlocksBody from './components/ApolloBlocksBody';
 import ApolloBlocksHeader from './components/ApolloBlocksHeader';
 import ApolloBlocksSort from './components/ApolloBlocksSort';
 import MainInfoApollo from './components/MainInfoApollo';
+import { getApollosNetworkInfo } from './utils';
 import { Content } from 'components/Content';
-import moment from 'moment';
 import React, { useEffect, useState } from 'react';
-import { useInView } from 'react-intersection-observer';
-import { getAccountsData } from 'services/accounts.service';
-import removeArrayDuplicates from 'utils/helpers';
+import moment from 'moment';
 
 export const Apollo = () => {
-  const [apollos, setApollos] = React.useState<AccountsData>([]);
-  const [sortTerm, setSortTerm] = React.useState<string>('balance');
-  const [chartData, setChartData] = useState([]);
-  const [apollosStats, setApollosStats] = useState({
+  const [sortTerm, setSortTerm] = React.useState<string>('address');
+  const [pagination, setPagination] = useState<any>({});
+  const [data, setData] = useState<any>([]);
+  const [tableData, setTableData] = useState<any>([]);
+  const [apollosStatus, setApollosStatus] = useState<IApolloInfo>({
     total: 0,
     online: 0,
     offline: 0,
-    connecting: 0,
+    connecting: 0
   });
-  const getApollosNetworkInfo = async (apollosArr: any) => {
-    let { total, online, offline, connecting } = apollosStats;
-    for await (const apollo of apollosArr) {
-      apollo.state !== 'RETIRED' && total++;
-      apollo.status === 'ONLINE' && online++;
-      apollo.status === 'OFFLINE' && apollo.state !== 'RETIRED' && offline++;
-      apollo.status === 'CONNECTING' && connecting++;
-    }
-    setApollosStats({ total, online, offline, connecting });
-  };
+  const [loading, setLoading] = useState<any>(false);
 
-  const getRecursionData: any = async () => {
-    const { data: data }: any = await API.getApollos({
-      limit: 55,
-      page: '',
-    });
-    const { data: data1 }: any = await API.getApollos({
-      limit: 55,
-      page: 'WzcyMzE3LHsiJG9pZCI6IjYxZmNmMDVhNTIzMTYyYjhiOGJkZmQyNyJ9XQ',
-    });
-    const { data: data2 }: any = await API.getApollos({
-      limit: 55,
-      page: 'WzMwNTgxLHsiJG9pZCI6IjYyMDAwOGU2NTIzMTYyYjhiOGM1OWY3YiJ9XQ',
-    });
-    const { data: data3 }: any = await API.getApollos({
-      limit: 55,
-      page: 'WzE1NDE3LHsiJG9pZCI6IjYyMDA2NDQyNTIzMTYyYjhiOGE1MGEyOSJ9XQ',
-    });
-    const { data: data4 }: any = await API.getApollos({
-      limit: 55,
-      page: 'WzcyMzE4LHsiJG9pZCI6IjYxZmNmMDVhNTIzMTYyYjhiOGJkZmQyNyJ9XQ',
-    });
+  const getDataFromApi = async (sort: string) => {
+    if (
+      Object.keys(pagination).length === 0 &&
+      !pagination?.hasNext &&
+      !data.length
+    ) {
+      const esc = encodeURIComponent;
+      const url = 'https://explorer-api.ambrosus.io/apollos?';
+      let params: any = { limit: 50, sort };
 
-    return [...data, ...data1, ...data2, ...data3, ...data4];
-  };
-  // @ts-ignore
-  useEffect(async () => {
-    const allDataApollo = await getRecursionData();
-    const last30Days: any = [];
-    const today = new Date();
-    const lastDay = new Date(
-      today.getFullYear(),
-      today.getMonth(),
-      today.getDate() - 30,
-    );
-    for (let i = 0; i < 30; i++) {
-      const date = new Date(
-        lastDay.getFullYear(),
-        lastDay.getMonth(),
-        lastDay.getDate() + i,
-      );
-      const dateInFormat = moment(date).format('MMM Do ');
-      const transactionsCountPerDay = allDataApollo
-        .map((a: any) => a.statusHistory)
-        .flat();
-
-      console.log('transactionsCountPerDay', transactionsCountPerDay);
-      const map: any = new Map(
-        transactionsCountPerDay.map((item: any) => [item.timestamp, item]),
-      ).values();
-      const sorted = [...map];
-      console.log('sorted', sorted);
-      await getApollosNetworkInfo(sorted);
-
-      const aDayApollos: any = sorted.filter(
-        (transaction: any) =>
-          moment(transaction.timestamp * 1000).format('MMM Do ') ===
-          dateInFormat,
-      ).length;
-      last30Days.push({ date: dateInFormat, count: aDayApollos });
-    }
-    setChartData(last30Days);
-  }, []);
-  const { ref, inView } = useInView();
-  // const { loading } = useTypedSelector((state) => state.app);
-
-  useEffect(() => {
-    const next = '';
-    getAccountsData(sortTerm, next).then((res: AccountsData) => {
-      setApollos(res);
-    });
-  }, []);
-
-  useEffect(() => {
-    const next = '';
-    getAccountsData(sortTerm, next).then((res: AccountsData) => {
-      setApollos(res);
-    });
-  }, [sortTerm]);
-
-  useEffect(() => {
-    if (inView) {
-      const next: string = apollos?.pagination.next;
-      if (next) {
-        getAccountsData(sortTerm, next).then((res: AccountsData) => {
-          setApollos((prev: AccountsData) => {
-            return {
-              ...prev,
-              data: removeArrayDuplicates([...prev.data, ...res?.data]),
-              pagination: res.pagination,
-            };
-          });
+      const query = Object.keys(params)
+        .map((k) => `${esc(k)}=${esc(params[k])}`)
+        .join('&');
+      await fetch(url + query)
+        .then((res) => res.json())
+        .then((data) => {
+          setPagination(data.pagination);
+          setData(data.data);
         });
-      }
-    }
-  }, [inView]);
+      return data;
+    } else if (pagination?.hasNext === true && data.length > 0) {
+      const esc = encodeURIComponent;
+      const url = 'https://explorer-api.ambrosus.io/apollos?';
+      let params: any = { next: pagination.next, limit: 50, sort };
 
+      const query = Object.keys(params)
+        .map((k) => `${esc(k)}=${esc(params[k])}`)
+        .join('&');
+      await fetch(url + query)
+        .then((res) => res.json())
+        .then((data) => {
+          setPagination(data.pagination);
+          setData((prec: any) => [...prec, ...data.data]);
+        });
+      return data;
+    } else {
+      const removeDuplicates = removeArrayDuplicates(data);
+      return removeDuplicates;
+    }
+  };
+
+  useEffect(() => {
+    setLoading(true);
+    (async function() {
+      await getDataFromApi(sortTerm).then((data) => {
+        if (data && !pagination?.hasNext && pagination?.hasPrevious) {
+          setTableData(data);
+          const info = getApollosNetworkInfo(data);
+          setApollosStatus(info);
+          setData(data);
+          const nodesOnline = data.map((n: any) => n.statusHistory).flat().map((a: any) => ({
+            ...a,
+            date: moment(a.timestamp).fromNow()
+          }))
+          // you need to create an array of elements for the last 30 days
+          const last30DaysArr =
+
+          setLoading(false);
+        }
+      });
+    })();
+  }, [pagination]);
+
+  useEffect(() => {
+    if (sortTerm) {
+      setTableData([]);
+      setData([]);
+      setPagination({});
+    }
+  }, [sortTerm]);
   const num = 6;
 
   return (
     <Content>
       <Content.Header>
-        <MainInfoApollo apollosStats={apollosStats} chartData={chartData} />
+        <MainInfoApollo info={apollosStatus} data={tableData} />
       </Content.Header>
       <Content.Body>
-        <div className="apollo_main">
+        <div className='apollo_main'>
           <ApolloBlocksSort sortTerm={sortTerm} setSortTerm={setSortTerm} />
+
           <div
-            className="apollo_main_table"
+            className='apollo_main_table'
             style={{ gridTemplateColumns: `repeat(${num}, auto)` }}
           >
             <ApolloBlocksHeader />
-            <ApolloBlocksBody />
-            <ApolloBlocksBody />
-            <ApolloBlocksBody />
-            <ApolloBlocksBody />
-            <ApolloBlocksBody />
-            <ApolloBlocksBody />
-            <ApolloBlocksBody />
+            {loading ? (
+              <Loader />
+            ) : (
+              tableData.map((item: any, index: number) => (
+                <ApolloBlocksBody key={index} index={index + 1} item={item} />
+              ))
+            )}
           </div>
         </div>
       </Content.Body>

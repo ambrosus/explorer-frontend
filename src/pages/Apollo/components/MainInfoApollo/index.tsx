@@ -2,9 +2,9 @@ import Chart from '../Chart';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import { numWithCommas } from 'utils/helpers';
 
-const MainInfoApollo = ({ apollosStats, chartData }: any) => {
-  const { data: appData } = useTypedSelector((state: any) => state.app);
+const MainInfoApollo = ({ info, chartData }: any) => {
 
+  const { data: appData } = useTypedSelector((state: any) => state.app);
   const totalAddresses: number =
     appData && numWithCommas(appData.netInfo.accounts.total);
   const holders: number =
@@ -16,7 +16,7 @@ const MainInfoApollo = ({ apollosStats, chartData }: any) => {
         <div className="main_info_apollo_cell">
           <span className="main_info_apollo_cell_primary">TOTAL NODES</span>
           <span className="main_info_apollo_cell_secondary">
-            {apollosStats.total}
+            {info?.total}
           </span>
         </div>
         <div className="main_info_apollo_cell">
@@ -27,19 +27,19 @@ const MainInfoApollo = ({ apollosStats, chartData }: any) => {
               color: '#1acd8c',
             }}
           >
-            {apollosStats.online}
+            {info?.online}
           </span>
         </div>
         <div className="main_info_apollo_cell">
           <span className="main_info_apollo_cell_primary">offline</span>
           <span className="main_info_apollo_cell_secondary">
-            {apollosStats.offline}
+            {info?.offline}
           </span>
         </div>
         <div className="main_info_apollo_cell">
           <span className="main_info_apollo_cell_primary">CONNECTING</span>
           <span className="main_info_apollo_cell_secondary">
-            {apollosStats.connecting}
+            {info?.connecting}
           </span>
         </div>
         <div className="main_info_apollo_cell">
@@ -49,7 +49,7 @@ const MainInfoApollo = ({ apollosStats, chartData }: any) => {
           <span className="main_info_apollo_cell_secondary">5.16 sec</span>
         </div>
         <div className="main_info_apollo_cell" style={{ padding: 5 }}>
-          <Chart chartData={chartData} />
+          {/*<Chart chartData={chartData} />*/}
         </div>
       </div>
     </div>
