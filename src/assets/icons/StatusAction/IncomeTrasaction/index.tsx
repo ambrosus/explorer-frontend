@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { SVGProps, memo } from 'react';
+import { memo, SVGProps } from 'react';
 
 const IncomeTrasaction = (props: SVGProps<SVGSVGElement>) => (
   <svg

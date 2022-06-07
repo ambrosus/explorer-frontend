@@ -1,17 +1,22 @@
 .footer {
-  bottom: 0px;
   width: 100%;
-  height: 96px;
   bottom: 0px;
   background: linear-gradient(180deg, #212121 0%, #212121 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
   color: $white;
   z-index: 4;
   flex: 0 0 auto;
+  &_border {
+    display: flex;
+    width: 100%;
+    height: 138px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 45px;
+    border-top: 1px solid #8f8f8f;
 
-  @include for-device-medium {
+    background: linear-gradient(180deg, #212121 0%, #212121 100%);
+  }
+  @include for_tablet {
     height: 250px;
   }
 
@@ -19,7 +24,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    @include for-device-medium {
+    @include for_tablet {
       width: 320px;
       margin: auto;
       display: flex;
@@ -52,8 +57,9 @@
     }
   }
 }
+
 .logoFooter {
-  @include for-device-medium {
+  @include for_tablet {
     display: flex;
     justify-content: center;
     border-top: 1px solid rgba(255, 255, 255, 0.3);

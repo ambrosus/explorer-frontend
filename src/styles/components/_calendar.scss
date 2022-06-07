@@ -2,6 +2,9 @@
   margin-top: 8px;
   z-index: 1;
   border-radius: 12px;
+  @include for_tablet {
+    margin-top: 16px;
+  }
   &_export_csv {
     position: relative;
     right: -24px;
@@ -11,10 +14,11 @@
     background-color: $main;
     color: $white;
     border-radius: 4px;
-    @include for-device-small {
+    @include for_phone {
       left: 24px;
     }
   }
+
   &_export_csv:hover {
     box-shadow: 4px 8px 8px rgb(0 0 0 / 25%);
   }
@@ -29,12 +33,13 @@
   box-shadow: 4px 8px 8px rgb(0 0 0 / 25%);
   border-radius: 12px;
   border-collapse: collapse;
-  height: 385px;
+  height: 420px;
   width: 400px;
-  @include for-device-xs {
+  @include for_small_phone {
     width: 320px;
   }
 }
+
 .rdrDateDisplayWrapper {
   display: grid;
   grid-template-columns: 2fr 1fr;
@@ -48,6 +53,7 @@
   display: none;
   width: 100%;
 }
+
 .rdrMonthAndYearWrapper {
   order: 1;
   width: 100%;
@@ -58,18 +64,20 @@
   width: 100%;
   padding: 0 0.833em 2em 0.833em;
 
-  @include for-device-small {
+  @include for_phone {
     padding: 0 0 2em 0;
   }
 }
+
 .rdrMonth {
   width: 100%;
   height: 100%;
 
-  @include for-device-small {
+  @include for_phone {
     padding: 0 0 1.666em 0;
   }
 }
+
 .rdrDays {
   border-bottom: 1px solid #f6f6f6;
   width: 100%;

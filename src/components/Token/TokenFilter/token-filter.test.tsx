@@ -4,40 +4,52 @@ import renderWithReduxAndRouter from 'utils/test-helpers/renderWithReduxAndRoute
 
 describe('TokenFilter', () => {
   test('render correctly', () => {
-    const { container } = renderWithReduxAndRouter(<TokenFilter />);
+    const { container } = renderWithReduxAndRouter(
+      <TokenFilter
+        loading={false}
+        addressData={undefined}
+        onClick={undefined}
+        selectedToken={null}
+      />,
+    );
     expect(container).not.toBeNull();
     const matches = container.querySelectorAll('div');
     expect(matches).toHaveLength(2);
   });
 
   test('render correctly without tokens', () => {
-    const { getByText, getByRole } = renderWithReduxAndRouter(<TokenFilter />);
+    const { getByText, getByRole } = renderWithReduxAndRouter(
+      <TokenFilter
+        loading={false}
+        addressData={undefined}
+        onClick={undefined}
+        selectedToken={null}
+      />,
+    );
     fireEvent.click(getByRole('button'));
     expect(getByText(/You don't have tokens yet/i)).toMatchSnapshot();
   });
 
   test('render correctly with tokens array', () => {
     const { container, getByText, getByRole } = renderWithReduxAndRouter(
-      <TokenFilter />,
-      {
-        position: {
-          loading: false,
-          error: null,
-          data: {
-            tokens: [
-              {
-                type: 'ERC20',
-                name: 'Ganymede pool token',
-                contract: '0x13243210d4747a1fe03395095c21213',
-                transfers: 4,
-                idx: 1,
-                balance: '0.00',
-                totalSupply: 0,
-              },
-            ],
-          },
-        },
-      },
+      <TokenFilter
+        addressData={{
+          tokens: [
+            {
+              type: 'ERC20',
+              name: 'Ganymede pool token',
+              contract: '0x13243210d4747a1fe03395095c21213',
+              transfers: 4,
+              idx: 1,
+              balance: '0.00',
+              totalSupply: 0,
+            },
+          ],
+        }}
+        loading={false}
+        onClick={undefined}
+        selectedToken={null}
+      />,
     );
     const matchesBefore = container.querySelectorAll('div');
     expect(matchesBefore).toHaveLength(2);

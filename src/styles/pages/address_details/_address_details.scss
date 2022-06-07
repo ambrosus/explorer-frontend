@@ -4,7 +4,7 @@
     align-items: center;
     margin: 30px auto;
     white-space: nowrap;
-    @include for-device-large {
+    @include for_laptop {
       flex-direction: column;
       align-items: flex-start;
     }
@@ -18,43 +18,46 @@
     line-height: 2.2rem;
     font-style: normal;
     font-weight: 400;
-    @include for-device-large {
+    @include for_laptop {
       margin-left: 0px;
       font-size: 2rem;
     }
-    @include for-device-medium {
-      font-size: 1.5rem;
+    @include for_tablet {
+      font-size: 1.4rem;
     }
-    @include for-device-small {
-      font-size: 0.88rem;
+    @include for_phone {
+      font-size: 1rem;
+    }
+    @include for_small_phone {
+      font-size: 0.8rem;
+    }
+    .address_details_copyed {
+      position: absolute;
+      margin: 70px 0 0 10px;
+    }
+    &_copyed {
+      position: relative;
+      top: -35px;
+      left: -33px;
     }
 
     &_btn {
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      width: 45px;
-      height: 24px;
-      font-weight: 700;
-      font-size: 11px;
-      line-height: 32px;
+
       background: #f6f6f6;
       border-radius: 8px;
       color: #fff;
+      padding-left: 10px;
 
-      //   &_copyed {
-      //     display: flex;
-      //     align-items: center;
-      //     justify-content: center;
-      //     width: 56px;
-      //     height: 24px;
-      //     font-weight: 700;
-      //     font-size: 11px;
-      //     line-height: 32px;
-      //     background: #1acd8c;
-      //     border-radius: 8px;
-      //     color: #fff;
-      //   }
+      &_copyed {
+        display: flex;
+        align-items: center;
+        position: absolute;
+        margin: 65px 0 0 10px;
+      }
     }
 
     &_popup {
@@ -68,38 +71,27 @@
     grid-template-columns: 1fr 400px;
     grid-row-gap: 3vw;
     margin-bottom: 32px;
-    @include for-device-medium {
+    @include for_tablet {
       display: flex;
       flex-direction: column;
       grid-row-gap: 16px;
     }
 
-    // &_tokenName {
-    //   display: flex;
-    //   align-self: center;
-    //   margin-right: 10px;
-    //   font-weight: 700;
-    //   font-size: 1.28em;
-    //   line-height: 2.28em;
-    // }
+    &_text {
+      display: flex;
+      gap: 4px;
+      @include for_phone {
+        flex-direction: column;
+      }
+
+      &_span {
+        font-style: normal;
+        font-weight: 400;
+        font-size: 1.28em;
+        line-height: 2.28em;
+      }
+    }
   }
-
-  //   &_div {
-  //     display: flex;
-  //     gap: 4px;
-
-  //     &_span {
-  //       font-style: normal;
-  //       font-weight: 400;
-  //       font-size: 1.28em;
-  //       line-height: 2.28em;
-  //     }
-  //   }
-
-  //   &_button {
-  //     display: flex;
-  //     border-bottom: 1px solid #eff2f5;
-  //   }
 }
 
 #centered-tooltip {
@@ -112,20 +104,19 @@
   font-weight: 700;
   font-size: 11px;
   padding: 6px;
+
   &:before {
     border-top-color: #808a9d !important;
   }
 }
 
-.flex-between {
-  display: flex;
+.flex_between {
   flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
 }
 
-.flex-row {
+.flex_row {
   display: flex;
-  flex-direction: row;
   align-items: center;
+  flex-shrink: 0;
+  min-width: 155px;
 }

@@ -1,11 +1,9 @@
 import TokenItem from '../TokenItem';
+import {
+  TokenModalProps,
+  TokenType,
+} from 'pages/Addresses/AddressDetails/address-details.interface';
 import { FC, useEffect, useState } from 'react';
-
-interface TokenModalProps {
-  selectedToken: string;
-  setToken: (token: string) => void;
-  addressData: any;
-}
 
 const TokenModal: FC<TokenModalProps> = ({
   addressData,
@@ -19,7 +17,7 @@ const TokenModal: FC<TokenModalProps> = ({
     if (name) {
       const newTokensList =
         addressData &&
-        addressData?.tokens.filter((token: any) =>
+        addressData?.tokens.filter((token: TokenType) =>
           token.name.toLowerCase().includes(name.toLowerCase()),
         );
       setFilteredTokensList(newTokensList || []);
@@ -29,8 +27,13 @@ const TokenModal: FC<TokenModalProps> = ({
     }
   }, [name, addressData?.tokens, selectedToken]);
 
+  const isScroll =
+    addressData?.tokens?.length > 5
+      ? 'token_modal token_modal_scroll'
+      : 'token_modal';
+
   return (
-    <div className="token_modal" tabIndex={0}>
+    <div className={isScroll}>
       {addressData?.tokens?.length ? (
         <>
           <div>

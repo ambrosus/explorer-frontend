@@ -1,6 +1,7 @@
+import { log } from '../utils/helpers';
 import axios from 'axios';
 
-const tokenApiUrl = process.env.REACT_APP_TOKEN_API_URL;
+const tokenApiUrl: any = process.env.REACT_APP_TOKEN_API_URL;
 
 const baseApiUrl = process.env.REACT_APP_API_ENDPOINT;
 const API = () => {
@@ -10,9 +11,9 @@ const API = () => {
 
   function handleNotFound(err: any) {
     if (err) {
-      console.error(err);
+      log(err);
     }
-    window.location.replace('/notfound');
+    // window.location.replace('/notfound');
   }
 
   api.interceptors.response.use(
@@ -166,7 +167,6 @@ const getInfo = () => {
 };
 
 const getToken = () => {
-  // @ts-ignore
   return axios.get(tokenApiUrl).then(({ data }) => data.data);
 };
 

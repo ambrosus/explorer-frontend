@@ -1,8 +1,8 @@
-import GreenCircle from 'assets/icons/StatusAction/GreenCircle';
-import OrangeCircle from 'assets/icons/StatusAction/OrangeCircle';
+import useDeviceSize from 'hooks/useDeviceSize';
+import useWindowSize from 'hooks/useWindowSize';
 import { LatestTransactionsProps } from 'pages/Home/home.interfaces';
 import React from 'react';
-import { calcTime, sliceData5 } from 'utils/helpers';
+import { calcTime, isOnline, sliceData5, wrapString } from 'utils/helpers';
 
 const LatestTransactions: React.FC<LatestTransactionsProps> = ({
   hash,
@@ -13,24 +13,13 @@ const LatestTransactions: React.FC<LatestTransactionsProps> = ({
   amount,
   type,
 }) => {
-  const isOnline = (status: string) => {
-    switch (status) {
-      case 'SUCCESS':
-        return <GreenCircle />;
-
-      case 'PENDING':
-        return <OrangeCircle />;
-      default:
-        return null;
-    }
-  };
-
+  const { FOR_SMALL_PHONE } = useDeviceSize();
   return (
     <>
       <div className="lastest_transactions_cells">
         <div className="lastest_transactions_cell">
-          <div className="lastest_transactions_cell-content lastest_transactions_font_big">
-            <span>{isOnline(status)}</span>
+          <div className="lastest_transactions_cell_content lastest_transactions_font_big">
+            <span style={{ marginRight: 8 }}>{isOnline(status)}</span>
             {sliceData5(hash)}
           </div>
 
@@ -55,10 +44,18 @@ const LatestTransactions: React.FC<LatestTransactionsProps> = ({
           </div>
         </div>
         <div className="lastest_transactions_cell">
-          <div className="lastest_transactions_cell-content lastest_transactions_font_small">
-            {type}
+          <div
+            className="lastest_transactions_cell_content lastest_transactions_font_small"
+            style={{
+              flexDirection: 'column',
+              gap: 0,
+              alignItems: 'flex-start',
+              justifyContent: 'center',
+            }}
+          >
+            {FOR_SMALL_PHONE ? type : wrapString(type)}
           </div>
-          <div className="lastest_transactions_cell-content lastest_transactions_font_big">{`${amount?.toFixed(
+          <div className="lastest_transactions_cell_content lastest_transactions_font_big">{`${amount?.toFixed(
             5,
           )} AMB`}</div>
         </div>

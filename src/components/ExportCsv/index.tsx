@@ -8,21 +8,27 @@ const ExportCsv = () => {
   const style: any = isShow ? { borderColor: '#05060f' } : null;
   const calendarRef = useRef(null);
   useOnClickOutside(calendarRef, () => setIsShow(false));
-
+  const paddingTopBtn = isShow ? 8 : 0;
   return (
-    <div ref={calendarRef} className="export_csv">
-      <button
-        className="export_csv_btn"
-        style={style}
-        onClick={() => {
-          setIsShow(!isShow);
-        }}
+    <>
+      <div
+        ref={calendarRef}
+        className="export_csv"
+        style={{ paddingTop: paddingTopBtn }}
       >
-        <CalendarIcon />
-        <span className="export_csv_text">ExportCsv</span>
-      </button>
-      {isShow && <Calendar />}
-    </div>
+        <button
+          className="export_csv_btn"
+          style={style}
+          onClick={() => {
+            setIsShow(!isShow);
+          }}
+        >
+          <CalendarIcon />
+          <span className="export_csv_text">ExportCsv</span>
+        </button>
+        {isShow && <Calendar />}
+      </div>
+    </>
   );
 };
 

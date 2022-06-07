@@ -1,8 +1,7 @@
-import { TransactionProps } from '../pages/Addresses/AddressDetails/address-details.interface';
 import {
   calcTime,
-  sliceData5,
   sliceData10,
+  sliceData5,
   toUniqueValueByBlock,
 } from './helpers';
 

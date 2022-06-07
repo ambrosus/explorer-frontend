@@ -2,17 +2,18 @@
   height: 42px;
   display: flex;
   justify-content: flex-end;
-  @include for-device-medium {
+  @include for_tablet {
     display: flex;
     justify-content: flex-start;
   }
-  &__info {
+
+  &_info {
     display: flex;
     position: absolute;
     flex-direction: row;
     z-index: 2;
 
-    &-name {
+    &_name {
       margin-right: 10px;
       font-weight: 700;
       font-size: 1.28em;

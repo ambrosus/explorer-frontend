@@ -5,7 +5,7 @@
     grid-template-columns: repeat(2, auto);
     margin: 30px auto;
 
-    @include for-device-large {
+    @include for_laptop {
       display: flex;
       flex-direction: column;
       margin: 30px auto;
@@ -16,24 +16,25 @@
       grid-template-columns: repeat(3, auto);
       background: $white;
       border-radius: 1.15em 0 0 1.15em;
-      @include for-device-large {
+      @include for_laptop {
         border-radius: 1.15em 1.15em 0 0;
       }
-      @include for-device-medium {
+      @include for_tablet {
         grid-template-columns: repeat(2, auto);
       }
-      @include for-device-small {
+      @include for_phone {
         grid-template-columns: repeat(1, auto);
         min-width: 320px;
       }
     }
   }
+
   &_heading {
     margin: 30px auto;
-    @include for-device-small {
+    @include for_phone {
       font-size: 27px;
     }
-    @include for-device-xs {
+    @include for_small_phone {
       font-size: 25px;
     }
   }

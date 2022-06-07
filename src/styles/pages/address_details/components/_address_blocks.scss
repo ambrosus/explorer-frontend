@@ -1,12 +1,52 @@
 .address_blocks {
-  &-icon {
-    text-decoration: underline solid #05060f;
+  &_icon {
+    display: flex;
+    margin-right: 4px;
+    // text-decoration: underline solid #05060f;
+    flex-shrink: 0;
   }
 
-  &_td {
+  &_cells {
+    display: grid;
+    grid-template-columns:
+      minmax(200px, 1fr) minmax(140px, 1fr) minmax(110px, 1fr)
+      minmax(110px, 1fr) minmax(100px, 1fr) minmax(100px, 1fr)
+      minmax(220px, 1fr) minmax(110px, 1fr);
+    padding-left: 6px;
+    &:hover {
+      background-color: #eff2f5;
+    }
+  }
+  &_erc20 {
+    display: grid;
+    grid-template-columns:
+      minmax(220px, 1fr) minmax(150px, 1fr) minmax(120px, 1fr)
+      minmax(120px, 1fr) minmax(120px, 1fr) minmax(120px, 1fr)
+      minmax(220px, 1fr);
+    padding-left: 6px;
+
+    &:hover {
+      background-color: #eff2f5;
+    }
+  }
+  &_cell {
     display: flex;
+    position: relative;
     align-items: center;
     border-bottom: 1px solid #eff2f5;
     padding-right: 32px;
+    height: 48px;
+    &_token {
+      display: flex;
+      position: relative;
+      align-items: center;
+    }
+    &_last {
+      display: flex;
+      position: relative;
+      align-items: center;
+      border-bottom: 1px solid #eff2f5;
+      height: 48px;
+    }
   }
 }

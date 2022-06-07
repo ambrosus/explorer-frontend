@@ -1,14 +1,58 @@
 .tabs {
   display: grid;
-  height: 56px;
-  grid-template-columns: 1fr 1fr;
-  grid-row-gap: 3vw;
-  border-bottom: 1px solid $secondary;
 
-  &_filters {
-    display: flex;
+  &_heading {
+    display: grid;
     height: 56px;
-    padding: 8px 0;
+    grid-template-columns: 1fr 1fr;
+    grid-row-gap: 3vw;
+    border-bottom: 1px solid $secondary;
+    background-color: white;
+    z-index: 1;
+
+    &_filters {
+      display: flex;
+      height: 56px;
+    }
+
+    &_export_modal {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-end;
+
+      @include for_tablet {
+        width: 100%;
+      }
+
+      &_mobile {
+        margin-top: 50px;
+        position: absolute;
+        z-index: 3;
+        @include for_tablet {
+          margin-top: 39px;
+        }
+      }
+    }
+  }
+
+  &_table {
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    width: 100%;
+    display: grid;
+    position: relative;
+    white-space: nowrap;
+    overflow-x: scroll;
+    @include for_phone {
+      position: relative;
+      max-height: 500px;
+      overflow-y: scroll;
+    }
   }
 
   &_link {
@@ -21,42 +65,27 @@
     display: flex;
     align-items: center;
     white-space: nowrap;
-    &-active {
+
+    &_active {
       color: $main;
       border-bottom: 4px solid $main;
       border-collapse: collapse;
     }
   }
+
   &_link:hover {
     color: $main;
     border-bottom: 4px solid $main;
     border-collapse: collapse;
   }
 
-  &_export_modal {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-end;
-    margin: 8px 0px;
-    @include for-device-medium {
-      width: 100%;
-    }
-    &_mobile {
-      margin-top: 50px;
-      position: absolute;
-      z-index: 3;
-      @include for-device-medium {
-        margin-top: 39px;
-      }
-    }
-  }
   &_side_menu {
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    @include for-device-medium {
+    @include for_tablet {
     }
+
     &_icon {
       display: flex;
       align-items: center;
@@ -67,24 +96,20 @@
       border-radius: 8px;
     }
   }
-  &_table {
-    &::-webkit-scrollbar {
-      display: none;
+  &_not_found {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 100px;
+    @include for_phone {
+      padding-top: 80px;
     }
-
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-    min-height: 110px;
-    width: 100%;
-    display: grid;
-    grid-row-gap: 32px;
-
-    margin-top: 16px;
-    position: relative;
-    white-space: nowrap;
-    overflow-x: scroll;
-
-    @include for-device-small {
+    &_text {
+      margin-top: 32px;
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 40px;
+      color: #05060f;
     }
   }
 }

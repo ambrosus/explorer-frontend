@@ -1,8 +1,11 @@
 .content {
   height: 100%;
   width: 100%;
-  display: grid;
+  display: flex;
   flex-direction: column;
+  &_backgorund {
+    background-color: #f6f6f6;
+  }
 
   &_header {
     background-color: #f6f6f6;
@@ -10,6 +13,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    min-height: 100px;
   }
 
   &_body {
@@ -24,7 +28,7 @@
     border-top-right-radius: 32px;
     padding-bottom: 90px;
 
-    @include for-device-small {
+    @include for_phone {
       padding-bottom: 60px;
     }
   }

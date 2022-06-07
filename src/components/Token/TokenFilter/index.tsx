@@ -3,20 +3,30 @@ import ArrowDownBig from 'assets/icons/Arrows/ArrowDownBig';
 import ArrowUpBig from 'assets/icons/Arrows/ArrowUpBig';
 import { useActions } from 'hooks/useActions';
 import { useOnClickOutside } from 'hooks/useOnClickOutside';
+import {
+  TokenFilterProps,
+  TokenType,
+} from 'pages/Addresses/AddressDetails/address-details.interface';
 import React, { useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { TParams } from 'types';
 
-const TokenFilter = ({ loading, addressData, onClick, selectedToken }: any) => {
+const TokenFilter = ({
+  loading,
+  addressData,
+  onClick,
+  selectedToken,
+}: TokenFilterProps) => {
   const { addFilter } = useActions();
   const [isShow, setIsShow] = useState(false);
   const navigate = useNavigate();
   const { address }: TParams = useParams();
   const refTokensModal = useRef<HTMLDivElement>(null);
+
   useOnClickOutside(refTokensModal, () => setIsShow(false));
   const toggleMenu = () => (!loading ? setIsShow(!isShow) : null);
 
-  const handleSelect = (token: any) => {
+  const handleSelect = (token: TokenType): void => {
     onClick(token);
     addFilter(token);
     setIsShow(false);
@@ -28,27 +38,11 @@ const TokenFilter = ({ loading, addressData, onClick, selectedToken }: any) => {
   };
   return (
     <>
-      <div
-        ref={refTokensModal}
-        tabIndex={0}
-        className={`token_filter ${
-          loading && !addressData?.tokens?.length
-            ? 'toggle'
-            : loading
-            ? 'toggle'
-            : ''
-        }`}
-      >
+      <div ref={refTokensModal} tabIndex={0} className={`token_filter`}>
         <div className="token_filter_input">
           <span
             className={`token_filter_input_rectangle ${
-              loading && !addressData?.tokens?.length
-                ? 'toggle'
-                : loading
-                ? 'toggle'
-                : !addressData?.tokens?.length
-                ? ''
-                : 'toggle'
+              loading ? 'toggle' : ''
             }`}
           >
             {loading && !addressData?.tokens?.length

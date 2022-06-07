@@ -1,12 +1,30 @@
 .addresses_body {
+  position: relative;
   &:hover {
     background-color: #eff2f5;
   }
+
   .balance {
     width: max-content;
     white-space: nowrap;
   }
+  &_cells {
+    display: grid;
+    grid-template-columns:
+      minmax(50px, 1fr) minmax(370px, 7fr) minmax(80px, 2fr)
+      minmax(240px, 4fr) minmax(50px, 1fr);
+    padding-left: 6px;
+    &:hover {
+      background-color: #eff2f5;
+    }
+  }
+  &_no_data {
+    display: 'flex';
+    justify-content: 'center';
+    padding-top: 100;
+  }
   &_cell {
+    position: relative;
     align-items: center;
     border-bottom: 1px solid #eff2f5;
     white-space: nowrap;
@@ -15,18 +33,16 @@
     font-size: 14px;
     line-height: 24px;
     height: 48px;
-    padding-right: 32px;
 
     &:nth-child(2) {
       font-weight: 600;
       color: #808a9d;
     }
-
     .is-contract {
       position: absolute;
-      height: 20px;
-      width: 20px;
-      top: 3px;
+      height: 16px;
+      width: 16px;
+      top: 15px;
       z-index: 20;
       left: -25px;
     }

@@ -15,12 +15,14 @@
     color: #1e1e1f;
     white-space: nowrap;
   }
+
   &_heading:nth-child(2) {
     display: flex;
     justify-content: flex-end;
 
     width: 100%;
   }
+
   &_mobile {
     display: flex;
 
@@ -38,29 +40,35 @@
       color: #1e1e1f;
     }
   }
+
   &_cells {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    height: 72px;
+    height: 73px;
     border-bottom: 1px solid #eff2f5;
   }
+
   &_cell {
     display: grid;
     align-items: center;
     white-space: nowrap;
+    padding: 12px 0;
 
-    &-content {
+    &_content {
       display: flex;
-      gap: 8px;
+      align-items: center;
     }
   }
+
   &_cell:nth-child(2) {
     margin: 0px auto;
     justify-content: flex-start;
   }
+
   &_cell:nth-child(2) {
     margin: 0px auto;
   }
+
   &_cell:nth-child(3) {
     justify-items: end;
   }
@@ -68,22 +76,37 @@
   &_circle {
     margin-right: 8px;
   }
-  &_font-big {
+
+  &_font {
     min-width: 50px;
-    line-height: 1.33em;
-    font-weight: 600;
-  }
-  &_font-small {
-    min-width: 50px;
-    font-size: 0.86em;
-    line-height: 0.88 em;
-    font-weight: 400;
-    color: #58667e;
+
+    &_big {
+      line-height: 1.33em;
+      font-weight: 600;
+      @include for_small_phone {
+        font-size: 13px;
+      }
+    }
+
+    &_small {
+      font-size: 0.86em;
+      line-height: 0.88em;
+      font-weight: 400;
+      color: #58667e;
+      @include for_small_phone {
+        font-size: 11px;
+      }
+    }
+
+    @include for_small_phone {
+      min-width: 30px;
+    }
   }
 
   &_btn {
     display: flex;
     margin-top: 15px;
+
     &-content {
       width: 180px;
       height: 32px;

@@ -4,24 +4,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { createLogger } from 'redux-logger';
 import thunk from 'redux-thunk';
 
-// import {persistStore, persistReducer} from "redux-persist";
-// import storage from  'redux-persist/lib/storage';
-
-//need function middleware
-// const getStateMiddleware = (store: any) => (next: any) => (action: any) => {
-//   console.log('action', action);
-//   console.log('state', store.getState());
-//   return next(action);
-// };
 const middleware: Array<any> = [thunk];
-
-// const persistConfig = {
-// 		key: 'root',
-// 		storage,
-// 		// whitelist: ['position,tokenFilters'],
-// 		blacklist: ['position,tokenFilters,app']
-// };
-// const persistedReducer = persistReducer(persistConfig, reducers);
 
 const logger = createLogger({
   collapsed: true,
@@ -36,21 +19,12 @@ const logger = createLogger({
   },
 });
 
-// if () {
-// middleware.push(logger);
-// }
-
-// @ts-ignore
-// if (
-//   process.env.REACT_APP_API_ENDPOINT.includes('test') ||
-//   process.env.REACT_APP_API_ENDPOINT.includes('dev')
-// ) {
-middleware.push(logger);
-// }
+if (process.env.NODE_ENV === 'development') {
+  middleware.push(logger);
+}
 
 export const store = createStore(
   reducers,
   {},
   composeWithDevTools(applyMiddleware(...middleware)),
 );
-// export const persistor = persistStore(store);

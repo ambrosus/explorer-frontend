@@ -1,5 +1,5 @@
 import { ethers } from 'ethers';
-import { ReactNode } from 'react';
+import React from 'react';
 
 export type TokenType = {
   address: string;
@@ -19,6 +19,7 @@ export type OverallBalanceProps = {
 
 export interface TabsProps {
   lastCardRef?: any;
+  pageNum: number;
   selectedToken: TokenType | null;
   transactionType?: string;
   data: any;
@@ -36,6 +37,7 @@ export type TransactionProps = {
   amount: any;
   token: string | undefined;
   txFee: any;
+  symbol?: string;
 };
 
 export interface ExplorerTxType {
@@ -48,9 +50,10 @@ export interface ExplorerTxType {
   value: { wei: ethers.BigNumberish };
   gasCost: { wei: any };
 }
+
 export interface AddressBlockProps {
   txhash: string | number;
-  method: string | number;
+  method: string;
   from: string | number;
   symbol?: string | null;
   lastCardRef?: any;
@@ -64,6 +67,31 @@ export interface AddressBlockProps {
   setTransactionType?: any;
   onClick?: any;
   isLatest?: boolean;
+  isTableColumn?: string;
 }
 
-export type PropsWithChildren<P> = P & { children?: ReactNode | undefined };
+export interface TokenProps {
+  selectedToken: TokenType | null;
+  onClick: Function;
+  loading: boolean;
+  addressData: object;
+}
+
+export interface TokenFilterProps {
+  loading: boolean;
+  addressData: any;
+  onClick: React.Dispatch<React.SetStateAction<TokenType>> | any;
+  selectedToken: TokenType | null;
+}
+
+export interface TokenModalProps {
+  selectedToken: TokenType | null;
+  setToken: (token: TokenType) => void;
+  addressData: any;
+}
+
+export interface ITokenItemProps {
+  token: any;
+  selectedToken: any;
+  setToken: any;
+}

@@ -8,18 +8,27 @@
   &:focus {
     outline: none;
   }
+  &_active {
+    background-color: $secondary;
+  }
+
   &:hover {
     background-color: $secondary;
-    border-top: 1px solid $white;
   }
+
   &:hover:nth-last-child(1) {
-    border-bottom-left-radius: 16px;
-    border-bottom-right-radius: 16px;
+    border-bottom-left-radius: inherit;
+    border-bottom-right-radius: inherit;
+  }
+  &:nth-last-child(1) {
+    border-bottom-left-radius: inherit;
+    border-bottom-right-radius: inherit;
   }
 
   &_tokens {
     padding-left: 10px;
     line-height: 1.33em;
+
     &:hover {
       background-color: $secondary;
     }
@@ -29,6 +38,7 @@
     text-align: end;
     line-height: 1.33em;
   }
+
   &_icon {
     margin-right: 2px;
   }

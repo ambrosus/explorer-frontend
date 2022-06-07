@@ -5,6 +5,7 @@
   align-items: flex-end;
   flex: 1;
   z-index: 3;
+  width: 140px;
 
   &_btn {
     display: flex;
@@ -16,6 +17,7 @@
     box-sizing: border-box;
     border-radius: 16px;
   }
+
   &_btn:hover {
     border-color: $main;
   }

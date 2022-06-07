@@ -1,8 +1,9 @@
+import API from '../../../API/api';
 import { toUniqueValueByBlock } from '../../../utils/helpers';
 import { TokenType, TransactionProps } from './address-details.interface';
 import ContentCopy from 'assets/icons/CopyIcons/ContentCopy';
 import ContentCopyed from 'assets/icons/CopyIcons/ContentCopyed';
-import ContentCopyedPopup from 'assets/icons/CopyIcons/ContentCopyedPopup';
+import CopyPopUp from 'assets/icons/CopyIcons/CopyPopUp';
 import { Content } from 'components/Content';
 import FilteredToken from 'components/FilteredToken';
 import OverallBalance from 'components/OveralBalance';
@@ -11,11 +12,11 @@ import Token from 'components/Token';
 import { formatEther } from 'ethers/lib/utils';
 import { useActions } from 'hooks/useActions';
 import useCopyContent from 'hooks/useCopyContent';
+import useDeviceSize from 'hooks/useDeviceSize';
 import { useTypedSelector } from 'hooks/useTypedSelector';
-import useWindowSize from 'hooks/useWindowSize';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { shallowEqual } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { getDataForAddress } from 'services/address.service';
 import { TParams } from 'types';
 
@@ -25,7 +26,7 @@ export const AddressDetails = () => {
     shallowEqual,
   );
   const {
-    loading,
+    loading:addressDataLoading,
     data: addressData,
     error: errorData,
   } = useTypedSelector((state: any) => state.position);
@@ -33,12 +34,15 @@ export const AddressDetails = () => {
   const { setPosition, addFilter } = useActions();
   const [transactionType, setTransactionType] = useState(type);
   const [selectedToken, setSelectedToken] = useState<TokenType | null>(null);
+  const [loading, setLoading] = useState(false);
   const [tx, setTx] = useState<TransactionProps[] | []>([]);
   const [pageNum, setPageNum] = useState(1);
   const [limitNum] = useState(30);
   const observer = useRef<IntersectionObserver>();
+  const navigate = useNavigate();
+  const location = useLocation()
 
-  const { isCopy, isCopyPopup, copyContent } = useCopyContent(address);
+  const { isCopy, copyContent, isCopyPopup } = useCopyContent(address);
 
   const lastCardRef = useCallback(
     (node: any) => {
@@ -52,7 +56,9 @@ export const AddressDetails = () => {
           addressData &&
           pageNum < addressData?.meta?.totalPages
         ) {
-          setPageNum((prevNum) => prevNum + 1);
+          if (type !== 'ERC-20_Tx') {
+            setPageNum((prevNum) => prevNum + 1);
+          }
         }
       });
       if (node) {
@@ -63,18 +69,54 @@ export const AddressDetails = () => {
   );
 
   useEffect(() => {
-    return () => {
-      setPosition(null);
-    };
+    console.log('setLoading');
+    if (!type){
+      console.log('location',location);
+      const path = location.pathname.split('/')
+      console.log(path);
+      if (!path?.[3]){
+        navigate(`${location.pathname}/`,{replace:true})
+      }
+    }
+    if (tokenToSorted === 'transfers' || tokenToSorted !== '') {
+    } else {
+      navigate(`/notfound`, { replace: true });
+    }
+    if (type === 'ERC-20_Tx' || type === 'transfers' || !type) {
+    } else {
+      navigate(`/notfound`, { replace: true });
+    }
+
+    if (address) {
+      API.searchItem(address)
+        .then((data: any) => {
+          if (data.meta.search.includes('addresses')) {
+            return;
+          } else {
+            navigate(`/notfound`, { replace: true });
+          }
+        })
+        .catch(() => {
+          navigate(`/notfound`, { replace: true });
+        });
+    }
   }, []);
 
   useEffect(() => {
     if (address || type || filtered || tokenToSorted) {
+      setPageNum(0)
+      setPosition(null);
       setTx([]);
     }
+    return () => {
+      setPageNum(0)
+      setPosition(null);
+      setTx([]);
+    };
   }, [address, type, filtered, tokenToSorted]);
 
   useEffect(() => {
+    setLoading(true);
     if (filtered && addressData?.tokens?.length) {
       addFilter(
         addressData.tokens.find(
@@ -144,8 +186,9 @@ export const AddressDetails = () => {
           return type === 'transfers' ? transfersDataTx : newTx;
         }
       });
+      setLoading(false);
     }
-  }, [addressData]);
+  }, [addressData, type]);
 
   useEffect(() => {
     if (addressData && addressData?.tokens && !selectedToken) {
@@ -157,7 +200,7 @@ export const AddressDetails = () => {
     }
   }, [addressData]);
 
-  const { width } = useWindowSize();
+  const { FOR_TABLET } = useDeviceSize();
 
   return (
     <Content>
@@ -174,15 +217,14 @@ export const AddressDetails = () => {
                 {isCopy ? (
                   <>
                     <ContentCopyed />
-
-                    {width > 500 && isCopyPopup && (
-                      <span className={'address_details_copy_popup'}>
-                        <ContentCopyedPopup />
-                      </span>
-                    )}
                   </>
                 ) : (
                   <ContentCopy />
+                )}
+                {FOR_TABLET && isCopyPopup && isCopy && (
+                  <div className="address_details_copyed">
+                    <CopyPopUp x={3} y={20} values="Copyed" />
+                  </div>
                 )}
               </button>
             </div>
@@ -191,9 +233,8 @@ export const AddressDetails = () => {
             <div className="address_details_info">
               <OverallBalance
                 addressBalance={
-                  addressData && addressData.balance
-                    ? Number(formatEther(addressData.balance)).toFixed(2)
-                    : 0
+                  addressData?.balance &&
+                  Number(formatEther(addressData.balance)).toFixed(2)
                 }
               />
 
@@ -204,6 +245,7 @@ export const AddressDetails = () => {
                 onClick={setSelectedToken}
               />
             </div>
+
             {selectedToken && (
               <FilteredToken setSelectedToken={setSelectedToken} />
             )}
@@ -211,6 +253,7 @@ export const AddressDetails = () => {
         </Content.Header>
         <Content.Body isLoading={filtered ? !loading : true}>
           <Tabs
+            pageNum={pageNum}
             lastCardRef={lastCardRef}
             onClick={setSelectedToken}
             selectedToken={selectedToken}

@@ -5,7 +5,7 @@
   background: $white;
   border: 1px solid $secondary;
   border-radius: 16px;
-  @include for-device-xs {
+  @include for_small_phone {
     min-width: 260px;
   }
 
@@ -34,10 +34,12 @@
       background: $main-light;
       border-radius: 8px;
     }
+
     &_text {
       line-height: 1.33em;
       flex: 6;
     }
+
     &_btn {
       display: flex;
       justify-content: flex-end;
@@ -48,6 +50,7 @@
       flex: 1;
     }
   }
+
   &_input::placeholder {
     color: $secondary-medium;
   }

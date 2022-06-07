@@ -6,7 +6,8 @@
   border: 1px solid $secondary;
   border-radius: 16px;
   white-space: nowrap;
-  @include for-device-small {
+  min-height: 96px;
+  @include for_phone {
   }
 
   &_head {
@@ -16,6 +17,7 @@
     padding: 0 16px;
     border-bottom: 1px solid $secondary;
   }
+
   &_body {
     display: grid;
     grid-template-columns: repeat(2, auto);
@@ -23,7 +25,7 @@
     align-items: center;
     justify-content: flex-start;
     padding: 0 16px;
-    @include for-device-small {
+    @include for_phone {
       display: flex;
       flex-direction: column;
       margin-top: 12px;
@@ -32,35 +34,46 @@
       padding-bottom: 12px;
     }
   }
+
   &_heading {
     font-weight: 700;
     font-size: 1.28em;
     line-height: 1.77em;
   }
+
   &_cells {
     display: flex;
     gap: 0.85em;
   }
+
   &_cells:nth-child(2) {
     height: 100%;
-    align-items: flex-start;
+    align-items: center;
     justify-content: flex-end;
-    padding-top: 12px;
+
     gap: 0;
+    @include for_phone {
+      align-items: center;
+
+      padding-bottom: 24px;
+    }
   }
+
   &_cells:nth-child(1) {
-    @include for-device-small {
+    @include for_phone {
       display: flex;
       flex-direction: column;
       gap: 0;
       padding-right: 12px;
     }
   }
+
   &_cell {
     display: flex;
     gap: 8px;
     align-items: center;
     min-width: 120px;
+
     &:nth-child(2) {
       min-width: 0px;
     }
@@ -69,10 +82,12 @@
       font-weight: 700;
       line-height: 2.22em;
     }
+
     &_normal {
       line-height: 2.22em;
     }
   }
+
   &_cell:nth-child(2) {
     min-width: 0px;
   }

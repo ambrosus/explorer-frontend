@@ -3,7 +3,7 @@ import { useTypedSelector } from 'hooks/useTypedSelector';
 import { AddressesBodyProps } from 'pages/Addresses/addresses.interface';
 import IsContract from 'pages/Addresses/components/IsContract';
 import React, { FC } from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
 import { displayAmount } from 'utils/helpers';
 
@@ -19,16 +19,16 @@ const AddressesBody: FC<AddressesBodyProps> = ({
   const totalSupply = appData && appData.tokenInfo.total_supply;
   const ambBalance = balance && balance.ether ? balance.ether : 0;
   const holdingPercentage = (ambBalance / totalSupply) * 100;
-
   return (
     appData &&
     address && (
-      <>
-        <div className="addresses_body_cell" ref={lastCardRef}>
-          {rank}
-        </div>
+      <div className="addresses_body_cells" ref={lastCardRef}>
+        <div className="addresses_body_cell">{rank}</div>
 
-        <Link to={`/addresses/${address}/`} className="addresses_body_cell">
+        <NavLink
+          to={`/addresses/${address}/`}
+          className="addresses_body_cell universall_light2"
+        >
           <ReactTooltip
             id="centered-tooltip"
             effect="solid"
@@ -45,10 +45,12 @@ const AddressesBody: FC<AddressesBodyProps> = ({
             </div>
           )}
           {address}
-        </Link>
+        </NavLink>
         <div className="addresses_body_cell">{txCount || 0}</div>
         <div className="addresses_body_cell balance">
-          <Amb />
+          <span style={{ paddingRight: 2 }}>
+            <Amb />
+          </span>
           &nbsp;&nbsp;
           {displayAmount(ambBalance)} AMB
         </div>
@@ -56,7 +58,7 @@ const AddressesBody: FC<AddressesBodyProps> = ({
         <div className="addresses_body_cell">
           {(holdingPercentage || 0).toFixed(2)} %
         </div>
-      </>
+      </div>
     )
   );
 };

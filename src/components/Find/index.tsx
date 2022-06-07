@@ -4,6 +4,7 @@ import React from 'react';
 interface FindProps {
   setIsShow: (value: boolean) => void;
 }
+
 const Find: React.FC<FindProps> = ({ setIsShow }) => {
   return (
     <>

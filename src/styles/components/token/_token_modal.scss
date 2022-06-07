@@ -1,9 +1,4 @@
 .token_modal {
-}
-
-// tokenModal
-
-.token_modal {
   display: flex;
   flex-direction: column;
   box-shadow: 4px 8px 8px rgba(0, 0, 0, 0.25);
@@ -11,6 +6,11 @@
   border-bottom-right-radius: 16px;
   position: relative;
   z-index: 5;
+
+  &_scroll {
+    height: 345px;
+    overflow-y: scroll;
+  }
   &_search {
     width: 300px;
     height: 40px;
@@ -20,10 +20,12 @@
     margin: 10px auto;
     padding-left: 12px;
   }
+
   &_search::placeholder {
     line-height: 1.33em;
     color: $secondary-medium;
   }
+
   &_tokens {
     display: flex;
     align-items: center;

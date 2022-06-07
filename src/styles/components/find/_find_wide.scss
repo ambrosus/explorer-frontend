@@ -4,6 +4,7 @@
   border-radius: 16px;
   min-width: 320px;
   width: 100%;
+
   &_input {
     height: 48px;
     border: 0px;
@@ -11,10 +12,11 @@
     flex: 20;
     padding: 12px;
     font-size: 16px;
-    @include for-device-xs {
+    @include for_small_phone {
       font-size: 16px;
     }
   }
+
   &_input::placeholder {
     color: $secondary-medium;
   }
@@ -27,6 +29,7 @@
 
     color: $main-light;
   }
+
   &_btn {
     display: flex;
     justify-content: center;
