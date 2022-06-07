@@ -1,67 +1,36 @@
 {
-	"compilerOptions": {
-		"target": "es5",
-		"lib": [
-			"dom",
-			"dom.iterable",
-			"esnext"
-		],
-		"allowJs": true,
-		"skipLibCheck": true,
-		"esModuleInterop": true,
-		"allowSyntheticDefaultImports": true,
-		"strict": true,
-		"forceConsistentCasingInFileNames": true,
-		"noFallthroughCasesInSwitch": true,
-		"module": "esnext",
-		"moduleResolution": "node",
-		"resolveJsonModule": true,
-		"isolatedModules": true,
-		"noEmit": true,
-		"jsx": "react-jsx",
-		"incremental": true,
-		"baseUrl": "./src/",
-		"paths": {
-			"@/API": [
-				"API/*"
-			],
-			"@/assets": [
-				"assets/*"
-			],
-			"@/components": [
-				"components/*"
-			],
-			"@/config": [
-				"config/*"
-			],
-			"@/hooks": [
-				"hooks/*"
-			],
-			"@/layouts": [
-				"layouts/*"
-			],
-			"@/services": [
-				"services/*"
-			],
-			"@/pages": [
-				"pages/*"
-			],
-			"@/state": [
-				"state/*"
-			],
-			"@/style": [
-				"style/*"
-			],
-			"@/utils": [
-				"utils/*"
-			]
-		}
-	},
-	"include": [
-		"**/*.ts",
-		"**/*.tsx"
-	],
-	"exclude": [
-		"node_modules"
-	]
+  "compilerOptions": {
+    "target": "es5",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "incremental": true,
+    "baseUrl": "./src/",
+    "paths": {
+      "@/API": ["API/*"],
+      "@/assets": ["assets/*"],
+      "@/components": ["components/*"],
+      "@/config": ["config/*"],
+      "@/hooks": ["hooks/*"],
+      "@/layouts": ["layouts/*"],
+      "@/services": ["services/*"],
+      "@/pages": ["pages/*"],
+      "@/state": ["state/*"],
+      "@/style": ["style/*"],
+      "@/utils": ["utils/*"]
+    }
+  },
+  "include": ["**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules"]
 }
