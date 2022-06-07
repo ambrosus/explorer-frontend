@@ -128,7 +128,7 @@ const blockBookApiTokensSearch: any = async (
     const blockBookApiForT: any = await API.API.get(url, {
       params: {
         page: page,
-        pageSize: !type ? limit : 1000,
+        pageSize: !type ? limit : 100,
       },
     });
 
@@ -177,7 +177,7 @@ const bbDataFillter = async (
     const bbApi: any = await API.API.get(url, {
       params: {
         page: page,
-        pageSize: !type ? limit : selectedTokenFilter ? 1000 : 499,
+        pageSize: !type ? limit : selectedTokenFilter ? 1000 : 100,
         contract: selectedTokenFilter ? selectedTokenFilter : '',
       },
     });
@@ -288,7 +288,7 @@ export const getDataForAddress = async (address: string, params: any) => {
       (await sortedLatestTransactionsData(defaultFilters, url, page)) || [];
 
     const transactionsAll: TransactionProps[] = _.uniq(
-      _.concat(explorData, bbTxData),
+      _.concat(bbTxData, explorData),
     );
 
     return {

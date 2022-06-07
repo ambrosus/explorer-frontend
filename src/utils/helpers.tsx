@@ -90,7 +90,6 @@ export default function removeArrayDuplicates(array: any, key = '_id') {
       ids.push(item[key]);
       return item;
     } else {
-      log(`Duplicate found in an array: `, item[key]);
       return false;
     }
   });
@@ -187,4 +186,17 @@ export const wrapString = (string: string) => {
       {item}
     </span>
   ));
+};
+
+export const formatDate = (date: any, datetime = false) => {
+  let hours = date.getHours();
+  let minutes = date.getMinutes();
+  const ampm = hours >= 12 ? 'pm' : 'am';
+  hours = hours % 12;
+  hours = hours ? hours : 12;
+  minutes = minutes < 10 ? `0 ${minutes}` : minutes;
+  const strTime = `${hours}:${minutes} ${ampm}`;
+  return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}${
+    datetime ? ` ${strTime}` : ''
+  }`;
 };

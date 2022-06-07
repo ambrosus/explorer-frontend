@@ -46,3 +46,15 @@ export type AddressesBodyProps = {
   txCount: number;
   lastCardRef?: any;
 };
+
+export interface IApolloInfo {
+  total: number;
+  online: number;
+  offline: number;
+  connecting: number;
+}
+
+export interface IMainInfoApollo {
+  info: IApolloInfo;
+  data: any;
+}
