@@ -7,10 +7,18 @@ const AtlasBlocksBody = () => (
     <div className="atlas_blocks_body_cell">Uptime 16 Minutes</div>
     <div className="atlas_blocks_body_cell">12.234</div>
     <div className="atlas_blocks_body_cell">
-      <span>1.33345</span>
-      <span>AMB</span>
+      <span
+        className="atlas_blocks_body_cell_token"
+        style={{ color: '#808a9d', textDecoration: 'underline solid #808a9d' }}
+      >
+        AMB
+      </span>
+      <span className="atlas_blocks_body_cell_value">1.33345</span>
     </div>
-    <div className="atlas_blocks_body_cell">1,000,000.00 AMB</div>
+    <div className="atlas_blocks_body_cell">
+      <span className="atlas_blocks_body_cell_value">1,000,000.00</span>
+      <span className="atlas_blocks_body_cell_token">AMB</span>
+    </div>
   </div>
 );
 
