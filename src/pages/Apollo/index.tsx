@@ -26,13 +26,13 @@ export const Apollo = () => {
             style={{ gridTemplateColumns: `repeat(${num}, auto)` }}
           >
             <ApolloBlocksHeader />
-            <ApolloBlocksBody />
-            <ApolloBlocksBody />
-            <ApolloBlocksBody />
-            <ApolloBlocksBody />
-            <ApolloBlocksBody />
-            <ApolloBlocksBody />
-            <ApolloBlocksBody />
+            <ApolloBlocksBody isOnline={true} />
+            <ApolloBlocksBody isOnline={true} />
+            <ApolloBlocksBody isOnline={true} />
+            <ApolloBlocksBody isOnline={false} />
+            <ApolloBlocksBody isOnline={true} />
+            <ApolloBlocksBody isOnline={true} />
+            <ApolloBlocksBody isOnline={false} />
           </div>
           <ViewMoreBtn nameBtn={'Load more'} onclick={null} />
         </div>

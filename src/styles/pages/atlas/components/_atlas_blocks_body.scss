@@ -11,6 +11,8 @@
 
   &:hover {
     background-color: #eff2f5;
+    z-index: 25;
+    position: absolute;
   }
 
   &_cell {

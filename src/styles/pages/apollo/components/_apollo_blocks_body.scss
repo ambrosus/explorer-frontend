@@ -30,9 +30,12 @@
       padding-right: 6px;
     }
 
-    &_status {
+    &_online {
       color: #1acd8c;
       padding-right: 4px;
+    }
+    &_offline {
+      color: #bfc9e0;
     }
 
     // &:nth-child(1) {
