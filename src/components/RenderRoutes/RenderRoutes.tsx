@@ -25,7 +25,16 @@ export const RenderRoutes = (props: any) => {
           {...route}
         />
       ))}
-      {routes.subRoutes.map((route: any) => (
+      {routes.addressesRoutes.map((route: any) => (
+        <Route
+          suspense={<Loader />}
+          key={route.key}
+          path={route.path}
+          element={<route.component />}
+          {...route}
+        />
+      ))}
+      {routes.addressesRoutes.map((route: any) => (
         <Route
           suspense={<Loader />}
           key={route.key}

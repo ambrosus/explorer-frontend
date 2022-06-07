@@ -12,7 +12,7 @@ import React from 'react';
 
 interface IAppRoutes {
   routes: IRoute[];
-  subRoutes: IRoute[];
+  addressesRoutes: IRoute[];
 }
 
 export const routes: IRoute[] = [
@@ -73,7 +73,7 @@ export const routes: IRoute[] = [
     isClick: false,
   },
 ];
-export const subRoutes: IRoute[] = [
+export const addressesRoutes: IRoute[] = [
   {
     path: '/addresses/:address',
     key: 'Address Details',
@@ -105,6 +105,6 @@ export const subRoutes: IRoute[] = [
   },
 ];
 
-const appRoutes: IAppRoutes = { routes, subRoutes };
+const appRoutes: IAppRoutes = { routes, addressesRoutes };
 
 export default appRoutes;
