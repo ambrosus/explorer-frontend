@@ -1,6 +1,6 @@
 const MainInfoAtlas = () => (
   <div className="main_info_atlas">
-    <h1 className="main_info_atlas_heading">atlas Nodes</h1>
+    <h1 className="main_info_atlas_heading">Atlas Nodes</h1>
     <div className="main_info_atlas_table">
       <div className="main_info_atlas_cell">
         <span className="main_info_atlas_cell_primary">TOTAL NODES</span>

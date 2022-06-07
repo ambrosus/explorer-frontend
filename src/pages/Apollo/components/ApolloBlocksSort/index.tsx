@@ -31,11 +31,15 @@ const sortOptions: TApolloSortProps[] = [
     value: 'address',
   },
   {
+    label: 'Total blocks',
+    value: 'totalBlocks',
+  },
+  {
     label: 'Balance',
     value: 'balance',
   },
   {
-    label: 'Total Tx',
-    value: 'totalTx',
+    label: 'Stake',
+    value: 'stake',
   },
 ];

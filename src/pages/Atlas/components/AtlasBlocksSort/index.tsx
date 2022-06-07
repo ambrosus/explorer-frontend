@@ -31,11 +31,15 @@ const sortOptions: TAtlasSortProps[] = [
     value: 'address',
   },
   {
+    label: 'Total bundles',
+    value: 'totalBundles',
+  },
+  {
     label: 'Balance',
     value: 'balance',
   },
   {
-    label: 'Total Tx',
-    value: 'totalTx',
+    label: 'Stake',
+    value: 'stake',
   },
 ];

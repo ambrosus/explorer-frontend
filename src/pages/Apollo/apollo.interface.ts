@@ -38,11 +38,6 @@ export type TAddressesSortProps = {
   value: string;
 };
 
-export type AddressesBodyProps = {
-  address: string;
-  balance: any;
-  rank: number;
-  isContract: boolean;
-  txCount: number;
-  lastCardRef?: any;
+export type ApolloBodyProps = {
+  isOnline: boolean;
 };
