@@ -25,6 +25,7 @@ const FilteredToken: FC<FilteredTokenProps> = ({ setSelectedToken }) => {
   const { filters } = useTypedSelector((state: any) => state.tokenFilters);
 
   useEffect(() => {
+    //TODO !filtersBuffer
     if (filtersBuffer !== undefined && filtersBuffer !== null) {
       filtersBuffer = filters;
       setFilter(filters);

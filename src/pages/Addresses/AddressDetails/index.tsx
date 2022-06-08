@@ -79,10 +79,12 @@ export const AddressDetails = () => {
       }
     }
     if (tokenToSorted === 'transfers' || tokenToSorted !== '') {
+      //TODO ?
     } else {
       navigate(`/notfound`, { replace: true });
     }
     if (type === 'ERC-20_Tx' || type === 'transfers' || !type) {
+      //TODO ?
     } else {
       navigate(`/notfound`, { replace: true });
     }
@@ -91,6 +93,7 @@ export const AddressDetails = () => {
       API.searchItem(address)
         .then((data: any) => {
           if (data.meta.search.includes('addresses')) {
+            //TODO ?
             return;
           } else {
             navigate(`/notfound`, { replace: true });
@@ -126,6 +129,7 @@ export const AddressDetails = () => {
     }
     if (!loading || errorData) {
       if (addressData && addressData?.meta?.totalPages > pageNum) {
+        //TODO double code
         setPosition(getDataForAddress, address?.trim(), {
           filtered:
             addressData && addressData.filters ? addressData.filters : [],
@@ -151,6 +155,7 @@ export const AddressDetails = () => {
         });
       }
     }
+    //TODO refactor
   }, [
     filters,
     transactionType,
@@ -166,6 +171,7 @@ export const AddressDetails = () => {
       setTx((prevState) => {
         const compareState = [...prevState, ...addressData.transactions];
         const addressDataState = [...addressData.transactions];
+        //TODO полное дублирование
         if (type === 'ERC-20_Tx' && !filtered) {
           const newTx: any = addressDataState.sort(
             (a: any, b: any) => b.block - a.block,

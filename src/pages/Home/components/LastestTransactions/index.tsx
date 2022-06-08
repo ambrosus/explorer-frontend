@@ -1,5 +1,4 @@
 import useDeviceSize from 'hooks/useDeviceSize';
-import useWindowSize from 'hooks/useWindowSize';
 import { LatestTransactionsProps } from 'pages/Home/home.interfaces';
 import React from 'react';
 import { calcTime, isOnline, sliceData5, wrapString } from 'utils/helpers';

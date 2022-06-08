@@ -3,6 +3,7 @@ import API from 'API/api';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import { useEffect, useState } from 'react';
 
+//TODO зачем выносить в отдельный файл
 const useHomeData = () => {
   const [data, setData] = useState<ResultHomePageData>();
   const { data: appData } = useTypedSelector((state: any) => state.app);
@@ -16,6 +17,7 @@ const useHomeData = () => {
         .slice(0, 8),
     };
 
+    //TODO ?
     result.header = (await appData) && [
       { name: 'MARKET CAP', value: appData.tokenInfo.market_cap_usd },
       { name: 'TOTAL SUPPLY', value: appData.netInfo.totalSupply },

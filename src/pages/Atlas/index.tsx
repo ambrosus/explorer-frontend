@@ -7,7 +7,7 @@ import React from 'react';
 
 export const Atlas = () => {
   const [sortTerm, setSortTerm] = React.useState<string>('balance');
-
+  //TODO вынести
   const num = 6;
 
   return (

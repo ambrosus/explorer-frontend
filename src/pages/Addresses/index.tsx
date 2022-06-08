@@ -9,6 +9,7 @@ import useSortData from 'hooks/useSortData';
 import { getAccountsData } from 'services/accounts.service';
 
 export const Addresses = () => {
+  //TODO вернуть логику в компонент
   const { ref, sortTerm, setSortTerm, renderData, loading } =
     useSortData(getAccountsData);
 

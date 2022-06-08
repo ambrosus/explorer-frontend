@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 
+//TODO не юзается
 const useActive = ({ onChange, refEl }: any) => {
   const [value, setValue] = useState(false);
   const handleMouseDown = () => {

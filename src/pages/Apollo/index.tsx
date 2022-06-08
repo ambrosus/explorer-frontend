@@ -65,6 +65,7 @@ export const Apollo = () => {
 
   useEffect(() => {
     setLoading(true);
+    //TODO зачем свф?
     (async function () {
       await getDataFromApi(sortTerm).then((data) => {
         if (data && !pagination?.hasNext && pagination?.hasPrevious) {
@@ -85,6 +86,7 @@ export const Apollo = () => {
       setPagination({});
     }
   }, [sortTerm]);
+  //TODO вынести с компонента
   const num = 6;
 
   return (

@@ -27,6 +27,7 @@ const Tabs: FC<TabsProps> = ({
   pageNum,
   transactionType,
 }) => {
+    console.log(2);
   const [isShow, setIsShow] = useState(false);
   const { address, type, filtered, tokenToSorted } = useParams();
   const [prevType, setPrevType] = useState<any>(type);
@@ -56,7 +57,6 @@ const Tabs: FC<TabsProps> = ({
     }
     return notFound;
   };
-  //TODO убрать
   useOnClickOutside(mobileCalendarRef, () => setIsShow(false));
 
   useEffect(() => {
@@ -111,7 +111,7 @@ const Tabs: FC<TabsProps> = ({
       setRenderData(null);
     }
   }, [address, type, filtered, tokenToSorted]);
-  //TODO delete
+
   const { FOR_TABLET } = useDeviceSize();
 
   const isTableColumn =
@@ -120,8 +120,10 @@ const Tabs: FC<TabsProps> = ({
       : 'addresses_body_no_data';
 
   const handleNavLinkClass = (itemValue: any) => {
-    return `tabs_link ${itemValue === transactionType ? 'tabs_link_active' : ''}`;
-  }
+    return `tabs_link ${
+      itemValue === transactionType ? 'tabs_link_active' : ''
+    }`;
+  };
 
   return (
     <>
@@ -205,10 +207,12 @@ const Tabs: FC<TabsProps> = ({
           )}
 
           {renderData && renderData?.length !== 0
-            ? _.map(
+            ? //TODO map?
+              _.map(
                 renderData,
                 (transaction: TransactionProps, index: number) =>
                   renderData.length - 1 === index && type !== 'ERC-20_Tx' ? (
+                    //TODO double code
                     <AddressBlock
                       lastCardRef={lastCardRef}
                       isLatest={type === 'ERC-20_Tx' && !filtered}
@@ -256,6 +260,7 @@ const Tabs: FC<TabsProps> = ({
             : null}
 
           {!loading &&
+            //TODO вынести условие в константу
             !renderData?.length &&
             noDtaFound() &&
             pageNum < addressData?.meta?.totalPages && (

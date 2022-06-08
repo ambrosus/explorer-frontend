@@ -23,6 +23,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
       <div ref={methodRef} className="address_blocks_header_cell">
         <div
           style={{
+            //TODO css
             display: 'flex',
             alignItems: 'center',
             fontWeight: 700,
@@ -35,6 +36,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
         </div>
       </div>
     );
+  //TODO double code
   const isFrom =
     from === null ? null : (
       <div className="address_blocks_header_cell">{from}</div>
@@ -63,7 +65,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
         {token && token[0].toUpperCase() + token.slice(1)}
       </div>
     );
-
+//TODO убрать переменные
   return (
     <div className={isTableColumn}>
       {isTxHash}

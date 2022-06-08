@@ -2,6 +2,7 @@ import AnimatedLoader from './LoaderSvg';
 
 const Loader = () => (
   <div
+    //TODO css
     style={{
       position: 'relative',
       height: 100,
