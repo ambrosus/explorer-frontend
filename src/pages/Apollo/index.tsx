@@ -124,7 +124,7 @@ export const Apollo = () => {
 
           <div
             className='apollo_main_table'
-            style={{gridTemplateColumns: `repeat(${num}, auto)`}}
+            style={{gridTemplateColumns: `repeat(${6}, auto)`}}
           >
             <ApolloBlocksHeader/>
             {loading ? (
