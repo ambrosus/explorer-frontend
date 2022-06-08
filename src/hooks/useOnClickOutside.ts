@@ -10,8 +10,9 @@ export const useOnClickOutside = (
       if (!current || current.contains(event.target as Node)) {
         return;
       }
-      handler(event);
+      setTimeout(() => handler(event), 0);
     };
+
     document.addEventListener('mousedown', listener);
 
     return () => {

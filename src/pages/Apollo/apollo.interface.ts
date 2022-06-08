@@ -39,6 +39,6 @@ export type TAddressesSortProps = {
 };
 
 export type ApolloBodyProps = {
- index:number
- item:any
+  index: number;
+  item: any;
 };

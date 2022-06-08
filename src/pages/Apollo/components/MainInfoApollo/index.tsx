@@ -1,18 +1,23 @@
-import { useTypedSelector } from '../../../../hooks/useTypedSelector';
-import { IMainInfoApollo } from '../../apolloBlocks.interface';
-import { Number } from 'components/Number';
-import { FC, useEffect } from 'react';
+import Chart from '../Chart';
+import { useTypedSelector } from 'hooks/useTypedSelector';
+import { numWithCommas } from 'utils/helpers';
 
-const MainInfoApollo: FC<IMainInfoApollo> = ({ info, data }) => {
+const MainInfoApollo = ({ info, chartData }: any) => {
+
   const { data: appData } = useTypedSelector((state: any) => state.app);
-  console.log(appData);
+  const totalAddresses: number =
+    appData && numWithCommas(appData.netInfo.accounts.total);
+  const holders: number =
+    appData && numWithCommas(appData.netInfo.accounts.withBalance);
   return (
     <div className="main_info_apollo">
       <h1 className="main_info_apollo_heading">Apollo Nodes</h1>
       <div className="main_info_apollo_table">
         <div className="main_info_apollo_cell">
           <span className="main_info_apollo_cell_primary">TOTAL NODES</span>
-          <span className="main_info_apollo_cell_secondary">{info.total}</span>
+          <span className="main_info_apollo_cell_secondary">
+            {info?.total}
+          </span>
         </div>
         <div className="main_info_apollo_cell">
           <span className="main_info_apollo_cell_primary">Online</span>
@@ -22,42 +27,30 @@ const MainInfoApollo: FC<IMainInfoApollo> = ({ info, data }) => {
               color: '#1acd8c',
             }}
           >
-            {info.online}
+            {info?.online}
           </span>
         </div>
         <div className="main_info_apollo_cell">
           <span className="main_info_apollo_cell_primary">offline</span>
           <span className="main_info_apollo_cell_secondary">
-            {' '}
-            {info.offline}
+            {info?.offline}
           </span>
         </div>
         <div className="main_info_apollo_cell">
           <span className="main_info_apollo_cell_primary">CONNECTING</span>
           <span className="main_info_apollo_cell_secondary">
-            {' '}
-            {info.connecting}
+            {info?.connecting}
           </span>
         </div>
         <div className="main_info_apollo_cell">
           <span className="main_info_apollo_cell_primary">
             Avg block / prop. time
           </span>
-          <span>
-            {' '}
-            <Number
-              className="main_info_apollo_cell_secondary"
-              discharge="sec"
-              value={
-                appData?.netInfo?.avgBlockTime
-                  ? `${appData.netInfo.avgBlockTime}`
-                  : '0'
-              }
-              fixed={2}
-            />{' '}
-          </span>
+          <span className="main_info_apollo_cell_secondary">5.16 sec</span>
         </div>
-        <div className="main_info_apollo_cell">Chart cell</div>
+        <div className="main_info_apollo_cell" style={{ padding: 5 }}>
+          {/*<Chart chartData={chartData} />*/}
+        </div>
       </div>
     </div>
   );

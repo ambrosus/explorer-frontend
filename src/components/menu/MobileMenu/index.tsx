@@ -15,6 +15,8 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ menu, setIsShow, isShow }) => {
 
   useOnClickOutside(menuRef, () => setIsShow(false));
 
+  // useOnClickOutside(menuRef, () => setIsShow(false));
+
   return (
     <>
       <div ref={menuRef} className="mobile_menu">
