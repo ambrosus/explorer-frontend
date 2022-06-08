@@ -112,7 +112,6 @@ export const Apollo = () => {
       setPagination({});
     }
   }, [sortTerm]);
-  const num = 6;
 
   return (
     <Content>
