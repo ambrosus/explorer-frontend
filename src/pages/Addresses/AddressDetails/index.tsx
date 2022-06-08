@@ -32,7 +32,7 @@ export const AddressDetails = () => {
   } = useTypedSelector((state: any) => state.position);
   const { address, type, filtered, tokenToSorted }: TParams = useParams();
   const { setPosition, addFilter } = useActions();
-  const [transactionType, setTransactionType] = useState(type || '');
+  const [transactionType, setTransactionType] = useState(type);
   const [selectedToken, setSelectedToken] = useState<TokenType | null>(null);
   const [loading, setLoading] = useState(false);
   const [tx, setTx] = useState<TransactionProps[] | []>([]);
@@ -40,7 +40,6 @@ export const AddressDetails = () => {
   const [limitNum] = useState(30);
   const observer = useRef<IntersectionObserver>();
   const navigate = useNavigate();
-  const location = useLocation();
 
   const { isCopy, copyContent, isCopyPopup } = useCopyContent(address);
 
@@ -69,15 +68,6 @@ export const AddressDetails = () => {
   );
 
   useEffect(() => {
-    console.log('setLoading');
-    if (!type) {
-      console.log('location', location);
-      const path = location.pathname.split('/');
-      console.log(path);
-      if (!path?.[3]) {
-        navigate(`${location.pathname}`, { replace: true });
-      }
-    }
     if (tokenToSorted === 'transfers' || tokenToSorted !== '') {
     } else {
       navigate(`/notfound`, { replace: true });

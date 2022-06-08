@@ -262,7 +262,7 @@ const Tabs: FC<TabsProps> = ({
               <div style={{ height: 10, width: '100%' }} ref={lastCardRef} />
             )}
 
-          {!loading && renderData?.length === 0 && noDtaFound() && (
+          {!loading && !renderData?.length && noDtaFound() && (
             <div className="tabs_not_found" ref={lastCardRef}>
               <NotFoundIcon />
               <span className="tabs_not_found_text">
