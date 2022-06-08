@@ -11,6 +11,7 @@ export const getApollosNetworkInfo = (data: any) => {
     apollo.status === 'OFFLINE' && apollo.state !== 'RETIRED' && offline++;
     apollo.status === 'CONNECTING' && connecting++;
   }
+
   return { total, online, offline, connecting };
 };
 
