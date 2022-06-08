@@ -2,17 +2,20 @@ import { IRoute } from './types';
 import { Addresses } from 'pages/Addresses';
 import { AddressDetails } from 'pages/Addresses/AddressDetails';
 import { Apollo } from 'pages/Apollo';
+import { ApolloDetails } from 'pages/Apollo/ApolloDetails';
 import { Atlas } from 'pages/Atlas';
+import { AtlasDetails } from 'pages/Atlas/AtlasDetails';
 import { Blocks } from 'pages/Blocks';
 import { Bundles } from 'pages/Bundles';
 import { Hermes } from 'pages/Hermes';
 import { Home } from 'pages/Home';
 import { Transactions } from 'pages/Transactions';
-import React from 'react';
 
 interface IAppRoutes {
   routes: IRoute[];
-  subRoutes: IRoute[];
+  addressesRoutes: IRoute[];
+  apolloRoutes: IRoute[];
+  atlasRoutes: IRoute[];
 }
 
 export const routes: IRoute[] = [
@@ -73,7 +76,7 @@ export const routes: IRoute[] = [
     isClick: false,
   },
 ];
-export const subRoutes: IRoute[] = [
+export const addressesRoutes: IRoute[] = [
   {
     path: '/addresses/:address',
     key: 'Address Details',
@@ -105,6 +108,31 @@ export const subRoutes: IRoute[] = [
   },
 ];
 
-const appRoutes: IAppRoutes = { routes, subRoutes };
+export const apolloRoutes: IRoute[] = [
+  {
+    path: '/apollo/:address',
+    key: 'Apollo Details',
+    exact: true,
+    component: () => <ApolloDetails />,
+    isClick: false,
+  },
+];
+
+export const atlasRoutes: IRoute[] = [
+  {
+    path: '/atlas/:address',
+    key: 'Atlas Details',
+    exact: true,
+    component: () => <AtlasDetails />,
+    isClick: false,
+  },
+];
+
+const appRoutes: IAppRoutes = {
+  routes,
+  addressesRoutes,
+  apolloRoutes,
+  atlasRoutes,
+};
 
 export default appRoutes;

@@ -7,8 +7,6 @@ import React from 'react';
 
 export const Atlas = () => {
   const [sortTerm, setSortTerm] = React.useState<string>('balance');
-  //TODO вынести
-  const num = 6;
 
   return (
     <Content>
@@ -16,13 +14,10 @@ export const Atlas = () => {
         <MainInfoAtlas />
       </Content.Header>
       <Content.Body>
-        <div className="Atlas_main">
+        <div className="atlas_main">
           <AtlasBlocksSort sortTerm={sortTerm} setSortTerm={setSortTerm} />
 
-          <div
-            className="Atlas_main_table"
-            style={{ gridTemplateColumns: `repeat(${num}, auto)` }}
-          >
+          <div className="atlas_main_table">
             <AtlasBlocksHeader />
             <AtlasBlocksBody />
             <AtlasBlocksBody />

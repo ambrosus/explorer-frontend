@@ -1,9 +1,10 @@
 .find_wide_mobile {
   display: flex;
   margin: 20px auto;
-  width: 320px;
   border: 1px solid $main-light;
   border-radius: 16px;
+  min-width: 320px;
+  width: 85%;
   background-color: $black;
   border-radius: 16px;
 
