@@ -7,7 +7,7 @@ import { Content } from 'components/Content';
 import Loader from 'components/Loader';
 import useSortData from 'hooks/useSortData';
 import { getAccountsData } from 'services/accounts.service';
-import {useEffect} from "react";
+import React from "react";
 
 export const Addresses = () => {
   const { ref, sortTerm, setSortTerm, renderData, loading } =
@@ -49,7 +49,7 @@ export const Addresses = () => {
                 })
               : null}
           </div>
-          {loading && <Loader />}
+          {!loading && <Loader />}
         </div>
       </Content.Body>
     </Content>
