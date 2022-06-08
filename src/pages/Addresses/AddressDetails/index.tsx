@@ -250,6 +250,7 @@ export const AddressDetails = () => {
             transactionType={transactionType}
             data={tx ? tx : []}
             setTransactionType={setTransactionType}
+            isIcon={true}
           />
         </Content.Body>
       </section>

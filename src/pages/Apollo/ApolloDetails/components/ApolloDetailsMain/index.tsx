@@ -1,6 +1,6 @@
 import ContentCopy from 'assets/icons/CopyIcons/ContentCopy';
 
-const ApolloDetailsMain = () => {
+const AtlasDetailsBalance = () => {
   return (
     <div className="apollo_details_main">
       <div className="apollo_details_main_nd">
@@ -20,4 +20,4 @@ const ApolloDetailsMain = () => {
   );
 };
 
-export default ApolloDetailsMain;
+export default AtlasDetailsBalance;
