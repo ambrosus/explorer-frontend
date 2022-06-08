@@ -40,7 +40,7 @@ export const routes: IRoute[] = [
     component: () => <Atlas />,
     isClick: true,
   },
-  
+
   {
     path: '/hermes',
     key: 'Hermes',

@@ -7,10 +7,12 @@ import { Content } from 'components/Content';
 import Loader from 'components/Loader';
 import useSortData from 'hooks/useSortData';
 import { getAccountsData } from 'services/accounts.service';
+import {useEffect} from "react";
 
 export const Addresses = () => {
   const { ref, sortTerm, setSortTerm, renderData, loading } =
     useSortData(getAccountsData);
+
 
   return (
     <Content>
