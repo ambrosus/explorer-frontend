@@ -27,7 +27,6 @@ const Tabs: FC<TabsProps> = ({
   pageNum,
   transactionType,
 }) => {
-    console.log(2);
   const [isShow, setIsShow] = useState(false);
   const { address, type, filtered, tokenToSorted } = useParams();
   const [prevType, setPrevType] = useState<any>(type);

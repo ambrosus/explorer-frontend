@@ -32,7 +32,7 @@ export const AddressDetails = () => {
   } = useTypedSelector((state: any) => state.position);
   const { address, type, filtered, tokenToSorted }: TParams = useParams();
   const { setPosition, addFilter } = useActions();
-  const [transactionType, setTransactionType] = useState(type);
+  const [transactionType, setTransactionType] = useState(type || '');
   const [selectedToken, setSelectedToken] = useState<TokenType | null>(null);
   const [loading, setLoading] = useState(false);
   const [tx, setTx] = useState<TransactionProps[] | []>([]);
