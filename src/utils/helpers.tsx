@@ -201,7 +201,7 @@ export const formatDate = (date: any, datetime = false) => {
   }`;
 };
 
-export  function timeSince(date: any) {
+export function timeSince(date: any) {
   let seconds = Math.floor((+new Date() - date * 1000) / 1000);
   let interval = Math.floor(seconds / 31536000);
 

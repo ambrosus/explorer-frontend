@@ -41,4 +41,5 @@ export type TAddressesSortProps = {
 export type ApolloBodyProps = {
   index: number;
   item: any;
+  lastCardRef?:any
 };

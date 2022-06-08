@@ -1,8 +1,8 @@
-import {useTypedSelector} from "hooks/useTypedSelector";
-import {Number} from 'components/Number';
+import { Number } from 'components/Number';
+import { useTypedSelector } from 'hooks/useTypedSelector';
 
 const MainInfoAtlas = () => {
-  const {data: appData} = useTypedSelector((state: any) => state.app);
+  const { data: appData } = useTypedSelector((state: any) => state.app);
 
   return (
     <div className="main_info_atlas">
@@ -10,7 +10,9 @@ const MainInfoAtlas = () => {
       <div className="main_info_atlas_table">
         <div className="main_info_atlas_cell">
           <span className="main_info_atlas_cell_primary">TOTAL NODES</span>
-          <span className="main_info_atlas_cell_secondary">{appData?.netInfo?.atlases?.total || 0}</span>
+          <span className="main_info_atlas_cell_secondary">
+            {appData?.netInfo?.atlases?.total || 0}
+          </span>
         </div>
         <div className="main_info_atlas_cell">
           <span className="main_info_atlas_cell_primary">Online</span>
@@ -20,8 +22,8 @@ const MainInfoAtlas = () => {
               color: '#1acd8c',
             }}
           >
-          182
-        </span>
+            182
+          </span>
         </div>
         <div className="main_info_atlas_cell">
           <span className="main_info_atlas_cell_primary">offline</span>
@@ -32,16 +34,22 @@ const MainInfoAtlas = () => {
           <span className="main_info_atlas_cell_secondary">2</span>
         </div>
         <div className="main_info_atlas_cell">
-        <span className="main_info_atlas_cell_primary">
-          Avg block / prop. time
-        </span>
-          <span className="main_info_atlas_cell_secondary">                    <Number
-            value={appData?.netInfo?.avgBlockTime || 0} fixed={2}/> sec.</span>
+          <span className="main_info_atlas_cell_primary">
+            Avg block / prop. time
+          </span>
+          <span className="main_info_atlas_cell_secondary">
+            {' '}
+            <Number
+              value={appData?.netInfo?.avgBlockTime || 0}
+              fixed={2}
+            />{' '}
+            sec.
+          </span>
         </div>
         <div className="main_info_atlas_cell">Chart cell</div>
       </div>
     </div>
   );
-}
+};
 
 export default MainInfoAtlas;
