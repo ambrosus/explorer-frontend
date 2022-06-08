@@ -1,13 +1,13 @@
 import Loader from '../../components/Loader';
 import removeArrayDuplicates from '../../utils/helpers';
-import { IApolloInfo } from './apolloBlocks.interface';
+import {IApolloInfo} from './apolloBlocks.interface';
 import ApolloBlocksBody from './components/ApolloBlocksBody';
 import ApolloBlocksHeader from './components/ApolloBlocksHeader';
 import ApolloBlocksSort from './components/ApolloBlocksSort';
 import MainInfoApollo from './components/MainInfoApollo';
-import { getApollosNetworkInfo } from './utils';
-import { Content } from 'components/Content';
-import React, { useEffect, useState } from 'react';
+import {getApollosNetworkInfo} from './utils';
+import {Content} from 'components/Content';
+import React, {useEffect, useState} from 'react';
 import moment from 'moment';
 
 export const Apollo = () => {
@@ -31,7 +31,7 @@ export const Apollo = () => {
     ) {
       const esc = encodeURIComponent;
       const url = 'https://explorer-api.ambrosus.io/apollos?';
-      let params: any = { limit: 50, sort };
+      let params: any = {limit: 50, sort};
 
       const query = Object.keys(params)
         .map((k) => `${esc(k)}=${esc(params[k])}`)
@@ -46,7 +46,7 @@ export const Apollo = () => {
     } else if (pagination?.hasNext === true && data.length > 0) {
       const esc = encodeURIComponent;
       const url = 'https://explorer-api.ambrosus.io/apollos?';
-      let params: any = { next: pagination.next, limit: 50, sort };
+      let params: any = {next: pagination.next, limit: 50, sort};
 
       const query = Object.keys(params)
         .map((k) => `${esc(k)}=${esc(params[k])}`)
@@ -66,20 +66,39 @@ export const Apollo = () => {
 
   useEffect(() => {
     setLoading(true);
-    (async function() {
+    (async function () {
       await getDataFromApi(sortTerm).then((data) => {
         if (data && !pagination?.hasNext && pagination?.hasPrevious) {
           setTableData(data);
           const info = getApollosNetworkInfo(data);
           setApollosStatus(info);
           setData(data);
-          const nodesOnline = data.map((n: any) => n.statusHistory).flat().map((a: any) => ({
-            ...a,
-            date: moment(a.timestamp).fromNow()
-          }))
-          // you need to create an array of elements for the last 30 days
-          const last30DaysArr =
+          const nodesOnline = data
+            .map((n: any) => n.statusHistory)
+            .flat()
+            .filter((a: any) => a.status === 'ONLINE')
+            .map((a: any) => ({
+              date: moment(a.timestamp * 1000).format('DD/MM/YYYY')
+            }))
 
+          const DAYS = () => {
+            const days = []
+            const dateStart = moment()
+            const dateEnd = moment().add(30, 'days')
+            while (dateEnd.diff(dateStart, 'days') >= 0) {
+              days.push(dateStart.format('DD/MM/YYYY'))
+              dateStart.add(1, 'days')
+            }
+            return days
+          }
+          const chartData = nodesOnline.reduce((acc: any, cur: any) => {
+            return {
+              ...acc,
+              [cur.date]: (acc[cur.date] || 0) + 1,
+            }
+          }, [])
+          const fil = chartData
+          console.log(chartData)
           setLoading(false);
         }
       });
@@ -98,22 +117,22 @@ export const Apollo = () => {
   return (
     <Content>
       <Content.Header>
-        <MainInfoApollo info={apollosStatus} data={tableData} />
+        <MainInfoApollo info={apollosStatus} data={tableData}/>
       </Content.Header>
       <Content.Body>
         <div className='apollo_main'>
-          <ApolloBlocksSort sortTerm={sortTerm} setSortTerm={setSortTerm} />
+          <ApolloBlocksSort sortTerm={sortTerm} setSortTerm={setSortTerm}/>
 
           <div
             className='apollo_main_table'
-            style={{ gridTemplateColumns: `repeat(${num}, auto)` }}
+            style={{gridTemplateColumns: `repeat(${num}, auto)`}}
           >
-            <ApolloBlocksHeader />
+            <ApolloBlocksHeader/>
             {loading ? (
-              <Loader />
+              <Loader/>
             ) : (
               tableData.map((item: any, index: number) => (
-                <ApolloBlocksBody key={index} index={index + 1} item={item} />
+                <ApolloBlocksBody key={index} index={index + 1} item={item}/>
               ))
             )}
           </div>
