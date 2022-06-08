@@ -25,6 +25,7 @@ const Tabs: FC<TabsProps> = ({
   onClick,
   setTransactionType,
   pageNum,
+  transactionType,
 }) => {
   const [isShow, setIsShow] = useState(false);
   const { address, type, filtered, tokenToSorted } = useParams();
@@ -41,9 +42,6 @@ const Tabs: FC<TabsProps> = ({
   const headerTxfee: any = type === 'ERC-20_Tx' ? null : 'txFee';
   const headerToken: any = type === 'ERC-20_Tx' ? 'token' : null;
 
-  const setActiveLink = ({ isActive }: any) =>
-    isActive ? 'tabs_link tabs_link_active' : 'tabs_link';
-
   const noDtaFound = () => {
     if (pageNum < addressData?.meta?.totalPages && type !== 'ERC-20_Tx') {
       return false;
@@ -58,6 +56,7 @@ const Tabs: FC<TabsProps> = ({
     }
     return notFound;
   };
+  //TODO убрать
   useOnClickOutside(mobileCalendarRef, () => setIsShow(false));
 
   useEffect(() => {
@@ -112,12 +111,19 @@ const Tabs: FC<TabsProps> = ({
       setRenderData(null);
     }
   }, [address, type, filtered, tokenToSorted]);
+  //TODO delete
   const { FOR_TABLET } = useDeviceSize();
 
   const isTableColumn =
     renderData && renderData?.length
       ? setupStyle(type)
       : 'addresses_body_no_data';
+
+  const handleNavLinkClass = (itemValue: any) => {
+    return `tabs_link ${
+      itemValue === transactionType ? 'tabs_link_active' : ''
+    }`;
+  };
 
   return (
     <>
@@ -141,7 +147,7 @@ const Tabs: FC<TabsProps> = ({
                     to={`/addresses/${address}/${
                       filter.value ? filter.value : ''
                     }`}
-                    className={setActiveLink}
+                    className={() => handleNavLinkClass(filter.value)}
                     onClick={(e) => {
                       setTransactionType(filter.value);
                     }}
@@ -155,7 +161,7 @@ const Tabs: FC<TabsProps> = ({
                   <NavLink
                     key={filter.title}
                     to={`/addresses/${address}/ERC-20_Tx/${filtered}/${filter.value}`}
-                    className={setActiveLink}
+                    className={() => handleNavLinkClass(filter.value)}
                     onClick={(e) => {
                       setTransactionType(filter.value);
                     }}
