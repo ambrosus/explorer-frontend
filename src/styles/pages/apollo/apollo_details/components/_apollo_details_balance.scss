@@ -1,5 +1,8 @@
 .apollo_details_balance {
-  display: flex;
+  display: grid;
+  grid-template-columns:
+    minmax(370px, 2fr) minmax(130px, 1fr) minmax(300px, 1.8fr)
+    minmax(170px, 1fr);
   background: #ffffff;
   border: 1px solid #eff2f5;
   border-radius: 16px;
@@ -11,5 +14,23 @@
     height: 104px;
     justify-content: center;
     padding: 0 32px;
+    flex: 1;
+    border-right: 1px solid #eff2f5;
+    &:last-child() {
+      border-right: none;
+    }
+  }
+  &_fonts {
+    &_bold {
+      font-weight: 600;
+      font-size: 18px;
+      line-height: 24px;
+    }
+    &_normal {
+      line-height: 16px;
+    }
+  }
+  &_online {
+    color: #1acd8c;
   }
 }

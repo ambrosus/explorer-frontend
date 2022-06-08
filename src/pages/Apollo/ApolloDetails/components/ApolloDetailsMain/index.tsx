@@ -12,9 +12,9 @@ const ApolloDetailsMain = () => {
         <div className="apollo_details_main_cell">
           0xF977814e90dA44bFA03b6295A0616a897441aceC
         </div>
-        <div className="apollo_details_main_cell">
+        <button className="apollo_details_main_cell">
           <ContentCopy />
-        </div>
+        </button>
       </div>
     </div>
   );
