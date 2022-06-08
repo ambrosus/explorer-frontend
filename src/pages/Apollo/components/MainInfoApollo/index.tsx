@@ -3,7 +3,6 @@ import { useTypedSelector } from 'hooks/useTypedSelector';
 import { numWithCommas } from 'utils/helpers';
 
 const MainInfoApollo = ({ info, chartData }: any) => {
-
   const { data: appData } = useTypedSelector((state: any) => state.app);
   const totalAddresses: number =
     appData && numWithCommas(appData.netInfo.accounts.total);
@@ -15,9 +14,7 @@ const MainInfoApollo = ({ info, chartData }: any) => {
       <div className="main_info_apollo_table">
         <div className="main_info_apollo_cell">
           <span className="main_info_apollo_cell_primary">TOTAL NODES</span>
-          <span className="main_info_apollo_cell_secondary">
-            {info?.total}
-          </span>
+          <span className="main_info_apollo_cell_secondary">{info?.total}</span>
         </div>
         <div className="main_info_apollo_cell">
           <span className="main_info_apollo_cell_primary">Online</span>
