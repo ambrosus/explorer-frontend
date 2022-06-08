@@ -1,5 +1,5 @@
 import { Currency } from '../../../../components/UI/Currency';
-import { statusMessage } from '../../utils';
+import { statusMessage } from 'utils/helpers';
 import { ApolloBodyProps } from 'pages/Apollo/apollo.interface';
 import { FC } from 'react';
 

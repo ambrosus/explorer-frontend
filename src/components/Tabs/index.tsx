@@ -120,10 +120,8 @@ const Tabs: FC<TabsProps> = ({
       : 'addresses_body_no_data';
 
   const handleNavLinkClass = (itemValue: any) => {
-    return `tabs_link ${
-      itemValue === transactionType ? 'tabs_link_active' : ''
-    }`;
-  };
+    return `tabs_link ${itemValue === transactionType ? 'tabs_link_active' : ''}`;
+  }
 
   return (
     <>
