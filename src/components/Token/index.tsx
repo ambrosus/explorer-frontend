@@ -4,6 +4,7 @@ import { TokenProps } from 'pages/Addresses/AddressDetails/address-details.inter
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
+//TODO refactor
 let dataBuffer: any = null;
 let load: any = false;
 

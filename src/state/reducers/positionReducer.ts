@@ -17,6 +17,7 @@ const reducer = (
   action: PositionAction,
 ): PositionReducerState => {
   switch (action.type) {
+    //TODO переписать через спред
     case actionTypes.SET_POSITION__START:
       return { loading: true, error: null, data: [] };
     case actionTypes.SET_POSITION__SUCCESS:

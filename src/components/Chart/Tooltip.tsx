@@ -1,6 +1,7 @@
 import { CustomTooltipProps } from '../../pages/Home/home.interfaces';
 import React from 'react';
 
+//TODO delete file?
 export const CustomTooltip = ({
   payload,
   label,
@@ -10,6 +11,7 @@ export const CustomTooltip = ({
     return (
       <div
         className="chart_custom_tooltip"
+        //TODO to css file
         style={{
           background: '#FFFFFF',
           border: '1px solid #F4F5F6',
