@@ -10,7 +10,7 @@ import React from 'react';
 
 export const Atlas = () => {
   const { ref, sortTerm, setSortTerm, renderData, loading } =
-    useSortData(getAtlasData);
+    useSortData(getAtlasData,null,'balance');
 
   return (
     <Content>

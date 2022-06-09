@@ -26,7 +26,6 @@ const Tabs: FC<TabsProps> = ({
   setTransactionType,
   pageNum,
   transactionType,
-  isIcon,
 }) => {
   const [isShow, setIsShow] = useState(false);
   const { address, type, filtered, tokenToSorted } = useParams();
@@ -204,7 +203,6 @@ const Tabs: FC<TabsProps> = ({
               token={headerToken}
               methodFilters={methodFilters}
               isTableColumn={isTableColumn}
-              isIcon={isIcon}
             />
           )}
 
@@ -233,7 +231,6 @@ const Tabs: FC<TabsProps> = ({
                         transaction?.symbol ? transaction?.symbol : null
                       }`}
                       isTableColumn={isTableColumn}
-                      isIcon={isIcon}
                     />
                   ) : (
                     <AddressBlock
@@ -255,7 +252,6 @@ const Tabs: FC<TabsProps> = ({
                         transaction?.symbol ? transaction?.symbol : 'AMB'
                       }`}
                       isTableColumn={isTableColumn}
-                      isIcon={isIcon}
                     />
                   ),
               )

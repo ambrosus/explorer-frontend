@@ -117,6 +117,14 @@ export const apolloRoutes: IRoute[] = [
     component: () => <ApolloDetails />,
     isClick: false,
   },
+  {
+    path: '/apollo/:address/:type',
+    key: 'Apollo Details type',
+    exact: true,
+    component: () => <ApolloDetails />,
+    isClick: false,
+  },
+
 ];
 
 export const atlasRoutes: IRoute[] = [
@@ -127,6 +135,14 @@ export const atlasRoutes: IRoute[] = [
     component: () => <AtlasDetails />,
     isClick: false,
   },
+  {
+    path: '/atlas/:address/:type',
+    key: 'Atlas Details type',
+    exact: true,
+    component: () => <AtlasDetails />,
+    isClick: false,
+  },
+
 ];
 
 const appRoutes: IAppRoutes = {

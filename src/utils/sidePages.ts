@@ -1,3 +1,5 @@
+import { TApolloSortProps } from '../pages/Apollo/apolloBlocks.interface';
+
 const transactionFilters = [
   { title: 'All', value: '' },
   { title: 'Transfers', value: 'transfers' },
@@ -17,8 +19,20 @@ const methodFilters = [
   { title: 'Payouts', value: 'payouts' },
 ];
 
+export const apolloDetailsSorting: TApolloSortProps[] = [
+  { title: 'All', value: '' },
+  { title: 'Transfers', value: 'transfers' },
+  { title: 'Block Rewards', value: 'block_rewards' },
+];
+export const atlasDetailsSorting: TApolloSortProps[] = [
+  { title: 'All', value: '' },
+  { title: 'Transfers', value: 'transfers' },
+  { title: 'Sheltering', value: 'sheltering' },
+];
+
 export const sidePages = {
   transactionFilters,
   ERC20Filters,
   methodFilters,
+  apolloDetailsSorting,
 };
