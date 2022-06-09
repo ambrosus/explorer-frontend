@@ -36,6 +36,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
   token,
   symbol,
   isTableColumn,
+  isIcon,
 }) => {
   const online = txfee === 'Pending' ? <OrangeCircle /> : <GreenCircle />;
   const { addFilter } = useActions();
@@ -58,7 +59,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
   const isMethod =
     method === null ? null : (
       <div className="address_blocks_cell" style={{ gap: 4 }}>
-        {from && from === address ? (
+        {isIcon && from && from === address ? (
           <OutgoingTransaction />
         ) : (
           <IncomeTrasaction />

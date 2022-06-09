@@ -25,6 +25,7 @@ export interface TabsProps {
   data: any;
   onClick: any;
   setTransactionType: any;
+  isIcon: boolean;
 }
 
 export type TransactionProps = {
@@ -68,6 +69,7 @@ export interface AddressBlockProps {
   onClick?: any;
   isLatest?: boolean;
   isTableColumn?: string;
+  isIcon: boolean;
 }
 
 export interface TokenProps {
