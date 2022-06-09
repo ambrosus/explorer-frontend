@@ -14,7 +14,9 @@ const MainInfoApollo = () => {
       <div className="main_info_apollo_table">
         <div className="main_info_apollo_cell">
           <span className="main_info_apollo_cell_primary">TOTAL NODES</span>
-          <span className="main_info_apollo_cell_secondary">{appData?.netInfo?.apollos?.total || 0}</span>
+          <span className="main_info_apollo_cell_secondary">
+            {appData?.netInfo?.apollos?.total || 0}
+          </span>
         </div>
         <div className="main_info_apollo_cell">
           <span className="main_info_apollo_cell_primary">Online</span>

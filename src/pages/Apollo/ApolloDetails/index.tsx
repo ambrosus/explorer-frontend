@@ -77,17 +77,10 @@ export const ApolloDetails = () => {
     }
 
     if (address) {
-      API.searchItem(address)
-        .then((data: any) => {
-          if (data.meta.search.includes('addresses')) {
-            return;
-          } else {
-            navigate(`/notfound`, { replace: true });
-          }
-        })
-        .catch(() => {
-          navigate(`/notfound`, { replace: true });
-        });
+      API.searchItem(address);
+      // .catch(() => {
+      //   navigate(`/notfound`, { replace: true });
+      // });
     }
   }, []);
 
