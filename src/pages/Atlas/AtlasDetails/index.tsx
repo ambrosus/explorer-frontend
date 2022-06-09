@@ -1,45 +1,52 @@
-import API from '../../../API/api';
-import { toUniqueValueByBlock } from '../../../utils/helpers';
-import {
-  TokenType,
-  TransactionProps,
-} from '../../Addresses/AddressDetails/address-details.interface';
+import {TokenType,} from '../../Addresses/AddressDetails/address-details.interface';
 import AtlasDetailsBalance from './components/AtlasDetailsBalance';
 import AtlasDetailsMain from './components/AtlasDetailsMain';
 import AtlasDetailsMiningStats from './components/AtlasDetailsMiningStats';
-import { Content } from 'components/Content';
-import Tabs from 'components/Tabs';
-import { useActions } from 'hooks/useActions';
-import useCopyContent from 'hooks/useCopyContent';
-import useDeviceSize from 'hooks/useDeviceSize';
-import { useTypedSelector } from 'hooks/useTypedSelector';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { shallowEqual } from 'react-redux';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { getDataForAddress } from 'services/address.service';
-import { TParams } from 'types';
+import {Content} from 'components/Content';
+import React, {useState} from 'react';
+import {useParams} from 'react-router-dom';
+import {TParams} from 'types';
+import Tabs2 from "../../../components/Tabs/Tabs2";
+import {atlasDetailsSorting} from "../../../utils/sidePages";
+import useSortData from "../../../hooks/useSortData";
+import {getAccountTxData} from "../../../services/apollo.service";
 
 export const AtlasDetails = () => {
+  const {address, type = ''}: TParams = useParams();
+  const [selectedToken, setSelectedToken] = useState<TokenType | null>(null);
+
+  const {ref, sortTerm, setSortTerm, renderData, loading} = useSortData(
+    getAccountTxData,
+    address,
+    type,
+  );
+
   return (
     <Content>
       <Content.Header>
         <div className="apollo_details_header">
-          <AtlasDetailsMain />
-          <AtlasDetailsBalance />
-          <AtlasDetailsMiningStats />
+          <AtlasDetailsMain/>
+          <AtlasDetailsBalance/>
+          <AtlasDetailsMiningStats/>
         </div>
       </Content.Header>
       <Content.Body>
-        {/* <Tabs
-          pageNum={pageNum}
-          lastCardRef={lastCardRef}
+        <Tabs2
+          loading={loading}
+          lastCardRef={ref}
           onClick={setSelectedToken}
           selectedToken={selectedToken}
-          transactionType={transactionType}
-          data={tx ? tx : []}
-          setTransactionType={setTransactionType}
+          transactionType={type}
+          data={
+            sortTerm === type && renderData && renderData.data
+              ? renderData.data
+              : []
+          }
+          setTransactionType={setSortTerm}
           isIcon={false}
-        /> */}
+          pageType="atlas"
+          sortOptions={atlasDetailsSorting}
+        />
       </Content.Body>
     </Content>
   );

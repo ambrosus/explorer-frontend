@@ -34,7 +34,8 @@ export type PApolloSort = {
 };
 
 export type TApolloSortProps = {
-  label: string;
+  title?: string;
+  label?: string;
   value: string;
 };
 

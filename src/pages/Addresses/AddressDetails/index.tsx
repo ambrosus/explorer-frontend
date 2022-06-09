@@ -111,17 +111,16 @@ export const AddressDetails = () => {
       );
     }
     if (!loading || errorData) {
-        setPosition(getDataForAddress, address?.trim(), {
-          filtered:
-            addressData && addressData.filters ? addressData.filters : [],
-          selectedTokenFilter:
-            selectedToken && selectedToken?.contract
-              ? selectedToken.contract
-              : filtered,
-          limit: limitNum,
-          type: transactionType,
-          page: pageNum,
-        });
+      setPosition(getDataForAddress, address?.trim(), {
+        filtered: addressData && addressData.filters ? addressData.filters : [],
+        selectedTokenFilter:
+          selectedToken && selectedToken?.contract
+            ? selectedToken.contract
+            : filtered,
+        limit: limitNum,
+        type: transactionType,
+        page: pageNum,
+      });
     }
   }, [
     filters,
@@ -134,8 +133,6 @@ export const AddressDetails = () => {
     type,
   ]);
   useEffect(() => {
-    console.log('useEffect');
-
     if (addressData && addressData?.transactions) {
       setTx((prevState) => {
         const compareState = [...prevState, ...addressData.transactions];
@@ -145,12 +142,12 @@ export const AddressDetails = () => {
             (a: any, b: any) => b.block - a.block,
           );
           return newTx;
-        }else if (type === 'ERC-20_Tx' && filtered) {
+        } else if (type === 'ERC-20_Tx' && filtered) {
           const newTx: any = addressDataState.sort(
             (a: any, b: any) => b.block - a.block,
           );
           return newTx;
-        }else if (!type || type === 'transfers') {
+        } else if (!type || type === 'transfers') {
           const newTx: TransactionProps[] = toUniqueValueByBlock(compareState);
           const transfersDataTx: TransactionProps[] = newTx.filter(
             (item: TransactionProps) => item.method === 'Transfer',
