@@ -22,7 +22,7 @@ const reducer = (
     case actionTypes.SET_POSITION__SUCCESS:
       return { ...state, data: action.payload };
     case actionTypes.SET_POSITION__FAIL:
-      return {...state,  error: action.payload, };
+      return { ...state, error: action.payload };
     default:
       return state;
   }

@@ -8,9 +8,7 @@ export const CustomTooltip = ({
 }: CustomTooltipProps) => {
   if (active) {
     return (
-      <div
-        className="chart_custom_tooltip custom-style"
-      >
+      <div className="chart_custom_tooltip custom-style">
         <p className="chart_intro">{label}</p>
         <p className="chart_label">
           <span className="chart_label_name">Date :</span>{' '}
