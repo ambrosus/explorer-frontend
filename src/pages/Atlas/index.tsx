@@ -9,8 +9,11 @@ import Loader from 'components/Loader';
 import React from 'react';
 
 export const Atlas = () => {
-  const { ref, sortTerm, setSortTerm, renderData, loading } =
-    useSortData(getAtlasData);
+  const { ref, sortTerm, setSortTerm, renderData, loading } = useSortData(
+    getAtlasData,
+    null,
+    'balance',
+  );
 
   return (
     <Content>
