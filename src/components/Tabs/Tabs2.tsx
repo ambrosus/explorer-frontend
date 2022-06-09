@@ -45,6 +45,7 @@ const Tabs2: FC<any> = ({
     }, 500);
     return notFound;
   };
+
   //TODO убрать
   useOnClickOutside(mobileCalendarRef, () => setIsShow(false));
 
@@ -178,7 +179,9 @@ const Tabs2: FC<any> = ({
                 )
               }
             )
-            : null}
+            : null
+          }
+
           {!loading && !renderData?.length && noDtaFound() && (
             <div className="tabs_not_found">
               <NotFoundIcon/>

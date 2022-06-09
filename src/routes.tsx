@@ -124,6 +124,7 @@ export const apolloRoutes: IRoute[] = [
     component: () => <ApolloDetails />,
     isClick: false,
   },
+
 ];
 
 export const atlasRoutes: IRoute[] = [
@@ -138,9 +139,10 @@ export const atlasRoutes: IRoute[] = [
     path: '/atlas/:address/:type',
     key: 'Atlas Details type',
     exact: true,
-    component: () => <ApolloDetails />,
+    component: () => <AtlasDetails />,
     isClick: false,
   },
+
 ];
 
 const appRoutes: IAppRoutes = {
