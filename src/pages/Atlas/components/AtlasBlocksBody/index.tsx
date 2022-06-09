@@ -1,7 +1,7 @@
 import { Currency } from 'components/UI/Currency';
 import { statusMessage } from 'utils/helpers';
 
-const AtlasBlocksBody = ({lastCardRef, index, item }: any) => {
+const AtlasBlocksBody = ({ lastCardRef, index, item }: any) => {
   const { totalBundles, address, stake, balance } = item;
   return (
     <div className="atlas_blocks_body" ref={lastCardRef}>

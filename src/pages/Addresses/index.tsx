@@ -6,14 +6,13 @@ import MainInfoAddresses from './components/MainInfoAddresses';
 import { Content } from 'components/Content';
 import Loader from 'components/Loader';
 import useSortData from 'hooks/useSortData';
+import React from 'react';
 import { getAccountsData } from 'services/accounts.service';
-import React from "react";
 
 export const Addresses = () => {
   //TODO вернуть логику в компонент
   const { ref, sortTerm, setSortTerm, renderData, loading } =
     useSortData(getAccountsData);
-
 
   return (
     <Content>
