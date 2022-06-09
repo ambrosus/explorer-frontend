@@ -6,6 +6,7 @@ interface FindProps {
 }
 
 const Find: React.FC<FindProps> = ({ setIsShow }) => {
+  //TODO вынести с ретурна
   return (
     <>
       <button className="find" onClick={() => setIsShow(true)}>

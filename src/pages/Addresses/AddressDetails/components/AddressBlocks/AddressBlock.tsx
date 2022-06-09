@@ -36,6 +36,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
   token,
   symbol,
   isTableColumn,
+  isIcon,
 }) => {
   const online = txfee === 'Pending' ? <OrangeCircle /> : <GreenCircle />;
   const { addFilter } = useActions();
@@ -58,7 +59,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
   const isMethod =
     method === null ? null : (
       <div className="address_blocks_cell" style={{ gap: 4 }}>
-        {from && from === address ? (
+        {isIcon && from && from === address ? (
           <OutgoingTransaction />
         ) : (
           <IncomeTrasaction />
@@ -71,6 +72,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
   const isFrom =
     from === null ? (
       <div className="address_blocks_cell"></div>
+      //TODO ?
     ) : address !== from && String(from).trim().length ? (
       <NavLink
         to={`/addresses/${from}/`}
@@ -84,8 +86,10 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
       </div>
     );
   const isTo =
+    //TODO !ту
     to === null || to === undefined ? (
       <div className="address_blocks_cell"></div>
+      //TODO ?
     ) : address !== to && String(to).trim().length ? (
       <NavLink
         to={`/addresses/${to}/`}
@@ -107,7 +111,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
     );
 
   const Icon = getTokenIcon(symbol as string);
-
+  //TODO ?
   const isAmount =
     amount === null ? (
       <></>
@@ -128,6 +132,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
             className="address_blocks_icon"
             style={{
               padding: '0 5px',
+              //TODO вынести с ретурна
               cursor:
                 (symbol !== 'AMB' &&
                   symbol !== 'null' &&
@@ -147,6 +152,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
                   : 'none',
             }}
             onClick={() => {
+              //TODO вынести с ретурна + отдельная функция
               addressData?.tokens?.forEach((item: TokenType) => {
                 if (
                   (item.name === token && symbol !== 'AMB') ||
@@ -221,6 +227,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
           <span
             className="address_blocks_cell_token  universall_light2"
             onClick={() => {
+              //TODO вывести с ретурна
               addressData?.tokens?.forEach((item: TokenType) => {
                 if (
                   (item.name === token && symbol !== 'AMB') ||

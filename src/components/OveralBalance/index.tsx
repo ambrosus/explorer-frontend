@@ -2,6 +2,7 @@ import { useTypedSelector } from 'hooks/useTypedSelector';
 import { OverallBalanceProps } from 'pages/Addresses/AddressDetails/address-details.interface';
 import React, { useEffect, useState } from 'react';
 
+//TODO refactor
 let amountInUsdBuffer = 0;
 
 const OverallBalance: React.FC<OverallBalanceProps> = ({ addressBalance }) => {
@@ -13,6 +14,7 @@ const OverallBalance: React.FC<OverallBalanceProps> = ({ addressBalance }) => {
 
   useEffect(() => {
     if (
+      //TODO !addressBalance
       addressBalance !== undefined &&
       addressBalance !== null &&
       appData?.total_price_usd

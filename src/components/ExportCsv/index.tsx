@@ -19,9 +19,8 @@ const ExportCsv = () => {
         <button
           className="export_csv_btn"
           style={style}
-          onClick={() => {
-            setIsShow(!isShow);
-          }}
+          //TODO вынести с ретурна
+          onClick={() => setIsShow(!isShow)}
         >
           <CalendarIcon />
           <span className="export_csv_text">ExportCsv</span>

@@ -45,13 +45,16 @@ const TokenFilter = ({
               loading ? 'toggle' : ''
             }`}
           >
-            {loading && !addressData?.tokens?.length
-              ? ''
-              : loading
-              ? !addressData?.tokens?.length
-              : !addressData?.tokens?.length
-              ? 0
-              : addressData.tokens.length}
+            {
+              //TODO refactor
+              loading && !addressData?.tokens?.length
+                ? ''
+                : loading
+                ? !addressData?.tokens?.length
+                : !addressData?.tokens?.length
+                ? 0
+                : addressData.tokens.length
+            }
           </span>
           <button
             className="token_filter_input_btn"

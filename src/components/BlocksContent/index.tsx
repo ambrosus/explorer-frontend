@@ -6,7 +6,7 @@ import React, { FC } from 'react';
 const BlocksContent: FC<BlocksContentProps> = ({ data }) => (
   <div className="blocks_content">
     <div className="blocks_content_table">
-      <div className="blocks_content_heading">Lastest Blocks</div>
+      <div className="blocks_content_heading">Latest Blocks</div>
       {data?.latestBlocks.map((item, index: any) => (
         <LatestBlocks
           key={item.number}
@@ -22,7 +22,7 @@ const BlocksContent: FC<BlocksContentProps> = ({ data }) => (
     </div>
 
     <div className="blocks_content_table">
-      <div className="blocks_content_heading">Lastest Transactions</div>
+      <div className="blocks_content_heading">Latest Transactions</div>
       {data?.latestTransactions.map((item) => (
         <LatestTransactions
           key={item._id}

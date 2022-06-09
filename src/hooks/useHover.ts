@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 
+//TODO не юзается
 const useHover = () => {
   const [value, setValue] = useState(false);
   const ref: any = useRef(null);

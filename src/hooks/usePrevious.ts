@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 
+//TODO не юзается
 export default function usePrevious(value: any, ...deps: any) {
   // The ref object is a generic container whose current property is mutable ...
   // ... and can hold any value, similar to an instance property on a class

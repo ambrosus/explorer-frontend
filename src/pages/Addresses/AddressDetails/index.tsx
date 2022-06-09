@@ -32,7 +32,7 @@ export const AddressDetails = () => {
   } = useTypedSelector((state: any) => state.position);
   const { address, type, filtered, tokenToSorted }: TParams = useParams();
   const { setPosition, addFilter } = useActions();
-  const [transactionType, setTransactionType] = useState(type);
+  const [transactionType, setTransactionType] = useState(type || '');
   const [selectedToken, setSelectedToken] = useState<TokenType | null>(null);
   const [loading, setLoading] = useState(false);
   const [tx, setTx] = useState<TransactionProps[] | []>([]);
@@ -69,10 +69,12 @@ export const AddressDetails = () => {
 
   useEffect(() => {
     if (tokenToSorted === 'transfers' || tokenToSorted !== '') {
+      //TODO ?
     } else {
       navigate(`/notfound`, { replace: true });
     }
     if (type === 'ERC-20_Tx' || type === 'transfers' || !type) {
+      //TODO ?
     } else {
       navigate(`/notfound`, { replace: true });
     }
@@ -81,6 +83,7 @@ export const AddressDetails = () => {
       API.searchItem(address)
         .then((data: any) => {
           if (data.meta.search.includes('addresses')) {
+            //TODO ?
             return;
           } else {
             navigate(`/notfound`, { replace: true });
@@ -116,6 +119,7 @@ export const AddressDetails = () => {
     }
     if (!loading || errorData) {
       if (addressData && addressData?.meta?.totalPages > pageNum) {
+        //TODO double code
         setPosition(getDataForAddress, address?.trim(), {
           filtered:
             addressData && addressData.filters ? addressData.filters : [],
@@ -141,6 +145,7 @@ export const AddressDetails = () => {
         });
       }
     }
+    //TODO refactor
   }, [
     filters,
     transactionType,
@@ -156,6 +161,7 @@ export const AddressDetails = () => {
       setTx((prevState) => {
         const compareState = [...prevState, ...addressData.transactions];
         const addressDataState = [...addressData.transactions];
+        //TODO полное дублирование
         if (type === 'ERC-20_Tx' && !filtered) {
           const newTx: any = addressDataState.sort(
             (a: any, b: any) => b.block - a.block,
@@ -250,6 +256,7 @@ export const AddressDetails = () => {
             transactionType={transactionType}
             data={tx ? tx : []}
             setTransactionType={setTransactionType}
+            isIcon={true}
           />
         </Content.Body>
       </section>

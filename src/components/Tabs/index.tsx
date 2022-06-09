@@ -26,6 +26,7 @@ const Tabs: FC<TabsProps> = ({
   setTransactionType,
   pageNum,
   transactionType,
+  isIcon,
 }) => {
   const [isShow, setIsShow] = useState(false);
   const { address, type, filtered, tokenToSorted } = useParams();
@@ -56,7 +57,6 @@ const Tabs: FC<TabsProps> = ({
     }
     return notFound;
   };
-  //TODO убрать
   useOnClickOutside(mobileCalendarRef, () => setIsShow(false));
 
   useEffect(() => {
@@ -111,7 +111,7 @@ const Tabs: FC<TabsProps> = ({
       setRenderData(null);
     }
   }, [address, type, filtered, tokenToSorted]);
-  //TODO delete
+
   const { FOR_TABLET } = useDeviceSize();
 
   const isTableColumn =
@@ -120,8 +120,10 @@ const Tabs: FC<TabsProps> = ({
       : 'addresses_body_no_data';
 
   const handleNavLinkClass = (itemValue: any) => {
-    return `tabs_link ${itemValue === transactionType ? 'tabs_link_active' : ''}`;
-  }
+    return `tabs_link ${
+      itemValue === transactionType ? 'tabs_link_active' : ''
+    }`;
+  };
 
   return (
     <>
@@ -201,14 +203,17 @@ const Tabs: FC<TabsProps> = ({
               token={headerToken}
               methodFilters={methodFilters}
               isTableColumn={isTableColumn}
+              isIcon={isIcon}
             />
           )}
 
           {renderData && renderData?.length !== 0
-            ? _.map(
+            ? //TODO map?
+              _.map(
                 renderData,
                 (transaction: TransactionProps, index: number) =>
                   renderData.length - 1 === index && type !== 'ERC-20_Tx' ? (
+                    //TODO double code
                     <AddressBlock
                       lastCardRef={lastCardRef}
                       isLatest={type === 'ERC-20_Tx' && !filtered}
@@ -229,6 +234,7 @@ const Tabs: FC<TabsProps> = ({
                         transaction?.symbol ? transaction?.symbol : null
                       }`}
                       isTableColumn={isTableColumn}
+                      isIcon={isIcon}
                     />
                   ) : (
                     <AddressBlock
@@ -250,12 +256,14 @@ const Tabs: FC<TabsProps> = ({
                         transaction?.symbol ? transaction?.symbol : 'AMB'
                       }`}
                       isTableColumn={isTableColumn}
+                      isIcon={isIcon}
                     />
                   ),
               )
             : null}
 
           {!loading &&
+            //TODO вынести условие в константу
             !renderData?.length &&
             noDtaFound() &&
             pageNum < addressData?.meta?.totalPages && (

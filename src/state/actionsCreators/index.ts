@@ -15,6 +15,7 @@ export const setAppDataAsync = () => {
       type: actionTypes.SET_APP_DATA__START,
     });
     try {
+      //TODO промис ол
       const netInfo = await API.getInfo();
 
       const tokenInfo = await API.getToken().then(async (info = {}) => {

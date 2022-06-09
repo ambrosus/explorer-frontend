@@ -43,25 +43,31 @@ const TokenModal: FC<TokenModalProps> = ({
             </div>
             <div className="token_modal_arrows" />
           </div>
-          {!filteredTokensList.length
-            ? addressData?.tokens.map(
-                (token: { name: string; idx: number }) => (
-                  <TokenItem
-                    key={token.name + token.idx}
-                    selectedToken={selectedToken}
-                    token={token}
-                    setToken={setToken}
-                  />
-                ),
-              )
-            : filteredTokensList.map((token: { name: string; idx: number }) => (
-                <TokenItem
-                  key={token.name + token.idx}
-                  selectedToken={selectedToken}
-                  token={token}
-                  setToken={setToken}
-                />
-              ))}
+
+          {
+            //TODO double code
+            !filteredTokensList.length
+              ? addressData?.tokens.map(
+                  (token: { name: string; idx: number }) => (
+                    <TokenItem
+                      key={token.name + token.idx}
+                      selectedToken={selectedToken}
+                      token={token}
+                      setToken={setToken}
+                    />
+                  ),
+                )
+              : filteredTokensList.map(
+                  (token: { name: string; idx: number }) => (
+                    <TokenItem
+                      key={token.name + token.idx}
+                      selectedToken={selectedToken}
+                      token={token}
+                      setToken={setToken}
+                    />
+                  ),
+                )
+          }
         </>
       ) : (
         <div>
