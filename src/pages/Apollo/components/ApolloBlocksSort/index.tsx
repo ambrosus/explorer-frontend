@@ -1,3 +1,4 @@
+import { apolloDetailsSorting } from '../../../../utils/sidePages';
 import { PApolloSort, TApolloSortProps } from '../../apolloBlocks.interface';
 import { FC } from 'react';
 
@@ -6,7 +7,7 @@ const ApolloBlocksSort: FC<PApolloSort> = ({ sortTerm, setSortTerm }) => (
     <div className="apollo_blocks_sort_heading">Nodes</div>
     <div className="apollo_blocks_sort_cells">
       <div className="apollo_blocks_sort_cell">Sort by</div>
-      {sortOptions.map((option, index) => (
+      {apolloDetailsSorting.map((option, index) => (
         <div
           key={index}
           className={`apollo_blocks_sort_cell pointer ${
@@ -16,7 +17,7 @@ const ApolloBlocksSort: FC<PApolloSort> = ({ sortTerm, setSortTerm }) => (
             setSortTerm(option.value);
           }}
         >
-          {option.label}
+          {option.label || option.title}
         </div>
       ))}
     </div>
@@ -24,22 +25,3 @@ const ApolloBlocksSort: FC<PApolloSort> = ({ sortTerm, setSortTerm }) => (
 );
 
 export default ApolloBlocksSort;
-
-const sortOptions: TApolloSortProps[] = [
-  {
-    label: 'Addresses',
-    value: 'address',
-  },
-  {
-    label: 'Total blocks',
-    value: ' ',
-  },
-  {
-    label: 'Balance',
-    value: 'balance',
-  },
-  {
-    label: 'Stake',
-    value: 'stake',
-  },
-];
