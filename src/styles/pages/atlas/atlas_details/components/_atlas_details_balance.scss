@@ -1,8 +1,8 @@
-.apollo_details_mining_stats {
+.atlas_details_balance {
   display: grid;
   grid-template-columns:
-    minmax(230px, 2fr) minmax(260px, 2fr) minmax(260px, 2fr)
-    minmax(210px, 1fr);
+    minmax(370px, 1fr) minmax(300px, 1fr)
+    minmax(300px, 1fr);
   background: #ffffff;
   border: 1px solid #eff2f5;
   border-radius: 16px;
@@ -16,32 +16,9 @@
     padding: 0 32px;
     flex: 1;
     border-right: 1px solid #eff2f5;
-    &:first-child {
-      flex-direction: row;
-      align-items: center;
-      justify-content: flex-start;
-    }
-
     &:last-child() {
       border-right: none;
     }
-  }
-  &_cell {
-    display: flex;
-
-    &:first-child {
-      flex-direction: column;
-    }
-  }
-  &_icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    margin-left: 12px;
-    border: 1px solid #eff2f5;
-    border-radius: 16px;
   }
   &_fonts {
     &_bold {
