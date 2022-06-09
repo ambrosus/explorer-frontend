@@ -30,7 +30,6 @@ const useSortData = (getData: any) => {
       if (next) {
         setLoading(true);
         getData(sortTerm, next).then((res: AccountsData) => {
-          console.log('res',res);
           setRenderData((prev: AccountsData) => {
             return {
               ...prev,
