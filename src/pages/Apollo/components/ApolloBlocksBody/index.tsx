@@ -3,7 +3,11 @@ import { ApolloBodyProps } from 'pages/Apollo/apollo.interface';
 import { FC } from 'react';
 import { statusMessage } from 'utils/helpers';
 
-const ApolloBlocksBody: FC<ApolloBodyProps> = ({ lastCardRef,index, item }) => {
+const ApolloBlocksBody: FC<ApolloBodyProps> = ({
+  lastCardRef,
+  index,
+  item,
+}) => {
   return (
     item && (
       <div className="apollo_blocks_body" ref={lastCardRef}>
