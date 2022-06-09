@@ -124,7 +124,6 @@ export const apolloRoutes: IRoute[] = [
     component: () => <ApolloDetails />,
     isClick: false,
   },
-
 ];
 
 export const atlasRoutes: IRoute[] = [
@@ -142,7 +141,6 @@ export const atlasRoutes: IRoute[] = [
     component: () => <AtlasDetails />,
     isClick: false,
   },
-
 ];
 
 const appRoutes: IAppRoutes = {

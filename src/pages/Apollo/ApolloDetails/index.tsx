@@ -12,7 +12,7 @@ import { useParams } from 'react-router-dom';
 import { TParams } from 'types';
 
 export const ApolloDetails = () => {
-  const { address, type='' }: TParams = useParams();
+  const { address, type = '' }: TParams = useParams();
   const [selectedToken, setSelectedToken] = useState<TokenType | null>(null);
 
   const { ref, sortTerm, setSortTerm, renderData, loading } = useSortData(

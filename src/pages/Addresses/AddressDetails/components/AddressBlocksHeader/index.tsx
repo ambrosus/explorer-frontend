@@ -65,7 +65,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
         {token && token[0].toUpperCase() + token.slice(1)}
       </div>
     );
-//TODO убрать переменные
+  //TODO убрать переменные
   return (
     <div className={isTableColumn}>
       {isTxHash}

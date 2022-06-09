@@ -9,7 +9,6 @@ export const getAtlasData = async (sortTerm: any, next: any) => {
   return data;
 };
 
-
 export const getAccountsTxDataAtlas = async (
   sortTerm: any,
   next: any,
@@ -17,15 +16,15 @@ export const getAccountsTxDataAtlas = async (
 ) => {
   const params = !next
     ? {
-      limit: 20,
-      type: sortTerm,
-    }
+        limit: 20,
+        type: sortTerm,
+      }
     : {
-      limit: 20,
-      type: sortTerm,
-      page: next,
-    };
-  console.log('params',params);
+        limit: 20,
+        type: sortTerm,
+        page: next,
+      };
+  console.log('params', params);
   const data: any = await API.getAccountTx(address, params);
   return data;
 };

@@ -1,21 +1,21 @@
-import {TokenType,} from '../../Addresses/AddressDetails/address-details.interface';
+import Tabs2 from '../../../components/Tabs/Tabs2';
+import useSortData from '../../../hooks/useSortData';
+import { getAccountTxData } from '../../../services/apollo.service';
+import { atlasDetailsSorting } from '../../../utils/sidePages';
+import { TokenType } from '../../Addresses/AddressDetails/address-details.interface';
 import AtlasDetailsBalance from './components/AtlasDetailsBalance';
 import AtlasDetailsMain from './components/AtlasDetailsMain';
 import AtlasDetailsMiningStats from './components/AtlasDetailsMiningStats';
-import {Content} from 'components/Content';
-import React, {useState} from 'react';
-import {useParams} from 'react-router-dom';
-import {TParams} from 'types';
-import Tabs2 from "../../../components/Tabs/Tabs2";
-import {atlasDetailsSorting} from "../../../utils/sidePages";
-import useSortData from "../../../hooks/useSortData";
-import {getAccountTxData} from "../../../services/apollo.service";
+import { Content } from 'components/Content';
+import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { TParams } from 'types';
 
 export const AtlasDetails = () => {
-  const {address, type = ''}: TParams = useParams();
+  const { address, type = '' }: TParams = useParams();
   const [selectedToken, setSelectedToken] = useState<TokenType | null>(null);
 
-  const {ref, sortTerm, setSortTerm, renderData, loading} = useSortData(
+  const { ref, sortTerm, setSortTerm, renderData, loading } = useSortData(
     getAccountTxData,
     address,
     type,
@@ -25,9 +25,9 @@ export const AtlasDetails = () => {
     <Content>
       <Content.Header>
         <div className="apollo_details_header">
-          <AtlasDetailsMain/>
-          <AtlasDetailsBalance/>
-          <AtlasDetailsMiningStats/>
+          <AtlasDetailsMain />
+          <AtlasDetailsBalance />
+          <AtlasDetailsMiningStats />
         </div>
       </Content.Header>
       <Content.Body>

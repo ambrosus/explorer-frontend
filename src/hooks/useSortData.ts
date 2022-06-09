@@ -1,7 +1,7 @@
 import _ from 'lodash';
-import {AccountsData} from 'pages/Addresses/addresses.interface';
-import React, {useEffect} from 'react';
-import {useInView} from 'react-intersection-observer';
+import { AccountsData } from 'pages/Addresses/addresses.interface';
+import React, { useEffect } from 'react';
+import { useInView } from 'react-intersection-observer';
 import removeArrayDuplicates from 'utils/helpers';
 
 const useSortData = (
@@ -12,48 +12,47 @@ const useSortData = (
   const [renderData, setRenderData] = React.useState<AccountsData>([]);
   const [loading, setLoading] = React.useState<boolean>(false);
   const [sortTerm, setSortTerm] = React.useState<string>(firstSortTerm);
-  const {ref, inView} = useInView();
+  const { ref, inView } = useInView();
 
   useEffect(() => {
-    setLoading(true)
+    setLoading(true);
     getData(sortTerm, null, address).then((res: AccountsData) => {
-      if (res?.meta?.message?.includes('No results')){
-        setLoading(false)
-        setRenderData(null)
-        return
+      if (res?.meta?.message?.includes('No results')) {
+        setLoading(false);
+        setRenderData(null);
+        return;
       }
       setRenderData(res);
-      setLoading(true)
+      setLoading(true);
     });
   }, []);
 
   useEffect(() => {
-    setLoading(true)
+    setLoading(true);
     getData(sortTerm, null, address).then((res: AccountsData) => {
-      if (res?.meta?.message?.includes('No results')){
-        setLoading(false)
-        setRenderData(null)
-        return
+      if (res?.meta?.message?.includes('No results')) {
+        setLoading(false);
+        setRenderData(null);
+        return;
       }
       setRenderData(res);
-      setLoading(true)
-
+      setLoading(true);
     });
   }, [sortTerm]);
 
   useEffect(() => {
     if (inView) {
-      setLoading(true)
+      setLoading(true);
       const next: string = renderData?.pagination?.next;
       if (next) {
         getData(sortTerm, next, address).then((res: AccountsData) => {
-          if (res?.meta?.message?.includes('No results')){
-            setLoading(false)
-            setRenderData(null)
-            return
+          if (res?.meta?.message?.includes('No results')) {
+            setLoading(false);
+            setRenderData(null);
+            return;
           }
           setRenderData((prev: AccountsData) => {
-            setLoading(false)
+            setLoading(false);
             return {
               ...prev,
               data: removeArrayDuplicates(
@@ -67,8 +66,7 @@ const useSortData = (
     }
   }, [inView]);
 
-
-  return {ref, sortTerm, setSortTerm, renderData, loading};
+  return { ref, sortTerm, setSortTerm, renderData, loading };
 };
 
 export default useSortData;
