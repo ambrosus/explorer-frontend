@@ -1,4 +1,4 @@
-.apollo_details_mining_stats {
+.atlas_details_mining_stats {
   display: grid;
   grid-template-columns:
     minmax(230px, 2fr) minmax(260px, 2fr) minmax(260px, 2fr)
@@ -16,11 +16,6 @@
     padding: 0 32px;
     flex: 1;
     border-right: 1px solid #eff2f5;
-    &:first-child {
-      flex-direction: row;
-      align-items: center;
-      justify-content: flex-start;
-    }
 
     &:last-child() {
       border-right: none;
