@@ -1,7 +1,9 @@
 .address_blocks {
   &_icon {
     display: flex;
-    margin-right: 4px;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 24px;
     // text-decoration: underline solid #05060f;
     flex-shrink: 0;
   }
@@ -47,6 +49,11 @@
       align-items: center;
       border-bottom: 1px solid #eff2f5;
       height: 48px;
+    }
+    &_icon {
+      display: flex;
+      align-items: center;
+      justify-self: center;
     }
   }
 }

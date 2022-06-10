@@ -117,16 +117,13 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
       <></>
     ) : (
       <div className="address_blocks_cell flex_between">
-        <span className="flex_row">
-          {type !== 'ERC-20_Tx' ? (
-            <span className="universall_indent_icon">
-              <Icon />
-            </span>
-          ) : (
-            <></>
-          )}
-          {displayAmount(amount)}
-        </span>
+        {type !== 'ERC-20_Tx' ? (
+          <span className="address_blocks_cell_icon">
+            <Icon />
+          </span>
+        ) : (
+          <></>
+        )}
         {symbol && symbol !== null && symbol !== 'null' ? (
           <span
             className="address_blocks_icon"
@@ -141,7 +138,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
                 token.includes('token')
                   ? 'pointer'
                   : 'default',
-              color: '#808a9d',
+
               textDecoration:
                 (symbol !== 'AMB' &&
                   symbol !== 'null' &&
@@ -181,6 +178,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
         ) : (
           <></>
         )}
+        <span className="flex_row">{displayAmount(amount)}</span>
       </div>
     );
 
