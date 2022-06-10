@@ -30,7 +30,7 @@ export const Home: React.FC = () => {
                     ))
                   : null}
               </div>
-              {/* <Chart /> */}
+              <Chart />
             </div>
           </Content.Header>
           <Content.Body>
