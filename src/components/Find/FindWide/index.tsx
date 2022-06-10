@@ -28,7 +28,7 @@ const FindWide: React.FC<FindWideProps> = ({ searchRef }) => {
           searchTerm = data.meta.search;
         }
         if (data.meta.search) {
-          navigate(`/${searchTerm}/`);
+         window.location.href = `/${searchTerm}/`
         } else {
           navigate(`/notfound`);
         }

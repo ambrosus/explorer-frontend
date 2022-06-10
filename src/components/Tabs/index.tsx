@@ -14,7 +14,7 @@ import {
   TransactionProps,
 } from 'pages/Addresses/AddressDetails/address-details.interface';
 import AddressBlocksHeader from 'pages/Addresses/AddressDetails/components/AddressBlocksHeader';
-import { FC, useEffect, useRef, useState } from 'react';
+import {FC, useEffect, useLayoutEffect, useRef, useState} from 'react';
 import { NavLink, useParams } from 'react-router-dom';
 import { setupStyle, toUniqueValueByBlock } from 'utils/helpers';
 import { sidePages } from 'utils/sidePages';
@@ -25,6 +25,7 @@ const Tabs: FC<TabsProps> = ({
   onClick,
   setTransactionType,
   pageNum,
+  loading,
   transactionType,
 }) => {
   const [isShow, setIsShow] = useState(false);
@@ -32,7 +33,7 @@ const Tabs: FC<TabsProps> = ({
   const [prevType, setPrevType] = useState<any>(type);
   const [renderData, setRenderData] = useState<any>(null);
   const [notFound, setNotFound] = useState<any>(false);
-  const { loading, data: addressData } = useTypedSelector(
+  const {  data: addressData } = useTypedSelector(
     (state: any) => state.position,
   );
   const mobileCalendarRef = useRef(null);
@@ -58,7 +59,7 @@ const Tabs: FC<TabsProps> = ({
   };
   useOnClickOutside(mobileCalendarRef, () => setIsShow(false));
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (type) {
       setPrevType(type);
     }

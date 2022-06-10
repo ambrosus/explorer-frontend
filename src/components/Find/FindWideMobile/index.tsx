@@ -29,7 +29,7 @@ const FindWideMobile: React.FC<FindWideMobileProps> = ({
           searchTerm = data.meta.search;
         }
         if (data.meta.search) {
-          navigate(`/${searchTerm}/`);
+          navigate(`/${searchTerm}/`,{replace:true});
         } else {
           navigate(`/notfound`);
         }

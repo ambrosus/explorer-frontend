@@ -14,7 +14,7 @@ import {useActions} from 'hooks/useActions';
 import useCopyContent from 'hooks/useCopyContent';
 import useDeviceSize from 'hooks/useDeviceSize';
 import {useTypedSelector} from 'hooks/useTypedSelector';
-import React, {useCallback, useEffect, useRef, useState} from 'react';
+import React, {useCallback, useEffect, useLayoutEffect, useRef, useState} from 'react';
 import {shallowEqual} from 'react-redux';
 import {useNavigate, useParams} from 'react-router-dom';
 import {getDataForAddress} from 'services/address.service';
@@ -43,12 +43,12 @@ export const AddressDetails = () => {
   const {isCopy, copyContent, isCopyPopup} = useCopyContent(address);
 
   const lastCardRef = useCallback(
-    (node: any) => {
+     (node: any) => {
       if (loading) return;
       if (observer.current) {
         observer.current.disconnect();
       }
-      observer.current = new IntersectionObserver((entries) => {
+       observer.current = new IntersectionObserver((entries) => {
         if (
           entries[0].isIntersecting &&
           addressData &&
@@ -91,7 +91,7 @@ export const AddressDetails = () => {
     };
   }, [address, type, filtered, tokenToSorted]);
 
-  useEffect(() => {
+  async function getAddressDetailsData() {
     if (filtered && addressData?.tokens?.length) {
       addFilter(
         addressData.tokens.find(
@@ -102,7 +102,7 @@ export const AddressDetails = () => {
     if (!loading || errorData) {
       if (addressData && addressData?.meta?.totalPages > pageNum) {
         //TODO double code
-        setPosition(getDataForAddress, address?.trim(), {
+       await setPosition(getDataForAddress, address?.trim(), {
           filtered:
             addressData && addressData.filters ? addressData.filters : [],
           selectedTokenFilter:
@@ -114,7 +114,7 @@ export const AddressDetails = () => {
           page: pageNum,
         });
       } else {
-        setPosition(getDataForAddress, address?.trim(), {
+        await  setPosition(getDataForAddress, address?.trim(), {
           filtered:
             addressData && addressData.filters ? addressData.filters : [],
           selectedTokenFilter:
@@ -127,6 +127,10 @@ export const AddressDetails = () => {
         });
       }
     }
+  }
+
+  useEffect(() => {
+  getAddressDetailsData()
     //TODO refactor
   }, [
     filters,
@@ -138,7 +142,8 @@ export const AddressDetails = () => {
     pageNum,
     type,
   ]);
-  useEffect(() => {
+  useLayoutEffect(() => {
+
     if (addressData && addressData?.transactions) {
       setTx((prevState) => {
         const compareState = [...prevState, ...addressData.transactions];
@@ -234,6 +239,7 @@ export const AddressDetails = () => {
             selectedToken={selectedToken}
             transactionType={transactionType}
             data={tx || []}
+            loading={loading}
             setTransactionType={setTransactionType}
             isIcon={true}
           />
