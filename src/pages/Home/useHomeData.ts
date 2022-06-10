@@ -19,13 +19,14 @@ const useHomeData = () => {
 
     //TODO ?
     result.header = (await appData) && [
-      { name: 'MARKET CAP', value: appData.tokenInfo.market_cap_usd },
+      { name: 'AMB PRICE', value: appData.tokenInfo.price_usd },
       { name: 'TOTAL SUPPLY', value: appData.netInfo.totalSupply },
       {
         name: 'TOTAL TRANSACTIONS',
         value: appData.netInfo.transactions.total,
       },
-      { name: 'BUNDLES', value: appData.netInfo.totalBundles },
+      { name: 'MARKET CAP', value: appData.tokenInfo.market_cap_usd },
+
       {
         name: 'NODES',
         value:

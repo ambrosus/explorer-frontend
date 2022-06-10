@@ -1,3 +1,4 @@
+import BigAmb from 'assets/icons/Cryptos/BigAmb';
 import Bundles from 'assets/icons/MainInfo/Bundles';
 import Holders from 'assets/icons/MainInfo/Holders';
 import MarketCap from 'assets/icons/MainInfo/MarketCap';
@@ -8,8 +9,9 @@ import moment from 'moment';
 
 const getMainInfoIcon = (icon: string) => {
   switch (icon) {
-    case 'BUNDLES':
-      return <Bundles />;
+    case 'AMB PRICE':
+      return <BigAmb />;
+
     case 'HOLDERS':
       return <Holders />;
 
