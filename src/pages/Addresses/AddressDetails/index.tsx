@@ -1,27 +1,27 @@
 import API from '../../../API/api';
-import { toUniqueValueByBlock } from '../../../utils/helpers';
-import { TokenType, TransactionProps } from './address-details.interface';
+import {toUniqueValueByBlock} from '../../../utils/helpers';
+import {TokenType, TransactionProps} from './address-details.interface';
 import ContentCopy from 'assets/icons/CopyIcons/ContentCopy';
 import ContentCopyed from 'assets/icons/CopyIcons/ContentCopyed';
 import CopyPopUp from 'assets/icons/CopyIcons/CopyPopUp';
-import { Content } from 'components/Content';
+import {Content} from 'components/Content';
 import FilteredToken from 'components/FilteredToken';
 import OverallBalance from 'components/OveralBalance';
 import Tabs from 'components/Tabs';
 import Token from 'components/Token';
-import { formatEther } from 'ethers/lib/utils';
-import { useActions } from 'hooks/useActions';
+import {formatEther} from 'ethers/lib/utils';
+import {useActions} from 'hooks/useActions';
 import useCopyContent from 'hooks/useCopyContent';
 import useDeviceSize from 'hooks/useDeviceSize';
-import { useTypedSelector } from 'hooks/useTypedSelector';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { shallowEqual } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
-import { getDataForAddress } from 'services/address.service';
-import { TParams } from 'types';
+import {useTypedSelector} from 'hooks/useTypedSelector';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
+import {shallowEqual} from 'react-redux';
+import {useNavigate, useParams} from 'react-router-dom';
+import {getDataForAddress} from 'services/address.service';
+import {TParams} from 'types';
 
 export const AddressDetails = () => {
-  const { filters } = useTypedSelector(
+  const {filters} = useTypedSelector(
     (state) => state.tokenFilters,
     shallowEqual,
   );
@@ -30,8 +30,8 @@ export const AddressDetails = () => {
     data: addressData,
     error: errorData,
   } = useTypedSelector((state: any) => state.position);
-  const { address, type, filtered, tokenToSorted }: TParams = useParams();
-  const { setPosition, addFilter } = useActions();
+  const {address, type, filtered, tokenToSorted}: TParams = useParams();
+  const {setPosition, addFilter} = useActions();
   const [transactionType, setTransactionType] = useState(type || '');
   const [selectedToken, setSelectedToken] = useState<TokenType | null>(null);
   const [tx, setTx] = useState<TransactionProps[] | []>([]);
@@ -40,7 +40,7 @@ export const AddressDetails = () => {
   const observer = useRef<IntersectionObserver>();
   const navigate = useNavigate();
 
-  const { isCopy, copyContent, isCopyPopup } = useCopyContent(address);
+  const {isCopy, copyContent, isCopyPopup} = useCopyContent(address);
 
   const lastCardRef = useCallback(
     (node: any) => {
@@ -67,30 +67,16 @@ export const AddressDetails = () => {
   );
 
   useEffect(() => {
-    if (tokenToSorted === 'transfers' || tokenToSorted !== '') {
-      //TODO ?
-    } else {
-      navigate(`/notfound`, { replace: true });
+    if (tokenToSorted?.length && tokenToSorted !== 'transfers') {
+      navigate(`/notfound`, {replace: true});
     }
-    if (type === 'ERC-20_Tx' || type === 'transfers' || !type) {
-      //TODO ?
-    } else {
-      navigate(`/notfound`, { replace: true });
+    if (type?.length && !(type === 'ERC-20_Tx' || type === 'transfers')) {
+      navigate(`/notfound`, {replace: true});
     }
 
     if (address) {
       API.searchItem(address)
-        .then((data: any) => {
-          if (data.meta.search.includes('addresses')) {
-            //TODO ?
-            return;
-          } else {
-            navigate(`/notfound`, { replace: true });
-          }
-        })
-        .catch(() => {
-          navigate(`/notfound`, { replace: true });
-        });
+        .then((data: any) => !data.meta.search && navigate(`/notfound`, {replace: true}))
     }
   }, []);
 
@@ -189,7 +175,7 @@ export const AddressDetails = () => {
     }
   }, [addressData]);
 
-  const { FOR_TABLET } = useDeviceSize();
+  const {FOR_TABLET} = useDeviceSize();
 
   return (
     <Content>
@@ -205,14 +191,14 @@ export const AddressDetails = () => {
               >
                 {isCopy ? (
                   <>
-                    <ContentCopyed />
+                    <ContentCopyed/>
                   </>
                 ) : (
-                  <ContentCopy />
+                  <ContentCopy/>
                 )}
                 {FOR_TABLET && isCopyPopup && isCopy && (
                   <div className="address_details_copyed">
-                    <CopyPopUp x={3} y={20} values="Copyed" />
+                    <CopyPopUp x={3} y={20} values="Copyed"/>
                   </div>
                 )}
               </button>
@@ -236,7 +222,7 @@ export const AddressDetails = () => {
             </div>
 
             {selectedToken && (
-              <FilteredToken setSelectedToken={setSelectedToken} />
+              <FilteredToken setSelectedToken={setSelectedToken}/>
             )}
           </div>
         </Content.Header>
