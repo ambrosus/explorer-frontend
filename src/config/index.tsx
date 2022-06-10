@@ -1,3 +1,4 @@
+import AmbPrice from 'assets/icons/MainInfo/AmbPrice';
 import Bundles from 'assets/icons/MainInfo/Bundles';
 import Holders from 'assets/icons/MainInfo/Holders';
 import MarketCap from 'assets/icons/MainInfo/MarketCap';
@@ -10,6 +11,10 @@ const getMainInfoIcon = (icon: string) => {
   switch (icon) {
     case 'BUNDLES':
       return <Bundles />;
+
+    case 'AMB PRICE':
+      return <AmbPrice />;
+
     case 'HOLDERS':
       return <Holders />;
 
