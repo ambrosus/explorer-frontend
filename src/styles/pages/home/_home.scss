@@ -2,7 +2,6 @@
   // overflow: auto;
   &_info {
     display: grid;
-    grid-template-columns: repeat(2, auto);
     margin: 30px auto;
 
     @include for_laptop {
@@ -15,9 +14,9 @@
       display: grid;
       grid-template-columns: repeat(3, auto);
       background: $white;
-      border-radius: 1.15em 0 0 1.15em;
+      border-radius: 1.15em;
       @include for_laptop {
-        border-radius: 1.15em 1.15em 0 0;
+        //
       }
       @include for_tablet {
         grid-template-columns: repeat(2, auto);
