@@ -1,7 +1,7 @@
 .main_info_addresses {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   margin-left: 10px;
   white-space: nowrap;
   height: 103px;
@@ -18,7 +18,7 @@
   }
 
   &_heading {
-    display: flex;
+    flex: 1;
     @include for_phone {
       margin: 6px 0px;
     }
@@ -27,6 +27,7 @@
   &_table {
     display: flex;
     align-items: center;
+    flex: 2;
     gap: 32px;
     @include for_phone {
       flex-direction: column;

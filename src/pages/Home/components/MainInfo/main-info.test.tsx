@@ -12,9 +12,9 @@ describe('MainInfo render ', () => {
       <MainInfo value={value} name={name} />,
     );
     expect(screen.getByRole('main-info__name')).toHaveTextContent(name);
-    // expect(screen.getByRole('main-info__value')).toHaveTextContent(
-    //   numberWithCommas(currenCurrency(value, name)),
-    // );
+    expect(screen.getByRole('main-info__value')).toHaveTextContent(
+      numberWithCommas(currenCurrency(value, name)),
+    );
     expect(container).not.toBeNull();
     const matches = container.querySelectorAll('div');
     expect(matches).toHaveLength(3);

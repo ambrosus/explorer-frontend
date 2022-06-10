@@ -161,18 +161,9 @@ export const log = (...args: any) => {
   return ENABLE_LOGS && console.log(...args);
 };
 
-export const numberWithCommas = (
-  number: string | number,
-  nameCurrency: string,
-) => {
-  switch (nameCurrency) {
-    case 'AMB PRICE':
-      return number;
+export const numberWithCommas = (number: string | number) =>
+  number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 
-    default:
-      return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-  }
-};
 export const currenCurrency = (
   value: string | number,
   nameCurrency: string | number,
@@ -180,9 +171,6 @@ export const currenCurrency = (
   switch (nameCurrency) {
     case 'TOTAL SUPPLY':
       return `${Number(value).toFixed()} AMB`;
-
-    case 'AMB PRICE':
-      return `${Number(value).toFixed(6)} USD`;
 
     case 'MARKET CAP':
       return `${Number(value).toFixed()} USD`;

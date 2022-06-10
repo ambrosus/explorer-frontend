@@ -17,12 +17,13 @@ const reducer = (
   action: PositionAction,
 ): PositionReducerState => {
   switch (action.type) {
+    //TODO переписать через спред
     case actionTypes.SET_POSITION__START:
-      return { ...state, loading: true };
+      return { loading: true, error: null, data: [] };
     case actionTypes.SET_POSITION__SUCCESS:
-      return { ...state, data: action.payload };
+      return { loading: false, error: null, data: action.payload };
     case actionTypes.SET_POSITION__FAIL:
-      return { ...state, error: action.payload };
+      return { loading: false, error: action.payload, data: [] };
     default:
       return state;
   }
