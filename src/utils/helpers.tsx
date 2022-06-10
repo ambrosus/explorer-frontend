@@ -161,8 +161,8 @@ export const log = (...args: any) => {
   return ENABLE_LOGS && console.log(...args);
 };
 
-export const numberWithCommas = (number: string | number) =>
-  number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+export const numberWithCommas = (number: string | number, value: number) =>
+  value > 1 ? number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : number;
 
 export const currenCurrency = (
   value: string | number,
@@ -174,6 +174,9 @@ export const currenCurrency = (
 
     case 'MARKET CAP':
       return `${Number(value).toFixed()} USD`;
+
+    case 'AMB PRICE':
+      return `${Number(value).toFixed(6)} USD`;
 
     default:
       return value;
