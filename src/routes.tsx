@@ -1,6 +1,6 @@
 import { IRoute } from './types';
 import { Addresses } from 'pages/Addresses';
-import { AddressDetails } from 'pages/Addresses/AddressDetails';
+import AddressDetails from 'pages/Addresses/AddressDetails';
 import { Apollo } from 'pages/Apollo';
 import { ApolloDetails } from 'pages/Apollo/ApolloDetails';
 import { Atlas } from 'pages/Atlas';

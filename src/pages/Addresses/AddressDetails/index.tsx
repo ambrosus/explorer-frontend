@@ -1,27 +1,27 @@
 import API from '../../../API/api';
-import {toUniqueValueByBlock} from '../../../utils/helpers';
-import {TokenType, TransactionProps} from './address-details.interface';
+import removeArrayDuplicates from '../../../utils/helpers';
+import { TokenType, TransactionProps } from './address-details.interface';
 import ContentCopy from 'assets/icons/CopyIcons/ContentCopy';
 import ContentCopyed from 'assets/icons/CopyIcons/ContentCopyed';
 import CopyPopUp from 'assets/icons/CopyIcons/CopyPopUp';
-import {Content} from 'components/Content';
+import { Content } from 'components/Content';
 import FilteredToken from 'components/FilteredToken';
 import OverallBalance from 'components/OveralBalance';
 import Tabs from 'components/Tabs';
 import Token from 'components/Token';
-import {formatEther} from 'ethers/lib/utils';
-import {useActions} from 'hooks/useActions';
+import { formatEther } from 'ethers/lib/utils';
+import { useActions } from 'hooks/useActions';
 import useCopyContent from 'hooks/useCopyContent';
 import useDeviceSize from 'hooks/useDeviceSize';
-import {useTypedSelector} from 'hooks/useTypedSelector';
-import React, {useCallback, useEffect, useLayoutEffect, useRef, useState} from 'react';
-import {shallowEqual} from 'react-redux';
-import {useNavigate, useParams} from 'react-router-dom';
-import {getDataForAddress} from 'services/address.service';
-import {TParams} from 'types';
+import { useTypedSelector } from 'hooks/useTypedSelector';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { shallowEqual } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
+import { getDataForAddress } from 'services/address.service';
+import { TParams } from 'types';
 
-export const AddressDetails = () => {
-  const {filters} = useTypedSelector(
+const AddressDetails = () => {
+  const { filters } = useTypedSelector(
     (state) => state.tokenFilters,
     shallowEqual,
   );
@@ -30,63 +30,67 @@ export const AddressDetails = () => {
     data: addressData,
     error: errorData,
   } = useTypedSelector((state: any) => state.position);
-  const {address, type, filtered, tokenToSorted}: TParams = useParams();
-  const {setPosition, addFilter} = useActions();
+  const { address, type, filtered, tokenToSorted }: TParams = useParams();
+  const { setPosition, addFilter } = useActions();
   const [transactionType, setTransactionType] = useState(type || '');
   const [selectedToken, setSelectedToken] = useState<TokenType | null>(null);
   const [tx, setTx] = useState<TransactionProps[] | []>([]);
   const [pageNum, setPageNum] = useState(1);
-  const [limitNum] = useState(30);
+  const [limitNum] = useState(50);
   const observer = useRef<IntersectionObserver>();
   const navigate = useNavigate();
 
-  const {isCopy, copyContent, isCopyPopup} = useCopyContent(address);
+  const { isCopy, copyContent, isCopyPopup } = useCopyContent(address);
 
-  const lastCardRef = useCallback(
-     (node: any) => {
-      if (loading) return;
-      if (observer.current) {
-        observer.current.disconnect();
-      }
-       observer.current = new IntersectionObserver((entries) => {
-        if (
-          entries[0].isIntersecting &&
-          addressData &&
-          pageNum < addressData?.meta?.totalPages
-        ) {
-          if (type !== 'ERC-20_Tx') {
-            setPageNum((prevNum) => prevNum + 1);
-          }
+  const lastCardRef = (node: any) => {
+    if (loading) return;
+    if (observer.current) {
+      observer.current.disconnect();
+    }
+    observer.current = new IntersectionObserver((entries) => {
+      console.log('pageNum', pageNum);
+      console.log(
+        'addressData?.meta?.totalPages',
+        addressData?.meta?.totalPages,
+      );
+      if (
+        entries[0].isIntersecting &&
+        addressData &&
+        pageNum < addressData?.meta?.totalPages
+      ) {
+        if (type !== 'ERC-20_Tx') {
+          setPageNum((prevNum) => prevNum + 1);
         }
-      });
-      if (node) {
-        observer.current.observe(node);
       }
-    },
-    [loading],
-  );
+    });
+    if (node) {
+      observer.current.observe(node);
+    }
+  };
 
   useEffect(() => {
     if (tokenToSorted?.length && tokenToSorted !== 'transfers') {
-      navigate(`/notfound`, {replace: true});
+      navigate(`/notfound`, { replace: true });
     }
     if (type?.length && !(type === 'ERC-20_Tx' || type === 'transfers')) {
-      navigate(`/notfound`, {replace: true});
+      navigate(`/notfound`, { replace: true });
     }
 
     if (address) {
-      API.searchItem(address)
-        .then((data: any) => !data.meta.search && navigate(`/notfound`, {replace: true}))
+      API.searchItem(address).then(
+        (data: any) =>
+          !data.meta.search && navigate(`/notfound`, { replace: true }),
+      );
     }
   }, []);
 
   useEffect(() => {
     if (address || type || filtered || tokenToSorted) {
-      setPageNum(0);
+      setPageNum(1);
       setPosition(null);
     }
     return () => {
-      setPageNum(0);
+      setPageNum(1);
       setPosition(null);
     };
   }, [address, type, filtered, tokenToSorted]);
@@ -102,7 +106,7 @@ export const AddressDetails = () => {
     if (!loading || errorData) {
       if (addressData && addressData?.meta?.totalPages > pageNum) {
         //TODO double code
-       await setPosition(getDataForAddress, address?.trim(), {
+        await setPosition(getDataForAddress, address?.trim(), {
           filtered:
             addressData && addressData.filters ? addressData.filters : [],
           selectedTokenFilter:
@@ -114,7 +118,7 @@ export const AddressDetails = () => {
           page: pageNum,
         });
       } else {
-        await  setPosition(getDataForAddress, address?.trim(), {
+        await setPosition(getDataForAddress, address?.trim(), {
           filtered:
             addressData && addressData.filters ? addressData.filters : [],
           selectedTokenFilter:
@@ -130,7 +134,7 @@ export const AddressDetails = () => {
   }
 
   useEffect(() => {
-  getAddressDetailsData()
+    getAddressDetailsData();
     //TODO refactor
   }, [
     filters,
@@ -142,12 +146,19 @@ export const AddressDetails = () => {
     pageNum,
     type,
   ]);
-  useLayoutEffect(() => {
 
+  function setTxDataHandler() {
     if (addressData && addressData?.transactions) {
       setTx((prevState) => {
-        const compareState = [...prevState, ...addressData.transactions];
-        const addressDataState = [...addressData.transactions];
+        const compareState = removeArrayDuplicates(
+          [...prevState, ...addressData.transactions],
+          'block',
+        );
+        const addressDataState = removeArrayDuplicates(
+          [...addressData.transactions],
+          'block',
+        );
+        console.log(compareState);
         //TODO полное дублирование
         if (type === 'ERC-20_Tx' && !filtered) {
           const newTx: any = addressDataState.sort(
@@ -160,7 +171,7 @@ export const AddressDetails = () => {
           );
           return newTx;
         } else if (!type || type === 'transfers') {
-          const newTx: TransactionProps[] = toUniqueValueByBlock(compareState);
+          const newTx: TransactionProps[] = compareState;
           const transfersDataTx: TransactionProps[] = newTx.filter(
             (item: TransactionProps) => item.method === 'Transfer',
           );
@@ -168,6 +179,10 @@ export const AddressDetails = () => {
         }
       });
     }
+  }
+
+  useLayoutEffect(() => {
+    setTxDataHandler();
   }, [addressData, type]);
 
   useEffect(() => {
@@ -180,7 +195,7 @@ export const AddressDetails = () => {
     }
   }, [addressData]);
 
-  const {FOR_TABLET} = useDeviceSize();
+  const { FOR_TABLET } = useDeviceSize();
 
   return (
     <Content>
@@ -196,14 +211,14 @@ export const AddressDetails = () => {
               >
                 {isCopy ? (
                   <>
-                    <ContentCopyed/>
+                    <ContentCopyed />
                   </>
                 ) : (
-                  <ContentCopy/>
+                  <ContentCopy />
                 )}
                 {FOR_TABLET && isCopyPopup && isCopy && (
                   <div className="address_details_copyed">
-                    <CopyPopUp x={3} y={20} values="Copyed"/>
+                    <CopyPopUp x={3} y={20} values="Copyed" />
                   </div>
                 )}
               </button>
@@ -227,7 +242,7 @@ export const AddressDetails = () => {
             </div>
 
             {selectedToken && (
-              <FilteredToken setSelectedToken={setSelectedToken}/>
+              <FilteredToken setSelectedToken={setSelectedToken} />
             )}
           </div>
         </Content.Header>
@@ -248,3 +263,5 @@ export const AddressDetails = () => {
     </Content>
   );
 };
+
+export default React.memo(AddressDetails);
