@@ -190,19 +190,26 @@ export const wrapString = (string: string) => {
     </span>
   ));
 };
+const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
-export const formatDate = (date: any, datetime = false) => {
-  let hours = date.getHours();
-  let minutes = date.getMinutes();
-  const ampm = hours >= 12 ? 'pm' : 'am';
-  hours = hours % 12;
-  hours = hours ? hours : 12;
-  minutes = minutes < 10 ? `0 ${minutes}` : minutes;
-  const strTime = `${hours}:${minutes} ${ampm}`;
-  return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}${
-    datetime ? ` ${strTime}` : ''
-  }`;
-};
+export  function formatDate(timestamp:any, showDate:any = false, showTime:any = false):any {
+  const date:any = new Date(timestamp * 1000);
+
+  const dayName = days[date.getDay()];
+  const day = date.getDate();
+  const month = date.getMonth();
+  const year = date.getFullYear();
+  const hours = ('0' + date.getHours()).slice(-2);
+  const minutes = ('0' + date.getMinutes()).slice(-2);
+  const seconds = ('0' + date.getSeconds()).slice(-2);
+
+  if (showDate && !showTime) {
+    return `${month+1}/${day}/${year}`;
+  }
+  return `${showDate ? `${dayName}, ${day} ${months[month]} ${year} ` : ''}${hours}:${minutes}:${seconds}`;
+
+}
 
 export function timeSince(date: any) {
   let seconds = Math.floor((+new Date() - date * 1000) / 1000);
@@ -266,4 +273,8 @@ export const statusMessage = (node: any, nodeName: string) => {
         return 'Offline';
     }
   }
+};
+export const ambToUSD = (amb:any, usd_price:any) => {
+  let result = amb * parseFloat(usd_price);
+  return result.toFixed(7);
 };

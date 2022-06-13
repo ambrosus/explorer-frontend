@@ -2,17 +2,29 @@ import { Currency } from '../../../../components/UI/Currency';
 import { ApolloBodyProps } from 'pages/Apollo/apollo.interface';
 import { FC } from 'react';
 import { statusMessage } from 'utils/helpers';
+import {useNavigate} from "react-router-dom";
 
 const ApolloBlocksBody: FC<ApolloBodyProps> = ({
   lastCardRef,
   index,
   item,
 }) => {
+  const navigate = useNavigate();
+
+  function redirectHandler() {
+    navigate(`${item.address}`,{replace:true})
+  }
+
   return (
     item && (
-      <div className="apollo_blocks_body" ref={lastCardRef}>
+      <div className="apollo_blocks_body" ref={lastCardRef} >
         <div className="apollo_blocks_body_cell">{index}</div>
-        <div className="apollo_blocks_body_cell">{item.address}</div>
+        <div
+          style={{
+            cursor: "pointer"
+          }}
+          className="apollo_blocks_body_cell"
+             onClick={redirectHandler}>{item.address}</div>
         <div className="apollo_blocks_body_cell">
           {statusMessage(item, 'Apollo')}
         </div>
