@@ -124,7 +124,10 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
         ) : (
           <></>
         )}
-        {symbol && symbol !== null && symbol !== 'null' && type !== "ERC-20_Tx" ? (
+        {symbol &&
+        symbol !== null &&
+        symbol !== 'null' &&
+        type !== 'ERC-20_Tx' ? (
           <span
             className="address_blocks_icon"
             style={{
