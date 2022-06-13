@@ -123,6 +123,8 @@ const Tabs: FC<TabsProps> = ({
     itemValue === transactionType || (transactionType === 'ERC-20_Tx' && itemValue === 'Transferss' && tokenToSorted !== undefined) || (transactionType === 'ERC-20_Tx' && tokenToSorted === undefined && itemValue === 'Alls') ? 'tabs_link_active' : ''
   }`;
 
+  const handleShow = () => setIsShow(!isShow);
+
   return (
     <>
       <div className="tabs">
@@ -145,10 +147,8 @@ const Tabs: FC<TabsProps> = ({
                   to={`/addresses/${address}/${
                     filter.value ? filter.value : ''
                   }`}
-                  className={() => {
-                    return handleNavLinkClass(filter.value)
-                  }}
-                  onClick={(e) => {
+                  className={() => handleNavLinkClass(filter.value)}
+                  onClick={() => {
                     setTransactionType(filter.value);
                   }}
                 >
@@ -161,9 +161,7 @@ const Tabs: FC<TabsProps> = ({
                 <NavLink
                   key={filter.title}
                   to={`/addresses/${address}/ERC-20_Tx/${filtered}/${filter.value} `}
-                  className={() => {
-                    return handleNavLinkClass(`${filter?.title}s`)
-                  }}
+                  className={() => handleNavLinkClass(`${filter?.title}s`)}
                   onClick={(e) => {
                     setTransactionType(filter.value);
                   }}
@@ -181,7 +179,7 @@ const Tabs: FC<TabsProps> = ({
                 <div className="tabs_side_menu">
                   <button
                     className="tabs_side_menu_icon"
-                    onClick={() => setIsShow(!isShow)}
+                    onClick={handleShow}
                   >
                     <SideMenu/>
                   </button>
@@ -217,11 +215,9 @@ const Tabs: FC<TabsProps> = ({
                   renderData.length - 9 === index &&
                   type !== 'ERC-20_Tx') ||
                 (renderData.length < 30 &&
-                  renderData.length - 1 === index &&
                   type !== 'ERC-20_Tx') ? (
                   //TODO double code
                   <AddressBlock
-                    lastCardRef={lastCardRef}
                     isLatest={type === 'ERC-20_Tx' && !filtered}
                     onClick={onClick}
                     key={transaction.txHash}

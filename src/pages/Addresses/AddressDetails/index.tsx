@@ -42,26 +42,7 @@ const AddressDetails = () => {
 
   const { isCopy, copyContent, isCopyPopup } = useCopyContent(address);
 
-  const lastCardRef = (node: any) => {
-    if (loading) return;
-    if (observer.current) {
-      observer.current.disconnect();
-    }
-    observer.current = new IntersectionObserver((entries) => {
-      if (
-        entries[0].isIntersecting &&
-        addressData &&
-        pageNum < addressData?.meta?.totalPages
-      ) {
-        if (type !== 'ERC-20_Tx') {
-          setPageNum((prevNum) => prevNum + 1);
-        }
-      }
-    });
-    if (node) {
-      observer.current.observe(node);
-    }
-  };
+  const node = useRef(null);
 
   useEffect(() => {
     if (tokenToSorted?.length && tokenToSorted !== 'transfers') {
@@ -76,6 +57,26 @@ const AddressDetails = () => {
         (data: any) =>
           !data.meta.search && navigate(`/notfound`, { replace: true }),
       );
+    }
+    if (observer.current) {
+      observer.current.disconnect();
+    }
+    console.log(1);
+
+    observer.current = new IntersectionObserver((entries) => {
+      if (
+        entries[0].isIntersecting &&
+        addressData &&
+        pageNum < addressData?.meta?.totalPages
+      ) {
+        if (type !== 'ERC-20_Tx') {
+          setPageNum((prevNum) => prevNum + 1);
+        }
+      }
+    });
+    if (node) {
+      // @ts-ignore
+      observer.current.observe(node.current);
     }
   }, []);
 
@@ -243,7 +244,6 @@ const AddressDetails = () => {
         <Content.Body isLoading={filtered ? !loading : true}>
           <Tabs
             pageNum={pageNum}
-            lastCardRef={lastCardRef}
             onClick={setSelectedToken}
             selectedToken={selectedToken}
             transactionType={transactionType}
@@ -252,6 +252,7 @@ const AddressDetails = () => {
             setTransactionType={setTransactionType}
             isIcon={true}
           />
+          <div ref={node}/>
         </Content.Body>
       </section>
     </Content>
