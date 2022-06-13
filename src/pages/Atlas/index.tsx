@@ -48,7 +48,8 @@ export const Atlas = () => {
             <div style={{ top: '-20px', position: 'relative' }}>
               <Loader />
             </div>
-          )}        </div>
+          )}{' '}
+        </div>
       </Content.Body>
     </Content>
   );

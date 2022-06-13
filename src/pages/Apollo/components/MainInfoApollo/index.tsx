@@ -47,9 +47,9 @@ const MainInfoApollo = () => {
           </span>
           <span className="main_info_apollo_cell_secondary">5.16 sec</span>
         </div>
-        <div className="main_info_apollo_cell" style={{ padding: 5 }}>
-          {/*<Chart chartData={chartData} />*/}
-        </div>
+        {/*<div className="main_info_apollo_cell" style={{ padding: 5 }}>*/}
+        {/*  <Chart chartData={chartData} />*/}
+        {/*</div>*/}
       </div>
     </div>
   );
