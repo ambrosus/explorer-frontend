@@ -25,7 +25,14 @@ const AtlasBlocksBody = ({ lastCardRef, index, item }: any) => {
       </div>
       <div className="atlas_blocks_body_cell">
         <Currency
-          value={stake ? `${balance.ether}` : '0'}
+          value={balance ? `${balance.ether}` : '0'}
+          symbol="AMB"
+          fixed={2}
+        />
+      </div>
+      <div className="atlas_blocks_body_cell">
+        <Currency
+          value={stake ? `${stake.ether}` : '0'}
           symbol="AMB"
           fixed={2}
         />

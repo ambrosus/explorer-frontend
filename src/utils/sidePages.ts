@@ -1,7 +1,7 @@
 import { TApolloSortProps } from '../pages/Apollo/apolloBlocks.interface';
 
 const transactionFilters = [
-  { title: 'All', value: ' ' },
+  { title: 'All', value: '' },
   { title: 'Transfers', value: 'transfers' },
   { title: 'ERC-20 Tx', value: 'ERC-20_Tx' },
 ];
