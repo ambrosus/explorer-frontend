@@ -2,7 +2,8 @@
   display: grid;
   // grid-template-columns: repeat(6, auto);
   grid-template-columns: 82px 405px 190px 117px 180px 192px;
-
+  z-index: 25;
+position: relative;
   //   flex-direction: column;
   .balance {
     width: max-content;
@@ -11,8 +12,6 @@
 
   &:hover {
     background-color: #eff2f5;
-    z-index: 25;
-    position: absolute;
   }
 
   &_cell {
