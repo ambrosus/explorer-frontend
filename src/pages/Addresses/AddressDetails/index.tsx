@@ -48,11 +48,6 @@ const AddressDetails = () => {
       observer.current.disconnect();
     }
     observer.current = new IntersectionObserver((entries) => {
-      console.log('pageNum', pageNum);
-      console.log(
-        'addressData?.meta?.totalPages',
-        addressData?.meta?.totalPages,
-      );
       if (
         entries[0].isIntersecting &&
         addressData &&
@@ -158,7 +153,6 @@ const AddressDetails = () => {
           [...addressData.transactions],
           'block',
         );
-        console.log(compareState);
         //TODO полное дублирование
         if (type === 'ERC-20_Tx' && !filtered) {
           const newTx: any = addressDataState.sort(

@@ -7,7 +7,6 @@ import { useEffect, useState } from 'react';
 const useHomeData = () => {
   const [data, setData] = useState<ResultHomePageData>();
   const { data: appData } = useTypedSelector((state: any) => state.app);
-  console.log(appData);
 
   const getHomePageData: () => Promise<ResultHomePageData> = async () => {
     const result: ResultHomePageData = {

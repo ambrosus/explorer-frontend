@@ -50,7 +50,6 @@ export const getAccountTxData = async (
         type: sortTerm,
         page: next,
       };
-  console.log('params', params);
   const data: any = await API.getAccountTx(address, params);
   return data;
 };

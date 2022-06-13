@@ -39,17 +39,13 @@ const Tabs: FC<TabsProps> = ({
   const mobileCalendarRef = useRef(null);
 
   const { transactionFilters, ERC20Filters, methodFilters } = sidePages;
+
   const headerBlock: any = type === 'ERC-20_Tx' ? null : 'Block';
   const headerTxfee: any = type === 'ERC-20_Tx' ? null : 'txFee';
   const headerToken: any = type === 'ERC-20_Tx' ? 'token' : null;
 
   const noDtaFound = () => {
     if (pageNum < addressData?.meta?.totalPages && type !== 'ERC-20_Tx') {
-      console.log('pageNum', pageNum);
-      console.log(
-        'addressData?.meta?.totalPages',
-        addressData?.meta?.totalPages,
-      );
       return false;
     } else {
       setTimeout(() => {
@@ -125,8 +121,9 @@ const Tabs: FC<TabsProps> = ({
       : 'addresses_body_no_data';
 
   const handleNavLinkClass = (itemValue: any) => {
+    console.log('itemValue', itemValue);
     return `tabs_link ${
-      itemValue === transactionType ? 'tabs_link_active' : ''
+    (itemValue === 'Transfers' && tokenToSorted !== undefined) || (tokenToSorted === undefined && itemValue ==='All') ||  itemValue === transactionType   ? 'tabs_link_active' : ''
     }`;
   };
 
@@ -152,7 +149,9 @@ const Tabs: FC<TabsProps> = ({
                     to={`/addresses/${address}/${
                       filter.value ? filter.value : ''
                     }`}
-                    className={() => handleNavLinkClass(filter.value)}
+                    className={() => {
+                      return handleNavLinkClass(filter.value)
+                    }}
                     onClick={(e) => {
                       setTransactionType(filter.value);
                     }}
@@ -165,8 +164,10 @@ const Tabs: FC<TabsProps> = ({
                 _.map(ERC20Filters, (filter) => (
                   <NavLink
                     key={filter.title}
-                    to={`/addresses/${address}/ERC-20_Tx/${filtered}/${filter.value}`}
-                    className={() => handleNavLinkClass(filter.value)}
+                    to={`/addresses/${address}/ERC-20_Tx/${filtered}/${filter.value} `}
+                    className={() => {
+                     return  handleNavLinkClass(filter?.title)
+                    }}
                     onClick={(e) => {
                       setTransactionType(filter.value);
                     }}
