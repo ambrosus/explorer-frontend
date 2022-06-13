@@ -1,26 +1,31 @@
-import { Currency } from 'components/UI/Currency';
-import { statusMessage } from 'utils/helpers';
+import {Currency} from 'components/UI/Currency';
+import {statusMessage} from 'utils/helpers';
+import {useNavigate} from "react-router-dom";
 
-const AtlasBlocksBody = ({ lastCardRef, index, item }: any) => {
-  const { totalBundles, address, stake, balance } = item;
+const AtlasBlocksBody = ({lastCardRef, index, item}: any) => {
+  const {totalBundles, address, stake, balance} = item;
+
+  function redirectHandler() {
+    navigate(`${item.address}`, {replace: true})
+  }
+
+  const navigate = useNavigate();
+
+
   return (
     <div className="atlas_blocks_body" ref={lastCardRef}>
       <div className="atlas_blocks_body_cell">{index}</div>
-      <div className="atlas_blocks_body_cell">{address}</div>
+      <div
+        style={{
+          cursor: 'pointer'
+        }}
+        className="atlas_blocks_body_cell"
+        onClick={redirectHandler}>{address}</div>
       <div className="atlas_blocks_body_cell">
         {' '}
         {statusMessage(item, 'Atlas')}
       </div>
       <div className="atlas_blocks_body_cell">
-        <span
-          className="atlas_blocks_body_cell_token"
-          style={{
-            color: '#808a9d',
-            textDecoration: 'underline solid #808a9d',
-          }}
-        >
-          AMB
-        </span>
         <span className="atlas_blocks_body_cell_value">{totalBundles}</span>
       </div>
       <div className="atlas_blocks_body_cell">

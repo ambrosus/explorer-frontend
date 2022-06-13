@@ -1,5 +1,5 @@
 import useSortData from '../../hooks/useSortData';
-import { getAtlasData } from '../../services/atlas.service';
+import { getAtlasesData } from '../../services/atlas.service';
 import AtlasBlocksBody from './components/AtlasBlocksBody';
 import AtlasBlocksHeader from './components/AtlasBlocksHeader';
 import AtlasBlocksSort from './components/AtlasBlocksSort';
@@ -10,7 +10,7 @@ import React from 'react';
 
 export const Atlas = () => {
   const { ref, sortTerm, setSortTerm, renderData, loading } = useSortData(
-    getAtlasData,
+    getAtlasesData,
     null,
     'address',
   );
