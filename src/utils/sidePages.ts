@@ -1,12 +1,12 @@
 import { TApolloSortProps } from '../pages/Apollo/apolloBlocks.interface';
 
 const transactionFilters = [
-  { title: 'All', value: '' },
+  { title: 'All', value: ' ' },
   { title: 'Transfers', value: 'transfers' },
   { title: 'ERC-20 Tx', value: 'ERC-20_Tx' },
 ];
 const ERC20Filters = [
-  { title: 'All', value: '' },
+  { title: 'All', value: ' ' },
   { title: 'Transfers', value: 'transfers' },
 ];
 
@@ -25,7 +25,7 @@ export const apolloDetailsSorting: TApolloSortProps[] = [
   { title: 'Block Rewards', value: 'block_rewards' },
 ];
 export const atlasDetailsSorting: TApolloSortProps[] = [
-  { title: 'All', value: '' },
+  { title: 'All', value: ' ' },
   { title: 'Transfers', value: 'transfers' },
   { title: 'Sheltering', value: 'sheltering' },
 ];
