@@ -4,7 +4,7 @@ import {
   TokenType,
   TransactionProps,
 } from '../pages/Addresses/AddressDetails/address-details.interface';
-import { log } from '../utils/helpers';
+import removeArrayDuplicates, { log } from '../utils/helpers';
 import { ethers } from 'ethers';
 import { formatEther } from 'ethers/lib/utils';
 import _ from 'lodash';
@@ -289,8 +289,9 @@ export const getDataForAddress = async (address: string, params: any) => {
     const latestTransactions: TransactionProps[] =
       (await sortedLatestTransactionsData(defaultFilters, url, page)) || [];
 
-    const transactionsAll: TransactionProps[] = _.uniq(
-      _.concat(bbTxData, explorData),
+    const transactionsAll: TransactionProps[] = removeArrayDuplicates(
+      [...bbTxData, ...explorData],
+      'block',
     );
 
     return {

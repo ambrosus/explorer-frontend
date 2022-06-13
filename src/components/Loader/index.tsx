@@ -1,4 +1,5 @@
 import AnimatedLoader from './LoaderSvg';
+import React from 'react';
 
 const Loader = () => (
   <div
@@ -19,4 +20,4 @@ const Loader = () => (
     </div>
   </div>
 );
-export default Loader;
+export default React.memo(Loader);
