@@ -30,11 +30,11 @@ export const ApolloDetails = () => {
   },[])
 
   return (
-    <Content isLoading={!!apollo}>
-      <Content.Header>
+    <Content>
+      <Content.Header isLoading={!!apollo}>
         <div className="apollo_details_header">
           <ApolloDetailsMain/>
-          <ApolloDetailsBalance/>
+          <ApolloDetailsBalance apollo={apollo}/>
           <ApolloDetailsMiningStats apollo={apollo}/>
         </div>
       </Content.Header>

@@ -3,7 +3,7 @@ import CalendarIcon from 'assets/icons/CalendarIcon';
 import {useOnClickOutside} from 'hooks/useOnClickOutside';
 import React, {useRef, useState} from 'react';
 
-const ExportCsv = ({showText = true}: any) => {
+const ExportCsv = ({miningStats,showText = true}: any) => {
   const [isShow, setIsShow] = useState(false);
   const style: any = isShow ? {borderColor: '#05060f'} : !showText ? {
     justifyContent: 'center',
@@ -33,7 +33,7 @@ const ExportCsv = ({showText = true}: any) => {
               : null
           }
         </button>
-        {isShow && <Calendar/>}
+        {isShow && <Calendar miningStats={miningStats}/>}
       </div>
     </>
   );

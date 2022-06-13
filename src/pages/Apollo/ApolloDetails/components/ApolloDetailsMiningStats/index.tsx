@@ -31,13 +31,9 @@ const ApolloDetailsMiningStats = ({apollo}: any) => {
     }
   }, [apollo]);
 
-
-  console.log('filterDate', filterDate);
-  console.log('rewards', rewards);
   const onSelect = (value: any) => {
-    setFilterDate('22/05/2022');
+    setFilterDate(value);
   };
-
   // eslint-disable-next-line
   useEffect(() => {
     if (filterDate) {
@@ -74,7 +70,7 @@ const ApolloDetailsMiningStats = ({apollo}: any) => {
           </span>
         </div>
         <button className="apollo_details_mining_stats_icon" >
-          <ExportCsv showText={false} />
+          <ExportCsv miningStats={onSelect} showText={false} />
         </button>
       </div>
       <div className="apollo_details_mining_stats_cells">

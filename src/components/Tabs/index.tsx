@@ -46,11 +46,6 @@ const Tabs: FC<TabsProps> = ({
 
   const noDtaFound = () => {
     if (pageNum < addressData?.meta?.totalPages && type !== 'ERC-20_Tx') {
-      console.log('pageNum', pageNum);
-      console.log(
-        'addressData?.meta?.totalPages',
-        addressData?.meta?.totalPages,
-      );
       return false;
     } else {
       setTimeout(() => {

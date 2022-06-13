@@ -1,9 +1,15 @@
 import ContentCopy from 'assets/icons/CopyIcons/ContentCopy';
 import {TParams} from "../../../../../types";
 import {useParams} from "react-router-dom";
+import useCopyContent from "../../../../../hooks/useCopyContent";
+import ContentCopyed from "../../../../../assets/icons/CopyIcons/ContentCopyed";
+import CopyPopUp from "../../../../../assets/icons/CopyIcons/CopyPopUp";
+import React from "react";
 
 const AtlasDetailsBalance = () => {
   const { address}: TParams = useParams();
+
+  const { isCopy, copyContent, isCopyPopup } = useCopyContent(address);
 
   return (
     <div className="apollo_details_main">
@@ -16,8 +22,21 @@ const AtlasDetailsBalance = () => {
         <div className="apollo_details_main_cell">
           {address}
         </div>
-        <button className="apollo_details_main_cell">
-          <ContentCopy />
+        <button className="apollo_details_main_cell"
+            onClick={copyContent}
+          >
+            {isCopy ? (
+              <>
+                <ContentCopyed />
+              </>
+            ) : (
+              <ContentCopy />
+            )}
+            {isCopyPopup && isCopy && (
+              <div className="address_details_copyed">
+                <CopyPopUp x={3} y={20} values="Copyed" />
+              </div>
+            )}
         </button>
       </div>
     </div>

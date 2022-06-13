@@ -245,7 +245,24 @@ export const statusMessage = (node: any, nodeName: string) => {
     return 'Retired';
   }
 
-  if (nodeName === 'Apollo') {
+  if (nodeName === 'ApolloDetails') {
+    switch (node.status) {
+      case 'ONLINE':
+        return (
+          <>
+            {timeSince(
+              node && node.statusHistory && node.statusHistory[0]
+                ? node.statusHistory[0].timestamp
+                : '',
+            )}
+          </>
+        );
+      case 'CONNECTING':
+        return 'Connecting...';
+      default:
+        return <div className="apollo_blocks_body_cell_offline">Offline</div>;
+    }
+  }else if (nodeName === 'Apollo') {
     switch (node.status) {
       case 'ONLINE':
         return (
