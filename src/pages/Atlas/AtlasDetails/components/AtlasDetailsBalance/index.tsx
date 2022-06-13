@@ -1,5 +1,18 @@
-const AtlasDetailsBalance = () => {
-  return (
+import {useTypedSelector} from "../../../../../hooks/useTypedSelector";
+import {ambToUSD} from "../../../../../utils/helpers";
+import {Currency} from "../../../../../components/UI/Currency";
+import Loader from "../../../../../components/Loader";
+
+const AtlasDetailsBalance = ({atlas}: any) => {
+  const {data: appData} = useTypedSelector((state: any) => state.app);
+  const {balance, stake, url} = atlas !== null && atlas
+  const ambBalance = balance?.ether || 0;
+  const ambStake = stake?.ether || 0;
+  const {price_usd} = appData && appData?.tokenInfo || 0
+  const usdBalance = ambToUSD(ambBalance, price_usd);
+  const usdStake = ambToUSD(ambStake, price_usd);
+
+  return atlas !== null ? (
     <div className="atlas_details_balance">
       <div className="atlas_details_balance_cells">
         <div className="atlas_details_balance_fonts_normal universall_light1">
@@ -7,9 +20,11 @@ const AtlasDetailsBalance = () => {
         </div>
         <div className="atlas_details_balance_cell">
           <span className="atlas_details_balance_fonts_bold">
-            173,586.35 AMB
+                      <Currency value={ambBalance || 0} symbol='AMB' fixed={2}/>
           </span>
-          <span className=""> / $ 21,067.61184460</span>
+          <span className=""> /
+            <Currency value={usdBalance} symbol='$' side='left' fixed={2}/>
+          </span>
         </div>
       </div>
       <div className="atlas_details_balance_cells">
@@ -18,19 +33,26 @@ const AtlasDetailsBalance = () => {
         </div>
         <div className="atlas_details_balance_cell">
           <span className="atlas_details_balance_fonts_bold">
-            600,000.00 AMB
+             <Currency
+              value={ambStake}
+              symbol='AMB'
+              fixed={2}
+            />{' '}
+
           </span>
-          <span className=""> / $ 5,067</span>
+          <span className=""> /
+            <Currency value={usdStake} symbol='$' side='left' fixed={2}/>
+          </span>
         </div>
       </div>
       <div className="atlas_details_balance_cells">
         <div className="atlas_details_balance_fonts_normal universall_light1">
-          SOFTWARE
+          URL
         </div>
-        <div className="atlas_details_balance_fonts_bold">Apollo v2.7.2</div>
+        <div className="atlas_details_balance_fonts_bold">{url}</div>
       </div>
     </div>
-  );
+  ) : <Loader/>
 };
 
 export default AtlasDetailsBalance;

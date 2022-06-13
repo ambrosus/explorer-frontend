@@ -283,7 +283,11 @@ export const statusMessage = (node: any, nodeName: string) => {
   } else {
     switch (node.state) {
       case 'ONBOARDED':
-        return `Onboarded`;
+        return (
+          <>
+            <div className="apollo_blocks_body_cell_online">Onboarded</div>
+          </>
+        );
       case 'CONNECTING':
         return 'Connecting...';
       default:

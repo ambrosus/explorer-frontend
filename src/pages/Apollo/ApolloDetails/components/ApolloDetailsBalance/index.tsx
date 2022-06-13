@@ -1,12 +1,6 @@
 import {ambToUSD, statusMessage} from "../../../../../utils/helpers";
 import {useTypedSelector} from "../../../../../hooks/useTypedSelector";
 import {Currency} from "../../../../../components/UI/Currency";
-import useCopyContent from "../../../../../hooks/useCopyContent";
-import {TParams} from "../../../../../types";
-import {useParams} from "react-router-dom";
-import ContentCopyed from "../../../../../assets/icons/CopyIcons/ContentCopyed";
-import ContentCopy from "../../../../../assets/icons/CopyIcons/ContentCopy";
-import CopyPopUp from "../../../../../assets/icons/CopyIcons/CopyPopUp";
 import React from "react";
 
 const ApolloDetailsBalance = ({apollo}: any) => {
