@@ -1,5 +1,5 @@
-import { apolloDetailsSorting } from '../../../../utils/sidePages';
-import { PApolloSort, TApolloSortProps } from '../../apolloBlocks.interface';
+import { apollosSorting} from '../../../../utils/sidePages';
+import { PApolloSort } from '../../apolloBlocks.interface';
 import { FC } from 'react';
 
 const ApolloBlocksSort: FC<PApolloSort> = ({ sortTerm, setSortTerm }) => (
@@ -7,7 +7,7 @@ const ApolloBlocksSort: FC<PApolloSort> = ({ sortTerm, setSortTerm }) => (
     <div className="apollo_blocks_sort_heading">Nodes</div>
     <div className="apollo_blocks_sort_cells">
       <div className="apollo_blocks_sort_cell">Sort by</div>
-      {apolloDetailsSorting.map((option, index) => (
+      {apollosSorting.map((option, index) => (
         <div
           key={index}
           className={`apollo_blocks_sort_cell pointer ${

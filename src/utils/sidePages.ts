@@ -19,6 +19,12 @@ const methodFilters = [
   { title: 'Payouts', value: 'payouts' },
 ];
 
+export const apollosSorting: TApolloSortProps[] = [
+  { title: 'Address', value: 'address' },
+  { title: 'Total blocks', value: '' },
+  { title: 'Balance', value: 'balance' },
+  { title: 'Stake', value: 'stake' },
+];
 export const apolloDetailsSorting: TApolloSortProps[] = [
   { title: 'All', value: '' },
   { title: 'Transfers', value: 'transfers' },

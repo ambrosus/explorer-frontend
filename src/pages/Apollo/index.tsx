@@ -1,6 +1,6 @@
 import Loader from '../../components/Loader';
 import useSortData from '../../hooks/useSortData';
-import { getAtlasData } from '../../services/atlas.service';
+import { getApollosData } from '../../services/apollo.service';
 import ApolloBlocksBody from './components/ApolloBlocksBody';
 import ApolloBlocksHeader from './components/ApolloBlocksHeader';
 import ApolloBlocksSort from './components/ApolloBlocksSort';
@@ -9,8 +9,9 @@ import { Content } from 'components/Content';
 import React from 'react';
 
 export const Apollo = () => {
+
   const { ref, sortTerm, setSortTerm, renderData, loading } =
-    useSortData(getAtlasData);
+    useSortData(getApollosData,null,'address');
 
   return (
     <Content>

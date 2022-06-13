@@ -257,5 +257,4 @@ const AddressDetails = () => {
     </Content>
   );
 };
-
 export default React.memo(AddressDetails);
