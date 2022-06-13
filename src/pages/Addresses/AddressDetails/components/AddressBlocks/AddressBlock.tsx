@@ -192,11 +192,12 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
           {online}
         </span>
         <ReactTooltip />
-        <span data-tip={String(txfee).length > 6 ? txfee : null}>
-          {String(txfee).length > 6 ? String(txfee).slice(0, 6) : txfee}
+        <span data-tip={String(txfee).length > 8 ? txfee : null}>
+          {String(txfee).length > 8 ? String(txfee).slice(0, 8) : txfee}
         </span>
       </div>
     );
+
   const isToken =
     type === 'ERC-20_Tx' ? (
       <div
