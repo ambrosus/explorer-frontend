@@ -12,7 +12,7 @@ export const Atlas = () => {
   const { ref, sortTerm, setSortTerm, renderData, loading } = useSortData(
     getAtlasData,
     null,
-    'balance',
+    'address',
   );
 
   return (
@@ -44,8 +44,11 @@ export const Atlas = () => {
                 })
               : null}
           </div>
-          {!loading && <Loader />}
-        </div>
+          {loading && (
+            <div style={{ top: '-20px', position: 'relative' }}>
+              <Loader />
+            </div>
+          )}        </div>
       </Content.Body>
     </Content>
   );

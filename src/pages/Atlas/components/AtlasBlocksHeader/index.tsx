@@ -29,7 +29,7 @@ const AtlasBlocksHeader = () => {
         )}
       </div>
 
-      <div className="atlas_blocks_header_cell">Total atlas</div>
+      <div className="atlas_blocks_header_cell">Total bundles</div>
       <div className="atlas_blocks_header_cell">Balance</div>
       <div className="atlas_blocks_header_cell">Stake</div>
     </div>
