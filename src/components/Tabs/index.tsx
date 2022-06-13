@@ -14,7 +14,7 @@ import {
   TransactionProps,
 } from 'pages/Addresses/AddressDetails/address-details.interface';
 import AddressBlocksHeader from 'pages/Addresses/AddressDetails/components/AddressBlocksHeader';
-import { FC, useEffect, useRef, useState } from 'react';
+import React, { FC, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { NavLink, useParams } from 'react-router-dom';
 import { setupStyle, toUniqueValueByBlock } from 'utils/helpers';
 import { sidePages } from 'utils/sidePages';
@@ -25,6 +25,7 @@ const Tabs: FC<TabsProps> = ({
   onClick,
   setTransactionType,
   pageNum,
+  loading,
   transactionType,
 }) => {
   const [isShow, setIsShow] = useState(false);
@@ -32,7 +33,7 @@ const Tabs: FC<TabsProps> = ({
   const [prevType, setPrevType] = useState<any>(type);
   const [renderData, setRenderData] = useState<any>(null);
   const [notFound, setNotFound] = useState<any>(false);
-  const { loading, data: addressData } = useTypedSelector(
+  const { data: addressData } = useTypedSelector(
     (state: any) => state.position,
   );
   const mobileCalendarRef = useRef(null);
@@ -44,6 +45,11 @@ const Tabs: FC<TabsProps> = ({
 
   const noDtaFound = () => {
     if (pageNum < addressData?.meta?.totalPages && type !== 'ERC-20_Tx') {
+      console.log('pageNum', pageNum);
+      console.log(
+        'addressData?.meta?.totalPages',
+        addressData?.meta?.totalPages,
+      );
       return false;
     } else {
       setTimeout(() => {
@@ -58,7 +64,7 @@ const Tabs: FC<TabsProps> = ({
   };
   useOnClickOutside(mobileCalendarRef, () => setIsShow(false));
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (type) {
       setPrevType(type);
     }
@@ -210,7 +216,12 @@ const Tabs: FC<TabsProps> = ({
               _.map(
                 renderData,
                 (transaction: TransactionProps, index: number) =>
-                  renderData.length - 1 === index && type !== 'ERC-20_Tx' ? (
+                  (renderData.length > 30 &&
+                    renderData.length - 9 === index &&
+                    type !== 'ERC-20_Tx') ||
+                  (renderData.length < 30 &&
+                    renderData.length - 1 === index &&
+                    type !== 'ERC-20_Tx') ? (
                     //TODO double code
                     <AddressBlock
                       lastCardRef={lastCardRef}
@@ -285,7 +296,7 @@ const Tabs: FC<TabsProps> = ({
   );
 };
 
-export default Tabs;
+export default React.memo(Tabs);
 
 // {loading && !renderData?.length && (
 //   <div
