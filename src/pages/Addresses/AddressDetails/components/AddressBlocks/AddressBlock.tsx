@@ -124,7 +124,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
         ) : (
           <></>
         )}
-        {symbol && symbol !== null && symbol !== 'null' ? (
+        {symbol && symbol !== null && symbol !== 'null' && type !== "ERC-20_Tx" ? (
           <span
             className="address_blocks_icon"
             style={{
@@ -192,8 +192,8 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
           {online}
         </span>
         <ReactTooltip />
-        <span data-tip={String(txfee).length > 12 ? txfee : null}>
-          {String(txfee).length > 12 ? String(txfee).slice(0, 12) : txfee}
+        <span data-tip={String(txfee).length > 6 ? txfee : null}>
+          {String(txfee).length > 6 ? String(txfee).slice(0, 6) : txfee}
         </span>
       </div>
     );

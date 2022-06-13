@@ -12,7 +12,7 @@ import { getAccountsData } from 'services/accounts.service';
 export const Addresses = () => {
   //TODO вернуть логику в компонент
   const { ref, sortTerm, setSortTerm, renderData, loading } =
-    useSortData(getAccountsData);
+    useSortData(getAccountsData,null,'balance');
 
   return (
     <Content>
@@ -49,7 +49,11 @@ export const Addresses = () => {
                 })
               : null}
           </div>
-          {!loading && <Loader />}
+          {loading && (
+            <div style={{ top: '-20px', position: 'relative' }}>
+              <Loader />
+            </div>
+          )}
         </div>
       </Content.Body>
     </Content>
