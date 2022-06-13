@@ -43,6 +43,8 @@ const Tabs: FC<TabsProps> = ({
 
   const noDtaFound = () => {
     if (pageNum < addressData?.meta?.totalPages && type !== 'ERC-20_Tx') {
+      console.log('pageNum',pageNum);
+      console.log('addressData?.meta?.totalPages',addressData?.meta?.totalPages);
       return false;
     } else {
       setTimeout(() => {
@@ -117,13 +119,9 @@ const Tabs: FC<TabsProps> = ({
       ? setupStyle(type)
       : 'addresses_body_no_data';
 
-  const handleNavLinkClass = (itemValue: any) => {
-    console.log('transactionType', transactionType);
-    console.log('itemValue', itemValue);
-    return `tabs_link ${
-      itemValue === transactionType || ( transactionType === 'ERC-20_Tx' && itemValue === 'Transferss' && tokenToSorted !== undefined) || ( transactionType === 'ERC-20_Tx' && tokenToSorted === undefined && itemValue === 'Alls') ? 'tabs_link_active' : ''
-    }`;
-  };
+  const handleNavLinkClass = (itemValue: any) => `tabs_link ${
+    itemValue === transactionType || (transactionType === 'ERC-20_Tx' && itemValue === 'Transferss' && tokenToSorted !== undefined) || (transactionType === 'ERC-20_Tx' && tokenToSorted === undefined && itemValue === 'Alls') ? 'tabs_link_active' : ''
+  }`;
 
   return (
     <>
@@ -270,8 +268,7 @@ const Tabs: FC<TabsProps> = ({
 
           {!loading &&
           //TODO вынести условие в константу
-          !renderData?.length &&
-          noDtaFound() &&
+          !renderData?.length  && pageNum < addressData?.meta?.totalPages && type !== 'ERC-20_Tx'&&
           pageNum < addressData?.meta?.totalPages && (
             <div style={{height: 10, width: '100%'}} ref={lastCardRef}/>
           )}
