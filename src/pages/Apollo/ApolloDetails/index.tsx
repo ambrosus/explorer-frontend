@@ -36,7 +36,7 @@ export const ApolloDetails = () => {
     <Content>
       <Content.Header isLoading={!!apollo}>
         <div className="apollo_details_header">
-          <ApolloDetailsMain />
+          <ApolloDetailsMain apollo={apollo}/>
           <ApolloDetailsBalance apollo={apollo} />
           <ApolloDetailsMiningStats apollo={apollo} />
         </div>
