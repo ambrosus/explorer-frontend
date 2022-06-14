@@ -71,10 +71,12 @@ const AddressDetails = () => {
     }
 
     if (address) {
-      API.searchItem(address).then(
-        (data: any) =>
-          !data.meta.search && navigate(`/notfound`, { replace: true }),
-      );
+      API.searchItem(address)
+        .then(
+          (data: any) =>
+            !data.meta.search && navigate(`/notfound`, { replace: true }),
+        )
+        .catch(() => navigate(`/notfound`, { replace: true }));
     }
   }, []);
 

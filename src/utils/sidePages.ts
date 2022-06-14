@@ -31,7 +31,7 @@ export const apolloDetailsSorting: TApolloSortProps[] = [
   { title: 'Block Rewards', value: 'block_rewards' },
 ];
 export const atlasDetailsSorting: TApolloSortProps[] = [
-  { title: 'All', value: ' ' },
+  { title: 'All', value: '' },
   { title: 'Transfers', value: 'transfers' },
   { title: 'Sheltering', value: 'sheltering' },
 ];
