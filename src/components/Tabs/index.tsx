@@ -143,35 +143,35 @@ const Tabs: FC<TabsProps> = ({
             )}
             {!filtered
               ? transactionFilters &&
-              transactionFilters.length &&
-              _.map(transactionFilters, (filter) => (
-                <NavLink
-                  key={filter.title}
-                  to={`/addresses/${address}/${
-                    filter.value ? filter.value : ''
-                  }`}
-                  className={() => handleNavLinkClass(filter.value)}
-                  onClick={() => {
-                    setTransactionType(filter.value);
-                  }}
-                >
-                  {filter.title}
-                </NavLink>
-              ))
+                transactionFilters.length &&
+                _.map(transactionFilters, (filter) => (
+                  <NavLink
+                    key={filter.title}
+                    to={`/addresses/${address}/${
+                      filter.value ? filter.value : ''
+                    }`}
+                    className={() => handleNavLinkClass(filter.value)}
+                    onClick={() => {
+                      setTransactionType(filter.value);
+                    }}
+                  >
+                    {filter.title}
+                  </NavLink>
+                ))
               : ERC20Filters &&
-              ERC20Filters.length &&
-              _.map(ERC20Filters, (filter) => (
-                <NavLink
-                  key={filter.title}
-                  to={`/addresses/${address}/ERC-20_Tx/${filtered}/${filter.value} `}
-                  className={() => handleNavLinkClass(`${filter?.title}s`)}
-                  onClick={(e) => {
-                    setTransactionType(filter.value);
-                  }}
-                >
-                  {filter.title}
-                </NavLink>
-              ))}
+                ERC20Filters.length &&
+                _.map(ERC20Filters, (filter) => (
+                  <NavLink
+                    key={filter.title}
+                    to={`/addresses/${address}/ERC-20_Tx/${filtered}/${filter.value} `}
+                    className={() => handleNavLinkClass(`${filter?.title}s`)}
+                    onClick={(e) => {
+                      setTransactionType(filter.value);
+                    }}
+                  >
+                    {filter.title}
+                  </NavLink>
+                ))}
           </div>
 
           <div ref={mobileCalendarRef} className="tabs_heading_export_modal">
@@ -180,10 +180,7 @@ const Tabs: FC<TabsProps> = ({
             ) : (
               <>
                 <div className="tabs_side_menu">
-                  <button
-                    className="tabs_side_menu_icon"
-                    onClick={handleShow}
-                  >
+                  <button className="tabs_side_menu_icon" onClick={handleShow}>
                     <SideMenu />
                   </button>
                 </div>

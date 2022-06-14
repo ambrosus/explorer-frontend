@@ -45,11 +45,7 @@ export const AtlasDetails = () => {
           onClick={setSelectedToken}
           selectedToken={selectedToken}
           transactionType={type}
-          data={
-            sortTerm === type && renderData && renderData
-              ? renderData
-              : []
-          }
+          data={sortTerm === type && renderData && renderData ? renderData : []}
           setTransactionType={setSortTerm}
           isIcon={false}
           pageType="atlas"
