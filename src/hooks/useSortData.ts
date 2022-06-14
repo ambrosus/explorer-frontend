@@ -15,6 +15,20 @@ const useSortData = (
   const { ref, inView } = useInView();
 
   useEffect(() => {
+    setLoading(true);
+    getData(sortTerm, null, address).then((res: AccountsData) => {
+      if (res?.meta?.message?.includes('No results')) {
+        setLoading(false);
+        setRenderData(null);
+        return;
+      }
+      setRenderData(res);
+      setLoading(true);
+    });
+  }, []);
+
+  useEffect(() => {
+    if (sortTerm) {
       setLoading(true);
       getData(sortTerm, null, address).then((res: AccountsData) => {
         if (res?.meta?.message?.includes('No results')) {
@@ -25,21 +39,7 @@ const useSortData = (
         setRenderData(res);
         setLoading(true);
       });
-  }, []);
-
-  useEffect(() => {
-   if (sortTerm){
-     setLoading(true);
-     getData(sortTerm, null, address).then((res: AccountsData) => {
-       if (res?.meta?.message?.includes('No results')) {
-         setLoading(false);
-         setRenderData(null);
-         return;
-       }
-       setRenderData(res);
-       setLoading(true);
-     });
-   }
+    }
   }, [sortTerm]);
 
   useEffect(() => {
