@@ -71,10 +71,12 @@ const AddressDetails = () => {
     }
 
     if (address) {
-      API.searchItem(address).then(
-        (data: any) =>
-          !data.meta.search && navigate(`/notfound`, {replace: true}),
-      ).catch(()=>navigate(`/notfound`, {replace: true}),)
+      API.searchItem(address)
+        .then(
+          (data: any) =>
+            !data.meta.search && navigate(`/notfound`, { replace: true }),
+        )
+        .catch(() => navigate(`/notfound`, { replace: true }));
     }
   }, []);
 
@@ -82,12 +84,12 @@ const AddressDetails = () => {
     if (address || type || filtered || tokenToSorted) {
       setPageNum(1);
       setPosition(null);
-      setTx([])
+      setTx([]);
     }
     return () => {
       setPageNum(1);
       setPosition(null);
-      setTx([])
+      setTx([]);
     };
   }, [address, type, filtered, tokenToSorted]);
 
