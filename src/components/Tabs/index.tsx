@@ -61,9 +61,6 @@ const Tabs: FC<TabsProps> = ({
   useOnClickOutside(mobileCalendarRef, () => setIsShow(false));
 
   useLayoutEffect(() => {
-    if (type) {
-      setPrevType(type);
-    }
     if (
       addressData &&
       addressData?.latestTransactions?.length &&
@@ -100,12 +97,8 @@ const Tabs: FC<TabsProps> = ({
         setRenderData(toUniqueValueByBlock(data));
       }
     }
-    return () => {
-      if (prevType !== type) {
-        setRenderData(null);
-      }
-    };
-  }, [addressData, data, filtered, type, loading, pageNum]);
+    //TODO !!
+  }, [data, filtered, type]);
 
   useEffect(() => {
     if (address || type || filtered || tokenToSorted) {
@@ -133,6 +126,8 @@ const Tabs: FC<TabsProps> = ({
         : ''
     }`;
 
+  const handleShow = () => setIsShow(!isShow);
+
   return (
     <>
       <div className="tabs">
@@ -148,39 +143,35 @@ const Tabs: FC<TabsProps> = ({
             )}
             {!filtered
               ? transactionFilters &&
-                transactionFilters.length &&
-                _.map(transactionFilters, (filter) => (
-                  <NavLink
-                    key={filter.title}
-                    to={`/addresses/${address}/${
-                      filter.value ? filter.value : ''
-                    }`}
-                    className={() => {
-                      return handleNavLinkClass(filter.value);
-                    }}
-                    onClick={(e) => {
-                      setTransactionType(filter.value);
-                    }}
-                  >
-                    {filter.title}
-                  </NavLink>
-                ))
+              transactionFilters.length &&
+              _.map(transactionFilters, (filter) => (
+                <NavLink
+                  key={filter.title}
+                  to={`/addresses/${address}/${
+                    filter.value ? filter.value : ''
+                  }`}
+                  className={() => handleNavLinkClass(filter.value)}
+                  onClick={() => {
+                    setTransactionType(filter.value);
+                  }}
+                >
+                  {filter.title}
+                </NavLink>
+              ))
               : ERC20Filters &&
-                ERC20Filters.length &&
-                _.map(ERC20Filters, (filter) => (
-                  <NavLink
-                    key={filter.title}
-                    to={`/addresses/${address}/ERC-20_Tx/${filtered}/${filter.value} `}
-                    className={() => {
-                      return handleNavLinkClass(`${filter?.title}s`);
-                    }}
-                    onClick={(e) => {
-                      setTransactionType(filter.value);
-                    }}
-                  >
-                    {filter.title}
-                  </NavLink>
-                ))}
+              ERC20Filters.length &&
+              _.map(ERC20Filters, (filter) => (
+                <NavLink
+                  key={filter.title}
+                  to={`/addresses/${address}/ERC-20_Tx/${filtered}/${filter.value} `}
+                  className={() => handleNavLinkClass(`${filter?.title}s`)}
+                  onClick={(e) => {
+                    setTransactionType(filter.value);
+                  }}
+                >
+                  {filter.title}
+                </NavLink>
+              ))}
           </div>
 
           <div ref={mobileCalendarRef} className="tabs_heading_export_modal">
@@ -191,7 +182,7 @@ const Tabs: FC<TabsProps> = ({
                 <div className="tabs_side_menu">
                   <button
                     className="tabs_side_menu_icon"
-                    onClick={() => setIsShow(!isShow)}
+                    onClick={handleShow}
                   >
                     <SideMenu />
                   </button>

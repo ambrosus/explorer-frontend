@@ -74,7 +74,7 @@ const AddressDetails = () => {
     if (address) {
       API.searchItem(address).then(
         (data: any) =>
-          !data.meta.search && navigate(`/notfound`, { replace: true }),
+          !data.meta.search && navigate(`/notfound`, {replace: true}),
       );
     }
   }, []);
@@ -145,14 +145,9 @@ const AddressDetails = () => {
   function setTxDataHandler() {
     if (addressData && addressData?.transactions) {
       setTx((prevState) => {
-        const compareState = removeArrayDuplicates(
-          [...prevState, ...addressData.transactions],
-          'block',
-        );
-        const addressDataState = removeArrayDuplicates(
-          [...addressData.transactions],
-          'block',
-        );
+        //TODO дважды метод
+        const compareState = [...prevState, ...addressData.transactions];
+        const addressDataState = addressData.transactions;
         //TODO полное дублирование
         if (type === 'ERC-20_Tx' && !filtered) {
           const newTx: any = addressDataState.sort(
@@ -165,6 +160,7 @@ const AddressDetails = () => {
           );
           return newTx;
         } else if (!type || type === 'transfers') {
+          //TODO зачем клон
           const newTx: TransactionProps[] = compareState;
           const transfersDataTx: TransactionProps[] = newTx.filter(
             (item: TransactionProps) => item.method === 'Transfer',
