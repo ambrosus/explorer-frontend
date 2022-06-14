@@ -33,7 +33,7 @@ export const AtlasDetails = () => {
     <Content>
       <Content.Header>
         <div className="apollo_details_header">
-          <AtlasDetailsMain />
+          <AtlasDetailsMain atlas={atlas}/>
           <AtlasDetailsBalance atlas={atlas} />
           <AtlasDetailsMiningStats atlas={atlas} />
         </div>

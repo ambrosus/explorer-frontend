@@ -6,7 +6,8 @@ import ContentCopy from 'assets/icons/CopyIcons/ContentCopy';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 
-const AtlasDetailsMain = () => {
+const AtlasDetailsMain = ({atlas}:any) => {
+  console.log(atlas);
   const { address }: TParams = useParams();
 
   const { isCopy, copyContent, isCopyPopup } = useCopyContent(address);
@@ -15,7 +16,7 @@ const AtlasDetailsMain = () => {
     <div className="atlas_details_main">
       <div className="atlas_details_main_nd">
         <h1>ND Atlas</h1>
-        <div className="atlas_details_main_online">ONBOARDED</div>
+        <div className="atlas_details_main_online">{atlas?.state ?? ''}</div>
       </div>
       <div className="atlas_details_main_address">
         <div className="atlas_details_main_cell universall_bold">Address</div>

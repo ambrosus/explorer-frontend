@@ -12,7 +12,7 @@ export const Apollo = () => {
   const { ref, sortTerm, setSortTerm, renderData, loading } = useSortData(
     getApollosData,
     null,
-    'address',
+    ' ',
   );
   console.log('renderData', renderData);
   return (
