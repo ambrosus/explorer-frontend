@@ -115,7 +115,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
     addressData?.tokens?.forEach((item: TokenType) => {
       if (
         (item.name === token && symbol !== 'AMB') ||
-        token.includes('token') && item.name === token
+        (token.includes('token') && item.name === token)
       ) {
         onClick(item);
         addFilter(item);
@@ -126,7 +126,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
         return '';
       }
     });
-  }
+  };
 
   const isAmount =
     amount === null ? (
@@ -191,8 +191,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
         <span
           className="universall_indent_icon"
           style={{ display: 'flex', alignItems: 'center' }}
-        >
-        </span>
+        ></span>
         <span data-tip={String(txfee).length > 8 ? txfee : null}>
           {String(txfee).length > 8 ? String(txfee).slice(0, 8) : txfee}
         </span>

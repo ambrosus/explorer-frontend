@@ -35,6 +35,7 @@ const AtlasBlocksBody = ({ lastCardRef, index, item }: any) => {
           value={balance ? `${balance.ether}` : '0'}
           symbol="AMB"
           fixed={2}
+          side="left"
         />
       </div>
       <div className="atlas_blocks_body_cell">
