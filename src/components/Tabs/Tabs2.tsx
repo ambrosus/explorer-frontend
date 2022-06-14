@@ -50,17 +50,19 @@ const Tabs2: FC<any> = ({
   useOnClickOutside(mobileCalendarRef, () => setIsShow(false));
 
   useEffect(() => {
-    if (type) {
-      setRenderData([]);
-    }
-    setRenderData((prev: any) => {
-      if (prev === null) {
-        return removeArrayDuplicates(data);
-      } else {
-        return removeArrayDuplicates([...prev, ...data]);
-      }
-    });
-  }, [data, transactionType]);
+   if (data&&data.data){
+     if (type) {
+       setRenderData([]);
+     }
+     setRenderData((prev: any) => {
+       if (prev === null) {
+         return removeArrayDuplicates(data?.data);
+       } else {
+         return removeArrayDuplicates([...prev, ...data?.data]);
+       }
+     });
+   }
+  }, [data?.data, transactionType]);
 
   useEffect(() => {
     if (address || type) {
@@ -186,7 +188,7 @@ const Tabs2: FC<any> = ({
             </div>
           )}
         </section>
-        {loading && (
+        {loading && data?.pagination?.hasNext&& (
           <div style={{ top: '-20px', position: 'relative' }}>
             <Loader />
           </div>

@@ -49,8 +49,8 @@ export const ApolloDetails = () => {
           selectedToken={selectedToken}
           transactionType={type}
           data={
-            sortTerm === type && renderData && renderData.data
-              ? renderData.data
+            sortTerm === type && renderData && renderData
+              ? renderData
               : []
           }
           setTransactionType={setSortTerm}
