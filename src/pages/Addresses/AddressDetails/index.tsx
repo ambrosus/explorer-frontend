@@ -1,5 +1,4 @@
 import API from '../../../API/api';
-import removeArrayDuplicates from '../../../utils/helpers';
 import { TokenType, TransactionProps } from './address-details.interface';
 import ContentCopy from 'assets/icons/CopyIcons/ContentCopy';
 import ContentCopyed from 'assets/icons/CopyIcons/ContentCopyed';
