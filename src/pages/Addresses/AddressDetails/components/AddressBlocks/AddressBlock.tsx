@@ -231,9 +231,13 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
             onClick={() => {
               //TODO вывести с ретурна
               addressData?.tokens?.forEach((item: TokenType) => {
+                console.log('token',token);
+                console.log('item.name',item.name);
+                console.log('token.includes',token.includes('token'));
+
                 if (
                   (item.name === token && symbol !== 'AMB') ||
-                  token.includes('token')
+                  token.includes('token') && item.name === token
                 ) {
                   onClick(item);
                   addFilter(item);

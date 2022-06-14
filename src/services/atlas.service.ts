@@ -8,8 +8,8 @@ export const getAtlasesData = async (sortTerm: any, next: any) => {
   });
   return data;
 };
-export const getAtlasData = async (address: string,) => {
-  const data: any = await API.getAtlas(address)
+export const getAtlasData = async (address: string) => {
+  const data: any = await API.getAtlas(address);
   return data;
 };
 
