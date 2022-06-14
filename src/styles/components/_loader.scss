@@ -1,3 +1,19 @@
 .loader {
   top: 20px;
 }
+
+.moon-loader {
+  display: block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid #EFF2F5;
+  border-radius: 50%;
+  border-top-color: #05060F;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
