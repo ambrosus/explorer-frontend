@@ -277,7 +277,6 @@ export const getDataForAddress = async (address: string, params: any) => {
   const url = `${process.env.REACT_APP_BLOCKBOOK_API}/api/v2/address/${address}`;
   try {
     const blockBookApiTokens: any = await blockBookApiTokensSearch(url, params);
-
     const { addressBalance, bbApi, bbTxData }: TransactionProps[] | any =
       await bbDataFillter(url, params);
 
@@ -288,6 +287,7 @@ export const getDataForAddress = async (address: string, params: any) => {
     const latestTransactions: TransactionProps[] =
       (await sortedLatestTransactionsData(defaultFilters, url, page)) || [];
 
+    //TODO дважды метод
     const transactionsAll: TransactionProps[] = removeArrayDuplicates(
       [...bbTxData, ...explorData],
       'block',

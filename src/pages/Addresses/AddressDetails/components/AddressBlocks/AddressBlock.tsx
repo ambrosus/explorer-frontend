@@ -10,7 +10,6 @@ import {
 } from 'pages/Addresses/AddressDetails/address-details.interface';
 import React from 'react';
 import { NavLink, useNavigate, useParams } from 'react-router-dom';
-import ReactTooltip from 'react-tooltip';
 import { TParams } from 'types';
 import {
   displayAmount,
@@ -38,7 +37,6 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
   isTableColumn,
   isIcon,
 }) => {
-  const online = txfee === 'Pending' ? <OrangeCircle /> : <GreenCircle />;
   const { addFilter } = useActions();
   const { address, type }: TParams = useParams();
 
@@ -112,6 +110,24 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 
   const Icon = getTokenIcon(symbol as string);
   //TODO ?
+  const handleBlock = () => {
+    //TODO вывести с ретурна
+    addressData?.tokens?.forEach((item: TokenType) => {
+      if (
+        (item.name === token && symbol !== 'AMB') ||
+        token.includes('token') && item.name === token
+      ) {
+        onClick(item);
+        addFilter(item);
+        navigate(`/addresses/${address}/ERC-20_Tx/${item.contract}`, {
+          replace: true,
+        });
+      } else {
+        return '';
+      }
+    });
+  }
+
   const isAmount =
     amount === null ? (
       <></>
@@ -151,23 +167,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
                   ? 'underline'
                   : 'none',
             }}
-            onClick={() => {
-              //TODO вынести с ретурна + отдельная функция
-              addressData?.tokens?.forEach((item: TokenType) => {
-                if (
-                  (item.name === token && symbol !== 'AMB') ||
-                  token.includes('token')
-                ) {
-                  onClick(item);
-                  addFilter(item);
-                  navigate(`/addresses/${address}/ERC-20_Tx/${item.contract}`, {
-                    replace: true,
-                  });
-                } else {
-                  return '';
-                }
-              });
-            }}
+            onClick={handleBlock}
           >
             {type !== 'ERC-20_Tx' ? (
               <>
@@ -192,9 +192,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
           className="universall_indent_icon"
           style={{ display: 'flex', alignItems: 'center' }}
         >
-          {online}
         </span>
-        <ReactTooltip />
         <span data-tip={String(txfee).length > 8 ? txfee : null}>
           {String(txfee).length > 8 ? String(txfee).slice(0, 8) : txfee}
         </span>
@@ -228,27 +226,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
         ) : (
           <span
             className="address_blocks_cell_token  universall_light2"
-            onClick={() => {
-              //TODO вывести с ретурна
-              addressData?.tokens?.forEach((item: TokenType) => {
-                console.log('token',token);
-                console.log('item.name',item.name);
-                console.log('token.includes',token.includes('token'));
-
-                if (
-                  (item.name === token && symbol !== 'AMB') ||
-                  token.includes('token') && item.name === token
-                ) {
-                  onClick(item);
-                  addFilter(item);
-                  navigate(`/addresses/${address}/ERC-20_Tx/${item.contract}`, {
-                    replace: true,
-                  });
-                } else {
-                  return '';
-                }
-              });
-            }}
+            onClick={handleBlock}
           >
             <NavLink className="address_blocks_icon universall_light2" to={``}>
               {token ? token : ''}{' '}
@@ -279,4 +257,4 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
   );
 };
 
-export default AddressBlock;
+export default React.memo(AddressBlock);
