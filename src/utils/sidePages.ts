@@ -21,7 +21,7 @@ const methodFilters = [
 
 export const apollosSorting: TApolloSortProps[] = [
   { title: 'Address', value: 'address' },
-  { title: 'Total blocks', value: '' },
+  { title: 'Total blocks', value: ' ' },
   { title: 'Balance', value: 'balance' },
   { title: 'Stake', value: 'stake' },
 ];
@@ -31,7 +31,7 @@ export const apolloDetailsSorting: TApolloSortProps[] = [
   { title: 'Block Rewards', value: 'block_rewards' },
 ];
 export const atlasDetailsSorting: TApolloSortProps[] = [
-  { title: 'All', value: ' ' },
+  { title: 'All', value: '' },
   { title: 'Transfers', value: 'transfers' },
   { title: 'Sheltering', value: 'sheltering' },
 ];
