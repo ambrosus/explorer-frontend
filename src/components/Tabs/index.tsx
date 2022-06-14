@@ -27,7 +27,6 @@ const Tabs: FC<TabsProps> = ({
                              }) => {
   const [isShow, setIsShow] = useState(false);
   const {address, type, filtered, tokenToSorted} = useParams();
-  const [prevType, setPrevType] = useState<any>(type);
   const [renderData, setRenderData] = useState<any>(null);
   const [notFound, setNotFound] = useState<any>(false);
   const {data: addressData} = useTypedSelector(
@@ -60,9 +59,6 @@ const Tabs: FC<TabsProps> = ({
   useOnClickOutside(mobileCalendarRef, () => setIsShow(false));
 
   useLayoutEffect(() => {
-    if (type) {
-      setPrevType(type);
-    }
     if (
       addressData &&
       addressData?.latestTransactions?.length &&
@@ -99,12 +95,8 @@ const Tabs: FC<TabsProps> = ({
         setRenderData(toUniqueValueByBlock(data));
       }
     }
-    return () => {
-      if (prevType !== type) {
-        setRenderData(null);
-      }
-    };
-  }, [addressData, data, filtered, type, loading, pageNum]);
+    //TODO !!
+  }, [data, filtered, type]);
 
   useEffect(() => {
     if (address || type || filtered || tokenToSorted) {
@@ -215,9 +207,11 @@ const Tabs: FC<TabsProps> = ({
                   renderData.length - 9 === index &&
                   type !== 'ERC-20_Tx') ||
                 (renderData.length < 30 &&
+                  renderData.length - 1 === index &&
                   type !== 'ERC-20_Tx') ? (
                   //TODO double code
                   <AddressBlock
+                    lastCardRef={lastCardRef}
                     isLatest={type === 'ERC-20_Tx' && !filtered}
                     onClick={onClick}
                     key={transaction.txHash}

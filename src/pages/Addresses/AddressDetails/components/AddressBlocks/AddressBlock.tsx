@@ -22,6 +22,7 @@ import {
 
 const AddressBlock: React.FC<AddressBlockProps> = ({
   onClick,
+  lastCardRef,
   isLatest,
   txhash,
   method,
@@ -238,7 +239,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
       <></>
     );
   return (
-    <div className={isTableColumn}>
+    <div className={isTableColumn} ref={lastCardRef}>
       {isTxHash}
       {isMethod}
       {isFrom}
