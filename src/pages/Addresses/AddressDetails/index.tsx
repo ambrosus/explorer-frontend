@@ -1,5 +1,4 @@
 import API from '../../../API/api';
-import removeArrayDuplicates from '../../../utils/helpers';
 import { TokenType, TransactionProps } from './address-details.interface';
 import ContentCopy from 'assets/icons/CopyIcons/ContentCopy';
 import ContentCopyed from 'assets/icons/CopyIcons/ContentCopyed';
@@ -83,10 +82,12 @@ const AddressDetails = () => {
     if (address || type || filtered || tokenToSorted) {
       setPageNum(1);
       setPosition(null);
+      setTx([])
     }
     return () => {
       setPageNum(1);
       setPosition(null);
+      setTx([])
     };
   }, [address, type, filtered, tokenToSorted]);
 
