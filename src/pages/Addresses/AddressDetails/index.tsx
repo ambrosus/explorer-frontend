@@ -82,10 +82,12 @@ const AddressDetails = () => {
     if (address || type || filtered || tokenToSorted) {
       setPageNum(1);
       setPosition(null);
+      setTx([])
     }
     return () => {
       setPageNum(1);
       setPosition(null);
+      setTx([])
     };
   }, [address, type, filtered, tokenToSorted]);
 

@@ -9,9 +9,11 @@ import { Content } from 'components/Content';
 import React from 'react';
 
 export const Apollo = () => {
-
-  const { ref, sortTerm, setSortTerm, renderData, loading } =
-    useSortData(getApollosData,null,'address');
+  const { ref, sortTerm, setSortTerm, renderData, loading } = useSortData(
+    getApollosData,
+    null,
+    'address',
+  );
 
   return (
     <Content>

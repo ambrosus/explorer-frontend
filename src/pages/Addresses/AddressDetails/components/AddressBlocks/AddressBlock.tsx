@@ -111,10 +111,11 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
   const Icon = getTokenIcon(symbol as string);
   //TODO ?
   const handleBlock = () => {
+    //TODO вывести с ретурна
     addressData?.tokens?.forEach((item: TokenType) => {
       if (
         (item.name === token && symbol !== 'AMB') ||
-        token.includes('token')
+        token.includes('token') && item.name === token
       ) {
         onClick(item);
         addFilter(item);
