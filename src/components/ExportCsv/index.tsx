@@ -1,18 +1,28 @@
 import Calendar from '../Calendar';
 import CalendarIcon from 'assets/icons/CalendarIcon';
-import { useOnClickOutside } from 'hooks/useOnClickOutside';
-import React, { useRef, useState } from 'react';
+import {useOnClickOutside} from 'hooks/useOnClickOutside';
+import React, {useEffect, useRef, useState} from 'react';
+import MoonLoader from "../Loader/MoonLoader";
 
-const ExportCsv = ({ miningStats, showText = true }: any) => {
+const ExportCsv = ({miningStats, showText = true}: any) => {
   const [isShow, setIsShow] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const handleClose = () => {
+    setIsShow(prevState => !prevState)
+  }
+  useEffect(() => {
+    console.log('isLoading', isLoading);
+  }, [isLoading])
+  console.log('isLoading', isLoading);
+
   const style: any = isShow
-    ? { borderColor: '#05060f' }
+    ? {borderColor: '#05060f'}
     : !showText
-    ? {
+      ? {
         justifyContent: 'center',
         minWidth: 40,
       }
-    : { width: 139 };
+      : {width: 139};
   const calendarRef = useRef(null);
   useOnClickOutside(calendarRef, () => setIsShow(false));
   const paddingTopBtn = isShow ? 8 : 0;
@@ -21,7 +31,7 @@ const ExportCsv = ({ miningStats, showText = true }: any) => {
       <div
         ref={calendarRef}
         className="export_csv"
-        style={{ paddingTop: paddingTopBtn }}
+        style={{paddingTop: paddingTopBtn}}
       >
         <button
           className="export_csv_btn"
@@ -29,10 +39,13 @@ const ExportCsv = ({ miningStats, showText = true }: any) => {
           //TODO вынести с ретурна
           onClick={() => setIsShow(!isShow)}
         >
-          <CalendarIcon />
-          {showText ? <span className="export_csv_text">ExportCsv</span> : null}
+          {!isLoading  ? <CalendarIcon/> : <MoonLoader/>}
+          {!isLoading
+            ? <span>{showText ? <span className="export_csv_text">ExportCsv</span> : null}</span>
+            : <span className="export_csv_text">Loading...</span>
+          }
         </button>
-        {isShow && <Calendar miningStats={miningStats} />}
+        {isShow && <Calendar setIsLoading={setIsLoading} handleClose={handleClose} miningStats={miningStats}/>}
       </div>
     </>
   );
