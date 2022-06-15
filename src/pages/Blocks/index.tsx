@@ -15,7 +15,6 @@ export const Blocks = () => {
     null,
     'totalBundles',
   );
-  console.log(renderData);
   return (
     <Content>
       <Content.Header>

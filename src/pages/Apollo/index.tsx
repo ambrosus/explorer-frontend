@@ -14,7 +14,6 @@ export const Apollo = () => {
     null,
     ' ',
   );
-  console.log('renderData', renderData);
   return (
     <Content>
       <Content.Header>

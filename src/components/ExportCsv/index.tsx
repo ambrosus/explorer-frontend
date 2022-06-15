@@ -10,10 +10,6 @@ const ExportCsv = ({ miningStats, showText = true }: any) => {
   const handleClose = () => {
     setIsShow((prevState) => !prevState);
   };
-  useEffect(() => {
-    console.log('isLoading', isLoading);
-  }, [isLoading]);
-  console.log('isLoading', isLoading);
 
   const style: any = isShow
     ? { borderColor: '#05060f' }

@@ -30,7 +30,7 @@ export const BlockDetails = () => {
   useEffect(() => {
     getData();
   }, []);
-  // console.log('block',block);
+  console.log('block',block);
 
   return (
     <Content>
@@ -51,7 +51,7 @@ export const BlockDetails = () => {
             </div>
           </div>
         </div>
-        <BlockHeaderInfo />
+        <BlockHeaderInfo block={block}/>
         <MainInfoBlockTable />
       </Content.Header>
       <Content.Body>
