@@ -4,10 +4,7 @@ import { numWithCommas } from 'utils/helpers';
 
 const MainInfoApollo = () => {
   const { data: appData } = useTypedSelector((state: any) => state.app);
-  // const totalAddresses: number =
-  //   appData && numWithCommas(appData.netInfo.accounts.total);
-  // const holders: number =
-  //   appData && numWithCommas(appData.netInfo.accounts.withBalance);
+
   return (
     <div className="main_info_apollo">
       <h1 className="main_info_apollo_heading">Apollo Nodes</h1>
@@ -45,7 +42,7 @@ const MainInfoApollo = () => {
           <span className="main_info_apollo_cell_primary">
             Avg block / prop. time
           </span>
-          <span className="main_info_apollo_cell_secondary">5.16 sec</span>
+          <span className="main_info_apollo_cell_secondary">{appData?.netInfo?.avgBlockTime ?? 0} sec</span>
         </div>
         {/*<div className="main_info_apollo_cell" style={{ padding: 5 }}>*/}
         {/*  <Chart chartData={chartData} />*/}
