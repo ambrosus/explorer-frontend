@@ -8,9 +8,7 @@
   border-radius: 16px;
   margin-bottom: 32px;
   @include for_tablet {
-    display: flex;
-    flex-direction: column;
-    height: 192px;
+    grid-template-columns: repeat(1, auto);
   }
 
   &_cells {
@@ -25,6 +23,7 @@
       border-right: none;
     }
     @include for_tablet {
+      height: 64px;
       border-bottom: 1px solid #eff2f5;
       border-right: none;
       &:last-child() {

@@ -12,9 +12,6 @@
 
   @include for_big_tablet {
     grid-template-columns: repeat(2, auto);
-    // display: flex;
-    // flex-direction: column;
-    // height: 420px;
   }
   @include for_phone {
     grid-template-columns: repeat(1, auto);

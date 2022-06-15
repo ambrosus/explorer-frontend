@@ -1,16 +1,19 @@
 .apollo_details_balance {
   display: grid;
-  grid-template-columns:
-    minmax(300px, 2fr) minmax(130px, 1fr) minmax(300px, 1.8fr)
-    minmax(170px, 1fr);
+
+  grid-template-columns: repeat(4, auto);
+
+  // minmax(300px, 2fr) minmax(130px, 1fr) minmax(300px, 1.8fr)
+  // minmax(170px, 1fr);
   background: #ffffff;
   border: 1px solid #eff2f5;
   border-radius: 16px;
   margin-bottom: 32px;
   @include for_big_tablet {
-    display: flex;
-    flex-direction: column;
-    height: 420px;
+    grid-template-columns: repeat(2, auto);
+  }
+  @include for_phone {
+    grid-template-columns: repeat(1, auto);
   }
 
   &_cells {
@@ -21,6 +24,35 @@
     padding: 0 32px;
     flex: 1;
     border-right: 1px solid #eff2f5;
+    &:first-child {
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
+    }
+    @include for_big_tablet {
+      height: 64px;
+      border-bottom: 1px solid #eff2f5;
+      border-right: 1px solid #eff2f5;
+      &:nth-child(even) {
+        border-right: none;
+      }
+      &:nth-child(3) {
+        border-bottom: none;
+      }
+      &:nth-child(4) {
+        border-bottom: none;
+      }
+      @include for_phone {
+        height: 64px;
+
+        border-right: none;
+        border-bottom: 1px solid #eff2f5 !important;
+        &:nth-child(4) {
+          border-bottom: none !important;
+        }
+      }
+    }
+
     &:last-child() {
       border-right: none;
     }

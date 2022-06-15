@@ -11,7 +11,7 @@ const ExportCsv = ({ miningStats, showText = true }: any) => {
   const handleClose = () => {
     setIsShow((prevState) => !prevState);
   };
-  const { FOR_BIG_TABLET } = useDeviceSize();
+  const { FOR_BIG_TABLET, FOR_TABLET } = useDeviceSize();
   const style: any = isShow
     ? { borderColor: '#05060f' }
     : !showText
@@ -28,13 +28,23 @@ const ExportCsv = ({ miningStats, showText = true }: any) => {
   }
   const widthStyle = showText ? undefined : { width: 40 };
 
+  const topPosition = () => {
+    if (FOR_BIG_TABLET) {
+      return 70;
+    } else if (FOR_TABLET) {
+      return 50;
+    } else {
+      return 42;
+    }
+  };
+
   const calendarPosition = showText
     ? {
         top: 47,
         right: 0,
       }
     : {
-        top: FOR_BIG_TABLET ? 70 : 50,
+        top: topPosition(),
         left: 0,
       };
 
