@@ -5,6 +5,7 @@
 
   &_cell {
     display: flex;
+    align-items: center;
     padding-top: 12px;
     font-weight: 700;
     font-size: 12px;
@@ -22,7 +23,7 @@
   &_status {
     display: flex;
     align-items: center;
-    color: #808a9d;
+    // color: #808a9d;
     font-size: inherit;
 
     &_modal {

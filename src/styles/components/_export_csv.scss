@@ -5,13 +5,12 @@
   align-items: flex-end;
   flex: 1;
   z-index: 3;
-  width: 140px;
 
   &_btn {
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     align-items: center;
-    width: max-content;
+    width: 140px;
     height: 40px;
     border: 1px solid $secondary;
     box-sizing: border-box;

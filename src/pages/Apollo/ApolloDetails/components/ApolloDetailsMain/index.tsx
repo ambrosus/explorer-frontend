@@ -19,16 +19,18 @@ const AtlasDetailsBalance = ({ apollo }: any) => {
       </div>
       <div className="apollo_details_main_address">
         <div className="apollo_details_main_cell universall_bold">Address</div>
-        <div className="address_content">{address}</div>
-        <button className="address_button" onClick={copyContent}>
-          {isCopy ? <ContentCopyed /> : <ContentCopy />}
+        <div style={{ display: 'flex', gap: 16 }}>
+          <div className="address_content">{address}</div>
+          <button className="address_button" onClick={copyContent}>
+            {isCopy ? <ContentCopyed /> : <ContentCopy />}
 
-          {isCopyPopup && isCopy && (
-            <div className="address_button_copyed">
-              <CopyPopUp x={3} y={20} values="Copyed" />
-            </div>
-          )}
-        </button>
+            {isCopyPopup && isCopy && (
+              <div className="address_button_copyed">
+                <CopyPopUp x={3} y={20} values="Copyed" />
+              </div>
+            )}
+          </button>
+        </div>
       </div>
     </div>
   );
