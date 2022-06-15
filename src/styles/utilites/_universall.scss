@@ -41,3 +41,26 @@
 .style {
   display: grid;
 }
+
+.address {
+  &_content {
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    line-height: 40px;
+  }
+  &_button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #f6f6f6;
+    border-radius: 8px;
+    color: #fff;
+
+    &_copyed {
+      position: absolute;
+      margin: 70px 0 0 10px;
+    }
+  }
+}
