@@ -1,3 +1,4 @@
+import { BlockDetails } from './pages/Blocks/BlockDetails';
 import { IRoute } from './types';
 import { Addresses } from 'pages/Addresses';
 import AddressDetails from 'pages/Addresses/AddressDetails';
@@ -14,6 +15,7 @@ import { Transactions } from 'pages/Transactions';
 interface IAppRoutes {
   routes: IRoute[];
   addressesRoutes: IRoute[];
+  blockRoutes: IRoute[];
   apolloRoutes: IRoute[];
   atlasRoutes: IRoute[];
 }
@@ -125,6 +127,15 @@ export const apolloRoutes: IRoute[] = [
     isClick: false,
   },
 ];
+export const blockRoutes: IRoute[] = [
+  {
+    path: '/blocks/:address',
+    key: 'Block Details',
+    exact: true,
+    component: () => <BlockDetails />,
+    isClick: false,
+  },
+];
 
 export const atlasRoutes: IRoute[] = [
   {
@@ -146,6 +157,7 @@ export const atlasRoutes: IRoute[] = [
 const appRoutes: IAppRoutes = {
   routes,
   addressesRoutes,
+  blockRoutes,
   apolloRoutes,
   atlasRoutes,
 };

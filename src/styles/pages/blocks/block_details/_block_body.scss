@@ -1,0 +1,45 @@
+.block_body {
+  display: grid;
+  grid-template-columns: 190px 190px 190px 190px 190px 190px;
+  z-index: 25;
+  position: relative;
+
+  .balance {
+    width: max-content;
+    white-space: nowrap;
+  }
+
+  &:hover {
+    background-color: #eff2f5;
+  }
+
+  &_cell {
+    align-items: center;
+    border-bottom: 1px solid #eff2f5;
+    white-space: nowrap;
+    display: flex;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+    height: 48px;
+    padding-right: 32px;
+    padding-left: 5px;
+
+    &_token {
+      padding-right: 6px;
+    }
+
+    &_value {
+      padding-right: 6px;
+    }
+
+    &_icon {
+      color: #808a9d;
+      font-weight: 600;
+    }
+
+    // &:nth-child(1) {
+    //   padding-left: 10px;
+    // }
+  }
+}
