@@ -20,6 +20,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: flex-end;
+      position: relative;
 
       @include for_tablet {
         width: 100%;

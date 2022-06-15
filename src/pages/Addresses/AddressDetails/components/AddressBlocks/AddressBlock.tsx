@@ -190,7 +190,9 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
         <span
           className="universall_indent_icon"
           style={{ display: 'flex', alignItems: 'center' }}
-        ></span>
+        >
+          <GreenCircle />
+        </span>
         <span data-tip={String(txfee).length > 8 ? txfee : null}>
           {String(txfee).length > 8 ? String(txfee).slice(0, 8) : txfee}
         </span>
