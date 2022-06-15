@@ -8,6 +8,7 @@
   border-radius: 16px;
   margin-bottom: 32px;
   white-space: nowrap;
+  position: relative;
 
   @include for_big_tablet {
     grid-template-columns: repeat(2, auto);

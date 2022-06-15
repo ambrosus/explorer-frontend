@@ -69,7 +69,7 @@ const Calendar = ({
   };
 
   return (
-    <div className="calendar">
+    <>
       <DateRange
         editableDateInputs={true}
         onChange={changeData}
@@ -79,7 +79,7 @@ const Calendar = ({
       <button className="calendar_export_csv" onClick={exportData}>
         {miningStats ? 'Select' : ' Export CSV'}
       </button>
-    </div>
+    </>
   );
 };
 

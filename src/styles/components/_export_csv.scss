@@ -8,14 +8,13 @@
 
   &_btn {
     display: flex;
-    // justify-content: center;
+    justify-content: center;
     align-items: center;
-    width: 100%;
+    width: 140px;
     height: 40px;
     border: 1px solid $secondary;
     box-sizing: border-box;
     border-radius: 16px;
-    padding-left: 7px;
   }
 
   &_btn:hover {

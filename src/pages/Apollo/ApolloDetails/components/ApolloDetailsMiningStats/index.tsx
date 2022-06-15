@@ -67,9 +67,10 @@ const ApolloDetailsMiningStats = ({ apollo }: any) => {
           </span>
         </div>
         <div>
-          {/* className="apollo_details_mining_stats_icon" */}
           <ExportCsv miningStats={onSelect} showText={false} />
         </div>
+
+        {/* className="apollo_details_mining_stats_icon" */}
       </div>
       <div className="apollo_details_mining_stats_cells">
         <div className="apollo_details_mining_stats_fonts_normal universall_light1">
