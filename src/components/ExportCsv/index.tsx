@@ -26,6 +26,7 @@ const ExportCsv = ({ miningStats, showText = true }: any) => {
   function toggleShow() {
     setIsShow(!isShow);
   }
+  const widthStyle = showText ? undefined : { width: 40 };
 
   return (
     <>
@@ -34,7 +35,11 @@ const ExportCsv = ({ miningStats, showText = true }: any) => {
         className="export_csv"
         style={{ paddingTop: paddingTopBtn }}
       >
-        <button className="export_csv_btn" style={style} onClick={toggleShow}>
+        <button
+          className="export_csv_btn"
+          onClick={toggleShow}
+          style={widthStyle}
+        >
           {!isLoading ? <CalendarIcon /> : <MoonLoader />}
           {!isLoading ? (
             <span>

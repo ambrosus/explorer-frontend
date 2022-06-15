@@ -59,16 +59,17 @@ const ApolloDetailsMiningStats = ({ apollo }: any) => {
     <div className="apollo_details_mining_stats">
       <div className="apollo_details_mining_stats_cells">
         <div className="apollo_details_mining_stats_cell">
-          <span className="" style={{ fontWeight: 700, fontSize: 14 }}>
+          <span className="" style={{ fontWeight: 600, fontSize: 14 }}>
             MINING STATS
           </span>
-          <span className="universall_light1" style={{ fontSize: 18 }}>
+          <span className="universall_light1" style={{ fontSize: 14 }}>
             {filterDate}
           </span>
         </div>
-        <button className="apollo_details_mining_stats_icon">
+        <div>
+          {/* className="apollo_details_mining_stats_icon" */}
           <ExportCsv miningStats={onSelect} showText={false} />
-        </button>
+        </div>
       </div>
       <div className="apollo_details_mining_stats_cells">
         <div className="apollo_details_mining_stats_fonts_normal universall_light1">

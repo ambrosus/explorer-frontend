@@ -1,5 +1,6 @@
 .AMB-Currency {
   margin: 0 !important;
+  font-size: inherit;
 
   > .symbol {
     &.left {
@@ -9,7 +10,10 @@
     }
 
     &.right {
-      font-weight: 600;
+      // font-weight: 600;
     }
   }
+}
+.inherit {
+  font-size: inherit;
 }

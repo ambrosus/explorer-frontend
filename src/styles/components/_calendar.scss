@@ -2,6 +2,8 @@
   margin-top: 8px;
   z-index: 1;
   border-radius: 12px;
+
+  left: 50px;
   @include for_tablet {
     margin-top: 16px;
   }
