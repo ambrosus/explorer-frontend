@@ -35,11 +35,11 @@
       position: absolute;
       margin: 70px 0 0 10px;
     }
-    &_copyed {
-      position: relative;
-      top: -35px;
-      left: -33px;
-    }
+    // &_copyed {
+    //   position: relative;
+    //   top: -35px;
+    //   left: -33px;
+    // }
 
     &_btn {
       display: flex;
@@ -58,6 +58,10 @@
         position: absolute;
         margin: 65px 0 0 10px;
       }
+    }
+    &_copyed {
+      position: absolute;
+      margin: 70px 0 0 10px;
     }
 
     &_popup {
