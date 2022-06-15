@@ -1,17 +1,22 @@
 .atlas_details_mining_stats {
   display: grid;
-  grid-template-columns:
-    minmax(230px, 2fr) minmax(260px, 2fr) minmax(260px, 2fr)
-    minmax(210px, 1fr);
+  grid-template-columns: repeat(4, auto);
+  // minmax(230px, 2fr) minmax(260px, 2fr) minmax(260px, 2fr)
+  // minmax(210px, 1fr);
   background: #ffffff;
   border: 1px solid #eff2f5;
   border-radius: 16px;
   margin-bottom: 32px;
+  white-space: nowrap;
 
   @include for_big_tablet {
-    display: flex;
-    flex-direction: column;
-    height: 420px;
+    grid-template-columns: repeat(2, auto);
+    // display: flex;
+    // flex-direction: column;
+    // height: 420px;
+  }
+  @include for_phone {
+    grid-template-columns: repeat(1, auto);
   }
 
   &_cells {
@@ -23,10 +28,26 @@
     flex: 1;
     border-right: 1px solid #eff2f5;
     @include for_big_tablet {
-      border-right: none;
+      height: 64px;
       border-bottom: 1px solid #eff2f5;
-      &:last-child() {
+      border-right: 1px solid #eff2f5;
+      &:nth-child(even) {
+        border-right: none;
+      }
+      &:nth-child(3) {
         border-bottom: none;
+      }
+      &:nth-child(4) {
+        border-bottom: none;
+      }
+      @include for_phone {
+        height: 64px;
+
+        border-right: none;
+        border-bottom: 1px solid #eff2f5 !important;
+        &:nth-child(4) {
+          border-bottom: none !important;
+        }
       }
     }
 
