@@ -33,15 +33,7 @@ const ApolloBlocksBody: FC<ApolloBodyProps> = ({
         </div>
         <div className="apollo_blocks_body_cell">{item.totalBlocks}</div>
         <div className="apollo_blocks_body_cell">
-          <span
-            className="apollo_blocks_body_cell_token"
-            style={{
-              color: '#808a9d',
-              textDecoration: 'underline solid #808a9d',
-            }}
-          >
-            AMB
-          </span>
+          <span className="apollo_blocks_body_cell_token">AMB</span>
           <span className="apollo_blocks_body_cell_value">
             {item.balance.ether.toFixed(5)}
           </span>
