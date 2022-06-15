@@ -3,7 +3,7 @@ import {TParams} from '../../../../types';
 import React from 'react';
 import {useParams} from 'react-router-dom';
 import moment from "moment";
-import { Number } from 'components/Number';
+import {Number} from 'components/Number';
 
 const BlockHeaderInfo = ({block}: any) => {
   const {data: appData} = useTypedSelector((state: any) => state.app);
@@ -35,13 +35,13 @@ const BlockHeaderInfo = ({block}: any) => {
               color: '#1acd8c',
             }}
           >
-{blockStatus(confirmations)}
+              {blockStatus(confirmations)}
           </span>
         </div>
         <div className="main_info_block_cell">
           <span className="main_info_block_cell_primary">CONFIRMATIONS</span>
           <span className="main_info_block_cell_secondary">
-                  <Number value={confirmations < 0 ? 0 : confirmations} />
+                  <Number value={confirmations < 0 ? 0 : confirmations}/>
           </span>
         </div>
 
