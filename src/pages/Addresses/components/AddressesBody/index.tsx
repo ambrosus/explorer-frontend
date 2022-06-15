@@ -47,12 +47,10 @@ const AddressesBody: FC<AddressesBodyProps> = ({
           {address}
         </NavLink>
         <div className="addresses_body_cell">{txCount || 0}</div>
-        <div className="addresses_body_cell balance">
-          <span style={{ paddingRight: 2 }}>
-            <Amb />
-          </span>
-          &nbsp;&nbsp;
-          {displayAmount(ambBalance)} AMB
+        <div className="addresses_body_cell">
+          <Amb />
+          <span className="addresses_body_cell_icon">AMB</span>
+          {displayAmount(ambBalance)}
         </div>
 
         <div className="addresses_body_cell">
