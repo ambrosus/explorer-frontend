@@ -12,7 +12,7 @@ const ApolloBlocksBody: FC<ApolloBodyProps> = ({
   const navigate = useNavigate();
 
   function redirectHandler() {
-    navigate(`${item.address}`, { replace: true });
+    navigate(`${item.address}`);
   }
 
   return (

@@ -6,7 +6,7 @@ const AtlasBlocksBody = ({ lastCardRef, index, item }: any) => {
   const { totalBundles, address, stake, balance } = item;
 
   function redirectHandler() {
-    navigate(`${item.address}`, { replace: true });
+    navigate(`${item.address}`);
   }
 
   const navigate = useNavigate();

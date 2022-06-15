@@ -12,7 +12,7 @@ export const Atlas = () => {
   const { ref, sortTerm, setSortTerm, renderData, loading } = useSortData(
     getAtlasesData,
     null,
-    'address',
+    'totalBundles',
   );
 
   return (

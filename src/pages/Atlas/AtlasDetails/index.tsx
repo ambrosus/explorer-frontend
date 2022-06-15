@@ -33,8 +33,8 @@ export const AtlasDetails = () => {
     <Content>
       <Content.Header>
         <div className="apollo_details_header">
-          <AtlasDetailsMain />
-          {/* <AtlasDetailsBalance atlas={atlas} /> */}
+          <AtlasDetailsMain atlas={atlas} />
+          <AtlasDetailsBalance atlas={atlas} />
           <AtlasDetailsMiningStats atlas={atlas} />
         </div>
       </Content.Header>
