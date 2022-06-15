@@ -16,12 +16,15 @@ const AtlasBlocksHeader = () => {
       <div className="atlas_blocks_header_cell">Rank</div>
       <div className="atlas_blocks_header_cell">Address</div>
       <div className="atlas_blocks_header_cell">
-        <button className="atlas_blocks_header_btn" onClick={toggleStatus}>
+        <div
+          className="atlas_blocks_header_btn"
+          // onClick={toggleStatus}
+        >
           <span className="atlas_blocks_header_status">
             Status
-            {isShow ? <ArrowUp /> : <ArrowDown />}
+            {/* {isShow ? <ArrowUp /> : <ArrowDown />} */}
           </span>
-        </button>
+        </div>
         {isShow && (
           <div ref={statusRef} className="atlas_blocks_header_status_modal">
             <AtlasHeaderStatusModal />
