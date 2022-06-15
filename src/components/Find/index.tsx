@@ -6,10 +6,13 @@ interface FindProps {
 }
 
 const Find: React.FC<FindProps> = ({ setIsShow }) => {
-  //TODO вынести с ретурна
+  function toggleShow() {
+    setIsShow(true)
+  }
+
   return (
     <>
-      <button className="find" onClick={() => setIsShow(true)}>
+      <button className="find" onClick={toggleShow}>
         <Search fill={'#fff'} />
       </button>
     </>

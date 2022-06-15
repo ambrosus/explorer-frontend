@@ -10,7 +10,6 @@ import React from 'react';
 import { getAccountsData } from 'services/accounts.service';
 
 export const Addresses = () => {
-  //TODO вернуть логику в компонент
   const { ref, sortTerm, setSortTerm, renderData, loading } = useSortData(
     getAccountsData,
     null,

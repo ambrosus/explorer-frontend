@@ -12,22 +12,19 @@ const ApolloDetailsMiningStats = ({ apollo }: any) => {
   const [rewards, setRewards] = useState<any>({});
   const [filterDate, setFilterDate] = useState<any>('');
   const { price_usd } = (appData && appData?.tokenInfo) || 0;
-  if (!apollo) {
-    return null;
-  }
-  //Todo kakogo [era Bobshe?
-  // eslint-disable-next-line
+
+
   useEffect(() => {
     if (apollo?.lastBlock) {
-      setFilterDate(
+      setFilterDate(()=>{
         formatDate(
           apollo?.lastBlock?.timestamp
             ? (new Date(apollo.lastBlock.timestamp * 1000) as any) / 1000
             : (new Date() as any) / 1000,
           true,
           false,
-        ),
-      );
+        )
+      });
     }
   }, [apollo]);
 
@@ -54,10 +51,11 @@ const ApolloDetailsMiningStats = ({ apollo }: any) => {
   }, [filterDate]);
 
   function isValidDate(d: any) {
-    // @ts-ignore
-    return !isNaN(new Date(d));
+    return !isNaN(new Date(d) as any);
   }
-
+  if (!apollo) {
+    return null;
+  }
   return (
     <div className="apollo_details_mining_stats">
       <div className="apollo_details_mining_stats_cells">
