@@ -48,6 +48,12 @@
     align-items: center;
     font-size: 18px;
     line-height: 40px;
+    @include for_phone {
+      font-size: 14px;
+    }
+    @include for_small_phone {
+      font-size: 12px;
+    }
   }
   &_button {
     display: flex;
