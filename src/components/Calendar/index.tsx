@@ -61,7 +61,6 @@ const Calendar = ({
       setIsLoading(true);
       setTimeout(() => {
         exportCallback().then((d) => {
-          console.log(d);
           setIsLoading(false);
         });
       }, 0);
