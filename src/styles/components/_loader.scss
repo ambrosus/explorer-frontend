@@ -1,3 +1,11 @@
+.animated{
+  position: relative;
+  height: 100px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
 .loader {
   top: 20px;
 }

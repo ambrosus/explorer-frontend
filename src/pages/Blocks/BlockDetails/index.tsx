@@ -10,9 +10,9 @@ import DataTitle from '../components/DataTitle';
 import BlockBody from './components/BlockBody';
 import BlockHeader from './components/BlockHeader';
 import BlockHeaderInfo from './components/BlockHeaderInfo';
+import { MainInfoBlockTable } from './components/MainInfoBlockTable';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import {MainInfoBlockTable} from "./components/MainInfoBlockTable";
 
 export const BlockDetails = () => {
   const { address }: TParams = useParams();
@@ -30,7 +30,6 @@ export const BlockDetails = () => {
   useEffect(() => {
     getData();
   }, []);
-  console.log('block',block);
 
   return (
     <Content>
@@ -51,8 +50,8 @@ export const BlockDetails = () => {
             </div>
           </div>
         </div>
-        <BlockHeaderInfo block={block}/>
-        <MainInfoBlockTable block={block}/>
+        <BlockHeaderInfo block={block} />
+        <MainInfoBlockTable block={block} />
       </Content.Header>
       <Content.Body>
         <div className="blocks_main">

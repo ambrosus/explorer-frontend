@@ -21,17 +21,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
   const isMethod =
     method === null ? null : (
       <div ref={methodRef} className="address_blocks_header_cell">
-        <div
-          style={{
-            //TODO css
-            display: 'flex',
-            alignItems: 'center',
-            fontWeight: 700,
-            fontSize: '0.86rem',
-            lineHeight: '1.77em',
-            color: '#808A9D',
-          }}
-        >
+        <div>
           {method}
         </div>
       </div>
