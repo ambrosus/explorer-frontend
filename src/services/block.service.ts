@@ -3,8 +3,7 @@ import API from '../API/api';
 export const getBlocksData = async (sortTerm: any, next: any) => {
   const data: any = await API.getBlocks({
     limit: 20,
-    sort: sortTerm,
-    next: next,
+    page: next,
   });
   return data;
 };

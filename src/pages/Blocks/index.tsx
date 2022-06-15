@@ -14,16 +14,16 @@ export const Blocks = () => {
     null,
     'totalBundles',
   );
-
+  console.log(renderData);
   return (
     <Content>
       <Content.Header>
         <MainInfoBlocks />
       </Content.Header>
       <Content.Body>
-        <div className="atlas_main">
+        <div className="blocks_main">
           <BlocksSort />
-          <div className="atlas_main_table">
+          <div className="blocks_main_table">
             <BlocksHeader />
             {renderData && renderData.data && renderData.data.length
               ? renderData.data.map((item: any, index: number) =>

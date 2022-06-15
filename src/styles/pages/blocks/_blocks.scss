@@ -1,2 +1,12 @@
 .blocks {
+  &_main {
+    display: grid;
+    width: 100%;
+
+    &_table {
+      width: 100%;
+      overflow-x: scroll;
+    }
+  }
 }
+

@@ -1,0 +1,18 @@
+.blocks_sort {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 56px;
+  border-bottom: 1px solid #eff2f5;
+
+  &_heading {
+    display: flex;
+    flex: 2;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 32px;
+    @include for_phone {
+      display: none;
+    }
+  }
+}
