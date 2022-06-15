@@ -143,6 +143,16 @@ export const atlasRoutes: IRoute[] = [
   },
 ];
 
+export const transactions: IRoute[] = [
+  {
+    path: '/transactions',
+    key: 'Transactions',
+    exact: true,
+    component: () => <Transactions />,
+    isClick: false,
+  },
+];
+
 const appRoutes: IAppRoutes = {
   routes,
   addressesRoutes,

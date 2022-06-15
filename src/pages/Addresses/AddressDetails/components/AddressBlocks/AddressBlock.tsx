@@ -194,7 +194,6 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
         >
           {online}
         </span>
-        <ReactTooltip />
         <span data-tip={String(txfee).length > 8 ? txfee : null}>
           {String(txfee).length > 8 ? String(txfee).slice(0, 8) : txfee}
         </span>

@@ -65,6 +65,7 @@
     display: flex;
     align-items: center;
     white-space: nowrap;
+    cursor: pointer;
 
     &_active {
       color: $main;
