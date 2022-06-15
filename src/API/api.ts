@@ -186,13 +186,15 @@ const getTokenTotalSupply = () => {
     });
 };
 
-const followTheLinkRange =async (fromDate: any, toDate: any, address: any) => {
+const followTheLinkRange = async (fromDate: any, toDate: any, address: any) => {
   const link = `${baseApiUrl}/transactions/csv/address/${address}`;
   const from = fromDate / 1000;
   const to = toDate / 1000;
-  window.open(`${link}/dateFrom/${from}/dateTo/${to}`, '_self')
- const data = await fetch(`${link}/dateFrom/${from}/dateTo/${to}`).then(console.log)
-  return data
+  window.open(`${link}/dateFrom/${from}/dateTo/${to}`, '_self');
+  const data = await fetch(`${link}/dateFrom/${from}/dateTo/${to}`).then(
+    console.log,
+  );
+  return data;
 };
 
 const api = {

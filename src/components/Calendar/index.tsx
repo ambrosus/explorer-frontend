@@ -1,14 +1,18 @@
 import API from 'API/api';
-import {addDays} from 'date-fns';
-import React, {useState} from 'react';
-import {DateRange} from 'react-date-range';
+import { addDays } from 'date-fns';
+import React, { useState } from 'react';
+import { DateRange } from 'react-date-range';
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
-import {useParams} from 'react-router-dom';
-import {TParams} from 'types';
+import { useParams } from 'react-router-dom';
+import { TParams } from 'types';
 
-const Calendar = ({setIsLoading, handleClose, miningStats = undefined}: any) => {
-  const {address}: TParams = useParams();
+const Calendar = ({
+  setIsLoading,
+  handleClose,
+  miningStats = undefined,
+}: any) => {
+  const { address }: TParams = useParams();
 
   const [dataRange, setDataRange] = useState([
     {
@@ -37,15 +41,15 @@ const Calendar = ({setIsLoading, handleClose, miningStats = undefined}: any) => 
 
   const exportCallback = async () => {
     if (dataRange) {
-      return  await API.followTheLinkRange(
+      return await API.followTheLinkRange(
         dataRange[0].startDate,
         dataRange[0].endDate,
         address,
-      )
+      );
     } else {
-      return  await  API.followTheLinkRange(0, 0, address)
+      return await API.followTheLinkRange(0, 0, address);
     }
-  }
+  };
   const exportData = async () => {
     if (miningStats !== undefined) {
       const str = `${formatDate(dataRange[0].startDate)}-${formatDate(
@@ -54,17 +58,15 @@ const Calendar = ({setIsLoading, handleClose, miningStats = undefined}: any) => 
 
       miningStats(str);
     } else {
-      setIsLoading(true)
-     setTimeout( () => {
-        exportCallback().then((d)=>{
+      setIsLoading(true);
+      setTimeout(() => {
+        exportCallback().then((d) => {
           console.log(d);
-          setIsLoading(false)
-        })
-
-     },0)
-
+          setIsLoading(false);
+        });
+      }, 0);
     }
-    handleClose()
+    handleClose();
   };
 
   return (

@@ -6,8 +6,8 @@ import ContentCopy from 'assets/icons/CopyIcons/ContentCopy';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 
-const AtlasDetailsBalance = ({apollo}:any) => {
-  console.log('apollo',apollo);
+const AtlasDetailsBalance = ({ apollo }: any) => {
+  console.log('apollo', apollo);
   const { address }: TParams = useParams();
 
   const { isCopy, copyContent, isCopyPopup } = useCopyContent(address);
