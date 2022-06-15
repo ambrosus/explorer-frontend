@@ -6,7 +6,7 @@ import ContentCopy from 'assets/icons/CopyIcons/ContentCopy';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 
-const AtlasDetailsMain = ({atlas}:any) => {
+const AtlasDetailsMain = ({ atlas }: any) => {
   console.log(atlas);
   const { address }: TParams = useParams();
 
