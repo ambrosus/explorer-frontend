@@ -7,7 +7,7 @@ interface FindProps {
 
 const Find: React.FC<FindProps> = ({ setIsShow }) => {
   function toggleShow() {
-    setIsShow(true)
+    setIsShow(true);
   }
 
   return (

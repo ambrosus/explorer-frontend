@@ -1,9 +1,9 @@
 import { Layout } from '../layouts/Layout';
 import { RenderRoutes } from 'components/RenderRoutes/RenderRoutes';
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import routes from 'routes';
 import 'styles/Main.scss';
-import {useLocation} from "react-router-dom";
 
 const Main: React.FC = () => {
   const { pathname } = useLocation();

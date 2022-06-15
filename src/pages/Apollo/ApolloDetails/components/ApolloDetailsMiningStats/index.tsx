@@ -13,17 +13,16 @@ const ApolloDetailsMiningStats = ({ apollo }: any) => {
   const [filterDate, setFilterDate] = useState<any>('');
   const { price_usd } = (appData && appData?.tokenInfo) || 0;
 
-
   useEffect(() => {
     if (apollo?.lastBlock) {
-      setFilterDate(()=>{
+      setFilterDate(() => {
         formatDate(
           apollo?.lastBlock?.timestamp
             ? (new Date(apollo.lastBlock.timestamp * 1000) as any) / 1000
             : (new Date() as any) / 1000,
           true,
           false,
-        )
+        );
       });
     }
   }, [apollo]);
