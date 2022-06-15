@@ -1,3 +1,4 @@
+import { BlockDetails } from './pages/Blocks/BlockDetails';
 import { IRoute } from './types';
 import { Addresses } from 'pages/Addresses';
 import AddressDetails from 'pages/Addresses/AddressDetails';
@@ -131,8 +132,8 @@ export const blockRoutes: IRoute[] = [
     path: '/blocks/:address',
     key: 'Block Details',
     exact: true,
-    component: () => <Blocks />,
-    isClick: true,
+    component: () => <BlockDetails />,
+    isClick: false,
   },
 ];
 

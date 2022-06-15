@@ -35,7 +35,11 @@
 @import './blocks/components/blocks_body';
 @import './blocks/components/blocks_header';
 @import './blocks/components/blocks_sort';
-@import './blocks/components/main_info_blocks.scss';
+@import './blocks/components/main_info_blocks';
+@import './blocks/block_details/main_info_block';
+@import './blocks/block_details/block_body';
+@import './blocks/block_details/blocks_block_header';
+@import './blocks/block_details/main_info_block_table';
 
 // atalasDetails
 @import './atlas/atlas_details/atlas_details';

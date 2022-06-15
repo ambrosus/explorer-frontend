@@ -7,26 +7,24 @@ export const getBlocksData = async (sortTerm: any, next: any) => {
   });
   return data;
 };
-export const getBlockData = async (address: string) => {
-  const data: any = await API.getBlock(address);
+export const getBlockData = async (hashOrNumber: string) => {
+  const data: any = await API.getBlock(hashOrNumber);
   return data;
 };
 
-export const getAccountsTxDataBlock = async (
-  sortTerm: any,
-  next: any,
-  address: any,
+export const getBlockTransactionsData = async (
+  sort?: any,
+  next?: any,
+  hashOrNumber?: any,
 ) => {
   const params = !next
     ? {
         limit: 20,
-        type: sortTerm,
       }
     : {
         limit: 20,
-        type: sortTerm,
         page: next,
       };
-  const data: any = await API.getAccountTx(address, params);
+  const data: any = await API.getBlockTransactions(hashOrNumber, params);
   return data;
 };
