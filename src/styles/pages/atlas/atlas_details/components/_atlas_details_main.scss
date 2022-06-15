@@ -3,14 +3,29 @@
   justify-content: space-between;
   align-items: center;
   margin: 32px 0;
+  margin-top: 12px;
+  @include for_tablet {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
   &_nd {
     display: flex;
     flex-direction: column;
+    white-space: nowrap;
+    margin-top: 20px;
   }
   &_address {
     display: flex;
     align-items: center;
     gap: 12px;
+
+    @include for_phone {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0;
+      margin-top: 8px;
+    }
   }
   &_cell {
     display: flex;

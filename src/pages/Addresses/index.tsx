@@ -29,19 +29,14 @@ export const Addresses = () => {
             <AddressesHeader />
             {renderData && renderData.data && renderData.data.length
               ? renderData.data.map((account: Account, index: number) => {
-                  return account && renderData.data.length - 1 === index ? (
+                  return (
                     <AddressesBody
                       key={account._id}
-                      lastCardRef={ref}
-                      isContract={account.isContract}
-                      address={account.address}
-                      balance={account.balance}
-                      rank={index + 1}
-                      txCount={account.totalTx}
-                    />
-                  ) : (
-                    <AddressesBody
-                      key={account._id}
+                      lastCardRef={
+                        account && renderData.data.length - 1 === index
+                          ? ref
+                          : null
+                      }
                       isContract={account.isContract}
                       address={account.address}
                       balance={account.balance}
