@@ -7,43 +7,46 @@ const MainInfoBlocks = () => {
   const avgBlockTime = appData?.netInfo?.avgBlockTime || 0;
   const avgBlockSize = appData?.netInfo?.avgBlockSize || 0;
   const avgBlockGasUsed = appData?.netInfo?.avgBlockGasUsed || 0;
-  const avgNectarPerc = `(${(
-    (appData?.netInfo?.avgBlockGasUsed / appData?.netInfo?.avgBlockGasLimit || 0) * 100
-  ).toFixed(2)}%)` || 0;
+  const avgNectarPerc =
+    `(${(
+      (appData?.netInfo?.avgBlockGasUsed / appData?.netInfo?.avgBlockGasLimit ||
+        0) * 100
+    ).toFixed(2)}%)` || 0;
 
   return (
-    <div className="main_info_atlas">
-      <h1 className="main_info_atlas_heading">Blocks</h1>
-      <div className="main_info_atlas_table">
-        <div className="main_info_atlas_cell">
-          <span className="main_info_atlas_cell_primary">TOTAL BLOCKS</span>
-          <span className="main_info_atlas_cell_secondary">
-                        <Number value={total || 0} fixed={0} />
+    <div className="main_info_blocks_blocks">
+      <div className="main_info_blocks_blocks_table">
+        <div className="main_info_blocks_blocks_cell">
+          <span className="main_info_blocks_blocks_cell_primary">
+            TOTAL BLOCKS
+          </span>
+          <span className="main_info_blocks_blocks_cell_secondary">
+            <Number value={total || 0} fixed={0} />
           </span>
         </div>
-        <div className="main_info_atlas_cell">
-          <span className="main_info_atlas_cell_primary">
-          AVG. BLOCK SIZE
+        <div className="main_info_blocks_blocks_cell">
+          <span className="main_info_blocks_blocks_cell_primary">
+            AVG. BLOCK SIZE
           </span>
-          <span className="main_info_atlas_cell_secondary">
+          <span className="main_info_blocks_blocks_cell_secondary">
             {' '}
             <Number value={avgBlockSize || 0} fixed={1} /> Bytes
           </span>
         </div>
-        <div className="main_info_atlas_cell">
-          <span className="main_info_atlas_cell_primary">
+        <div className="main_info_blocks_blocks_cell">
+          <span className="main_info_blocks_blocks_cell_primary">
             AVG. BLOCK TIME
           </span>
-          <span className="main_info_atlas_cell_secondary">
+          <span className="main_info_blocks_blocks_cell_secondary">
             {' '}
             <Number value={avgBlockTime || 0} fixed={1} /> Sec
           </span>
         </div>
-        <div className="main_info_atlas_cell">
-          <span className="main_info_atlas_cell_primary">
-           AVG. NECTAR USED
+        <div className="main_info_blocks_blocks_cell">
+          <span className="main_info_blocks_blocks_cell_primary">
+            AVG. NECTAR USED
           </span>
-          <span className="main_info_atlas_cell_secondary">
+          <span className="main_info_blocks_blocks_cell_secondary">
             {' '}
             <Number value={avgBlockGasUsed || 0} fixed={1} /> {avgNectarPerc}
           </span>
