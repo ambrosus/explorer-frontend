@@ -42,7 +42,9 @@ const MainInfoApollo = () => {
           <span className="main_info_apollo_cell_primary">
             Avg block / prop. time
           </span>
-          <span className="main_info_apollo_cell_secondary">{appData?.netInfo?.avgBlockTime ?? 0} sec</span>
+          <span className="main_info_apollo_cell_secondary">
+            {appData?.netInfo?.avgBlockTime ?? 0} sec
+          </span>
         </div>
         {/*<div className="main_info_apollo_cell" style={{ padding: 5 }}>*/}
         {/*  <Chart chartData={chartData} />*/}

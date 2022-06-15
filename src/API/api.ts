@@ -191,9 +191,7 @@ const followTheLinkRange = async (fromDate: any, toDate: any, address: any) => {
   const from = fromDate / 1000;
   const to = toDate / 1000;
   window.open(`${link}/dateFrom/${from}/dateTo/${to}`, '_self');
-  const data = await fetch(`${link}/dateFrom/${from}/dateTo/${to}`).then(
-    console.log,
-  );
+  const data = await fetch(`${link}/dateFrom/${from}/dateTo/${to}`)
   return data;
 };
 

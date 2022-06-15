@@ -18,12 +18,11 @@ const reducer = (
 ): AppState => {
   switch (action.type) {
     case actionTypes.SET_APP_DATA__START:
-      //TODO переписать через спред
-      return { loading: true, error: null, data: null };
+      return { ...state, loading: true};
     case actionTypes.SET_APP_DATA__SUCCESS:
-      return { loading: false, error: null, data: action.payload };
+      return { ...state, loading: false,  data: action.payload };
     case actionTypes.SET_APP_DATA__FAIL:
-      return { loading: false, error: action.payload, data: null };
+      return { ...state, error: action.payload,};
     default:
       return state;
   }
