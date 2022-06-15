@@ -199,16 +199,10 @@ const AddressDetails = () => {
             <div className="address_details_copy">
               {address}
               <button
-                className={'address_details_copy_btn'}
+                className="address_details_copy_btn"
                 onClick={copyContent}
               >
-                {isCopy ? (
-                  <>
-                    <ContentCopyed />
-                  </>
-                ) : (
-                  <ContentCopy />
-                )}
+                {isCopy ? <ContentCopyed /> : <ContentCopy />}
                 {FOR_TABLET && isCopyPopup && isCopy && (
                   <div className="address_details_copyed">
                     <CopyPopUp x={3} y={20} values="Copyed" />

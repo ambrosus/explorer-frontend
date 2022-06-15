@@ -2,15 +2,14 @@
   margin: 0 !important;
 
   > .symbol {
-    // font-size: 0.9em;
-    opacity: 1;
-
     &.left {
       margin-right: 0.3em;
+      color: #808a9d;
+      font-weight: 600;
     }
 
     &.right {
-      margin-left: 0.3em;
+      font-weight: 600;
     }
   }
 }
