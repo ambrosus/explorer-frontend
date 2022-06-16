@@ -40,6 +40,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
   isTableColumn,
   isIcon,
   inners,
+  innerLevel,
 }) => {
   const { addFilter } = useActions();
   const { address, type }: TParams = useParams();
@@ -47,6 +48,8 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
   const navigate = useNavigate();
 
   const [isExpanded, setIsExpanded] = useState(false);
+  const handleExpand = () => setIsExpanded((state: boolean) => !state);
+
   const { data: addressData } = useTypedSelector(
     (state: any) => state.position,
   );
@@ -56,7 +59,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
     txhash === null ? null : (
       <div
         className="address_blocks_cell address_blocks_cell-hash universall_light2"
-        style={{ fontWeight: '600' }}
+        style={{ fontWeight: '600', marginLeft: innerLevel ? `${16 * innerLevel}px` : 0}}
       >
         {inners && (
           <button onClick={handleExpand} className="address_blocks_plus">
@@ -255,6 +258,13 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
       <></>
     );
 
+  let innerLvl = 0;
+
+  if (innerLevel) {
+    innerLvl = innerLevel + 1;
+  } else if (inners) {
+    innerLvl = 1;
+  }
   return (
     <>
       <div className={isTableColumn} ref={lastCardRef}>
@@ -287,6 +297,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
               symbol={`${transaction?.symbol ? transaction?.symbol : 'AMB'}`}
               isTableColumn={isTableColumn}
               inners={transaction.inners}
+              innerLevel={innerLvl}
             />
           </div>
         ))}
