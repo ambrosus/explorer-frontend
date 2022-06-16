@@ -23,7 +23,7 @@ const useSortData = (
         return;
       }
       setRenderData(res);
-      setLoading(true);
+      setLoading(false);
     });
   }, []);
 
@@ -37,7 +37,7 @@ const useSortData = (
           return;
         }
         setRenderData(res);
-        setLoading(true);
+        setLoading(false);
       });
     }
   }, [sortTerm]);
