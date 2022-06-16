@@ -22,13 +22,16 @@ export const AtlasDetails = () => {
     address,
     type,
   );
+
   const getDataApollo = async () => {
     const atlasData = await getAtlasData(address as string);
     setAtlas(atlasData.data);
   };
+
   useEffect(() => {
     getDataApollo();
   }, []);
+
   return (
     <Content>
       <Content.Header>

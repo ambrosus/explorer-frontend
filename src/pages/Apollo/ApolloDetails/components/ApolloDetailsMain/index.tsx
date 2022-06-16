@@ -9,7 +9,6 @@ import { useParams } from 'react-router-dom';
 
 const AtlasDetailsBalance = ({ apollo }: any) => {
   const { address }: TParams = useParams();
-  console.log(apollo);
 
   const { isCopy, copyContent, isCopyPopup } = useCopyContent(address);
   const isOffline = apollo?.status === 'OFFLINE' ? '#bfc9e0' : undefined;
