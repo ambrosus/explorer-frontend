@@ -3,6 +3,7 @@ import CopyPopUp from '../../../../../assets/icons/CopyIcons/CopyPopUp';
 import useCopyContent from '../../../../../hooks/useCopyContent';
 import { TParams } from '../../../../../types';
 import ContentCopy from 'assets/icons/CopyIcons/ContentCopy';
+import useDeviceSize from 'hooks/useDeviceSize';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 
@@ -10,7 +11,7 @@ const AtlasDetailsMain = ({ atlas }: any) => {
   const { address }: TParams = useParams();
 
   const { isCopy, copyContent, isCopyPopup } = useCopyContent(address);
-
+  const { FOR_TABLET } = useDeviceSize();
   return (
     <div className="atlas_details_main">
       <div className="atlas_details_main_nd">
@@ -24,7 +25,7 @@ const AtlasDetailsMain = ({ atlas }: any) => {
           <button className="address_button" onClick={copyContent}>
             {isCopy ? <ContentCopyed /> : <ContentCopy />}
 
-            {isCopyPopup && isCopy && (
+            {FOR_TABLET && isCopyPopup && isCopy && (
               <div className="address_button_copyed">
                 <CopyPopUp x={3} y={20} values="Copyed" />
               </div>

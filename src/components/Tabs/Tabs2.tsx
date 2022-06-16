@@ -189,11 +189,6 @@ const Tabs2: FC<any> = ({
             </div>
           )}
         </section>
-        {loading && data?.pagination?.hasNext && (
-          <div style={{ top: '-20px', position: 'relative' }}>
-            <Loader />
-          </div>
-        )}
       </div>
     </>
   );
