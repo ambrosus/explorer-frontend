@@ -27,6 +27,7 @@ export const ApolloDetails = () => {
     const apolloData = await getApolloData(address as string);
     setApollo(apolloData.data);
   };
+
   useEffect(() => {
     getDataApollo();
   }, []);
