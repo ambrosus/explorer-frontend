@@ -1,28 +1,32 @@
+import Amb from 'assets/icons/Cryptos/Amb';
 import { Currency } from 'components/UI/Currency';
-import { useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { statusMessage } from 'utils/helpers';
 
 const AtlasBlocksBody = ({ lastCardRef, index, item }: any) => {
   const { totalBundles, address, stake, balance } = item;
 
-  function redirectHandler() {
-    navigate(`${item.address}`);
-  }
+  // function redirectHandler() {
+  //   navigate(`${item.address}`);
+  // }
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   return (
     <div className="atlas_blocks_body" ref={lastCardRef}>
       <div className="atlas_blocks_body_cell">{index}</div>
-      <div
+      <NavLink
         style={{
           cursor: 'pointer',
+          color: '#808A9D',
+          textDecoration: 'none',
         }}
         className="atlas_blocks_body_cell"
-        onClick={redirectHandler}
+        // onClick={redirectHandler}
+        to={`${item.address}/`}
       >
         {address}
-      </div>
+      </NavLink>
       <div className="atlas_blocks_body_cell">
         {' '}
         {statusMessage(item, 'Atlas')}
@@ -30,7 +34,11 @@ const AtlasBlocksBody = ({ lastCardRef, index, item }: any) => {
       <div className="atlas_blocks_body_cell">
         <span className="atlas_blocks_body_cell_value">{totalBundles}</span>
       </div>
+
       <div className="atlas_blocks_body_cell">
+        <span className="atlas_blocks_body_cell_amb">
+          <Amb />
+        </span>
         <Currency
           value={balance ? `${balance.ether}` : '0'}
           symbol="AMB"

@@ -5,14 +5,13 @@ import React, { FC } from 'react';
 export const Content: FC<IContentProps> & ITabsComposition = ({
   children,
   isLoading = true,
-}: IContentProps) =>
-  !isLoading ? (
-    <Loader />
-  ) : (
-    <div className="content">
-      <div className="content_backgorund">{children}</div>
-    </div>
-  );
+}: IContentProps) => (
+  <div className="content">
+    <div className="content_backgorund">{children}</div>
+    {!isLoading && <Loader />}
+  </div>
+);
+
 Content.displayName = 'CONTENT';
 const Header = ({ children, isLoading = true }: IContentProps) => (
   <div className="content_header">
