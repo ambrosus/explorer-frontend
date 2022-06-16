@@ -9,10 +9,12 @@ import {useOnClickOutside} from 'hooks/useOnClickOutside';
 import _ from 'lodash';
 import moment from 'moment';
 import AddressBlocksHeader from 'pages/Addresses/AddressDetails/components/AddressBlocksHeader';
-import React, {FC, useEffect, useRef, useState} from 'react';
-import {NavLink, useLocation, useParams} from 'react-router-dom';
-import removeArrayDuplicates, {setupStyle} from 'utils/helpers';
-import {sidePages} from 'utils/sidePages';
+
+import React, { FC, useEffect, useRef, useState } from 'react';
+import { NavLink, useLocation, useParams } from 'react-router-dom';
+import removeArrayDuplicates, { setupStyle } from 'utils/helpers';
+import { sidePages } from 'utils/sidePages';
+
 
 const Tabs2: FC<any> = ({
                           data,
@@ -35,7 +37,6 @@ const Tabs2: FC<any> = ({
   const headerTxfee: any = 'txFee';
   const headerToken: any = null;
   const {pathname} = useLocation();
-
 
   const noDtaFound = () => {
     setTimeout(() => {
@@ -91,7 +92,7 @@ const Tabs2: FC<any> = ({
   }
 
   function toggleShowCalendar() {
-    setIsShow(prevState => !prevState)
+    setIsShow((prevState) => !prevState);
   }
 
   return (
@@ -108,24 +109,26 @@ const Tabs2: FC<any> = ({
               </div>
             )}
             {sortOptions &&
-            sortOptions.length &&
-            _.map(sortOptions, (filter) => (
-              <NavLink
-                style={{
-                  pointerEvents:loading ? 'none':'unset'
-                }}
-                key={filter.title}
-                to={ `/${pageType}/${address}/${
-                  filter.value ? filter.value : ''
-                }`}
-                className={() => handleNavLinkClass(filter.value)}
-                onClick={(e) => {
-                   setTypeHandler(filter.value)
-                }}
-              >
-                {filter.title}
-              </NavLink>
-            ))}
+
+              sortOptions.length &&
+              _.map(sortOptions, (filter) => (
+                <NavLink
+                  style={{
+                    pointerEvents: loading ? 'none' : 'unset',
+                  }}
+                  key={filter.title}
+                  to={`/${pageType}/${address}/${
+                    filter.value ? filter.value : ''
+                  }`}
+                  className={() => handleNavLinkClass(filter.value)}
+                  onClick={(e) => {
+                    setTypeHandler(filter.value);
+                  }}
+                >
+                  {filter.title}
+                </NavLink>
+              ))}
+
           </div>
 
           <div ref={mobileCalendarRef} className="tabs_heading_export_modal">
@@ -166,31 +169,34 @@ const Tabs2: FC<any> = ({
 
           {renderData && renderData?.length !== 0
             ? _.map(renderData, (transaction: any, index: number) => {
-              return (
-                <AddressBlock
-                  lastCardRef={
-                    renderData.length - 1 === index ? lastCardRef : null
-                  }
-                  isLatest={true}
-                  onClick={onClick}
-                  key={index}
-                  txhash={transaction.hash}
-                  method={transaction.type}
-                  from={transaction.from}
-                  to={transaction.to}
-                  date={moment(transaction.timestamp * 1000).fromNow()}
-                  block={transaction.blockNumber}
-                  amount={transaction.value.ether}
-                  txfee={transaction.gasCost.ether}
-                  token={`${transaction?.token ? transaction?.token : 'AMB'}`}
-                  symbol={`${
-                    transaction?.symbol ? transaction?.symbol : 'AMB'
-                  }`}
-                  isTableColumn={isTableColumn}
-                  isIcon={isIcon}
-                />
-              );
-            })
+
+                return (
+                  <AddressBlock
+                    lastCardRef={
+                      renderData.length - 1 === index ? lastCardRef : null
+                    }
+                    inners={transaction.inners}
+                    isLatest={true}
+                    onClick={onClick}
+                    key={index}
+                    txhash={transaction.hash}
+                    method={transaction.type}
+                    from={transaction.from}
+                    to={transaction.to}
+                    date={moment(transaction.timestamp * 1000).fromNow()}
+                    block={transaction.blockNumber}
+                    amount={transaction.value.ether}
+                    txfee={transaction.gasCost.ether}
+                    token={`${transaction?.token ? transaction?.token : 'AMB'}`}
+                    symbol={`${
+                      transaction?.symbol ? transaction?.symbol : 'AMB'
+                    }`}
+                    isTableColumn={isTableColumn}
+                    isIcon={isIcon}
+                  />
+                );
+              })
+
             : null}
           {loading && (
             <div style={{top: '-20px', position: 'relative'}}>
