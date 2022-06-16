@@ -5,36 +5,38 @@ import NotFoundIcon from 'assets/icons/Errors/NotFoundIcon';
 import SideMenu from 'assets/icons/SideMenu';
 import Calendar from 'components/Calendar';
 import useDeviceSize from 'hooks/useDeviceSize';
-import { useOnClickOutside } from 'hooks/useOnClickOutside';
+import {useOnClickOutside} from 'hooks/useOnClickOutside';
 import _ from 'lodash';
 import moment from 'moment';
 import AddressBlocksHeader from 'pages/Addresses/AddressDetails/components/AddressBlocksHeader';
+
 import React, { FC, useEffect, useRef, useState } from 'react';
 import { NavLink, useLocation, useParams } from 'react-router-dom';
 import removeArrayDuplicates, { setupStyle } from 'utils/helpers';
 import { sidePages } from 'utils/sidePages';
 
+
 const Tabs2: FC<any> = ({
-  data,
-  lastCardRef,
-  onClick,
-  setTransactionType,
-  transactionType,
-  isIcon,
-  loading,
-  pageType,
-  sortOptions,
-}: any) => {
+                          data,
+                          lastCardRef,
+                          onClick,
+                          setTransactionType,
+                          transactionType,
+                          isIcon,
+                          loading,
+                          pageType,
+                          sortOptions,
+                        }: any) => {
   const [isShow, setIsShow] = useState(false);
-  const { address, type } = useParams();
+  const {address, type} = useParams();
   const [renderData, setRenderData] = useState<any>(null);
   const [notFound, setNotFound] = useState<any>(false);
   const mobileCalendarRef = useRef(null);
-  const { methodFilters } = sidePages;
+  const {methodFilters} = sidePages;
   const headerBlock: any = 'Block';
   const headerTxfee: any = 'txFee';
   const headerToken: any = null;
-  const { pathname } = useLocation();
+  const {pathname} = useLocation();
 
   const noDtaFound = () => {
     setTimeout(() => {
@@ -72,7 +74,7 @@ const Tabs2: FC<any> = ({
     }
   }, [address, type, transactionType]);
 
-  const { FOR_TABLET } = useDeviceSize();
+  const {FOR_TABLET} = useDeviceSize();
 
   const isTableColumn =
     renderData && renderData?.length
@@ -103,10 +105,11 @@ const Tabs2: FC<any> = ({
                 ref={mobileCalendarRef}
                 className="tabs_heading_export_modal_mobile"
               >
-                <Calendar />
+                <Calendar/>
               </div>
             )}
             {sortOptions &&
+
               sortOptions.length &&
               _.map(sortOptions, (filter) => (
                 <NavLink
@@ -125,11 +128,12 @@ const Tabs2: FC<any> = ({
                   {filter.title}
                 </NavLink>
               ))}
+
           </div>
 
           <div ref={mobileCalendarRef} className="tabs_heading_export_modal">
             {FOR_TABLET ? (
-              <ExportCsv />
+              <ExportCsv/>
             ) : (
               <>
                 <div className="tabs_side_menu">
@@ -137,7 +141,7 @@ const Tabs2: FC<any> = ({
                     className="tabs_side_menu_icon"
                     onClick={toggleShowCalendar}
                   >
-                    <SideMenu />
+                    <SideMenu/>
                   </button>
                 </div>
               </>
@@ -165,6 +169,7 @@ const Tabs2: FC<any> = ({
 
           {renderData && renderData?.length !== 0
             ? _.map(renderData, (transaction: any, index: number) => {
+
                 return (
                   <AddressBlock
                     lastCardRef={
@@ -191,15 +196,16 @@ const Tabs2: FC<any> = ({
                   />
                 );
               })
+
             : null}
           {loading && (
-            <div style={{ top: '-20px', position: 'relative' }}>
-              <Loader />
+            <div style={{top: '-20px', position: 'relative'}}>
+              <Loader/>
             </div>
           )}
           {!loading && !renderData?.length && noDtaFound() && (
             <div className="tabs_not_found">
-              <NotFoundIcon />
+              <NotFoundIcon/>
               <span className="tabs_not_found_text">
                 No results were found for this query.
               </span>
