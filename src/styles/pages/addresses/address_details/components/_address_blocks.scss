@@ -10,6 +10,7 @@
   }
 
   &_cells {
+    position: relative;
     display: grid;
     grid-template-columns:
       minmax(200px, 1fr) minmax(140px, 1fr) minmax(110px, 1fr)
@@ -56,5 +57,13 @@
       align-items: center;
       justify-self: center;
     }
+  }
+  &_inner .address_blocks_cells{
+  }
+  &_plus {
+    position: absolute;
+    background: transparent;
+    left: -13px;
+    top: 15px;
   }
 }
