@@ -16,7 +16,7 @@ const MainInfoApollo = () => {
           </span>
         </div>
         <div className="main_info_apollo_cell">
-          <span className="main_info_apollo_cell_primary">Online</span>
+          <span className="main_info_apollo_cell_primary">ONLINE</span>
           <span
             className="main_info_apollo_cell_secondary"
             style={{
@@ -27,7 +27,7 @@ const MainInfoApollo = () => {
           </span>
         </div>
         <div className="main_info_apollo_cell">
-          <span className="main_info_apollo_cell_primary">offline</span>
+          <span className="main_info_apollo_cell_primary">OFFLINE</span>
           <span className="main_info_apollo_cell_secondary">
             {appData?.netInfo?.apollos?.offline || 0}
           </span>
