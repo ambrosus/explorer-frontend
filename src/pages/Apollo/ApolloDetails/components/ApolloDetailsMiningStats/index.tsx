@@ -3,7 +3,6 @@ import { Currency } from '../../../../../components/UI/Currency';
 import { useTypedSelector } from '../../../../../hooks/useTypedSelector';
 import { ambToUSD, formatDate } from '../../../../../utils/helpers';
 import API from 'API/api';
-import CalendarIcon from 'assets/icons/CalendarIcon';
 import { Number } from 'components/Number';
 import { useEffect, useState } from 'react';
 
