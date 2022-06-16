@@ -53,13 +53,16 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
   const { data: addressData } = useTypedSelector(
     (state: any) => state.position,
   );
-  const handleExpand = () => setIsExpanded((state: boolean) => !state);
+  // const handleExpand = () => setIsExpanded((state: boolean) => !state);
 
   const isTxHash: JSX.Element | null =
     txhash === null ? null : (
       <div
         className="address_blocks_cell address_blocks_cell-hash universall_light2"
-        style={{ fontWeight: '600', marginLeft: innerLevel ? `${16 * innerLevel}px` : 0}}
+        style={{
+          fontWeight: '600',
+          // marginLeft: innerLevel ? `${16 * innerLevel}px` : 0,
+        }}
       >
         {inners && (
           <button onClick={handleExpand} className="address_blocks_plus">
