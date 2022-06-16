@@ -56,7 +56,7 @@ const AtlasDetailsBalance = ({ atlas }: any) => {
         </a>
       </div>
     </div>
-  )
+  );
 };
 
 export default AtlasDetailsBalance;

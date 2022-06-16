@@ -20,7 +20,7 @@ export const sliceData10 = (item: string | any) => {
     return '';
   }
   return item.length > 10
-    ? `${item.slice(0, 10)}...${item.slice(item.length - 10)}`
+    ? `${item.slice(0, 4)}...${item.slice(item.length - 4)}`
     : item;
 };
 export const calcTime = (time: any) => {
