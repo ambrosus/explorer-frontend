@@ -1,4 +1,3 @@
-import Loader from '../../../../../components/Loader';
 import { Currency } from '../../../../../components/UI/Currency';
 import { useTypedSelector } from '../../../../../hooks/useTypedSelector';
 import { ambToUSD } from '../../../../../utils/helpers';
@@ -12,7 +11,7 @@ const AtlasDetailsBalance = ({ atlas }: any) => {
   const usdBalance = ambToUSD(ambBalance, price_usd);
   const usdStake = ambToUSD(ambStake, price_usd);
 
-  return atlas !== null ? (
+  return (
     <div className="atlas_details_balance">
       <div className="atlas_details_balance_cells">
         <div className="atlas_details_balance_fonts_normal universall_light1">
@@ -57,9 +56,7 @@ const AtlasDetailsBalance = ({ atlas }: any) => {
         </a>
       </div>
     </div>
-  ) : (
-    <Loader />
-  );
+  )
 };
 
 export default AtlasDetailsBalance;

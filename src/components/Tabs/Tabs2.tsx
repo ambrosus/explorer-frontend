@@ -10,7 +10,7 @@ import _ from 'lodash';
 import moment from 'moment';
 import AddressBlocksHeader from 'pages/Addresses/AddressDetails/components/AddressBlocksHeader';
 import React, { FC, useEffect, useRef, useState } from 'react';
-import { NavLink, useParams } from 'react-router-dom';
+import {NavLink, useLocation, useParams} from 'react-router-dom';
 import removeArrayDuplicates, { setupStyle } from 'utils/helpers';
 import { sidePages } from 'utils/sidePages';
 
@@ -34,6 +34,8 @@ const Tabs2: FC<any> = ({
   const headerBlock: any = 'Block';
   const headerTxfee: any = 'txFee';
   const headerToken: any = null;
+  const { pathname } = useLocation();
+
 
   const noDtaFound = () => {
     setTimeout(() => {
@@ -63,7 +65,7 @@ const Tabs2: FC<any> = ({
         }
       });
     }
-  }, [data?.data, transactionType]);
+  }, [data?.data, transactionType,setTransactionType]);
 
   useEffect(() => {
     if (address || type) {
@@ -84,6 +86,14 @@ const Tabs2: FC<any> = ({
     }`;
   };
 
+  function setTypeHandler(value:string) {
+    setTransactionType(value);
+  }
+
+  function toggleShowCalendar() {
+    setIsShow(prevState => !prevState)
+  }
+
   return (
     <>
       <div className="tabs">
@@ -101,13 +111,14 @@ const Tabs2: FC<any> = ({
               sortOptions.length &&
               _.map(sortOptions, (filter) => (
                 <NavLink
+                  aria-disabled={!loading}
                   key={filter.title}
-                  to={`/${pageType}/${address}/${
+                  to={loading ?  `/${pageType}/${address}/${
                     filter.value ? filter.value : ''
-                  }`}
+                  }` : pathname}
                   className={() => handleNavLinkClass(filter.value)}
-                  onClick={(e) => {
-                    setTransactionType(filter.value);
+                  onClick={() => {
+                    setTypeHandler(filter.value)
                   }}
                 >
                   {filter.title}
@@ -123,7 +134,7 @@ const Tabs2: FC<any> = ({
                 <div className="tabs_side_menu">
                   <button
                     className="tabs_side_menu_icon"
-                    onClick={() => setIsShow(!isShow)}
+                    onClick={toggleShowCalendar}
                   >
                     <SideMenu />
                   </button>
@@ -179,7 +190,11 @@ const Tabs2: FC<any> = ({
                 );
               })
             : null}
-
+          {loading && (
+            <div style={{ top: '-20px', position: 'relative' }}>
+              <Loader />
+            </div>
+          )}
           {!loading && !renderData?.length && noDtaFound() && (
             <div className="tabs_not_found">
               <NotFoundIcon />

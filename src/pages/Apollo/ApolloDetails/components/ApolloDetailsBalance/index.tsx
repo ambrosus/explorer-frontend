@@ -4,10 +4,10 @@ import { ambToUSD, statusMessage } from '../../../../../utils/helpers';
 import React from 'react';
 
 const ApolloDetailsBalance = ({ apollo }: any) => {
-  const { balance, stake, version } = apollo;
-  const ambBalance = balance.ether || 0;
-  const ambStake = stake.ether || 0;
-  const { data: appData } = useTypedSelector((state: any) => state.app);
+  const { balance, stake, version } = apollo !== null &&  apollo;
+  const ambBalance = balance?.ether || 0;
+  const ambStake = stake?.ether || 0;
+  const { data: appData } = useTypedSelector((state: any) => state?.app);
   const { price_usd } = (appData && appData?.tokenInfo) || 0;
   const usdBalance = ambToUSD(ambBalance, price_usd);
   const usdStake = ambToUSD(ambStake, price_usd);
@@ -34,7 +34,7 @@ const ApolloDetailsBalance = ({ apollo }: any) => {
           UPTIME
         </div>
         <div className="apollo_details_balance_online">
-          {statusMessage(apollo, 'ApolloDetails')}
+          {statusMessage(apollo?.state ? apollo : {state:''}, 'ApolloDetails')}
         </div>
       </div>
       <div className="apollo_details_balance_cells">

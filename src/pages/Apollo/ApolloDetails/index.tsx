@@ -16,7 +16,6 @@ import { TParams } from 'types';
 
 export const ApolloDetails = () => {
   const { address, type = '' }: TParams = useParams();
-  const [selectedToken, setSelectedToken] = useState<TokenType | null>(null);
   const [apollo, setApollo] = useState(null);
   const { ref, sortTerm, setSortTerm, renderData, loading } = useSortData(
     getAccountTxData,
@@ -34,7 +33,7 @@ export const ApolloDetails = () => {
 
   return (
     <Content>
-      <Content.Header isLoading={!!apollo}>
+      <Content.Header>
         <div className="apollo_details_header">
           <ApolloDetailsMain apollo={apollo} />
           <ApolloDetailsBalance apollo={apollo} />
@@ -45,8 +44,6 @@ export const ApolloDetails = () => {
         <Tabs2
           loading={loading}
           lastCardRef={ref}
-          onClick={setSelectedToken}
-          selectedToken={selectedToken}
           transactionType={type}
           data={sortTerm === type && renderData && renderData ? renderData : []}
           setTransactionType={setSortTerm}
