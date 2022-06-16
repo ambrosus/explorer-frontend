@@ -50,6 +50,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
   const { data: addressData } = useTypedSelector(
     (state: any) => state.position,
   );
+  const handleExpand = () => setIsExpanded((state: boolean) => !state);
 
   const isTxHash: JSX.Element | null =
     txhash === null ? null : (
@@ -57,6 +58,11 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
         className="address_blocks_cell address_blocks_cell-hash universall_light2"
         style={{ fontWeight: '600' }}
       >
+        {inners && (
+          <button onClick={handleExpand} className="address_blocks_plus">
+            {isExpanded ? <Minus /> : <Plus />}
+          </button>
+        )}
         {sliceData10(txhash as string)}
       </div>
     );
@@ -249,16 +255,9 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
       <></>
     );
 
-  const handleExpand = () => setIsExpanded((state: boolean) => !state);
-
   return (
     <>
       <div className={isTableColumn} ref={lastCardRef}>
-        {inners && (
-          <button onClick={handleExpand} className="address_blocks_plus">
-            {isExpanded ? <Minus /> : <Plus />}
-          </button>
-        )}
         {isTxHash}
         {isMethod}
         {isFrom}
