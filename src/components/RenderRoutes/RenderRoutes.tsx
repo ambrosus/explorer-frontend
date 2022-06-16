@@ -17,6 +17,7 @@ export const RenderRoutes = (props: any) => {
   return !loading ? (
     <Routes>
       {routes.routes.map((route: any) => (
+        route.isClick &&
         <Route
           suspense={<Loader />}
           key={route.key}

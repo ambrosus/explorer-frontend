@@ -9,10 +9,6 @@ export const getApollosData = async (sortTerm: any, next: any) => {
   return data;
 };
 
-// https://explorer-api.ambrosus.io/accounts/0xF1e149223A0614F2DA591db097fe95101c46bDFc/transactions?type=&limit=50&page=2
-// https://explorer-api.ambrosus.io/apollos/0xF1e149223A0614F2DA591db097fe95101c46bDFc/rewards?from=6%2F9%2F2022
-// https://explorer-api.ambrosus.io/apollos/0xF1e149223A0614F2DA591db097fe95101c46bDFc
-
 export const getApolloData = async (address: string) => {
   const data: any = await API.getApollo(address);
   return data;
