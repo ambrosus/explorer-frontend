@@ -72,6 +72,7 @@ export interface AddressBlockProps {
   isLatest?: boolean;
   isTableColumn?: string;
   isIcon?: boolean;
+  inners?: any[];
 }
 
 export interface TokenProps {

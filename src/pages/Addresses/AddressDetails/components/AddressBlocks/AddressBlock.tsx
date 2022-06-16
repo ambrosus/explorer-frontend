@@ -8,7 +8,7 @@ import {
   AddressBlockProps,
   TokenType,
 } from 'pages/Addresses/AddressDetails/address-details.interface';
-import React from 'react';
+import React, {useState} from 'react';
 import { NavLink, useNavigate, useParams } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
 import { TParams } from 'types';
@@ -20,6 +20,9 @@ import {
   sliceData5,
   wrapString,
 } from 'utils/helpers';
+import Plus from 'assets/icons/Plus';
+import Minus from 'assets/icons/Minus';
+import moment from "moment";
 
 const AddressBlock: React.FC<AddressBlockProps> = ({
   onClick,
@@ -37,12 +40,15 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
   symbol,
   isTableColumn,
   isIcon,
+  inners,
 }) => {
   const online = txfee === 'Pending' ? <OrangeCircle /> : <GreenCircle />;
   const { addFilter } = useActions();
   const { address, type }: TParams = useParams();
 
   const navigate = useNavigate();
+
+  const [isExpanded, setIsExpanded] = useState(false)
   const { data: addressData } = useTypedSelector(
     (state: any) => state.position,
   );
@@ -50,7 +56,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
   const isTxHash: JSX.Element | null =
     txhash === null ? null : (
       <div
-        className="address_blocks_cell universall_light2"
+        className="address_blocks_cell address_blocks_cell-hash universall_light2"
         style={{ fontWeight: '600' }}
       >
         {sliceData10(txhash as string)}
@@ -259,18 +265,51 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
     ) : (
       <></>
     );
+
+  const handleExpand = () => setIsExpanded((state: boolean) => !state);
+
   return (
-    <div className={isTableColumn} ref={lastCardRef}>
-      {isTxHash}
-      {isMethod}
-      {isFrom}
-      {isTo}
-      {isDate}
-      {isBlock}
-      {isAmount}
-      {isTxFee}
-      {isToken}
-    </div>
+    <>
+      <div className={isTableColumn} ref={lastCardRef}>
+        {inners && (
+          <button onClick={handleExpand} className="address_blocks_plus">
+            {isExpanded ? <Minus /> : <Plus />}
+          </button>
+        )}
+        {isTxHash}
+        {isMethod}
+        {isFrom}
+        {isTo}
+        {isDate}
+        {isBlock}
+        {isAmount}
+        {isTxFee}
+        {isToken}
+      </div>
+      {isExpanded && inners && !!inners.length && inners.map((transaction) => (
+        <div key={transaction.hash} className="address_blocks_inner">
+          <AddressBlock
+            onClick={onClick}
+            txhash={transaction.hash}
+            method={transaction.type}
+            from={transaction.from}
+            to={transaction.to}
+            date={moment(transaction.timestamp * 1000).fromNow()}
+            block={transaction.blockNumber}
+            amount={transaction.value.ether}
+            txfee={transaction.gasCost.ether}
+            token={`${
+              transaction?.token ? transaction?.token : 'AMB'
+            }`}
+            symbol={`${
+              transaction?.symbol ? transaction?.symbol : 'AMB'
+            }`}
+            isTableColumn={isTableColumn}
+            inners={transaction.inners}
+          />
+        </div>
+      ))}
+    </>
   );
 };
 

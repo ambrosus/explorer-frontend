@@ -105,6 +105,7 @@ export const Transactions = () => {
             }`}
             isTableColumn="address_blocks_cells"
             isIcon={true}
+            inners={tx.inners}
           />
         ))}
         <div ref={ref} />
