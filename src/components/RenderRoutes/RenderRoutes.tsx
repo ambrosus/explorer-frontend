@@ -16,6 +16,7 @@ export const RenderRoutes = (props: any) => {
 
   return !loading ? (
     <Routes>
+
       {routes.routes.map(
         (route: any) =>
           route.isClick && (
@@ -28,6 +29,7 @@ export const RenderRoutes = (props: any) => {
             />
           ),
       )}
+
       {routes.addressesRoutes.map((route: any) => (
         <Route
           suspense={<Loader />}
@@ -61,4 +63,5 @@ export const RenderRoutes = (props: any) => {
   ) : (
     <Loader />
   );
+  // Hello Comit
 };
