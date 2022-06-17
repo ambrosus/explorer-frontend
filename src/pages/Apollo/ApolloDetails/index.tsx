@@ -45,7 +45,7 @@ export const ApolloDetails = () => {
           loading={loading}
           lastCardRef={ref}
           transactionType={type}
-          data={sortTerm === type && renderData && renderData ? renderData : []}
+          data={sortTerm === type && renderData  ? renderData : []}
           setTransactionType={setSortTerm}
           isIcon={false}
           pageType="apollo"

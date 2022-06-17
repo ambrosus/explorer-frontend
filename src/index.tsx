@@ -1,9 +1,9 @@
 import Main from './components/Main/Main';
 import { store } from './state';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
-import { BrowserRouter, useLocation } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 
 /*
  * @param {Provider} store - redux store
