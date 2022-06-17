@@ -7,7 +7,6 @@ import {
 import removeArrayDuplicates, { log } from '../utils/helpers';
 import { ethers } from 'ethers';
 import { formatEther } from 'ethers/lib/utils';
-import _ from 'lodash';
 import erc20Abi from 'utils/abis/ERC20.json';
 
 const getTokensBalance = async (tokensArr: TokenType[], address: string) => {

@@ -5,8 +5,7 @@ import NotFoundIcon from 'assets/icons/Errors/NotFoundIcon';
 import SideMenu from 'assets/icons/SideMenu';
 import Calendar from 'components/Calendar';
 import useDeviceSize from 'hooks/useDeviceSize';
-import {useOnClickOutside} from 'hooks/useOnClickOutside';
-import _ from 'lodash';
+import { useOnClickOutside } from 'hooks/useOnClickOutside';
 import moment from 'moment';
 import AddressBlocksHeader from 'pages/Addresses/AddressDetails/components/AddressBlocksHeader';
 
@@ -109,26 +108,25 @@ const Tabs2: FC<any> = ({
               </div>
             )}
             {sortOptions &&
-
-              sortOptions.length &&
-              _.map(sortOptions, (filter) => (
-                <NavLink
-                  style={{
-                    pointerEvents: loading ? 'none' : 'unset',
-                  }}
-                  key={filter.title}
-                  to={`/${pageType}/${address}/${
-                    filter.value ? filter.value : ''
-                  }`}
-                  className={() => handleNavLinkClass(filter.value)}
-                  onClick={(e) => {
-                    setTypeHandler(filter.value);
-                  }}
-                >
-                  {filter.title}
-                </NavLink>
-              ))}
-
+            sortOptions.length &&
+            sortOptions.map((filter: any) => (
+              <NavLink
+                style={{
+                  pointerEvents: loading ? 'none' : 'unset',
+                }}
+                key={filter.title}
+                to={`/${pageType}/${address}/${
+                  filter.value ? filter.value : ''
+                }`}
+                className={() => handleNavLinkClass(filter.value)}
+                onClick={(e) => {
+                  setTypeHandler(filter.value);
+                }}
+              >
+                {filter.title}
+              </NavLink>
+            ))
+            }
           </div>
 
           <div ref={mobileCalendarRef} className="tabs_heading_export_modal">
@@ -168,35 +166,33 @@ const Tabs2: FC<any> = ({
           )}
 
           {renderData && renderData?.length !== 0
-            ? _.map(renderData, (transaction: any, index: number) => {
-
-                return (
-                  <AddressBlock
-                    lastCardRef={
-                      renderData.length - 1 === index ? lastCardRef : null
-                    }
-                    inners={transaction.inners}
-                    isLatest={true}
-                    onClick={onClick}
-                    key={index}
-                    txhash={transaction.hash}
-                    method={transaction.type}
-                    from={transaction.from}
-                    to={transaction.to}
-                    date={moment(transaction.timestamp * 1000).fromNow()}
-                    block={transaction.blockNumber}
-                    amount={transaction.value.ether}
-                    txfee={transaction.gasCost.ether}
-                    token={`${transaction?.token ? transaction?.token : 'AMB'}`}
-                    symbol={`${
-                      transaction?.symbol ? transaction?.symbol : 'AMB'
-                    }`}
-                    isTableColumn={isTableColumn}
-                    isIcon={isIcon}
-                  />
-                );
-              })
-
+            ? renderData.map((transaction: any, index: number) => {
+              return (
+                <AddressBlock
+                  lastCardRef={
+                    renderData.length - 1 === index ? lastCardRef : null
+                  }
+                  inners={transaction.inners}
+                  isLatest={true}
+                  onClick={onClick}
+                  key={index}
+                  txhash={transaction.hash}
+                  method={transaction.type}
+                  from={transaction.from}
+                  to={transaction.to}
+                  date={moment(transaction.timestamp * 1000).fromNow()}
+                  block={transaction.blockNumber}
+                  amount={transaction.value.ether}
+                  txfee={transaction.gasCost.ether}
+                  token={`${transaction?.token ? transaction?.token : 'AMB'}`}
+                  symbol={`${
+                    transaction?.symbol ? transaction?.symbol : 'AMB'
+                  }`}
+                  isTableColumn={isTableColumn}
+                  isIcon={isIcon}
+                />
+              );
+            })
             : null}
           {loading && (
             <div style={{top: '-20px', position: 'relative'}}>
