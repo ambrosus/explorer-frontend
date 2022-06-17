@@ -4,7 +4,6 @@ import Amb from 'assets/icons/Cryptos/Amb';
 import Eth from 'assets/icons/Cryptos/Eth';
 import GreenCircle from 'assets/icons/StatusAction/GreenCircle';
 import OrangeCircle from 'assets/icons/StatusAction/OrangeCircle';
-import _ from 'lodash';
 import moment from 'moment';
 
 export const sliceData5 = (item: string | any) => {
@@ -50,7 +49,7 @@ export const setupStyle = (item: string | undefined) => {
 export const toUniqueValueByBlock = (arr: any) => {
   try {
     const compare: any = new Map(
-      _.map([...arr], (item) => [item.txHash, item]),
+      [...arr].map( (item) => [item.txHash, item]),
     ).values();
     const newTx: TransactionProps[] = [...compare].sort(
       (a: any, b: any) => b.block - a.block,
@@ -85,7 +84,7 @@ export default function removeArrayDuplicates(array: any, key = '_id') {
    * @returns {array}
    */
   const ids: any = [];
-  return _.filter(array, (item: any) => {
+  return array.filter( (item: any) => {
     if (ids.indexOf(item[key]) < 0) {
       ids.push(item[key]);
       return item;
@@ -184,7 +183,7 @@ export const currenCurrency = (
 };
 
 export const wrapString = (string: string) => {
-  return _.split(string, '::').map((item, index) => (
+  return string.split( '::').map((item, index) => (
     <span key={index + 1} style={{ fontSize: 'inherit' }}>
       {item}
     </span>
