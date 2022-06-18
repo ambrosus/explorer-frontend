@@ -1,7 +1,7 @@
 import { TParams } from '../../types';
 import React, { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
-import { useNavigate, useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const NodeHeader = ({ children, getNodeData }: any) => {
   const { address }: TParams = useParams();

@@ -2,24 +2,6 @@
   "name": "my-app",
   "version": "0.1.0",
   "private": true,
-  "dependencies": {
-    "@types/react-query": "^1.2.9",
-    "autoprefixer": "^10.4.5",
-    "eslint": "^8.14.0",
-    "ethers": "^5.0.0",
-    "moment": "^2.29.1",
-    "node-sass": "^7.0.1",
-    "react-date-range": "^1.4.0",
-    "react-intersection-observer": "^9.1.0",
-    "react-query": "^3.39.1",
-    "react-redux": "^7.2.8",
-    "react-scripts": "5.0.0",
-    "react-tooltip": "^4.2.21",
-    "redux-devtools-extension": "^2.13.9",
-    "redux-thunk": "^2.4.1",
-    "sass": "^1.49.9",
-    "web-vitals": "^2.1.4"
-  },
   "scripts": {
     "start": "yarn format && react-scripts start",
     "build": "react-scripts build",
@@ -44,6 +26,25 @@
       "last 1 safari version"
     ]
   },
+  "dependencies": {
+    "autoprefixer": "^10.4.5",
+    "axios": "^0.26.1",
+    "eslint": "^8.14.0",
+    "ethers": "^5.0.0",
+    "moment": "^2.29.1",
+    "node-sass": "^7.0.1",
+    "react-date-range": "^1.4.0",
+    "react-intersection-observer": "^9.1.0",
+    "react-query": "^3.39.1",
+    "react-redux": "^7.2.8",
+    "react-scripts": "5.0.0",
+    "react-tooltip": "^4.2.21",
+    "redux-devtools-extension": "^2.13.9",
+    "redux-thunk": "^2.4.1",
+    "sass": "^1.49.9",
+    "typescript": "^4.6.2",
+    "web-vitals": "^2.1.4"
+  },
   "devDependencies": {
     "@inc4/eslint-config-react": "1.0.1",
     "@reduxjs/toolkit": "^1.8.1",
@@ -56,11 +57,11 @@
     "@types/react": "^18.0.9",
     "@types/react-date-range": "^1.4.3",
     "@types/react-dom": "^18.0.3",
+    "@types/react-query": "^1.2.9",
+    "@types/react-redux": "^7.1.24",
     "@types/react-router-dom": "5.3.3",
-    "@types/redux-logger": "^3.0.9",
     "@types/redux-promise": "^0.5.29",
     "@types/testing-library__jest-dom": "^5.14.3",
-    "axios": "^0.26.1",
     "eslint-config-airbnb": "^18.1.0",
     "eslint-config-prettier": "^6.10.1",
     "eslint-plugin-import": "^2.20.2",
@@ -76,7 +77,6 @@
     "react-error-overlay": "^6.0.9",
     "react-router-dom": "6.2.2",
     "react-testing-library": "^8.0.1",
-    "ts-jest": "^27.1.4",
-    "typescript": "^4.6.2"
+    "ts-jest": "^27.1.4"
   }
 }
