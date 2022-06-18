@@ -25,7 +25,7 @@ export const ApolloDetails = () => {
     type,
   );
 
-  const { data, isError, isLoading } = useQuery('todos', () =>
+  const { data, isError, isLoading } = useQuery('getApolloData', () =>
     getApolloData(address as string),
   );
 

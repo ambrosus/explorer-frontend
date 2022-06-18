@@ -28,7 +28,7 @@ export const AtlasDetails = () => {
     type,
   );
 
-  const { data, isError, isLoading } = useQuery('todos', () =>
+  const { data, isError, isLoading } = useQuery('getAtlasData', () =>
     getAtlasData(address as string),
   );
 
