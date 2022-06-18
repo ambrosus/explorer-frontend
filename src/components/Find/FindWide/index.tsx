@@ -19,7 +19,7 @@ const FindWide: React.FC<FindWideProps> = ({ searchRef }) => {
       onSuccess: (data: any) => {
         if (!data) {
           setErr(true);
-        }else {
+        } else {
           let searchTerm = data.data;
           if (searchTerm && searchTerm.term !== undefined) {
             const urlParts = data?.meta.search.split('/');
@@ -34,7 +34,6 @@ const FindWide: React.FC<FindWideProps> = ({ searchRef }) => {
             navigate(`/notfound`);
           }
         }
-
       },
       onError: () => {
         setName('');

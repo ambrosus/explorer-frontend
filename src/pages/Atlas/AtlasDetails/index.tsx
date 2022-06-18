@@ -1,26 +1,24 @@
+import NodeHeader from '../../../components/NodeHeader';
 import Tabs2 from '../../../components/Tabs/Tabs2';
 import useSortData from '../../../hooks/useSortData';
 import {
   getAccountTxData,
   getApolloData,
 } from '../../../services/apollo.service';
+import { getAtlasData } from '../../../services/atlas.service';
 import { atlasDetailsSorting } from '../../../utils/sidePages';
 import { TokenType } from '../../Addresses/AddressDetails/address-details.interface';
 import AtlasDetailsBalance from './components/AtlasDetailsBalance';
 import AtlasDetailsMain from './components/AtlasDetailsMain';
 import AtlasDetailsMiningStats from './components/AtlasDetailsMiningStats';
 import { Content } from 'components/Content';
-import React, { useEffect, useState } from 'react';
-import { useQuery } from 'react-query';
-import { useNavigate, useParams } from 'react-router-dom';
-import { getAtlasData } from 'services/atlas.service';
+import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { TParams } from 'types';
 
 export const AtlasDetails = () => {
   const { address, type = '' }: TParams = useParams();
   const [selectedToken, setSelectedToken] = useState<TokenType | null>(null);
-  const [atlas, setAtlas] = useState(null);
-  const navigate = useNavigate();
 
   const { ref, sortTerm, setSortTerm, renderData, loading } = useSortData(
     getAccountTxData,
@@ -28,24 +26,18 @@ export const AtlasDetails = () => {
     type,
   );
 
-  const { data, isError, isLoading } = useQuery('getAtlasData', () =>
-    getAtlasData(address as string),
-  );
-
-  useEffect(() => {
-    if (!isLoading) setAtlas(data?.data);
-  }, []);
-
-  if (isError) navigate(`/notfound`);
-
   return (
     <Content>
       <Content.Header>
-        <div className="apollo_details_header">
-          <AtlasDetailsMain atlas={atlas} />
-          <AtlasDetailsBalance atlas={atlas} />
-          <AtlasDetailsMiningStats atlas={atlas} />
-        </div>
+        <NodeHeader getNodeData={getAtlasData}>
+          {({ node }: any) => (
+            <>
+              <AtlasDetailsMain atlas={node} />
+              <AtlasDetailsBalance atlas={node} />
+              <AtlasDetailsMiningStats atlas={node} />
+            </>
+          )}
+        </NodeHeader>
       </Content.Header>
       <Content.Body>
         <Tabs2

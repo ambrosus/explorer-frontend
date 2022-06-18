@@ -1,3 +1,4 @@
+import NodeHeader from '../../../components/NodeHeader';
 import useSortData from '../../../hooks/useSortData';
 import {
   getAccountTxData,
@@ -9,15 +10,12 @@ import ApolloDetailsMain from './components/ApolloDetailsMain';
 import ApolloDetailsMiningStats from './components/ApolloDetailsMiningStats';
 import { Content } from 'components/Content';
 import Tabs2 from 'components/Tabs/Tabs2';
-import React, { useEffect, useState } from 'react';
-import { useQuery } from 'react-query';
-import { useNavigate, useParams } from 'react-router-dom';
+import React from 'react';
+import { useParams } from 'react-router-dom';
 import { TParams } from 'types';
 
 export const ApolloDetails = () => {
   const { address, type = '' }: TParams = useParams();
-  const [apollo, setApollo] = useState(null);
-  const navigate = useNavigate();
 
   const { ref, sortTerm, setSortTerm, renderData, loading } = useSortData(
     getAccountTxData,
@@ -25,24 +23,18 @@ export const ApolloDetails = () => {
     type,
   );
 
-  const { data, isError, isLoading } = useQuery('getApolloData', () =>
-    getApolloData(address as string),
-  );
-
-  useEffect(() => {
-    if (!isLoading) setApollo(data?.data);
-  }, []);
-
-  if (isError) navigate(`/notfound`);
-
   return (
     <Content>
       <Content.Header>
-        <div className="apollo_details_header">
-          <ApolloDetailsMain apollo={apollo} />
-          <ApolloDetailsBalance apollo={apollo} />
-          <ApolloDetailsMiningStats apollo={apollo} />
-        </div>
+        <NodeHeader getNodeData={getApolloData}>
+          {({ node }: any) => (
+            <>
+              <ApolloDetailsMain apollo={node} />
+              <ApolloDetailsBalance apollo={node} />
+              <ApolloDetailsMiningStats apollo={node} />
+            </>
+          )}
+        </NodeHeader>
       </Content.Header>
       <Content.Body>
         <Tabs2
