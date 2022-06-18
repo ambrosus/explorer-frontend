@@ -3,7 +3,6 @@ import Tabs2 from '../../../components/Tabs/Tabs2';
 import useSortData from '../../../hooks/useSortData';
 import {
   getAccountTxData,
-  getApolloData,
 } from '../../../services/apollo.service';
 import { getAtlasData } from '../../../services/atlas.service';
 import { atlasDetailsSorting } from '../../../utils/sidePages';
