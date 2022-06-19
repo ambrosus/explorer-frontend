@@ -29,7 +29,6 @@ const Tabs: FC<TabsProps> = ({
 }) => {
   const [isShow, setIsShow] = useState(false);
   const { address, type, filtered, tokenToSorted } = useParams();
-  const [prevType, setPrevType] = useState<any>(type);
   const [renderData, setRenderData] = useState<any>(null);
   const [notFound, setNotFound] = useState<any>(false);
   const { data: addressData } = useTypedSelector(
