@@ -6,7 +6,6 @@ import SideMenu from 'assets/icons/SideMenu';
 import Calendar from 'components/Calendar';
 import useDeviceSize from 'hooks/useDeviceSize';
 import { useOnClickOutside } from 'hooks/useOnClickOutside';
-import _ from 'lodash';
 import moment from 'moment';
 import AddressBlocksHeader from 'pages/Addresses/AddressDetails/components/AddressBlocksHeader';
 import React, { FC, useEffect, useRef, useState } from 'react';
@@ -108,7 +107,7 @@ const Tabs2: FC<any> = ({
             )}
             {sortOptions &&
               sortOptions.length &&
-              _.map(sortOptions, (filter) => (
+              sortOptions.map((filter: any) => (
                 <NavLink
                   style={{
                     pointerEvents: loading ? 'none' : 'unset',
@@ -164,7 +163,7 @@ const Tabs2: FC<any> = ({
           )}
 
           {renderData && renderData?.length !== 0
-            ? _.map(renderData, (transaction: any, index: number) => {
+            ? renderData.map((transaction: any, index: number) => {
                 return (
                   <AddressBlock
                     lastCardRef={
