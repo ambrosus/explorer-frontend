@@ -25,7 +25,7 @@ const ApolloBlocksBody: FC<ApolloBodyProps> = ({
           style={{
             cursor: 'pointer',
             color: '#808A9D',
-            textDecoration: 'none',
+            fontWeight: 600,
           }}
           className="apollo_blocks_body_cell"
           // onClick={redirectHandler}
