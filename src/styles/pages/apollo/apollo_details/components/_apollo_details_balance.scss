@@ -24,11 +24,7 @@
     padding: 0 32px;
     flex: 1;
     border-right: 1px solid #eff2f5;
-    &:first-child {
-      flex-direction: row;
-      align-items: center;
-      justify-content: flex-start;
-    }
+
     @include for_big_tablet {
       height: 64px;
       border-bottom: 1px solid #eff2f5;
