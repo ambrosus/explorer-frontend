@@ -19,7 +19,7 @@ const AtlasBlocksBody = ({ lastCardRef, index, item }: any) => {
         style={{
           cursor: 'pointer',
           color: '#808A9D',
-          textDecoration: 'none',
+          fontWeight: 600,
         }}
         className="atlas_blocks_body_cell"
         // onClick={redirectHandler}

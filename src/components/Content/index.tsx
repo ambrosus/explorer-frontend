@@ -15,7 +15,8 @@ export const Content: FC<IContentProps> & ITabsComposition = ({
 Content.displayName = 'CONTENT';
 const Header = ({ children, isLoading = true }: IContentProps) => (
   <div className="content_header">
-    {!isLoading ? <Loader /> : <div className="container">{children}</div>}
+    {!isLoading && <Loader />}
+    {<div className="container">{children}</div>}
   </div>
 );
 Content.Header = React.memo(Header);

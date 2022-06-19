@@ -21,7 +21,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
   const isMethod =
     method === null ? null : (
       <div ref={methodRef} className="address_blocks_header_cell">
-        <div>{method}</div>
+        {method}
       </div>
     );
   //TODO double code
