@@ -1,6 +1,6 @@
 import LatestTransactions from 'pages/Home/components/LastestTransactions';
 import LatestBlocks from 'pages/Home/components/LatestBlocks';
-import { BlocksContentProps } from 'pages/Home/home.interfaces';
+import {BlocksContentProps} from 'pages/Home/home.interfaces';
 import React, { FC } from 'react';
 
 const BlocksContent: FC<BlocksContentProps> = ({ data }) => (
@@ -40,3 +40,4 @@ const BlocksContent: FC<BlocksContentProps> = ({ data }) => (
 );
 
 export default BlocksContent;
+

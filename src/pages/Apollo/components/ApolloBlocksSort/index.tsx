@@ -2,8 +2,6 @@ import { apollosSorting } from '../../../../utils/sidePages';
 import { PApolloSort } from '../../apolloBlocks.interface';
 import { FC } from 'react';
 
-
-
 const ApolloBlocksSort: FC<PApolloSort> = ({ sortTerm, setSortTerm }) => {
   function setOptionValue(value: string) {
     setSortTerm(value);
@@ -27,6 +25,6 @@ const ApolloBlocksSort: FC<PApolloSort> = ({ sortTerm, setSortTerm }) => {
       </div>
     </div>
   );
-}
+};
 
 export default ApolloBlocksSort;
