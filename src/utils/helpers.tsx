@@ -49,7 +49,7 @@ export const setupStyle = (item: string | undefined) => {
 export const toUniqueValueByBlock = (arr: any) => {
   try {
     const compare: any = new Map(
-      [...arr].map( (item) => [item.txHash, item]),
+      [...arr].map((item) => [item.txHash, item]),
     ).values();
     const newTx: TransactionProps[] = [...compare].sort(
       (a: any, b: any) => b.block - a.block,
@@ -84,7 +84,7 @@ export default function removeArrayDuplicates(array: any, key = '_id') {
    * @returns {array}
    */
   const ids: any = [];
-  return array.filter( (item: any) => {
+  return array.filter((item: any) => {
     if (ids.indexOf(item[key]) < 0) {
       ids.push(item[key]);
       return item;
@@ -183,7 +183,7 @@ export const currenCurrency = (
 };
 
 export const wrapString = (string: string) => {
-  return string.split( '::').map((item, index) => (
+  return string.split('::').map((item, index) => (
     <span key={index + 1} style={{ fontSize: 'inherit' }}>
       {item}
     </span>

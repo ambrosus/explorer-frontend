@@ -21,11 +21,11 @@ export type LatestBlocksProps = {
   timestamp?: number;
   miner?: string;
   totalTransactions?: number;
-  blockRewards?: number;
+  blockRewards?: any;
   key?: number;
   index?: any;
   validator?: string;
-  blockReward?: number;
+  blockReward?: any;
   name?: string;
 };
 
