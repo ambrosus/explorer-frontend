@@ -25,9 +25,9 @@
   &_erc20 {
     display: grid;
     grid-template-columns:
-      minmax(100px, 2fr) minmax(170px, 2.8fr) minmax(115px, 2fr)
+      minmax(100px, 1.5fr) minmax(170px, 2fr) minmax(115px, 2fr)
       minmax(115px, 2fr) minmax(120px, 2fr)
-      minmax(200px, 4fr) minmax(200px, 2fr);
+      minmax(250px, 3.5fr) minmax(220px, 2.5fr);
     padding-left: 6px;
 
     &:hover {
