@@ -10,7 +10,7 @@ const BlockBody = ({ lastCardRef, item }: any) => {
     <div className="block_body" ref={lastCardRef}>
       <div className="block_body_cell">{sliceData5(blockHash)}</div>
       <div className="block_body_cell">{type}</div>
-      <div className="block_body_cell">{sliceData5(from)} 0x81e...99a98</div>
+      <div className="block_body_cell">{sliceData5(from)} </div>
       <div className="block_body_cell">{sliceData5(to)}</div>
       <div className="block_body_cell">
         {moment(timestamp * 1000).fromNow()}

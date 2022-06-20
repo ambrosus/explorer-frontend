@@ -7,6 +7,7 @@ const NodeHeader = ({ children, getNodeData }: any) => {
   const { address }: TParams = useParams();
   const [node, setNode] = useState(null);
   const navigate = useNavigate();
+
   const { data, isError, isLoading } = useQuery(
     [`get data for ${address}`, address],
     () => getNodeData(address as string),

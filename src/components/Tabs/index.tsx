@@ -285,15 +285,3 @@ const Tabs: FC<TabsProps> = ({
 
 export default React.memo(Tabs);
 
-// {loading && !renderData?.length && (
-//   <div
-//     style={{
-//       width: '100%',
-//       paddingTop: 20,
-//       height: 200,
-//       position: 'absolute',
-//     }}
-//   >
-//     <Loader />
-//   </div>
-// )}
