@@ -2,17 +2,17 @@
   &_cells {
     display: grid;
     grid-template-columns:
-      minmax(200px, 1fr) minmax(140px, 1fr) minmax(110px, 1fr)
-      minmax(110px, 1fr) minmax(100px, 1fr) minmax(100px, 1fr)
-      minmax(220px, 1fr) minmax(110px, 1fr);
+      minmax(100px, 1fr) minmax(150px, 1fr) minmax(115px, 1fr)
+      minmax(115px, 1fr) minmax(120px, 1fr) minmax(120px, 1fr)
+      minmax(200px, 3fr) minmax(100px, 1fr);
     padding-left: 6px;
   }
   &_erc20 {
     display: grid;
     grid-template-columns:
-      minmax(220px, 1fr) minmax(150px, 1fr) minmax(120px, 1fr)
-      minmax(120px, 1fr) minmax(120px, 1fr) minmax(120px, 1fr)
-      minmax(220px, 1fr);
+      minmax(100px, 2fr) minmax(170px, 2.8fr) minmax(115px, 2fr)
+      minmax(115px, 2fr) minmax(120px, 2fr)
+      minmax(200px, 4fr) minmax(200px, 2fr);
     padding-left: 6px;
   }
 
@@ -27,11 +27,11 @@
     align-content: flex-end;
   }
 }
-.method-cell{
+.method-cell {
   display: flex;
   align-items: center;
   font-weight: 700;
   font-size: 0.86rem;
   line-height: 1.77em;
-  color: #808A9D;
+  color: #808a9d;
 }
