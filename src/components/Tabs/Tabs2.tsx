@@ -33,7 +33,6 @@ const Tabs2: FC<any> = ({
   const headerBlock: any = 'Block';
   const headerTxfee: any = 'txFee';
   const headerToken: any = null;
-  const { pathname } = useLocation();
 
   const noDtaFound = () => {
     setTimeout(() => {

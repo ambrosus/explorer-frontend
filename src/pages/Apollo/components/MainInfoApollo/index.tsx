@@ -1,15 +1,10 @@
-import {useTypedSelector} from 'hooks/useTypedSelector';
+import { useTypedSelector } from 'hooks/useTypedSelector';
 
 const MainInfoApollo = () => {
-  const {data: appData} = useTypedSelector((state: any) => state.app);
+  const { data: appData } = useTypedSelector((state: any) => state.app);
   const {
-    apollos: {
-      total,
-      online,
-      offline,
-      connecting
-    },
-    avgBlockTime
+    apollos: { total, online, offline, connecting },
+    avgBlockTime,
   } = appData?.netInfo ?? {
     apollos: {
       total: 0,
@@ -17,8 +12,8 @@ const MainInfoApollo = () => {
       offline: 0,
       connecting: 0,
     },
-    avgBlockTime: 0
-  }
+    avgBlockTime: 0,
+  };
 
   return (
     <div className="main_info_apollo">
@@ -26,9 +21,7 @@ const MainInfoApollo = () => {
       <div className="main_info_apollo_table">
         <div className="main_info_apollo_cell">
           <span className="main_info_apollo_cell_primary">TOTAL NODES</span>
-          <span className="main_info_apollo_cell_secondary">
-            {total || 0}
-          </span>
+          <span className="main_info_apollo_cell_secondary">{total || 0}</span>
         </div>
         <div className="main_info_apollo_cell">
           <span className="main_info_apollo_cell_primary">ONLINE</span>
