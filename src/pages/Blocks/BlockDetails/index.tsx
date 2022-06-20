@@ -10,46 +10,36 @@ import DataTitle from '../components/DataTitle';
 import BlockBody from './components/BlockBody';
 import BlockHeader from './components/BlockHeader';
 import BlockHeaderInfo from './components/BlockHeaderInfo';
+import HeadingInfo from './components/HeadingInfo';
 import { MainInfoBlockTable } from './components/MainInfoBlockTable';
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useQuery } from 'react-query';
+import { useNavigate, useParams } from 'react-router-dom';
 
 export const BlockDetails = () => {
   const { address }: TParams = useParams();
-
   const [block, setBlock] = useState<any>(null);
+  const navigate = useNavigate();
+  const { data, isError, isLoading } = useQuery(
+    [`get data for ${address}`, address],
+    () => getBlockData(address as string),
+  );
 
   const { ref, renderData, loading } = useSortData(
     getBlockTransactionsData,
     address,
   );
-  const getData = async () => {
-    const apolloData = await getBlockData(address as string);
-    setBlock(apolloData.data);
-  };
+
   useEffect(() => {
-    getData();
-  }, []);
+    if (!isLoading) setBlock(data?.data);
+  }, [isLoading]);
+
+  if (isError) navigate(`/notfound`);
 
   return (
     <Content>
       <Content.Header>
-        <div className="block_main_title">
-          <div>
-            <h1 className="block_main_title_heading">
-              Blocks{' '}
-              <span className="block_main_title_heading_block">{address}</span>
-            </h1>
-          </div>
-          <div>
-            <div className="block_main_title_validator">
-              Validator{' '}
-              <span className="block_main_title_validator_address">
-                {block?.miner ?? ''}
-              </span>
-            </div>
-          </div>
-        </div>
+        <HeadingInfo address={address} block={block} />
         <BlockHeaderInfo block={block} />
         <MainInfoBlockTable block={block} />
       </Content.Header>

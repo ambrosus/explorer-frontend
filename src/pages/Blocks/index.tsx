@@ -32,9 +32,14 @@ export const Blocks = () => {
               ? renderData.data.map((item: any, index: number) =>
                   renderData.data.length - 1 === index &&
                   renderData?.pagination?.hasNext ? (
-                    <BlocksBody lastCardRef={ref} key={index} item={item} />
+                    <BlocksBody
+                      index={index}
+                      lastCardRef={ref}
+                      key={index}
+                      item={item}
+                    />
                   ) : (
-                    <BlocksBody key={index} item={item} />
+                    <BlocksBody index={index} key={index} item={item} />
                   ),
                 )
               : null}
