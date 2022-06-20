@@ -22,7 +22,7 @@ const ApolloDetailsMiningStats = ({ apollo }: any) => {
             : (new Date() as any) / 1000,
           true,
           false,
-        );
+        )
       });
     }
   }, [apollo]);
@@ -55,8 +55,7 @@ const ApolloDetailsMiningStats = ({ apollo }: any) => {
   if (!apollo) {
     return null;
   }
-  const currentDate = moment().format('L');
-  // console.log(currentDate);
+  const currentDate = moment().format('DD/MM/YYYY');
 
   return (
     <div className="apollo_details_mining_stats">
