@@ -6,7 +6,7 @@ import React from 'react';
 const Currency = React.forwardRef((props: ICurrency, ref: any) => {
   const { className, symbol, value, fixed, side, delimiter, ...other } = props;
 
-  const classes = `AMB-Currency, ${className}`;
+  const classes = `AMB-Currency ${className}`;
 
   const _symbol = symbol || '$';
 

@@ -1,17 +1,17 @@
 .AMB-Currency {
+  display: flex;
+  gap: 6px;
   margin: 0 !important;
   font-size: inherit;
 
-  > .symbol {
-    &.left {
-      margin-right: 0.3em;
-      color: #808a9d;
-      font-weight: 600;
-    }
+  > &.left {
+    margin-right: 0.3em;
+    color: #808a9d;
+    font-weight: 600;
+  }
 
-    &.right {
-      // font-weight: 600;
-    }
+  &.right {
+    font-weight: 600;
   }
 }
 .inherit {
