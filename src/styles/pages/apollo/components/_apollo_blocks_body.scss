@@ -1,15 +1,22 @@
 .apollo_blocks_body {
   display: grid;
-  grid-template-columns: 82px 405px 190px 117px 190px 192px;
-
+  grid-template-columns:
+    minmax(80px, 1fr)
+    minmax(360px, 6fr)
+    minmax(150px, 3fr)
+    minmax(100px, 2fr)
+    minmax(190px, 3fr)
+    minmax(150px, 3fr);
+  // 82px 405px 190px 117px 190px 192px;
   //   flex-direction: column;
-  .balance {
-    width: max-content;
-    white-space: nowrap;
-  }
+  width: fit-content;
 
   &:hover {
     background-color: #eff2f5;
+  }
+  .balance {
+    width: max-content;
+    white-space: nowrap;
   }
 
   &_cell {

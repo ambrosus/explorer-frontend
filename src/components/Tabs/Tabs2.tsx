@@ -45,9 +45,9 @@ const Tabs2: FC<any> = ({
     return notFound;
   };
 
-  const toggleShow = () => setIsShow((prev) => !prev);
+  const toggleShow = () => setIsShow(false);
 
-  useOnClickOutside(mobileCalendarRef, () => toggleShow);
+  useOnClickOutside(mobileCalendarRef, toggleShow);
 
   useEffect(() => {
     if (data && data.data) {

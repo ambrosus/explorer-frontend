@@ -69,7 +69,7 @@ const AtlasDetailsMiningStats = ({ atlas }: any) => {
       </div>
       <div className="atlas_details_mining_stats_cells">
         <div className="atlas_details_mining_stats_fonts_normal universall_light1">
-          Total bundles
+          TOTAL BUNDLES
         </div>
         <div className="atlas_details_mining_stats_fonts_bold">{bundles}</div>
       </div>
