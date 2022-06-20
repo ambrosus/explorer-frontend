@@ -221,7 +221,7 @@ export function formatDate(
   const seconds = ('0' + date.getSeconds()).slice(-2);
 
   if (showDate && !showTime) {
-    return `${month + 1}/${day}/${year}`;
+    return `/${day}/${month + 1}/${year}`;
   }
   return `${
     showDate ? `${dayName}, ${day} ${months[month]} ${year} ` : ''
