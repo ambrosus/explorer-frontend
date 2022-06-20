@@ -13,7 +13,6 @@ const NodeHeader = ({ children, getNodeData }: any) => {
   );
 
   useEffect(() => {
-    console.log(isLoading);
     if (!isLoading) setNode(data?.data);
   }, [isLoading]);
 
