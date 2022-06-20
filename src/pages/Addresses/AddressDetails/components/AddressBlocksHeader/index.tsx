@@ -16,7 +16,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
   const methodRef = useRef(null);
   const isTxHash =
     txhash === null ? null : (
-      <div className="address_blocks_header_cell">{txhash}</div>
+      <div className="address_blocks_header_cell">{txhash} </div>
     );
   const isMethod =
     method === null ? null : (
