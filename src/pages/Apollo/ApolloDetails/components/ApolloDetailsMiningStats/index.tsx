@@ -22,7 +22,7 @@ const ApolloDetailsMiningStats = ({ apollo }: any) => {
             : (new Date() as any) / 1000,
           true,
           false,
-        )
+        );
       });
     }
   }, [apollo]);
