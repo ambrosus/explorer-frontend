@@ -21,7 +21,7 @@ export const Home: React.FC = () => {
             <div className="home_info">
               <div className="home_info_table">
                 {data?.header?.length
-                  ? data.header.map((item) => (
+                  ? data.header.map((item: any) => (
                       <MainInfo
                         key={item.name}
                         name={item.name as string}
