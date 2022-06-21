@@ -38,13 +38,11 @@
   }
 
   &_table {
-    &::-webkit-scrollbar {
-      display: none;
-    }
+    padding-left: 20px;
+    transform: translateX(-26px);
 
     -ms-overflow-style: none;
     scrollbar-width: none;
-    width: 100%;
     display: grid;
     position: relative;
     white-space: nowrap;
@@ -66,6 +64,7 @@
     display: flex;
     align-items: center;
     white-space: nowrap;
+    cursor: pointer;
 
     &_active {
       color: $main;

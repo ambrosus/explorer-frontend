@@ -1,13 +1,12 @@
 import './Currency.scss';
 import { ICurrency } from './type.currency';
-import clsx from 'clsx';
 import { Number } from 'components/Number';
 import React from 'react';
 
 const Currency = React.forwardRef((props: ICurrency, ref: any) => {
   const { className, symbol, value, fixed, side, delimiter, ...other } = props;
 
-  const classes = clsx('AMB-Currency', className);
+  const classes = `AMB-Currency ${className}`;
 
   const _symbol = symbol || '$';
 

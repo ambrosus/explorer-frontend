@@ -4,6 +4,7 @@ import { useTypedSelector } from '../../../../../hooks/useTypedSelector';
 import { ambToUSD, formatDate } from '../../../../../utils/helpers';
 import API from 'API/api';
 import { Number } from 'components/Number';
+import moment from 'moment';
 import { useEffect, useState } from 'react';
 
 const ApolloDetailsMiningStats = ({ apollo }: any) => {
@@ -54,6 +55,8 @@ const ApolloDetailsMiningStats = ({ apollo }: any) => {
   if (!apollo) {
     return null;
   }
+  const currentDate = moment().format('DD/MM/YYYY');
+
   return (
     <div className="apollo_details_mining_stats">
       <div className="apollo_details_mining_stats_cells">
@@ -62,7 +65,7 @@ const ApolloDetailsMiningStats = ({ apollo }: any) => {
             MINING STATS
           </span>
           <span className="universall_light1" style={{ fontSize: 14 }}>
-            {filterDate}
+            {filterDate || currentDate}
           </span>
         </div>
         <div>

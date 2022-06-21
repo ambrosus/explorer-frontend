@@ -73,6 +73,8 @@ export interface AddressBlockProps {
   isTableColumn?: string;
   isIcon?: boolean;
   inners?: any[];
+  innerLevel?: number;
+  hashOnClick?: (hash: string | number) => any;
 }
 
 export interface TokenProps {

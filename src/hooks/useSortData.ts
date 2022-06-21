@@ -1,6 +1,5 @@
-import _ from 'lodash';
 import { AccountsData } from 'pages/Addresses/addresses.interface';
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 import removeArrayDuplicates from 'utils/helpers';
 
@@ -14,7 +13,7 @@ const useSortData = (
   const [sortTerm, setSortTerm] = React.useState<string>(firstSortTerm);
   const { ref, inView } = useInView();
 
-  useEffect(() => {
+  const firstRender = () => {
     setLoading(true);
     getData(sortTerm, null, address).then((res: AccountsData) => {
       if (res?.meta?.message?.includes('No results')) {
@@ -25,9 +24,10 @@ const useSortData = (
       setRenderData(res);
       setLoading(false);
     });
-  }, []);
+  };
+  useEffect(firstRender, []);
 
-  useEffect(() => {
+  const updateData = useCallback(() => {
     if (sortTerm) {
       setLoading(true);
       getData(sortTerm, null, address).then((res: AccountsData) => {
@@ -42,7 +42,9 @@ const useSortData = (
     }
   }, [sortTerm]);
 
-  useEffect(() => {
+  useEffect(updateData, [sortTerm]);
+
+  const concatData = useCallback(() => {
     if (inView) {
       setLoading(true);
       const next: string = renderData?.pagination?.next;
@@ -57,9 +59,7 @@ const useSortData = (
             setLoading(false);
             return {
               ...prev,
-              data: removeArrayDuplicates(
-                _.uniq(_.concat(prev.data, res?.data)),
-              ),
+              data: removeArrayDuplicates([...prev.data, ...res?.data]),
               pagination: res.pagination,
             };
           });
@@ -67,6 +67,8 @@ const useSortData = (
       }
     }
   }, [inView]);
+
+  useEffect(concatData, [inView]);
 
   return { ref, sortTerm, setSortTerm, renderData, loading };
 };

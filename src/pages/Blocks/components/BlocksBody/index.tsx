@@ -1,8 +1,11 @@
+import GreenCircle from '../../../../assets/icons/StatusAction/GreenCircle';
+import OrangeCircle from '../../../../assets/icons/StatusAction/OrangeCircle';
 import moment from 'moment';
-import { useNavigate } from 'react-router-dom';
+import React from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { sliceData5 } from 'utils/helpers';
 
-const BlocksBody = ({ lastCardRef, item }: any) => {
+const BlocksBody = ({ index, lastCardRef, item }: any) => {
   const { number, miner, hash, totalTransactions, timestamp, size } = item;
 
   function redirectHandler() {
@@ -10,20 +13,25 @@ const BlocksBody = ({ lastCardRef, item }: any) => {
   }
 
   const navigate = useNavigate();
+  const online = index > 0 ? <GreenCircle /> : <OrangeCircle />;
 
   return (
     <div className="blocks_blocks_body" ref={lastCardRef}>
       <div
-        className="blocks_blocks_body_cell"
+        className="blocks_blocks_body_cell color-gray universall_link_underline"
         style={{
           cursor: 'pointer',
         }}
         onClick={redirectHandler}
       >
-        {number}
+        <span style={{ marginRight: 8 }}>{online}</span> {number}
       </div>
-      <div className="blocks_blocks_body_cell">{miner}</div>
-      <div className="blocks_blocks_body_cell">{sliceData5(hash)}</div>
+      <NavLink to={`/apollo/${miner}/`} className="universall_light2">
+        <div className="blocks_blocks_body_cell color-gray">{miner}</div>
+      </NavLink>
+      <div className="blocks_blocks_body_cell color-gray">
+        {sliceData5(hash)}
+      </div>
       <div className="blocks_blocks_body_cell">{totalTransactions}</div>
       <div className="blocks_blocks_body_cell">
         {moment(timestamp * 1000).fromNow()}

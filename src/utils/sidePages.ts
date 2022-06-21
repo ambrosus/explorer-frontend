@@ -36,6 +36,21 @@ export const atlasDetailsSorting: TApolloSortProps[] = [
   { title: 'Sheltering', value: 'sheltering' },
 ];
 
+export const transactionsTabs = [
+  { title: 'All', value: '' },
+  { title: 'Transactions', value: 'transactions' },
+  { title: 'Transfers', value: 'transfers' },
+  { title: 'Contracts', value: 'contracts' },
+  { title: 'Fees', value: 'fees' },
+  { title: 'Validator Proxy', value: 'validator_proxies' },
+  { title: 'Block Rewards', value: 'block_rewards' },
+  { title: 'KYCs', value: 'kycs' },
+  { title: 'Challenges', value: 'challenges' },
+  { title: 'Payouts', value: 'payouts' },
+  { title: 'Roles', value: 'roles' },
+  { title: 'Heads', value: 'heads' },
+];
+
 export const sidePages = {
   transactionFilters,
   ERC20Filters,

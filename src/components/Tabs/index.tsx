@@ -7,7 +7,6 @@ import Calendar from 'components/Calendar';
 import useDeviceSize from 'hooks/useDeviceSize';
 import { useOnClickOutside } from 'hooks/useOnClickOutside';
 import { useTypedSelector } from 'hooks/useTypedSelector';
-import _ from 'lodash';
 import moment from 'moment';
 import {
   TabsProps,
@@ -30,7 +29,6 @@ const Tabs: FC<TabsProps> = ({
 }) => {
   const [isShow, setIsShow] = useState(false);
   const { address, type, filtered, tokenToSorted } = useParams();
-  const [prevType, setPrevType] = useState<any>(type);
   const [renderData, setRenderData] = useState<any>(null);
   const [notFound, setNotFound] = useState<any>(false);
   const { data: addressData } = useTypedSelector(
@@ -144,7 +142,7 @@ const Tabs: FC<TabsProps> = ({
             {!filtered
               ? transactionFilters &&
                 transactionFilters.length &&
-                _.map(transactionFilters, (filter) => (
+                transactionFilters.map((filter) => (
                   <NavLink
                     key={filter.title}
                     to={`/addresses/${address}/${
@@ -160,7 +158,7 @@ const Tabs: FC<TabsProps> = ({
                 ))
               : ERC20Filters &&
                 ERC20Filters.length &&
-                _.map(ERC20Filters, (filter) => (
+                ERC20Filters.map((filter) => (
                   <NavLink
                     key={filter.title}
                     to={`/addresses/${address}/ERC-20_Tx/${filtered}/${filter.value} `}
@@ -207,60 +205,53 @@ const Tabs: FC<TabsProps> = ({
           )}
 
           {renderData && renderData?.length !== 0
-            ? //TODO map?
-              _.map(
-                renderData,
-                (transaction: TransactionProps, index: number) =>
-                  (renderData.length > 30 &&
-                    renderData.length - 9 === index &&
-                    type !== 'ERC-20_Tx') ||
-                  (renderData.length < 30 &&
-                    renderData.length - 1 === index &&
-                    type !== 'ERC-20_Tx') ? (
-                    //TODO double code
-                    <AddressBlock
-                      lastCardRef={lastCardRef}
-                      isLatest={type === 'ERC-20_Tx' && !filtered}
-                      onClick={onClick}
-                      key={transaction.txHash}
-                      txhash={transaction.txHash}
-                      method={transaction.method}
-                      from={transaction.from}
-                      to={transaction.to}
-                      date={moment(transaction.date).fromNow()}
-                      block={transaction.block}
-                      amount={transaction.amount}
-                      txfee={transaction.txFee}
-                      token={`${
-                        transaction?.token ? transaction?.token : null
-                      }`}
-                      symbol={`${
-                        transaction?.symbol ? transaction?.symbol : null
-                      }`}
-                      isTableColumn={isTableColumn}
-                    />
-                  ) : (
-                    <AddressBlock
-                      isLatest={type === 'ERC-20_Tx' && !filtered}
-                      onClick={onClick}
-                      key={transaction.txHash}
-                      txhash={transaction.txHash}
-                      method={transaction.method}
-                      from={transaction.from}
-                      to={transaction.to}
-                      date={moment(transaction.date).fromNow()}
-                      block={transaction.block}
-                      amount={transaction.amount}
-                      txfee={transaction.txFee}
-                      token={`${
-                        transaction?.token ? transaction?.token : 'AMB'
-                      }`}
-                      symbol={`${
-                        transaction?.symbol ? transaction?.symbol : 'AMB'
-                      }`}
-                      isTableColumn={isTableColumn}
-                    />
-                  ),
+            ? renderData.map((transaction: TransactionProps, index: number) =>
+                (renderData.length > 30 &&
+                  renderData.length - 9 === index &&
+                  type !== 'ERC-20_Tx') ||
+                (renderData.length < 30 &&
+                  renderData.length - 1 === index &&
+                  type !== 'ERC-20_Tx') ? (
+                  //TODO double code
+                  <AddressBlock
+                    lastCardRef={lastCardRef}
+                    isLatest={type === 'ERC-20_Tx' && !filtered}
+                    onClick={onClick}
+                    key={transaction.txHash}
+                    txhash={transaction.txHash}
+                    method={transaction.method}
+                    from={transaction.from}
+                    to={transaction.to}
+                    date={moment(transaction.date).fromNow()}
+                    block={transaction.block}
+                    amount={transaction.amount}
+                    txfee={transaction.txFee}
+                    token={`${transaction?.token ? transaction?.token : null}`}
+                    symbol={`${
+                      transaction?.symbol ? transaction?.symbol : null
+                    }`}
+                    isTableColumn={isTableColumn}
+                  />
+                ) : (
+                  <AddressBlock
+                    isLatest={type === 'ERC-20_Tx' && !filtered}
+                    onClick={onClick}
+                    key={transaction.txHash}
+                    txhash={transaction.txHash}
+                    method={transaction.method}
+                    from={transaction.from}
+                    to={transaction.to}
+                    date={moment(transaction.date).fromNow()}
+                    block={transaction.block}
+                    amount={transaction.amount}
+                    txfee={transaction.txFee}
+                    token={`${transaction?.token ? transaction?.token : 'AMB'}`}
+                    symbol={`${
+                      transaction?.symbol ? transaction?.symbol : 'AMB'
+                    }`}
+                    isTableColumn={isTableColumn}
+                  />
+                ),
               )
             : null}
 
@@ -293,16 +284,3 @@ const Tabs: FC<TabsProps> = ({
 };
 
 export default React.memo(Tabs);
-
-// {loading && !renderData?.length && (
-//   <div
-//     style={{
-//       width: '100%',
-//       paddingTop: 20,
-//       height: 200,
-//       position: 'absolute',
-//     }}
-//   >
-//     <Loader />
-//   </div>
-// )}

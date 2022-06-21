@@ -1,6 +1,5 @@
 import { numWithCommas } from '../../utils/helpers';
 import { INumber } from '../UI/interfaces/number.interface';
-import clsx from 'clsx';
 import React from 'react';
 
 function round(input: any, precision: any) {
@@ -33,7 +32,7 @@ const _Number = React.forwardRef((props: INumber, ref: any) => {
   const { className, value, fixed, delimiter, discharge, ...other } = props;
   const number = typeof fixed === 'number' ? round(value, fixed) : value;
 
-  const classes = clsx('inherit', className);
+  const classes = `inherit ${className}`;
   const [unit, mantissa]: any = String(number).split('.');
 
   return (

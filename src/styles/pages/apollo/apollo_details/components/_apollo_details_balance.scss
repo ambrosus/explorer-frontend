@@ -16,6 +16,15 @@
     grid-template-columns: repeat(1, auto);
   }
 
+  &-tx1 {
+    grid-template-columns: 1.3fr 1fr 1fr 1fr;
+  }
+  &-tx2 {
+    grid-template-columns: 1.3fr 1fr 2fr;
+  }
+  &-tx3 {
+    grid-template-columns: 3fr 1fr;
+  }
   &_cells {
     display: flex;
     flex-direction: column;
@@ -24,11 +33,7 @@
     padding: 0 32px;
     flex: 1;
     border-right: 1px solid #eff2f5;
-    &:first-child {
-      flex-direction: row;
-      align-items: center;
-      justify-content: flex-start;
-    }
+
     @include for_big_tablet {
       height: 64px;
       border-bottom: 1px solid #eff2f5;

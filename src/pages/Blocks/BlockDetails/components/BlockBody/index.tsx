@@ -1,4 +1,5 @@
-import { Currency } from '../../../../../components/UI/Currency';
+import Amb from '../../../../../assets/icons/Cryptos/Amb';
+import { Number } from 'components/Number';
 import moment from 'moment';
 import React from 'react';
 import { sliceData5 } from 'utils/helpers';
@@ -8,15 +9,23 @@ const BlockBody = ({ lastCardRef, item }: any) => {
   const amount = value?.ether || 0;
   return (
     <div className="block_body" ref={lastCardRef}>
-      <div className="block_body_cell">{sliceData5(blockHash)}</div>
+      {/*<NavLink*/}
+      {/*  to={`/addresses/${from}/`}*/}
+      {/*  className="address_blocks_cell universall_light2"*/}
+      {/*>*/}
+      {/*</NavLink>*/}
+      <div className="block_body_cell color-gray">{sliceData5(blockHash)}</div>
       <div className="block_body_cell">{type}</div>
-      <div className="block_body_cell">{sliceData5(from)} 0x81e...99a98</div>
-      <div className="block_body_cell">{sliceData5(to)}</div>
+      <div className="block_body_cell color-gray">{sliceData5(from)} </div>
+      <div className="block_body_cell color-gray">{sliceData5(to)}</div>
       <div className="block_body_cell">
         {moment(timestamp * 1000).fromNow()}
       </div>
       <div className="block_body_cell">
-        <Currency value={amount} symbol="AMB" fixed={2} />
+        <span className="block_body_cell_icon">
+          <Amb /> <span className="color-gray">AMB</span>
+        </span>
+        <Number value={amount} fixed={8} />
       </div>
     </div>
   );

@@ -16,16 +16,19 @@ export const RenderRoutes = (props: any) => {
 
   return !loading ? (
     <Routes>
-      {routes.routes.map((route: any) => (
-        route.isClick &&
-        <Route
-          suspense={<Loader />}
-          key={route.key}
-          path={route.path}
-          element={<route.component />}
-          {...route}
-        />
-      ))}
+      {routes.routes.map(
+        (route: any) =>
+          route.isClick && (
+            <Route
+              suspense={<Loader />}
+              key={route.key}
+              path={route.path}
+              element={<route.component />}
+              {...route}
+            />
+          ),
+      )}
+
       {routes.addressesRoutes.map((route: any) => (
         <Route
           suspense={<Loader />}
@@ -53,10 +56,30 @@ export const RenderRoutes = (props: any) => {
           {...route}
         />
       ))}
+      {routes.blockRoutes.map((route: any) => (
+        <Route
+          suspense={<Loader />}
+          key={route.key}
+          path={route.path}
+          element={<route.component />}
+          {...route}
+        />
+      ))}
+      {routes.transactions.map((route: any) => (
+        <Route
+          suspense={<Loader />}
+          key={route.key}
+          path={route.path}
+          element={<route.component />}
+          {...route}
+        />
+      ))}
       <Route path="*" element={<Error404 />} />
       <Route path="/notfound" element={<Error404 />} />
     </Routes>
   ) : (
     <Loader />
   );
+  // Hello Comit
+  // kakogo xy9 eto tyt delaet?)
 };
