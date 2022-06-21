@@ -284,4 +284,3 @@ const Tabs: FC<TabsProps> = ({
 };
 
 export default React.memo(Tabs);
-
