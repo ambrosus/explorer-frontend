@@ -319,23 +319,21 @@ export const ambToUSD = (amb: any, usd_price: any) => {
 
 export function scientificToDecimal(num: any) {
   const sign = Math.sign(num);
-  //if the number is in scientific notation remove it
-  if(/\d+\.?\d*e[\+\-]*\d+/i.test(num)) {
+  if (/\d+\.?\d*e[\+\-]*\d+/i.test(num)) {
     const zero = '0';
-    const parts = String(num).toLowerCase().split('e'); //split into coeff and exponent
-    const e :any = parts.pop(); //store the exponential part
-    let l = Math.abs(e); //get the number of zeros
-    const direction = e/l; // use to determine the zeroes on the left or right
+    const parts = String(num).toLowerCase().split('e');
+    const e: any = parts.pop();
+    let l = Math.abs(e);
+    const direction = e / l;
     const coffee_array = parts[0].split('.');
 
     if (direction === -1) {
       coffee_array[0] = String(Math.abs(Number(coffee_array[0])));
       num = zero + '.' + new Array(l).join(zero) + coffee_array.join('');
-    }
-    else {
+    } else {
       const dec = coffee_array[1];
       if (dec) l = l - dec.length;
-      num = coffee_array.join('') + new Array(l+1).join(zero);
+      num = coffee_array.join('') + new Array(l + 1).join(zero);
     }
   }
 
