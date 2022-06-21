@@ -1,4 +1,8 @@
 .universall {
+  &_link_underline {
+    text-decoration: underline;
+  }
+
   &_dark {
     color: $main;
   }
@@ -14,6 +18,7 @@
   &_bold {
     font-weight: 700;
   }
+
   &_indent {
     &_icon {
       display: flex;
@@ -55,6 +60,7 @@
       font-size: 12px;
     }
   }
+
   &_button {
     display: flex;
     flex-direction: column;

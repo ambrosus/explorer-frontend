@@ -2,7 +2,6 @@ import Minus from 'assets/icons/Minus';
 import Plus from 'assets/icons/Plus';
 import GreenCircle from 'assets/icons/StatusAction/GreenCircle';
 import IncomeTrasaction from 'assets/icons/StatusAction/IncomeTrasaction';
-import OrangeCircle from 'assets/icons/StatusAction/OrangeCircle';
 import OutgoingTransaction from 'assets/icons/StatusAction/OutgoingTransaction';
 import { useActions } from 'hooks/useActions';
 import { useTypedSelector } from 'hooks/useTypedSelector';
@@ -13,15 +12,27 @@ import {
 } from 'pages/Addresses/AddressDetails/address-details.interface';
 import React, { useState } from 'react';
 import { NavLink, useNavigate, useParams } from 'react-router-dom';
+import ReactTooltip from 'react-tooltip';
 import { TParams } from 'types';
 import {
   displayAmount,
   getAmbTokenSymbol,
   getTokenIcon,
+  scientificToDecimal,
   sliceData10,
   sliceData5,
   wrapString,
 } from 'utils/helpers';
+
+export const Tooltip = React.memo(({ val }: any) => {
+  return val?.length > 8 ? (
+    <ReactTooltip id={val} effect="solid">
+      {val}
+    </ReactTooltip>
+  ) : (
+    <></>
+  );
+});
 
 const AddressBlock: React.FC<AddressBlockProps> = ({
   onClick,
@@ -218,8 +229,11 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
         >
           <GreenCircle />
         </span>
-        <span data-tip={String(txfee).length > 8 ? txfee : null}>
-          {String(txfee).length > 8 ? String(txfee).slice(0, 8) : txfee}
+        <Tooltip val={String(scientificToDecimal(txfee))} />
+        <span data-tip data-for={scientificToDecimal(txfee)}>
+          {String(scientificToDecimal(txfee)).length > 8
+            ? String(scientificToDecimal(txfee)).slice(0, 8)
+            : scientificToDecimal(txfee)}
         </span>
       </div>
     );
