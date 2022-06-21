@@ -1,7 +1,8 @@
 import React from 'react';
 
 export const MainInfoBlockTable = ({ block }: any) => {
-  const { parentHash, hash, stateRoot, extraData } = block !== null && block;
+  const { parentHash, hash, stateRoot, extraData } =
+    block !== null && block !== undefined && block;
   return (
     <div className="main_info_block_table">
       <div className="main_info_block_table_table">
