@@ -15,11 +15,12 @@ import { TransactionDetails } from 'pages/TransactionsDetails';
 
 interface IAppRoutes {
   routes: IRoute[];
-  blockRoutes: IRoute[];
   addressesRoutes: IRoute[];
   apolloRoutes: IRoute[];
   atlasRoutes: IRoute[];
   transactions: IRoute[];
+  blockRoutes: IRoute[];
+
 }
 
 export const routes: IRoute[] = [
@@ -162,7 +163,7 @@ export const transactions: IRoute[] = [
     key: 'TransactionsDetails',
     exact: true,
     component: () => <TransactionDetails />,
-    isClick: false,
+    isClick: true,
   },
 ];
 
@@ -170,9 +171,9 @@ const appRoutes: IAppRoutes = {
   routes,
   addressesRoutes,
   apolloRoutes,
-  blockRoutes,
   atlasRoutes,
   transactions,
+  blockRoutes
 };
 
 export default appRoutes;

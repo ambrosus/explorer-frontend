@@ -4,7 +4,6 @@ import Loader from '../Loader';
 import Error404 from 'pages/Error404';
 import { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import {transactions} from "../../routes";
 
 export const RenderRoutes = (props: any) => {
   const { routes } = props;
@@ -81,5 +80,6 @@ export const RenderRoutes = (props: any) => {
   ) : (
     <Loader />
   );
-
+  // Hello Comit
+  // kakogo xy9 eto tyt delaet?)
 };
