@@ -9,6 +9,7 @@ import moment from 'moment';
 import {AddressBlockProps, TokenType,} from 'pages/Addresses/AddressDetails/address-details.interface';
 import React, {useState} from 'react';
 import {NavLink, useNavigate, useParams} from 'react-router-dom';
+import ReactTooltip from 'react-tooltip';
 import {TParams} from 'types';
 import {
   displayAmount,
@@ -20,27 +21,38 @@ import {
   wrapString,
 } from 'utils/helpers';
 
+export const Tooltip = React.memo(({val}: any) => {
+  return (
+    val?.length > 8 ?
+      <ReactTooltip
+        id={val}
+        effect="solid">
+        {val}
+      </ReactTooltip> : <></>
+  )
+})
+
 const AddressBlock: React.FC<AddressBlockProps> = ({
-  onClick,
-  lastCardRef,
-  isLatest,
-  txhash,
-  method,
-  from,
-  to,
-  date,
-  block,
-  amount,
-  txfee,
-  token,
-  symbol,
-  isTableColumn,
-  isIcon,
-  inners,
-  hashOnClick,
-}) => {
-  const { addFilter } = useActions();
-  const { address, type }: TParams = useParams();
+                                                     onClick,
+                                                     lastCardRef,
+                                                     isLatest,
+                                                     txhash,
+                                                     method,
+                                                     from,
+                                                     to,
+                                                     date,
+                                                     block,
+                                                     amount,
+                                                     txfee,
+                                                     token,
+                                                     symbol,
+                                                     isTableColumn,
+                                                     isIcon,
+                                                     inners,
+                                                     hashOnClick,
+                                                   }) => {
+  const {addFilter} = useActions();
+  const {address, type}: TParams = useParams();
 
   const navigate = useNavigate();
 
@@ -215,8 +227,11 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
         >
           <GreenCircle/>
         </span>
-        <span data-tip={String(scientificToDecimal(txfee)).length > 8 ? scientificToDecimal(txfee) : null}>
-          {String(scientificToDecimal(txfee)).length > 8 ? String(scientificToDecimal(txfee)).slice(0, 8) : (scientificToDecimal(txfee)).toFixed(2)}
+        <Tooltip val={String(scientificToDecimal(txfee))}/>
+        <span data-tip
+              data-for={scientificToDecimal(txfee)}
+        >
+          {String(scientificToDecimal(txfee)).length > 8 ? String(scientificToDecimal(txfee)).slice(0, 8) : scientificToDecimal(txfee)}
         </span>
       </div>
     );
@@ -279,27 +294,27 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
         {isToken}
       </div>
       {isExpanded &&
-        inners &&
-        !!inners.length &&
-        inners.map((transaction) => (
-          <div key={transaction.hash} className="address_blocks_inner">
-            <AddressBlock
-              onClick={onClick}
-              txhash={transaction.hash}
-              method={transaction.type}
-              from={transaction.from}
-              to={transaction.to}
-              date={moment(transaction.timestamp * 1000).fromNow()}
-              block={transaction.blockNumber}
-              amount={transaction.value.ether}
-              txfee={transaction.gasCost.ether}
-              token={`${transaction?.token ? transaction?.token : 'AMB'}`}
-              symbol={`${transaction?.symbol ? transaction?.symbol : 'AMB'}`}
-              isTableColumn={isTableColumn}
-              inners={transaction.inners}
-            />
-          </div>
-        ))}
+      inners &&
+      !!inners.length &&
+      inners.map((transaction) => (
+        <div key={transaction.hash} className="address_blocks_inner">
+          <AddressBlock
+            onClick={onClick}
+            txhash={transaction.hash}
+            method={transaction.type}
+            from={transaction.from}
+            to={transaction.to}
+            date={moment(transaction.timestamp * 1000).fromNow()}
+            block={transaction.blockNumber}
+            amount={transaction.value.ether}
+            txfee={transaction.gasCost.ether}
+            token={`${transaction?.token ? transaction?.token : 'AMB'}`}
+            symbol={`${transaction?.symbol ? transaction?.symbol : 'AMB'}`}
+            isTableColumn={isTableColumn}
+            inners={transaction.inners}
+          />
+        </div>
+      ))}
     </>
   );
 };
