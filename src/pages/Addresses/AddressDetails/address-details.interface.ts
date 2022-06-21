@@ -74,6 +74,7 @@ export interface AddressBlockProps {
   isIcon?: boolean;
   inners?: any[];
   innerLevel?: number;
+  hashOnClick?: (hash: string | number) => any;
 }
 
 export interface TokenProps {

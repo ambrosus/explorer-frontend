@@ -22,6 +22,9 @@ import {
   sliceData5,
   wrapString,
 } from 'utils/helpers';
+import Plus from 'assets/icons/Plus';
+import Minus from 'assets/icons/Minus';
+import moment from "moment";
 
 const AddressBlock: React.FC<AddressBlockProps> = ({
   onClick,
@@ -41,7 +44,9 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
   isIcon,
   inners,
   innerLevel,
+  hashOnClick,
 }) => {
+  const online = txfee === 'Pending' ? <OrangeCircle /> : <GreenCircle />;
   const { addFilter } = useActions();
   const { address, type }: TParams = useParams();
 
@@ -55,6 +60,12 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
   );
   // const handleExpand = () => setIsExpanded((state: boolean) => !state);
 
+  const handleHashClick = () => {
+    if (hashOnClick) {
+      hashOnClick(txhash);
+    }
+  }
+
   const isTxHash: JSX.Element | null =
     txhash === null ? null : (
       <div
@@ -63,6 +74,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
           fontWeight: '600',
           // marginLeft: innerLevel ? `${16 * innerLevel}px` : 0,
         }}
+        onClick={handleHashClick}
       >
         {inners && (
           <button onClick={handleExpand} className="address_blocks_plus">
@@ -268,9 +280,15 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
   } else if (inners) {
     innerLvl = 1;
   }
+
   return (
     <>
       <div className={isTableColumn} ref={lastCardRef}>
+        {inners && (
+          <button onClick={handleExpand} className="address_blocks_plus">
+            {isExpanded ? <Minus /> : <Plus />}
+          </button>
+        )}
         {isTxHash}
         {isMethod}
         {isFrom}
