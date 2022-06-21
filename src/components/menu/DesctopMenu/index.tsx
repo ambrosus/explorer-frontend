@@ -20,7 +20,7 @@ const DesctopMenu: React.FC<DesctopMenuProps> = ({ menu }) => {
   return (
     <>
       {isShow ? (
-        <FindWide searchRef={searchRef} />
+        <FindWide setIsShow={setIsShow} searchRef={searchRef} />
       ) : (
         <div className="menu">
           {menu}

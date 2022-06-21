@@ -10,17 +10,27 @@ const Currency = React.forwardRef((props: ICurrency, ref: any) => {
 
   const _symbol = symbol || '$';
 
+  const diffValue = +value - Math.trunc(+value);
+
   return (
     <span className={classes}>
-      {side === 'left' && <span className="symbol left">{_symbol}</span>}
+      {side === 'left' && (
+        <span className="symbol left">
+          {' '}
+          &nbsp;
+          {_symbol}
+        </span>
+      )}
       <Number
         {...other}
         value={value}
-        fixed={fixed}
+        fixed={diffValue === 0 ? 2 : fixed}
         delimiter={delimiter}
         ref={ref}
       />
-      {side !== 'left' && <span className="symbol right">{_symbol}</span>}
+      {side !== 'left' && (
+        <span className="symbol right">{_symbol} &nbsp;</span>
+      )}
     </span>
   );
 });
