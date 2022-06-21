@@ -22,9 +22,6 @@ import {
   sliceData5,
   wrapString,
 } from 'utils/helpers';
-import Plus from 'assets/icons/Plus';
-import Minus from 'assets/icons/Minus';
-import moment from "moment";
 
 const AddressBlock: React.FC<AddressBlockProps> = ({
   onClick,
@@ -43,10 +40,8 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
   isTableColumn,
   isIcon,
   inners,
-  innerLevel,
   hashOnClick,
 }) => {
-  const online = txfee === 'Pending' ? <OrangeCircle /> : <GreenCircle />;
   const { addFilter } = useActions();
   const { address, type }: TParams = useParams();
 
@@ -58,30 +53,30 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
   const { data: addressData } = useTypedSelector(
     (state: any) => state.position,
   );
-  // const handleExpand = () => setIsExpanded((state: boolean) => !state);
 
   const handleHashClick = () => {
     if (hashOnClick) {
       hashOnClick(txhash);
     }
-  }
+  };
 
   const isTxHash: JSX.Element | null =
     txhash === null ? null : (
       <div
-        className="address_blocks_cell address_blocks_cell-hash universall_light2"
+        className="address_blocks_cell address_blocks_cell-hash"
         style={{
           fontWeight: '600',
           // marginLeft: innerLevel ? `${16 * innerLevel}px` : 0,
         }}
-        onClick={handleHashClick}
       >
         {inners && (
           <button onClick={handleExpand} className="address_blocks_plus">
             {isExpanded ? <Minus /> : <Plus />}
           </button>
         )}
-        {sliceData10(txhash as string)}
+        <span className="universall_light2" onClick={handleHashClick}>
+          {sliceData10(txhash as string)}
+        </span>
       </div>
     );
   const isMethod =
@@ -273,22 +268,9 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
       <></>
     );
 
-  let innerLvl = 0;
-
-  if (innerLevel) {
-    innerLvl = innerLevel + 1;
-  } else if (inners) {
-    innerLvl = 1;
-  }
-
   return (
     <>
       <div className={isTableColumn} ref={lastCardRef}>
-        {inners && (
-          <button onClick={handleExpand} className="address_blocks_plus">
-            {isExpanded ? <Minus /> : <Plus />}
-          </button>
-        )}
         {isTxHash}
         {isMethod}
         {isFrom}
@@ -318,7 +300,6 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
               symbol={`${transaction?.symbol ? transaction?.symbol : 'AMB'}`}
               isTableColumn={isTableColumn}
               inners={transaction.inners}
-              innerLevel={innerLvl}
             />
           </div>
         ))}

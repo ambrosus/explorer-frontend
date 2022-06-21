@@ -49,7 +49,7 @@ export const transactionsTabs = [
   { title: 'Payouts', value: 'payouts' },
   { title: 'Roles', value: 'roles' },
   { title: 'Heads', value: 'heads' },
-]
+];
 
 export const sidePages = {
   transactionFilters,

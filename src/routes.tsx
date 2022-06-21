@@ -11,7 +11,7 @@ import { Bundles } from 'pages/Bundles';
 import { Hermes } from 'pages/Hermes';
 import { Home } from 'pages/Home';
 import { Transactions } from 'pages/Transactions';
-import { TransactionDetails } from "pages/TransactionsDetails";
+import { TransactionDetails } from 'pages/TransactionsDetails';
 
 interface IAppRoutes {
   routes: IRoute[];
