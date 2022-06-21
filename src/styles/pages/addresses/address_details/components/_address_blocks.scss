@@ -13,9 +13,9 @@
     position: relative;
     display: grid;
     grid-template-columns:
-      minmax(100px, 4fr) minmax(200px, 2fr) minmax(125px, 2fr)
-      minmax(125px, 2fr) minmax(120px, 2fr) minmax(120px, 2fr)
-      minmax(260px, 4fr) minmax(100px, 2fr);
+      minmax(100px, 4fr) minmax(190px, 2fr) minmax(115px, 2fr)
+      minmax(115px, 2fr) minmax(120px, 2fr) minmax(120px, 2fr)
+      minmax(240px, 4fr) minmax(100px, 2fr);
 
     padding-left: 6px;
     &:hover {
