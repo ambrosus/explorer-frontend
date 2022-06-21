@@ -2,22 +2,19 @@ import Minus from 'assets/icons/Minus';
 import Plus from 'assets/icons/Plus';
 import GreenCircle from 'assets/icons/StatusAction/GreenCircle';
 import IncomeTrasaction from 'assets/icons/StatusAction/IncomeTrasaction';
-import OrangeCircle from 'assets/icons/StatusAction/OrangeCircle';
 import OutgoingTransaction from 'assets/icons/StatusAction/OutgoingTransaction';
-import { useActions } from 'hooks/useActions';
-import { useTypedSelector } from 'hooks/useTypedSelector';
+import {useActions} from 'hooks/useActions';
+import {useTypedSelector} from 'hooks/useTypedSelector';
 import moment from 'moment';
-import {
-  AddressBlockProps,
-  TokenType,
-} from 'pages/Addresses/AddressDetails/address-details.interface';
-import React, { useState } from 'react';
-import { NavLink, useNavigate, useParams } from 'react-router-dom';
-import { TParams } from 'types';
+import {AddressBlockProps, TokenType,} from 'pages/Addresses/AddressDetails/address-details.interface';
+import React, {useState} from 'react';
+import {NavLink, useNavigate, useParams} from 'react-router-dom';
+import {TParams} from 'types';
 import {
   displayAmount,
   getAmbTokenSymbol,
   getTokenIcon,
+  scientificToDecimal,
   sliceData10,
   sliceData5,
   wrapString,
@@ -50,7 +47,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
   const [isExpanded, setIsExpanded] = useState(false);
   const handleExpand = () => setIsExpanded((state: boolean) => !state);
 
-  const { data: addressData } = useTypedSelector(
+  const {data: addressData} = useTypedSelector(
     (state: any) => state.position,
   );
 
@@ -71,7 +68,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
       >
         {inners && (
           <button onClick={handleExpand} className="address_blocks_plus">
-            {isExpanded ? <Minus /> : <Plus />}
+            {isExpanded ? <Minus/> : <Plus/>}
           </button>
         )}
         <span className="universall_light2" onClick={handleHashClick}>
@@ -81,51 +78,51 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
     );
   const isMethod =
     method === null ? null : (
-      <div className="address_blocks_cell" style={{ gap: 4 }}>
+      <div className="address_blocks_cell" style={{gap: 4}}>
         {isIcon && from && from === address ? (
-          <OutgoingTransaction />
+          <OutgoingTransaction/>
         ) : (
-          <IncomeTrasaction />
+          <IncomeTrasaction/>
         )}
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <div style={{display: 'flex', flexDirection: 'column'}}>
           {wrapString(method)}
         </div>
       </div>
     );
   const isFrom =
     from === null ? (
-      <div className="address_blocks_cell"></div>
-    ) : //TODO ?
-    address !== from && String(from).trim().length ? (
-      <NavLink
-        to={`/addresses/${from}/`}
-        className="address_blocks_cell universall_light2"
-      >
-        {sliceData5(from as string)}
-      </NavLink>
-    ) : (
-      <div className="address_blocks_cell universall_light2">
-        {sliceData5(from as string)}
-      </div>
-    );
+        <div className="address_blocks_cell"></div>
+      ) : //TODO ?
+      address !== from && String(from).trim().length ? (
+        <NavLink
+          to={`/addresses/${from}/`}
+          className="address_blocks_cell universall_light2"
+        >
+          {sliceData5(from as string)}
+        </NavLink>
+      ) : (
+        <div className="address_blocks_cell universall_light2">
+          {sliceData5(from as string)}
+        </div>
+      );
   const isTo =
     //TODO !ту
     to === null || to === undefined ? (
-      <div className="address_blocks_cell"></div>
-    ) : //TODO ?
-    address !== to && String(to).trim().length ? (
-      <NavLink
-        to={`/addresses/${to}/`}
-        style={{ display: 'content' }}
-        className="address_blocks_cell universall_light2"
-      >
-        {sliceData5(to as string)}
-      </NavLink>
-    ) : (
-      <div className="address_blocks_cell universall_light2">
-        {sliceData5(to as string)}
-      </div>
-    );
+        <div className="address_blocks_cell"></div>
+      ) : //TODO ?
+      address !== to && String(to).trim().length ? (
+        <NavLink
+          to={`/addresses/${to}/`}
+          style={{display: 'content'}}
+          className="address_blocks_cell universall_light2"
+        >
+          {sliceData5(to as string)}
+        </NavLink>
+      ) : (
+        <div className="address_blocks_cell universall_light2">
+          {sliceData5(to as string)}
+        </div>
+      );
   const isDate =
     date === null ? null : <div className="address_blocks_cell">{date}</div>;
   const isBlock =
@@ -159,7 +156,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
       <div className="address_blocks_cell flex_between">
         {type !== 'ERC-20_Tx' ? (
           <span className="address_blocks_cell_icon">
-            <Icon />
+            <Icon/>
           </span>
         ) : (
           <></>
@@ -214,12 +211,12 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
       <div className="address_blocks_cell_last">
         <span
           className="universall_indent_icon"
-          style={{ display: 'flex', alignItems: 'center' }}
+          style={{display: 'flex', alignItems: 'center'}}
         >
-          <GreenCircle />
+          <GreenCircle/>
         </span>
-        <span data-tip={String(txfee).length > 8 ? txfee : null}>
-          {String(txfee).length > 8 ? String(txfee).slice(0, 8) : txfee}
+        <span data-tip={String(scientificToDecimal(txfee)).length > 8 ? scientificToDecimal(txfee) : null}>
+          {String(scientificToDecimal(txfee)).length > 8 ? String(scientificToDecimal(txfee)).slice(0, 8) : (scientificToDecimal(txfee)).toFixed(2)}
         </span>
       </div>
     );
@@ -228,11 +225,11 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
     type === 'ERC-20_Tx' ? (
       <div
         className="address_blocks_cell_last universall_light2"
-        style={{ fontWeight: '600', cursor: isLatest ? 'pointer' : 'default' }}
+        style={{fontWeight: '600', cursor: isLatest ? 'pointer' : 'default'}}
       >
         {type === 'ERC-20_Tx' ? (
           <span className="universall_indent_icon">
-            <Icon />
+            <Icon/>
           </span>
         ) : (
           ''
@@ -244,8 +241,8 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
               {token.includes('token')
                 ? `(${getAmbTokenSymbol(token)})`
                 : !symbol || symbol.trim() === 'null'
-                ? '(AMB)'
-                : `(${symbol})`}
+                  ? '(AMB)'
+                  : `(${symbol})`}
             </div>
           </>
         ) : (
@@ -258,8 +255,8 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
               {token.includes('token')
                 ? `(${getAmbTokenSymbol(token)})`
                 : !symbol || symbol.trim() === 'null'
-                ? '(AMB)'
-                : `(${symbol})`}
+                  ? '(AMB)'
+                  : `(${symbol})`}
             </NavLink>
           </span>
         )}

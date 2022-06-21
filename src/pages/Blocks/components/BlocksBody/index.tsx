@@ -18,7 +18,7 @@ const BlocksBody = ({ index, lastCardRef, item }: any) => {
   return (
     <div className="blocks_blocks_body" ref={lastCardRef}>
       <div
-        className="blocks_blocks_body_cell"
+        className="blocks_blocks_body_cell color-gray"
         style={{
           cursor: 'pointer',
         }}
@@ -26,8 +26,8 @@ const BlocksBody = ({ index, lastCardRef, item }: any) => {
       >
         <span style={{ marginRight: 8 }}>{online}</span> {number}
       </div>
-      <div className="blocks_blocks_body_cell">{miner}</div>
-      <div className="blocks_blocks_body_cell">{sliceData5(hash)}</div>
+      <div className="blocks_blocks_body_cell color-gray">{miner}</div>
+      <div className="blocks_blocks_body_cell color-gray">{sliceData5(hash)}</div>
       <div className="blocks_blocks_body_cell">{totalTransactions}</div>
       <div className="blocks_blocks_body_cell">
         {moment(timestamp * 1000).fromNow()}

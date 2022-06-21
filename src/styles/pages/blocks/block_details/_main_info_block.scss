@@ -12,6 +12,7 @@
     margin-bottom: 32px;
     border: 1px solid #eff2f5;
     border-radius: 16px;
+
     @include for_tablet {
       display: flex;
       flex-direction: column;
@@ -26,6 +27,7 @@
     display: grid;
     grid-template-rows: repeat(2, auto);
 
+
     &:last-child {
       border-right: 0px solid #eff2f5;
     }
@@ -39,6 +41,7 @@
       }
     }
     &_primary {
+      text-transform: uppercase;
       font-size: 14px;
       line-height: 16px;
       color: #58667e;
@@ -50,5 +53,6 @@
       line-height: 24px;
       color: #05060f;
     }
+
   }
 }
