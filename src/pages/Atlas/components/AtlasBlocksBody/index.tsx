@@ -42,7 +42,7 @@ const AtlasBlocksBody = ({ lastCardRef, index, item }: any) => {
         <Currency
           value={balance ? `${balance.ether}` : '0'}
           symbol="AMB"
-          fixed={2}
+          fixed={6}
           side="left"
         />
       </div>
@@ -50,7 +50,7 @@ const AtlasBlocksBody = ({ lastCardRef, index, item }: any) => {
         <Currency
           value={stake ? `${stake.ether}` : '0'}
           symbol="AMB"
-          fixed={2}
+          fixed={6}
         />
       </div>
     </div>

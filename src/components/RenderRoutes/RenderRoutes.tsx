@@ -62,5 +62,4 @@ export const RenderRoutes = (props: any) => {
   ) : (
     <Loader />
   );
-
 };

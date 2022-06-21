@@ -43,6 +43,7 @@ export type LatestTransactionsProps = {
 
 export interface FindWideProps {
   searchRef?: React.Ref<HTMLFormElement>;
+  setIsShow?: Function;
 }
 
 export type MainInfoProps = {
