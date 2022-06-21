@@ -56,24 +56,15 @@ export const RenderRoutes = (props: any) => {
           {...route}
         />
       ))}
-      {routes.blockRoutes.map((route: any) => (
-        <Route
-          suspense={<Loader />}
-          key={route.key}
-          path={route.path}
-          element={<route.component />}
-          {...route}
-        />
-      ))}
-      {routes.transactions.map((route: any) => (
-        <Route
-          suspense={<Loader />}
-          key={route.key}
-          path={route.path}
-          element={<route.component />}
-          {...route}
-        />
-      ))}
+      {/*{routes.blockRoutes.map((route: any) => (*/}
+      {/*  <Route*/}
+      {/*    suspense={<Loader />}*/}
+      {/*    key={route.key}*/}
+      {/*    path={route.path}*/}
+      {/*    element={<route.component />}*/}
+      {/*    {...route}*/}
+      {/*  />*/}
+      {/*))}*/}
       <Route path="*" element={<Error404 />} />
       <Route path="/notfound" element={<Error404 />} />
     </Routes>
