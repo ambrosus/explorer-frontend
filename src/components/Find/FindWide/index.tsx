@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 const FindWide: React.FC<FindWideProps> = ({ searchRef }) => {
   const [err, setErr] = useState<boolean>(false);
   const [name, setName] = useState<string>('');
+  const [link, setLink] = useState<string>('');
   const navigate = useNavigate();
   const debouncedSearchTerm = useDebounce(name, 500);
 
@@ -20,6 +21,7 @@ const FindWide: React.FC<FindWideProps> = ({ searchRef }) => {
         if (!data) {
           setErr(true);
         } else {
+          setErr(false)
           let searchTerm = data.data;
           if (searchTerm && searchTerm.term !== undefined) {
             const urlParts = data?.meta.search.split('/');
@@ -29,16 +31,14 @@ const FindWide: React.FC<FindWideProps> = ({ searchRef }) => {
             searchTerm = data?.meta.search;
           }
           if (data.meta.search) {
-            navigate(`/${searchTerm}/`);
-          } else {
-            navigate(`/notfound`);
+            setLink(`/${searchTerm}/`)
           }
         }
       },
       onError: () => {
         setName('');
-        navigate(`/notfound`);
       },
+
     },
   );
 
@@ -47,7 +47,7 @@ const FindWide: React.FC<FindWideProps> = ({ searchRef }) => {
     if (!debouncedSearchTerm) {
       return;
     }
-    refetch();
+   navigate(link);
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
