@@ -1,2 +1,70 @@
-.transactions {
+.transactions-details-list {
+  background: #fff;
+  padding: 20px 0 50px;
+  border-radius: 20px;
+
+  &__title {
+    font-size: 18px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #EFF2F5;
+    font-weight: 700;
+    margin: 0 auto;
+  }
+
+  &__wrapper {
+    margin: 0 auto;
+    overflow: auto;
+  }
+}
+.transaction-details {
+  margin: 0 auto;
+  padding-bottom: 50px;
+
+  &__hash {
+    font-size: 18px;
+    font-weight: 700;
+    margin-right: 5px;
+  }
+
+  .atlas_details_balance_fonts_bold {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .apollo_details_balance_cells {
+    overflow: hidden;
+
+    @media screen and (max-width: 1000px) {
+      border-bottom: 1px solid #eff2f5;
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    .apollo_details_balance {
+      grid-template-columns: unset;
+    }
+  }
+}
+
+.address_details_h1-tx {
+  @include for_phone {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+.transactions-header {
+  display: flex;
+  justify-content: space-between;
+
+  &__text {
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  &__num {
+    margin-left: 10px;
+    font-weight: 400;
+    font-size: 20px;
+  }
 }

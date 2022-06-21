@@ -8,8 +8,14 @@ import AddressBlock from "../Addresses/AddressDetails/components/AddressBlocks/A
 import AddressBlocksHeader from "../Addresses/AddressDetails/components/AddressBlocksHeader";
 import {useInView} from "react-intersection-observer";
 import Loader from "../../components/Loader";
+import {useNavigate} from "react-router-dom";
+import {useTypedSelector} from "../../hooks/useTypedSelector";
+import {numberWithCommas} from "../../utils/helpers";
 
 export const Transactions = () => {
+  const navigate = useNavigate();
+  const {data: appData} = useTypedSelector((state: any) => state.app);
+
   const [txsData, setTxsData] = useState({
     data: [],
     pagination: {
@@ -61,10 +67,22 @@ export const Transactions = () => {
     setTab(type);
   };
 
+  const redirectToDetails = (txhash: string | number) => {
+    navigate(`/transactions/${txhash}`);
+  };
+
   return (
     <Content>
       <Content.Header>
-        <h1>Transactions</h1>
+        <div className="transactions-header">
+          <h1>Transactions</h1>
+          <span className="transactions-header__text">
+            Total transactions
+            <span className="transactions-header__num">
+              {numberWithCommas(appData?.netInfo?.transactions?.total, appData?.netInfo?.transactions?.total)}
+            </span>
+          </span>
+        </div>
       </Content.Header>
       <Content.Body>
         <TabsNew
@@ -106,6 +124,7 @@ export const Transactions = () => {
             isTableColumn="address_blocks_cells"
             isIcon={true}
             inners={tx.inners}
+            hashOnClick={redirectToDetails}
           />
         ))}
         <div ref={ref} />

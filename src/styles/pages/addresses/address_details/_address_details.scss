@@ -4,9 +4,25 @@
     align-items: center;
     margin: 30px auto;
     white-space: nowrap;
-    @include for_laptop {
-      flex-direction: column;
-      align-items: flex-start;
+
+    &:not(&-tx) {
+      @include for_laptop {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    &-tx {
+      justify-content: space-between;
+    }
+
+    &_status {
+      color: #1acd8c;
+      text-transform: uppercase;
+      font-size: 14px;
+      font-weight: 600;
+      margin-top: 5px;
+      display: block;
     }
   }
 

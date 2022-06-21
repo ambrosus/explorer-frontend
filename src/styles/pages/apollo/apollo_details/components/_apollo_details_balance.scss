@@ -8,6 +8,15 @@
   border-radius: 16px;
   margin-bottom: 32px;
 
+  &-tx1 {
+    grid-template-columns: 1.3fr 1fr 1fr 1fr;
+  }
+  &-tx2 {
+    grid-template-columns: 1.3fr 1fr 2fr;
+  }
+  &-tx3 {
+    grid-template-columns: 3fr 1fr;
+  }
   &_cells {
     display: flex;
     flex-direction: column;

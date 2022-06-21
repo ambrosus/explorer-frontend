@@ -15,12 +15,12 @@ export const sliceData5 = (item: string | any) => {
     ? `${item.slice(0, 5)}...${item.slice(item.length - 5)}`
     : item;
 };
-export const sliceData10 = (item: string | any) => {
+export const sliceData10 = (item: string | any, sliceNum: number = 10) => {
   if (!item) {
     return '';
   }
   return item.length > 10
-    ? `${item.slice(0, 10)}...${item.slice(item.length - 10)}`
+    ? `${item.slice(0, sliceNum)}...${item.slice(item.length - sliceNum)}`
     : item;
 };
 export const calcTime = (time: any) => {
