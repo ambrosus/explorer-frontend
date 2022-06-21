@@ -44,14 +44,18 @@ const ApolloBlocksBody: FC<ApolloBodyProps> = ({
           </span>
           <span className="apollo_blocks_body_cell_token">AMB</span>
           <span className="apollo_blocks_body_cell_value">
-            {item.balance.ether.toFixed(5)}
+            <Currency
+              value={item ? `${item.balance.ether}` : '0'}
+              symbol=" "
+              fixed={8}
+            />
           </span>
         </div>
         <div className="apollo_blocks_body_cell">
           <Currency
             value={item ? `${item.stake.ether}` : '0'}
             symbol="AMB"
-            fixed={2}
+            fixed={6}
           />
         </div>
       </div>

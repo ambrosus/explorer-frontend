@@ -9,7 +9,7 @@ const BlockHeaderInfo = ({ block }: any) => {
   const { data: appData } = useTypedSelector((state: any) => state.app);
   const { address }: TParams = useParams();
   const { number, blockRewards, totalTransactions, size, timestamp } =
-    block !== null && block;
+    block !== null && block !== undefined && block;
   const txCount = blockRewards?.length + totalTransactions || 0;
   const { lastBlock } = appData?.netInfo ?? {
     lastBlock: {
