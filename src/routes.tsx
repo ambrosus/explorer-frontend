@@ -18,6 +18,9 @@ interface IAppRoutes {
   addressesRoutes: IRoute[];
   apolloRoutes: IRoute[];
   atlasRoutes: IRoute[];
+  transactions: IRoute[];
+  blockRoutes: IRoute[];
+
 }
 
 export const routes: IRoute[] = [
@@ -62,14 +65,14 @@ export const routes: IRoute[] = [
     key: 'Blocks',
     exact: true,
     component: () => <Blocks />,
-    isClick: false ,
+    isClick: true ,
   },
   {
     path: '/transactions',
     key: 'Transactions',
     exact: true,
     component: () => <Transactions />,
-    isClick: false,
+    isClick: true,
   },
   {
     path: '/bundles',
@@ -160,7 +163,7 @@ export const transactions: IRoute[] = [
     key: 'TransactionsDetails',
     exact: true,
     component: () => <TransactionDetails />,
-    isClick: false,
+    isClick: true,
   },
 ];
 
@@ -169,6 +172,8 @@ const appRoutes: IAppRoutes = {
   addressesRoutes,
   apolloRoutes,
   atlasRoutes,
+  transactions,
+  blockRoutes
 };
 
 export default appRoutes;
