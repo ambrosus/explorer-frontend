@@ -14,7 +14,7 @@ import { Transactions } from 'pages/Transactions';
 
 interface IAppRoutes {
   routes: IRoute[];
-  blockRoutes: IRoute[];
+  // blockRoutes: IRoute[];
   addressesRoutes: IRoute[];
   apolloRoutes: IRoute[];
   atlasRoutes: IRoute[];
@@ -62,7 +62,7 @@ export const routes: IRoute[] = [
     key: 'Blocks',
     exact: true,
     component: () => <Blocks />,
-    isClick: true,
+    isClick: false ,
   },
   {
     path: '/transactions',
@@ -158,7 +158,7 @@ const appRoutes: IAppRoutes = {
   routes,
   addressesRoutes,
   apolloRoutes,
-  blockRoutes,
+  // blockRoutes,
   atlasRoutes,
 };
 
