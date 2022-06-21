@@ -1,19 +1,19 @@
 import API from 'API/api';
 import Search from 'assets/icons/Search';
-import { useDebounce } from 'hooks/useDebounce';
-import { FindWideProps } from 'pages/Home/home.interfaces';
-import React, { ChangeEvent, FormEvent, useState } from 'react';
-import { useQuery } from 'react-query';
-import { useNavigate } from 'react-router-dom';
+import {useDebounce} from 'hooks/useDebounce';
+import {FindWideProps} from 'pages/Home/home.interfaces';
+import React, {ChangeEvent, FormEvent, useState} from 'react';
+import {useQuery} from 'react-query';
+import {useNavigate} from 'react-router-dom';
 
-const FindWide: React.FC<FindWideProps> = ({ searchRef }) => {
+const FindWide: React.FC<FindWideProps> = ({setIsShow, searchRef}) => {
   const [err, setErr] = useState<boolean>(false);
   const [name, setName] = useState<string>('');
   const [link, setLink] = useState<string>('');
   const navigate = useNavigate();
   const debouncedSearchTerm = useDebounce(name, 500);
 
-  const { isLoading } = useQuery(
+  const {isLoading} = useQuery(
     ['search', debouncedSearchTerm],
     () => API.searchItem(debouncedSearchTerm),
     {
@@ -48,6 +48,9 @@ const FindWide: React.FC<FindWideProps> = ({ searchRef }) => {
     }
     if (!isLoading) {
       navigate(link);
+      if (!!setIsShow) {
+        setIsShow((prev: any) => !prev);
+      }
     }
   };
 
@@ -73,7 +76,7 @@ const FindWide: React.FC<FindWideProps> = ({ searchRef }) => {
         />
 
         <button role="find" className="find_wide_btn" type="submit">
-          <Search fill={'#808A9D'} />
+          <Search fill={'#808A9D'}/>
         </button>
       </form>
     </>

@@ -64,7 +64,7 @@ export const routes: IRoute[] = [
     key: 'Blocks',
     exact: true,
     component: () => <Blocks />,
-    isClick: false ,
+    isClick: false,
   },
   {
     path: '/transactions',

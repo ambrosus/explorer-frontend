@@ -13,25 +13,6 @@ const MainInfoAtlas = () => {
           <span className="main_info_atlas_cell_primary">TOTAL NODES</span>
           <span className="main_info_atlas_cell_secondary">{total}</span>
         </div>
-        {/*<div className="main_info_atlas_cell">*/}
-        {/*  <span className="main_info_atlas_cell_primary">Online</span>*/}
-        {/*  <span*/}
-        {/*    className="main_info_atlas_cell_secondary"*/}
-        {/*    style={{*/}
-        {/*      color: '#1acd8c',*/}
-        {/*    }}*/}
-        {/*  >*/}
-        {/*    182*/}
-        {/*  </span>*/}
-        {/*</div>*/}
-        {/*<div className="main_info_atlas_cell">*/}
-        {/*  <span className="main_info_atlas_cell_primary">offline</span>*/}
-        {/*  <span className="main_info_atlas_cell_secondary">5</span>*/}
-        {/*</div>*/}
-        {/*<div className="main_info_atlas_cell">*/}
-        {/*  <span className="main_info_atlas_cell_primary">CONNECTING</span>*/}
-        {/*  <span className="main_info_atlas_cell_secondary">2</span>*/}
-        {/*</div>*/}
         <div className="main_info_atlas_cell">
           <span className="main_info_atlas_cell_primary">
             Avg block / prop. time
@@ -41,7 +22,6 @@ const MainInfoAtlas = () => {
             <Number value={avgBlockTime || 0} fixed={2} /> sec.
           </span>
         </div>
-        {/*<div className="main_info_atlas_cell">Chart cell</div>*/}
       </div>
     </div>
   );

@@ -23,6 +23,7 @@ import {
   sliceData5,
   wrapString,
 } from 'utils/helpers';
+import {Currency} from "../../../../../components/UI/Currency";
 
 export const Tooltip = React.memo(({ val }: any) => {
   return val?.length > 8 ? (
@@ -216,7 +217,9 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
         ) : (
           <></>
         )}
-        <span className="flex_row">{displayAmount(amount)}</span>
+        <span className="flex_row">
+                      <Currency   value={displayAmount(amount) || 0} symbol=" " />
+        </span>
       </div>
     );
 
