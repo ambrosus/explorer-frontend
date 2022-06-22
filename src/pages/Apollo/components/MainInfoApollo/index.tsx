@@ -54,9 +54,6 @@ const MainInfoApollo = () => {
             {avgBlockTime} sec
           </span>
         </div>
-        {/*<div className="main_info_apollo_cell" style={{ padding: 5 }}>*/}
-        {/*  <Chart chartData={chartData} />*/}
-        {/*</div>*/}
       </div>
     </div>
   );

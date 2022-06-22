@@ -1,8 +1,6 @@
 .apollo_details_mining_stats {
   display: grid;
   grid-template-columns: repeat(4, auto);
-  // minmax(230px, 2fr) minmax(260px, 2fr) minmax(260px, 2fr)
-  // minmax(210px, 1fr);
   background: #ffffff;
   border: 1px solid #eff2f5;
   border-radius: 16px;
@@ -54,9 +52,6 @@
       }
     }
 
-    &:last-child() {
-      border-right: none;
-    }
   }
   &_cell {
     display: flex;

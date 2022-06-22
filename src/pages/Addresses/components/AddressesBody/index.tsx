@@ -1,3 +1,4 @@
+import { Currency } from '../../../../components/UI/Currency';
 import Amb from 'assets/icons/Cryptos/Amb';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import { AddressesBodyProps } from 'pages/Addresses/addresses.interface';
@@ -50,7 +51,7 @@ const AddressesBody: FC<AddressesBodyProps> = ({
         <div className="addresses_body_cell">
           <Amb />
           <span className="addresses_body_cell_icon">AMB</span>
-          {displayAmount(ambBalance)}
+          <Currency value={displayAmount(ambBalance) || 0} symbol=" " />
         </div>
 
         <div className="addresses_body_cell">

@@ -135,7 +135,6 @@ const blockBookApiTokensSearch: any = async (
       blockBookApiForT &&
       blockBookApiForT.tokens &&
       blockBookApiForT.tokens.map(async (token: TokenType) => {
-        // @ts-ignore
         //TODO надо проверить дожидается ли запроса цикл
         const getTokenData: any = await API.API.get(url, {
           params: {
@@ -169,7 +168,7 @@ const blockBookApiTokensSearch: any = async (
   }
 };
 
-const bbDataFillter = async (
+const bbDataFilter = async (
   url: string,
   { limit, page, type, selectedTokenFilter }: any,
 ) => {
@@ -205,34 +204,31 @@ const bbDataFillter = async (
       );
 
     const bbTxData =
-      filteredBlockBookApiTransactionsData &&
-      filteredBlockBookApiTransactionsData?.length
-        ? filteredBlockBookApiTransactionsData.map((item: any) => {
-            const t = item.value;
-            return {
-              txHash: t?.txid,
-              method: t?.tokenTransfers ? 'Transfer' : 'Transaction',
-              from: t?.tokenTransfers
-                ? t?.tokenTransfers?.[0]?.from
-                : t?.vin?.[0]?.addresses?.[0],
-              to: t?.tokenTransfers
-                ? t?.tokenTransfers?.[0]?.to
-                : t?.vout?.[0]?.addresses?.[0],
-              date: t?.blockTime * 1000,
-              block: t?.blockHeight,
-              amount: t?.tokenTransfers
-                ? Number(formatEther(t?.tokenTransfers[0].value))
-                : Number(formatEther(t?.value)),
-              token: t?.tokenTransfers?.[0]?.name
-                ? getTokenName(t?.tokenTransfers[0].name)
-                : 'AMB',
-              symbol: t?.tokenTransfers?.[0]?.symbol
-                ? getTokenName(t?.tokenTransfers[0]?.symbol)
-                : 'AMB',
-              txFee: ethers.utils.formatUnits(t?.fees, 18),
-            };
-          })
-        : [];
+      filteredBlockBookApiTransactionsData?.map((item: any) => {
+        const t = item.value;
+        return {
+          txHash: t?.txid,
+          method: t?.tokenTransfers ? 'Transfer' : 'Transaction',
+          from: t?.tokenTransfers
+            ? t?.tokenTransfers?.[0]?.from
+            : t?.vin?.[0]?.addresses?.[0],
+          to: t?.tokenTransfers
+            ? t?.tokenTransfers?.[0]?.to
+            : t?.vout?.[0]?.addresses?.[0],
+          date: t?.blockTime * 1000,
+          block: t?.blockHeight,
+          amount: t?.tokenTransfers
+            ? Number(formatEther(t?.tokenTransfers[0].value))
+            : Number(formatEther(t?.value)),
+          token: t?.tokenTransfers?.[0]?.name
+            ? getTokenName(t?.tokenTransfers[0].name)
+            : 'AMB',
+          symbol: t?.tokenTransfers?.[0]?.symbol
+            ? getTokenName(t?.tokenTransfers[0]?.symbol)
+            : 'AMB',
+          txFee: ethers.utils.formatUnits(t?.fees, 18),
+        };
+      }) ?? [];
     return {
       bbApi,
       addressBalance,
@@ -260,7 +256,6 @@ async function explorerData(address: string, { page, limit, type }: any) {
         date: t?.timestamp * 1000,
         block: t?.blockNumber,
         amount: Number(formatEther(t?.value.wei)),
-        // TODO add token symbol && token name
         token: 'Amber',
         symbol: 'AMB',
         txFee: ethers.utils.formatUnits(t?.gasCost?.wei, 18),
@@ -277,18 +272,18 @@ export const getDataForAddress = async (address: string, params: any) => {
   try {
     const blockBookApiTokens: any = await blockBookApiTokensSearch(url, params);
     const { addressBalance, bbApi, bbTxData }: TransactionProps[] | any =
-      await bbDataFillter(url, params);
+      await bbDataFilter(url, params);
 
     const defaultFilters: TokenType[] =
       (await getTokensBalance(blockBookApiTokens, address)) || [];
-    const explorData: TransactionProps[] = await explorerData(address, params);
+    const exploreData: TransactionProps[] = await explorerData(address, params);
 
     const latestTransactions: TransactionProps[] =
       (await sortedLatestTransactionsData(defaultFilters, url, page)) || [];
 
     //TODO дважды метод
     const transactionsAll: TransactionProps[] = removeArrayDuplicates(
-      [...bbTxData, ...explorData],
+      [...bbTxData, ...exploreData],
       'block',
     );
 

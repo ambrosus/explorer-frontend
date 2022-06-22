@@ -11,7 +11,7 @@ const ApolloDetailsMiningStats = ({ apollo }: any) => {
   const { data: appData } = useTypedSelector((state: any) => state.app);
   const [rewards, setRewards] = useState<any>({});
   const [filterDate, setFilterDate] = useState<any>('');
-  const { price_usd } = (appData && appData?.tokenInfo) || 0;
+  const total_price_usd  = appData?.total_price_usd ?? 0;
 
   useEffect(() => {
     if (apollo?.lastBlock) {
@@ -30,7 +30,7 @@ const ApolloDetailsMiningStats = ({ apollo }: any) => {
   const onSelect = (value: any) => {
     setFilterDate(value);
   };
-  // eslint-disable-next-line
+
   useEffect(() => {
     if (filterDate) {
       const fetchRewards = async () => {
@@ -71,8 +71,6 @@ const ApolloDetailsMiningStats = ({ apollo }: any) => {
         <div>
           <ExportCsv miningStats={onSelect} showText={false} />
         </div>
-
-        {/* className="apollo_details_mining_stats_icon" */}
       </div>
       <div className="apollo_details_mining_stats_cells">
         <div className="apollo_details_mining_stats_fonts_normal universall_light1">
@@ -90,7 +88,7 @@ const ApolloDetailsMiningStats = ({ apollo }: any) => {
             {' '}
             /{' '}
             <Currency
-              value={ambToUSD(rewards?.blocksRewards || 0, price_usd)}
+              value={ambToUSD(rewards?.blocksRewards || 0, total_price_usd)}
               fixed={2}
               side="left"
             />
@@ -113,7 +111,7 @@ const ApolloDetailsMiningStats = ({ apollo }: any) => {
             {' '}
             /{' '}
             <Currency
-              value={ambToUSD(rewards.transactionsRewards || 0, price_usd)}
+              value={ambToUSD(rewards.transactionsRewards || 0, total_price_usd)}
               fixed={2}
               side="left"
             />

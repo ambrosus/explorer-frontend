@@ -2,7 +2,7 @@ import { Currency } from '../../../../components/UI/Currency';
 import Amb from 'assets/icons/Cryptos/Amb';
 import { ApolloBodyProps } from 'pages/Apollo/apollo.interface';
 import { FC } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { statusMessage } from 'utils/helpers';
 
 const ApolloBlocksBody: FC<ApolloBodyProps> = ({
@@ -10,12 +10,6 @@ const ApolloBlocksBody: FC<ApolloBodyProps> = ({
   index,
   item,
 }) => {
-  // const navigate = useNavigate();
-
-  // function redirectHandler() {
-  //   navigate(`${item.address}`);
-  // }
-
   return (
     item && (
       <div className="apollo_blocks_body" ref={lastCardRef}>
@@ -28,8 +22,6 @@ const ApolloBlocksBody: FC<ApolloBodyProps> = ({
             fontWeight: 600,
           }}
           className="apollo_blocks_body_cell"
-          // onClick={redirectHandler}
-
           to={`${item.address}/`}
         >
           {item.address}
@@ -47,7 +39,7 @@ const ApolloBlocksBody: FC<ApolloBodyProps> = ({
             <Currency
               value={item ? `${item.balance.ether}` : '0'}
               symbol=" "
-              fixed={8}
+              fixed={6}
             />
           </span>
         </div>

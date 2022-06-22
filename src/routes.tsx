@@ -18,8 +18,6 @@ interface IAppRoutes {
   addressesRoutes: IRoute[];
   apolloRoutes: IRoute[];
   atlasRoutes: IRoute[];
-  // transactions: IRoute[];
-  // blockRoutes: IRoute[];
 }
 
 export const routes: IRoute[] = [
@@ -171,8 +169,6 @@ const appRoutes: IAppRoutes = {
   addressesRoutes,
   apolloRoutes,
   atlasRoutes,
-  // transactions,
-  // blockRoutes
 };
 
 export default appRoutes;

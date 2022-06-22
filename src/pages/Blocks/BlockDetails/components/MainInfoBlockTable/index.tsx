@@ -37,7 +37,6 @@ export const MainInfoBlockTable = ({ block }: any) => {
             {extraData ?? ''}
           </span>
         </div>
-        {/*<div className="main_info_block_table_cell">Chart cell</div>*/}
       </div>
     </div>
   );

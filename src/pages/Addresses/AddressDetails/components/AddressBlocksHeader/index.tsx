@@ -49,9 +49,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
     );
   const isToken =
     token === null ? null : (
-      <div className="address_blocks_header_cell">
-        {token && token[0].toUpperCase() + token.slice(1)}
-      </div>
+      <div className="address_blocks_header_cell">{token}</div>
     );
   //TODO убрать переменные
   return (

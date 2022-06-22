@@ -16,7 +16,7 @@ export const Transactions = () => {
   const navigate = useNavigate();
   const { data: appData } = useTypedSelector((state: any) => state.app);
 
-  const [txsData, setTxsData] = useState({
+  const [txsData, setTxsData] = useState<any>({
     data: [],
     pagination: {
       hasNext: false,
@@ -40,7 +40,6 @@ export const Transactions = () => {
     ) {
       getTransactions({ type: tab, page: txsData.pagination.next }).then(
         (response: any) => {
-          // @ts-ignore
           setTxsData((state: any) => ({
             data: [...state.data, ...response.data],
             pagination: response.pagination,
@@ -114,7 +113,7 @@ export const Transactions = () => {
           />
         )}
         {!!txsData.data.length &&
-          txsData.data.map((tx: any, i) => (
+          txsData.data.map((tx: any, i: number) => (
             <AddressBlock
               isLatest={true}
               key={i}

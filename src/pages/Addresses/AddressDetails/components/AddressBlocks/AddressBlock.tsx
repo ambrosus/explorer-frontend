@@ -1,3 +1,4 @@
+import { Currency } from '../../../../../components/UI/Currency';
 import Minus from 'assets/icons/Minus';
 import Plus from 'assets/icons/Plus';
 import GreenCircle from 'assets/icons/StatusAction/GreenCircle';
@@ -23,11 +24,14 @@ import {
   sliceData5,
   wrapString,
 } from 'utils/helpers';
-import {Currency} from "../../../../../components/UI/Currency";
 
 export const Tooltip = React.memo(({ val }: any) => {
   return val?.length > 8 ? (
-    <ReactTooltip id={val} effect="solid">
+    <ReactTooltip
+      overridePosition={({ left, top }) => ({ left: left - 30, top })}
+      id={val}
+      effect="solid"
+    >
       {val}
     </ReactTooltip>
   ) : (
@@ -78,7 +82,6 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
         className="address_blocks_cell address_blocks_cell-hash"
         style={{
           fontWeight: '600',
-          // marginLeft: innerLevel ? `${16 * innerLevel}px` : 0,
         }}
       >
         {inners && (
@@ -164,6 +167,10 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
     });
   };
 
+  const isSymbolERC =
+    (symbol !== ('AMB' || 'null' || null) && type !== 'ERC-20_Tx') ||
+    token.includes('token');
+
   const isAmount =
     amount === null ? (
       <></>
@@ -176,49 +183,23 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
         ) : (
           <></>
         )}
-        {symbol &&
-        symbol !== null &&
-        symbol !== 'null' &&
-        type !== 'ERC-20_Tx' ? (
+        {symbol !== (null || 'null') && type !== 'ERC-20_Tx' && (
           <span
             className="address_blocks_icon"
             style={{
               padding: '0 5px',
-              //TODO вынести с ретурна
-              cursor:
-                (symbol !== 'AMB' &&
-                  symbol !== 'null' &&
-                  symbol !== null &&
-                  type !== 'ERC-20_Tx') ||
-                token.includes('token')
-                  ? 'pointer'
-                  : 'default',
-
-              textDecoration:
-                (symbol !== 'AMB' &&
-                  symbol !== 'null' &&
-                  symbol !== null &&
-                  type !== 'ERC-20_Tx') ||
-                token.includes('token')
-                  ? 'underline'
-                  : 'none',
+              cursor: isSymbolERC ? 'pointer' : 'default',
+              textDecoration: isSymbolERC ? 'underline' : 'none',
             }}
             onClick={handleBlock}
           >
-            {type !== 'ERC-20_Tx' ? (
-              <>
-                {' '}
-                {token.includes('token') ? getAmbTokenSymbol(token) : symbol}
-              </>
-            ) : (
-              ''
-            )}
+            {type !== 'ERC-20_Tx' && token.includes('token')
+              ? getAmbTokenSymbol(token)
+              : symbol}
           </span>
-        ) : (
-          <></>
         )}
         <span className="flex_row">
-                      <Currency   value={displayAmount(amount) || 0} symbol=" " />
+          <Currency value={displayAmount(amount) || 0} symbol=" " />
         </span>
       </div>
     );
@@ -247,12 +228,10 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
         className="address_blocks_cell_last universall_light2"
         style={{ fontWeight: '600', cursor: isLatest ? 'pointer' : 'default' }}
       >
-        {type === 'ERC-20_Tx' ? (
+        {type === 'ERC-20_Tx' && (
           <span className="universall_indent_icon">
             <Icon />
           </span>
-        ) : (
-          ''
         )}
         {!isLatest ? (
           <>

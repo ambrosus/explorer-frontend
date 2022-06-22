@@ -102,15 +102,14 @@ const AddressDetails = () => {
       );
     }
     if (!loading || errorData) {
-      if (addressData && addressData?.meta?.totalPages > pageNum) {
+      if (addressData?.meta?.totalPages > pageNum) {
         //TODO double code
         await setPosition(getDataForAddress, address?.trim(), {
           filtered:
             addressData && addressData.filters ? addressData.filters : [],
-          selectedTokenFilter:
-            selectedToken && selectedToken?.contract
-              ? selectedToken.contract
-              : filtered,
+          selectedTokenFilter: selectedToken?.contract
+            ? selectedToken.contract
+            : filtered,
           limit: limitNum,
           type: transactionType,
           page: pageNum,
@@ -119,10 +118,9 @@ const AddressDetails = () => {
         await setPosition(getDataForAddress, address?.trim(), {
           filtered:
             addressData && addressData.filters ? addressData.filters : [],
-          selectedTokenFilter:
-            selectedToken && selectedToken?.contract
-              ? selectedToken.contract
-              : filtered,
+          selectedTokenFilter: selectedToken?.contract
+            ? selectedToken.contract
+            : filtered,
           limit: limitNum,
           type: transactionType,
           page: pageNum,
@@ -146,7 +144,7 @@ const AddressDetails = () => {
   ]);
 
   function setTxDataHandler() {
-    if (addressData && addressData?.transactions) {
+    if (addressData?.transactions) {
       setTx((prevState) => {
         //TODO дважды метод
         const compareState = [...prevState, ...addressData.transactions];
@@ -179,7 +177,7 @@ const AddressDetails = () => {
   }, [addressData, type]);
 
   useEffect(() => {
-    if (addressData && addressData?.tokens && !selectedToken) {
+    if (addressData?.tokens && !selectedToken) {
       setSelectedToken(
         addressData.tokens.find(
           (token: TokenType) => token.contract === filtered,
