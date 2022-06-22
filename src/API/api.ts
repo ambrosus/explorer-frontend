@@ -1,4 +1,4 @@
-import {log} from '../utils/helpers';
+import { log } from '../utils/helpers';
 import axios from 'axios';
 
 const tokenApiUrl: any = process.env.REACT_APP_TOKEN_API_URL;
@@ -67,17 +67,18 @@ const getApollo = (address: any) => {
 
 const getApolloRewards = (address: any, params: any) => {
   const url = `apollos/${address}/rewards`;
-  const parameterFrom = params?.from?.split('/') || null
-  const parameterTo = params?.to?.split('/') || null
-  const newParams = parameterTo !== null
-    ? {
-      from: `${parameterFrom[1]}/${parameterFrom[0]}/${parameterFrom[2]}`,
-      to: `${parameterTo[1]}/${parameterTo[0]}/${parameterTo[2]}`
-    }
-    : {
-      from: `${parameterFrom[1]}/${parameterFrom[0]}/${parameterFrom[2]}`
-    }
-  return API().get(url, {params: newParams});
+  const parameterFrom = params?.from?.split('/') || null;
+  const parameterTo = params?.to?.split('/') || null;
+  const newParams =
+    parameterTo !== null
+      ? {
+          from: `${parameterFrom[1]}/${parameterFrom[0]}/${parameterFrom[2]}`,
+          to: `${parameterTo[1]}/${parameterTo[0]}/${parameterTo[2]}`,
+        }
+      : {
+          from: `${parameterFrom[1]}/${parameterFrom[0]}/${parameterFrom[2]}`,
+        };
+  return API().get(url, { params: newParams });
 };
 
 const getTransaction = (hash: any) => {
@@ -85,7 +86,7 @@ const getTransaction = (hash: any) => {
 };
 
 const getTransactions = (params: any = {}) => {
-  const {type} = params;
+  const { type } = params;
   if (type) {
     delete params?.type;
   }
@@ -176,15 +177,15 @@ const getInfo = () => {
 };
 
 const getToken = () => {
-  return axios.get(tokenApiUrl).then(({data}) => data.data);
+  return axios.get(tokenApiUrl).then(({ data }) => data.data);
 };
 
 const getTokenHistory = () => {
-  return axios.get(tokenApiUrl + '/history').then(({data}) => data.data);
+  return axios.get(tokenApiUrl + '/history').then(({ data }) => data.data);
 };
 
 const getTokenMountPrice = () => {
-  return axios.get(tokenApiUrl + '/price').then(({data}) => data.data);
+  return axios.get(tokenApiUrl + '/price').then(({ data }) => data.data);
 };
 
 const getTokenTotalSupply = () => {

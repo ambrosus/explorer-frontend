@@ -1,13 +1,13 @@
 import ExportCsv from '../../../../../components/ExportCsv';
-import {Currency} from '../../../../../components/UI/Currency';
-import {useTypedSelector} from '../../../../../hooks/useTypedSelector';
-import {ambToUSD, formatDate} from '../../../../../utils/helpers';
+import { Currency } from '../../../../../components/UI/Currency';
+import { useTypedSelector } from '../../../../../hooks/useTypedSelector';
+import { ambToUSD, formatDate } from '../../../../../utils/helpers';
 import API from 'API/api';
-import {Number} from 'components/Number';
-import {useEffect, useState} from 'react';
+import { Number } from 'components/Number';
+import { useEffect, useState } from 'react';
 
-const ApolloDetailsMiningStats = ({apollo}: any) => {
-  const {data: appData} = useTypedSelector((state: any) => state.app);
+const ApolloDetailsMiningStats = ({ apollo }: any) => {
+  const { data: appData } = useTypedSelector((state: any) => state.app);
   const [rewards, setRewards] = useState<any>({});
   const [filterDate, setFilterDate] = useState<any>(() => {
     return formatDate(
@@ -41,7 +41,7 @@ const ApolloDetailsMiningStats = ({apollo}: any) => {
     const date = filterDate.split('-');
     const fromDate = date[0];
     const toDate = date[1];
-    const {data} = await API.getApolloRewards(apollo.address, {
+    const { data } = await API.getApolloRewards(apollo.address, {
       from: fromDate,
       to: toDate !== undefined ? toDate : null,
     });
@@ -61,21 +61,24 @@ const ApolloDetailsMiningStats = ({apollo}: any) => {
   if (!apollo) {
     return null;
   }
-  const sameDates = filterDate.split('-')?.[0] === filterDate.split('-')?.[1] ? filterDate.split('-')?.[0] : null
+  const sameDates =
+    filterDate.split('-')?.[0] === filterDate.split('-')?.[1]
+      ? filterDate.split('-')?.[0]
+      : null;
 
   return (
     <div className="apollo_details_mining_stats">
       <div className="apollo_details_mining_stats_cells">
         <div className="apollo_details_mining_stats_cell">
-          <span className="" style={{fontWeight: 600, fontSize: 14}}>
+          <span className="" style={{ fontWeight: 600, fontSize: 14 }}>
             MINING STATS
           </span>
-          <span className="universall_light1" style={{fontSize: 14}}>
+          <span className="universall_light1" style={{ fontSize: 14 }}>
             {sameDates ? sameDates : filterDate}
           </span>
         </div>
         <div>
-          <ExportCsv miningStats={onSelect} showText={false}/>
+          <ExportCsv miningStats={onSelect} showText={false} />
         </div>
       </div>
       <div className="apollo_details_mining_stats_cells">
@@ -132,7 +135,7 @@ const ApolloDetailsMiningStats = ({apollo}: any) => {
           TOTAL BLOCKS MINED
         </div>
         <div className="apollo_details_mining_stats_fonts_bold">
-          <Number value={rewards.totalBlocks || 0}/>
+          <Number value={rewards.totalBlocks || 0} />
         </div>
       </div>
     </div>
