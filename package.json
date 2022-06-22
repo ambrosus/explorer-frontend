@@ -27,6 +27,8 @@
     ]
   },
   "dependencies": {
+    "@babel/plugin-transform-react-jsx": "^7.17.12",
+    "@babel/plugin-transform-react-jsx-self": "^7.17.12",
     "@testing-library/jest-dom": "^5.16.4",
     "autoprefixer": "^10.4.5",
     "axios": "^0.26.1",
