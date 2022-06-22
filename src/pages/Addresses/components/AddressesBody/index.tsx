@@ -6,6 +6,7 @@ import React, { FC } from 'react';
 import { NavLink } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
 import { displayAmount } from 'utils/helpers';
+import {Currency} from "../../../../components/UI/Currency";
 
 const AddressesBody: FC<AddressesBodyProps> = ({
   address = '',
@@ -50,7 +51,8 @@ const AddressesBody: FC<AddressesBodyProps> = ({
         <div className="addresses_body_cell">
           <Amb />
           <span className="addresses_body_cell_icon">AMB</span>
-          {displayAmount(ambBalance)}
+          <Currency value={displayAmount(ambBalance) || 0} symbol=" " />
+
         </div>
 
         <div className="addresses_body_cell">
