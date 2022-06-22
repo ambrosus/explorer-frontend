@@ -1,15 +1,17 @@
 .apollo_blocks_body {
   display: grid;
   grid-template-columns:
-    minmax(80px, 1fr)
+    minmax(50px, 1fr)
     minmax(360px, 6fr)
     minmax(150px, 3fr)
-    minmax(100px, 2fr)
+    minmax(80px, 2fr)
     minmax(190px, 3fr)
     minmax(150px, 3fr);
   // 82px 405px 190px 117px 190px 192px;
   //   flex-direction: column;
-  width: fit-content;
+  border-bottom: 1px solid #eff2f5;
+
+  grid-gap: 32px;
 
   &:hover {
     background-color: #eff2f5;
@@ -21,14 +23,12 @@
 
   &_cell {
     align-items: center;
-    border-bottom: 1px solid #eff2f5;
     white-space: nowrap;
     display: flex;
     font-weight: 400;
     font-size: 14px;
     line-height: 24px;
     height: 48px;
-    padding-right: 32px;
     padding-left: 5px;
 
     &_token {
