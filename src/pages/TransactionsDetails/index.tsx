@@ -47,7 +47,6 @@ export const TransactionDetails = () => {
         setTxData(res.data);
       }
     });
-    console.log(checkOverflow(ref.current));
   }, []);
 
   const redirectToDetails = (txhash: string | number) => {

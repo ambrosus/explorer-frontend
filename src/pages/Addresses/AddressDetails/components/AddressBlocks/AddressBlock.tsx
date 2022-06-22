@@ -1,20 +1,17 @@
-import { Currency } from '../../../../../components/UI/Currency';
+import {Currency} from '../../../../../components/UI/Currency';
 import Minus from 'assets/icons/Minus';
 import Plus from 'assets/icons/Plus';
 import GreenCircle from 'assets/icons/StatusAction/GreenCircle';
 import IncomeTrasaction from 'assets/icons/StatusAction/IncomeTrasaction';
 import OutgoingTransaction from 'assets/icons/StatusAction/OutgoingTransaction';
-import { useActions } from 'hooks/useActions';
-import { useTypedSelector } from 'hooks/useTypedSelector';
+import {useActions} from 'hooks/useActions';
+import {useTypedSelector} from 'hooks/useTypedSelector';
 import moment from 'moment';
-import {
-  AddressBlockProps,
-  TokenType,
-} from 'pages/Addresses/AddressDetails/address-details.interface';
-import React, { useState } from 'react';
-import { NavLink, useNavigate, useParams } from 'react-router-dom';
+import {AddressBlockProps, TokenType,} from 'pages/Addresses/AddressDetails/address-details.interface';
+import React, {useState} from 'react';
+import {NavLink, useNavigate, useParams} from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
-import { TParams } from 'types';
+import {TParams} from 'types';
 import {
   displayAmount,
   getAmbTokenSymbol,
@@ -25,9 +22,9 @@ import {
   wrapString,
 } from 'utils/helpers';
 
-export const Tooltip = React.memo(({ val }: any) => {
+export const Tooltip = React.memo(({val}: any) => {
   return val?.length > 8 ? (
-    <ReactTooltip id={val} effect="solid">
+    <ReactTooltip overridePosition={({left, top}) => ({left: left - 30, top})} id={val} effect="solid">
       {val}
     </ReactTooltip>
   ) : (
@@ -36,33 +33,33 @@ export const Tooltip = React.memo(({ val }: any) => {
 });
 
 const AddressBlock: React.FC<AddressBlockProps> = ({
-  onClick,
-  lastCardRef,
-  isLatest,
-  txhash,
-  method,
-  from,
-  to,
-  date,
-  block,
-  amount,
-  txfee,
-  token,
-  symbol,
-  isTableColumn,
-  isIcon,
-  inners,
-  hashOnClick,
-}) => {
-  const { addFilter } = useActions();
-  const { address, type }: TParams = useParams();
+                                                     onClick,
+                                                     lastCardRef,
+                                                     isLatest,
+                                                     txhash,
+                                                     method,
+                                                     from,
+                                                     to,
+                                                     date,
+                                                     block,
+                                                     amount,
+                                                     txfee,
+                                                     token,
+                                                     symbol,
+                                                     isTableColumn,
+                                                     isIcon,
+                                                     inners,
+                                                     hashOnClick,
+                                                   }) => {
+  const {addFilter} = useActions();
+  const {address, type}: TParams = useParams();
 
   const navigate = useNavigate();
 
   const [isExpanded, setIsExpanded] = useState(false);
   const handleExpand = () => setIsExpanded((state: boolean) => !state);
 
-  const { data: addressData } = useTypedSelector(
+  const {data: addressData} = useTypedSelector(
     (state: any) => state.position,
   );
 
@@ -78,12 +75,11 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
         className="address_blocks_cell address_blocks_cell-hash"
         style={{
           fontWeight: '600',
-          // marginLeft: innerLevel ? `${16 * innerLevel}px` : 0,
         }}
       >
         {inners && (
           <button onClick={handleExpand} className="address_blocks_plus">
-            {isExpanded ? <Minus /> : <Plus />}
+            {isExpanded ? <Minus/> : <Plus/>}
           </button>
         )}
         <span className="universall_light2" onClick={handleHashClick}>
@@ -93,51 +89,51 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
     );
   const isMethod =
     method === null ? null : (
-      <div className="address_blocks_cell" style={{ gap: 4 }}>
+      <div className="address_blocks_cell" style={{gap: 4}}>
         {isIcon && from && from === address ? (
-          <OutgoingTransaction />
+          <OutgoingTransaction/>
         ) : (
-          <IncomeTrasaction />
+          <IncomeTrasaction/>
         )}
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <div style={{display: 'flex', flexDirection: 'column'}}>
           {wrapString(method)}
         </div>
       </div>
     );
   const isFrom =
     from === null ? (
-      <div className="address_blocks_cell"></div>
-    ) : //TODO ?
-    address !== from && String(from).trim().length ? (
-      <NavLink
-        to={`/addresses/${from}/`}
-        className="address_blocks_cell universall_light2"
-      >
-        {sliceData5(from as string)}
-      </NavLink>
-    ) : (
-      <div className="address_blocks_cell universall_light2">
-        {sliceData5(from as string)}
-      </div>
-    );
+        <div className="address_blocks_cell"></div>
+      ) : //TODO ?
+      address !== from && String(from).trim().length ? (
+        <NavLink
+          to={`/addresses/${from}/`}
+          className="address_blocks_cell universall_light2"
+        >
+          {sliceData5(from as string)}
+        </NavLink>
+      ) : (
+        <div className="address_blocks_cell universall_light2">
+          {sliceData5(from as string)}
+        </div>
+      );
   const isTo =
     //TODO !ту
     to === null || to === undefined ? (
-      <div className="address_blocks_cell"></div>
-    ) : //TODO ?
-    address !== to && String(to).trim().length ? (
-      <NavLink
-        to={`/addresses/${to}/`}
-        style={{ display: 'content' }}
-        className="address_blocks_cell universall_light2"
-      >
-        {sliceData5(to as string)}
-      </NavLink>
-    ) : (
-      <div className="address_blocks_cell universall_light2">
-        {sliceData5(to as string)}
-      </div>
-    );
+        <div className="address_blocks_cell"></div>
+      ) : //TODO ?
+      address !== to && String(to).trim().length ? (
+        <NavLink
+          to={`/addresses/${to}/`}
+          style={{display: 'content'}}
+          className="address_blocks_cell universall_light2"
+        >
+          {sliceData5(to as string)}
+        </NavLink>
+      ) : (
+        <div className="address_blocks_cell universall_light2">
+          {sliceData5(to as string)}
+        </div>
+      );
   const isDate =
     date === null ? null : <div className="address_blocks_cell">{date}</div>;
   const isBlock =
@@ -164,6 +160,10 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
     });
   };
 
+  const isSymbolERC = (symbol !== ('AMB' || 'null' || null) &&
+      type !== 'ERC-20_Tx') ||
+    token.includes('token');
+
   const isAmount =
     amount === null ? (
       <></>
@@ -171,54 +171,29 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
       <div className="address_blocks_cell flex_between">
         {type !== 'ERC-20_Tx' ? (
           <span className="address_blocks_cell_icon">
-            <Icon />
+            <Icon/>
           </span>
         ) : (
           <></>
         )}
-        {symbol &&
-        symbol !== null &&
-        symbol !== 'null' &&
-        type !== 'ERC-20_Tx' ? (
+        {symbol !== (null || 'null') &&
+        type !== 'ERC-20_Tx' && (
           <span
             className="address_blocks_icon"
             style={{
               padding: '0 5px',
-              //TODO вынести с ретурна
-              cursor:
-                (symbol !== 'AMB' &&
-                  symbol !== 'null' &&
-                  symbol !== null &&
-                  type !== 'ERC-20_Tx') ||
-                token.includes('token')
-                  ? 'pointer'
-                  : 'default',
-
-              textDecoration:
-                (symbol !== 'AMB' &&
-                  symbol !== 'null' &&
-                  symbol !== null &&
-                  type !== 'ERC-20_Tx') ||
-                token.includes('token')
-                  ? 'underline'
-                  : 'none',
+              cursor: isSymbolERC ? 'pointer' : 'default',
+              textDecoration: isSymbolERC ? 'underline' : 'none',
             }}
             onClick={handleBlock}
           >
-            {type !== 'ERC-20_Tx' ? (
-              <>
-                {' '}
-                {token.includes('token') ? getAmbTokenSymbol(token) : symbol}
-              </>
-            ) : (
-              ''
-            )}
+            {type !== 'ERC-20_Tx' &&
+            token.includes('token') ? getAmbTokenSymbol(token) : symbol
+            }
           </span>
-        ) : (
-          <></>
         )}
         <span className="flex_row">
-          <Currency value={displayAmount(amount) || 0} symbol=" " />
+          <Currency value={displayAmount(amount) || 0} symbol=" "/>
         </span>
       </div>
     );
@@ -228,11 +203,11 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
       <div className="address_blocks_cell_last">
         <span
           className="universall_indent_icon"
-          style={{ display: 'flex', alignItems: 'center' }}
+          style={{display: 'flex', alignItems: 'center'}}
         >
-          <GreenCircle />
+          <GreenCircle/>
         </span>
-        <Tooltip val={String(scientificToDecimal(txfee))} />
+        <Tooltip val={String(scientificToDecimal(txfee))}/>
         <span data-tip data-for={scientificToDecimal(txfee)}>
           {String(scientificToDecimal(txfee)).length > 8
             ? String(scientificToDecimal(txfee)).slice(0, 8)
@@ -245,14 +220,12 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
     type === 'ERC-20_Tx' ? (
       <div
         className="address_blocks_cell_last universall_light2"
-        style={{ fontWeight: '600', cursor: isLatest ? 'pointer' : 'default' }}
+        style={{fontWeight: '600', cursor: isLatest ? 'pointer' : 'default'}}
       >
-        {type === 'ERC-20_Tx' ? (
+        {type === 'ERC-20_Tx' && (
           <span className="universall_indent_icon">
-            <Icon />
+            <Icon/>
           </span>
-        ) : (
-          ''
         )}
         {!isLatest ? (
           <>
@@ -261,8 +234,8 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
               {token.includes('token')
                 ? `(${getAmbTokenSymbol(token)})`
                 : !symbol || symbol.trim() === 'null'
-                ? '(AMB)'
-                : `(${symbol})`}
+                  ? '(AMB)'
+                  : `(${symbol})`}
             </div>
           </>
         ) : (
@@ -275,8 +248,8 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
               {token.includes('token')
                 ? `(${getAmbTokenSymbol(token)})`
                 : !symbol || symbol.trim() === 'null'
-                ? '(AMB)'
-                : `(${symbol})`}
+                  ? '(AMB)'
+                  : `(${symbol})`}
             </NavLink>
           </span>
         )}
@@ -299,27 +272,27 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
         {isToken}
       </div>
       {isExpanded &&
-        inners &&
-        !!inners.length &&
-        inners.map((transaction) => (
-          <div key={transaction.hash} className="address_blocks_inner">
-            <AddressBlock
-              onClick={onClick}
-              txhash={transaction.hash}
-              method={transaction.type}
-              from={transaction.from}
-              to={transaction.to}
-              date={moment(transaction.timestamp * 1000).fromNow()}
-              block={transaction.blockNumber}
-              amount={transaction.value.ether}
-              txfee={transaction.gasCost.ether}
-              token={`${transaction?.token ? transaction?.token : 'AMB'}`}
-              symbol={`${transaction?.symbol ? transaction?.symbol : 'AMB'}`}
-              isTableColumn={isTableColumn}
-              inners={transaction.inners}
-            />
-          </div>
-        ))}
+      inners &&
+      !!inners.length &&
+      inners.map((transaction) => (
+        <div key={transaction.hash} className="address_blocks_inner">
+          <AddressBlock
+            onClick={onClick}
+            txhash={transaction.hash}
+            method={transaction.type}
+            from={transaction.from}
+            to={transaction.to}
+            date={moment(transaction.timestamp * 1000).fromNow()}
+            block={transaction.blockNumber}
+            amount={transaction.value.ether}
+            txfee={transaction.gasCost.ether}
+            token={`${transaction?.token ? transaction?.token : 'AMB'}`}
+            symbol={`${transaction?.symbol ? transaction?.symbol : 'AMB'}`}
+            isTableColumn={isTableColumn}
+            inners={transaction.inners}
+          />
+        </div>
+      ))}
     </>
   );
 };

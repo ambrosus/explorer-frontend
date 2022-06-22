@@ -18,9 +18,7 @@ const Token: React.FC<TokenProps> = ({
   const [data, setData] = useState<any>(dataBuffer);
 
   useEffect(() => {
-    if (
-      addressData &&
-      addressData !== dataBuffer &&
+    if (addressData !== dataBuffer &&
       Object.keys(addressData).length
     ) {
       setIsLoading(true);

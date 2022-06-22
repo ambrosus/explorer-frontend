@@ -1,8 +1,6 @@
 .atlas_details_balance {
   display: grid;
   grid-template-columns: repeat(3, auto);
-  // minmax(300px, 1fr) minmax(260px, 1fr)
-  // minmax(260px, 1fr);
   background: #ffffff;
   border: 1px solid #eff2f5;
   border-radius: 16px;
@@ -19,14 +17,14 @@
     padding: 0 32px;
     flex: 1;
     border-right: 1px solid #eff2f5;
-    &:last-child() {
+    &:last-child {
       border-right: none;
     }
     @include for_tablet {
       height: 64px;
       border-bottom: 1px solid #eff2f5;
       border-right: none;
-      &:last-child() {
+      &:last-child {
         border-bottom: none;
       }
     }

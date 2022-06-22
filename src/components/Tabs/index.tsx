@@ -60,7 +60,6 @@ const Tabs: FC<TabsProps> = ({
 
   useLayoutEffect(() => {
     if (
-      addressData &&
       addressData?.latestTransactions?.length &&
       type === 'ERC-20_Tx' &&
       !filtered
@@ -106,8 +105,7 @@ const Tabs: FC<TabsProps> = ({
 
   const { FOR_TABLET } = useDeviceSize();
 
-  const isTableColumn =
-    renderData && renderData?.length
+  const isTableColumn = renderData?.length
       ? setupStyle(type)
       : 'addresses_body_no_data';
 
@@ -188,7 +186,7 @@ const Tabs: FC<TabsProps> = ({
         </div>
 
         <section className="tabs_table">
-          {renderData && renderData?.length !== 0 && (
+          {renderData?.length && (
             <AddressBlocksHeader
               txhash="txHash"
               method="Method"
@@ -204,8 +202,8 @@ const Tabs: FC<TabsProps> = ({
             />
           )}
 
-          {renderData && renderData?.length !== 0
-            ? renderData.map((transaction: TransactionProps, index: number) =>
+          {renderData?.length !== 0
+            ? renderData?.map((transaction: TransactionProps, index: number) =>
                 (renderData.length > 30 &&
                   renderData.length - 9 === index &&
                   type !== 'ERC-20_Tx') ||

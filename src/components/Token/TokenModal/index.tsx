@@ -16,7 +16,6 @@ const TokenModal: FC<TokenModalProps> = ({
   useEffect(() => {
     if (name) {
       const newTokensList =
-        addressData &&
         addressData?.tokens.filter((token: TokenType) =>
           token.name.toLowerCase().includes(name.toLowerCase()),
         );

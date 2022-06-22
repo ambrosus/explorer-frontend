@@ -1,20 +1,15 @@
-const AtlasHeaderStatusModal = () => {
-  const toggleClick = () => console.log('Click');
-
-  return (
-    <>
-      {statuses.map((status) => (
-        <button
-          key={status.key}
-          className="atlas_header_status_modal"
-          onClick={toggleClick}
-        >
-          {status.value}
-        </button>
-      ))}
-    </>
-  );
-};
+const AtlasHeaderStatusModal = () => (
+  <>
+    {statuses.map((status) => (
+      <button
+        key={status.key}
+        className="atlas_header_status_modal"
+      >
+        {status.value}
+      </button>
+    ))}
+  </>
+);
 
 const statuses = [
   {

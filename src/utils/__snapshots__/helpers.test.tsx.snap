@@ -2,4 +2,4 @@
 
 exports[`calcTime a few seconds ago 1`] = `"a few seconds ago"`;
 
-exports[`sliceData5 & sliceData10 should slice data correctly value 1`] = `"0xB500558a...d1ef378D34"`;
+exports[`sliceData5 & sliceData10 should slice data correctly value 1`] = `"0xB5...8D34"`;
