@@ -3,7 +3,7 @@ import { useTypedSelector } from '../../hooks/useTypedSelector';
 import Loader from '../Loader';
 import Error404 from 'pages/Error404';
 import { useEffect } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import {Navigate, Route, Routes} from 'react-router-dom';
 
 export const RenderRoutes = (props: any) => {
   const { routes } = props;
@@ -56,8 +56,10 @@ export const RenderRoutes = (props: any) => {
           {...route}
         />
       ))}
-      <Route path="*" element={<Error404 />} />
-      <Route path="/notfound" element={<Error404 />} />
+      <Route
+        path="*"
+        element={<Navigate to="/notfound"   replace />}
+      />      <Route path="/notfound" element={<Error404 />} />
     </Routes>
   ) : (
     <Loader />
