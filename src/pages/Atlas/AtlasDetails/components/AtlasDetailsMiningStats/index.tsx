@@ -10,10 +10,10 @@ const AtlasDetailsMiningStats = ({ atlas }: any) => {
   const forecast = payPeriods?.current?.forecast || 0;
   const { data: appData } = useTypedSelector((state: any) => state.app);
 
-  const { price_usd } = appData?.tokenInfo ?? 0;
+  const  total_price_usd = appData?.total_price_usd ?? 0;
 
-  const usdForecast = ambToUSD(forecast, price_usd);
-  const usdAvailable = ambToUSD(available, price_usd);
+  const usdForecast = ambToUSD(forecast, total_price_usd);
+  const usdAvailable = ambToUSD(available, total_price_usd);
   const nextPayDay = (startDay: any): any => {
     let today = moment().format('YYYY-MM-DD');
     let delta = moment(startDay).diff(today);

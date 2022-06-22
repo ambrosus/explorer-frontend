@@ -11,7 +11,7 @@ const ApolloDetailsMiningStats = ({ apollo }: any) => {
   const { data: appData } = useTypedSelector((state: any) => state.app);
   const [rewards, setRewards] = useState<any>({});
   const [filterDate, setFilterDate] = useState<any>('');
-  const { price_usd } = appData?.tokenInfo ?? 0;
+  const total_price_usd  = appData?.total_price_usd ?? 0;
 
   useEffect(() => {
     if (apollo?.lastBlock) {
@@ -88,7 +88,7 @@ const ApolloDetailsMiningStats = ({ apollo }: any) => {
             {' '}
             /{' '}
             <Currency
-              value={ambToUSD(rewards?.blocksRewards || 0, price_usd)}
+              value={ambToUSD(rewards?.blocksRewards || 0, total_price_usd)}
               fixed={2}
               side="left"
             />
@@ -111,7 +111,7 @@ const ApolloDetailsMiningStats = ({ apollo }: any) => {
             {' '}
             /{' '}
             <Currency
-              value={ambToUSD(rewards.transactionsRewards || 0, price_usd)}
+              value={ambToUSD(rewards.transactionsRewards || 0, total_price_usd)}
               fixed={2}
               side="left"
             />

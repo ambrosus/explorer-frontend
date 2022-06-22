@@ -17,12 +17,11 @@ const Calendar = ({
   const [dataRange, setDataRange] = useState([
     {
       startDate: new Date(),
-      endDate: addDays(new Date(), -4),
+      endDate: addDays(new Date(), 0),
       color: '#05060F',
       key: 'selection',
     },
   ]);
-
   const changeData = (item: any) => {
     setDataRange([item.selection]);
   };
