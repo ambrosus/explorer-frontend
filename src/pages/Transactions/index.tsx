@@ -113,7 +113,7 @@ export const Transactions = () => {
           />
         )}
         {!!txsData.data.length &&
-          txsData.data.map((tx: any, i:number) => (
+          txsData.data.map((tx: any, i: number) => (
             <AddressBlock
               isLatest={true}
               key={i}

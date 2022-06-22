@@ -107,9 +107,9 @@ const AddressDetails = () => {
         await setPosition(getDataForAddress, address?.trim(), {
           filtered:
             addressData && addressData.filters ? addressData.filters : [],
-          selectedTokenFilter:  selectedToken?.contract
-              ? selectedToken.contract
-              : filtered,
+          selectedTokenFilter: selectedToken?.contract
+            ? selectedToken.contract
+            : filtered,
           limit: limitNum,
           type: transactionType,
           page: pageNum,
@@ -119,8 +119,8 @@ const AddressDetails = () => {
           filtered:
             addressData && addressData.filters ? addressData.filters : [],
           selectedTokenFilter: selectedToken?.contract
-              ? selectedToken.contract
-              : filtered,
+            ? selectedToken.contract
+            : filtered,
           limit: limitNum,
           type: transactionType,
           page: pageNum,

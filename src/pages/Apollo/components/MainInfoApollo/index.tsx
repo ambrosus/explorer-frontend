@@ -54,7 +54,6 @@ const MainInfoApollo = () => {
             {avgBlockTime} sec
           </span>
         </div>
-
       </div>
     </div>
   );

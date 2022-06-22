@@ -205,31 +205,30 @@ const bbDataFilter = async (
 
     const bbTxData =
       filteredBlockBookApiTransactionsData?.map((item: any) => {
-            const t = item.value;
-            return {
-              txHash: t?.txid,
-              method: t?.tokenTransfers ? 'Transfer' : 'Transaction',
-              from: t?.tokenTransfers
-                ? t?.tokenTransfers?.[0]?.from
-                : t?.vin?.[0]?.addresses?.[0],
-              to: t?.tokenTransfers
-                ? t?.tokenTransfers?.[0]?.to
-                : t?.vout?.[0]?.addresses?.[0],
-              date: t?.blockTime * 1000,
-              block: t?.blockHeight,
-              amount: t?.tokenTransfers
-                ? Number(formatEther(t?.tokenTransfers[0].value))
-                : Number(formatEther(t?.value)),
-              token: t?.tokenTransfers?.[0]?.name
-                ? getTokenName(t?.tokenTransfers[0].name)
-                : 'AMB',
-              symbol: t?.tokenTransfers?.[0]?.symbol
-                ? getTokenName(t?.tokenTransfers[0]?.symbol)
-                : 'AMB',
-              txFee: ethers.utils.formatUnits(t?.fees, 18),
-            };
-          })
-         ?? [];
+        const t = item.value;
+        return {
+          txHash: t?.txid,
+          method: t?.tokenTransfers ? 'Transfer' : 'Transaction',
+          from: t?.tokenTransfers
+            ? t?.tokenTransfers?.[0]?.from
+            : t?.vin?.[0]?.addresses?.[0],
+          to: t?.tokenTransfers
+            ? t?.tokenTransfers?.[0]?.to
+            : t?.vout?.[0]?.addresses?.[0],
+          date: t?.blockTime * 1000,
+          block: t?.blockHeight,
+          amount: t?.tokenTransfers
+            ? Number(formatEther(t?.tokenTransfers[0].value))
+            : Number(formatEther(t?.value)),
+          token: t?.tokenTransfers?.[0]?.name
+            ? getTokenName(t?.tokenTransfers[0].name)
+            : 'AMB',
+          symbol: t?.tokenTransfers?.[0]?.symbol
+            ? getTokenName(t?.tokenTransfers[0]?.symbol)
+            : 'AMB',
+          txFee: ethers.utils.formatUnits(t?.fees, 18),
+        };
+      }) ?? [];
     return {
       bbApi,
       addressBalance,

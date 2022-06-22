@@ -71,10 +71,9 @@ const Tabs2: FC<any> = ({
 
   const { FOR_TABLET } = useDeviceSize();
 
-  const isTableColumn =
-    renderData?.length
-      ? setupStyle(type)
-      : 'addresses_body_no_data';
+  const isTableColumn = renderData?.length
+    ? setupStyle(type)
+    : 'addresses_body_no_data';
 
   const handleNavLinkClass = (itemValue: any) => {
     return `tabs_link ${
