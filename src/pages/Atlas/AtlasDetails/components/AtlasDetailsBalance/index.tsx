@@ -19,7 +19,7 @@ const AtlasDetailsBalance = ({ atlas }: any) => {
         </div>
         <div className="atlas_details_balance_cell">
           <span className="atlas_details_balance_fonts_bold">
-            <Currency   value={ambBalance || 0} symbol="AMB" fixed={2} />
+            <Currency value={ambBalance || 0} symbol="AMB" fixed={2} />
           </span>
           <span className="">
             {' '}
