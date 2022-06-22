@@ -67,7 +67,18 @@ const getApollo = (address: any) => {
 
 const getApolloRewards = (address: any, params: any) => {
   const url = `apollos/${address}/rewards`;
-  return API().get(url, { params });
+  const parameterFrom = params?.from?.split('/') || null;
+  const parameterTo = params?.to?.split('/') || null;
+  const newParams =
+    parameterTo !== null
+      ? {
+          from: `${parameterFrom[1]}/${parameterFrom[0]}/${parameterFrom[2]}`,
+          to: `${parameterTo[1]}/${parameterTo[0]}/${parameterTo[2]}`,
+        }
+      : {
+          from: `${parameterFrom[1]}/${parameterFrom[0]}/${parameterFrom[2]}`,
+        };
+  return API().get(url, { params: newParams });
 };
 
 const getTransaction = (hash: any) => {

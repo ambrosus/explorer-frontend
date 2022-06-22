@@ -21,8 +21,8 @@ const FindWide: React.FC<FindWideProps> = ({ setIsShow, searchRef }) => {
         if (!data) {
           setErr(true);
         } else {
-          setErr(false);
           let searchTerm = data.data;
+          setErr(false);
           if (searchTerm && searchTerm.term !== undefined) {
             const urlParts = data?.meta.search.split('/');
             urlParts[urlParts.length - 1] = searchTerm.term;
@@ -30,8 +30,13 @@ const FindWide: React.FC<FindWideProps> = ({ setIsShow, searchRef }) => {
           } else {
             searchTerm = data?.meta.search;
           }
-          if (data.meta.search) {
+          if (
+            data.meta.search &&
+            !searchTerm.includes(['blocks' || 'transaction'])
+          ) {
             setLink(`/${searchTerm}/`);
+          } else {
+            setErr(true);
           }
         }
       },
@@ -46,7 +51,7 @@ const FindWide: React.FC<FindWideProps> = ({ setIsShow, searchRef }) => {
     if (!debouncedSearchTerm) {
       return;
     }
-    if (!isLoading) {
+    if (!isLoading && !err) {
       navigate(link);
       if (!!setIsShow) {
         setIsShow((prev: any) => !prev);

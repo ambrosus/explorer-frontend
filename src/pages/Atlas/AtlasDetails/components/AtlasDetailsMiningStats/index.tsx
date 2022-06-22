@@ -10,7 +10,7 @@ const AtlasDetailsMiningStats = ({ atlas }: any) => {
   const forecast = payPeriods?.current?.forecast || 0;
   const { data: appData } = useTypedSelector((state: any) => state.app);
 
-  const  total_price_usd = appData?.total_price_usd ?? 0;
+  const total_price_usd = appData?.total_price_usd ?? 0;
 
   const usdForecast = ambToUSD(forecast, total_price_usd);
   const usdAvailable = ambToUSD(available, total_price_usd);
