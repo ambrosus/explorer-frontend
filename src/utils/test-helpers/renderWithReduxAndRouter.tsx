@@ -1,13 +1,13 @@
-import {log} from '../helpers';
-import {render} from '@testing-library/react';
+import { log } from '../helpers';
+import { render } from '@testing-library/react';
 import React from 'react';
-import {Provider} from 'react-redux';
-import {BrowserRouter} from 'react-router-dom';
-import {applyMiddleware, createStore} from 'redux';
-import {composeWithDevTools} from 'redux-devtools-extension';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
+import { applyMiddleware, createStore } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import ReduxThunk from 'redux-thunk';
 import reducers from 'state/reducers';
-import {QueryClient, QueryClientProvider} from "react-query";
 
 const middleware: Array<any> = [ReduxThunk];
 const queryClient = new QueryClient();

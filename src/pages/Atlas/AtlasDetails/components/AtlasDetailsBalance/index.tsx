@@ -49,7 +49,7 @@ const AtlasDetailsBalance = ({ atlas }: any) => {
         </div>
         <a
           className="atlas_details_balance_fonts_bold"
-          rel='noreferrer'
+          rel="noreferrer"
           target="_blank"
           href={url}
         >

@@ -11,7 +11,7 @@ const ApolloDetailsMiningStats = ({ apollo }: any) => {
   const { data: appData } = useTypedSelector((state: any) => state.app);
   const [rewards, setRewards] = useState<any>({});
   const [filterDate, setFilterDate] = useState<any>('');
-  const { price_usd } =  appData?.tokenInfo ?? 0;
+  const { price_usd } = appData?.tokenInfo ?? 0;
 
   useEffect(() => {
     if (apollo?.lastBlock) {

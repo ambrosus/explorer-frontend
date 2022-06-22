@@ -10,7 +10,6 @@ const ApolloBlocksBody: FC<ApolloBodyProps> = ({
   index,
   item,
 }) => {
-
   return (
     item && (
       <div className="apollo_blocks_body" ref={lastCardRef}>

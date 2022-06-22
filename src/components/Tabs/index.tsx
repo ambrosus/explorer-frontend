@@ -106,8 +106,8 @@ const Tabs: FC<TabsProps> = ({
   const { FOR_TABLET } = useDeviceSize();
 
   const isTableColumn = renderData?.length
-      ? setupStyle(type)
-      : 'addresses_body_no_data';
+    ? setupStyle(type)
+    : 'addresses_body_no_data';
 
   const handleNavLinkClass = (itemValue: any) =>
     `tabs_link ${
