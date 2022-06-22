@@ -34,14 +34,16 @@ export const getAccountTxData = async (
 ) => {
   const params = !next
     ? {
-      limit: 20,
-      type: sortTerm,
-    }
+        limit: 20,
+        type: sortTerm,
+      }
     : {
-      limit: 20,
-      type: sortTerm,
-      page: next,
-    };
-  const data: any = await API.getAccountTx(address, params).catch(() => window.location.replace('/notfound'))
+        limit: 20,
+        type: sortTerm,
+        page: next,
+      };
+  const data: any = await API.getAccountTx(address, params).catch(() =>
+    window.location.replace('/notfound'),
+  );
   return data;
 };
