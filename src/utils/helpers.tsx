@@ -103,7 +103,7 @@ export const numWithCommas = (val: number) => {
 };
 
 export const isFloat = (n: number | string) => {
-  /* jsDoc
+  /*
    * @param {number | string} n - Number to check
    * @returns {boolean}
    */
@@ -111,7 +111,7 @@ export const isFloat = (n: number | string) => {
 };
 
 export const displayAmount = (n: number | string) => {
-  /* jsDoc
+  /*
    * @param {number | string} n - Number to check
    * @returns {string}
    */

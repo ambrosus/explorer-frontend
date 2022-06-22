@@ -9,11 +9,6 @@ const BlockBody = ({ lastCardRef, item }: any) => {
   const amount = value?.ether || 0;
   return (
     <div className="block_body" ref={lastCardRef}>
-      {/*<NavLink*/}
-      {/*  to={`/addresses/${from}/`}*/}
-      {/*  className="address_blocks_cell universall_light2"*/}
-      {/*>*/}
-      {/*</NavLink>*/}
       <div className="block_body_cell color-gray">{sliceData5(blockHash)}</div>
       <div className="block_body_cell">{type}</div>
       <div className="block_body_cell color-gray">{sliceData5(from)} </div>

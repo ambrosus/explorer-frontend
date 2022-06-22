@@ -24,7 +24,7 @@ describe('sliceData5 & sliceData10', () => {
   });
   it('should slice data correctly value', () => {
     const address = '0xB500558a3886e42142121B54c4bd1ef378D34';
-    expect(sliceData10(address)).toEqual('0xB500558a...d1ef378D34');
+    expect(sliceData10(address)).toEqual('0xB5...8D34');
     expect(sliceData5(address)).toEqual('0xB50...78D34');
     expect(sliceData10(address)).toMatchSnapshot();
   });

@@ -7,7 +7,6 @@
     minmax(80px, 2fr)
     minmax(190px, 3fr)
     minmax(150px, 3fr);
-  // grid-template-columns: 82px 405px 190px 117px 180px 192px;
   z-index: 25;
   position: relative;
   width: fit-content;
@@ -49,9 +48,5 @@
       justify-self: center;
       padding-right: 6px;
     }
-
-    // &:nth-child(1) {
-    //   padding-left: 10px;
-    // }
   }
 }

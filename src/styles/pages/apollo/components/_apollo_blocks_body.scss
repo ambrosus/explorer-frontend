@@ -7,8 +7,6 @@
     minmax(80px, 2fr)
     minmax(190px, 3fr)
     minmax(150px, 3fr);
-  // 82px 405px 190px 117px 190px 192px;
-  //   flex-direction: column;
   border-bottom: 1px solid #eff2f5;
 
   grid-gap: 32px;
@@ -47,9 +45,5 @@
     &_offline {
       color: #bfc9e0;
     }
-
-    // &:nth-child(1) {
-    //   padding-left: 10px;
-    // }
   }
 }

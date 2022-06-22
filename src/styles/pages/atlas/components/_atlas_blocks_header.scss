@@ -7,7 +7,6 @@
     minmax(80px, 2fr)
     minmax(190px, 3fr)
     minmax(150px, 3fr);
-  // 82px 405px 190px 117px 180px 192px;
   height: 36px;
   grid-gap: 32px;
 
@@ -31,13 +30,11 @@
   &_status {
     display: flex;
     align-items: center;
-    // color: #808a9d;
     font-size: inherit;
 
     &_modal {
       position: absolute;
       top: 423px;
-      // margin-top: 28px;
       margin-left: -8px;
 
       background: #ffffff;

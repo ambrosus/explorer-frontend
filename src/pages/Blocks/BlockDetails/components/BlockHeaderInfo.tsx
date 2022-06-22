@@ -1,13 +1,10 @@
 import { useTypedSelector } from '../../../../hooks/useTypedSelector';
-import { TParams } from '../../../../types';
 import { Number } from 'components/Number';
 import moment from 'moment';
 import React from 'react';
-import { useParams } from 'react-router-dom';
 
 const BlockHeaderInfo = ({ block }: any) => {
   const { data: appData } = useTypedSelector((state: any) => state.app);
-  const { address }: TParams = useParams();
   const { number, blockRewards, totalTransactions, size, timestamp } =
     block !== null && block !== undefined && block;
   const txCount = blockRewards?.length + totalTransactions || 0;
@@ -19,10 +16,6 @@ const BlockHeaderInfo = ({ block }: any) => {
   const confirmations = lastBlock.number - number ?? 0;
 
   const blockStatus = (confirmations: any) => {
-    if (!confirmations && confirmations !== 0) {
-      return null;
-    }
-
     return confirmations > 0 ? 'Confirmed' : 'Unconfirmed';
   };
   return (
@@ -62,9 +55,6 @@ const BlockHeaderInfo = ({ block }: any) => {
             {moment(timestamp * 1000).fromNow() ?? 0}
           </span>
         </div>
-        {/*<div className="main_info_block_cell" style={{ padding: 5 }}>*/}
-        {/*  <Chart chartData={chartData} />*/}
-        {/*</div>*/}
       </div>
     </div>
   );
