@@ -8,7 +8,7 @@ const ApolloDetailsBalance = ({ apollo }: any) => {
   const ambBalance = balance?.ether || 0;
   const ambStake = stake?.ether || 0;
   const { data: appData } = useTypedSelector((state: any) => state?.app);
-  const { price_usd } = (appData && appData?.tokenInfo) || 0;
+  const { price_usd } = (appData?.tokenInfo) || 0;
   const usdBalance = ambToUSD(ambBalance, price_usd);
   const usdStake = ambToUSD(ambStake, price_usd);
 

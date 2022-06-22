@@ -2,9 +2,6 @@
   display: grid;
 
   grid-template-columns: repeat(4, auto);
-
-  // minmax(300px, 2fr) minmax(130px, 1fr) minmax(300px, 1.8fr)
-  // minmax(170px, 1fr);
   background: #ffffff;
   border: 1px solid #eff2f5;
   border-radius: 16px;
@@ -58,7 +55,7 @@
       }
     }
 
-    &:last-child() {
+    &:last-child {
       border-right: none;
     }
   }

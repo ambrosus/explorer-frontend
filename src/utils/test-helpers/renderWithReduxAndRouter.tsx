@@ -1,14 +1,17 @@
-import { log } from '../helpers';
-import { render } from '@testing-library/react';
+import {log} from '../helpers';
+import {render} from '@testing-library/react';
 import React from 'react';
-import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
-import { applyMiddleware, createStore } from 'redux';
-import { composeWithDevTools } from 'redux-devtools-extension';
+import {Provider} from 'react-redux';
+import {BrowserRouter} from 'react-router-dom';
+import {applyMiddleware, createStore} from 'redux';
+import {composeWithDevTools} from 'redux-devtools-extension';
 import ReduxThunk from 'redux-thunk';
 import reducers from 'state/reducers';
+import {QueryClient, QueryClientProvider} from "react-query";
 
 const middleware: Array<any> = [ReduxThunk];
+const queryClient = new QueryClient();
+
 const renderWithReduxAndRouter = (
   component: any,
   preloadedState: any = {},
@@ -23,9 +26,11 @@ const renderWithReduxAndRouter = (
   log('store', store.getState().position);
   return {
     ...render(
-      <Provider store={store}>
-        <BrowserRouter>{component}</BrowserRouter>
-      </Provider>,
+      <QueryClientProvider client={queryClient}>
+        <Provider store={store}>
+          <BrowserRouter>{component}</BrowserRouter>
+        </Provider>
+      </QueryClientProvider>,
     ),
     store,
   };

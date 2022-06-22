@@ -13,7 +13,6 @@ const API = () => {
     if (err) {
       log(err);
     }
-    // window.location.replace('/notfound');
   }
 
   api.interceptors.response.use(

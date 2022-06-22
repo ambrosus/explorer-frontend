@@ -7,8 +7,6 @@ const TokenItem = ({ token, selectedToken, setToken }: ITokenItemProps) => {
   return (
     <div
       className={
-        selectedToken &&
-        selectedToken?.contract &&
         selectedToken?.contract === token?.contract
           ? 'token_item token_item_active'
           : 'token_item'

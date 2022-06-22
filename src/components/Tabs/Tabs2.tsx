@@ -72,7 +72,7 @@ const Tabs2: FC<any> = ({
   const { FOR_TABLET } = useDeviceSize();
 
   const isTableColumn =
-    renderData && renderData?.length
+    renderData?.length
       ? setupStyle(type)
       : 'addresses_body_no_data';
 
@@ -160,8 +160,8 @@ const Tabs2: FC<any> = ({
             />
           )}
 
-          {renderData && renderData?.length !== 0
-            ? renderData.map((transaction: any, index: number) => {
+          {renderData?.length !== 0
+            ? renderData?.map((transaction: any, index: number) => {
                 return (
                   <AddressBlock
                     lastCardRef={
