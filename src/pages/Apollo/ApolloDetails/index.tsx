@@ -27,13 +27,15 @@ export const ApolloDetails = () => {
     <Content>
       <Content.Header>
         <NodeHeader getNodeData={getApolloData}>
-          {({ node }: any) => (
-            <>
-              <ApolloDetailsMain apollo={node} />
-              <ApolloDetailsBalance apollo={node} />
-              <ApolloDetailsMiningStats apollo={node} />
-            </>
-          )}
+          {({ node }: any) => {
+            return node !== null ? (
+              <>
+                <ApolloDetailsMain apollo={node} />
+                <ApolloDetailsBalance apollo={node} />
+                <ApolloDetailsMiningStats apollo={node} />
+              </>
+            ) : null;
+          }}
         </NodeHeader>
       </Content.Header>
       <Content.Body>

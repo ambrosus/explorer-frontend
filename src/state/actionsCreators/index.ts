@@ -17,7 +17,7 @@ export const setAppDataAsync = () => {
     try {
       //TODO промис ол
       const netInfo = await API.getInfo();
-
+      // https://token.ambrosus.io/price
       const tokenInfo = await API.getToken().then(async (info = {}) => {
         const totalSupply = await API.getTokenTotalSupply().then(
           (totalSupplyToken = {}) => {
