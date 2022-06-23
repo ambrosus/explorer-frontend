@@ -30,6 +30,7 @@ const AddressDetails = () => {
     error: errorData,
   } = useTypedSelector((state: any) => state.position);
   const { address, type, filtered, tokenToSorted }: TParams = useParams();
+
   const { setPosition, addFilter } = useActions();
   const [transactionType, setTransactionType] = useState(type || '');
   const [selectedToken, setSelectedToken] = useState<TokenType | null>(null);

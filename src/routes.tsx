@@ -8,6 +8,7 @@ import { Atlas } from 'pages/Atlas';
 import { AtlasDetails } from 'pages/Atlas/AtlasDetails';
 import { Blocks } from 'pages/Blocks';
 import { Bundles } from 'pages/Bundles';
+import BundleDetails from 'pages/Bundles/BundleDetails';
 import { Hermes } from 'pages/Hermes';
 import { Home } from 'pages/Home';
 import { Transactions } from 'pages/Transactions';
@@ -19,6 +20,7 @@ interface IAppRoutes {
   apolloRoutes: IRoute[];
   atlasRoutes: IRoute[];
   transactions: IRoute[];
+  bundleRoutes: IRoute[];
 }
 
 export const routes: IRoute[] = [
@@ -77,7 +79,7 @@ export const routes: IRoute[] = [
     key: 'Bundles',
     exact: true,
     component: () => <Bundles />,
-    isClick: false,
+    isClick: true,
   },
 ];
 export const addressesRoutes: IRoute[] = [
@@ -165,12 +167,23 @@ export const transactions: IRoute[] = [
   },
 ];
 
+export const bundleRoutes: IRoute[] = [
+  {
+    path: '/bundle/:address',
+    key: 'Bundle_Details',
+    exact: true,
+    component: () => <BundleDetails />,
+    isClick: false,
+  },
+];
+
 const appRoutes: IAppRoutes = {
+  bundleRoutes,
   routes,
   addressesRoutes,
   apolloRoutes,
   atlasRoutes,
-  transactions
+  transactions,
 };
 
 export default appRoutes;
