@@ -169,9 +169,9 @@ export const transactions: IRoute[] = [
 
 export const bundleRoutes: IRoute[] = [
   {
-    path: '/bundle/:address',
-    key: 'Bundle_Details',
-    exact: true,
+    path: '/bundles/:address',
+    key: 'Bundle Details',
+    exact: false,
     component: () => <BundleDetails />,
     isClick: false,
   },

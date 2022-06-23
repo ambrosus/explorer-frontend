@@ -4,11 +4,9 @@ import { getBundleData } from 'services/bundle.service';
 
 const BundleDetails = () => {
   const { address } = useParams();
-  const { ref, renderData, loading } = useSortData(
-    getBundleData,
-    address,
-    null,
-  );
+  const { ref, renderData, loading } = useSortData(getBundleData, address);
+
+  console.log(renderData);
 
   return (
     <>
