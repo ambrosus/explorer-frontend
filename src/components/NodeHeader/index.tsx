@@ -14,7 +14,15 @@ const NodeHeader = ({ children, getNodeData }: any) => {
   );
 
   useEffect(() => {
-    if (!isLoading) setNode(data?.data);
+    if (!isLoading)
+      setNode(() => {
+        if (data?.data) {
+          return data.data;
+        } else {
+          navigate(`/notfound`);
+          return null;
+        }
+      });
   }, [isLoading]);
 
   if (isError) navigate(`/notfound`);
