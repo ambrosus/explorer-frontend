@@ -1,10 +1,7 @@
 const AtlasHeaderStatusModal = () => (
   <>
     {statuses.map((status) => (
-      <button
-        key={status.key}
-        className="atlas_header_status_modal"
-      >
+      <button key={status.key} className="atlas_header_status_modal">
         {status.value}
       </button>
     ))}

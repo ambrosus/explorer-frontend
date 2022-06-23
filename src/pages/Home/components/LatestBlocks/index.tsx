@@ -30,9 +30,7 @@ const LatestBlocks: React.FC<LatestBlocksProps> = ({
         </div>
 
         <div className="latest_blocks_cell">
-          <div
-            className="latest_blocks_cell_content"
-          >
+          <div className="latest_blocks_cell_content">
             <div className="latest_blocks_font_small" style={{ width: 54 }}>
               Validator
             </div>

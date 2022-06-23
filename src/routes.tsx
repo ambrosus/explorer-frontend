@@ -172,7 +172,7 @@ const appRoutes: IAppRoutes = {
   apolloRoutes,
   atlasRoutes,
   transactions,
-  blockRoutes
+  blockRoutes,
 };
 
 export default appRoutes;
