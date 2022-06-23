@@ -18,6 +18,7 @@ export const Blocks = () => {
   return (
     <Content>
       <Content.Header>
+        test
         <div className="block_main_title">
           <h1 className="main_info_blocks_heading">Blocks</h1>
         </div>
