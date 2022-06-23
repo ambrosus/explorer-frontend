@@ -27,13 +27,17 @@ export const AtlasDetails = () => {
     <Content>
       <Content.Header>
         <NodeHeader getNodeData={getAtlasData}>
-          {({ node }: any) => (
-            <>
-              <AtlasDetailsMain atlas={node} />
-              <AtlasDetailsBalance atlas={node} />
-              <AtlasDetailsMiningStats atlas={node} />
-            </>
-          )}
+          {({ node }: any) => {
+            return (
+              node && (
+                <>
+                  <AtlasDetailsMain atlas={node} />
+                  <AtlasDetailsBalance atlas={node} />
+                  <AtlasDetailsMiningStats atlas={node} />
+                </>
+              )
+            );
+          }}
         </NodeHeader>
       </Content.Header>
       <Content.Body>
