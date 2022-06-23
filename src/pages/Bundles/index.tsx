@@ -13,8 +13,9 @@ export const Bundles = () => {
   return (
     <Content>
       <Content.Header>
-        <BundleMain />
-        <BundleMain />
+        <h1 style={{ margin: '32px 0' }}>Bundles</h1>
+        <BundleMain mainColumns="2fr 2fr 1.2fr" />
+        <BundleMain mainColumns="2fr 1.8fr 1.5fr" />
       </Content.Header>
       <Content.Body>
         <div>Bundles CONTENTdsad</div>

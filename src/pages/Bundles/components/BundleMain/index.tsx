@@ -1,9 +1,17 @@
-const BundleMain = () => {
+import BundleMainCells from 'pages/Bundles/components/BundleMainCells';
+
+const BundleMain = ({ mainColumns }: any) => {
   return (
-    <div className="bundle_main">
-      <div>1</div>
-      <div>2</div>
-      <div>3</div>
+    <div className="bundle_main" style={{ gridTemplateColumns: mainColumns }}>
+      <BundleMainCells primaryCell="TOTAL" secondaryCell="133,614" />
+      <BundleMainCells
+        primaryCell="ENTRIES TOTAL"
+        secondaryCell="187,839,352"
+      />
+      <BundleMainCells
+        primaryCell="AVERAGE BUNDLE LOAD"
+        secondaryCell="1,405.84"
+      />
     </div>
   );
 };
