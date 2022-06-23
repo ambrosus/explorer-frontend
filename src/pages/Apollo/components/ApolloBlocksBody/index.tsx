@@ -39,7 +39,7 @@ const ApolloBlocksBody: FC<ApolloBodyProps> = ({
             <Currency
               value={item ? `${item.balance.ether}` : '0'}
               symbol=" "
-              fixed={6}
+              fixed={8}
             />
           </span>
         </div>

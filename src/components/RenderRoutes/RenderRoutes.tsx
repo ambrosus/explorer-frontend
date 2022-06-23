@@ -3,7 +3,8 @@ import { useTypedSelector } from '../../hooks/useTypedSelector';
 import Loader from '../Loader';
 import Error404 from 'pages/Error404';
 import { useEffect } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
+import {transactions} from "../../routes";
 
 export const RenderRoutes = (props: any) => {
   const { routes } = props;
@@ -28,7 +29,6 @@ export const RenderRoutes = (props: any) => {
             />
           ),
       )}
-
       {routes.addressesRoutes.map((route: any) => (
         <Route
           suspense={<Loader />}
@@ -56,15 +56,6 @@ export const RenderRoutes = (props: any) => {
           {...route}
         />
       ))}
-      {routes.blockRoutes.map((route: any) => (
-        <Route
-          suspense={<Loader />}
-          key={route.key}
-          path={route.path}
-          element={<route.component />}
-          {...route}
-        />
-      ))}
       {routes.transactions.map((route: any) => (
         <Route
           suspense={<Loader />}
@@ -74,7 +65,7 @@ export const RenderRoutes = (props: any) => {
           {...route}
         />
       ))}
-      <Route path="*" element={<Error404 />} />
+      <Route path="*" element={<Navigate to="/notfound" replace />} />{' '}
       <Route path="/notfound" element={<Error404 />} />
     </Routes>
   ) : (

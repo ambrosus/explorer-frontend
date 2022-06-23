@@ -214,14 +214,14 @@ export function formatDate(
 
   const dayName = days[date.getDay()];
   const day = date.getDate();
-  const month = date.getMonth();
+  const month: any = moment().format('MM');
   const year = date.getFullYear();
   const hours = ('0' + date.getHours()).slice(-2);
   const minutes = ('0' + date.getMinutes()).slice(-2);
   const seconds = ('0' + date.getSeconds()).slice(-2);
 
   if (showDate && !showTime) {
-    return `/${day}/${month + 1}/${year}`;
+    return `${day}/${month}/${year}`;
   }
   return `${
     showDate ? `${dayName}, ${day} ${months[month]} ${year} ` : ''
