@@ -1,30 +1,35 @@
 import TokenModal from '../TokenModal';
 import ArrowDownBig from 'assets/icons/Arrows/ArrowDownBig';
 import ArrowUpBig from 'assets/icons/Arrows/ArrowUpBig';
-import { useActions } from 'hooks/useActions';
-import { useOnClickOutside } from 'hooks/useOnClickOutside';
-import {
-  TokenFilterProps,
-  TokenType,
-} from 'pages/Addresses/AddressDetails/address-details.interface';
-import React, { useRef, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { TParams } from 'types';
+import {useActions} from 'hooks/useActions';
+import {useOnClickOutside} from 'hooks/useOnClickOutside';
+import {TokenFilterProps, TokenType,} from 'pages/Addresses/AddressDetails/address-details.interface';
+import React, {useRef, useState} from 'react';
+import {useNavigate, useParams} from 'react-router-dom';
+import {TParams} from 'types';
 
 const TokenFilter = ({
-  loading,
-  addressData,
-  onClick,
-  selectedToken,
-}: TokenFilterProps) => {
-  const { addFilter } = useActions();
+                       loading,
+                       addressData,
+                       onClick,
+                       selectedToken,
+                     }: TokenFilterProps) => {
+  const {addFilter} = useActions();
   const [isShow, setIsShow] = useState(false);
   const navigate = useNavigate();
-  const { address }: TParams = useParams();
+  const {address}: TParams = useParams();
   const refTokensModal = useRef<HTMLDivElement>(null);
 
   useOnClickOutside(refTokensModal, () => setIsShow(false));
   const toggleMenu = () => (!loading ? setIsShow(!isShow) : null);
+
+  const showTokensCount = loading && !addressData?.tokens?.length
+    ? ''
+    : loading
+      ? !addressData?.tokens?.length
+      : !addressData?.tokens?.length
+        ? 0
+        : addressData.tokens.length
 
   const handleSelect = (token: TokenType): void => {
     onClick(token);
@@ -36,6 +41,7 @@ const TokenFilter = ({
       }/`,
     );
   };
+
   return (
     <>
       <div ref={refTokensModal} tabIndex={0} className={`token_filter`}>
@@ -45,16 +51,7 @@ const TokenFilter = ({
               loading ? 'toggle' : ''
             }`}
           >
-            {
-              //TODO refactor
-              loading && !addressData?.tokens?.length
-                ? ''
-                : loading
-                ? !addressData?.tokens?.length
-                : !addressData?.tokens?.length
-                ? 0
-                : addressData.tokens.length
-            }
+            {showTokensCount}
           </span>
           <button
             className="token_filter_input_btn"
@@ -62,7 +59,7 @@ const TokenFilter = ({
             onClick={toggleMenu}
           >
             <span className="token_filter_input_text">{''}</span>
-            {isShow ? <ArrowUpBig /> : <ArrowDownBig />}
+            {isShow ? <ArrowUpBig/> : <ArrowDownBig/>}
           </button>
         </div>
         {isShow && (
