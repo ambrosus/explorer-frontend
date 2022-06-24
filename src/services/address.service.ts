@@ -281,8 +281,7 @@ export const getDataForAddress = async (address: string, params: any) => {
     const latestTransactions: TransactionProps[] =
       (await sortedLatestTransactionsData(defaultFilters, url, page)) || [];
 
-    const transactionsAll: TransactionProps[] =
-      [...bbTxData, ...exploreData];
+    const transactionsAll: TransactionProps[] = [...bbTxData, ...exploreData];
 
     return {
       balance: addressBalance,

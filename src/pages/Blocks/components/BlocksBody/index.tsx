@@ -27,7 +27,9 @@ const BlocksBody = ({ index, lastCardRef, item }: any) => {
         <span style={{ marginRight: 8 }}>{online}</span> {number}
       </div>
       <NavLink to={`/apollo/${miner}/`} className="universall_light2">
-        <div className="blocks_blocks_body_cell color-gray validator-cell">{miner}</div>
+        <div className="blocks_blocks_body_cell color-gray validator-cell">
+          {miner}
+        </div>
       </NavLink>
       <div className="blocks_blocks_body_cell color-gray">
         {sliceData5(hash)}
