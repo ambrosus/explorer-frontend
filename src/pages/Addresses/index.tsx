@@ -12,7 +12,6 @@ import { getAccountsData } from 'services/accounts.service';
 export const Addresses = () => {
   const { ref, sortTerm, setSortTerm, renderData, loading } = useSortData(
     getAccountsData,
-    null,
     'balance',
   );
 

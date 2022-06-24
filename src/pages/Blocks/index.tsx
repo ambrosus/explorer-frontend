@@ -12,7 +12,6 @@ import React from 'react';
 export const Blocks = () => {
   const { ref, renderData, loading } = useSortData(
     getBlocksData,
-    null,
     'totalBundles',
   );
   return (

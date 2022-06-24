@@ -9,32 +9,37 @@ import { useParams } from 'react-router-dom';
 import { getBundleData, getBundlesData } from 'services/bundle.service';
 
 export const Bundles = () => {
-  const { ref, renderData, loading } = useSortData(getBundlesData, null, ' ');
+  const { ref, renderData, loading } = useSortData(getBundlesData, ' ');
 
   return (
     <Content>
       <Content.Header>
         <h1 style={{ margin: '32px 0' }}>Bundles</h1>
+
         <BundleMain mainColumns="2fr 2fr 1.2fr" />
         <BundleMain mainColumns="2fr 1.8fr 1.5fr" />
       </Content.Header>
       <Content.Body>
-        <BundleBlocksHeader />
-
-        {renderData && renderData.data && renderData.data.length
-          ? renderData.data.map((item: any, index: number) => (
-              <BundleBlocksBody
-                lastCardRef={
-                  renderData.data.length - 1 === index &&
-                  renderData?.pagination?.hasNext
-                    ? ref
-                    : null
-                }
-                key={index}
-                item={item}
-              />
-            ))
-          : null}
+        <div className="bundles_blocks">
+          <div className="bundles_blocks_heading">Recent Bundles</div>
+          <div className="bundles_blocks_table">
+            <BundleBlocksHeader />
+            {renderData && renderData.data && renderData.data.length
+              ? renderData.data.map((item: any, index: number) => (
+                  <BundleBlocksBody
+                    lastCardRef={
+                      renderData.data.length - 1 === index &&
+                      renderData?.pagination?.hasNext
+                        ? ref
+                        : null
+                    }
+                    key={index}
+                    item={item}
+                  />
+                ))
+              : null}
+          </div>
+        </div>
         {!loading && renderData?.pagination?.hasNext && <Loader />}
       </Content.Body>
     </Content>

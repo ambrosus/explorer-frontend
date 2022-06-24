@@ -1,8 +1,6 @@
 import BundleMainCells from 'pages/Bundles/components/BundleMainCells';
 
 const BundleMain = ({ bundle, mainColumns }: any) => {
-  console.log(bundle);
-
   return (
     <div className="bundle_main" style={{ gridTemplateColumns: mainColumns }}>
       <BundleMainCells primaryCell="TOTAL" secondaryCell="133,614" />

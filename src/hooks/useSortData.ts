@@ -5,12 +5,8 @@ import { useInView } from 'react-intersection-observer';
 import { useNavigate, useParams } from 'react-router-dom';
 import removeArrayDuplicates, { log } from 'utils/helpers';
 
-const useSortData = (
-  getData: any,
-  address?: string | null,
-  firstSortTerm: any = '',
-) => {
-  const { address: adr, type = '' }: TParams = useParams();
+const useSortData = (getData: any, firstSortTerm: any = '') => {
+  const { address, type = '' }: TParams = useParams();
 
   const [renderData, setRenderData] = React.useState<AccountsData>([]);
   const [loading, setLoading] = React.useState<boolean>(false);

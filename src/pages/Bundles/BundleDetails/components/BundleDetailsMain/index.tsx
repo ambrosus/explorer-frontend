@@ -1,11 +1,15 @@
 import BundleMainCells from 'pages/Bundles/components/BundleMainCells';
 
-const BundleDetailsMain = ({ bundle, mainColumns }: any) => {
+const BundleDetailsMain = ({ data, mainColumns }: any) => {
   return (
     <div className="bundle_main" style={{ gridTemplateColumns: mainColumns }}>
-      <BundleMainCells primaryCell={1} secondaryCell={2} />
-      <BundleMainCells primaryCell={1} secondaryCell={2} />
-      <BundleMainCells primaryCell={1} secondaryCell={2} />
+      {data?.map((item: any) => (
+        <BundleMainCells
+          key={item._id}
+          primaryCell={item.name}
+          secondaryCell={item.value}
+        />
+      ))}
     </div>
   );
 };

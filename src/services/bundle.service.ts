@@ -1,6 +1,6 @@
 import API from '../API/api';
 
-export const getBundleData = async (bundleId: string) => {
+export const getBundleData = async (bundleId: any) => {
   const data: any = await API.getBundle(bundleId);
   return data;
 };
@@ -8,7 +8,7 @@ export const getBundleData = async (bundleId: string) => {
 export const getBundlesData = async (sortTerm: any, next: any) => {
   const data: any = await API.getBundles({
     limit: 20,
-    page: next,
+    next: next,
   });
   return data;
 };

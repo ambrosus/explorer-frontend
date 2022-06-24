@@ -6,8 +6,8 @@
     minmax(80px, 1fr) minmax(130px, 1fr);
 
   border-bottom: 1px solid #eff2f5;
-
-  grid-gap: 32px;
+  width: fit-content;
+  grid-gap: 20px;
 
   &:hover {
     background-color: #eff2f5;
