@@ -281,11 +281,8 @@ export const getDataForAddress = async (address: string, params: any) => {
     const latestTransactions: TransactionProps[] =
       (await sortedLatestTransactionsData(defaultFilters, url, page)) || [];
 
-    //TODO дважды метод
-    const transactionsAll: TransactionProps[] = removeArrayDuplicates(
-      [...bbTxData, ...exploreData],
-      'block',
-    );
+    const transactionsAll: TransactionProps[] =
+      [...bbTxData, ...exploreData];
 
     return {
       balance: addressBalance,
