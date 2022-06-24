@@ -1,31 +1,53 @@
-import { Content } from '../../../components/Content';
+import {Content} from '../../../components/Content';
 import Loader from '../../../components/Loader';
 import useSortData from '../../../hooks/useSortData';
-import {
-  getBlockData,
-  getBlockTransactionsData,
-} from '../../../services/block.service';
-import { TParams } from '../../../types';
+import {useTypedSelector} from '../../../hooks/useTypedSelector';
+import {getBlockData, getBlockTransactionsData,} from '../../../services/block.service';
+import {TParams} from '../../../types';
 import DataTitle from '../components/DataTitle';
 import BlockBody from './components/BlockBody';
 import BlockHeader from './components/BlockHeader';
 import BlockHeaderInfo from './components/BlockHeaderInfo';
 import HeadingInfo from './components/HeadingInfo';
-import { MainInfoBlockTable } from './components/MainInfoBlockTable';
-import React, { useEffect, useState } from 'react';
-import { useQuery } from 'react-query';
-import { useNavigate, useParams } from 'react-router-dom';
+import {MainInfoBlockTable} from './components/MainInfoBlockTable';
+import React, {useEffect, useState} from 'react';
+import {useQuery} from 'react-query';
+import {useNavigate, useParams} from 'react-router-dom';
+
+interface IBlock {
+  number: number;
+  blockRewards: any[];
+  totalTransactions: number;
+  size: number;
+  timestamp: number;
+  parentHash: string;
+  hash: string;
+  stateRoot: string;
+  extraData: string;
+}
+
+interface IBlocksData {
+  data: { data: IBlock[] | undefined }
+  isError: boolean
+  isLoading: boolean
+}
 
 export const BlockDetails = () => {
-  const { address }: TParams = useParams();
+  const {address}: TParams = useParams();
   const [block, setBlock] = useState<any>(null);
   const navigate = useNavigate();
-  const { data, isError, isLoading } = useQuery(
+  const {data: appData} = useTypedSelector((state: any) => state.app);
+  const {lastBlock} = appData?.netInfo ?? {
+    lastBlock: {
+      number: 0,
+    },
+  };
+  const {data, isError, isLoading} = useQuery(
     [`get data for ${address}`, address],
     () => getBlockData(address as string),
-  );
+  ) as IBlocksData
 
-  const { ref, renderData, loading } = useSortData(
+  const {ref, renderData, loading} = useSortData(
     getBlockTransactionsData,
     address,
   );
@@ -39,27 +61,32 @@ export const BlockDetails = () => {
   return (
     <Content>
       <Content.Header>
-        <HeadingInfo address={address} block={block} />
-        <BlockHeaderInfo block={block} />
-        <MainInfoBlockTable block={block} />
+        <HeadingInfo address={address} block={block}/>
+        <BlockHeaderInfo lastBlock={lastBlock} block={block}/>
+        <MainInfoBlockTable block={block}/>
       </Content.Header>
+
       <Content.Body>
         <div className="blocks_main">
-          <DataTitle title="Transactions" />
+          <DataTitle title="Transactions"/>
           <div className="blocks_main_table">
-            <BlockHeader />
+            <BlockHeader/>
             {renderData && renderData.data && renderData.data.length
-              ? renderData.data.map((item: any, index: number) =>
-                  renderData.data.length - 1 === index &&
-                  renderData?.pagination?.hasNext ? (
-                    <BlockBody lastCardRef={ref} key={index} item={item} />
-                  ) : (
-                    <BlockBody key={index} item={item} />
-                  ),
-                )
+              ? renderData.data.map((item: any, index: number) => (
+                <BlockBody
+                  lastCardRef={
+                    renderData?.data?.length - 1 === index &&
+                    renderData?.pagination?.hasNext
+                      ? ref
+                      : undefined
+                  }
+                  key={index}
+                  item={item}
+                />
+              ))
               : null}
           </div>
-          {!loading && renderData?.pagination?.hasNext && <Loader />}
+          {!loading && renderData?.pagination?.hasNext && <Loader/>}
         </div>
       </Content.Body>
     </Content>

@@ -1,18 +1,13 @@
-import { useTypedSelector } from '../../../../hooks/useTypedSelector';
 import { Number } from 'components/Number';
 import moment from 'moment';
 import React from 'react';
 
-const BlockHeaderInfo = ({ block }: any) => {
-  const { data: appData } = useTypedSelector((state: any) => state.app);
+const BlockHeaderInfo = ({ lastBlock, block }: any) => {
+  console.log(lastBlock);
   const { number, blockRewards, totalTransactions, size, timestamp } =
     block !== null && block !== undefined && block;
   const txCount = blockRewards?.length + totalTransactions || 0;
-  const { lastBlock } = appData?.netInfo ?? {
-    lastBlock: {
-      number: 0,
-    },
-  };
+
   const confirmations = lastBlock.number - number ?? 0;
 
   const blockStatus = (confirmations: any) => {

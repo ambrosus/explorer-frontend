@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { memo } from 'react';
+import { FC } from 'react';
 
-const AnimatedLoader = memo((props) => (
+const AnimatedLoader: FC = (props) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     style={{
@@ -60,6 +60,6 @@ const AnimatedLoader = memo((props) => (
       />
     </circle>
   </svg>
-));
+);
 
 export default AnimatedLoader;

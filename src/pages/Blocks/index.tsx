@@ -2,7 +2,6 @@ import useSortData from '../../hooks/useSortData';
 import { getBlocksData } from '../../services/block.service';
 import BlocksBody from './components/BlocksBody';
 import BlocksHeader from './components/BlocksHeader';
-import BlocksSort from './components/DataTitle';
 import DataTitle from './components/DataTitle';
 import MainInfoBlocks from './components/MainInfoBlocks';
 import { Content } from 'components/Content';
@@ -15,6 +14,7 @@ export const Blocks = () => {
     null,
     'totalBundles',
   );
+
   return (
     <Content>
       <Content.Header>
@@ -29,19 +29,19 @@ export const Blocks = () => {
           <div className="blocks_main_table">
             <BlocksHeader />
             {renderData && renderData.data && renderData.data.length
-              ? renderData.data.map((item: any, index: number) =>
-                  renderData.data.length - 1 === index &&
-                  renderData?.pagination?.hasNext ? (
-                    <BlocksBody
-                      index={index}
-                      lastCardRef={ref}
-                      key={index}
-                      item={item}
-                    />
-                  ) : (
-                    <BlocksBody index={index} key={index} item={item} />
-                  ),
-                )
+              ? renderData.data.map((item: any, index: number) => (
+                  <BlocksBody
+                    index={index}
+                    lastCardRef={
+                      renderData.data.length - 1 === index &&
+                      renderData?.pagination?.hasNext
+                        ? ref
+                        : undefined
+                    }
+                    key={index}
+                    item={item}
+                  />
+                ))
               : null}
           </div>
           {!loading && renderData?.pagination?.hasNext && <Loader />}
