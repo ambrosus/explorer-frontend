@@ -10,7 +10,7 @@
     grid-template-columns: repeat(2, 50%);
     background-color: #fff;
     border-radius: 16px;
-      @include for_tablet {
+    @include for_tablet {
       display: flex;
       flex-direction: column;
     }
@@ -26,7 +26,8 @@
     &:nth-child(odd) {
       border-right: 1px solid #eff2f5;
     }
-    height: 100px;
+
+    height: 90px;
     padding: 32px;
     width: 100%;
     display: grid;
@@ -37,13 +38,21 @@
     }
 
     @include for_tablet {
+      height: fit-content;
+      min-height: 75px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 1px;
       border-bottom: 1px solid #eff2f5;
       border-right: none;
-
+      padding: 12px 32px;
       &:last-child {
         border-bottom: 0px solid #eff2f5;
       }
     }
+
     &_primary {
       font-family: 'Proxima Nova';
       font-style: normal;
@@ -61,9 +70,13 @@
       font-size: 14px;
       line-height: 24px;
       color: #05060F;
-
+      @include for_tablet {
+        line-height: 17px;
+        word-break: break-all;
+      }
     }
-    .gray{
+
+    .gray {
       font-family: 'Proxima Nova';
       font-style: normal;
       font-weight: 600;
