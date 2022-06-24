@@ -18,7 +18,7 @@ const BlocksBody = ({ index, lastCardRef, item }: any) => {
   return (
     <div className="blocks_blocks_body" ref={lastCardRef}>
       <div
-        className="blocks_blocks_body_cell color-gray universall_link_underline"
+        className="blocks_blocks_body_cell color-gray universall_link_underline validator-cell"
         style={{
           cursor: 'pointer',
         }}
@@ -27,7 +27,7 @@ const BlocksBody = ({ index, lastCardRef, item }: any) => {
         <span style={{ marginRight: 8 }}>{online}</span> {number}
       </div>
       <NavLink to={`/apollo/${miner}/`} className="universall_light2">
-        <div className="blocks_blocks_body_cell color-gray">{miner}</div>
+        <div className="blocks_blocks_body_cell color-gray validator-cell">{miner}</div>
       </NavLink>
       <div className="blocks_blocks_body_cell color-gray">
         {sliceData5(hash)}
