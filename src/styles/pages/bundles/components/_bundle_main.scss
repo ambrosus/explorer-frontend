@@ -11,6 +11,8 @@
     display: grid;
     grid-template-columns: 1fr;
     padding-left: 32px;
+    white-space: nowrap;
+    padding-right: 10px;
 
     &:last-child {
       border: none;

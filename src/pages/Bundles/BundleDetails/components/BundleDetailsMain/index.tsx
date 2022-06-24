@@ -1,16 +1,34 @@
-import BundleMainCells from 'pages/Bundles/components/BundleMainCells';
+import ContentCopy from 'assets/icons/CopyIcons/ContentCopy';
+import ContentCopyed from 'assets/icons/CopyIcons/ContentCopyed';
+import CopyPopUp from 'assets/icons/CopyIcons/CopyPopUp';
+import useCopyContent from 'hooks/useCopyContent';
+import useDeviceSize from 'hooks/useDeviceSize';
+import { useParams } from 'react-router-dom';
 
-const BundleDetailsMain = ({ data, mainColumns }: any) => {
+const BundleDetailsMain = () => {
+  const { address } = useParams();
+  const { isCopy, copyContent, isCopyPopup } = useCopyContent(address);
+  const { FOR_TABLET } = useDeviceSize();
+
   return (
-    <div className="bundle_main" style={{ gridTemplateColumns: mainColumns }}>
-      {data?.map((item: any) => (
-        <BundleMainCells
-          key={item._id}
-          primaryCell={item.name}
-          secondaryCell={item.value}
-        />
-      ))}
-    </div>
+    <>
+      <div>
+        <h2>Bundle Details</h2>
+        <div>
+          <div>ID</div>
+          <div>{address}</div>
+          <button className="address_button" onClick={copyContent}>
+            {isCopy ? <ContentCopyed /> : <ContentCopy />}
+
+            {FOR_TABLET && isCopyPopup && isCopy && (
+              <div className="address_button_copyed">
+                <CopyPopUp x={3} y={20} values="Copyed" />
+              </div>
+            )}
+          </button>
+        </div>
+      </div>
+    </>
   );
 };
 

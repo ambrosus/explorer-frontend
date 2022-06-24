@@ -1,11 +1,11 @@
-import ContentCopyed from '../../../../../assets/icons/CopyIcons/ContentCopyed';
-import CopyPopUp from '../../../../../assets/icons/CopyIcons/CopyPopUp';
-import useCopyContent from '../../../../../hooks/useCopyContent';
-import { TParams } from '../../../../../types';
 import ContentCopy from 'assets/icons/CopyIcons/ContentCopy';
+import ContentCopyed from 'assets/icons/CopyIcons/ContentCopyed';
+import CopyPopUp from 'assets/icons/CopyIcons/CopyPopUp';
+import useCopyContent from 'hooks/useCopyContent';
 import useDeviceSize from 'hooks/useDeviceSize';
 import React from 'react';
 import { useParams } from 'react-router-dom';
+import { TParams } from 'types';
 
 const AtlasDetailsMain = ({ atlas }: any) => {
   const { address }: TParams = useParams();
