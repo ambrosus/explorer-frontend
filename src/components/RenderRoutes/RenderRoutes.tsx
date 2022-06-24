@@ -1,10 +1,10 @@
 import { useActions } from '../../hooks/useActions';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
+import { transactions } from '../../routes';
 import Loader from '../Loader';
 import Error404 from 'pages/Error404';
 import { useEffect } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import {transactions} from "../../routes";
 
 export const RenderRoutes = (props: any) => {
   const { routes } = props;
@@ -57,6 +57,15 @@ export const RenderRoutes = (props: any) => {
         />
       ))}
       {routes.transactions.map((route: any) => (
+        <Route
+          suspense={<Loader />}
+          key={route.key}
+          path={route.path}
+          element={<route.component />}
+          {...route}
+        />
+      ))}
+      {routes.blockRoutes.map((route: any) => (
         <Route
           suspense={<Loader />}
           key={route.key}
