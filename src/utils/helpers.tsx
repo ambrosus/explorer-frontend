@@ -14,6 +14,7 @@ export const sliceData5 = (item: string | any) => {
     ? `${item.slice(0, 5)}...${item.slice(item.length - 5)}`
     : item;
 };
+
 export const sliceData10 = (item: string | any, sliceNum: number = 4) => {
   if (!item) {
     return '';
@@ -22,6 +23,7 @@ export const sliceData10 = (item: string | any, sliceNum: number = 4) => {
     ? `${item.slice(0, sliceNum)}...${item.slice(item.length - sliceNum)}`
     : item;
 };
+
 export const calcTime = (time: any) => {
   /*
    * @param {string} time
@@ -29,6 +31,8 @@ export const calcTime = (time: any) => {
    */
   return moment(time).isValid() ? moment(time * 1000).fromNow() : '';
 };
+
+export const byteToMgb = (byte: number) => (byte / (1024 * 1024)).toFixed(4);
 
 export const setupStyle = (item: string | undefined) => {
   switch (item) {

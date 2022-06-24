@@ -1,3 +1,5 @@
 @import './bundles';
-@import './components/bundle_block/bundles_blocks';
-@import './components/bundle_main/bundle_main';
+@import './components/bundles_blocks';
+@import './components/bundle_main';
+@import './components/bundle_blocks_header';
+@import './components/bundle_blocks_body';
