@@ -167,7 +167,7 @@ const searchItem = (term: any) => {
 };
 
 const getBundles = (params = {}) => {
-  return API().get(`bundles`, {
+  return API().get(`bundles?cursor`, {
     params,
   });
 };

@@ -1,23 +1,37 @@
-import { byteToMgb, sliceData10 } from 'utils/helpers';
+import { useEffect, useState } from 'react';
+import {
+  byteToMgb,
+  calcDataTime,
+  calcTime,
+  sliceData10,
+  sliceData5,
+} from 'utils/helpers';
 
 const BundleBlocksBody = ({ lastCardRef, item }: any) => {
-  console.log(item);
   const isTxHash = (
     <div className="bundle_blocks_body_cell">
       {sliceData10(item?.txHash, 12)}
     </div>
   );
 
-  const isBy = <div className="bundle_blocks_body_cell">0x9012...328eb</div>;
-
-  const isCreated = (
-    <div className="bundle_blocks_body_cell">Wed, 1 June 2022</div>
+  const isBy = (
+    <div className="bundle_blocks_body_cell">{sliceData5(item.uploader)}</div>
   );
 
-  const isDuration = <div className="bundle_blocks_body_cell">1 year </div>;
+  const isCreated = (
+    <div className="bundle_blocks_body_cell">
+      {calcDataTime(item.uploadTimestamp)}
+    </div>
+  );
+
+  const isDuration = (
+    <div className="bundle_blocks_body_cell">
+      {`${item.storagePeriods} year`}
+    </div>
+  );
 
   const isEntries = (
-    <div className="bundle_blocks_body_cell">151 assets / 526 events</div>
+    <div className="bundle_blocks_body_cell">{`${item.totalAssets} assets / ${item.totalEvents} events`}</div>
   );
   const isSize = (
     <div className="bundle_blocks_body_cell">{`${byteToMgb(
@@ -25,8 +39,14 @@ const BundleBlocksBody = ({ lastCardRef, item }: any) => {
     )} Mb`}</div>
   );
 
-  const isBlock = <div className="bundle_blocks_body_cell">10986508</div>;
-  const isBundleCost = <div className="bundle_blocks_body_cell">492 AMB</div>;
+  const isBlock = (
+    <div className="bundle_blocks_body_cell">{item.block.number}</div>
+  );
+  const isBundleCost = (
+    <div className="bundle_blocks_body_cell">
+      {`${item.uploadFee.ether} AMB`}
+    </div>
+  );
 
   return (
     <div className="bundle_blocks_body" ref={lastCardRef}>

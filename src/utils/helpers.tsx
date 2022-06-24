@@ -32,6 +32,11 @@ export const calcTime = (time: any) => {
   return moment(time).isValid() ? moment(time * 1000).fromNow() : '';
 };
 
+export const calcDataTime = (time: any) => {
+  return moment(time).isValid()
+    ? moment(time * 1000).format('ddd, D MMMM YYYY')
+    : '';
+};
 export const byteToMgb = (byte: number) => (byte / (1024 * 1024)).toFixed(4);
 
 export const setupStyle = (item: string | undefined) => {

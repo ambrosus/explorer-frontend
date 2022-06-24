@@ -3,7 +3,6 @@ import { useTypedSelector } from 'hooks/useTypedSelector';
 
 const MainInfoAtlas = () => {
   const { data: appData } = useTypedSelector((state: any) => state.app);
-  console.log(appData);
 
   const total = appData?.netInfo?.atlases?.total || 0;
   const avgBlockTime = appData?.netInfo?.avgBlockTime || 0;

@@ -175,6 +175,13 @@ export const bundleRoutes: IRoute[] = [
     component: () => <BundleDetails />,
     isClick: false,
   },
+  {
+    path: '/bundles/:address/:type',
+    key: 'Bundle Details type',
+    exact: false,
+    component: () => <BundleDetails />,
+    isClick: false,
+  },
 ];
 
 const appRoutes: IAppRoutes = {

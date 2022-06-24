@@ -11,8 +11,6 @@ import { getBundleData, getBundlesData } from 'services/bundle.service';
 export const Bundles = () => {
   const { ref, renderData, loading } = useSortData(getBundlesData, null, ' ');
 
-  useEffect(() => {});
-
   return (
     <Content>
       <Content.Header>
@@ -22,7 +20,6 @@ export const Bundles = () => {
       </Content.Header>
       <Content.Body>
         <BundleBlocksHeader />
-        {/* <BundleBlocksBody /> */}
 
         {renderData && renderData.data && renderData.data.length
           ? renderData.data.map((item: any, index: number) => (
