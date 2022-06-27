@@ -1,18 +1,30 @@
+import { IBlock } from '../index';
 import { Number } from 'components/Number';
 import moment from 'moment';
 import React from 'react';
 
-const BlockHeaderInfo = ({ lastBlock, block }: any) => {
-  console.log(lastBlock);
+interface IBlockInfoProps<T> {
+  lastBlock: {
+    number: number;
+  };
+  block: T;
+}
+
+const BlockHeaderInfo = ({
+  lastBlock,
+  block,
+}: IBlockInfoProps<IBlock[] | any>) => {
   const { number, blockRewards, totalTransactions, size, timestamp } =
     block !== null && block !== undefined && block;
+
   const txCount = blockRewards?.length + totalTransactions || 0;
 
-  const confirmations = lastBlock.number - number ?? 0;
+  const confirmations: number = lastBlock.number - number ?? 0;
 
-  const blockStatus = (confirmations: any) => {
+  const blockStatus = (confirmations: number) => {
     return confirmations > 0 ? 'Confirmed' : 'Unconfirmed';
   };
+
   return (
     <div className="main_info_block">
       <div className="main_info_block_table">
@@ -24,7 +36,7 @@ const BlockHeaderInfo = ({ lastBlock, block }: any) => {
               color: '#1acd8c',
             }}
           >
-            {blockStatus(confirmations)}
+            {blockStatus(confirmations as number)}
           </span>
         </div>
         <div className="main_info_block_cell">

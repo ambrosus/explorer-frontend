@@ -6,12 +6,16 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { sliceData5 } from 'utils/helpers';
 
-const BlockBody = ({ lastCardRef, item }: any) => {
+interface IBlockBodyProps {
+  lastCardRef: ((node?: Element | null | undefined) => void) | undefined;
+  item: any;
+}
+
+const BlockBody = ({ lastCardRef = undefined, item }: IBlockBodyProps) => {
   const { type, blockHash, from, to, timestamp, value } = item;
   const navigate = useNavigate();
 
   function redirectHandler(address: string) {
-    console.log(address);
     API.searchItem(address).then((data: any) => {
       if (data) {
         let searchTerm = data.data;

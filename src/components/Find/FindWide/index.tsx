@@ -30,10 +30,7 @@ const FindWide: React.FC<FindWideProps> = ({ setIsShow, searchRef }) => {
           } else {
             searchTerm = data?.meta.search;
           }
-          if (
-            data.meta.search &&
-            !searchTerm.includes(['blocks' || 'transaction'])
-          ) {
+          if (data.meta.search) {
             setLink(`/${searchTerm}/`);
           } else {
             setErr(true);
