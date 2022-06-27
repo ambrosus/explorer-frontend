@@ -246,7 +246,7 @@ const AddressDetails = () => {
                     <p
                       className={`${!showMore ? 'gradient-text' : ''}`}
                       style={{wordWrap: 'break-word'}}>
-                      {showMore ? node.byteCode : `${node.byteCode.substring(0, 900)}`}
+                      {showMore ? node.byteCode : `${node.byteCode.substring(0, FOR_TABLET  ? 900 : 320)}`}
                     </p>
                     <button className="read-more-btn" onClick={showMoreRefHandler}>{showMore ? "Show less" : "Show" +
                       " more"}</button>
