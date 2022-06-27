@@ -1,27 +1,27 @@
 import API from '../../../API/api';
-import {TokenType, TransactionProps} from './address-details.interface';
+import NodeHeader from '../../../components/NodeHeader';
+import { TokenType, TransactionProps } from './address-details.interface';
 import ContentCopy from 'assets/icons/CopyIcons/ContentCopy';
 import ContentCopyed from 'assets/icons/CopyIcons/ContentCopyed';
 import CopyPopUp from 'assets/icons/CopyIcons/CopyPopUp';
-import {Content} from 'components/Content';
+import { Content } from 'components/Content';
 import FilteredToken from 'components/FilteredToken';
 import OverallBalance from 'components/OveralBalance';
 import Tabs from 'components/Tabs';
 import Token from 'components/Token';
-import {formatEther} from 'ethers/lib/utils';
-import {useActions} from 'hooks/useActions';
+import { formatEther } from 'ethers/lib/utils';
+import { useActions } from 'hooks/useActions';
 import useCopyContent from 'hooks/useCopyContent';
 import useDeviceSize from 'hooks/useDeviceSize';
-import {useTypedSelector} from 'hooks/useTypedSelector';
-import React, {useEffect, useLayoutEffect, useRef, useState} from 'react';
-import {shallowEqual} from 'react-redux';
-import {useNavigate, useParams} from 'react-router-dom';
-import {getDataForAddress} from 'services/address.service';
-import {TParams} from 'types';
-import NodeHeader from "../../../components/NodeHeader";
+import { useTypedSelector } from 'hooks/useTypedSelector';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { shallowEqual } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
+import { getDataForAddress } from 'services/address.service';
+import { TParams } from 'types';
 
 const AddressDetails = () => {
-  const {filters} = useTypedSelector(
+  const { filters } = useTypedSelector(
     (state) => state.tokenFilters,
     shallowEqual,
   );
@@ -30,8 +30,8 @@ const AddressDetails = () => {
     data: addressData,
     error: errorData,
   } = useTypedSelector((state: any) => state.position);
-  const {address, type, filtered, tokenToSorted}: TParams = useParams();
-  const {setPosition, addFilter} = useActions();
+  const { address, type, filtered, tokenToSorted }: TParams = useParams();
+  const { setPosition, addFilter } = useActions();
   const [transactionType, setTransactionType] = useState(type || '');
   const [selectedToken, setSelectedToken] = useState<TokenType | null>(null);
   const [tx, setTx] = useState<TransactionProps[] | []>([]);
@@ -39,17 +39,17 @@ const AddressDetails = () => {
   const [isContract, setIsContract] = useState(false);
   const [limitNum] = useState(50);
   const [showMore, setShowMore] = useState(false);
-  const showMoreRef:any = useRef(null);
+  const showMoreRef: any = useRef(null);
   const observer = useRef<IntersectionObserver>();
   const navigate = useNavigate();
 
   const showMoreRefHandler = () => {
-    setShowMore(!showMore)
-    if(showMoreRef.current) {
-      showMoreRef?.current?.scrollIntoView({behavior: 'smooth'});
+    setShowMore(!showMore);
+    if (showMoreRef.current) {
+      showMoreRef?.current?.scrollIntoView({ behavior: 'smooth' });
     }
-  }
-  const {isCopy, copyContent, isCopyPopup} = useCopyContent(address);
+  };
+  const { isCopy, copyContent, isCopyPopup } = useCopyContent(address);
 
   const lastCardRef = (node: any) => {
     if (loading) return;
@@ -74,19 +74,19 @@ const AddressDetails = () => {
 
   useEffect(() => {
     if (tokenToSorted?.length && tokenToSorted !== 'transfers') {
-      navigate(`/notfound`, {replace: true});
+      navigate(`/notfound`, { replace: true });
     }
     if (type?.length && !(type === 'ERC-20_Tx' || type === 'transfers')) {
-      navigate(`/notfound`, {replace: true});
+      navigate(`/notfound`, { replace: true });
     }
 
     if (address) {
       API.searchItem(address)
         .then(
           (data: any) =>
-            !data.meta.search && navigate(`/notfound`, {replace: true}),
+            !data.meta.search && navigate(`/notfound`, { replace: true }),
         )
-        .catch(() => navigate(`/notfound`, {replace: true}));
+        .catch(() => navigate(`/notfound`, { replace: true }));
     }
   }, []);
 
@@ -196,23 +196,27 @@ const AddressDetails = () => {
     }
   }, [addressData]);
 
-  const {FOR_TABLET} = useDeviceSize();
+  const { FOR_TABLET } = useDeviceSize();
   return (
     <Content>
       <section className="address_details">
         <Content.Header>
           <h1 className="address_details_h1">
             {isContract ? 'Smart Contract Details' : 'Address Details'}
-            <div className="address_details_copy" style={{fontSize: isContract ? 18 : '2.3rem'}}>
-              {isContract && <span>Address:&nbsp; </span>}{address}
+            <div
+              className="address_details_copy"
+              style={{ fontSize: isContract ? 18 : '2.3rem' }}
+            >
+              {isContract && <span>Address:&nbsp; </span>}
+              {address}
               <button
                 className="address_details_copy_btn"
                 onClick={copyContent}
               >
-                {isCopy ? <ContentCopyed/> : <ContentCopy/>}
+                {isCopy ? <ContentCopyed /> : <ContentCopy />}
                 {FOR_TABLET && isCopyPopup && isCopy && (
                   <div className="address_details_copyed">
-                    <CopyPopUp x={3} y={20} values="Copyed"/>
+                    <CopyPopUp x={3} y={20} values="Copyed" />
                   </div>
                 )}
               </button>
@@ -236,27 +240,35 @@ const AddressDetails = () => {
             </div>
 
             {selectedToken && (
-              <FilteredToken setSelectedToken={setSelectedToken}/>
+              <FilteredToken setSelectedToken={setSelectedToken} />
             )}
           </div>
           <NodeHeader getNodeData={API.getAccount}>
-            {({node}: any) => {
+            {({ node }: any) => {
               if (node && node.isContract) {
                 setIsContract(true);
               }
               return (
-                node && node.isContract && (
-                  <div className='wrapper-bytes' ref={showMoreRef}>
+                node &&
+                node.isContract && (
+                  <div className="wrapper-bytes" ref={showMoreRef}>
                     <p
                       className={`${!showMore ? 'gradient-text' : ''}`}
-                      style={{wordWrap: 'break-word'}}>
-                      {showMore ? node.byteCode : `${node.byteCode.substring(0, FOR_TABLET ? 900 : 320)}`}
+                      style={{ wordWrap: 'break-word' }}
+                    >
+                      {showMore
+                        ? node.byteCode
+                        : `${node.byteCode.substring(
+                            0,
+                            FOR_TABLET ? 900 : 320,
+                          )}`}
                     </p>
-                    <button className="read-more-btn"
-                            onClick={showMoreRefHandler}>{showMore ? "Show less" : "Show" +
-
-                      " more"}</button>
-
+                    <button
+                      className="read-more-btn"
+                      onClick={showMoreRefHandler}
+                    >
+                      {showMore ? 'Show less' : 'Show' + ' more'}
+                    </button>
                   </div>
                 )
               );

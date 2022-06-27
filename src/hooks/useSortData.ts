@@ -1,22 +1,28 @@
 import { TParams } from '../types';
 import { AccountsData } from 'pages/Addresses/addresses.interface';
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import removeArrayDuplicates, { log } from 'utils/helpers';
 
-const useSortData = (
-  getData: any,
-  address?: string | null,
-  firstSortTerm: string = '',
-) => {
-  const { address: adr, type = '' }: TParams = useParams();
+const useSortData = (getData: any, firstSortTerm: any = '') => {
+  const { address, type = '' }: TParams = useParams();
 
   const [renderData, setRenderData] = React.useState<AccountsData>([]);
   const [loading, setLoading] = React.useState<boolean>(false);
   const [sortTerm, setSortTerm] = React.useState<string>(firstSortTerm);
   const { ref, inView } = useInView();
   const navigate = useNavigate();
+  const { pathname } = useLocation();
+  const [counter, setCounter] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCounter((prevCounter) => prevCounter + 1);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [counter]);
 
   const firstRender = () => {
     setLoading(true);
@@ -30,21 +36,22 @@ const useSortData = (
       setLoading(false);
     });
   };
-
   useEffect(() => {
     if (
       type?.length &&
       !(
         type === 'block_rewards' ||
         type === 'transfers' ||
-        type === 'sheltering'
+        type === 'sheltering' ||
+        type === 'assets' ||
+        type === 'events'
       )
     ) {
       log('not found term "', type, '"');
       navigate(`/notfound`, { replace: true });
     }
     firstRender();
-  }, []);
+  }, [pathname]);
 
   const updateData = useCallback(() => {
     if (sortTerm) {
@@ -59,7 +66,7 @@ const useSortData = (
         setLoading(false);
       });
     }
-  }, [sortTerm]);
+  }, [sortTerm, pathname]);
 
   useEffect(updateData, [sortTerm]);
 

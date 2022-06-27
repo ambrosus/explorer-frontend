@@ -352,3 +352,21 @@ export function scientificToDecimal(num: any) {
 
   return num;
 }
+
+export const byteToMgb = (size: number | undefined) => {
+  if (!size) {
+    return '';
+  }
+  const Mgb = 1048576;
+  return (size / Mgb).toFixed(4);
+};
+
+export const calcDataTime = (time: number | null | undefined) => {
+  if (!time) {
+    return '';
+  }
+
+  return moment(time).isValid()
+    ? moment(time * 1000).format('ddd, D MMMM YYYY')
+    : '';
+};

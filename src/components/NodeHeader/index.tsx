@@ -27,7 +27,9 @@ const NodeHeader = ({ children, getNodeData }: any) => {
 
   if (isError) navigate(`/notfound`);
 
-  return <div className="apollo_details_header">{children({ node })}</div>;
+  // return <div className="apollo_details_header">{children({ node })}</div>;
+  const res = node && children({ node });
+  return res;
 };
 
 export default NodeHeader;

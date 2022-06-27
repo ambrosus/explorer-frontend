@@ -3,7 +3,6 @@
   grid-template-columns: 190px 190px 190px 190px 190px 190px;
   z-index: 25;
   position: relative;
-  width: fit-content;
 
   .balance {
     width: max-content;
@@ -43,14 +42,4 @@
       padding-right: 6px;
     }
   }
-}
-
-.color-gray {
-  color: #808A9D;
-}
-
-.link {
-  width: fit-content;
-  cursor: pointer;
-  text-decoration: underline;
 }

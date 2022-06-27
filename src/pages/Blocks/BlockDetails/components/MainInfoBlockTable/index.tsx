@@ -9,7 +9,7 @@ export const MainInfoBlockTable = ({ block }: any) => {
         <div className="main_info_block_table_cell">
           <span className="main_info_block_table_cell_primary">HASH</span>
           <span className="main_info_block_table_cell_secondary gray">
-            {hash ?? ''}
+            {parentHash ?? ''}
           </span>
         </div>
         <div className="main_info_block_table_cell">
@@ -18,7 +18,7 @@ export const MainInfoBlockTable = ({ block }: any) => {
           </span>
           <span className="main_info_block_table_cell_secondary gray">
             {' '}
-            {parentHash ?? ''}
+            {hash ?? ''}
           </span>
         </div>
         <div className="main_info_block_table_cell">

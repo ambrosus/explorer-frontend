@@ -11,7 +11,6 @@ import React from 'react';
 export const Atlas = () => {
   const { ref, sortTerm, setSortTerm, renderData, loading } = useSortData(
     getAtlasesData,
-    null,
     'totalBundles',
   );
 
