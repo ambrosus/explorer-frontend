@@ -40,7 +40,7 @@ const BlocksBody: FC<IBlocksBody> = ({index, lastCardRef, item}) => {
   const confirmations: number = lastBlock.number - number ?? 0;
 
   const online = (confirmations: number) => {
-    return index > 0 && confirmations > 0 ? <GreenCircle/> : <OrangeCircle/>;
+    return index > 0 && confirmations > 0 ? <GreenCircle/> : index > 1 ? <GreenCircle/> : <OrangeCircle/>;
   };
 
   function redirectHandler(): void {

@@ -31,7 +31,7 @@ export const Blocks = () => {
             {renderData && renderData.data && renderData.data.length
               ? renderData.data.map((item: any, index: number) => (
                 <BlocksBody
-                  index={index}
+                  index={index + 1}
                   lastCardRef={
                     renderData.data.length - 1 === index &&
                     renderData?.pagination?.hasNext
