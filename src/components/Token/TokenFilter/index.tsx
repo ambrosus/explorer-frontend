@@ -26,6 +26,15 @@ const TokenFilter = ({
   useOnClickOutside(refTokensModal, () => setIsShow(false));
   const toggleMenu = () => (!loading ? setIsShow(!isShow) : null);
 
+  const showTokensCount =
+    loading && !addressData?.tokens?.length
+      ? ''
+      : loading
+      ? !addressData?.tokens?.length
+      : !addressData?.tokens?.length
+      ? 0
+      : addressData.tokens.length;
+
   const handleSelect = (token: TokenType): void => {
     onClick(token);
     addFilter(token);
@@ -36,6 +45,7 @@ const TokenFilter = ({
       }/`,
     );
   };
+
   return (
     <>
       <div ref={refTokensModal} tabIndex={0} className={`token_filter`}>
@@ -45,16 +55,7 @@ const TokenFilter = ({
               loading ? 'toggle' : ''
             }`}
           >
-            {
-              //TODO refactor
-              loading && !addressData?.tokens?.length
-                ? ''
-                : loading
-                ? !addressData?.tokens?.length
-                : !addressData?.tokens?.length
-                ? 0
-                : addressData.tokens.length
-            }
+            {showTokensCount}
           </span>
           <button
             className="token_filter_input_btn"

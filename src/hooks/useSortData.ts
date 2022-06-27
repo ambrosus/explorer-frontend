@@ -8,7 +8,7 @@ import removeArrayDuplicates, { log } from 'utils/helpers';
 const useSortData = (
   getData: any,
   address?: string | null,
-  firstSortTerm: any = '',
+  firstSortTerm: string = '',
 ) => {
   const { address: adr, type = '' }: TParams = useParams();
 
@@ -30,6 +30,7 @@ const useSortData = (
       setLoading(false);
     });
   };
+
   useEffect(() => {
     if (
       type?.length &&
