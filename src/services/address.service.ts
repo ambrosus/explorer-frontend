@@ -246,7 +246,6 @@ async function explorerData(address: string, { page, limit, type }: any) {
       limit,
       type,
     });
-
     return explorerTrans.map((t: ExplorerTxType) => {
       return {
         txHash: t?.hash,
