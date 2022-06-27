@@ -1,4 +1,4 @@
-import BundleDetailsTabs from '../BundleDetailsTab';
+import BundleDetailsTab from '../BundleDetailsTab';
 import {
   byteToMgb,
   calcDataTime,
@@ -7,8 +7,6 @@ import {
 } from 'utils/helpers';
 
 const BundleDetailsMainTabs = ({ data }: any) => {
-  console.log(data);
-
   const itemFirst: any = [
     {
       _id: 1,
@@ -65,8 +63,8 @@ const BundleDetailsMainTabs = ({ data }: any) => {
   ];
   return (
     <>
-      <BundleDetailsTabs data={itemFirst} mainColumns="repeat(5, auto)" />
-      <BundleDetailsTabs data={itemSecond} mainColumns="repeat(5, auto)" />
+      <BundleDetailsTab data={itemFirst} mainColumns="repeat(5, auto)" />
+      <BundleDetailsTab data={itemSecond} mainColumns="repeat(5, auto)" />
     </>
   );
 };

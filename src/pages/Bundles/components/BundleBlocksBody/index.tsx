@@ -16,7 +16,9 @@ const BundleBlocksBody = ({ lastCardRef, item }: any) => {
   );
 
   const isBy = (
-    <div className="bundle_blocks_body_cell">{sliceData5(item.uploader)}</div>
+    <NavLink to={item?.bundleId} className="bundle_blocks_body_cell">
+      {sliceData5(item.uploader)}
+    </NavLink>
   );
 
   const isCreated = (

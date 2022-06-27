@@ -6,7 +6,7 @@ import {
   sliceData5,
 } from 'utils/helpers';
 
-const BundleDetailsMainTabs = ({ data }: any) => {
+const BundleMainTabs = ({ data }: any) => {
   console.log(data);
 
   const itemFirst: any = [
@@ -45,10 +45,11 @@ const BundleDetailsMainTabs = ({ data }: any) => {
   ];
   return (
     <>
+      <h1 style={{ margin: '32px 0' }}>Bundles</h1>
       <BundleTabs data={itemFirst} mainColumns="repeat(3, auto)" />
       <BundleTabs data={itemSecond} mainColumns="repeat(3, auto)" />
     </>
   );
 };
 
-export default BundleDetailsMainTabs;
+export default BundleMainTabs;

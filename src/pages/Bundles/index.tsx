@@ -1,5 +1,6 @@
 import { Content } from 'components/Content';
 import Loader from 'components/Loader';
+import NodeHeader from 'components/NodeHeader';
 import useSortData from 'hooks/useSortData';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import BundleBlocksBody from 'pages/Bundles/components/BundleBlocksBody';
@@ -18,10 +19,7 @@ export const Bundles = () => {
   return (
     <Content>
       <Content.Header>
-        <h1 style={{ margin: '32px 0' }}>Bundles</h1>
         <BundleMainTabs data={appData?.netInfo} />
-        {/* <BundleMain mainColumns="2fr 2fr 1.2fr" />
-        <BundleMain mainColumns="2fr 1.8fr 1.5fr" /> */}
       </Content.Header>
       <Content.Body>
         <div className="bundles_blocks">

@@ -1,6 +1,6 @@
 import BundleMainCells from 'pages/Bundles/components/BundleMainCells';
 
-const BundleDetailsMain = ({ data, mainColumns }: any) => {
+const BundleDetailsTab = ({ data, mainColumns }: any) => {
   return (
     <div className="bundle_main" style={{ gridTemplateColumns: mainColumns }}>
       {data?.map((item: any) => (
@@ -14,4 +14,4 @@ const BundleDetailsMain = ({ data, mainColumns }: any) => {
   );
 };
 
-export default BundleDetailsMain;
+export default BundleDetailsTab;

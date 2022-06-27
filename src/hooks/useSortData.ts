@@ -32,7 +32,9 @@ const useSortData = (getData: any, firstSortTerm: any = '') => {
       !(
         type === 'block_rewards' ||
         type === 'transfers' ||
-        type === 'sheltering'
+        type === 'sheltering' ||
+        type === 'assets' ||
+        type === 'events'
       )
     ) {
       log('not found term "', type, '"');
