@@ -39,11 +39,15 @@ const AddressDetails = () => {
   const [isContract, setIsContract] = useState(false);
   const [limitNum] = useState(50);
   const [showMore, setShowMore] = useState(false);
-
+  const showMoreRef:any = useRef(null);
   const observer = useRef<IntersectionObserver>();
   const navigate = useNavigate();
+
   const showMoreRefHandler = () => {
     setShowMore(!showMore)
+    if(showMoreRef.current) {
+      showMoreRef?.current?.scrollIntoView({behavior: 'smooth'});
+    }
   }
   const {isCopy, copyContent, isCopyPopup} = useCopyContent(address);
 
@@ -200,7 +204,7 @@ const AddressDetails = () => {
           <h1 className="address_details_h1">
             {isContract ? 'Smart Contract Details' : 'Address Details'}
             <div className="address_details_copy" style={{fontSize: isContract ? 18 : '2.3rem'}}>
-              {isContract &&  <span>Address:&nbsp; </span> }{address}
+              {isContract && <span>Address:&nbsp; </span>}{address}
               <button
                 className="address_details_copy_btn"
                 onClick={copyContent}
@@ -242,13 +246,15 @@ const AddressDetails = () => {
               }
               return (
                 node && node.isContract && (
-                  <div className='wrapper-bytes'>
+                  <div className='wrapper-bytes' ref={showMoreRef}>
                     <p
                       className={`${!showMore ? 'gradient-text' : ''}`}
                       style={{wordWrap: 'break-word'}}>
                       {showMore ? node.byteCode : `${node.byteCode.substring(0, FOR_TABLET ? 900 : 320)}`}
                     </p>
-                    <button className="read-more-btn" onClick={showMoreRefHandler}>{showMore ? "Show less" : "Show" +
+                    <button className="read-more-btn"
+                            onClick={showMoreRefHandler}>{showMore ? "Show less" : "Show" +
+
                       " more"}</button>
 
                   </div>
