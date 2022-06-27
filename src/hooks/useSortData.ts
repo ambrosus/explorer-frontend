@@ -1,8 +1,8 @@
 import { TParams } from '../types';
 import { AccountsData } from 'pages/Addresses/addresses.interface';
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import removeArrayDuplicates, { log } from 'utils/helpers';
 
 const useSortData = (getData: any, firstSortTerm: any = '') => {
@@ -13,6 +13,16 @@ const useSortData = (getData: any, firstSortTerm: any = '') => {
   const [sortTerm, setSortTerm] = React.useState<string>(firstSortTerm);
   const { ref, inView } = useInView();
   const navigate = useNavigate();
+  const { pathname } = useLocation();
+  const [counter, setCounter] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCounter((prevCounter) => prevCounter + 1);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [counter]);
 
   const firstRender = () => {
     setLoading(true);
@@ -41,7 +51,7 @@ const useSortData = (getData: any, firstSortTerm: any = '') => {
       navigate(`/notfound`, { replace: true });
     }
     firstRender();
-  }, []);
+  }, [pathname]);
 
   const updateData = useCallback(() => {
     if (sortTerm) {
@@ -56,7 +66,7 @@ const useSortData = (getData: any, firstSortTerm: any = '') => {
         setLoading(false);
       });
     }
-  }, [sortTerm]);
+  }, [sortTerm, pathname]);
 
   useEffect(updateData, [sortTerm]);
 

@@ -2,6 +2,7 @@
   &_h1 {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     margin: 30px auto;
     white-space: nowrap;
 
@@ -27,6 +28,16 @@
   }
 
   &_copy {
+    span {
+      font-family: 'Proxima Nova';
+      font-style: normal;
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 40px;
+      display: flex;
+      align-items: center;
+      color: #05060f;
+    }
     display: flex;
     align-items: center;
     margin: 12px;
@@ -134,4 +145,50 @@
   align-items: center;
   flex-shrink: 0;
   min-width: 155px;
+}
+
+// need show/hide when click button show/hide
+// need Text Fade Out / Read More Link
+
+.wrapper-bytes {
+  background-color: $white;
+  margin: 32px 0;
+  height: auto;
+  border: 1px solid $secondary;
+  border-radius: 16px;
+  padding: 20px 20px;
+  word-wrap: break-word;
+  min-height: 120px;
+  position: relative;
+  overflow: hidden;
+
+  p {
+    min-height: 120px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .gradient-text {
+    background: linear-gradient(0deg, transparent, rgba(0, 0, 0, 1));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    -moz-text-fill-color: transparent;
+    -webkit-text-fill-color: transparent;
+  }
+}
+
+.wrapper-bytes .read-more-btn {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  margin: 0;
+  padding: 10px 0;
+  background-image: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(255, 255, 255, 1)
+  );
 }
