@@ -2,6 +2,7 @@
   &_h1 {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     margin: 30px auto;
     white-space: nowrap;
 
@@ -27,6 +28,16 @@
   }
 
   &_copy {
+    span{
+      font-family: 'Proxima Nova';
+      font-style: normal;
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 40px;
+      display: flex;
+      align-items: center;
+      color: #05060F;
+    }
     display: flex;
     align-items: center;
     margin: 12px;

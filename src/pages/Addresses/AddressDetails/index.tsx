@@ -199,8 +199,8 @@ const AddressDetails = () => {
         <Content.Header>
           <h1 className="address_details_h1">
             {isContract ? 'Smart Contract Details' : 'Address Details'}
-            <div className="address_details_copy">
-              {address}
+            <div className="address_details_copy" style={{fontSize: isContract ? 18 : '2.3rem'}}>
+              {isContract &&  <span>Address:&nbsp; </span> }{address}
               <button
                 className="address_details_copy_btn"
                 onClick={copyContent}
@@ -246,7 +246,7 @@ const AddressDetails = () => {
                     <p
                       className={`${!showMore ? 'gradient-text' : ''}`}
                       style={{wordWrap: 'break-word'}}>
-                      {showMore ? node.byteCode : `${node.byteCode.substring(0, FOR_TABLET  ? 900 : 320)}`}
+                      {showMore ? node.byteCode : `${node.byteCode.substring(0, FOR_TABLET ? 900 : 320)}`}
                     </p>
                     <button className="read-more-btn" onClick={showMoreRefHandler}>{showMore ? "Show less" : "Show" +
                       " more"}</button>
