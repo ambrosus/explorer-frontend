@@ -14,55 +14,22 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
   isTableColumn,
 }) => {
   const methodRef = useRef(null);
-  const isTxHash =
-    txhash === null ? null : (
-      <div className="address_blocks_header_cell">{txhash} </div>
-    );
-  const isMethod =
-    method === null ? null : (
-      <div ref={methodRef} className="address_blocks_header_cell">
-        {method}
-      </div>
-    );
-  //TODO double code
-  const isFrom =
-    from === null ? null : (
-      <div className="address_blocks_header_cell">{from}</div>
-    );
-  const isTo =
-    to === null ? null : <div className="address_blocks_header_cell">{to}</div>;
-  const isDate =
-    date === null ? null : (
-      <div className="address_blocks_header_cell">{date}</div>
-    );
-  const isBlock =
-    block === null ? null : (
-      <div className="address_blocks_header_cell">{block}</div>
-    );
-  const isAmount =
-    amount === null ? null : (
-      <div className="address_blocks_header_cell">{amount}</div>
-    );
-  const isTxFee =
-    txfee === null ? null : (
-      <div className="address_blocks_header_cell">{txfee}</div>
-    );
-  const isToken =
-    token === null ? null : (
-      <div className="address_blocks_header_cell">{token}</div>
-    );
-  //TODO убрать переменные
+
   return (
     <div className={isTableColumn}>
-      {isTxHash}
-      {isMethod}
-      {isFrom}
-      {isTo}
-      {isDate}
-      {isBlock}
-      {isAmount}
-      {isTxFee}
-      {isToken}
+      {txhash && <div className="address_blocks_header_cell">{txhash} </div>}
+      {method && (
+        <div ref={methodRef} className="address_blocks_header_cell">
+          {method}
+        </div>
+      )}
+      {from && <div className="address_blocks_header_cell">{from}</div>}
+      {to && <div className="address_blocks_header_cell">{to}</div>}
+      {date && <div className="address_blocks_header_cell">{date}</div>}
+      {block && <div className="address_blocks_header_cell">{block}</div>}
+      {amount && <div className="address_blocks_header_cell">{amount}</div>}
+      {txfee && <div className="address_blocks_header_cell">{txfee}</div>}
+      {token && <div className="address_blocks_header_cell">{token}</div>}
     </div>
   );
 };

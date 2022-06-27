@@ -6,7 +6,7 @@ import GreenCircle from 'assets/icons/StatusAction/GreenCircle';
 import OrangeCircle from 'assets/icons/StatusAction/OrangeCircle';
 import moment from 'moment';
 
-export const sliceData5 = (item: string | any) => {
+export const sliceData5 = (item: string | null | undefined) => {
   if (!item) {
     return '';
   }
@@ -14,8 +14,10 @@ export const sliceData5 = (item: string | any) => {
     ? `${item.slice(0, 5)}...${item.slice(item.length - 5)}`
     : item;
 };
-
-export const sliceData10 = (item: string | any, sliceNum: number = 4) => {
+export const sliceData10 = (
+  item: string | null | undefined,
+  sliceNum: number = 4,
+) => {
   if (!item) {
     return '';
   }
@@ -23,8 +25,10 @@ export const sliceData10 = (item: string | any, sliceNum: number = 4) => {
     ? `${item.slice(0, sliceNum)}...${item.slice(item.length - sliceNum)}`
     : item;
 };
-
-export const calcTime = (time: any) => {
+export const calcTime = (time: number | null | undefined) => {
+  if (!time) {
+    return '';
+  }
   /*
    * @param {string} time
    * @returns {string}
@@ -52,7 +56,7 @@ export const setupStyle = (item: string | undefined) => {
 /*
  * @param {Array} data
  * @param {String} key
- *
+ *liceData
  * @returns {Array}
  */
 export const toUniqueValueByBlock = (arr: any) => {
@@ -86,7 +90,10 @@ export const getTokenIcon = (symbol: string) => {
   }
 };
 
-export default function removeArrayDuplicates(array: any, key = '_id') {
+export default function removeArrayDuplicates<
+  T extends Array<object>,
+  K extends keyof T[0],
+>(array: T, key = '_id') {
   /*
    * @param {array} array - Array of elements to filter
    * @param {string} key - Element's key to filter by

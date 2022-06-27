@@ -246,7 +246,6 @@ async function explorerData(address: string, { page, limit, type }: any) {
       limit,
       type,
     });
-
     return explorerTrans.map((t: ExplorerTxType) => {
       return {
         txHash: t?.hash,
@@ -281,11 +280,7 @@ export const getDataForAddress = async (address: string, params: any) => {
     const latestTransactions: TransactionProps[] =
       (await sortedLatestTransactionsData(defaultFilters, url, page)) || [];
 
-    //TODO дважды метод
-    const transactionsAll: TransactionProps[] = removeArrayDuplicates(
-      [...bbTxData, ...exploreData],
-      'block',
-    );
+    const transactionsAll: TransactionProps[] = [...bbTxData, ...exploreData];
 
     return {
       balance: addressBalance,
