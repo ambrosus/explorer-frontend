@@ -143,7 +143,7 @@
 
 
 .wrapper-bytes {
-  background-color: $white;
+  background-color:$white;
   margin: 32px 0;
   height: auto;
   border: 1px solid $secondary;
@@ -157,8 +157,16 @@
     min-height: 120px;
     position: relative;
     overflow: hidden;
-  }
 
+  }
+.gradient-text{
+  background: linear-gradient(0deg,   transparent ,rgba(0,0,0, 1));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -moz-text-fill-color: transparent;
+  -webkit-text-fill-color: transparent;
+}
 
 }
 
@@ -168,10 +176,6 @@
   left: 0;
   width: 100%;
   text-align: center;
-  margin: 0;
-  padding: 20px 20px;
-
-  /* "transparent" only works here because == rgba(0,0,0,0) */
-  background-image: linear-gradient(to bottom, transparent, inherit);
-
+  margin: 0; padding: 10px 0;
+  background-image: linear-gradient(to bottom, transparent, rgba(255,255,255, 1));
 }

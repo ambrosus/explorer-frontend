@@ -237,13 +237,15 @@ const AddressDetails = () => {
           </div>
           <NodeHeader getNodeData={API.getAccount}>
             {({node}: any) => {
-            if(node && node.isContract){
-              setIsContract(true);
-            }
+              if (node && node.isContract) {
+                setIsContract(true);
+              }
               return (
                 node && node.isContract && (
                   <div className='wrapper-bytes'>
-                    <p style={{wordWrap:'break-word'}}>
+                    <p
+                      className={`${!showMore ? 'gradient-text' : ''}`}
+                      style={{wordWrap: 'break-word'}}>
                       {showMore ? node.byteCode : `${node.byteCode.substring(0, 900)}`}
                     </p>
                     <button className="read-more-btn" onClick={showMoreRefHandler}>{showMore ? "Show less" : "Show" +
