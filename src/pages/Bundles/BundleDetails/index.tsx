@@ -1,5 +1,5 @@
 import BundleDetailsBody from './components/BundleDetailsBody';
-import BundleDetailsMainTabs from './components/BundleDetailsMainTabs';
+import BundleDetailsMainTabs from './components/BundlesDetailsMainTabs';
 import { Content } from 'components/Content';
 import NodeHeader from 'components/NodeHeader';
 import Tabs2 from 'components/Tabs/Tabs2';

@@ -1,17 +1,2 @@
 .bundles {
-  &_blocks {
-    overflow: auto;
-    &::-webkit-scrollbar {
-      display: none;
-    }
-    &_heading {
-      display: flex;
-      align-items: center;
-      font-weight: 700;
-      font-size: 18px;
-      line-height: 32px;
-      height: 56px;
-      border-bottom: 1px solid #eff2f5;
-    }
-  }
 }

@@ -12,11 +12,11 @@ const BundleDetailsMain = () => {
 
   return (
     <>
-      <div>
-        <h2>Bundle Details</h2>
-        <div>
-          <div>ID</div>
-          <div>{address}</div>
+      <div className="bundle_details_main">
+        <h1>Bundle Details</h1>
+        <div className="bundle_details_main_cells">
+          <div className="bundle_details_main_cells_name">ID</div>
+          <div className="bundle_details_main_cells_address">{address}</div>
           <button className="address_button" onClick={copyContent}>
             {isCopy ? <ContentCopyed /> : <ContentCopy />}
 
