@@ -19,7 +19,6 @@ import {useNavigate, useParams} from 'react-router-dom';
 import {getDataForAddress} from 'services/address.service';
 import {TParams} from 'types';
 import NodeHeader from "../../../components/NodeHeader";
-import {getAtlasData} from "../../../services/atlas.service";
 
 const AddressDetails = () => {
   const {filters} = useTypedSelector(
@@ -37,10 +36,15 @@ const AddressDetails = () => {
   const [selectedToken, setSelectedToken] = useState<TokenType | null>(null);
   const [tx, setTx] = useState<TransactionProps[] | []>([]);
   const [pageNum, setPageNum] = useState(1);
+  const [isContract, setIsContract] = useState(false);
   const [limitNum] = useState(50);
+  const [showMore, setShowMore] = useState(false);
+
   const observer = useRef<IntersectionObserver>();
   const navigate = useNavigate();
-
+  const showMoreRefHandler = () => {
+    setShowMore(!showMore)
+  }
   const {isCopy, copyContent, isCopyPopup} = useCopyContent(address);
 
   const lastCardRef = (node: any) => {
@@ -194,7 +198,7 @@ const AddressDetails = () => {
       <section className="address_details">
         <Content.Header>
           <h1 className="address_details_h1">
-            Address Details
+            {isContract ? 'Smart Contract Details' : 'Address Details'}
             <div className="address_details_copy">
               {address}
               <button
@@ -233,12 +237,19 @@ const AddressDetails = () => {
           </div>
           <NodeHeader getNodeData={API.getAccount}>
             {({node}: any) => {
-              console.log(node);
+            if(node && node.isContract){
+              setIsContract(true);
+            }
               return (
                 node && node.isContract && (
-                  <>
-                    {node.byteCode}
-                  </>
+                  <div className='wrapper-bytes'>
+                    <p style={{wordWrap:'break-word'}}>
+                      {showMore ? node.byteCode : `${node.byteCode.substring(0, 900)}`}
+                    </p>
+                    <button className="read-more-btn" onClick={showMoreRefHandler}>{showMore ? "Show less" : "Show" +
+                      " more"}</button>
+
+                  </div>
                 )
               );
             }}
