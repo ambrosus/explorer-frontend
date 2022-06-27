@@ -52,7 +52,6 @@ export const BlockDetails = () => {
     () => getBlockData(address as string),
     {
       onSuccess: (data: any) => {
-        console.log(data);
         if (!data) {
           navigate(`/notfound`);
         }
