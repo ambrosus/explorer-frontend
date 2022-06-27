@@ -31,6 +31,9 @@
     }
 
     @include for_tablet {
+      gap: 0;
+      padding: 12px 32px;
+      height: max-content;
       border-bottom: 1px solid #eff2f5;
       border-right: none;
 
