@@ -15,8 +15,6 @@ export const Bundles = () => {
 
   const { data: appData } = useTypedSelector((state: any) => state.app);
 
-  console.log(appData);
-
   return (
     <Content>
       <Content.Header>

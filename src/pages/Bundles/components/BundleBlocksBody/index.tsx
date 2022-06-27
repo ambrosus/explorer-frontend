@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import {
   byteToMgb,
   calcDataTime,
@@ -9,9 +10,9 @@ import {
 
 const BundleBlocksBody = ({ lastCardRef, item }: any) => {
   const isTxHash = (
-    <div className="bundle_blocks_body_cell">
+    <NavLink to={item?.bundleId} className="bundle_blocks_body_cell">
       {sliceData10(item?.txHash, 12)}
-    </div>
+    </NavLink>
   );
 
   const isBy = (
