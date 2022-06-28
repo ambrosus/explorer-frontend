@@ -1,8 +1,8 @@
 import { TParams } from '../types';
 import { AccountsData } from 'pages/Addresses/addresses.interface';
-import React, {useCallback, useEffect, useState} from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
-import {useLocation, useNavigate, useParams} from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import removeArrayDuplicates, { log } from 'utils/helpers';
 
 const useSortData = (
@@ -70,7 +70,7 @@ const useSortData = (
         setLoading(false);
       });
     }
-  }, [sortTerm,pathname]);
+  }, [sortTerm, pathname]);
 
   useEffect(updateData, [sortTerm]);
 
