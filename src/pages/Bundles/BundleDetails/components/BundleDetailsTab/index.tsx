@@ -1,8 +1,14 @@
 import BundleMainCells from 'pages/Bundles/components/BundleMainCells';
 
-const BundleDetailsTab = ({ data, mainColumns }: any) => {
+const BundleDetailsTab = ({ data, mainColumns, mainRows }: any) => {
   return (
-    <div className="bundle_main" style={{ gridTemplateColumns: mainColumns }}>
+    <div
+      className="bundle_main"
+      style={{
+        gridTemplateColumns: mainColumns,
+        gridTemplateRows: undefined,
+      }}
+    >
       {data?.map((item: any) => (
         <BundleMainCells
           key={item._id}

@@ -1,5 +1,6 @@
+import BundleDetailsBlock from '../BundleDetailsBlock';
 import useSortData from 'hooks/useSortData';
-import { useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { NavLink, useParams } from 'react-router-dom';
 import {
   getBundleAssetsData,
@@ -8,14 +9,23 @@ import {
 } from 'services/bundle.service';
 import { bundleTabs } from 'utils/sidePages';
 
-const BundleDetailsBlocks = () => {
+const BundleDetailsBlocks = ({
+  data,
+  setSortTerm,
+  sortTerm,
+  bundleRef,
+}: any) => {
   const { address, type } = useParams();
-  const { ref, renderData, sortTerm, setSortTerm, loading } = useSortData(
-    getBundleWithEntriesData,
-    type,
-  );
+
+  // console.log(data?.events);
 
   const handleBundlesTab = (filter: any) => setSortTerm(filter);
+
+  // const h2ref = useRef<any>(null);
+
+  // useEffect(() => {
+  //   h2ref.current.scrollIntoView();
+  // }, [type]);
 
   return (
     <div className="bundle_details_blocks">
@@ -38,11 +48,14 @@ const BundleDetailsBlocks = () => {
       <div className="bundle_details_blocks_header">
         <div className="bundle_details_blocks_header_cell">Address</div>
       </div>
-      <div className="bundle_details_blocks_body">
-        <div className="bundle_details_blocks_body_cell">
-          0x50bb32056e8c090907a5995860fc9a096442b9074bdf09cf0247a1e145485e6b
-        </div>
-      </div>
+      {type === 'assets' &&
+        data?.assets?.data.map((data: any) => (
+          <BundleDetailsBlock key={data._id} data={data.assetId} />
+        ))}
+      {type === 'events' &&
+        data?.events?.data.map((data: any) => (
+          <BundleDetailsBlock key={data._id} data={data.eventId} />
+        ))}
     </div>
   );
 };

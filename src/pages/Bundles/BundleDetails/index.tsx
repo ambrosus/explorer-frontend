@@ -13,12 +13,9 @@ import {
 import { TParams } from 'types';
 
 const BundleDetails = () => {
-  const { address } = useParams();
-  const { ref, renderData, loading } = useSortData(
+  const { ref, renderData, sortTerm, setSortTerm, loading } = useSortData(
     getBundleWithEntriesData,
-    '',
   );
-  console.log(renderData);
 
   // getBundleWithEntriesData(address).then((res) => console.log(res));
 
@@ -31,7 +28,12 @@ const BundleDetails = () => {
         </NodeHeader>
       </Content.Header>
       <Content.Body>
-        <BundleDetailsBlocks />
+        <BundleDetailsBlocks
+          data={renderData}
+          setSortTerm={setSortTerm}
+          sortTerm={sortTerm}
+          bundleRef={ref}
+        />
       </Content.Body>
     </Content>
   );

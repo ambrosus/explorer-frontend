@@ -9,7 +9,11 @@ import BundleMain from 'pages/Bundles/components/BundleMain';
 import BundleMainTabs from 'pages/Bundles/components/BundleMainTabs';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getBundleData, getBundlesData } from 'services/bundle.service';
+import {
+  getBundleData,
+  getBundlesData,
+  getBundleWithEntriesData,
+} from 'services/bundle.service';
 
 export const Bundles = () => {
   const { ref, renderData, loading } = useSortData(getBundlesData, '');

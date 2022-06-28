@@ -1,7 +1,6 @@
 .bundle_main {
   display: grid;
 
-  height: 104px;
   background-color: #fff;
   border: 1px solid #eff2f5;
   border-radius: 16px;
@@ -13,6 +12,7 @@
     padding-left: 32px;
     white-space: nowrap;
     padding-right: 10px;
+    height: 104px;
 
     &:last-child {
       border: none;

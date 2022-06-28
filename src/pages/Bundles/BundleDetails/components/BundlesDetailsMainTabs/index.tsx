@@ -1,4 +1,5 @@
 import BundleDetailsTab from '../BundleDetailsTab';
+import useDeviceSize from 'hooks/useDeviceSize';
 import {
   byteToMgb,
   calcDataTime,
@@ -7,6 +8,11 @@ import {
 } from 'utils/helpers';
 
 const BundleDetailsMainTabs = ({ data }: any) => {
+  const { FOR_BIG_TABLET } = useDeviceSize();
+
+  const colums5 = 'repeat(5, auto)';
+  const rows2 = 'repeat(2, auto)';
+
   const itemFirst: any = [
     {
       _id: 1,
@@ -63,8 +69,16 @@ const BundleDetailsMainTabs = ({ data }: any) => {
   ];
   return (
     <>
-      <BundleDetailsTab data={itemFirst} mainColumns="repeat(5, auto)" />
-      <BundleDetailsTab data={itemSecond} mainColumns="repeat(5, auto)" />
+      <BundleDetailsTab
+        data={itemFirst}
+        mainColumns="repeat(5, auto)"
+        mainRows="repeat(5, auto)"
+      />
+      <BundleDetailsTab
+        data={itemSecond}
+        mainColumns="repeat(5, auto)"
+        mainRows="repeat(5, auto)"
+      />
     </>
   );
 };
