@@ -13,19 +13,23 @@ const useSortData = (
   const {address: adr, type = ''}: TParams = useParams();
   const {pathname} = useLocation();
 
-  const [renderData, setRenderData] = React.useState<AccountsData>([]);
+  const [renderData, setRenderData] = React.useState<AccountsData | null>([]);
   const [loading, setLoading] = React.useState<boolean>(false);
-  const [sortTerm, setSortTerm] = React.useState<string>(firstSortTerm);
+  const [sortTerm, setSortTerm] = React.useState(firstSortTerm);
   const {ref, inView} = useInView();
   const navigate = useNavigate();
   let interval: any;
 
   const infiniteLoad = async () => {
-    if (inView === false && renderData?.data?.length !== undefined) return
+    if (inView === false && renderData?.data?.length !== undefined) return;
     setLoading(true);
     const next: string = renderData?.pagination?.next;
     if (next) {
-      getData(sortTerm === 'contracts' ? 'address' : sortTerm, next, address).then((res: AccountsData) => {
+      getData(
+        sortTerm === 'contracts' ? 'address' : sortTerm,
+        next,
+        address,
+      ).then((res: AccountsData) => {
         if (res?.meta?.message?.includes('No results')) {
           setLoading(false);
           setRenderData(null);
@@ -35,13 +39,19 @@ const useSortData = (
           setLoading(false);
           return {
             ...prev,
-            data: removeArrayDuplicates([...prev.data, ...res?.data]).filter((d: any) => d.isContract),
+            data: removeArrayDuplicates([...prev.data, ...res?.data]).filter(
+              (d: any) => d.isContract,
+            ),
             pagination: res.pagination,
           };
         });
       });
     } else {
-      getData(sortTerm === 'contracts' ? 'address' : sortTerm, null, address).then((res: AccountsData) => {
+      getData(
+        sortTerm === 'contracts' ? 'address' : sortTerm,
+        null,
+        address,
+      ).then((res: AccountsData) => {
         if (res?.meta?.message?.includes('No results')) {
           setLoading(false);
           setRenderData(null);
@@ -51,24 +61,27 @@ const useSortData = (
         setLoading(false);
       });
     }
-  }
+  };
   useEffect(() => {
     if (sortTerm === 'contracts') {
-      interval = setInterval(() => {
-        infiniteLoad();
+      interval = setInterval(async () => {
+       await infiniteLoad();
       }, 1000);
     } else {
       return;
     }
     return () => clearInterval(interval);
-
   }, [sortTerm, renderData, inView]);
 
   const firstRender = () => {
-    if (sortTerm === 'contracts') return
+    if (sortTerm === 'contracts') return;
     setLoading(true);
 
-    getData(sortTerm === 'contracts' ? 'address' : sortTerm, null, address).then((res: AccountsData) => {
+    getData(
+      sortTerm === 'contracts' ? 'address' : sortTerm,
+      null,
+      address,
+    ).then((res: AccountsData) => {
       if (res?.meta?.message?.includes('No results')) {
         setLoading(false);
         setRenderData(null);
@@ -95,11 +108,15 @@ const useSortData = (
   }, [pathname]);
 
   const updateData = useCallback(() => {
-    if (sortTerm === 'contracts') return
+    if (sortTerm === 'contracts') return;
 
     if (sortTerm) {
       setLoading(true);
-      getData(sortTerm === 'contracts' ? 'address' : sortTerm, null, address).then((res: AccountsData) => {
+      getData(
+        sortTerm === 'contracts' ? 'address' : sortTerm,
+        null,
+        address,
+      ).then((res: AccountsData) => {
         if (res?.meta?.message?.includes('No results')) {
           setLoading(false);
           setRenderData(null);
@@ -114,34 +131,36 @@ const useSortData = (
   useEffect(updateData, [sortTerm]);
 
   const concatData = useCallback(() => {
-    if (sortTerm === 'contracts') return
+    if (sortTerm === 'contracts') return;
 
     if (inView) {
       setLoading(true);
       const next: string = renderData?.pagination?.next;
       if (next) {
-        getData(sortTerm === 'contracts' ? '' : sortTerm, next, address).then((res: AccountsData) => {
-          if (res?.meta?.message?.includes('No results')) {
-            setLoading(false);
-            setRenderData(null);
-            return;
-          }
-          setRenderData((prev: AccountsData) => {
-            setLoading(false);
-            return {
-              ...prev,
-              data: removeArrayDuplicates([...prev.data, ...res?.data]),
-              pagination: res.pagination,
-            };
-          });
-        });
+        getData(sortTerm === 'contracts' ? '' : sortTerm, next, address).then(
+          (res: AccountsData) => {
+            if (res?.meta?.message?.includes('No results')) {
+              setLoading(false);
+              setRenderData(null);
+              return;
+            }
+            setRenderData((prev: AccountsData) => {
+              setLoading(false);
+              return {
+                ...prev,
+                data: removeArrayDuplicates([...prev.data, ...res?.data]),
+                pagination: res.pagination,
+              };
+            });
+          },
+        );
       }
     }
   }, [inView]);
 
   useEffect(concatData, [inView]);
 
-  return {ref, sortTerm, setSortTerm, renderData, loading};
+  return {ref, sortTerm, setSortTerm, renderData, loading , setRenderData};
 };
 
 export default useSortData;
