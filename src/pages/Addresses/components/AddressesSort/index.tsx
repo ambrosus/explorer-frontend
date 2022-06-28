@@ -41,4 +41,8 @@ const sortOptions: TAddressesSortProps[] = [
     label: 'Total Tx',
     value: 'totalTx',
   },
+  {
+    label: 'Contracts',
+    value: 'contracts',
+  },
 ];
