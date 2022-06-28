@@ -41,8 +41,9 @@ const useSortData = (getData: any, firstSortTerm: any = '') => {
     if (
       type?.length &&
       !(
-        type === 'block_rewards' ||
+        type === '' ||
         type === 'transfers' ||
+        type === 'block_rewards' ||
         type === 'sheltering' ||
         type === 'assets' ||
         type === 'events'

@@ -13,6 +13,15 @@ import {
 import { TParams } from 'types';
 
 const BundleDetails = () => {
+  const { address } = useParams();
+  const { ref, renderData, loading } = useSortData(
+    getBundleWithEntriesData,
+    '',
+  );
+  console.log(renderData);
+
+  // getBundleWithEntriesData(address).then((res) => console.log(res));
+
   return (
     <Content>
       <Content.Header>

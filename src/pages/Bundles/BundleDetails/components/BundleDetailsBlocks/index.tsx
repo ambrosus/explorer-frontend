@@ -1,29 +1,35 @@
 import useSortData from 'hooks/useSortData';
 import { useState } from 'react';
 import { NavLink, useParams } from 'react-router-dom';
-import { getBundleAssetsData, getBundleData } from 'services/bundle.service';
+import {
+  getBundleAssetsData,
+  getBundleData,
+  getBundleWithEntriesData,
+} from 'services/bundle.service';
 import { bundleTabs } from 'utils/sidePages';
 
 const BundleDetailsBlocks = () => {
   const { address, type } = useParams();
-  const { ref, renderData, loading } = useSortData(getBundleData, type);
+  const { ref, renderData, sortTerm, setSortTerm, loading } = useSortData(
+    getBundleWithEntriesData,
+    type,
+  );
 
-  // getBundleData(address).then((res) => console.log(res));
-  console.log(renderData);
-
-  // getBundleAssetsData(address, null).then((res) => console.log(res));
+  const handleBundlesTab = (filter: any) => setSortTerm(filter);
 
   return (
     <div className="bundle_details_blocks">
       <div className="bundle_details_blocks_filters">
         {bundleTabs.map((filter) => (
           <NavLink
+            key={filter.title}
             to={`/bundles/${address}/${filter.value}`}
             className={({ isActive }) =>
               `bundle_details_blocks_filters_cell ${
                 isActive && 'blocks_content_mobile_active'
               }`
             }
+            onClick={() => handleBundlesTab(filter.value)}
           >
             {filter.title}
           </NavLink>
