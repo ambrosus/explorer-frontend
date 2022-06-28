@@ -2,15 +2,22 @@
   &_filters {
     display: flex;
     gap: 32px;
+
     &:hover {
     }
     &_cell {
       display: flex;
       height: 56px;
       align-items: center;
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 32px;
+      text-decoration: none;
+      color: #808a9d;
       &:hover {
         border-bottom: 4px solid #05060f;
         cursor: pointer;
+        color: #05060f;
       }
     }
   }

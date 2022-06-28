@@ -1,31 +1,24 @@
 import BundleDetailsBlock from '../BundleDetailsBlock';
+import Loader from 'components/Loader';
 import useSortData from 'hooks/useSortData';
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { NavLink, useParams } from 'react-router-dom';
 import {
   getBundleAssetsData,
-  getBundleData,
-  getBundleWithEntriesData,
+  getBundleEventsData,
 } from 'services/bundle.service';
 import { bundleTabs } from 'utils/sidePages';
 
-const BundleDetailsBlocks = ({
-  data,
-  setSortTerm,
-  sortTerm,
-  bundleRef,
-}: any) => {
+const BundleDetailsBlocks = () => {
   const { address, type } = useParams();
 
-  // console.log(data?.events);
+  const { ref, renderData, setSortTerm, loading } = useSortData(
+    type === 'assets' ? getBundleAssetsData : getBundleEventsData,
+    '',
+  );
+  console.log(renderData.data);
 
   const handleBundlesTab = (filter: any) => setSortTerm(filter);
-
-  // const h2ref = useRef<any>(null);
-
-  // useEffect(() => {
-  //   h2ref.current.scrollIntoView();
-  // }, [type]);
 
   return (
     <div className="bundle_details_blocks">
@@ -48,14 +41,26 @@ const BundleDetailsBlocks = ({
       <div className="bundle_details_blocks_header">
         <div className="bundle_details_blocks_header_cell">Address</div>
       </div>
-      {type === 'assets' &&
-        data?.assets?.data.map((data: any) => (
-          <BundleDetailsBlock key={data._id} data={data.assetId} />
-        ))}
-      {type === 'events' &&
-        data?.events?.data.map((data: any) => (
-          <BundleDetailsBlock key={data._id} data={data.eventId} />
-        ))}
+      {renderData?.data?.length ? (
+        (type === 'assets' &&
+          renderData?.data.map((data: any) => (
+            <BundleDetailsBlock
+              key={data._id}
+              data={data.assetId}
+              bundleRef={renderData?.pagination?.hasNext ? ref : null}
+            />
+          ))) ||
+        (type === 'events' &&
+          renderData?.data.map((data: any) => (
+            <BundleDetailsBlock
+              key={data._id}
+              data={data.eventId}
+              bundleRef={renderData?.pagination?.hasNext ? ref : null}
+            />
+          )))
+      ) : (
+        <Loader />
+      )}
     </div>
   );
 };

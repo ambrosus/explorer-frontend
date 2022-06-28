@@ -1,6 +1,6 @@
-const BundleDetailsBlock = ({ data }: any) => {
+const BundleDetailsBlock = ({ data, bundleRef }: any) => {
   return (
-    <div className="bundle_details_blocks_body">
+    <div ref={bundleRef} className="bundle_details_blocks_body">
       <div className="bundle_details_blocks_body_cell">{data}</div>
     </div>
   );

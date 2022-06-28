@@ -9,9 +9,10 @@ const useSortData = (getData: any, firstSortTerm: any = '') => {
   const { address, type = '' }: TParams = useParams();
 
   const [renderData, setRenderData] = React.useState<AccountsData | null>([]);
-  const [loading, setLoading] = React.useState<boolean>(false);
+  const [loading, setLoading] = React.useState<boolean>(true);
   const [sortTerm, setSortTerm] = React.useState(firstSortTerm);
   const { ref, inView } = useInView();
+
   const navigate = useNavigate();
   let interval: any;
 

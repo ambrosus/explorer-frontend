@@ -12,7 +12,7 @@ const BundleDetailsMainTabs = ({ data }: any) => {
 
   const colums5 = 'repeat(5, auto)';
   const rows2 = 'repeat(2, auto)';
-
+  const tableGrid = FOR_BIG_TABLET ? 'repeat(5, auto)' : 'repeat(2, auto)';
   const itemFirst: any = [
     {
       _id: 1,
