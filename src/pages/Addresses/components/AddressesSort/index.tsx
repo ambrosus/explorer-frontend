@@ -4,7 +4,11 @@ import {
 } from 'pages/Addresses/addresses.interface';
 import { FC } from 'react';
 
-const AddressesSort: FC<PAddressesSort> = ({ setRenderData,sortTerm, setSortTerm }) => (
+const AddressesSort: FC<PAddressesSort> = ({
+  setRenderData,
+  sortTerm,
+  setSortTerm,
+}) => (
   <div className="addresses_sort">
     <div className="addresses_sort_heading">Addresses</div>
     <div className="addresses_sort_cells">
@@ -17,7 +21,7 @@ const AddressesSort: FC<PAddressesSort> = ({ setRenderData,sortTerm, setSortTerm
           }`}
           onClick={() => {
             if (option.value === 'contracts') {
-              setRenderData(null)
+              setRenderData(null);
             }
             setSortTerm(option.value);
           }}

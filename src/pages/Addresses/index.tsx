@@ -10,10 +10,8 @@ import React from 'react';
 import { getAccountsData } from 'services/accounts.service';
 
 export const Addresses = () => {
-  const { ref, sortTerm, setSortTerm, renderData, loading , setRenderData } = useSortData(
-    getAccountsData,
-    'balance',
-  );
+  const { ref, sortTerm, setSortTerm, renderData, loading, setRenderData } =
+    useSortData(getAccountsData, 'balance');
   const isQueryContracts = sortTerm === 'contracts';
 
   return (
@@ -23,7 +21,11 @@ export const Addresses = () => {
       </Content.Header>
       <Content.Body>
         <div className="addresses_main_table">
-          <AddressesSort setRenderData={setRenderData} sortTerm={sortTerm} setSortTerm={setSortTerm} />
+          <AddressesSort
+            setRenderData={setRenderData}
+            sortTerm={sortTerm}
+            setSortTerm={setSortTerm}
+          />
           <div className="addresses_table">
             <AddressesHeader />
             {renderData && renderData.data && renderData.data.length
