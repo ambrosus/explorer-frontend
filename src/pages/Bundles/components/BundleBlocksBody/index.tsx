@@ -11,14 +11,12 @@ import {
 const BundleBlocksBody = ({ lastCardRef, item }: any) => {
   const isTxHash = (
     <NavLink to={item?.bundleId} className="bundle_blocks_body_cell">
-      {sliceData10(item?.txHash, 12)}
+      {sliceData10(item?.bundleId, 12)}
     </NavLink>
   );
 
   const isBy = (
-    <NavLink to={item?.bundleId} className="bundle_blocks_body_cell">
-      {sliceData5(item.uploader)}
-    </NavLink>
+    <div className="bundle_blocks_body_cell">{sliceData5(item.uploader)}</div>
   );
 
   const isCreated = (

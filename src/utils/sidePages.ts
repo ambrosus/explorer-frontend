@@ -51,9 +51,15 @@ export const transactionsTabs = [
   { title: 'Heads', value: 'heads' },
 ];
 
+export const bundleTabs = [
+  { title: 'Assets', value: 'assets' },
+  { title: 'Events', value: 'events' },
+];
+
 export const sidePages = {
   transactionFilters,
   ERC20Filters,
   methodFilters,
   apolloDetailsSorting,
+  bundleTabs,
 };

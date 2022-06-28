@@ -36,6 +36,7 @@ const useSortData = (getData: any, firstSortTerm: any = '') => {
       setLoading(false);
     });
   };
+
   useEffect(() => {
     if (
       type?.length &&

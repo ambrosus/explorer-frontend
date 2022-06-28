@@ -1,0 +1,29 @@
+.bundle_details_blocks {
+  &_filters {
+    display: flex;
+    gap: 32px;
+    &:hover {
+    }
+    &_cell {
+      display: flex;
+      height: 56px;
+      align-items: center;
+      &:hover {
+        border-bottom: 4px solid #05060f;
+        cursor: pointer;
+      }
+    }
+  }
+  &_header {
+    height: 36px;
+    display: flex;
+    align-items: flex-end;
+    border-top: 1px solid #eff2f5;
+  }
+  &_body {
+    display: flex;
+    align-items: center;
+    height: 48px;
+    border-bottom: 1px solid #eff2f5;
+  }
+}

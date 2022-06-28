@@ -12,7 +12,7 @@ import { useParams } from 'react-router-dom';
 import { getBundleData, getBundlesData } from 'services/bundle.service';
 
 export const Bundles = () => {
-  const { ref, renderData, loading } = useSortData(getBundlesData, ' ');
+  const { ref, renderData, loading } = useSortData(getBundlesData, '');
 
   const { data: appData } = useTypedSelector((state: any) => state.app);
 

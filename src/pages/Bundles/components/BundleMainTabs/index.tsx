@@ -1,14 +1,6 @@
 import BundleTabs from 'pages/Bundles/components/BundleTabs';
-import {
-  byteToMgb,
-  calcDataTime,
-  sliceData10,
-  sliceData5,
-} from 'utils/helpers';
 
 const BundleMainTabs = ({ data }: any) => {
-  console.log(data);
-
   const itemFirst: any = [
     {
       _id: 1,

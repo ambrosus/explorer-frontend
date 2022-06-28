@@ -21,6 +21,7 @@ export const ApolloDetails = () => {
     getAccountTxData,
     type,
   );
+  console.log(sortTerm);
 
   return (
     <Content>
