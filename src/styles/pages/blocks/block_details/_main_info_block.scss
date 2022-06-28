@@ -56,3 +56,9 @@
 
   }
 }
+
+.row-table{
+  @include for_tablet{
+    grid-template-columns: repeat(5, auto) !important;
+  }
+}
