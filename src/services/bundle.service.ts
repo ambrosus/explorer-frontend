@@ -14,7 +14,9 @@ export const getBundlesData = async (sortTerm: any, next: any) => {
 };
 
 export const getBundleWithEntriesData = async (...arg: any[]) => {
-  const bundleId = arg[2];
+  // const bundleId = arg[2];
+  const [bundleId] = arg;
+
   const data: any = await API.getBundleWithEntries(bundleId);
   return data;
 };
@@ -36,5 +38,10 @@ export const getBundleEventsData = async (...arg: any[]) => {
     limit: 20,
     next: next,
   });
+  return data;
+};
+
+export const getBundleInfo = async () => {
+  const data: any = await API.getInfo();
   return data;
 };

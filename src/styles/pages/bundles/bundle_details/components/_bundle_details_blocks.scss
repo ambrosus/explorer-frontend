@@ -2,7 +2,17 @@
   &_filters {
     display: flex;
     gap: 32px;
+    &_span {
+      display: flex;
+      align-items: flex-end;
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 32px;
+      height: 24px;
+      padding-left: 4px;
 
+      color: #808a9d;
+    }
     &:hover {
     }
     &_cell {
@@ -38,6 +48,7 @@
     color: #808a9d;
   }
   &_table {
-    overflow: auto;
+    overflow-x: scroll;
+    overflow-y: hidden;
   }
 }

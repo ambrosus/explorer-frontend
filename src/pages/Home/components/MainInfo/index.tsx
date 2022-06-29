@@ -1,10 +1,11 @@
-import getMainInfoIcon from '../../../../config';
-import { currenCurrency, numberWithCommas } from '../../../../utils/helpers';
 import { MainInfoProps } from '../../home.interfaces';
+import getMainInfoIcon from 'config';
 import React from 'react';
+import { currenCurrency, nameCurrency, numberWithCommas } from 'utils/helpers';
 
 const MainInfo: React.FC<MainInfoProps> = ({ name, value }) => {
-  const updatedValue = numberWithCommas(currenCurrency(value, name), value);
+  const updatedValue = numberWithCommas(currenCurrency(value, name));
+  const updatedName = nameCurrency(name);
 
   return (
     <>
@@ -15,7 +16,7 @@ const MainInfo: React.FC<MainInfoProps> = ({ name, value }) => {
             {name}
           </p>
           <p className="main_info_span-dark" role="main-info__value">
-            {updatedValue}
+            {`${updatedValue}${updatedName}`}
           </p>
         </div>
       </div>

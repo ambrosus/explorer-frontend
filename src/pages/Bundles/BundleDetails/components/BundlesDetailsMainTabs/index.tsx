@@ -1,5 +1,7 @@
 import BundleDetailsTab from '../BundleDetailsTab';
+import { BUNDLE_MAX_LOAD } from 'utils/constants';
 import {
+  bundleExpirationTime,
   byteToMgb,
   calcDataTime,
   sliceData10,
@@ -7,6 +9,10 @@ import {
 } from 'utils/helpers';
 
 const BundleDetailsMainTabs = ({ data }: any) => {
+  const { totalEvents = 0, totalAssets = 0 } = data;
+
+  const total = totalEvents + totalAssets;
+
   const itemFirst: any = [
     {
       _id: 1,
@@ -48,7 +54,7 @@ const BundleDetailsMainTabs = ({ data }: any) => {
     {
       _id: 3,
       name: 'EXPIRATION DATE',
-      value: calcDataTime(data.uploadTimestamp),
+      value: calcDataTime(bundleExpirationTime(data)),
     },
     {
       _id: 4,
@@ -58,7 +64,7 @@ const BundleDetailsMainTabs = ({ data }: any) => {
     {
       _id: 5,
       name: 'BUNDLE LOAD',
-      value: calcDataTime(data.uploadTimestamp),
+      value: `${Math.round((total / BUNDLE_MAX_LOAD) * 10000) / 100}%`,
     },
   ];
   return (
