@@ -14,7 +14,6 @@ interface IBlocksBodyItem {
   timestamp: number;
   size: number;
 }
-
 interface IBlocksBody {
   index: number;
   lastCardRef?: ((node?: Element | null | undefined) => void) | undefined;
@@ -58,7 +57,7 @@ const BlocksBody: FC<IBlocksBody> = ({ index, lastCardRef, item }) => {
   return (
     <div className="blocks_blocks_body" ref={lastCardRef}>
       <div
-        className="blocks_blocks_body_cell color-gray universall_link_underline validator-cell"
+        className="blocks_blocks_body_cell color-gray universall_link_underline"
         style={{
           cursor: 'pointer',
         }}
@@ -67,9 +66,7 @@ const BlocksBody: FC<IBlocksBody> = ({ index, lastCardRef, item }) => {
         <span style={{ marginRight: 8 }}>{online(confirmations)}</span> {number}
       </div>
       <NavLink to={`/apollo/${miner}/`} className="universall_light2">
-        <div className="blocks_blocks_body_cell color-gray validator-cell">
-          {miner}
-        </div>
+        <div className="blocks_blocks_body_cell color-gray">{miner}</div>
       </NavLink>
       <div className="blocks_blocks_body_cell color-gray">
         {sliceData5(hash)}

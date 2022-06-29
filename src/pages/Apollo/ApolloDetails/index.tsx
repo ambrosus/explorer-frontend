@@ -19,7 +19,6 @@ export const ApolloDetails = () => {
 
   const { ref, sortTerm, setSortTerm, renderData, loading } = useSortData(
     getAccountTxData,
-    address,
     type,
   );
 

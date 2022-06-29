@@ -11,7 +11,6 @@ import React from 'react';
 export const Apollo = () => {
   const { ref, sortTerm, setSortTerm, renderData, loading } = useSortData(
     getApollosData,
-    null,
     ' ',
   );
   return (
