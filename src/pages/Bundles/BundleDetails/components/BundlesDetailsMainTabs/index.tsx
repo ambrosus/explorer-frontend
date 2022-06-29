@@ -63,8 +63,8 @@ const BundleDetailsMainTabs = ({ data }: any) => {
   ];
   return (
     <>
-      <BundleDetailsTab data={itemFirst} mainColumns="repeat(5, auto)" />
-      <BundleDetailsTab data={itemSecond} mainColumns="repeat(5, auto)" />
+      <BundleDetailsTab data={itemFirst} />
+      <BundleDetailsTab data={itemSecond} />
     </>
   );
 };

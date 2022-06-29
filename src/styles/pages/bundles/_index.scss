@@ -1,12 +1,12 @@
 // @import './bundles';
 @import './components/bundles_blocks';
-@import './components/bundle_main';
+@import './components/bundle_tabs';
 @import './components/bundle_blocks_header';
 @import './components/bundle_blocks_body';
 
 // bundle_details
 @import './bundle_details/bundle_details';
-@import './bundle_details/components/bundle_details_body';
+@import './bundle_details/components/bundle_details_blocks';
 @import './bundle_details/components/bundle_details_main';
 @import './bundle_details/components/bundle_details_main_tabs';
 @import './bundle_details/components/bundle_details_tab';

@@ -52,7 +52,7 @@ export const BlockDetails = () => {
     () => getBlockData(address as string),
     {
       initialDataUpdatedAt: 0,
-      refetchInterval: 2000,
+      refetchInterval: 4000,
       onSuccess: (data: any) => {
         if (!data) {
           navigate(`/notfound`);

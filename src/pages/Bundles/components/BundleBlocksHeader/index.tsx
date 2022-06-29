@@ -1,6 +1,6 @@
 const BundleBlocksHeader = () => (
   <div className="bundle_blocks_header">
-    <div className="bundle_blocks_header_cell">txHash</div>
+    <div className="bundle_blocks_header_cell">Bundle</div>
     <div className="bundle_blocks_header_cell">By</div>
     <div className="bundle_blocks_header_cell">Created</div>
     <div className="bundle_blocks_header_cell">Duration</div>

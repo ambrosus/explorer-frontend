@@ -5,14 +5,17 @@ import useSortData from 'hooks/useSortData';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import BundleBlocksBody from 'pages/Bundles/components/BundleBlocksBody';
 import BundleBlocksHeader from 'pages/Bundles/components/BundleBlocksHeader';
-import BundleMain from 'pages/Bundles/components/BundleMain';
 import BundleMainTabs from 'pages/Bundles/components/BundleMainTabs';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getBundleData, getBundlesData } from 'services/bundle.service';
+import {
+  getBundleData,
+  getBundlesData,
+  getBundleWithEntriesData,
+} from 'services/bundle.service';
 
 export const Bundles = () => {
-  const { ref, renderData, loading } = useSortData(getBundlesData, ' ');
+  const { ref, renderData, loading } = useSortData(getBundlesData, '');
 
   const { data: appData } = useTypedSelector((state: any) => state.app);
 

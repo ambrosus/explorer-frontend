@@ -20,7 +20,7 @@ const BlockHeaderInfo = ({ block }: any) => {
   };
   return (
     <div className="main_info_block">
-      <div className="main_info_block_table">
+      <div className="main_info_block_table row-table">
         <div className="main_info_block_cell">
           <span className="main_info_block_cell_primary">Status</span>
           <span
