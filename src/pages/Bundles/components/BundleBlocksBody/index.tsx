@@ -11,7 +11,7 @@ import {
 const BundleBlocksBody = ({ lastCardRef, item }: any) => {
   const isTxHash = (
     <NavLink
-      to={`${item?.bundleId}/assets`}
+      to={`${item?.bundleId}`}
       className="bundle_blocks_body_cell"
       style={{ color: '#808A9D' }}
     >

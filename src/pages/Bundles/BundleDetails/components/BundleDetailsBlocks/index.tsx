@@ -1,65 +1,75 @@
 import BundleDetailsBlock from '../BundleDetailsBlock';
 import Loader from 'components/Loader';
+import useAdressData from 'hooks/useAdressData';
 import useSortData from 'hooks/useSortData';
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { NavLink, useParams } from 'react-router-dom';
+import { useState } from 'react';
 import {
   getBundleAssetsData,
+  getBundleData,
   getBundleEventsData,
 } from 'services/bundle.service';
-import { bundleTabs } from 'utils/sidePages';
 
 const BundleDetailsBlocks = () => {
-  const { address, type } = useParams();
+  const [tab, setTab] = useState('assets');
 
-  const { ref, renderData, setSortTerm, loading } = useSortData(
-    type === 'assets' ? getBundleAssetsData : getBundleEventsData,
+  const { ref: assetsRef, renderData: assetsData } = useSortData(
+    getBundleAssetsData,
     '',
   );
-  console.log(renderData.data);
-
-  const handleBundlesTab = (filter: any) => setSortTerm(filter);
+  const { ref: eventsRef, renderData: eventsData } = useSortData(
+    getBundleEventsData,
+    '',
+  );
+  const { renderData } = useAdressData(getBundleData);
 
   return (
     <div className="bundle_details_blocks">
       <div className="bundle_details_blocks_filters">
-        {bundleTabs.map((filter) => (
-          <NavLink
-            key={filter.title}
-            to={`/bundles/${address}/${filter.value}`}
-            className={({ isActive }) =>
-              `bundle_details_blocks_filters_cell ${
-                isActive && 'blocks_content_mobile_active'
-              }`
-            }
-            onClick={() => handleBundlesTab(filter.value)}
-          >
-            {filter.title}
-          </NavLink>
-        ))}
+        <button
+          className={`bundle_details_blocks_filters_cell ${
+            tab === 'assets' && 'blocks_content_mobile_active'
+          }`}
+          onClick={() => setTab('assets')}
+        >
+          Assets
+          <span className="bundle_details_blocks_filters_span">
+            {renderData?.data?.totalAssets}
+          </span>
+        </button>
+        <button
+          className={`bundle_details_blocks_filters_cell ${
+            tab === 'events' && 'blocks_content_mobile_active'
+          }`}
+          onClick={() => setTab('events')}
+        >
+          Events
+          <span className="bundle_details_blocks_filters_span">
+            {renderData?.data?.totalEvents}
+          </span>
+        </button>
       </div>
+
       <div className="bundle_details_blocks_table">
         <div className="bundle_details_blocks_header">Address</div>
-        {renderData?.data?.length ? (
-          (type === 'assets' &&
-            renderData?.data.map((data: any) => (
-              <BundleDetailsBlock
-                key={data._id}
-                data={data.assetId}
-                bundleRef={renderData?.pagination?.hasNext ? ref : null}
-              />
-            ))) ||
-          (type === 'events' &&
-            renderData?.data.map((data: any) => (
-              <BundleDetailsBlock
-                key={data._id}
-                data={data.eventId}
-                bundleRef={renderData?.pagination?.hasNext ? ref : null}
-              />
-            )))
-        ) : (
-          <Loader />
-        )}
+        {tab === 'assets' &&
+          assetsData?.data?.length &&
+          assetsData?.data.map((data: any) => (
+            <BundleDetailsBlock
+              key={data._id}
+              data={data.assetId}
+              bundleRef={assetsData?.pagination?.hasNext ? assetsRef : null}
+            />
+          ))}
+        {tab === 'events' &&
+          eventsData?.data?.length &&
+          eventsData?.data.map((data: any) => (
+            <BundleDetailsBlock
+              key={data._id}
+              data={data.eventId}
+              bundleRef={eventsData?.pagination?.hasNext ? eventsRef : null}
+            />
+          ))}
+        {(assetsData?.data?.length || eventsData?.data?.length) && <Loader />}
       </div>
     </div>
   );

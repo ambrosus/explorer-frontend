@@ -4,7 +4,6 @@ import { Content } from 'components/Content';
 import NodeHeader from 'components/NodeHeader';
 import BundleDetailsMain from 'pages/Bundles/BundleDetails/components/BundleDetailsMain';
 import { getBundleData } from 'services/bundle.service';
-import { TParams } from 'types';
 
 const BundleDetails = () => {
   return (

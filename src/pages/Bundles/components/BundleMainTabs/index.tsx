@@ -1,38 +1,54 @@
 import BundleTabs from 'pages/Bundles/components/BundleTabs';
+import { useEffect } from 'react';
+import { numberWithCommas } from 'utils/helpers';
 
 const BundleMainTabs = ({ data }: any) => {
+  const {
+    totalBundles,
+    bundlesActivity,
+    totalAssets,
+    totalEvents,
+    bundleCost,
+  } = data;
+
+  const totalEntries = 10 + bundleCost?.ether;
+
+  const avgBundleLoad = totalBundles
+    ? (totalBundles / totalBundles).toFixed(2)
+    : 0;
+
   const itemFirst: any = [
     {
       _id: 1,
       name: 'TOTAL',
-      value: data?.totalBundles,
+      value: numberWithCommas(totalBundles),
     },
     {
       _id: 2,
       name: 'ENTRIES TOTAL',
-      value: data?.totalBundles,
+      value: numberWithCommas(totalEntries),
     },
     {
       _id: 3,
       name: 'AVERAGE BUNDLE LOAD',
-      value: data?.totalBundles,
+      value: avgBundleLoad,
     },
   ];
   const itemSecond: any = [
     {
       _id: 1,
       name: '24H ACTIVITY',
-      value: data?.bundlesActivity,
+      value: bundlesActivity,
     },
     {
       _id: 2,
       name: 'BUNDLE COST',
-      value: `${data?.bundleCost?.ether} AMB`,
+      value: `${bundleCost?.ether} AMB`,
     },
     {
       _id: 3,
       name: 'APROX BUNDLE',
-      value: data?.totalBundles,
+      value: `${numberWithCommas(totalBundles)} AMB / cost next month`,
     },
   ];
   return (
@@ -40,6 +56,7 @@ const BundleMainTabs = ({ data }: any) => {
       <h1 style={{ margin: '32px 0' }}>Bundles</h1>
       <BundleTabs data={itemFirst} />
       <BundleTabs data={itemSecond} />
+      {}
     </>
   );
 };

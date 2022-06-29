@@ -10,19 +10,20 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import {
   getBundleData,
+  getBundleInfo,
   getBundlesData,
   getBundleWithEntriesData,
 } from 'services/bundle.service';
 
 export const Bundles = () => {
-  const { ref, renderData, loading } = useSortData(getBundlesData, '');
+  const { ref, renderData } = useSortData(getBundlesData, '');
 
-  const { data: appData } = useTypedSelector((state: any) => state.app);
+  const { renderData: appData } = useSortData(getBundleInfo, '');
 
   return (
     <Content>
       <Content.Header>
-        <BundleMainTabs data={appData?.netInfo} />
+        <BundleMainTabs data={appData} />
       </Content.Header>
       <Content.Body>
         <div className="bundles_blocks">

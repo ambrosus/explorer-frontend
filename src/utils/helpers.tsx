@@ -169,8 +169,10 @@ export const log = (...args: any) => {
   return ENABLE_LOGS && console.log(...args);
 };
 
-export const numberWithCommas = (number: string | number, value: number) =>
-  value > 1 ? number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : number;
+export const numberWithCommas = (number: string | number) =>
+  +number > 1
+    ? number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+    : number;
 
 export const currenCurrency = (
   value: string | number,
@@ -370,3 +372,6 @@ export const calcDataTime = (time: number | null | undefined) => {
     ? moment(time * 1000).format('ddd, D MMMM YYYY')
     : '';
 };
+
+export const bundleExpirationTime = (bundle: any) =>
+  bundle.uploadTimestamp + bundle.storagePeriods * 13 * 28 * 24 * 60 * 60;

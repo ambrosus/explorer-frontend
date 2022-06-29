@@ -4,7 +4,7 @@ import { MainInfoProps } from '../../home.interfaces';
 import React from 'react';
 
 const MainInfo: React.FC<MainInfoProps> = ({ name, value }) => {
-  const updatedValue = numberWithCommas(currenCurrency(value, name), value);
+  const updatedValue = currenCurrency(value, name);
 
   return (
     <>
