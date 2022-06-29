@@ -180,16 +180,30 @@ export const currenCurrency = (
 ) => {
   switch (nameCurrency) {
     case 'TOTAL SUPPLY':
-      return `${Number(value).toFixed()} AMB`;
+      return `${Number(value).toFixed()}`;
 
     case 'MARKET CAP':
-      return `${Number(value).toFixed()} USD`;
+      return `${Number(value).toFixed()}`;
 
     case 'AMB PRICE':
-      return `${Number(value).toFixed(6)} USD`;
+      return `${Number(value).toFixed(6)}`;
 
     default:
       return value;
+  }
+};
+export const nameCurrency = (name: string) => {
+  switch (name) {
+    case 'TOTAL SUPPLY':
+      return ' AMB';
+    case 'MARKET CAP':
+      return ' USD';
+
+    case 'AMB PRICE':
+      return ' USD';
+
+    default:
+      return '';
   }
 };
 
