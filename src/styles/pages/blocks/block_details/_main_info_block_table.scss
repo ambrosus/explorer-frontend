@@ -11,6 +11,10 @@
     grid-template-columns: repeat(2, 50%);
     background-color: #fff;
     border-radius: 16px;
+    @include for_tablet {
+      display: flex;
+      flex-direction: column;
+    }
 
   }
 
@@ -27,9 +31,11 @@
     &:nth-child(odd) {
       border-right: 1px solid #eff2f5;
     }
+
     &:last-child {
       border-right: 0px solid #eff2f5;
     }
+
     height: 90px;
     padding: 32px;
     width: 100%;
