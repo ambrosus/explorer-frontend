@@ -1,18 +1,29 @@
-.bundle_main {
+.bundle_tabs {
   display: grid;
-
+  grid-template-columns: repeat(3, auto);
   background-color: #fff;
   border: 1px solid #eff2f5;
   border-radius: 16px;
   margin-bottom: 32px;
+  @include for_phone {
+    grid-template-columns: repeat(1, auto);
+  }
   &_cells {
-    border-right: 1px solid #eff2f5;
     display: grid;
     grid-template-columns: 1fr;
+    height: 104px;
     padding-left: 32px;
     white-space: nowrap;
     padding-right: 10px;
-    height: 104px;
+    border-right: 1px solid #eff2f5;
+
+    @include for_big_tablet {
+      border-bottom: 1px solid #eff2f5;
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
 
     &:last-child {
       border: none;

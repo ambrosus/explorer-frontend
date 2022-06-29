@@ -1,16 +1,10 @@
-import BundleMainCells from 'pages/Bundles/components/BundleMainCells';
+import BundleTabsCells from 'pages/Bundles/components/BundleTabsCells';
 
 const BundleDetailsTab = ({ data, mainColumns, mainRows }: any) => {
   return (
-    <div
-      className="bundle_main"
-      style={{
-        gridTemplateColumns: mainColumns,
-        gridTemplateRows: undefined,
-      }}
-    >
+    <div className="bundle_details_tab">
       {data?.map((item: any) => (
-        <BundleMainCells
+        <BundleTabsCells
           key={item._id}
           primaryCell={item.name}
           secondaryCell={item.value}

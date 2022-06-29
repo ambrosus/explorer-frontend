@@ -16,16 +16,20 @@ const BundleDetailsMain = () => {
         <h1>Bundle Details</h1>
         <div className="bundle_details_main_cells">
           <div className="bundle_details_main_cells_name">ID</div>
-          <div className="bundle_details_main_cells_address">{address}</div>
-          <button className="address_button" onClick={copyContent}>
-            {isCopy ? <ContentCopyed /> : <ContentCopy />}
+          {/* <div className="bundle_details_main_cell"> */}
+          <div className="bundle_details_main_cells_address">
+            {address}
+            <button className="address_button" onClick={copyContent}>
+              {isCopy ? <ContentCopyed /> : <ContentCopy />}
 
-            {FOR_TABLET && isCopyPopup && isCopy && (
-              <div className="address_button_copyed">
-                <CopyPopUp x={3} y={20} values="Copyed" />
-              </div>
-            )}
-          </button>
+              {FOR_TABLET && isCopyPopup && isCopy && (
+                <div className="address_button_copyed">
+                  <CopyPopUp x={3} y={20} values="Copyed" />
+                </div>
+              )}
+            </button>
+          </div>
+          {/* </div> */}
         </div>
       </div>
     </>

@@ -38,8 +38,8 @@ const BundleMainTabs = ({ data }: any) => {
   return (
     <>
       <h1 style={{ margin: '32px 0' }}>Bundles</h1>
-      <BundleTabs data={itemFirst} mainColumns="repeat(3, auto)" />
-      <BundleTabs data={itemSecond} mainColumns="repeat(3, auto)" />
+      <BundleTabs data={itemFirst} />
+      <BundleTabs data={itemSecond} />
     </>
   );
 };

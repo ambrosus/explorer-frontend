@@ -38,29 +38,29 @@ const BundleDetailsBlocks = () => {
           </NavLink>
         ))}
       </div>
-      <div className="bundle_details_blocks_header">
-        <div className="bundle_details_blocks_header_cell">Address</div>
+      <div className="bundle_details_blocks_table">
+        <div className="bundle_details_blocks_header">Address</div>
+        {renderData?.data?.length ? (
+          (type === 'assets' &&
+            renderData?.data.map((data: any) => (
+              <BundleDetailsBlock
+                key={data._id}
+                data={data.assetId}
+                bundleRef={renderData?.pagination?.hasNext ? ref : null}
+              />
+            ))) ||
+          (type === 'events' &&
+            renderData?.data.map((data: any) => (
+              <BundleDetailsBlock
+                key={data._id}
+                data={data.eventId}
+                bundleRef={renderData?.pagination?.hasNext ? ref : null}
+              />
+            )))
+        ) : (
+          <Loader />
+        )}
       </div>
-      {renderData?.data?.length ? (
-        (type === 'assets' &&
-          renderData?.data.map((data: any) => (
-            <BundleDetailsBlock
-              key={data._id}
-              data={data.assetId}
-              bundleRef={renderData?.pagination?.hasNext ? ref : null}
-            />
-          ))) ||
-        (type === 'events' &&
-          renderData?.data.map((data: any) => (
-            <BundleDetailsBlock
-              key={data._id}
-              data={data.eventId}
-              bundleRef={renderData?.pagination?.hasNext ? ref : null}
-            />
-          )))
-      ) : (
-        <Loader />
-      )}
     </div>
   );
 };
