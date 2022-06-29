@@ -19,7 +19,6 @@ export const AtlasDetails = () => {
 
   const { ref, sortTerm, setSortTerm, renderData, loading } = useSortData(
     getAccountTxData,
-    address,
     type,
   );
 

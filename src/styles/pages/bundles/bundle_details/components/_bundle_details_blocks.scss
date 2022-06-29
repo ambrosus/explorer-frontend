@@ -1,0 +1,43 @@
+.bundle_details_blocks {
+  &_filters {
+    display: flex;
+    gap: 32px;
+
+    &:hover {
+    }
+    &_cell {
+      display: flex;
+      height: 56px;
+      align-items: center;
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 32px;
+      text-decoration: none;
+      color: #808a9d;
+      &:hover {
+        border-bottom: 4px solid #05060f;
+        cursor: pointer;
+        color: #05060f;
+      }
+    }
+  }
+  &_header {
+    height: 36px;
+    display: flex;
+    align-items: flex-end;
+    border-top: 1px solid #eff2f5;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 32px;
+  }
+  &_cell {
+    display: flex;
+    align-items: center;
+    height: 48px;
+    border-bottom: 1px solid #eff2f5;
+    color: #808a9d;
+  }
+  &_table {
+    overflow: auto;
+  }
+}

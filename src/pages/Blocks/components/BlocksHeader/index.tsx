@@ -1,6 +1,4 @@
-import { FC } from 'react';
-
-const BlocksHeader: FC = () => {
+const BlocksHeader = () => {
   return (
     <div className="blocks_blocks_header">
       <div className="blocks_blocks_header_cell">Block</div>

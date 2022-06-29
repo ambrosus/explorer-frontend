@@ -11,7 +11,7 @@ import { getAccountsData } from 'services/accounts.service';
 
 export const Addresses = () => {
   const { ref, sortTerm, setSortTerm, renderData, loading, setRenderData } =
-    useSortData(getAccountsData, null, 'balance');
+    useSortData(getAccountsData, 'balance');
   const isQueryContracts = sortTerm === 'contracts';
 
   return (

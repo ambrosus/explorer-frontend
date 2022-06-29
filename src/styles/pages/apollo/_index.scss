@@ -1,0 +1,11 @@
+@import './apollo';
+@import './components/apollo_blocks_body';
+@import './components/apollo_blocks_header';
+@import './components/apollo_blocks_sort';
+@import './components/main_info_apollo.scss';
+
+// apolloDetails
+@import './apollo_details/apollo_details';
+@import './apollo_details/components/apollo_details_balance';
+@import './apollo_details/components/apollo_details_main';
+@import './apollo_details/components/apollo_details_mining_stats';

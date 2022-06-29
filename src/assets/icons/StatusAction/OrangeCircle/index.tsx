@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { FC, memo, SVGProps } from 'react';
+import { memo, SVGProps } from 'react';
 
-const OrangeCircle: FC = (props: SVGProps<SVGSVGElement>) => (
+const OrangeCircle = (props: SVGProps<SVGSVGElement>) => (
   <svg
     {...props}
     width={8}
@@ -13,5 +13,5 @@ const OrangeCircle: FC = (props: SVGProps<SVGSVGElement>) => (
   </svg>
 );
 
-const Memo = OrangeCircle;
+const Memo = memo(OrangeCircle);
 export default Memo;

@@ -1,24 +1,22 @@
 import { TParams } from '../types';
 import { AccountsData } from 'pages/Addresses/addresses.interface';
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import removeArrayDuplicates, { log } from 'utils/helpers';
 
-const useSortData = (
-  getData: any,
-  address?: string | null,
-  firstSortTerm: string = '',
-) => {
-  const { address: adr, type = '' }: TParams = useParams();
-  const { pathname } = useLocation();
+const useSortData = (getData: any, firstSortTerm: any = '') => {
+  const { address, type = '' }: TParams = useParams();
 
   const [renderData, setRenderData] = React.useState<AccountsData | null>([]);
-  const [loading, setLoading] = React.useState<boolean>(false);
+  const [loading, setLoading] = React.useState<boolean>(true);
   const [sortTerm, setSortTerm] = React.useState(firstSortTerm);
   const { ref, inView } = useInView();
+
   const navigate = useNavigate();
   let interval: any;
+
+  const { pathname } = useLocation();
 
   const infiniteLoad = async () => {
     if (inView === false && renderData?.data?.length !== undefined) return;
@@ -96,9 +94,12 @@ const useSortData = (
     if (
       type?.length &&
       !(
-        type === 'block_rewards' ||
+        type === '' ||
         type === 'transfers' ||
-        type === 'sheltering'
+        type === 'block_rewards' ||
+        type === 'sheltering' ||
+        type === 'assets' ||
+        type === 'events'
       )
     ) {
       log('not found term "', type, '"');

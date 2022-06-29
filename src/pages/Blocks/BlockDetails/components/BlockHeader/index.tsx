@@ -1,6 +1,4 @@
-import { FC } from 'react';
-
-const BlockHeader: FC = () => {
+const BlockHeader = () => {
   return (
     <div className="blocks_block_header">
       <div className="blocks_block_header_cell">Block hash</div>

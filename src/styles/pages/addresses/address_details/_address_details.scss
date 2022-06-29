@@ -28,7 +28,7 @@
   }
 
   &_copy {
-    span{
+    span {
       font-family: 'Proxima Nova';
       font-style: normal;
       font-weight: 700;
@@ -36,7 +36,7 @@
       line-height: 40px;
       display: flex;
       align-items: center;
-      color: #05060F;
+      color: #05060f;
     }
     display: flex;
     align-items: center;
@@ -58,7 +58,6 @@
     @include for_small_phone {
       font-size: 0.8rem;
     }
-
     .address_details_copyed {
       position: absolute;
       margin: 70px 0 0 10px;
@@ -82,7 +81,6 @@
         margin: 65px 0 0 10px;
       }
     }
-
     &_copyed {
       position: absolute;
       margin: 70px 0 0 10px;
@@ -152,7 +150,6 @@
 // need show/hide when click button show/hide
 // need Text Fade Out / Read More Link
 
-
 .wrapper-bytes {
   background-color: $white;
   margin: 32px 0;
@@ -169,7 +166,6 @@
     min-height: 120px;
     position: relative;
     overflow: hidden;
-
   }
 
   .gradient-text {
@@ -180,7 +176,6 @@
     -moz-text-fill-color: transparent;
     -webkit-text-fill-color: transparent;
   }
-
 }
 
 .wrapper-bytes .read-more-btn {
@@ -191,5 +186,9 @@
   text-align: center;
   margin: 0;
   padding: 10px 0;
-  background-image: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 1));
+  background-image: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(255, 255, 255, 1)
+  );
 }
