@@ -1,22 +1,22 @@
-import {TParams} from '../types';
-import {AccountsData} from 'pages/Addresses/addresses.interface';
-import React, {useCallback, useEffect} from 'react';
-import {useInView} from 'react-intersection-observer';
-import {useLocation, useNavigate, useParams} from 'react-router-dom';
-import removeArrayDuplicates, {log} from 'utils/helpers';
+import { TParams } from '../types';
+import { AccountsData } from 'pages/Addresses/addresses.interface';
+import React, { useCallback, useEffect } from 'react';
+import { useInView } from 'react-intersection-observer';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import removeArrayDuplicates, { log } from 'utils/helpers';
 
 const useSortData = (
   getData: any,
   address?: string | null,
   firstSortTerm: string = '',
 ) => {
-  const {address: adr, type = ''}: TParams = useParams();
-  const {pathname} = useLocation();
+  const { address: adr, type = '' }: TParams = useParams();
+  const { pathname } = useLocation();
 
   const [renderData, setRenderData] = React.useState<AccountsData | null>([]);
   const [loading, setLoading] = React.useState<boolean>(false);
   const [sortTerm, setSortTerm] = React.useState(firstSortTerm);
-  const {ref, inView} = useInView();
+  const { ref, inView } = useInView();
   const navigate = useNavigate();
   let interval: any;
 
@@ -65,7 +65,7 @@ const useSortData = (
   useEffect(() => {
     if (sortTerm === 'contracts') {
       interval = setInterval(async () => {
-       await infiniteLoad();
+        await infiniteLoad();
       }, 1000);
     } else {
       return;
@@ -102,7 +102,7 @@ const useSortData = (
       )
     ) {
       log('not found term "', type, '"');
-      navigate(`/notfound`, {replace: true});
+      navigate(`/notfound`, { replace: true });
     }
     firstRender();
   }, [pathname]);
@@ -160,7 +160,7 @@ const useSortData = (
 
   useEffect(concatData, [inView]);
 
-  return {ref, sortTerm, setSortTerm, renderData, loading , setRenderData};
+  return { ref, sortTerm, setSortTerm, renderData, loading, setRenderData };
 };
 
 export default useSortData;
