@@ -1,6 +1,6 @@
 import { TParams } from '../types';
 import { AccountsData } from 'pages/Addresses/addresses.interface';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import removeArrayDuplicates, { log } from 'utils/helpers';
@@ -12,7 +12,6 @@ const useSortData = (getData: any, firstSortTerm: any = '') => {
   const [loading, setLoading] = React.useState<boolean>(true);
   const [sortTerm, setSortTerm] = React.useState(firstSortTerm);
   const { ref, inView } = useInView();
-
   const navigate = useNavigate();
   let interval: any;
 
