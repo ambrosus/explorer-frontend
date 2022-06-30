@@ -13,20 +13,19 @@ const Token: React.FC<TokenProps> = ({
   onClick,
   selectedToken,
 }) => {
-  const { address,type} = useParams<TParams>();
+  const { address, type } = useParams<TParams>();
   const [isLoading, setIsLoading] = useState(load);
   const [data, setData] = useState<any>(dataBuffer);
 
   useEffect(() => {
-
     if (type !== 'contract') {
-     if (addressData !== dataBuffer && Object.keys(addressData).length) {
-       setIsLoading(true);
-       dataBuffer = addressData;
-       setData(addressData);
-       setIsLoading(false);
-     }
-   }
+      if (addressData !== dataBuffer && Object.keys(addressData).length) {
+        setIsLoading(true);
+        dataBuffer = addressData;
+        setData(addressData);
+        setIsLoading(false);
+      }
+    }
   }, [addressData, address]);
 
   return (
