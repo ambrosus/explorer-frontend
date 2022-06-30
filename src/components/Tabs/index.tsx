@@ -151,25 +151,68 @@ const Tabs: FC<TabsProps> = ({
   const handleShow = () => setIsShow(!isShow);
 
   const contractView = (
-    <div className="tabs_heading" tabIndex={-1}>
-      <div className="tabs_heading_filters" tabIndex={-1}>
-        {contractTabs?.length &&
-          contractTabs.map((filter) => (
-            <NavLink
-              key={filter.title}
-              to={`/addresses/${address}/${type}/${
-                filter.value ? filter.value : ''
-              }`}
-              className={() => handleNavLinkClass(filter.value)}
-              onClick={() => {
-                setTransactionType(filter.value);
-              }}
-            >
-              {filter.title}
-            </NavLink>
-          ))}
-      </div>
-    </div>
+   <div className='contract'>
+     <div className="tabs_heading" tabIndex={-1}>
+       <div className="tabs_heading_filters" tabIndex={-1}>
+         {contractTabs?.length &&
+         contractTabs.map((filter) => (
+           <NavLink
+             key={filter.title}
+             to={`/addresses/${address}/${type}/${
+               filter.value ? filter.value : ''
+             }`}
+             className={() => handleNavLinkClass(filter.value)}
+             onClick={() => {
+               setTransactionType(filter.value);
+             }}
+           >
+             {filter.title}
+           </NavLink>
+         ))}
+       </div>
+     </div>
+     <div>
+
+       {filtered === 'code' &&(
+          <div className="contract_code">
+            <div className="contract_code_heading">
+              <div className="contract_code_heading_title">
+                <span>Code</span>
+              </div>
+            </div>
+            <div className="contract_code_body">
+              [CODE_BODY]
+            </div>
+          </div>
+       )}
+
+       {filtered === 'read' &&(
+         <div className="contract_read">
+           <div className="contract_read_heading">
+             <div className="contract_read_heading_title">
+               <span>Read contracts</span>
+             </div>
+           </div>
+           <div className="contract_read_body">
+             [READ_CONTRACT_BODY]
+           </div>
+         </div>
+       )}
+
+       {filtered === 'write' &&(
+         <div className="contract_write">
+           <div className="contract_write_heading">
+             <div className="contract_write_heading_title">
+               <span>Write contracts</span>
+             </div>
+           </div>
+           <div className="contract_write_body">
+             [WRITE_CONTRACTS_BODY]
+           </div>
+         </div>
+       )}
+     </div>
+   </div>
   );
 
   return (
