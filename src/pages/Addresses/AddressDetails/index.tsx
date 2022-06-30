@@ -76,7 +76,7 @@ const AddressDetails = () => {
     if (tokenToSorted?.length && tokenToSorted !== 'transfers') {
       navigate(`/notfound`, { replace: true });
     }
-    if (type?.length && !(type === 'ERC-20_Tx' || type === 'transfers')) {
+    if (type?.length && !(type === 'ERC-20_Tx' || type === 'transfers' ||  type === 'contract')) {
       navigate(`/notfound`, { replace: true });
     }
 
@@ -91,20 +91,21 @@ const AddressDetails = () => {
   }, []);
 
   useEffect(() => {
-    if (address || type || filtered || tokenToSorted) {
-      setPageNum(1);
-      setPosition(null);
-      setTx([]);
-    }
-    return () => {
-      setPageNum(1);
-      setPosition(null);
-      setTx([]);
-    };
+   if (type !== 'contract') {
+     if (address || type || filtered || tokenToSorted) {
+       setPageNum(1);
+       setPosition(null);
+       setTx([]);
+     }
+     return () => {
+       setPageNum(1);
+       setPosition(null);
+       setTx([]);
+     };   }
   }, [address, type, filtered, tokenToSorted]);
 
   async function getAddressDetailsData() {
-    if (filtered && addressData?.tokens?.length) {
+    if (filtered && !(filtered === 'code') && addressData?.tokens?.length) {
       addFilter(
         addressData.tokens.find(
           (token: TokenType) => token.contract === filtered,
@@ -140,7 +141,7 @@ const AddressDetails = () => {
   }
 
   useEffect(() => {
-    getAddressDetailsData();
+      getAddressDetailsData();
     //TODO refactor
   }, [
     filters,
@@ -177,13 +178,16 @@ const AddressDetails = () => {
             (item: TransactionProps) => item.method === 'Transfer',
           );
           return type === 'transfers' ? transfersDataTx : newTx;
+        }else if (type === 'contract') {
+          const newTx: any =[]
+          return newTx;
         }
       });
     }
   }
 
   useLayoutEffect(() => {
-    setTxDataHandler();
+      setTxDataHandler();
   }, [addressData, type]);
 
   useEffect(() => {
@@ -277,6 +281,7 @@ const AddressDetails = () => {
         </Content.Header>
         <Content.Body isLoading={filtered ? !loading : true}>
           <Tabs
+            isContract={isContract}
             pageNum={pageNum}
             lastCardRef={lastCardRef}
             onClick={setSelectedToken}
