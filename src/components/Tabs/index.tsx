@@ -115,7 +115,6 @@ const Tabs: FC<TabsProps> = ({
     : 'addresses_body_no_data';
 
   const handleNavLinkClass = (itemValue: any) => {
-    console.log(filtered);
     if (type !== 'contract') {
       return `tabs_link ${
         itemValue === transactionType ||
