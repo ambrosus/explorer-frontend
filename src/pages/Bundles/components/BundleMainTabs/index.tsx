@@ -11,7 +11,7 @@ const BundleMainTabs = ({ data }: any) => {
     bundleCost,
   } = data;
 
-  const totalEntries = 10 + bundleCost?.ether;
+  const totalEntries = totalAssets + totalEvents;
 
   const avgBundleLoad = totalBundles
     ? (totalBundles / totalBundles).toFixed(2)
