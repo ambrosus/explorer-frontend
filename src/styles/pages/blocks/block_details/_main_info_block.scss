@@ -49,10 +49,16 @@
 
     &_secondary {
       font-weight: 600;
-      font-size: 14px;
+      font-size: 18px;
       line-height: 24px;
       color: #05060f;
     }
 
+  }
+}
+
+.row-table{
+  @include for_tablet{
+    grid-template-columns: repeat(5, auto) !important;
   }
 }

@@ -19,12 +19,12 @@ const Header = ({ children, isLoading = true }: IContentProps) => (
     {<div className="container">{children}</div>}
   </div>
 );
-Content.Header = React.memo(Header);
+Content.Header = Header;
 Content.Header.displayName = 'CONTENT_HEADER';
 const Body = ({ children }: IContentProps) => (
   <div className="content_body">
     <div className="container">{children}</div>
   </div>
 );
-Content.Body = React.memo(Body);
+Content.Body = Body;
 Content.Body.displayName = 'CONTENT_HEADER';

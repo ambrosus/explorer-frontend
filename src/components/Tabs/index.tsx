@@ -138,8 +138,7 @@ const Tabs: FC<TabsProps> = ({
               </div>
             )}
             {!filtered
-              ? transactionFilters &&
-                transactionFilters.length &&
+              ? transactionFilters?.length &&
                 transactionFilters.map((filter) => (
                   <NavLink
                     key={filter.title}
@@ -154,8 +153,7 @@ const Tabs: FC<TabsProps> = ({
                     {filter.title}
                   </NavLink>
                 ))
-              : ERC20Filters &&
-                ERC20Filters.length &&
+              : ERC20Filters?.length &&
                 ERC20Filters.map((filter) => (
                   <NavLink
                     key={filter.title}

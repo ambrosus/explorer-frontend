@@ -6,12 +6,11 @@ import DataTitle from './components/DataTitle';
 import MainInfoBlocks from './components/MainInfoBlocks';
 import { Content } from 'components/Content';
 import Loader from 'components/Loader';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 export const Blocks = () => {
   const { ref, renderData, loading } = useSortData(
     getBlocksData,
-    null,
     'totalBundles',
   );
 
@@ -31,7 +30,7 @@ export const Blocks = () => {
             {renderData && renderData.data && renderData.data.length
               ? renderData.data.map((item: any, index: number) => (
                   <BlocksBody
-                    index={index}
+                    index={index + 1}
                     lastCardRef={
                       renderData.data.length - 1 === index &&
                       renderData?.pagination?.hasNext

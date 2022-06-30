@@ -17,6 +17,8 @@ const useHomeData = () => {
         .slice(0, 8),
     };
 
+    //TODO ?
+
     result.header = (await appData) && [
       { name: 'AMB PRICE', value: appData.total_price_usd },
       { name: 'TOTAL SUPPLY', value: appData.netInfo.totalSupply },

@@ -1,14 +1,13 @@
 import { Number } from 'components/Number';
 import { useTypedSelector } from 'hooks/useTypedSelector';
-import { FC } from 'react';
 
-const MainInfoBlocks: FC = () => {
+const MainInfoBlocks = () => {
   const { data: appData } = useTypedSelector((state: any) => state.app);
-  const total: number = appData?.netInfo?.lastBlock?.number || 0;
-  const avgBlockTime: number = appData?.netInfo?.avgBlockTime || 0;
-  const avgBlockSize: number = appData?.netInfo?.avgBlockSize || 0;
-  const avgBlockGasUsed: number = appData?.netInfo?.avgBlockGasUsed || 0;
-  const avgNectarPerc: string | number =
+  const total = appData?.netInfo?.lastBlock?.number || 0;
+  const avgBlockTime = appData?.netInfo?.avgBlockTime || 0;
+  const avgBlockSize = appData?.netInfo?.avgBlockSize || 0;
+  const avgBlockGasUsed = appData?.netInfo?.avgBlockGasUsed || 0;
+  const avgNectarPerc =
     `(${(
       (appData?.netInfo?.avgBlockGasUsed / appData?.netInfo?.avgBlockGasLimit ||
         0) * 100
@@ -22,7 +21,7 @@ const MainInfoBlocks: FC = () => {
             TOTAL BLOCKS
           </span>
           <span className="main_info_blocks_blocks_cell_secondary">
-            <Number value={total} fixed={0} />
+            <Number value={total || 0} fixed={0} />
           </span>
         </div>
         <div className="main_info_blocks_blocks_cell">
@@ -31,7 +30,7 @@ const MainInfoBlocks: FC = () => {
           </span>
           <span className="main_info_blocks_blocks_cell_secondary">
             {' '}
-            <Number value={avgBlockSize} fixed={1} /> Bytes
+            <Number value={avgBlockSize || 0} fixed={1} /> Bytes
           </span>
         </div>
         <div className="main_info_blocks_blocks_cell">
@@ -40,7 +39,7 @@ const MainInfoBlocks: FC = () => {
           </span>
           <span className="main_info_blocks_blocks_cell_secondary">
             {' '}
-            <Number value={avgBlockTime} fixed={1} /> Sec
+            <Number value={avgBlockTime || 0} fixed={1} /> Sec
           </span>
         </div>
         <div className="main_info_blocks_blocks_cell">
@@ -49,7 +48,7 @@ const MainInfoBlocks: FC = () => {
           </span>
           <span className="main_info_blocks_blocks_cell_secondary">
             {' '}
-            <Number value={avgBlockGasUsed} fixed={1} /> {avgNectarPerc}
+            <Number value={avgBlockGasUsed || 0} fixed={1} /> {avgNectarPerc}
           </span>
         </div>
       </div>

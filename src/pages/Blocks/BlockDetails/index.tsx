@@ -51,6 +51,8 @@ export const BlockDetails = () => {
     [`get data for ${address}`, address],
     () => getBlockData(address as string),
     {
+      initialDataUpdatedAt: 0,
+      refetchInterval: 4000,
       onSuccess: (data: any) => {
         if (!data) {
           navigate(`/notfound`);

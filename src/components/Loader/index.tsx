@@ -1,7 +1,7 @@
 import AnimatedLoader from './LoaderSvg';
-import React, { FC } from 'react';
+import React from 'react';
 
-const Loader: FC = () => (
+const Loader = () => (
   <div className="animated">
     <div className="loader">
       <div className="Spinner">
@@ -10,4 +10,4 @@ const Loader: FC = () => (
     </div>
   </div>
 );
-export default Loader;
+export default React.memo(Loader);

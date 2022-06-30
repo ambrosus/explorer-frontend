@@ -1,0 +1,10 @@
+@import './addresses';
+@import './components/addresses_body';
+@import './components/addresses_header';
+@import './components/addresses_sort';
+@import './components/main_info_addresses';
+
+// addressDetails
+@import './address_details/address_details';
+@import './address_details/components/address_blocks';
+@import './address_details/components/address_blocks_header';

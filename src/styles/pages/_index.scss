@@ -1,64 +1,27 @@
 // addresses
-@import './addresses/addresses';
-@import './addresses/components/addresses_body';
-@import './addresses/components/addresses_header';
-@import './addresses/components/addresses_sort';
-@import './addresses/components/main_info_addresses';
-
-@import './addresses/address_details/address_details';
-@import './addresses/address_details/components/address_blocks';
-@import './addresses/address_details/components/address_blocks_header';
+@import './addresses/index';
 
 // apollo
-@import './apollo/apollo';
-@import './apollo/components/apollo_blocks_body';
-@import './apollo/components/apollo_blocks_header';
-@import './apollo/components/apollo_blocks_sort';
-@import './apollo/components/main_info_apollo.scss';
-
-// apolloDetails
-@import './apollo/apollo_details/apollo_details';
-@import './apollo/apollo_details/components/apollo_details_balance';
-@import './apollo/apollo_details/components/apollo_details_main';
-@import './apollo/apollo_details/components/apollo_details_mining_stats';
+@import './apollo/index';
 
 // atlas
-@import './atlas/atlas';
-@import './atlas/components/atlas_blocks_body';
-@import './atlas/components/atlas_blocks_header';
-@import './atlas/components/atlas_blocks_sort';
-@import './atlas/components/atlas_header_status_modal';
-@import './atlas/components/main_info_atlas';
+@import './atlas/index';
 
-// atlas
-@import './blocks/blocks';
-@import './blocks/components/blocks_body';
-@import './blocks/components/blocks_header';
-@import './blocks/components/blocks_sort';
-@import './blocks/components/main_info_blocks';
-@import './blocks/block_details/main_info_block';
-@import './blocks/block_details/block_body';
-@import './blocks/block_details/blocks_block_header';
-@import './blocks/block_details/main_info_block_table';
+// blocks
 
-// atlasDetails
-@import './atlas/atlas_details/atlas_details';
-@import './atlas/atlas_details/components/atlas_details_balance';
-@import './atlas/atlas_details/components/atlas_details_main';
-@import './atlas/atlas_details/components/atlas_details_mining_stats';
+@import './blocks/index.scss';
 
-
-@import './bundles/bundles';
+// bundles
+@import './bundles/index';
 
 @import './community/community';
 
 @import './hermes/hermes';
 
-@import './home/home';
-@import './home/components/lastest_transactions';
-@import './home/components/latest_blocks';
-@import './home/components/latests_heading';
-@import './home/components/main_info';
+// home
+@import './home/index.scss';
 
-@import './transactions/transactions';
+// transactions
+@import './transactions/index';
+
 @import './error_page';

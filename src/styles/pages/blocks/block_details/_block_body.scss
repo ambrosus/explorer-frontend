@@ -3,8 +3,13 @@
   grid-template-columns: 190px 190px 190px 190px 190px 190px;
   z-index: 25;
   position: relative;
-  width: fit-content;
 
+  -ms-overflow-style: none; /* for Internet Explorer, Edge */
+  scrollbar-width: none; /* for Firefox */
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    display: none; /* for Chrome, Safari, and Opera */
+  }
   .balance {
     width: max-content;
     white-space: nowrap;
@@ -43,14 +48,4 @@
       padding-right: 6px;
     }
   }
-}
-
-.color-gray {
-  color: #808A9D;
-}
-
-.link {
-  width: fit-content;
-  cursor: pointer;
-  text-decoration: underline;
 }
