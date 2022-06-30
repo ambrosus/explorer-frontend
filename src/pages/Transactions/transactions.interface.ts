@@ -1,5 +1,5 @@
 export type TabsNewProps = {
   tabs: any;
-  onChange: (value: string) => void;
-  selectedItem: string;
+  fetchData: (args: any) => any,
+  render: any,
 };
