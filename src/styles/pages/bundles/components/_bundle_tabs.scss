@@ -5,7 +5,7 @@
   border: 1px solid #eff2f5;
   border-radius: 16px;
   margin-bottom: 32px;
-  @include for_phone {
+  @include for_tablet {
     grid-template-columns: repeat(1, auto);
   }
   &_cells {

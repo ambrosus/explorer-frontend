@@ -169,8 +169,10 @@ export const log = (...args: any) => {
   return ENABLE_LOGS && console.log(...args);
 };
 
-export const numberWithCommas = (number: string | number, value: number) =>
-  value > 1 ? number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : number;
+export const numberWithCommas = (number: string | number) =>
+  +number > 1
+    ? number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+    : number;
 
 export const currenCurrency = (
   value: string | number,
@@ -178,16 +180,30 @@ export const currenCurrency = (
 ) => {
   switch (nameCurrency) {
     case 'TOTAL SUPPLY':
-      return `${Number(value).toFixed()} AMB`;
+      return `${Number(value).toFixed()}`;
 
     case 'MARKET CAP':
-      return `${Number(value).toFixed()} USD`;
+      return `${Number(value).toFixed()}`;
 
     case 'AMB PRICE':
-      return `${Number(value).toFixed(6)} USD`;
+      return `${Number(value).toFixed(6)}`;
 
     default:
       return value;
+  }
+};
+export const nameCurrency = (name: string) => {
+  switch (name) {
+    case 'TOTAL SUPPLY':
+      return ' AMB';
+    case 'MARKET CAP':
+      return ' USD';
+
+    case 'AMB PRICE':
+      return ' USD';
+
+    default:
+      return '';
   }
 };
 
@@ -370,3 +386,6 @@ export const calcDataTime = (time: number | null | undefined) => {
     ? moment(time * 1000).format('ddd, D MMMM YYYY')
     : '';
 };
+
+export const bundleExpirationTime = (bundle: any) =>
+  bundle.uploadTimestamp + bundle.storagePeriods * 13 * 28 * 24 * 60 * 60;
