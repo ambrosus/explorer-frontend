@@ -127,15 +127,12 @@ const Tabs: FC<TabsProps> = ({
           ? 'tabs_link_active'
           : ''
       }`;
-    }else {
+    } else if (filtered === 'code' || filtered === 'write' || filtered === 'read') {
       return `tabs_link ${
-        itemValue === transactionType ||
-        (transactionType === 'ERC-20_Tx' &&
-          itemValue === 'Transferss' &&
-          tokenToSorted !== undefined) ||
-        (transactionType === 'ERC-20_Tx' &&
-          tokenToSorted === undefined &&
-          itemValue === 'Alls') || ((filtered === 'code' || filtered === 'read' || filtered === 'write') && itemValue === 'contract')
+        itemValue === transactionType
+        || (!(filtered === 'code' || filtered === 'read' || filtered === 'write')
+          || itemValue === 'contract')
+        ||(filtered === 'code' || filtered === 'read' || filtered === 'write') && (itemValue === filtered && itemValue === 'contract')
           ? 'tabs_link_active'
           : ''
       }`;
@@ -165,22 +162,9 @@ const Tabs: FC<TabsProps> = ({
           ))
           }
         </div>
-
-        <div ref={mobileCalendarRef} className="tabs_heading_export_modal">
-          {FOR_TABLET ? (
-            <ExportCsv/>
-          ) : (
-            <>
-              <div className="tabs_side_menu">
-                <button className="tabs_side_menu_icon" onClick={handleShow}>
-                  <SideMenu/>
-                </button>
-              </div>
-            </>
-          )}
-        </div>
       </div>
     )
+
   return (
     <>
       <div className="tabs">
@@ -194,7 +178,7 @@ const Tabs: FC<TabsProps> = ({
                 <Calendar/>
               </div>
             )}
-            {!filtered || filtered !== 'contract'
+            {!filtered || (filtered === 'code' || filtered === 'write' || filtered === 'read')
               ? transactionFilters?.length &&
               transactionFilters.map((filter) => (
                 <>
@@ -205,7 +189,7 @@ const Tabs: FC<TabsProps> = ({
                           key={filter.title}
                           to={`/addresses/${address}/${
                             filter.value ? filter.value : ''
-                          }`}
+                          }${filter.value === 'contract' ? '/code' : '/'} `}
                           className={() => handleNavLinkClass(filter.value)}
                           onClick={() => {
                             console.log(filter);
