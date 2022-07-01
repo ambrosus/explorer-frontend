@@ -19,9 +19,9 @@ const BlockHeaderInfo = ({ block }: any) => {
     return confirmations > 0 ? 'Confirmed' : 'Unconfirmed';
   };
   return (
-    <div className="main_info_block">
-      <div className="main_info_block_table row-table">
-        <div className="main_info_block_cell">
+    <div className="main_info_blocks_blocks">
+      <div className="main_info_blocks_blocks_table">
+        <div className="main_info_blocks_blocks_cell">
           <span className="main_info_block_cell_primary">Status</span>
           <span
             className="main_info_block_cell_secondary"
@@ -32,24 +32,24 @@ const BlockHeaderInfo = ({ block }: any) => {
             {blockStatus(confirmations)}
           </span>
         </div>
-        <div className="main_info_block_cell">
+        <div className="main_info_blocks_blocks_cell">
           <span className="main_info_block_cell_primary">CONFIRMATIONS</span>
           <span className="main_info_block_cell_secondary">
             <Number value={confirmations < 0 ? 0 : confirmations} />
           </span>
         </div>
 
-        <div className="main_info_block_cell">
+        <div className="main_info_blocks_blocks_cell">
           <span className="main_info_block_cell_primary">
             TXS IN THIS BLOCK
           </span>
           <span className="main_info_block_cell_secondary">{txCount}</span>
         </div>
-        <div className="main_info_block_cell">
+        <div className="main_info_blocks_blocks_cell">
           <span className="main_info_block_cell_primary">SIZE</span>
           <span className="main_info_block_cell_secondary">{size ?? 0}</span>
         </div>
-        <div className="main_info_block_cell">
+        <div className="main_info_blocks_blocks_cell">
           <span className="main_info_block_cell_primary">CREATED</span>
           <span className="main_info_block_cell_secondary">
             {moment(timestamp * 1000).fromNow() ?? 0}

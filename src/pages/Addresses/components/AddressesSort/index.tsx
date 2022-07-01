@@ -5,7 +5,6 @@ import {
 import { FC } from 'react';
 
 const AddressesSort: FC<PAddressesSort> = ({
-  setRenderData,
   sortTerm,
   setSortTerm,
 }) => (
@@ -20,9 +19,6 @@ const AddressesSort: FC<PAddressesSort> = ({
             option.value === sortTerm && 'addresses_sort_active'
           }`}
           onClick={() => {
-            if (option.value === 'contracts') {
-              setRenderData(null);
-            }
             setSortTerm(option.value);
           }}
         >
@@ -47,9 +43,5 @@ const sortOptions: TAddressesSortProps[] = [
   {
     label: 'Total Tx',
     value: 'totalTx',
-  },
-  {
-    label: 'Contracts',
-    value: 'contracts',
   },
 ];

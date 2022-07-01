@@ -22,7 +22,6 @@ export const Addresses = () => {
       <Content.Body>
         <div className="addresses_main_table">
           <AddressesSort
-            setRenderData={setRenderData}
             sortTerm={sortTerm}
             setSortTerm={setSortTerm}
           />
