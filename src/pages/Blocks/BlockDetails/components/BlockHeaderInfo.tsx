@@ -1,14 +1,14 @@
-import {useTypedSelector} from '../../../../hooks/useTypedSelector';
-import {Number} from 'components/Number';
+import { useTypedSelector } from '../../../../hooks/useTypedSelector';
+import { Number } from 'components/Number';
 import moment from 'moment';
 import React from 'react';
 
-const BlockHeaderInfo = ({block}: any) => {
-  const {data: appData} = useTypedSelector((state: any) => state.app);
-  const {number, blockRewards, totalTransactions, size, timestamp} =
-  block !== null && block !== undefined && block;
+const BlockHeaderInfo = ({ block }: any) => {
+  const { data: appData } = useTypedSelector((state: any) => state.app);
+  const { number, blockRewards, totalTransactions, size, timestamp } =
+    block !== null && block !== undefined && block;
   const txCount = blockRewards?.length + totalTransactions || 0;
-  const {lastBlock} = appData?.netInfo ?? {
+  const { lastBlock } = appData?.netInfo ?? {
     lastBlock: {
       number: 0,
     },
@@ -35,7 +35,7 @@ const BlockHeaderInfo = ({block}: any) => {
         <div className="main_info_blocks_blocks_cell">
           <span className="main_info_block_cell_primary">CONFIRMATIONS</span>
           <span className="main_info_block_cell_secondary">
-            <Number value={confirmations < 0 ? 0 : confirmations}/>
+            <Number value={confirmations < 0 ? 0 : confirmations} />
           </span>
         </div>
 
