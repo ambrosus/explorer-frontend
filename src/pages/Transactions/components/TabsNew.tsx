@@ -5,7 +5,7 @@ import Loader from "../../../components/Loader";
 import { AccountsData } from 'pages/Addresses/addresses.interface';
 import AddressBlocksHeader from "../../Addresses/AddressDetails/components/AddressBlocksHeader";
 
-const TabsNew: FC<TabsNewProps> = ({ tabs, fetchData, render }) => {
+const TabsNew: FC<TabsNewProps> = ({ tabs, fetchData, fetchParams, render }) => {
   const [loading, setLoading] = useState(true);
   const [tab, setTab] = useState('');
   const { ref, inView } = useInView();
@@ -28,7 +28,7 @@ const TabsNew: FC<TabsNewProps> = ({ tabs, fetchData, render }) => {
       tabData.pagination &&
       tabData.pagination.hasNext
     ) {
-      handleFetchData({ type: tab, page: tabData.pagination.next }).then(
+      handleFetchData().then(
         (response: any) => {
           setTabData((state: AccountsData) => ({
             data: [...state.data, ...response.data],
@@ -39,9 +39,13 @@ const TabsNew: FC<TabsNewProps> = ({ tabs, fetchData, render }) => {
     }
   }, [inView]);
 
-  const handleFetchData = (params: object = {}) => {
+  const handleFetchData = () => {
     setLoading(true);
+    const params: any = { ...fetchParams, page: tabData.pagination.next };
 
+    if (fetchParams.hasOwnProperty('type')) {
+      params.type = tab;
+    }
     return fetchData({ ...params, limit: 50 }).finally(() =>
       setLoading(false),
     );
@@ -56,7 +60,7 @@ const TabsNew: FC<TabsNewProps> = ({ tabs, fetchData, render }) => {
       },
     });
 
-    handleFetchData({ type }).then((response: any) => setTabData(response));
+    handleFetchData().then((response: any) => setTabData(response));
 
     setTab(type);
   };
@@ -77,7 +81,6 @@ const TabsNew: FC<TabsNewProps> = ({ tabs, fetchData, render }) => {
               {el.title}
             </span>
             ))}
-            <div ref={ref} />
             {loading && <Loader />}
           </div>
         </div>
@@ -96,6 +99,7 @@ const TabsNew: FC<TabsNewProps> = ({ tabs, fetchData, render }) => {
         isTableColumn={'address_blocks_cells'}
       />
       {!!tabData.data.length && render(tabData.data)}
+      <div ref={ref} />
     </>
   );
 };

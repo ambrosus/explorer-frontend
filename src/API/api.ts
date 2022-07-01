@@ -122,8 +122,8 @@ const getAtlases = (params = {}) => {
   });
 };
 
-export const getAccountTx = (address: any, params = {}) => {
-  return API().get(`accounts/${address}/transactions`, {
+export const getAccountTx = (params: any = {}) => {
+  return API().get(`accounts/${params.address}/transactions`, {
     params,
   });
 };

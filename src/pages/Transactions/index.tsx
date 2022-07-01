@@ -35,6 +35,7 @@ export const Transactions = () => {
         <TabsNew
           tabs={transactionsTabs}
           fetchData={API.getTransactions}
+          fetchParams={{type: ''}}
           render={(txs: Account[]) => (
             txs.map((tx: any, i: number) => (
               <AddressBlock
