@@ -2,7 +2,7 @@ import BundleTabsCells from '../BundleTabsCells';
 
 const BundleTabs = ({ data, mainColumns }: any) => {
   return (
-    <div className="bundle_tabs" style={{ gridTemplateColumns: mainColumns }}>
+    <table className="bundle_tabs" style={{ gridTemplateColumns: mainColumns }}>
       {data?.map((item: any) => (
         <BundleTabsCells
           key={item._id}
@@ -10,7 +10,7 @@ const BundleTabs = ({ data, mainColumns }: any) => {
           secondaryCell={item.value}
         />
       ))}
-    </div>
+    </table>
   );
 };
 

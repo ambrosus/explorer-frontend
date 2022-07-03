@@ -1,9 +1,7 @@
-import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import {
   byteToMgb,
   calcDataTime,
-  calcTime,
   sliceData10,
   sliceData5,
 } from 'utils/helpers';
