@@ -33,8 +33,6 @@
     "eslint": "^8.14.0",
     "ethers": "^5.0.0",
     "jest": "^26.0.1",
-    "mobx": "^6.6.1",
-    "mobx-react-lite": "^3.4.0",
     "moment": "^2.29.1",
     "node-sass": "^7.0.1",
     "react-date-range": "^1.4.0",

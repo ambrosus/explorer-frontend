@@ -1,18 +1,30 @@
 import { Content } from 'components/Content';
 import Loader from 'components/Loader';
 import useSortData from 'hooks/useSortData';
+import { observer } from 'mobx-react-lite';
 import BundleBlocksBody from 'pages/Bundles/components/BundleBlocksBody';
 import BundleBlocksHeader from 'pages/Bundles/components/BundleBlocksHeader';
 import BundleMainTabs from 'pages/Bundles/components/BundleMainTabs';
-import { getBundleInfo, getBundlesData } from 'services/bundle.service';
+import { useParams } from 'react-router-dom';
+import {
+  getBundleInfo,
+  getBundles1Data,
+  getBundlesData,
+} from 'services/bundle.service';
 import bundle from 'store/bundle';
 
-export const Bundles = () => {
+export const Bundles = observer(() => {
   const { ref, renderData } = useSortData(getBundlesData, '');
+  const { address } = useParams();
 
   const { renderData: appData } = useSortData(getBundleInfo, '');
-  // console.log(bundle.bundleData)
+  // console.log(bundle.bundleDaxta)
 
+  // bundle.getBundle();
+  const res = bundle.getBundle();
+  console.log(res);
+
+  // getBundles1Data().then((res) => console.log(res));
   return (
     <Content>
       <Content.Header>
@@ -40,4 +52,4 @@ export const Bundles = () => {
       </Content.Body>
     </Content>
   );
-};
+});
