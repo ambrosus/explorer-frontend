@@ -1,4 +1,4 @@
-import BundleDetailsTab from '../BundleDetailsTab';
+import HeadInfo from 'components/HeadInfo';
 import { BUNDLE_MAX_LOAD } from 'utils/constants';
 import {
   bundleExpirationTime,
@@ -69,8 +69,8 @@ const BundleDetailsMainTabs = ({ data }: any) => {
   ];
   return (
     <>
-      <BundleDetailsTab data={itemFirst} />
-      <BundleDetailsTab data={itemSecond} />
+      <HeadInfo data={itemFirst} className="bundle_details_tab" />
+      <HeadInfo data={itemSecond} className="bundle_details_tab" />
     </>
   );
 };

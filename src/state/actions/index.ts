@@ -53,5 +53,25 @@ interface ClearFiltersTokenAction {
   type: actionTypes.CLEAR_FILTERS;
   payload: Array<any> | null;
 }
-
 export type FiltersAction = SetFiltersTokenAction | ClearFiltersTokenAction;
+
+// ***** Bundle Data Action *****
+
+interface SetBundleDataAction {
+  type: actionTypes.SET_BUNDLE_DATA__START;
+}
+
+interface SetBundleDataActionSuccess {
+  type: actionTypes.SET_BUNDLE_DATA__SUCCESS;
+  payload: object | null;
+}
+
+interface SetBundleDataActionFailure {
+  type: actionTypes.SET_BUNDLE_DATA__FAIL;
+  payload: object | string | null;
+}
+
+export type BunleDataAction =
+  | SetBundleDataAction
+  | SetBundleDataActionSuccess
+  | SetBundleDataActionFailure;

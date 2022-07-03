@@ -1,5 +1,10 @@
 import { actionTypes } from '../action-types';
-import { AppDataAction, FiltersAction, PositionAction } from '../actions';
+import {
+  AppDataAction,
+  BunleDataAction,
+  FiltersAction,
+  PositionAction,
+} from '../actions';
 import API from 'API/api';
 import { Dispatch } from 'redux';
 import { CLIENT_VERSION } from 'utils/constants';
@@ -91,5 +96,33 @@ export const clearFilters: any = () => {
       type: actionTypes.CLEAR_FILTERS,
       payload: null,
     });
+  };
+};
+
+export const getBundlesData = () => {
+  return async (dispatch: Dispatch<BunleDataAction>) => {
+    dispatch({
+      type: actionTypes.SET_BUNDLE_DATA__START,
+    });
+    try {
+      // const result = {
+      //   gitTagVersion:
+      //   netInfo:
+      //   tokenInfo:
+      //   totalPriceToken:
+      //   total_price_usd:
+      // };
+
+      const result = null;
+      dispatch({
+        type: actionTypes.SET_BUNDLE_DATA__SUCCESS,
+        payload: result,
+      });
+    } catch (error: any) {
+      dispatch({
+        type: actionTypes.SET_BUNDLE_DATA__FAIL,
+        payload: error.message,
+      });
+    }
   };
 };
