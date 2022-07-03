@@ -1,8 +1,6 @@
 import HeadInfoCell from 'components/HeadInfo/HeadInfoCell';
 
 const HeadInfo = ({ data, className, style }: any) => {
-  console.log(data);
-
   return (
     <div className={className} style={style}>
       {data?.map((item: any) => (

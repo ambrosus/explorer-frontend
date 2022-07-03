@@ -1,8 +1,9 @@
 import { makeAutoObservable } from 'mobx';
 
 class Bundle {
+  bundleData = null;
   constructor() {
-    makeAutoObservable();
+    makeAutoObservable(this);
   }
 }
 

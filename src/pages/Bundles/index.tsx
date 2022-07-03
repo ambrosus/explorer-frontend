@@ -5,11 +5,13 @@ import BundleBlocksBody from 'pages/Bundles/components/BundleBlocksBody';
 import BundleBlocksHeader from 'pages/Bundles/components/BundleBlocksHeader';
 import BundleMainTabs from 'pages/Bundles/components/BundleMainTabs';
 import { getBundleInfo, getBundlesData } from 'services/bundle.service';
+import bundle from 'store/bundle';
 
 export const Bundles = () => {
   const { ref, renderData } = useSortData(getBundlesData, '');
 
   const { renderData: appData } = useSortData(getBundleInfo, '');
+  // console.log(bundle.bundleData)
 
   return (
     <Content>
