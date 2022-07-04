@@ -19,11 +19,7 @@ const useSortData = (getData: any, firstSortTerm: any = '') => {
   const firstRender = () => {
     setLoading(true);
 
-    getData(
-      sortTerm,
-      null,
-      address,
-    ).then((res: AccountsData) => {
+    getData(sortTerm, null, address).then((res: AccountsData) => {
       if (res?.meta?.message?.includes('No results')) {
         setLoading(false);
         setRenderData(null);
@@ -53,14 +49,9 @@ const useSortData = (getData: any, firstSortTerm: any = '') => {
   }, [pathname]);
 
   const updateData = useCallback(() => {
-
     if (sortTerm) {
       setLoading(true);
-      getData(
-        sortTerm,
-        null,
-        address,
-      ).then((res: AccountsData) => {
+      getData(sortTerm, null, address).then((res: AccountsData) => {
         if (res?.meta?.message?.includes('No results')) {
           setLoading(false);
           setRenderData(null);
@@ -81,23 +72,21 @@ const useSortData = (getData: any, firstSortTerm: any = '') => {
       setLoading(true);
       const next: string = renderData?.pagination?.next;
       if (next) {
-        getData(sortTerm, next, address).then(
-          (res: AccountsData) => {
-            if (res?.meta?.message?.includes('No results')) {
-              setLoading(false);
-              setRenderData(null);
-              return;
-            }
-            setRenderData((prev: AccountsData) => {
-              setLoading(false);
-              return {
-                ...prev,
-                data: removeArrayDuplicates([...prev.data, ...res?.data]),
-                pagination: res.pagination,
-              };
-            });
-          },
-        );
+        getData(sortTerm, next, address).then((res: AccountsData) => {
+          if (res?.meta?.message?.includes('No results')) {
+            setLoading(false);
+            setRenderData(null);
+            return;
+          }
+          setRenderData((prev: AccountsData) => {
+            setLoading(false);
+            return {
+              ...prev,
+              data: removeArrayDuplicates([...prev.data, ...res?.data]),
+              pagination: res.pagination,
+            };
+          });
+        });
       }
     }
   }, [inView]);
