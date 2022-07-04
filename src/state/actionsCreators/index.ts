@@ -6,6 +6,7 @@ import {
   PositionAction,
 } from '../actions';
 import API from 'API/api';
+import { useParams } from 'react-router-dom';
 import { Dispatch } from 'redux';
 import { CLIENT_VERSION } from 'utils/constants';
 
@@ -105,15 +106,11 @@ export const getBundlesData = () => {
       type: actionTypes.SET_BUNDLE_DATA__START,
     });
     try {
-      // const result = {
-      //   gitTagVersion:
-      //   netInfo:
-      //   tokenInfo:
-      //   totalPriceToken:
-      //   total_price_usd:
-      // };
+      const result = await API.getBundles({
+        limit: 20,
+        next: null,
+      });
 
-      const result = null;
       dispatch({
         type: actionTypes.SET_BUNDLE_DATA__SUCCESS,
         payload: result,

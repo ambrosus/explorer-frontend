@@ -12,7 +12,6 @@ export const Bundles = () => {
   const { ref, renderData } = useSortData(getBundlesData, '');
 
   const { renderData: appData } = useSortData(getBundleInfo, '');
-  const { data } = useTypedSelector((state) => state.bundles);
   // console.log(data);
 
   return (

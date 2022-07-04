@@ -1,3 +1,4 @@
+import { useTypedSelector } from 'hooks/useTypedSelector';
 import { NavLink } from 'react-router-dom';
 import {
   byteToMgb,
@@ -7,6 +8,8 @@ import {
 } from 'utils/helpers';
 
 const BundleBlocksBody = ({ lastCardRef, item }: any) => {
+  const { data } = useTypedSelector((state) => state.bundles);
+
   const isTxHash = (
     <NavLink
       to={`${item?.bundleId}`}
