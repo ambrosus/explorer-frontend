@@ -1,5 +1,6 @@
 .blocks_blocks_body {
   display: grid;
+  width: fit-content;
   grid-template-columns: 120px 640px 123px 76px 103px 103px;
   z-index: 25;
   position: relative;
