@@ -1,10 +1,10 @@
 import GreenCircle from '../../../../assets/icons/StatusAction/GreenCircle';
 import OrangeCircle from '../../../../assets/icons/StatusAction/OrangeCircle';
-import {useTypedSelector} from '../../../../hooks/useTypedSelector';
+import { useTypedSelector } from '../../../../hooks/useTypedSelector';
 import moment from 'moment';
-import React, {FC} from 'react';
-import {NavLink, useNavigate} from 'react-router-dom';
-import {sliceData5} from 'utils/helpers';
+import React, { FC } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { sliceData5 } from 'utils/helpers';
 
 interface IBlocksBodyItem {
   number: number;
@@ -21,7 +21,7 @@ interface IBlocksBody {
   item: IBlocksBodyItem;
 }
 
-const BlocksBody: FC<IBlocksBody> = ({index, lastCardRef, item}) => {
+const BlocksBody: FC<IBlocksBody> = ({ index, lastCardRef, item }) => {
   const {
     number,
     miner,
@@ -30,9 +30,9 @@ const BlocksBody: FC<IBlocksBody> = ({index, lastCardRef, item}) => {
     timestamp,
     size,
   }: IBlocksBodyItem = item;
-  const {data: appData} = useTypedSelector((state: any) => state.app);
+  const { data: appData } = useTypedSelector((state: any) => state.app);
 
-  const {lastBlock} = appData?.netInfo ?? {
+  const { lastBlock } = appData?.netInfo ?? {
     lastBlock: {
       number: 0,
     },
@@ -41,11 +41,11 @@ const BlocksBody: FC<IBlocksBody> = ({index, lastCardRef, item}) => {
 
   const online = (confirmations: number) => {
     return index > 0 && confirmations > 0 ? (
-      <GreenCircle/>
+      <GreenCircle />
     ) : index > 1 ? (
-      <GreenCircle/>
+      <GreenCircle />
     ) : (
-      <OrangeCircle/>
+      <OrangeCircle />
     );
   };
 
@@ -65,13 +65,17 @@ const BlocksBody: FC<IBlocksBody> = ({index, lastCardRef, item}) => {
         }}
         onClick={redirectHandler}
       >
-        <span style={{marginRight: 8}}>{online(confirmations)}</span> {number}
+        <span style={{ marginRight: 8 }}>{online(confirmations)}</span> {number}
       </div>
       <NavLink to={`/apollo/${miner}/`} className="universall_light2">
-        <div className="blocks_blocks_body_cell color-gray"
-             style={{
-               fontWeight: 600
-             }}>{miner}</div>
+        <div
+          className="blocks_blocks_body_cell color-gray"
+          style={{
+            fontWeight: 600,
+          }}
+        >
+          {miner}
+        </div>
       </NavLink>
       <div className="blocks_blocks_body_cell color-gray">
         {sliceData5(hash)}
