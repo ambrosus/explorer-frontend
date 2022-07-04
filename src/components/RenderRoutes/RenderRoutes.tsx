@@ -71,15 +71,6 @@ export const RenderRoutes = (props: any) => {
           {...route}
         />
       ))}
-      {routes.transactions.map((route: any) => (
-        <Route
-          suspense={<Loader />}
-          key={route.key}
-          path={route.path}
-          element={<route.component />}
-          {...route}
-        />
-      ))}
       {routes.blockRoutes.map((route: any) => (
         <Route
           suspense={<Loader />}
