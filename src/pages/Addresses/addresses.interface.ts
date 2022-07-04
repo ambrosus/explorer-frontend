@@ -31,7 +31,6 @@ export type AccountsData =
 export type PAddressesSort = {
   setSortTerm: (value: string) => void;
   sortTerm: string;
-  setRenderData?: any;
 };
 
 export type TAddressesSortProps = {

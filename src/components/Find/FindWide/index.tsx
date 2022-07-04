@@ -18,6 +18,7 @@ const FindWide: React.FC<FindWideProps> = ({ setIsShow, searchRef }) => {
     () => API.searchItem(debouncedSearchTerm),
     {
       onSuccess: (data: any) => {
+        console.log(data);
         if (!data) {
           setErr(true);
         } else {
