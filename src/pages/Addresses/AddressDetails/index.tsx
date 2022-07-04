@@ -1,17 +1,14 @@
 import API from '../../../API/api';
 import NodeHeader from '../../../components/NodeHeader';
 import { TokenType, TransactionProps } from './address-details.interface';
-import ContentCopy from 'assets/icons/CopyIcons/ContentCopy';
-import ContentCopyed from 'assets/icons/CopyIcons/ContentCopyed';
-import CopyPopUp from 'assets/icons/CopyIcons/CopyPopUp';
 import { Content } from 'components/Content';
+import CopyBtn from 'components/CopyBtn';
 import FilteredToken from 'components/FilteredToken';
 import OverallBalance from 'components/OveralBalance';
 import Tabs from 'components/Tabs';
 import Token from 'components/Token';
 import { formatEther } from 'ethers/lib/utils';
 import { useActions } from 'hooks/useActions';
-import useCopyContent from 'hooks/useCopyContent';
 import useDeviceSize from 'hooks/useDeviceSize';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
@@ -49,7 +46,6 @@ const AddressDetails = () => {
       showMoreRef?.current?.scrollIntoView({ behavior: 'smooth' });
     }
   };
-  const { isCopy, copyContent, isCopyPopup } = useCopyContent(address);
 
   const lastCardRef = (node: any) => {
     if (loading) return;
@@ -217,17 +213,7 @@ const AddressDetails = () => {
             >
               {isContract && <span>Address:&nbsp; </span>}
               {address}
-              <button
-                className="address_details_copy_btn"
-                onClick={copyContent}
-              >
-                {isCopy ? <ContentCopyed /> : <ContentCopy />}
-                {FOR_TABLET && isCopyPopup && isCopy && (
-                  <div className="address_details_copyed">
-                    <CopyPopUp x={3} y={20} values="Copyed" />
-                  </div>
-                )}
-              </button>
+              <CopyBtn />
             </div>
           </h1>
           <div className="address_details_section">

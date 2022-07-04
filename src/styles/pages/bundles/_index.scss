@@ -1,8 +1,9 @@
 // @import './bundles';
-@import './components/bundles_blocks';
-@import './components/bundle_tabs';
+@import './components/bundle_blocks';
 @import './components/bundle_blocks_header';
 @import './components/bundle_blocks_body';
+@import './bundle';
+@import './bundle_tabs';
 
 // bundle_details
 @import './bundle_details/bundle_details';

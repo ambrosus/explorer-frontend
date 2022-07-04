@@ -1,9 +1,9 @@
 const BundleMainCells = ({ primaryCell, secondaryCell }: any) => {
   return (
-    <div className="bundle_tabs_cells">
-      <div className="bundle_tabs_cells_primary">{primaryCell}</div>
-      <div className="bundle_tabs_cells_secondary">{secondaryCell}</div>
-    </div>
+    <tr className="bundle_tabs_cells">
+      <td className="bundle_tabs_cells_primary">{primaryCell}</td>
+      <td className="bundle_tabs_cells_secondary">{secondaryCell}</td>
+    </tr>
   );
 };
 
