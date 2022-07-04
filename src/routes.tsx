@@ -19,7 +19,6 @@ interface IAppRoutes {
   addressesRoutes: IRoute[];
   apolloRoutes: IRoute[];
   atlasRoutes: IRoute[];
-  transactions: IRoute[];
   bundleRoutes: IRoute[];
   blockRoutes: IRoute[];
 }
@@ -191,7 +190,6 @@ const appRoutes: IAppRoutes = {
   addressesRoutes,
   apolloRoutes,
   atlasRoutes,
-  transactions,
   blockRoutes,
 };
 
