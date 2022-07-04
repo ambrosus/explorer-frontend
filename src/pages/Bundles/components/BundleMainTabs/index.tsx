@@ -1,3 +1,4 @@
+import HeadInfo from 'components/HeadInfo';
 import BundleTabs from 'pages/Bundles/components/BundleTabs';
 import { useEffect } from 'react';
 import { numberWithCommas } from 'utils/helpers';
@@ -6,8 +7,8 @@ const BundleMainTabs = ({ data }: any) => {
   const {
     totalBundles,
     bundlesActivity,
-    totalAssets,
-    totalEvents,
+    totalAssets = 0,
+    totalEvents = 0,
     bundleCost,
   } = data;
 
@@ -54,8 +55,8 @@ const BundleMainTabs = ({ data }: any) => {
   return (
     <>
       <h1 style={{ margin: '32px 0' }}>Bundles</h1>
-      <BundleTabs data={itemFirst} />
-      <BundleTabs data={itemSecond} />
+      <HeadInfo data={itemFirst} className="bundle_tabs" />
+      <HeadInfo data={itemSecond} className="bundle_tabs" />
       {}
     </>
   );

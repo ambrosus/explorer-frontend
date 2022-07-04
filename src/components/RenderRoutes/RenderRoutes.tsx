@@ -7,9 +7,9 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 
 export const RenderRoutes = (props: any) => {
   const { routes } = props;
-  const { loading } = useTypedSelector((state: any) => state.app);
+  const { data, loading } = useTypedSelector((state: any) => state.app);
 
-  const { setAppDataAsync } = useActions();
+  const { setAppDataAsync, getBundlesData } = useActions();
 
   const [counter, setCounter] = useState(0);
 

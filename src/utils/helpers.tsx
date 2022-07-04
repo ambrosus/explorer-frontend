@@ -35,6 +35,18 @@ export const calcTime = (time: number | null | undefined) => {
    */
   return moment(time).isValid() ? moment(time * 1000).fromNow() : '';
 };
+export const sliceDataString = (item: string | null | undefined) => {
+  if (!item) {
+    return [];
+  }
+  console.log(item.length);
+
+  const res = `${item.slice(0, Math.ceil(item.length / 2))} ${item.slice(
+    Math.ceil(item.length / 2),
+  )}`.split(' ');
+
+  return res;
+};
 
 export const setupStyle = (item: string | undefined) => {
   switch (item) {
@@ -385,6 +397,14 @@ export const calcDataTime = (time: number | null | undefined) => {
   return moment(time).isValid()
     ? moment(time * 1000).format('ddd, D MMMM YYYY')
     : '';
+};
+
+export const calcBundleTime = (time: number | null | undefined) => {
+  if (!time) {
+    return '';
+  }
+
+  return moment(time).isValid() ? moment(time * 1000).format('h:mm:ss') : '';
 };
 
 export const bundleExpirationTime = (bundle: any) =>

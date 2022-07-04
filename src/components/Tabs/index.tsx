@@ -252,9 +252,11 @@ const Tabs: FC<TabsProps> = ({
                         key={filter.title}
                         to={`/addresses/${address}/${
                           filter.value ? filter.value : ''
-                        }`}
+                        }${filter.value === 'contract' ? '/code' : '/'} `}
                         className={() => handleNavLinkClass(filter.value)}
                         onClick={() => {
+                          console.log(filter);
+
                           setTransactionType(filter.value);
                         }}
                       >

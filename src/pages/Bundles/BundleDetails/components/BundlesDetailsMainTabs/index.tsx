@@ -1,8 +1,9 @@
-import BundleDetailsTab from '../BundleDetailsTab';
+import HeadInfo from 'components/HeadInfo';
 import { BUNDLE_MAX_LOAD } from 'utils/constants';
 import {
   bundleExpirationTime,
   byteToMgb,
+  calcBundleTime,
   calcDataTime,
   sliceData10,
   sliceData5,
@@ -12,6 +13,25 @@ const BundleDetailsMainTabs = ({ data }: any) => {
   const { totalEvents = 0, totalAssets = 0 } = data;
 
   const total = totalEvents + totalAssets;
+  const created = (
+    <span>
+      {calcDataTime(data.uploadTimestamp)}
+      <span style={{ fontSize: 10 }}>
+        {' '}
+        {calcBundleTime(data.uploadTimestamp)}
+      </span>
+    </span>
+  );
+
+  const expired = (
+    <div>
+      {calcDataTime(bundleExpirationTime(data))}
+      <span style={{ fontSize: 10 }}>
+        {' '}
+        {calcBundleTime(data.uploadTimestamp)}
+      </span>
+    </div>
+  );
 
   const itemFirst: any = [
     {
@@ -21,8 +41,8 @@ const BundleDetailsMainTabs = ({ data }: any) => {
     },
     {
       _id: 2,
-      name: 'TX HASH',
-      value: sliceData10(data?.txHash, 12),
+      name: 'BUNDLE',
+      value: sliceData10(data?.bundleId, 12),
     },
     {
       _id: 3,
@@ -44,8 +64,9 @@ const BundleDetailsMainTabs = ({ data }: any) => {
     {
       _id: 1,
       name: 'CREATED',
-      value: calcDataTime(data.uploadTimestamp),
+      value: created,
     },
+
     {
       _id: 2,
       name: 'DURATION',
@@ -54,7 +75,7 @@ const BundleDetailsMainTabs = ({ data }: any) => {
     {
       _id: 3,
       name: 'EXPIRATION DATE',
-      value: calcDataTime(bundleExpirationTime(data)),
+      value: expired,
     },
     {
       _id: 4,
@@ -69,8 +90,12 @@ const BundleDetailsMainTabs = ({ data }: any) => {
   ];
   return (
     <>
-      <BundleDetailsTab data={itemFirst} />
-      <BundleDetailsTab data={itemSecond} />
+      <HeadInfo
+        data={itemFirst}
+        className="bundle_details_tab"
+        style={{ color: '#808A9D' }}
+      />
+      <HeadInfo data={itemSecond} className="bundle_details_tab" />
     </>
   );
 };
