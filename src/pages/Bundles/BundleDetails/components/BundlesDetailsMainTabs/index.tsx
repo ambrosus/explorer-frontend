@@ -21,8 +21,8 @@ const BundleDetailsMainTabs = ({ data }: any) => {
     },
     {
       _id: 2,
-      name: 'TX HASH',
-      value: sliceData10(data?.txHash, 12),
+      name: 'BUNDLE',
+      value: sliceData10(data?.bundleId, 12),
     },
     {
       _id: 3,
@@ -69,7 +69,11 @@ const BundleDetailsMainTabs = ({ data }: any) => {
   ];
   return (
     <>
-      <HeadInfo data={itemFirst} className="bundle_details_tab" />
+      <HeadInfo
+        data={itemFirst}
+        className="bundle_details_tab"
+        style={{ color: '#808A9D' }}
+      />
       <HeadInfo data={itemSecond} className="bundle_details_tab" />
     </>
   );

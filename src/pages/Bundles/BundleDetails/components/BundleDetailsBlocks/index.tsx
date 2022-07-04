@@ -56,7 +56,8 @@ const BundleDetailsBlocks = () => {
           assetsData?.data.map((data: any) => (
             <BundleDetailsBlock
               key={data._id}
-              data={data.assetId}
+              data={data}
+              tab={tab}
               bundleRef={assetsData?.pagination?.hasNext ? assetsRef : null}
             />
           ))}
@@ -65,7 +66,8 @@ const BundleDetailsBlocks = () => {
           eventsData?.data.map((data: any) => (
             <BundleDetailsBlock
               key={data._id}
-              data={data.eventId}
+              data={data}
+              tab={tab}
               bundleRef={eventsData?.pagination?.hasNext ? eventsRef : null}
             />
           ))}
