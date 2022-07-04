@@ -1,17 +1,14 @@
 .blocks {
   &_main {
     display: grid;
-    width: 100%;
+    width: fit-content;
     -ms-overflow-style: none; /* for Internet Explorer, Edge */
     scrollbar-width: none; /* for Firefox */
-    overflow-y: scroll;
     &::-webkit-scrollbar {
       display: none; /* for Chrome, Safari, and Opera */
     }
     &_table {
       width: 100%;
-      overflow-x: hidden;
-
       -ms-overflow-style: none; /* for Internet Explorer, Edge */
       scrollbar-width: none; /* for Firefox */
       overflow-y: scroll;
