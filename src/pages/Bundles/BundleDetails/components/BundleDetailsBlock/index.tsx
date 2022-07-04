@@ -2,7 +2,6 @@ import { Link, NavLink } from 'react-router-dom';
 
 const BundleDetailsBlock = ({ data, bundleRef, tab }: any) => {
   const ambUrl = process.env.REACT_APP_AMB_TO_API_URL;
-  console.log(data);
 
   const url =
     tab === 'assets'
