@@ -1,9 +1,9 @@
 import React from 'react';
-import {NavLink} from "react-router-dom";
+import { NavLink } from 'react-router-dom';
 
-export const MainInfoBlockTable = ({block}: any) => {
-  const {parentHash, hash, stateRoot, extraData} =
-  block !== null && block !== undefined && block;
+export const MainInfoBlockTable = ({ block }: any) => {
+  const { parentHash, hash, stateRoot, extraData } =
+    block !== null && block !== undefined && block;
   return (
     <div className="main_info_block_table form-row">
       <div className="main_info_block_table_table">
@@ -11,7 +11,6 @@ export const MainInfoBlockTable = ({block}: any) => {
           <span className="main_info_block_table_cell_primary">HASH</span>
           <span className="main_info_block_table_cell_secondary gray">
             {hash ?? ''}
-
           </span>
         </div>
         <div className="main_info_block_table_cell">
@@ -20,8 +19,11 @@ export const MainInfoBlockTable = ({block}: any) => {
           </span>
           <span className="main_info_block_table_cell_secondary gray">
             {' '}
-            <NavLink className="address_blocks_icon universall_light2" to={`/blocks/${parentHash}`}>
-                          {parentHash ?? ''}
+            <NavLink
+              className="address_blocks_icon universall_light2"
+              to={`/blocks/${parentHash}`}
+            >
+              {parentHash ?? ''}
             </NavLink>
           </span>
         </div>
