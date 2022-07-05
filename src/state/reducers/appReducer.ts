@@ -8,7 +8,7 @@ interface AppState {
 }
 
 const initialState = {
-  loading: true,
+  loading: false,
   data: null,
   error: null,
 };
