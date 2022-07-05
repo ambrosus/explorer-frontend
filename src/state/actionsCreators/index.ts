@@ -1,12 +1,6 @@
 import { actionTypes } from '../action-types';
-import {
-  AppDataAction,
-  BunleDataAction,
-  FiltersAction,
-  PositionAction,
-} from '../actions';
+import { AppDataAction, FiltersAction, PositionAction } from '../actions';
 import API from 'API/api';
-import { useParams } from 'react-router-dom';
 import { Dispatch } from 'redux';
 import { CLIENT_VERSION } from 'utils/constants';
 
