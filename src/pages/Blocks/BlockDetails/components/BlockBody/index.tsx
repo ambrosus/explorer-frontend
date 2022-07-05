@@ -35,7 +35,7 @@ const BlockBody = ({ lastCardRef, item }: any) => {
         <span className="block_body_cell_icon">
           <Amb /> <span className="color-gray">AMB</span>
         </span>
-        <Number value={amount} fixed={8} />
+        <Number value={amount} fixed={6} />
       </div>
     </div>
   );

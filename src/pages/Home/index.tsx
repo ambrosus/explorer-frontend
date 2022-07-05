@@ -1,3 +1,4 @@
+import { useTypedSelector } from '../../hooks/useTypedSelector';
 import useHomeData from './useHomeData';
 import BlocksContent from 'components/BlocksContent';
 import BlocksContentMobile from 'components/BlocksContentMobile';
@@ -5,33 +6,34 @@ import { Content } from 'components/Content';
 import FindWide from 'components/Find/FindWide';
 import useDeviceSize from 'hooks/useDeviceSize';
 import MainInfo from 'pages/Home/components/MainInfo';
-import {useTypedSelector} from "../../hooks/useTypedSelector";
-import {useMemo} from "react";
+import { useMemo } from 'react';
 
 export const Home: React.FC = () => {
   const data = useHomeData();
   const { FOR_BIG_TABLET } = useDeviceSize();
   const { data: appData } = useTypedSelector((state: any) => state.app);
 
-  const header = useMemo(() => appData && (
-    [
-      { name: 'AMB PRICE', value: appData.total_price_usd },
-      { name: 'TOTAL SUPPLY', value: appData.netInfo.totalSupply },
-      {
-        name: 'TOTAL TRANSACTIONS',
-        value: appData.netInfo.transactions.total,
-      },
-      { name: 'MARKET CAP', value: appData.tokenInfo.market_cap_usd },
-      {
-        name: 'NODES',
-        value:
-          appData.netInfo.apollos.online +
-          appData.netInfo.atlases.total +
-          appData.netInfo.hermeses.total,
-      },
-      { name: 'HOLDERS', value: appData.netInfo.accounts.withBalance },
-    ]
-  ), [appData]);
+  const header = useMemo(
+    () =>
+      appData && [
+        { name: 'AMB PRICE', value: appData.total_price_usd },
+        { name: 'TOTAL SUPPLY', value: appData.netInfo.totalSupply },
+        {
+          name: 'TOTAL TRANSACTIONS',
+          value: appData.netInfo.transactions.total,
+        },
+        { name: 'MARKET CAP', value: appData.tokenInfo.market_cap_usd },
+        {
+          name: 'NODES',
+          value:
+            appData.netInfo.apollos.online +
+            appData.netInfo.atlases.total +
+            appData.netInfo.hermeses.total,
+        },
+        { name: 'HOLDERS', value: appData.netInfo.accounts.withBalance },
+      ],
+    [appData],
+  );
 
   return (
     <Content isLoading={!!data && !!appData}>

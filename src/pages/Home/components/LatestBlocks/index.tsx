@@ -39,7 +39,7 @@ const LatestBlocks: React.FC<LatestBlocksProps> = ({
             </div>
             <div className="latest_blocks_font_big latest_blocks_margin-left">
               <NavLink className="" to={`/apollo/${validator}`}>
-              {sliceData5(validator as string)}
+                {sliceData5(validator as string)}
               </NavLink>
             </div>
           </div>

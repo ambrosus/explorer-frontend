@@ -76,7 +76,7 @@ export const BlockDetails = () => {
     <Content>
       <Content.Header>
         <HeadingInfo block={block} />
-          <BlockHeaderInfo lastBlock={lastBlock} block={block} />
+        <BlockHeaderInfo lastBlock={lastBlock} block={block} />
         <MainInfoBlockTable block={block} />
       </Content.Header>
 

@@ -149,7 +149,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
         <NavLink
           className="address_blocks_icon"
           style={{
-            fontWeight: 400
+            fontWeight: 400,
           }}
           to={`/blocks/${block}`}
         >

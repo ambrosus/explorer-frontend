@@ -1,8 +1,8 @@
 import useDeviceSize from 'hooks/useDeviceSize';
 import { LatestTransactionsProps } from 'pages/Home/home.interfaces';
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import { calcTime, isOnline, sliceData5, wrapString } from 'utils/helpers';
-import {NavLink} from "react-router-dom";
 
 const LatestTransactions: React.FC<LatestTransactionsProps> = ({
   hash,
@@ -34,7 +34,7 @@ const LatestTransactions: React.FC<LatestTransactionsProps> = ({
             <div className="lastest_transactions_font_small">From</div>
             <div className="lastest_transactions_font_big lastest_transactions_margin_left">
               <NavLink className="" to={`/addresses/${from}`}>
-              {sliceData5(from)}
+                {sliceData5(from)}
               </NavLink>
             </div>
           </div>
@@ -42,7 +42,7 @@ const LatestTransactions: React.FC<LatestTransactionsProps> = ({
             <div className="lastest_transactions_font_small">To</div>
             <div className="lastest_transactions_font_big lastest_transactions_margin_left">
               <NavLink className="" to={`/addresses/${to}`}>
-              {sliceData5(to)}
+                {sliceData5(to)}
               </NavLink>
             </div>
           </div>

@@ -10,8 +10,6 @@ const Currency = React.forwardRef((props: ICurrency, ref: any) => {
 
   const _symbol = symbol || '$';
 
-  const diffValue = +value - Math.trunc(+value);
-
   return (
     <span className={classes}>
       {side === 'left' && (
@@ -24,7 +22,7 @@ const Currency = React.forwardRef((props: ICurrency, ref: any) => {
       <Number
         {...other}
         value={value}
-        fixed={diffValue === 0 ? 2 : fixed}
+        fixed={fixed}
         delimiter={delimiter}
         ref={ref}
       />

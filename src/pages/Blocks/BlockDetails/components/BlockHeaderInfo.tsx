@@ -4,7 +4,7 @@ import moment from 'moment';
 import React from 'react';
 
 const BlockHeaderInfo = ({ block }: any) => {
-  console.log('block',block);
+  console.log('block', block);
   const { data: appData } = useTypedSelector((state: any) => state.app);
   const { number, blockRewards, totalTransactions, size, timestamp } =
     block !== null && block !== undefined && block;
