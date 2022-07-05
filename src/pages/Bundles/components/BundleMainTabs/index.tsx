@@ -13,15 +13,11 @@ const BundleMainTabs = ({ data }: any) => {
 
   const { data: appData } = useTypedSelector((state: any) => state.app);
 
-  const { totalPriceToken } = appData;
   const totalEntries = totalAssets + totalEvents;
 
   const avgBundleLoad = totalEntries
     ? (totalEntries / totalBundles).toFixed(2)
     : 0;
-
-  const total_price_usd =
-    totalPriceToken === null ? 0 : totalPriceToken.total_price_usd;
 
   const itemFirst: any = [
     {
@@ -54,7 +50,9 @@ const BundleMainTabs = ({ data }: any) => {
     {
       _id: 3,
       name: 'APROX BUNDLE',
-      value: `${ambMonthUSD(total_price_usd)} AMB / cost next month`,
+      value: `${ambMonthUSD(
+        appData?.totalPriceToken.total_price_usd,
+      )} AMB / cost next month`,
     },
   ];
   return (
