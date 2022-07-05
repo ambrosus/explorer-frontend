@@ -186,7 +186,7 @@ export const numberWithCommas = (number: string | number) =>
     : number;
 
 export const ambMonthUSD = (usd_price: any) => {
-  let result = 8 / parseFloat(usd_price);
+  let result: any = 8 / parseFloat(usd_price);
   if (!result) {
     result = 0;
   }
