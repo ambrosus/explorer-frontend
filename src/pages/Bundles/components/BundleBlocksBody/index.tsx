@@ -21,9 +21,13 @@ const BundleBlocksBody = ({ lastCardRef, item }: any) => {
   );
 
   const isBy = (
-    <div className="bundle_blocks_body_cell" style={{ color: '#808A9D' }}>
+    <NavLink
+      to={`/addresses/${item.uploader}`}
+      className="bundle_blocks_body_cell"
+      style={{ color: '#808A9D' }}
+    >
       {sliceData5(item.uploader)}
-    </div>
+    </NavLink>
   );
 
   const isCreated = (
