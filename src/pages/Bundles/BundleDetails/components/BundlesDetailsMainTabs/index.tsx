@@ -38,16 +38,25 @@ const BundleDetailsMainTabs = ({ data }: any) => {
       _id: 1,
       name: 'BY',
       value: sliceData5(data.uploader),
+      style: {
+        color: '#808A9D',
+      },
     },
     {
       _id: 2,
       name: 'BUNDLE',
       value: sliceData10(data?.bundleId, 12),
+      style: {
+        color: '#808A9D',
+      },
     },
     {
       _id: 3,
       name: 'BLOCK',
       value: data.block.number,
+      style: {
+        color: '#808A9D',
+      },
     },
     {
       _id: 4,
@@ -90,11 +99,7 @@ const BundleDetailsMainTabs = ({ data }: any) => {
   ];
   return (
     <>
-      <HeadInfo
-        data={itemFirst}
-        className="bundle_details_tab"
-        style={{ color: '#808A9D' }}
-      />
+      <HeadInfo data={itemFirst} className="bundle_details_tab" />
       <HeadInfo data={itemSecond} className="bundle_details_tab" />
     </>
   );
