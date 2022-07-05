@@ -186,7 +186,7 @@ export const numberWithCommas = (number: string | number) =>
     : number;
 
 export const ambMonthUSD = (usd_price: any) => {
-  let result = 8 / parseFloat(usd_price);
+  let result: any = 8 / parseFloat(usd_price);
   if (!result) {
     result = 0;
   }
@@ -411,7 +411,7 @@ export const calcBundleTime = (time: number | null | undefined) => {
     return '';
   }
 
-  return moment(time).isValid() ? moment(time * 1000).format('h:mm:ss') : '';
+  return moment(time).isValid() ? moment(time * 1000).format('HH:mm:ss') : '';
 };
 
 export const bundleExpirationTime = (bundle: any) =>

@@ -1,4 +1,5 @@
 import HeadInfo from 'components/HeadInfo';
+import { NavLink } from 'react-router-dom';
 import { BUNDLE_MAX_LOAD } from 'utils/constants';
 import {
   bundleExpirationTime,
@@ -37,7 +38,14 @@ const BundleDetailsMainTabs = ({ data }: any) => {
     {
       _id: 1,
       name: 'BY',
-      value: sliceData5(data.uploader),
+      value: (
+        <NavLink
+          to={`/addresses/${data.uploader}`}
+          style={{ color: '#808A9D' }}
+        >
+          {sliceData5(data.uploader)}
+        </NavLink>
+      ),
       style: {
         color: '#808A9D',
       },
@@ -53,7 +61,15 @@ const BundleDetailsMainTabs = ({ data }: any) => {
     {
       _id: 3,
       name: 'BLOCK',
-      value: data.block.number,
+      value: (
+        <NavLink
+          to={`/blocks/${data.block.number}`}
+          style={{ color: '#808A9D' }}
+        >
+          {data.block.number}
+        </NavLink>
+      ),
+
       style: {
         color: '#808A9D',
       },
