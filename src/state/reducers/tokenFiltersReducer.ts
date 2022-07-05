@@ -1,5 +1,5 @@
-import { actionTypes } from '../action-types';
-import { FiltersAction } from '../actions';
+import {actionTypes} from '../action-types';
+import {FiltersAction} from '../actions';
 
 interface TokenFiltersReducerState {
   filters: any[];
@@ -9,7 +9,7 @@ const initialState = {
   filters: [],
 };
 
-export const tokenFiltersReducer = (
+const reducer = (
   state: TokenFiltersReducerState = initialState,
   action: FiltersAction | any,
 ): TokenFiltersReducerState => {
@@ -20,9 +20,10 @@ export const tokenFiltersReducer = (
         filters: action.payload,
       };
     case actionTypes.CLEAR_FILTERS: {
-      return { filters: [] };
+      return {filters: []};
     }
     default:
       return state;
   }
 };
+export default reducer
