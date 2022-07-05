@@ -39,7 +39,6 @@ export const sliceDataString = (item: string | null | undefined) => {
   if (!item) {
     return [];
   }
-  console.log(item.length);
 
   const res = `${item.slice(0, Math.ceil(item.length / 2))} ${item.slice(
     Math.ceil(item.length / 2),
