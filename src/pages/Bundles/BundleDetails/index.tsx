@@ -11,16 +11,16 @@ import { useParams } from 'react-router-dom';
 import { getBundleData } from 'services/bundle.service';
 
 const BundleDetails = () => {
-  const { getBundlesData } = useActions();
+  // const { getBundlesData } = useActions();
   const { address } = useParams();
 
-  useEffect(() => {
-    getBundlesData(address);
-  }, []);
+  // useEffect(() => {
+  //   getBundlesData(address);
+  // }, []);
 
-  const { ref, renderData } = usePaginationData(getBundlesData);
+  // const { ref, renderData } = usePaginationData(getBundlesData);
 
-  const { data, loading } = useTypedSelector((state) => state.bundles);
+  // const { data, loading } = useTypedSelector((state) => state.bundles);
 
   return (
     <Content>

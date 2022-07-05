@@ -100,41 +100,41 @@ export const clearFilters: any = () => {
   };
 };
 
-export const getBundlesData = (
-  address: any = null,
-  params = { limit: 20, next: null },
-) => {
-  return async (dispatch: Dispatch<BunleDataAction>) => {
-    dispatch({
-      type: actionTypes.SET_BUNDLE_DATA__START,
-    });
-    try {
-      const bundle = await API.getBundle(address);
-      const bundlesData = await API.getBundles({
-        params,
-      });
-      const bundleAssets = await API.getBundleAssets(address, {
-        params,
-      });
-      const bundleEvents = await API.getBundleEvents(address, {
-        params,
-      });
-      const result = {
-        bundle: bundle,
-        bundlesData: bundlesData,
-        bundleAssets: bundleAssets,
-        bundleEvents: bundleEvents,
-      };
+// export const getBundlesData = (
+//   address: any = null,
+//   params = { limit: 20, next: null },
+// ) => {
+//   return async (dispatch: Dispatch<BunleDataAction>) => {
+//     dispatch({
+//       type: actionTypes.SET_BUNDLE_DATA__START,
+//     });
+//     try {
+//       const bundle = await API.getBundle(address);
+//       const bundlesData = await API.getBundles({
+//         params,
+//       });
+//       const bundleAssets = await API.getBundleAssets(address, {
+//         params,
+//       });
+//       const bundleEvents = await API.getBundleEvents(address, {
+//         params,
+//       });
+//       const result = {
+//         bundle: bundle,
+//         bundlesData: bundlesData,
+//         bundleAssets: bundleAssets,
+//         bundleEvents: bundleEvents,
+//       };
 
-      dispatch({
-        type: actionTypes.SET_BUNDLE_DATA__SUCCESS,
-        payload: result,
-      });
-    } catch (error: any) {
-      dispatch({
-        type: actionTypes.SET_BUNDLE_DATA__FAIL,
-        payload: error.message,
-      });
-    }
-  };
-};
+//       dispatch({
+//         type: actionTypes.SET_BUNDLE_DATA__SUCCESS,
+//         payload: result,
+//       });
+//     } catch (error: any) {
+//       dispatch({
+//         type: actionTypes.SET_BUNDLE_DATA__FAIL,
+//         payload: error.message,
+//       });
+//     }
+//   };
+// };

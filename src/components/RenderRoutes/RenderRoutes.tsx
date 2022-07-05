@@ -9,7 +9,7 @@ export const RenderRoutes = (props: any) => {
   const { routes } = props;
   const { data, loading } = useTypedSelector((state: any) => state.app);
 
-  const { setAppDataAsync, getBundlesData } = useActions();
+  const { setAppDataAsync } = useActions();
 
   const [counter, setCounter] = useState(0);
 

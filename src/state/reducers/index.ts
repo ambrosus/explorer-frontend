@@ -8,7 +8,7 @@ const reducers = combineReducers({
   app: appReducer,
   position: positionReducer,
   tokenFilters: tokenFiltersReducer,
-  bundles: bundleReducer,
+  // bundles: bundleReducer,
 });
 
 export default reducers;

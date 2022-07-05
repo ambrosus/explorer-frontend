@@ -13,7 +13,7 @@ export const Home: React.FC = () => {
   const { FOR_BIG_TABLET } = useDeviceSize();
   const { data: appData } = useTypedSelector((state: any) => state.app);
 
-  // console.log(appData);
+  console.log(appData);
 
   return (
     <Content isLoading={!!data}>
