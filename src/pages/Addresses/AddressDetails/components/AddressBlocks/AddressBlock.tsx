@@ -145,7 +145,17 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
     date === null ? null : <div className="address_blocks_cell">{date}</div>;
   const isBlock =
     type === 'ERC-20_Tx' ? null : (
-      <div className="address_blocks_cell">{block}</div>
+      <div className="address_blocks_cell">
+        <NavLink
+          className="address_blocks_icon"
+          style={{
+            fontWeight: 400,
+          }}
+          to={`/blocks/${block}`}
+        >
+          {block}
+        </NavLink>
+      </div>
     );
 
   const Icon = getTokenIcon(symbol as string);
@@ -158,9 +168,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
       ) {
         onClick(item);
         addFilter(item);
-        navigate(`/addresses/${address}/ERC-20_Tx/${item.contract}`, {
-          replace: true,
-        });
+        navigate(`/addresses/${address}/ERC-20_Tx/${item.contract}`);
       } else {
         return '';
       }

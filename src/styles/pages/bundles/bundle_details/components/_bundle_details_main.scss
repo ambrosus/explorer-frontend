@@ -1,0 +1,48 @@
+.bundle_details_main {
+  display: flex;
+  justify-content: space-between;
+  padding: 32px 0;
+  gap: 32px;
+  @include for_big_tablet {
+    flex-direction: column;
+  }
+
+  &_cells {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    @include for_tablet {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0;
+    }
+
+    &_name {
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 40px;
+    }
+
+    &_address {
+      display: flex;
+      gap: 16px;
+      font-size: 18px;
+      line-height: 40px;
+      @include for_big_tablet {
+        font-size: 17px;
+      }
+      @include for_tablet {
+        font-size: 14px;
+      }
+      @include for_phone {
+        font-size: 12px;
+      }
+    }
+    &_button {
+      background-color: #f6f6f6;
+    }
+  }
+  &_cell {
+    display: flex;
+  }
+}

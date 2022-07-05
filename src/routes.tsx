@@ -8,6 +8,7 @@ import { Atlas } from 'pages/Atlas';
 import { AtlasDetails } from 'pages/Atlas/AtlasDetails';
 import { Blocks } from 'pages/Blocks';
 import { Bundles } from 'pages/Bundles';
+import BundleDetails from 'pages/Bundles/BundleDetails';
 import { Hermes } from 'pages/Hermes';
 import { Home } from 'pages/Home';
 import { Transactions } from 'pages/Transactions';
@@ -18,6 +19,8 @@ interface IAppRoutes {
   addressesRoutes: IRoute[];
   apolloRoutes: IRoute[];
   atlasRoutes: IRoute[];
+  bundleRoutes: IRoute[];
+  blockRoutes: IRoute[];
 }
 
 export const routes: IRoute[] = [
@@ -62,7 +65,7 @@ export const routes: IRoute[] = [
     key: 'Blocks',
     exact: true,
     component: () => <Blocks />,
-    isClick: false,
+    isClick: true,
   },
   {
     path: '/transactions',
@@ -76,7 +79,7 @@ export const routes: IRoute[] = [
     key: 'Bundles',
     exact: true,
     component: () => <Bundles />,
-    isClick: false,
+    isClick: true,
   },
 ];
 export const addressesRoutes: IRoute[] = [
@@ -89,7 +92,7 @@ export const addressesRoutes: IRoute[] = [
   },
   {
     path: '/addresses/:address/:type',
-    key: 'Address Details',
+    key: 'Address Details2',
     exact: true,
     component: () => <AddressDetails />,
     isClick: false,
@@ -97,14 +100,14 @@ export const addressesRoutes: IRoute[] = [
 
   {
     path: '/addresses/:address/:type/:filtered',
-    key: 'Address Details',
+    key: 'Address Details3',
     exact: true,
     component: () => <AddressDetails />,
     isClick: false,
   },
   {
     path: '/addresses/:address/:type/:filtered/:tokenToSorted',
-    key: 'Address Details',
+    key: 'Address Details4',
     exact: true,
     isClick: false,
     component: () => <AddressDetails />,
@@ -164,11 +167,30 @@ export const transactions: IRoute[] = [
   },
 ];
 
+export const bundleRoutes: IRoute[] = [
+  {
+    path: '/bundles/:address',
+    key: 'Bundle Details',
+    exact: false,
+    component: () => <BundleDetails />,
+    isClick: false,
+  },
+  {
+    path: '/bundles/:address/:type',
+    key: 'Bundle Details type',
+    exact: false,
+    component: () => <BundleDetails />,
+    isClick: false,
+  },
+];
+
 const appRoutes: IAppRoutes = {
+  bundleRoutes,
   routes,
   addressesRoutes,
   apolloRoutes,
   atlasRoutes,
+  blockRoutes,
 };
 
 export default appRoutes;

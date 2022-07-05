@@ -10,4 +10,9 @@ export enum actionTypes {
   // ****** tokens filter actions ******
   ADD_FILTER = 'ADD_FILTER',
   CLEAR_FILTERS = 'CLEAR_FILTERS',
+
+  // ****** bundle data actions ******
+  SET_BUNDLE_DATA__START = 'SET_BUNDLE_DATA__START',
+  SET_BUNDLE_DATA__SUCCESS = 'SET_BUNDLE_DATA__SUCCESS',
+  SET_BUNDLE_DATA__FAIL = 'SET_BUNDLE_DATA__FAIL',
 }

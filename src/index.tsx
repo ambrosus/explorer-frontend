@@ -12,7 +12,6 @@ import { BrowserRouter } from 'react-router-dom';
  * @param {BrowserRouter} BrowserRouter - react router
  * @param {Main} Main - main component
  */
-
 const queryClient = new QueryClient();
 
 export const App = (): JSX.Element => (

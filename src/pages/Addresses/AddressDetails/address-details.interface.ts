@@ -28,6 +28,7 @@ export interface TabsProps {
   isIcon: boolean;
   loading?: boolean;
   sortOptions?: any;
+  isContract?: boolean;
 }
 
 export type TransactionProps = {

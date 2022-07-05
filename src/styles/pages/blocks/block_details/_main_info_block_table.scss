@@ -1,3 +1,4 @@
+
 .main_info_block_table {
   height: 100%;
 
@@ -10,41 +11,63 @@
     grid-template-columns: repeat(2, 50%);
     background-color: #fff;
     border-radius: 16px;
-      @include for_tablet {
+    @include for_tablet {
       display: flex;
       flex-direction: column;
     }
+
   }
 
   &_cell {
+
     &:nth-child(1) {
       border-bottom: 1px solid #eff2f5;
     }
+
     &:nth-child(2) {
       border-bottom: 1px solid #eff2f5;
     }
+
     &:nth-child(odd) {
       border-right: 1px solid #eff2f5;
     }
-    height: 100px;
-    padding: 32px;
-    width: 100%;
-    display: grid;
-    grid-template-rows: repeat(2, 50%);
 
     &:last-child {
       border-right: 0px solid #eff2f5;
     }
 
+    height: 90px;
+    padding: 32px;
+    width: 100%;
+    display: grid;
+    grid-template-rows: repeat(2, 50%);
+    @include for_laptop {
+      height: fit-content;
+      min-height: 75px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 12px 32px;
+    }
     @include for_tablet {
+      height: fit-content;
+      min-height: 75px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 1px;
       border-bottom: 1px solid #eff2f5;
       border-right: none;
-
+      padding: 12px 32px;
       &:last-child {
         border-bottom: 0px solid #eff2f5;
       }
     }
+
     &_primary {
+
       font-family: 'Proxima Nova';
       font-style: normal;
       font-weight: 400;
@@ -52,6 +75,10 @@
       line-height: 16px;
       text-transform: uppercase;
       color: #58667E;
+      @include for_laptop {
+        word-break: break-all;
+
+      }
     }
 
     &_secondary {
@@ -62,14 +89,36 @@
       line-height: 24px;
       color: #05060F;
 
+      @include for_laptop {
+        line-height: 17px;
+        word-break: break-all;
+
+      }
     }
-    .gray{
+
+    .gray {
       font-family: 'Proxima Nova';
+
       font-style: normal;
       font-weight: 600;
       font-size: 14px;
       line-height: 24px;
       color: #808A9D;
+      @include for_laptop {
+        word-break: break-all;
+
+      }
     }
   }
 }
+
+//.form-row {
+//  @include for_laptop {
+//    grid-template-columns:none !important;
+//
+//    .main_info_block_table_cell {
+//      border-bottom: 1px solid #eff2f5;
+//
+//    }
+//  }
+//}

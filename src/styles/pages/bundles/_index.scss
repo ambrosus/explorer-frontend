@@ -1,0 +1,13 @@
+// @import './bundles';
+@import './components/bundle_blocks';
+@import './components/bundle_blocks_header';
+@import './components/bundle_blocks_body';
+@import './bundle';
+@import './bundle_tabs';
+
+// bundle_details
+@import './bundle_details/bundle_details';
+@import './bundle_details/components/bundle_details_blocks';
+@import './bundle_details/components/bundle_details_main';
+@import './bundle_details/components/bundle_details_main_tabs';
+@import './bundle_details/components/bundle_details_tab';

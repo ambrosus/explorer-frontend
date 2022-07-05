@@ -30,7 +30,12 @@ function round(input: any, precision: any) {
 
 const _Number = React.forwardRef((props: INumber, ref: any) => {
   const { className, value, fixed, delimiter, discharge, ...other } = props;
-  const number = typeof fixed === 'number' ? round(value, fixed) : value;
+  const diffValue = +value - Math.trunc(+value);
+
+  const number =
+    typeof fixed === 'number'
+      ? round(value, diffValue === 0 ? 2 : fixed)
+      : value;
 
   const classes = `inherit ${className}`;
   const [unit, mantissa]: any = String(number).split('.');
