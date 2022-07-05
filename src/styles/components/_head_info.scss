@@ -7,6 +7,9 @@
     white-space: nowrap;
     padding-right: 10px;
     border: 0.5px solid #eff2f5;
+    @include for_tablet {
+      height: 64px;
+    }
 
     &_primary {
       align-self: flex-end;
