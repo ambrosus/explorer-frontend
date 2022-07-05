@@ -26,7 +26,7 @@ const Tabs: FC<TabsProps> = ({
   pageNum,
   loading,
   transactionType,
-  isContract,
+  // isContract,
 }) => {
   const [isShow, setIsShow] = useState(false);
   const { address, type, filtered, tokenToSorted } = useParams();

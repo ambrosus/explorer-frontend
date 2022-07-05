@@ -271,7 +271,7 @@ const AddressDetails = () => {
         </Content.Header>
         <Content.Body isLoading={filtered ? !loading : true}>
           <Tabs
-            isContract={isContract}
+            // isContract={isContract}
             pageNum={pageNum}
             lastCardRef={lastCardRef}
             onClick={setSelectedToken}
