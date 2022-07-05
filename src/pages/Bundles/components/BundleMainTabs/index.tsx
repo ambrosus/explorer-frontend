@@ -1,5 +1,6 @@
 import HeadInfo from 'components/HeadInfo';
-import { numberWithCommas } from 'utils/helpers';
+import { useTypedSelector } from 'hooks/useTypedSelector';
+import { ambMonthUSD, numberWithCommas } from 'utils/helpers';
 
 const BundleMainTabs = ({ data }: any) => {
   const {
@@ -10,15 +11,17 @@ const BundleMainTabs = ({ data }: any) => {
     bundleCost,
   } = data;
 
+  const { data: appData } = useTypedSelector((state: any) => state.app);
+
+  const { totalPriceToken } = appData;
   const totalEntries = totalAssets + totalEvents;
 
   const avgBundleLoad = totalEntries
     ? (totalEntries / totalBundles).toFixed(2)
     : 0;
 
-  // const total_price_usd =
-  //   totalPriceToken === null ? 0 : totalPriceToken.total_price_usd;
-  // console.log(totalPriceToken);
+  const total_price_usd =
+    totalPriceToken === null ? 0 : totalPriceToken.total_price_usd;
 
   const itemFirst: any = [
     {
@@ -51,7 +54,7 @@ const BundleMainTabs = ({ data }: any) => {
     {
       _id: 3,
       name: 'APROX BUNDLE',
-      value: `${numberWithCommas(totalBundles)} AMB / cost next month`,
+      value: `${ambMonthUSD(total_price_usd)} AMB / cost next month`,
     },
   ];
   return (
