@@ -8,7 +8,7 @@ import {
 } from 'utils/helpers';
 
 const BundleBlocksBody = ({ lastCardRef, item }: any) => {
-  const { data } = useTypedSelector((state) => state.bundles);
+  // const { data } = useTypedSelector((state) => state.bundles);
 
   const isBundle = (
     <NavLink
