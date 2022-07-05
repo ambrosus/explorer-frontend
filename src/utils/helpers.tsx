@@ -411,7 +411,7 @@ export const calcBundleTime = (time: number | null | undefined) => {
     return '';
   }
 
-  return moment(time).isValid() ? moment(time * 1000).format('h:mm:ss') : '';
+  return moment(time).isValid() ? moment(time * 1000).format('HH:mm:ss') : '';
 };
 
 export const bundleExpirationTime = (bundle: any) =>
