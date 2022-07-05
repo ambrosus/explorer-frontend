@@ -76,9 +76,7 @@ export const BlockDetails = () => {
     <Content>
       <Content.Header>
         <HeadingInfo block={block} />
-        {lastBlock.number !== 0 && (
           <BlockHeaderInfo lastBlock={lastBlock} block={block} />
-        )}
         <MainInfoBlockTable block={block} />
       </Content.Header>
 
