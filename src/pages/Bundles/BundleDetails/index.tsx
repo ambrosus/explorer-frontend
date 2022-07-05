@@ -21,7 +21,6 @@ const BundleDetails = () => {
   const { ref, renderData } = usePaginationData(getBundlesData);
 
   const { data, loading } = useTypedSelector((state) => state.bundles);
-  console.log(data);
 
   return (
     <Content>

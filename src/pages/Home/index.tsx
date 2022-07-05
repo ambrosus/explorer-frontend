@@ -5,11 +5,15 @@ import Chart from 'components/Chart';
 import { Content } from 'components/Content';
 import FindWide from 'components/Find/FindWide';
 import useDeviceSize from 'hooks/useDeviceSize';
+import { useTypedSelector } from 'hooks/useTypedSelector';
 import MainInfo from 'pages/Home/components/MainInfo';
 
 export const Home: React.FC = () => {
   const data = useHomeData();
   const { FOR_BIG_TABLET } = useDeviceSize();
+  const { data: appData } = useTypedSelector((state: any) => state.app);
+
+  // console.log(appData);
 
   return (
     <Content isLoading={!!data}>
