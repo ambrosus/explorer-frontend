@@ -92,7 +92,7 @@ export const addressesRoutes: IRoute[] = [
   },
   {
     path: '/addresses/:address/:type',
-    key: 'Address Details',
+    key: 'Address Details2',
     exact: true,
     component: () => <AddressDetails />,
     isClick: false,
@@ -100,14 +100,14 @@ export const addressesRoutes: IRoute[] = [
 
   {
     path: '/addresses/:address/:type/:filtered',
-    key: 'Address Details',
+    key: 'Address Details3',
     exact: true,
     component: () => <AddressDetails />,
     isClick: false,
   },
   {
     path: '/addresses/:address/:type/:filtered/:tokenToSorted',
-    key: 'Address Details',
+    key: 'Address Details4',
     exact: true,
     isClick: false,
     component: () => <AddressDetails />,

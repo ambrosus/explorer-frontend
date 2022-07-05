@@ -24,7 +24,7 @@ const OverallBalance: React.FC<OverallBalanceProps> = ({ addressBalance }) => {
       setAmountInUsd(usdPrice);
       setAddressBalanceBuffer(+addressBalance);
     }
-  }, [addressBalance]);
+  }, [addressBalance,appData]);
 
   return (
     <div className="address_details_info_text">
