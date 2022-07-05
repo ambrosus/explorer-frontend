@@ -39,7 +39,6 @@ export const sliceDataString = (item: string | null | undefined) => {
   if (!item) {
     return [];
   }
-  console.log(item.length);
 
   const res = `${item.slice(0, Math.ceil(item.length / 2))} ${item.slice(
     Math.ceil(item.length / 2),
@@ -185,6 +184,14 @@ export const numberWithCommas = (number: string | number) =>
   +number > 1
     ? number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
     : number;
+
+export const ambMonthUSD = (usd_price: any) => {
+  let result = 8 / parseFloat(usd_price);
+  if (!result) {
+    result = 0;
+  }
+  return result.toFixed(2);
+};
 
 export const currenCurrency = (
   value: string | number,
