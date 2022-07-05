@@ -1,7 +1,7 @@
 import appReducer from './appReducer';
 import bundleReducer from './bundleReducer';
 import positionReducer from './positionReducer';
-import tokenFiltersReducer  from './tokenFiltersReducer';
+import tokenFiltersReducer from './tokenFiltersReducer';
 import { combineReducers } from 'redux';
 
 const reducers = combineReducers({
