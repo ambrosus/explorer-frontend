@@ -147,7 +147,10 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
     type === 'ERC-20_Tx' ? null : (
       <div className="address_blocks_cell">
         <NavLink
-          className="address_blocks_icon universall_light2"
+          className="address_blocks_icon"
+          style={{
+            fontWeight: 400
+          }}
           to={`/blocks/${block}`}
         >
           {block}
