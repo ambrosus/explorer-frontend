@@ -6,7 +6,7 @@ import GreenCircle from 'assets/icons/StatusAction/GreenCircle';
 import OrangeCircle from 'assets/icons/StatusAction/OrangeCircle';
 import moment from 'moment';
 
-export const sliceData5 = (item: string | any) => {
+export const sliceData5 = (item: string | null | undefined) => {
   if (!item) {
     return '';
   }
@@ -14,7 +14,10 @@ export const sliceData5 = (item: string | any) => {
     ? `${item.slice(0, 5)}...${item.slice(item.length - 5)}`
     : item;
 };
-export const sliceData10 = (item: string | any, sliceNum: number = 4) => {
+export const sliceData10 = (
+  item: string | null | undefined,
+  sliceNum: number = 4,
+) => {
   if (!item) {
     return '';
   }
@@ -22,12 +25,26 @@ export const sliceData10 = (item: string | any, sliceNum: number = 4) => {
     ? `${item.slice(0, sliceNum)}...${item.slice(item.length - sliceNum)}`
     : item;
 };
-export const calcTime = (time: any) => {
+export const calcTime = (time: number | null | undefined) => {
+  if (!time) {
+    return '';
+  }
   /*
    * @param {string} time
    * @returns {string}
    */
   return moment(time).isValid() ? moment(time * 1000).fromNow() : '';
+};
+export const sliceDataString = (item: string | null | undefined) => {
+  if (!item) {
+    return [];
+  }
+
+  const res = `${item.slice(0, Math.ceil(item.length / 2))} ${item.slice(
+    Math.ceil(item.length / 2),
+  )}`.split(' ');
+
+  return res;
 };
 
 export const setupStyle = (item: string | undefined) => {
@@ -43,7 +60,7 @@ export const setupStyle = (item: string | undefined) => {
 /*
  * @param {Array} data
  * @param {String} key
- *
+ *liceData
  * @returns {Array}
  */
 export const toUniqueValueByBlock = (arr: any) => {
@@ -77,7 +94,10 @@ export const getTokenIcon = (symbol: string) => {
   }
 };
 
-export default function removeArrayDuplicates(array: any, key = '_id') {
+export default function removeArrayDuplicates<
+  T extends Array<object>,
+  K extends keyof T[0],
+>(array: T, key = '_id') {
   /*
    * @param {array} array - Array of elements to filter
    * @param {string} key - Element's key to filter by
@@ -160,8 +180,18 @@ export const log = (...args: any) => {
   return ENABLE_LOGS && console.log(...args);
 };
 
-export const numberWithCommas = (number: string | number, value: number) =>
-  value > 1 ? number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : number;
+export const numberWithCommas = (number: string | number) =>
+  +number > 1
+    ? number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+    : number;
+
+export const ambMonthUSD = (usd_price: any) => {
+  let result: any = 8 / parseFloat(usd_price);
+  if (!result) {
+    result = 0;
+  }
+  return result.toFixed(2);
+};
 
 export const currenCurrency = (
   value: string | number,
@@ -169,16 +199,30 @@ export const currenCurrency = (
 ) => {
   switch (nameCurrency) {
     case 'TOTAL SUPPLY':
-      return `${Number(value).toFixed()} AMB`;
+      return `${Number(value).toFixed()}`;
 
     case 'MARKET CAP':
-      return `${Number(value).toFixed()} USD`;
+      return `${Number(value).toFixed()}`;
 
     case 'AMB PRICE':
-      return `${Number(value).toFixed(6)} USD`;
+      return `${Number(value).toFixed(6)}`;
 
     default:
       return value;
+  }
+};
+export const nameCurrency = (name: string) => {
+  switch (name) {
+    case 'TOTAL SUPPLY':
+      return ' AMB';
+    case 'MARKET CAP':
+      return ' USD';
+
+    case 'AMB PRICE':
+      return ' USD';
+
+    default:
+      return '';
   }
 };
 
@@ -343,3 +387,32 @@ export function scientificToDecimal(num: any) {
 
   return num;
 }
+
+export const byteToMgb = (size: number | undefined) => {
+  if (!size) {
+    return '';
+  }
+  const Mgb = 1048576;
+  return (size / Mgb).toFixed(4);
+};
+
+export const calcDataTime = (time: number | null | undefined) => {
+  if (!time) {
+    return '';
+  }
+
+  return moment(time).isValid()
+    ? moment(time * 1000).format('ddd, D MMMM YYYY')
+    : '';
+};
+
+export const calcBundleTime = (time: number | null | undefined) => {
+  if (!time) {
+    return '';
+  }
+
+  return moment(time).isValid() ? moment(time * 1000).format('HH:mm:ss') : '';
+};
+
+export const bundleExpirationTime = (bundle: any) =>
+  bundle.uploadTimestamp + bundle.storagePeriods * 13 * 28 * 24 * 60 * 60;

@@ -1,35 +1,63 @@
 .blocks {
   &_main {
     display: grid;
-    width: 100%;
-
+    width: fit-content;
+    -ms-overflow-style: none; /* for Internet Explorer, Edge */
+    scrollbar-width: none; /* for Firefox */
+    &::-webkit-scrollbar {
+      display: none; /* for Chrome, Safari, and Opera */
+    }
     &_table {
       width: 100%;
-      overflow-x: scroll;
+      -ms-overflow-style: none; /* for Internet Explorer, Edge */
+      scrollbar-width: none; /* for Firefox */
+      &::-webkit-scrollbar {
+        overflow-y: scroll;
+
+        @include  for_laptop{
+          overflow-y: hidden;
+        }
+        display: none; /* for Chrome, Safari, and Opera */
+      }
+      @include for_laptop{
+        overflow-x: scroll;
+      }
     }
   }
 }
 
-.block_main_title{
+.block_main_title {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   white-space: nowrap;
   margin-top: 30px;
   margin-bottom: 30px;
-  @include for_tablet {
+  @include for_big_tablet {
     flex-direction: column;
     align-items: flex-start;
   }
 
-  &_heading{
+  &__in {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    justify-content: center;
+    @include for_tablet {
+      gap: 6px;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+
+  &_heading {
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 12px;
     white-space: nowrap;
-    margin-top: 20px;
-    &_block{
+
+    &_block {
       font-family: 'Proxima Nova';
       font-style: normal;
       font-weight: 300;
@@ -40,29 +68,38 @@
       color: #05060F;
     }
   }
-  &_validator{
+
+  &_validator {
     display: flex;
     flex-direction: row;
     gap: 6px;
     white-space: nowrap;
-    margin-top: 20px;
     font-family: 'Proxima Nova';
     font-style: normal;
     font-weight: 700;
     font-size: 18px;
     line-height: 40px;
     align-items: center;
-
-    color: #05060F;
-    &_address{
-      font-family: 'Proxima Nova';
-      font-style: normal;
-      font-weight: 400;
+    @include for_tablet {
+      margin-top: 0px;
       font-size: 18px;
-      line-height: 40px;
-      display: flex;
-      align-items: center;
-      color: #58667E;
+    }
+    color: #05060F;
+
+  }
+
+  &_address {
+    font-family: 'Proxima Nova';
+    font-style: normal;
+    font-weight: 400;
+    height: 20px;
+    font-size: 18px;
+    line-height: 40px;
+    display: flex;
+    align-items: center;
+    color: #58667E;
+    @include for_tablet {
+      font-size: 12px;
     }
   }
 }

@@ -1,0 +1,11 @@
+@import './blocks';
+@import './components/blocks_body';
+@import './components/blocks_header';
+@import './components/blocks_sort';
+@import './components/main_info_blocks';
+
+// blocksDetails
+@import './block_details/main_info_block';
+@import './block_details/block_body';
+@import './block_details/blocks_block_header';
+@import './block_details/main_info_block_table';

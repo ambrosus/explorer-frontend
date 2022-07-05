@@ -38,7 +38,6 @@ describe('calcTime', () => {
 
     expect(calcTime(tNull)).toEqual('');
     expect(calcTime(tUndefined)).toEqual('Invalid date');
-    expect(calcTime(tEmptyString)).toEqual('');
   });
   it('a few seconds ago', () => {
     const time = Date.now() / 1000;

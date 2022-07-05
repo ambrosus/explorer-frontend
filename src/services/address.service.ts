@@ -282,7 +282,7 @@ export const getDataForAddress = async (address: string, params: any) => {
       (await sortedLatestTransactionsData(defaultFilters, url, page)) || [];
 
     //TODO дважды метод
-    const transactionsAll: TransactionProps[] = removeArrayDuplicates(
+    const transactionsAll: any = removeArrayDuplicates(
       [...bbTxData, ...exploreData],
       'block',
     );
