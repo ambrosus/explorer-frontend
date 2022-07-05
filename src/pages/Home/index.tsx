@@ -4,6 +4,7 @@ import BlocksContentMobile from 'components/BlocksContentMobile';
 import Chart from 'components/Chart';
 import { Content } from 'components/Content';
 import FindWide from 'components/Find/FindWide';
+import Loader from 'components/Loader';
 import useDeviceSize from 'hooks/useDeviceSize';
 import MainInfo from 'pages/Home/components/MainInfo';
 
@@ -19,17 +20,19 @@ export const Home: React.FC = () => {
             <h1 className="home_heading">Ambrosus Network Explorer</h1>
             <FindWide />
             <div className="home_info">
-              <div className="home_info_table">
-                {data?.header?.length
-                  ? data.header.map((item: any) => (
-                      <MainInfo
-                        key={item.name}
-                        name={item.name as string}
-                        value={item.value}
-                      />
-                    ))
-                  : null}
-              </div>
+              {data?.header?.length ? (
+                <div className="home_info_table">
+                  {data.header.map((item: any) => (
+                    <MainInfo
+                      key={item.name}
+                      name={item.name as string}
+                      value={item.value}
+                    />
+                  ))}
+                </div>
+              ) : (
+                <Loader />
+              )}
             </div>
           </Content.Header>
           <Content.Body>
