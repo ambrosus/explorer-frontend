@@ -185,6 +185,14 @@ export const numberWithCommas = (number: string | number) =>
     ? number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
     : number;
 
+export const ambMonthUSD = (usd_price: any) => {
+  let result = 8 / parseFloat(usd_price);
+  if (!result) {
+    result = 0;
+  }
+  return result.toFixed(2);
+};
+
 export const currenCurrency = (
   value: string | number,
   nameCurrency: string | number,

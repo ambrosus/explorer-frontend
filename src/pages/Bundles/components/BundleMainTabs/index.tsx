@@ -1,6 +1,4 @@
 import HeadInfo from 'components/HeadInfo';
-import BundleTabs from 'pages/Bundles/components/BundleTabs';
-import { useEffect } from 'react';
 import { numberWithCommas } from 'utils/helpers';
 
 const BundleMainTabs = ({ data }: any) => {
@@ -14,9 +12,13 @@ const BundleMainTabs = ({ data }: any) => {
 
   const totalEntries = totalAssets + totalEvents;
 
-  const avgBundleLoad = totalBundles
-    ? (totalBundles / totalBundles).toFixed(2)
+  const avgBundleLoad = totalEntries
+    ? (totalEntries / totalBundles).toFixed(2)
     : 0;
+
+  // const total_price_usd =
+  //   totalPriceToken === null ? 0 : totalPriceToken.total_price_usd;
+  // console.log(totalPriceToken);
 
   const itemFirst: any = [
     {

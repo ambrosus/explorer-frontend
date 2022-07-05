@@ -44,8 +44,8 @@ const BundleDetailsMainTabs = ({ data }: any) => {
     },
     {
       _id: 2,
-      name: 'BUNDLE',
-      value: sliceData10(data?.bundleId, 12),
+      name: 'TX HASH',
+      value: sliceData10(data?.txHash, 12),
       style: {
         color: '#808A9D',
       },
