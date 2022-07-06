@@ -191,10 +191,27 @@ export const wrapString = (string: string) => {
   ));
 };
 const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+const months = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+];
 
-export  function formatDate(timestamp:any, showDate:any = false, showTime:any = false):any {
-  const date:any = new Date(timestamp * 1000);
+export function formatDate(
+  timestamp: any,
+  showDate: any = false,
+  showTime: any = false,
+): any {
+  const date: any = new Date(timestamp * 1000);
 
   const dayName = days[date.getDay()];
   const day = date.getDate();
@@ -205,10 +222,11 @@ export  function formatDate(timestamp:any, showDate:any = false, showTime:any = 
   const seconds = ('0' + date.getSeconds()).slice(-2);
 
   if (showDate && !showTime) {
-    return `${month+1}/${day}/${year}`;
+    return `${month + 1}/${day}/${year}`;
   }
-  return `${showDate ? `${dayName}, ${day} ${months[month]} ${year} ` : ''}${hours}:${minutes}:${seconds}`;
-
+  return `${
+    showDate ? `${dayName}, ${day} ${months[month]} ${year} ` : ''
+  }${hours}:${minutes}:${seconds}`;
 }
 
 export function timeSince(date: any) {
@@ -262,7 +280,7 @@ export const statusMessage = (node: any, nodeName: string) => {
       default:
         return <div className="apollo_blocks_body_cell_offline">Offline</div>;
     }
-  }else if (nodeName === 'Apollo') {
+  } else if (nodeName === 'Apollo') {
     switch (node.status) {
       case 'ONLINE':
         return (
@@ -295,7 +313,7 @@ export const statusMessage = (node: any, nodeName: string) => {
     }
   }
 };
-export const ambToUSD = (amb:any, usd_price:any) => {
+export const ambToUSD = (amb: any, usd_price: any) => {
   let result = amb * parseFloat(usd_price);
   return result.toFixed(7);
 };

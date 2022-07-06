@@ -1,14 +1,16 @@
-import React, {FC} from 'react';
-import {TabsNewProps} from "../transactions.interface";
+import { TabsNewProps } from '../transactions.interface';
+import React, { FC } from 'react';
 
-const TabsNew:FC<TabsNewProps> = ({ tabs, onChange, selectedItem }) => {
+const TabsNew: FC<TabsNewProps> = ({ tabs, onChange, selectedItem }) => {
   return (
     <div className="tabs">
       <div className="tabs_heading" tabIndex={-1}>
         <div className="tabs_heading_filters" tabIndex={-1}>
           {tabs.map((el: any) => (
             <span
-              className={`tabs_link ${selectedItem === el.value ? 'tabs_link_active' : ''}`}
+              className={`tabs_link ${
+                selectedItem === el.value ? 'tabs_link_active' : ''
+              }`}
               key={el.title}
               onClick={() => onChange(el.value)}
             >
@@ -18,7 +20,7 @@ const TabsNew:FC<TabsNewProps> = ({ tabs, onChange, selectedItem }) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default TabsNew;

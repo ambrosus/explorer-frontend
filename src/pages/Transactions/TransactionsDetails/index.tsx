@@ -1,17 +1,17 @@
-import React, {useEffect, useRef, useState} from 'react';
-import {Content} from "../../components/Content";
-import {NavLink, useNavigate, useParams} from "react-router-dom";
-import ContentCopyed from "../../assets/icons/CopyIcons/ContentCopyed";
-import ContentCopy from "../../assets/icons/CopyIcons/ContentCopy";
-import CopyPopUp from "../../assets/icons/CopyIcons/CopyPopUp";
-import useCopyContent from "../../hooks/useCopyContent";
-import useDeviceSize from "../../hooks/useDeviceSize";
-import {numberWithCommas, sliceData10} from "../../utils/helpers";
-import api from "../../API/api";
-import moment from "moment";
-import AddressBlock from "../Addresses/AddressDetails/components/AddressBlocks/AddressBlock";
-import {useTypedSelector} from "../../hooks/useTypedSelector";
-import AddressBlocksHeader from "../Addresses/AddressDetails/components/AddressBlocksHeader";
+import AddressBlock from '../../Addresses/AddressDetails/components/AddressBlocks/AddressBlock';
+import AddressBlocksHeader from '../../Addresses/AddressDetails/components/AddressBlocksHeader';
+import api from 'API/api';
+import ContentCopy from 'assets/icons/CopyIcons/ContentCopy';
+import ContentCopyed from 'assets/icons/CopyIcons/ContentCopyed';
+import CopyPopUp from 'assets/icons/CopyIcons/CopyPopUp';
+import { Content } from 'components/Content';
+import useCopyContent from 'hooks/useCopyContent';
+import useDeviceSize from 'hooks/useDeviceSize';
+import { useTypedSelector } from 'hooks/useTypedSelector';
+import moment from 'moment';
+import React, { useEffect, useRef, useState } from 'react';
+import { NavLink, useNavigate, useParams } from 'react-router-dom';
+import { numberWithCommas, sliceData10 } from 'utils/helpers';
 
 export const TransactionDetails = () => {
   const { hash } = useParams();
@@ -19,11 +19,11 @@ export const TransactionDetails = () => {
   const { FOR_TABLET } = useDeviceSize();
   const navigate = useNavigate();
   const ref = useRef(null);
-  const {data: appData} = useTypedSelector((state: any) => state.app);
+  const { data: appData } = useTypedSelector((state: any) => state.app);
 
   const [txData, setTxData] = useState({
     value: {
-      ether: ''
+      ether: '',
     },
     from: '',
     to: '',
@@ -42,12 +42,11 @@ export const TransactionDetails = () => {
   });
 
   useEffect(() => {
-    api.getTransaction(hash)
-      .then((res: any) => {
-        if (res.meta?.code === 200) {
-          setTxData(res.data);
-        }
-      });
+    api.getTransaction(hash).then((res: any) => {
+      if (res.meta?.code === 200) {
+        setTxData(res.data);
+      }
+    });
     console.log(checkOverflow(ref.current));
   }, []);
 
@@ -55,20 +54,18 @@ export const TransactionDetails = () => {
     navigate(`/transactions/${txhash}`);
   };
 
-  const checkOverflow = (el:any) => {
+  const checkOverflow = (el: any) => {
     var curOverflow = el.style.overflow;
 
-    if ( !curOverflow || curOverflow === "visible" )
-      el.style.overflow = "hidden";
+    if (!curOverflow || curOverflow === 'visible') el.style.overflow = 'hidden';
 
-    var isOverflowing = el.clientWidth < el.scrollWidth
-      || el.clientHeight < el.scrollHeight;
+    var isOverflowing =
+      el.clientWidth < el.scrollWidth || el.clientHeight < el.scrollHeight;
 
     el.style.overflow = curOverflow;
 
     return isOverflowing;
-
-  }
+  };
   return (
     <Content>
       <section className="address_details transaction-details container">
@@ -78,7 +75,7 @@ export const TransactionDetails = () => {
               <h1>{txData.determinedType}</h1>
               <span className="address_details_h1_status">{txData.status}</span>
             </div>
-            <div className="address_details_copy" style={{fontSize: '18px'}}>
+            <div className="address_details_copy" style={{ fontSize: '18px' }}>
               <span className="transaction-details__hash">Hash</span>
               {sliceData10(hash as string)}
               <button
@@ -115,7 +112,11 @@ export const TransactionDetails = () => {
               <p className="apollo_details_balance_fonts_normal universall_light1">
                 FROM
               </p>
-              <NavLink style={{fontSize: '18px'}} to={`/addresses/${txData.from}`} className="universall_light1">
+              <NavLink
+                style={{ fontSize: '18px' }}
+                to={`/addresses/${txData.from}`}
+                className="universall_light1"
+              >
                 {sliceData10(txData.from as string, 7)}
               </NavLink>
             </div>
@@ -124,7 +125,11 @@ export const TransactionDetails = () => {
             <p className="apollo_details_balance_fonts_normal universall_light1">
               TO
             </p>
-            <NavLink style={{fontSize: '18px'}} to={`/addresses/${txData.to}`} className="universall_light1">
+            <NavLink
+              style={{ fontSize: '18px' }}
+              to={`/addresses/${txData.to}`}
+              className="universall_light1"
+            >
               {sliceData10(txData.to as string, 7)}
             </NavLink>
           </div>
@@ -143,7 +148,9 @@ export const TransactionDetails = () => {
               DATE
             </p>
             <p className="atlas_details_balance_fonts_bold">
-              {moment.unix(Number(txData.timestamp)).format('ddd, D MMM YYYY HH:mm:ss')}
+              {moment
+                .unix(Number(txData.timestamp))
+                .format('ddd, D MMM YYYY HH:mm:ss')}
             </p>
           </div>
           <div className="apollo_details_balance_cells">
@@ -151,7 +158,8 @@ export const TransactionDetails = () => {
               NONCE (POSITION)
             </p>
             <p className="atlas_details_balance_fonts_bold">
-              {numberWithCommas(txData.nonce, +txData.nonce)} ({txData.transactionIndex})
+              {numberWithCommas(txData.nonce, +txData.nonce)} (
+              {txData.transactionIndex})
             </p>
           </div>
           <div className="apollo_details_balance_cells">
@@ -177,19 +185,18 @@ export const TransactionDetails = () => {
               HEIGHT / CONFIRMATIONS
             </p>
             <p className="atlas_details_balance_fonts_bold">
-              {numberWithCommas(txData.blockNumber, txData.blockNumber)}
-              {' '}
-              ({appData?.netInfo?.lastBlock?.number - txData.blockNumber})
+              {numberWithCommas(txData.blockNumber, txData.blockNumber)} (
+              {appData?.netInfo?.lastBlock?.number - txData.blockNumber})
             </p>
           </div>
         </div>
       </section>
       {txData.inners && !!txData.inners.length && (
         <section className="transactions-details-list">
-          <div className="container" style={{margin: '0 auto'}}>
+          <div className="container" style={{ margin: '0 auto' }}>
             <p className="transactions-details-list__title">Transactions</p>
           </div>
-          <div className="container" style={{margin: '0 auto'}}>
+          <div className="container" style={{ margin: '0 auto' }}>
             <AddressBlocksHeader
               txhash="txHash"
               method="Method"
@@ -205,31 +212,30 @@ export const TransactionDetails = () => {
             />
           </div>
           <div className="transactions-details-list__wrapper container">
-            {!!txData.inners && txData.inners.map((tx: any, i) => (
-              <AddressBlock
-                isLatest={true}
-                key={i}
-                txhash={tx.hash}
-                method={tx.type}
-                from={tx.from}
-                to={tx.to}
-                date={moment(tx.timestamp * 1000).fromNow()}
-                block={tx.blockNumber}
-                amount={tx.value.ether}
-                txfee={tx.gasCost.ether}
-                token={`${tx?.token ? tx?.token : 'AMB'}`}
-                symbol={`${
-                  tx?.symbol ? tx?.symbol : 'AMB'
-                }`}
-                isTableColumn="address_blocks_cells"
-                isIcon={true}
-                inners={tx.inners}
-                hashOnClick={redirectToDetails}
-              />
-            ))}
+            {!!txData.inners &&
+              txData.inners.map((tx: any, i) => (
+                <AddressBlock
+                  isLatest={true}
+                  key={i}
+                  txhash={tx.hash}
+                  method={tx.type}
+                  from={tx.from}
+                  to={tx.to}
+                  date={moment(tx.timestamp * 1000).fromNow()}
+                  block={tx.blockNumber}
+                  amount={tx.value.ether}
+                  txfee={tx.gasCost.ether}
+                  token={`${tx?.token ? tx?.token : 'AMB'}`}
+                  symbol={`${tx?.symbol ? tx?.symbol : 'AMB'}`}
+                  isTableColumn="address_blocks_cells"
+                  isIcon={true}
+                  inners={tx.inners}
+                  hashOnClick={redirectToDetails}
+                />
+              ))}
           </div>
         </section>
       )}
     </Content>
-  )
+  );
 };
