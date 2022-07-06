@@ -74,7 +74,7 @@ export const TransactionDetails = () => {
               <h1>{txData.determinedType}</h1>
               <span className="address_details_h1_status">{txData.status}</span>
             </div>
-            <div className="address_details_copy" style={{ fontSize: '18px' }}>
+            <div className="address_details_copy">
               <span className="transaction-details__hash">Hash</span>
               {sliceData10(hash as string)}
               <button

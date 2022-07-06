@@ -255,8 +255,6 @@ const Tabs: FC<TabsProps> = ({
                         }${filter.value === 'contract' ? '/code' : '/'} `}
                         className={() => handleNavLinkClass(filter.value)}
                         onClick={() => {
-                          console.log(filter);
-
                           setTransactionType(filter.value);
                         }}
                       >

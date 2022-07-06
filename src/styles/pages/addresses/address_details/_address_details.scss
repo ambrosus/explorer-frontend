@@ -5,7 +5,9 @@
     justify-content: space-between;
     margin: 30px auto;
     white-space: nowrap;
-
+    @include for_big_tablet {
+      font-size: 2rem !important;
+    }
     &:not(&-tx) {
       @include for_laptop {
         flex-direction: column;
@@ -47,16 +49,16 @@
     font-weight: 400;
     @include for_laptop {
       margin-left: 0px;
-      font-size: 2rem;
+      font-size: 2rem !important;
     }
-    @include for_tablet {
-      font-size: 1.4rem;
+    @include for_big_tablet {
+      font-size: 1.3rem!important;
     }
     @include for_phone {
-      font-size: 1rem;
+      font-size: 1rem !important;
     }
     @include for_small_phone {
-      font-size: 0.8rem;
+      font-size: 0.8rem !important;
     }
     .address_details_copyed {
       position: absolute;
@@ -111,6 +113,8 @@
       }
 
       &_span {
+        white-space: nowrap;
+
         font-style: normal;
         font-weight: 400;
         font-size: 1.28em;

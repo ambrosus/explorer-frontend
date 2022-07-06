@@ -7,7 +7,6 @@ import { sliceData5 } from 'utils/helpers';
 
 const BlockBody = ({ lastCardRef, item }: any) => {
   const { type, hash, from, to, timestamp, value } = item;
-  console.log(item);
 
   const amount = value?.ether || 0;
   return (
@@ -33,7 +32,15 @@ const BlockBody = ({ lastCardRef, item }: any) => {
       </div>
       <div className="block_body_cell">
         <span className="block_body_cell_icon">
-          <Amb /> <span className="color-gray">AMB</span>
+          <Amb />{' '}
+          <span
+            className="color-gray"
+            style={{
+              fontWeight: 600,
+            }}
+          >
+            AMB
+          </span>
         </span>
         <Number value={amount} fixed={6} />
       </div>

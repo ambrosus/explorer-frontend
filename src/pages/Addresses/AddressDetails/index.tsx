@@ -211,8 +211,11 @@ const AddressDetails = () => {
               className="address_details_copy"
               style={{ fontSize: isContract ? 18 : '2.3rem' }}
             >
-              {isContract && <span>Address:&nbsp; </span>}
+              {isContract && (
+                <span> {FOR_TABLET ? <span>Address:&nbsp;</span> : null} </span>
+              )}
               {address}
+              &nbsp; &nbsp;
               <CopyBtn />
             </div>
           </h1>
