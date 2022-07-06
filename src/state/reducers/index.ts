@@ -4,11 +4,11 @@ import positionReducer from './positionReducer';
 import tokenFiltersReducer from './tokenFiltersReducer';
 import { combineReducers } from 'redux';
 
-const reducers = combineReducers({
+const reducers: any = combineReducers({
   app: appReducer,
   position: positionReducer,
   tokenFilters: tokenFiltersReducer,
-  // bundles: bundleReducer,
+  bundles: bundleReducer,
 });
 
 export default reducers;
