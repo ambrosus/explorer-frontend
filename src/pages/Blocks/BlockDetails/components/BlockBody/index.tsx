@@ -7,7 +7,6 @@ import {sliceData5} from 'utils/helpers';
 
 const BlockBody = ({lastCardRef, item}: any) => {
   const {type, hash, from, to, timestamp, value} = item;
-  console.log(item);
 
   const amount = value?.ether || 0;
   return (
