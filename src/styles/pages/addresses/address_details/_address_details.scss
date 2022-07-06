@@ -5,7 +5,9 @@
     justify-content: space-between;
     margin: 30px auto;
     white-space: nowrap;
-
+    @include for_big_tablet {
+      font-size: 2rem !important;
+    }
     &:not(&-tx) {
       @include for_laptop {
         flex-direction: column;
@@ -49,8 +51,8 @@
       margin-left: 0px;
       font-size: 2rem !important;
     }
-    @include for_tablet {
-      font-size: 1.4rem!important;
+    @include for_big_tablet {
+      font-size: 1.3rem!important;
     }
     @include for_phone {
       font-size: 1rem !important;
