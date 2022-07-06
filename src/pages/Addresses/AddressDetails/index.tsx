@@ -213,6 +213,7 @@ const AddressDetails = () => {
             >
               {isContract && <span>Address:&nbsp; </span>}
               {address}
+              &nbsp; &nbsp;
               <CopyBtn />
             </div>
           </h1>
