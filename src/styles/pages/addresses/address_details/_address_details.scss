@@ -47,7 +47,7 @@
     font-weight: 400;
     @include for_laptop {
       margin-left: 0px;
-      font-size: 2rem;
+      font-size: 2rem !important;
     }
     @include for_tablet {
       font-size: 1.4rem!important;
