@@ -17,6 +17,7 @@
       minmax(110px, 1fr) minmax(100px, 1fr) minmax(100px, 1fr)
       minmax(220px, 1fr) minmax(110px, 1fr);
     padding-left: 6px;
+    width: fit-content;
     &:hover {
       background-color: #eff2f5;
     }
@@ -58,7 +59,7 @@
       justify-self: center;
     }
   }
-  &_inner .address_blocks_cells{
+  &_inner .address_blocks_cells {
   }
   &_plus {
     position: absolute;

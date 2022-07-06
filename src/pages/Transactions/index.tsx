@@ -94,43 +94,47 @@ export const Transactions = () => {
           onChange={handleTab}
           selectedItem={tab}
         />
-        {!!txsData.data.length && (
-          <AddressBlocksHeader
-            txhash="txHash"
-            method="Method"
-            from="From"
-            to="To"
-            date="Date"
-            block="Block"
-            amount="Amount"
-            txfee="txFee"
-            token={null}
-            methodFilters={null}
-            isTableColumn={'address_blocks_cells'}
-          />
-        )}
-        {!!txsData.data.length &&
-          txsData.data.map((tx: any, i) => (
-            <AddressBlock
-              isLatest={true}
-              key={i}
-              txhash={tx.hash}
-              method={tx.type}
-              from={tx.from}
-              to={tx.to}
-              date={moment(tx.timestamp * 1000).fromNow()}
-              block={tx.blockNumber}
-              amount={tx.value.ether}
-              txfee={tx.gasCost.ether}
-              token={`${tx?.token ? tx?.token : 'AMB'}`}
-              symbol={`${tx?.symbol ? tx?.symbol : 'AMB'}`}
-              isTableColumn="address_blocks_cells"
-              isIcon={true}
-              inners={tx.inners}
-              hashOnClick={true}
+        <div className="transactions_table">
+          {!!txsData.data.length && (
+            <AddressBlocksHeader
+              txhash="txHash"
+              method="Method"
+              from="From"
+              to="To"
+              date="Date"
+              block="Block"
+              amount="Amount"
+              txfee="txFee"
+              token={null}
+              methodFilters={null}
+              isTableColumn={'address_blocks_cells'}
             />
-          ))}
-        <div ref={ref} />
+          )}
+          {!!txsData.data.length &&
+            txsData.data.map((tx: any, i) => (
+              <AddressBlock
+                isLatest={true}
+                key={i}
+                txhash={tx.hash}
+                method={tx.type}
+                from={tx.from}
+                to={tx.to}
+                date={moment(tx.timestamp * 1000).fromNow()}
+                block={tx.blockNumber}
+                amount={tx.value.ether}
+                txfee={tx.gasCost.ether}
+                token={`${tx?.token ? tx?.token : 'AMB'}`}
+                symbol={`${tx?.symbol ? tx?.symbol : 'AMB'}`}
+                isTableColumn="address_blocks_cells"
+                isIcon={true}
+                inners={tx.inners}
+                hashOnClick={true}
+                lastCardRef={ref}
+              />
+            ))}
+        </div>
+
+        {/* <div ref={ref} /> */}
         {loading && <Loader />}
       </Content.Body>
     </Content>

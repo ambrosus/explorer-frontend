@@ -56,6 +56,12 @@
 .transactions_header {
   display: flex;
   justify-content: space-between;
+  margin: 32px 0;
+
+  @include for_phone {
+    flex-direction: column;
+    gap: 8px;
+  }
 
   &_text {
     font-size: 18px;
@@ -68,5 +74,12 @@
     font-weight: 400;
     font-size: 18px;
     line-height: 32px;
+  }
+}
+
+.transactions_table {
+  overflow-x: auto;
+  &::-webkit-scrollbar {
+    display: none;
   }
 }
