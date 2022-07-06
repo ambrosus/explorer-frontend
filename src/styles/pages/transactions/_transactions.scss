@@ -1,26 +1,26 @@
-.transactions-details-list {
+.transactions_details_list {
   background: #fff;
   padding: 20px 0 50px;
   border-radius: 20px;
 
-  &__title {
+  &_title {
     font-size: 18px;
     padding-bottom: 20px;
-    border-bottom: 1px solid #EFF2F5;
+    border-bottom: 1px solid #eff2f5;
     font-weight: 700;
     margin: 0 auto;
   }
 
-  &__wrapper {
+  &_wrapper {
     margin: 0 auto;
     overflow: auto;
   }
 }
-.transaction-details {
+.transaction_details {
   margin: 0 auto;
   padding-bottom: 50px;
 
-  &__hash {
+  &_hash {
     font-size: 18px;
     font-weight: 700;
     margin-right: 5px;
@@ -53,18 +53,20 @@
   }
 }
 
-.transactions-header {
+.transactions_header {
   display: flex;
   justify-content: space-between;
 
-  &__text {
+  &_text {
     font-size: 18px;
-    font-weight: 600;
+    font-weight: 700;
+    line-height: 32px;
   }
 
-  &__num {
+  &_num {
     margin-left: 10px;
     font-weight: 400;
-    font-size: 20px;
+    font-size: 18px;
+    line-height: 32px;
   }
 }

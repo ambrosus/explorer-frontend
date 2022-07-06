@@ -68,7 +68,7 @@ export const TransactionDetails = () => {
   };
   return (
     <Content>
-      <section className="address_details transaction-details container">
+      <section className="address_details transaction_details container">
         <Content.Header>
           <div className="address_details_h1 address_details_h1-tx">
             <div>
@@ -76,7 +76,7 @@ export const TransactionDetails = () => {
               <span className="address_details_h1_status">{txData.status}</span>
             </div>
             <div className="address_details_copy" style={{ fontSize: '18px' }}>
-              <span className="transaction-details__hash">Hash</span>
+              <span className="transaction_details_hash">Hash</span>
               {hash}
               <button
                 className={'address_details_copy_btn'}
@@ -192,9 +192,9 @@ export const TransactionDetails = () => {
         </div>
       </section>
       {txData.inners && !!txData.inners.length && (
-        <section className="transactions-details-list">
+        <section className="transactions_details_list">
           <div className="container" style={{ margin: '0 auto' }}>
-            <p className="transactions-details-list__title">Transactions</p>
+            <p className="transactions_details_list_title">Transactions</p>
           </div>
           <div className="container" style={{ margin: '0 auto' }}>
             <AddressBlocksHeader
@@ -211,7 +211,7 @@ export const TransactionDetails = () => {
               isTableColumn={'address_blocks_cells'}
             />
           </div>
-          <div className="transactions-details-list__wrapper container">
+          <div className="transactions_details_list_wrapper container">
             {!!txData.inners &&
               txData.inners.map((tx: any, i) => (
                 <AddressBlock
@@ -230,7 +230,7 @@ export const TransactionDetails = () => {
                   isTableColumn="address_blocks_cells"
                   isIcon={true}
                   inners={tx.inners}
-                  hashOnClick={redirectToDetails}
+                  hashOnClick={true}
                 />
               ))}
           </div>

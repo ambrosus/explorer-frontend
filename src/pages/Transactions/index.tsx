@@ -72,18 +72,14 @@ export const Transactions = () => {
     setTab(type);
   };
 
-  const redirectToDetails = (txhash: string | number) => {
-    navigate(`/transactions/${txhash}`);
-  };
-
   return (
     <Content>
       <Content.Header>
-        <div className="transactions-header">
+        <div className="transactions_header">
           <h1>Transactions</h1>
-          <span className="transactions-header__text">
+          <span className="transactions_header_text">
             Total transactions
-            <span className="transactions-header__num">
+            <span className="transactions_header_num">
               {numberWithCommas(
                 appData?.netInfo?.transactions?.total,
                 appData?.netInfo?.transactions?.total,
@@ -131,7 +127,7 @@ export const Transactions = () => {
               isTableColumn="address_blocks_cells"
               isIcon={true}
               inners={tx.inners}
-              hashOnClick={redirectToDetails}
+              hashOnClick={true}
             />
           ))}
         <div ref={ref} />
