@@ -4,9 +4,9 @@ import {
   TokenType,
   TransactionProps,
 } from '../pages/Addresses/AddressDetails/address-details.interface';
-import removeArrayDuplicates, { log } from '../utils/helpers';
-import { ethers } from 'ethers';
-import { formatEther } from 'ethers/lib/utils';
+import removeArrayDuplicates, {log} from '../utils/helpers';
+import {ethers} from 'ethers';
+import {formatEther} from 'ethers/lib/utils';
 import erc20Abi from 'utils/abis/ERC20.json';
 
 const getTokensBalance = async (tokensArr: TokenType[], address: string) => {
@@ -78,7 +78,7 @@ const sortedLatestTransactionsData = async (
         params: {
           page: page,
           pageSize: 1000,
-          contract: token.contract,
+          contract: (token.contract !== 'code' && token.contract !== 'read' && token.contract !=='write') ? token.contract : '',
         },
       });
       return tokensTransactions.txids.map(async (tx: string) => {
@@ -121,7 +121,7 @@ const sortedLatestTransactionsData = async (
 
 const blockBookApiTokensSearch: any = async (
   url: string,
-  { page, type, limit }: any,
+  {page, type, limit}: any,
 ) => {
   try {
     const blockBookApiForT: any = await API.API.get(url, {
@@ -140,7 +140,7 @@ const blockBookApiTokensSearch: any = async (
           params: {
             page: page,
             pageSize: 1000,
-            contract: token.contract,
+            contract: (token.contract !== 'code' && token.contract !== 'read' && token.contract !== 'write') ? token.contract : '',
           },
         });
         return (
@@ -157,11 +157,11 @@ const blockBookApiTokensSearch: any = async (
       : [];
     return flatMap
       ? flatMap.map((token: TokenType, index: number) => {
-          return {
-            ...token,
-            idx: index + 1,
-          };
-        })
+        return {
+          ...token,
+          idx: index + 1,
+        };
+      })
       : [];
   } catch (e) {
     log(e);
@@ -170,14 +170,14 @@ const blockBookApiTokensSearch: any = async (
 
 const bbDataFilter = async (
   url: string,
-  { limit, page, type, selectedTokenFilter }: any,
+  {limit, page, type, selectedTokenFilter}: any,
 ) => {
   try {
     const bbApi: any = await API.API.get(url, {
       params: {
         page: page,
         pageSize: !type ? limit : selectedTokenFilter ? 1000 : 100,
-        contract: selectedTokenFilter ? selectedTokenFilter : '',
+        contract: (selectedTokenFilter !== 'code' && selectedTokenFilter !== 'read' && selectedTokenFilter !== 'write') ? selectedTokenFilter : '',
       },
     });
 
@@ -186,12 +186,12 @@ const bbDataFilter = async (
     const blockBookApiTransactions =
       bbApi && bbApi.txids
         ? bbApi.txids.map(async (tx: string) => {
-            return await fetch(
-              `${process.env.REACT_APP_BLOCKBOOK_API}/api/v2/tx/${tx}`,
-            )
-              .then((res) => res.json())
-              .catch((e) => log(e));
-          })
+          return await fetch(
+            `${process.env.REACT_APP_BLOCKBOOK_API}/api/v2/tx/${tx}`,
+          )
+            .then((res) => res.json())
+            .catch((e) => log(e));
+        })
         : [];
 
     const blockBookApiTransactionsData = await Promise.allSettled(
@@ -239,9 +239,9 @@ const bbDataFilter = async (
   }
 };
 
-async function explorerData(address: string, { page, limit, type }: any) {
+async function explorerData(address: string, {page, limit, type}: any) {
   try {
-    const { data: explorerTrans } = await API.getAccountTx(address, {
+    const {data: explorerTrans} = await API.getAccountTx(address, {
       page,
       limit,
       type,
@@ -267,11 +267,11 @@ async function explorerData(address: string, { page, limit, type }: any) {
 }
 
 export const getDataForAddress = async (address: string, params: any) => {
-  const { page, type, selectedTokenFilter } = params;
+  const {page, type, selectedTokenFilter} = params;
   const url = `${process.env.REACT_APP_BLOCKBOOK_API}/api/v2/address/${address}`;
   try {
     const blockBookApiTokens: any = await blockBookApiTokensSearch(url, params);
-    const { addressBalance, bbApi, bbTxData }: TransactionProps[] | any =
+    const {addressBalance, bbApi, bbTxData}: TransactionProps[] | any =
       await bbDataFilter(url, params);
 
     const defaultFilters: TokenType[] =

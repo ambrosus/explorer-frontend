@@ -19,7 +19,7 @@ const Token: React.FC<TokenProps> = ({
 
   useEffect(() => {
     if (type !== 'contract') {
-      if (addressData !== dataBuffer && Object.keys(addressData).length) {
+      if (addressData && addressData !== dataBuffer && Object.keys(addressData).length) {
         setIsLoading(true);
         dataBuffer = addressData;
         setData(addressData);

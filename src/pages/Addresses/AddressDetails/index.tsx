@@ -29,7 +29,7 @@ const AddressDetails = () => {
   } = useTypedSelector((state: any) => state.position);
   const { address, type, filtered, tokenToSorted }: TParams = useParams();
   const { setPosition, addFilter } = useActions();
-  const [transactionType, setTransactionType] = useState(type || '');
+  const [transactionType, setTransactionType] = useState(type  || '');
   const [selectedToken, setSelectedToken] = useState<TokenType | null>(null);
   const [tx, setTx] = useState<TransactionProps[] | []>([]);
   const [pageNum, setPageNum] = useState(1);
@@ -90,7 +90,6 @@ const AddressDetails = () => {
   }, []);
 
   useEffect(() => {
-    if (type !== 'contract') {
       if (address || type || filtered || tokenToSorted) {
         setPageNum(1);
         setPosition(null);
@@ -101,7 +100,6 @@ const AddressDetails = () => {
         setPosition(null);
         setTx([]);
       };
-    }
   }, [address, type, filtered, tokenToSorted]);
 
   async function getAddressDetailsData() {
@@ -122,7 +120,7 @@ const AddressDetails = () => {
             ? selectedToken.contract
             : filtered,
           limit: limitNum,
-          type: transactionType,
+          type: transactionType ,
           page: pageNum,
         });
       } else {
@@ -133,7 +131,7 @@ const AddressDetails = () => {
             ? selectedToken.contract
             : filtered,
           limit: limitNum,
-          type: transactionType,
+          type: transactionType ,
           page: pageNum,
         });
       }
@@ -272,7 +270,7 @@ const AddressDetails = () => {
         </Content.Header>
         <Content.Body isLoading={filtered ? !loading : true}>
           <Tabs
-            // isContract={isContract}
+            isContract={isContract}
             pageNum={pageNum}
             lastCardRef={lastCardRef}
             onClick={setSelectedToken}
