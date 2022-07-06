@@ -77,7 +77,7 @@ export const TransactionDetails = () => {
             </div>
             <div className="address_details_copy" style={{ fontSize: '18px' }}>
               <span className="transaction-details__hash">Hash</span>
-              {sliceData10(hash as string)}
+              {hash}
               <button
                 className={'address_details_copy_btn'}
                 onClick={copyContent}
