@@ -1,0 +1,83 @@
+.contract {
+
+  .contract-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+
+    .contract-body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      padding: 0;
+      margin: 0;
+
+      &-header {
+        display: flex;
+        flex-direction: column;
+        padding: 0 0 32px 0;
+        margin: 0 0 32px 0;
+        position: relative;
+        border-bottom: 1px solid #eff2f5;
+        gap: 12px;
+
+        &-title {
+          font-family: 'Proxima Nova', sans-serif;
+          font-style: normal;
+          font-weight: 700;
+          font-size: 14px;
+          line-height: 40px;
+          display: flex;
+          align-items: center;
+          color: #05060F;
+
+          .verified-contract {
+            color: #1ACD8C;
+          }
+
+          .match-contract {
+            font-weight: 400;
+          }
+        }
+
+        &-info {
+          display: flex;
+          flex-direction: row;
+          justify-content: flex-start;
+          align-items: center;
+          width: 100%;
+          height: 100%;
+          padding: 0;
+          margin: 0;
+          flex-wrap: wrap;
+          gap: 35px;
+
+          p {
+            min-width: 21%;
+            white-space: nowrap;
+            font-family: 'Proxima Nova';
+            font-style: normal;
+            font-weight: 600;
+            font-size: 14px;
+            line-height: 17px;
+            display: flex;
+            align-items: flex-start;
+            color: #05060F;
+
+            span {
+              font-weight: 400;
+            }
+
+          }
+        }
+      }
+
+    }
+  }
+}
