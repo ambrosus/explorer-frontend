@@ -6,7 +6,7 @@ import renderWithReduxAndRouter from 'utils/test-helpers/renderWithReduxAndRoute
 
 describe('FindWide', () => {
   test('render correctly', () => {
-    renderWithReduxAndRouter(<FindWide setIsShow={()=>{}}/>);
+    renderWithReduxAndRouter(<FindWide setIsShow={() => {}} />);
     expect(screen.getByPlaceholderText(/Search by Node/i)).toBeInTheDocument();
     expect(screen.getByPlaceholderText(/Search by Node/i)).not.toBeRequired();
     expect(screen.getByPlaceholderText(/Search by Node/i)).toBeEmpty();
@@ -15,7 +15,9 @@ describe('FindWide', () => {
   });
 
   test('change input state correctly', () => {
-    const { container } = renderWithReduxAndRouter(<FindWide  setIsShow={()=>{}}/>);
+    const { container } = renderWithReduxAndRouter(
+      <FindWide setIsShow={() => {}} />,
+    );
     fireEvent.change(screen.getByPlaceholderText(/Search by Node/i), {
       target: { value: 'test' },
     });
