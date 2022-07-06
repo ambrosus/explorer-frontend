@@ -113,7 +113,7 @@ export const TransactionDetails = () => {
                 FROM
               </p>
               <NavLink
-                style={{ fontSize: '18px' }}
+                style={{ fontSize: '14px', fontWeight: 600 }}
                 to={`/addresses/${txData.from}`}
                 className="universall_light1"
               >
@@ -126,7 +126,7 @@ export const TransactionDetails = () => {
               TO
             </p>
             <NavLink
-              style={{ fontSize: '18px' }}
+              style={{ fontSize: '14px', fontWeight: 600 }}
               to={`/addresses/${txData.to}`}
               className="universall_light1"
             >
@@ -176,7 +176,10 @@ export const TransactionDetails = () => {
             <p className="apollo_details_balance_fonts_normal universall_light1">
               BLOCK HASH
             </p>
-            <p className="atlas_details_balance_fonts_bold">
+            <p
+              className="atlas_details_balance_fonts_bold"
+              style={{ color: '#808A9D' }}
+            >
               {txData.blockHash}
             </p>
           </div>
