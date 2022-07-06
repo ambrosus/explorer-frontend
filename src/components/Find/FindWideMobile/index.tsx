@@ -1,13 +1,13 @@
+import useSearch from '../../../hooks/useSearch';
 import Search from 'assets/icons/Search';
-import {FindWideMobileProps} from 'pages/Home/home.interfaces';
+import { FindWideMobileProps } from 'pages/Home/home.interfaces';
 import React from 'react';
-import useSearch from "../../../hooks/useSearch";
 
 const FindWideMobile: React.FC<FindWideMobileProps> = ({
-                                                         searchRef,
-                                                         setIsShow,
-                                                       }) => {
-  const {handleSubmit, err, name, handleChange} = useSearch(setIsShow)
+  searchRef,
+  setIsShow,
+}) => {
+  const { handleSubmit, err, name, handleChange } = useSearch(setIsShow);
 
   return (
     <>
@@ -29,7 +29,7 @@ const FindWideMobile: React.FC<FindWideMobileProps> = ({
         />
 
         <button className="find_wide_mobile_btn" type="submit">
-          <Search fill={'#808A9D'}/>
+          <Search fill={'#808A9D'} />
         </button>
       </form>
     </>

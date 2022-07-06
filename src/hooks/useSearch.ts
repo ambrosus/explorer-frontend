@@ -1,8 +1,8 @@
-import {ChangeEvent, FormEvent, useState} from 'react';
-import {useNavigate} from "react-router-dom";
-import {useDebounce} from "./useDebounce";
-import {useQuery} from "react-query";
-import API from "../API/api";
+import API from '../API/api';
+import { useDebounce } from './useDebounce';
+import { ChangeEvent, FormEvent, useState } from 'react';
+import { useQuery } from 'react-query';
+import { useNavigate } from 'react-router-dom';
 
 const useSearch = (setIsShow: Function) => {
   const [err, setErr] = useState<boolean>(false);
@@ -11,7 +11,7 @@ const useSearch = (setIsShow: Function) => {
   const navigate = useNavigate();
   const debouncedSearchTerm = useDebounce(name, 500);
 
-  const {isLoading} = useQuery(
+  const { isLoading } = useQuery(
     ['search', debouncedSearchTerm],
     () => API.searchItem(debouncedSearchTerm),
     {
@@ -41,7 +41,6 @@ const useSearch = (setIsShow: Function) => {
       onError: () => {
         setName('');
       },
-
     },
   );
 
@@ -70,6 +69,6 @@ const useSearch = (setIsShow: Function) => {
     name,
     handleChange,
   };
-}
+};
 
 export default useSearch;

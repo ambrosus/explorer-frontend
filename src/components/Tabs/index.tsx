@@ -5,40 +5,40 @@ import NotFoundIcon from 'assets/icons/Errors/NotFoundIcon';
 import SideMenu from 'assets/icons/SideMenu';
 import Calendar from 'components/Calendar';
 import useDeviceSize from 'hooks/useDeviceSize';
-import {useOnClickOutside} from 'hooks/useOnClickOutside';
-import {useTypedSelector} from 'hooks/useTypedSelector';
+import { useOnClickOutside } from 'hooks/useOnClickOutside';
+import { useTypedSelector } from 'hooks/useTypedSelector';
 import moment from 'moment';
 import {
   TabsProps,
   TransactionProps,
 } from 'pages/Addresses/AddressDetails/address-details.interface';
 import AddressBlocksHeader from 'pages/Addresses/AddressDetails/components/AddressBlocksHeader';
-import React, {FC, useEffect, useLayoutEffect, useRef, useState} from 'react';
-import {NavLink, useParams} from 'react-router-dom';
-import {setupStyle, toUniqueValueByBlock} from 'utils/helpers';
-import {sidePages} from 'utils/sidePages';
-import {ContractDetails} from "pages/Addresses/AddressDetails/components/contract";
+import { ContractDetails } from 'pages/Addresses/AddressDetails/components/contract';
+import React, { FC, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { NavLink, useParams } from 'react-router-dom';
+import { setupStyle, toUniqueValueByBlock } from 'utils/helpers';
+import { sidePages } from 'utils/sidePages';
 
 const Tabs: FC<TabsProps> = ({
-                               data,
-                               lastCardRef,
-                               onClick,
-                               setTransactionType,
-                               pageNum,
-                               loading,
-                               transactionType,
-                               isContract,
-                             }) => {
+  data,
+  lastCardRef,
+  onClick,
+  setTransactionType,
+  pageNum,
+  loading,
+  transactionType,
+  isContract,
+}) => {
   const [isShow, setIsShow] = useState(false);
-  const {address, type, filtered, tokenToSorted} = useParams();
+  const { address, type, filtered, tokenToSorted } = useParams();
   const [renderData, setRenderData] = useState<any>(null);
   const [notFound, setNotFound] = useState<any>(false);
-  const {data: addressData} = useTypedSelector(
+  const { data: addressData } = useTypedSelector(
     (state: any) => state.position,
   );
   const mobileCalendarRef = useRef(null);
 
-  const {transactionFilters, ERC20Filters, methodFilters, contractTabs} =
+  const { transactionFilters, ERC20Filters, methodFilters, contractTabs } =
     sidePages;
 
   const headerBlock: any = type === 'ERC-20_Tx' ? null : 'Block';
@@ -110,19 +110,13 @@ const Tabs: FC<TabsProps> = ({
     }
   }, [address, type, filtered, tokenToSorted]);
 
-  const {FOR_TABLET} = useDeviceSize();
+  const { FOR_TABLET } = useDeviceSize();
 
   const isTableColumn = renderData?.length
     ? setupStyle(type)
     : 'addresses_body_no_data';
 
   const handleNavLinkClass = (itemValue: any) => {
-    console.table([tokenToSorted,
-      filtered,
-      itemValue,
-      transactionType,])
-
-
     if (type !== 'contract') {
       return `tabs_link ${
         itemValue === transactionType ||
@@ -142,9 +136,10 @@ const Tabs: FC<TabsProps> = ({
     ) {
       return `tabs_link ${
         ((filtered === 'code' || filtered === 'read' || filtered === 'write') &&
-          itemValue === 'contract')
-        || ((filtered === 'code' || filtered === 'read' || filtered === 'write') && filtered === itemValue)
-        || itemValue === transactionType
+          itemValue === 'contract') ||
+        ((filtered === 'code' || filtered === 'read' || filtered === 'write') &&
+          filtered === itemValue) ||
+        itemValue === transactionType
           ? 'tabs_link_active'
           : ''
       }`;
@@ -176,8 +171,8 @@ const Tabs: FC<TabsProps> = ({
             ))}
         </div>
       </div>
-      <div className='contract-details'>
-        <ContractDetails/>
+      <div className="contract-details">
+        <ContractDetails />
       </div>
     </div>
   );
@@ -192,7 +187,7 @@ const Tabs: FC<TabsProps> = ({
                 ref={mobileCalendarRef}
                 className="tabs_heading_export_modal_mobile"
               >
-                <Calendar/>
+                <Calendar />
               </div>
             )}
             {!filtered ||
@@ -200,11 +195,23 @@ const Tabs: FC<TabsProps> = ({
             filtered === 'write' ||
             filtered === 'read'
               ? transactionFilters?.length &&
-              transactionFilters.map(
-                (filter) =>
+                transactionFilters.map((filter) => (
                   <>
-                    {isContract
-                      ? (
+                    {isContract ? (
+                      <NavLink
+                        key={filter.title}
+                        to={`/addresses/${address}/${
+                          filter.value ? filter.value : ''
+                        }${filter.value === 'contract' ? '/code' : '/'} `}
+                        className={() => handleNavLinkClass(filter.value)}
+                        onClick={() => {
+                          setTransactionType(filter.value);
+                        }}
+                      >
+                        {filter.title}
+                      </NavLink>
+                    ) : (
+                      filter.value !== 'contract' && (
                         <NavLink
                           key={filter.title}
                           to={`/addresses/${address}/${
@@ -212,55 +219,38 @@ const Tabs: FC<TabsProps> = ({
                           }${filter.value === 'contract' ? '/code' : '/'} `}
                           className={() => handleNavLinkClass(filter.value)}
                           onClick={() => {
-                            console.log(filter);
-
                             setTransactionType(filter.value);
                           }}
                         >
                           {filter.title}
                         </NavLink>
                       )
-                      : (
-                        filter.value !== 'contract' && (
-                          <NavLink
-                            key={filter.title}
-                            to={`/addresses/${address}/${
-                              filter.value ? filter.value : ''
-                            }${filter.value === 'contract' ? '/code' : '/'} `}
-                            className={() => handleNavLinkClass(filter.value)}
-                            onClick={() => {
-                              setTransactionType(filter.value);
-                            }}
-                          >
-                            {filter.title}
-                          </NavLink>
-                        )
-                      )}
+                    )}
                   </>
-              )
+                ))
               : ERC20Filters?.length &&
-              ERC20Filters.map((filter) => (
-                <NavLink
-                  key={filter.title}
-                  to={`/addresses/${address}/ERC-20_Tx/${filtered}/${filter.value} `}
-                  className={() => handleNavLinkClass(`${filter?.title}s`)}
-                  onClick={(e) => {
-                    setTransactionType(filter.value);
-                  }}
-                >
-                  {filter.title}
-                </NavLink>
-              ))}
+                ERC20Filters.map((filter) => (
+                  <NavLink
+                    key={filter.title}
+                    to={`/addresses/${address}/ERC-20_Tx/${filtered}/${filter.value} `}
+                    className={() => handleNavLinkClass(`${filter?.title}s`)}
+                    onClick={(e) => {
+                      setTransactionType(filter.value);
+                    }}
+                  >
+                    {filter.title}
+                  </NavLink>
+                ))}
           </div>
 
           <div ref={mobileCalendarRef} className="tabs_heading_export_modal">
             {FOR_TABLET ? (
-              <ExportCsv/>
+              <ExportCsv />
             ) : (
               <>
                 <div className="tabs_side_menu">
                   <button className="tabs_side_menu_icon" onClick={handleShow}>
-                    <SideMenu/>
+                    <SideMenu />
                   </button>
                 </div>
               </>
@@ -288,54 +278,59 @@ const Tabs: FC<TabsProps> = ({
               )}
 
               {renderData?.length !== 0
-                ? renderData?.map((transaction: TransactionProps, index: number) =>
-                  (renderData.length > 30 &&
-                    renderData.length - 9 === index &&
-                    type !== 'ERC-20_Tx') ||
-                  (renderData.length < 30 &&
-                    renderData.length - 1 === index &&
-                    type !== 'ERC-20_Tx') ? (
-                    //TODO double code
-                    <AddressBlock
-                      lastCardRef={lastCardRef}
-                      isLatest={type === 'ERC-20_Tx' && !filtered}
-                      onClick={onClick}
-                      key={transaction.txHash}
-                      txhash={transaction.txHash}
-                      method={transaction.method}
-                      from={transaction.from}
-                      to={transaction.to}
-                      date={moment(transaction.date).fromNow()}
-                      block={transaction.block}
-                      amount={transaction.amount}
-                      txfee={transaction.txFee}
-                      token={`${transaction?.token ? transaction?.token : null}`}
-                      symbol={`${
-                        transaction?.symbol ? transaction?.symbol : null
-                      }`}
-                      isTableColumn={isTableColumn}
-                    />
-                  ) : (
-                    <AddressBlock
-                      isLatest={type === 'ERC-20_Tx' && !filtered}
-                      onClick={onClick}
-                      key={transaction.txHash}
-                      txhash={transaction.txHash}
-                      method={transaction.method}
-                      from={transaction.from}
-                      to={transaction.to}
-                      date={moment(transaction.date).fromNow()}
-                      block={transaction.block}
-                      amount={transaction.amount}
-                      txfee={transaction.txFee}
-                      token={`${transaction?.token ? transaction?.token : 'AMB'}`}
-                      symbol={`${
-                        transaction?.symbol ? transaction?.symbol : 'AMB'
-                      }`}
-                      isTableColumn={isTableColumn}
-                    />
-                  ),
-                )
+                ? renderData?.map(
+                    (transaction: TransactionProps, index: number) =>
+                      (renderData.length > 30 &&
+                        renderData.length - 9 === index &&
+                        type !== 'ERC-20_Tx') ||
+                      (renderData.length < 30 &&
+                        renderData.length - 1 === index &&
+                        type !== 'ERC-20_Tx') ? (
+                        //TODO double code
+                        <AddressBlock
+                          lastCardRef={lastCardRef}
+                          isLatest={type === 'ERC-20_Tx' && !filtered}
+                          onClick={onClick}
+                          key={transaction.txHash}
+                          txhash={transaction.txHash}
+                          method={transaction.method}
+                          from={transaction.from}
+                          to={transaction.to}
+                          date={moment(transaction.date).fromNow()}
+                          block={transaction.block}
+                          amount={transaction.amount}
+                          txfee={transaction.txFee}
+                          token={`${
+                            transaction?.token ? transaction?.token : null
+                          }`}
+                          symbol={`${
+                            transaction?.symbol ? transaction?.symbol : null
+                          }`}
+                          isTableColumn={isTableColumn}
+                        />
+                      ) : (
+                        <AddressBlock
+                          isLatest={type === 'ERC-20_Tx' && !filtered}
+                          onClick={onClick}
+                          key={transaction.txHash}
+                          txhash={transaction.txHash}
+                          method={transaction.method}
+                          from={transaction.from}
+                          to={transaction.to}
+                          date={moment(transaction.date).fromNow()}
+                          block={transaction.block}
+                          amount={transaction.amount}
+                          txfee={transaction.txFee}
+                          token={`${
+                            transaction?.token ? transaction?.token : 'AMB'
+                          }`}
+                          symbol={`${
+                            transaction?.symbol ? transaction?.symbol : 'AMB'
+                          }`}
+                          isTableColumn={isTableColumn}
+                        />
+                      ),
+                  )
                 : null}
 
               {!loading &&
@@ -344,21 +339,24 @@ const Tabs: FC<TabsProps> = ({
                 pageNum < addressData?.meta?.totalPages &&
                 type !== 'ERC-20_Tx' &&
                 pageNum < addressData?.meta?.totalPages && (
-                  <div style={{height: 10, width: '100%'}} ref={lastCardRef}/>
+                  <div
+                    style={{ height: 10, width: '100%' }}
+                    ref={lastCardRef}
+                  />
                 )}
 
               {!loading && !renderData?.length && noDtaFound() && (
                 <div className="tabs_not_found" ref={lastCardRef}>
-                  <NotFoundIcon/>
+                  <NotFoundIcon />
                   <span className="tabs_not_found_text">
-                No results were found for this query.
-              </span>
+                    No results were found for this query.
+                  </span>
                 </div>
               )}
             </section>
             {loading && (
-              <div style={{top: '-20px', position: 'relative'}}>
-                <Loader/>
+              <div style={{ top: '-20px', position: 'relative' }}>
+                <Loader />
               </div>
             )}
           </>

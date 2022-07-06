@@ -42,14 +42,14 @@ const _Number = React.forwardRef((props: INumber, ref: any) => {
 
   return (
     <span className={classes} {...other} ref={ref}>
-      <span  className={classes}>{numWithCommas(unit)}</span>
+      <span className={classes}>{numWithCommas(unit)}</span>
       {mantissa && fixed !== 0 && (
         <span className={classes}>
           {(delimiter && delimiter.decimals) || '.'}
           {mantissa}
         </span>
       )}
-      <span className={classes} >&nbsp; {discharge}</span>
+      <span className={classes}>&nbsp; {discharge}</span>
     </span>
   );
 });

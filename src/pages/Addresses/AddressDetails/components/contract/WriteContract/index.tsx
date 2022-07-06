@@ -1,12 +1,12 @@
 import React from 'react';
 
 const WriteContract = () => (
-  <div>
-    <h1>Write Contract</h1>
+  <>
+    <h2 className="contract-tab-title">Contract Source Code</h2>
     <p>
       WriteContract Contract is a component that displays the contract data.
     </p>
-  </div>
+  </>
 );
 
 export default WriteContract;

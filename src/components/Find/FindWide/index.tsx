@@ -1,10 +1,13 @@
+import useSearch from '../../../hooks/useSearch';
 import Search from 'assets/icons/Search';
 import { FindWideProps } from 'pages/Home/home.interfaces';
 import React from 'react';
-import useSearch from "../../../hooks/useSearch";
 
-const FindWide: React.FC<FindWideProps> = ({ setIsShow=()=>{} , searchRef }) => {
-  const {handleSubmit, err, name, handleChange} = useSearch(setIsShow)
+const FindWide: React.FC<FindWideProps> = ({
+  setIsShow = () => {},
+  searchRef,
+}) => {
+  const { handleSubmit, err, name, handleChange } = useSearch(setIsShow);
 
   return (
     <>

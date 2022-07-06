@@ -29,7 +29,7 @@ const AddressDetails = () => {
   } = useTypedSelector((state: any) => state.position);
   const { address, type, filtered, tokenToSorted }: TParams = useParams();
   const { setPosition, addFilter } = useActions();
-  const [transactionType, setTransactionType] = useState(type  || '');
+  const [transactionType, setTransactionType] = useState(type || '');
   const [selectedToken, setSelectedToken] = useState<TokenType | null>(null);
   const [tx, setTx] = useState<TransactionProps[] | []>([]);
   const [pageNum, setPageNum] = useState(1);
@@ -90,16 +90,16 @@ const AddressDetails = () => {
   }, []);
 
   useEffect(() => {
-      if (address || type || filtered || tokenToSorted) {
-        setPageNum(1);
-        setPosition(null);
-        setTx([]);
-      }
-      return () => {
-        setPageNum(1);
-        setPosition(null);
-        setTx([]);
-      };
+    if (address || type || filtered || tokenToSorted) {
+      setPageNum(1);
+      setPosition(null);
+      setTx([]);
+    }
+    return () => {
+      setPageNum(1);
+      setPosition(null);
+      setTx([]);
+    };
   }, [address, type, filtered, tokenToSorted]);
 
   async function getAddressDetailsData() {
@@ -120,7 +120,7 @@ const AddressDetails = () => {
             ? selectedToken.contract
             : filtered,
           limit: limitNum,
-          type: transactionType ,
+          type: transactionType,
           page: pageNum,
         });
       } else {
@@ -131,7 +131,7 @@ const AddressDetails = () => {
             ? selectedToken.contract
             : filtered,
           limit: limitNum,
-          type: transactionType ,
+          type: transactionType,
           page: pageNum,
         });
       }
@@ -209,7 +209,9 @@ const AddressDetails = () => {
               className="address_details_copy"
               style={{ fontSize: isContract ? 18 : '2.3rem' }}
             >
-              {isContract && <span> {FOR_TABLET ? <span>Address:&nbsp;</span> : null} </span>}
+              {isContract && (
+                <span> {FOR_TABLET ? <span>Address:&nbsp;</span> : null} </span>
+              )}
               {address}
               &nbsp; &nbsp;
               <CopyBtn />

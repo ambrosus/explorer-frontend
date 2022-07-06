@@ -1,12 +1,10 @@
 import React from 'react';
 
 const ReadContract = () => (
-  <div>
-    <h1>Read Contract</h1>
-    <p>
-      Read Contract is a component that displays the contract data.
-    </p>
-  </div>
+  <>
+    <h2 className="contract-tab-title">Contract Source Code</h2>
+    <p>Read Contract is a component that displays the contract data.</p>
+  </>
 );
 
 export default ReadContract;
