@@ -9,7 +9,10 @@ import { useTypedSelector } from 'hooks/useTypedSelector';
 import BundleDetailsMain from 'pages/Bundles/BundleDetails/components/BundleDetailsMain';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { getBundleData } from 'services/bundle.service';
+import {
+  getBundleData,
+  getBundleWithEntriesData,
+} from 'services/bundle.service';
 
 const BundleDetails = () => {
   const { getBundlesData } = useActions();
@@ -18,6 +21,12 @@ const BundleDetails = () => {
   useEffect(() => {
     getBundlesData(address);
   }, []);
+
+  const { data } = useTypedSelector((state) => state.bundles);
+
+  console.log(data);
+
+  // getBundleWithEntriesData(address).then((res) => console.log(res));
 
   return (
     <Content>

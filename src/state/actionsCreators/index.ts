@@ -6,6 +6,7 @@ import {
   PositionAction,
 } from '../actions';
 import API from 'API/api';
+import axios from 'axios';
 import { Dispatch } from 'redux';
 import { CLIENT_VERSION } from 'utils/constants';
 
@@ -103,33 +104,35 @@ export const getBundlesData = (
   address: any = null,
   params: any = { limit: 20, next: null },
 ) => {
-  return async (dispatch: Dispatch<BunleDataAction>) => {
+  return (dispatch: Dispatch<BunleDataAction>) => {
     dispatch({
       type: actionTypes.SET_BUNDLE_DATA__START,
     });
     try {
-      const bundle = await API.getBundle(address);
-      const bundlesData = await API.getBundles({
+      const bundle = API.getBundle(address);
+      const bundlesData = API.getBundles({
         params,
       });
-      const bundleAssets = await API.getBundleAssets(address, {
+      const bundleAssets = API.getBundleAssets(address, {
         params,
       });
-      const bundleEvents = await API.getBundleEvents(address, {
+      const bundleEvents = API.getBundleEvents(address, {
         params,
       });
-      const result = {
-        gitTagVersion: CLIENT_VERSION,
-        bundle: bundle,
-        bundlesData: bundlesData,
-        bundleAssets: bundleAssets,
-        bundleEvents: bundleEvents,
-      };
 
-      dispatch({
-        type: actionTypes.SET_BUNDLE_DATA__SUCCESS,
-        payload: result,
-      });
+      Promise.all([bundle, bundlesData, bundleAssets, bundleEvents]).then(
+        (res) =>
+          dispatch({
+            type: actionTypes.SET_BUNDLE_DATA__SUCCESS,
+            payload: {
+              gitTagVersion: CLIENT_VERSION,
+              bundle: res[0],
+              bundlesData: res[1],
+              bundleAssets: res[2],
+              bundleEvents: res[3],
+            },
+          }),
+      );
     } catch (error: any) {
       dispatch({
         type: actionTypes.SET_BUNDLE_DATA__FAIL,

@@ -12,12 +12,6 @@ const BundleDetailsMain = () => {
 
   const { data: renderData } = useTypedSelector((state) => state.bundles);
 
-  const destruction = (item: any) => item || {};
-
-  const { totalAssets = 0 } = destruction(renderData?.bundle.data);
-
-  console.log(renderData);
-
   return (
     <>
       <div className="bundle_details_main">
