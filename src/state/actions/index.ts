@@ -57,21 +57,41 @@ export type FiltersAction = SetFiltersTokenAction | ClearFiltersTokenAction;
 
 // ***** Bundle Data Action *****
 
-interface SetBundleDataAction {
-  type: actionTypes.SET_BUNDLE_DATA__START;
+interface SetBundlesDataAction {
+  type: actionTypes.SET_BUNDLES_DATA__START;
 }
 
-interface SetBundleDataActionSuccess {
-  type: actionTypes.SET_BUNDLE_DATA__SUCCESS;
+interface SetBundlesDataActionSuccess {
+  type: actionTypes.SET_BUNDLES_DATA__SUCCESS;
   payload: object | null;
 }
 
-interface SetBundleDataActionFailure {
-  type: actionTypes.SET_BUNDLE_DATA__FAIL;
+interface SetBundlesDataActionFailure {
+  type: actionTypes.SET_BUNDLES_DATA__FAIL;
   payload: object | string | null;
 }
 
-export type BunleDataAction =
-  | SetBundleDataAction
-  | SetBundleDataActionSuccess
-  | SetBundleDataActionFailure;
+export type BunlesDataAction =
+  | SetBundlesDataAction
+  | SetBundlesDataActionSuccess
+  | SetBundlesDataActionFailure;
+
+// ***** Addresses Data Action *****
+interface SetAddressesDataAction {
+  type: actionTypes.SET_ADDRESSES_DATA__START;
+}
+
+interface SetAddressesDataActionSuccess {
+  type: actionTypes.SET_ADDRESSES_DATA__SUCCESS;
+  payload: object | null;
+}
+
+interface SetAddressesDataActionFailure {
+  type: actionTypes.SET_ADDRESSES_DATA__FAIL;
+  payload: object | string | null;
+}
+
+export type AddressesDataAction =
+  | SetAddressesDataAction
+  | SetAddressesDataActionSuccess
+  | SetAddressesDataActionFailure;

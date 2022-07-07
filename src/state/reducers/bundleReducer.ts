@@ -1,5 +1,5 @@
 import { actionTypes } from '../action-types';
-import { BunleDataAction } from '../actions';
+import { BunlesDataAction } from '../actions';
 
 interface BundleState {
   loading: boolean;
@@ -14,14 +14,14 @@ const initialState = {
 };
 const reducer = (
   state: BundleState = initialState,
-  action: BunleDataAction,
+  action: BunlesDataAction,
 ): BundleState => {
   switch (action.type) {
-    case actionTypes.SET_BUNDLE_DATA__START:
+    case actionTypes.SET_BUNDLES_DATA__START:
       return { ...state, loading: true };
-    case actionTypes.SET_BUNDLE_DATA__SUCCESS:
+    case actionTypes.SET_BUNDLES_DATA__SUCCESS:
       return { ...state, loading: false, data: action.payload };
-    case actionTypes.SET_BUNDLE_DATA__FAIL:
+    case actionTypes.SET_BUNDLES_DATA__FAIL:
       return { ...state, error: action.payload };
     default:
       return state;

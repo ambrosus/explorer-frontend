@@ -1,7 +1,7 @@
 import { actionTypes } from '../action-types';
 import {
   AppDataAction,
-  BunleDataAction,
+  BunlesDataAction,
   FiltersAction,
   PositionAction,
 } from '../actions';
@@ -104,9 +104,9 @@ export const getBundlesData = (
   address: any = null,
   params: any = { limit: 20, next: null },
 ) => {
-  return (dispatch: Dispatch<BunleDataAction>) => {
+  return (dispatch: Dispatch<BunlesDataAction>) => {
     dispatch({
-      type: actionTypes.SET_BUNDLE_DATA__START,
+      type: actionTypes.SET_BUNDLES_DATA__START,
     });
     try {
       const bundle = API.getBundle(address);
@@ -123,7 +123,7 @@ export const getBundlesData = (
       Promise.all([bundle, bundlesData, bundleAssets, bundleEvents]).then(
         (res) =>
           dispatch({
-            type: actionTypes.SET_BUNDLE_DATA__SUCCESS,
+            type: actionTypes.SET_BUNDLES_DATA__SUCCESS,
             payload: {
               gitTagVersion: CLIENT_VERSION,
               bundle: res[0],
@@ -135,7 +135,7 @@ export const getBundlesData = (
       );
     } catch (error: any) {
       dispatch({
-        type: actionTypes.SET_BUNDLE_DATA__FAIL,
+        type: actionTypes.SET_BUNDLES_DATA__FAIL,
         payload: error.message,
       });
     }
