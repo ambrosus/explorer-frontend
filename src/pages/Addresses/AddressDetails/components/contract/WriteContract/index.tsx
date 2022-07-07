@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
-import {ethers} from "ethers";
-import ContractInput from "../ContractInput";
+import ContractInput from '../ContractInput';
+import { ethers } from 'ethers';
+import React, { useState } from 'react';
 
 const WriteContract = () => {
   const contractAbi: any = [
@@ -648,66 +648,69 @@ const WriteContract = () => {
     },
   ];
 
-  const {ethereum}: any = window;
+  const { ethereum }: any = window;
   const [isConnected, setIsConnected] = useState<any>(false);
   const btnhandler = () => {
     if (ethereum) {
-      ethereum
-        .request({method: "eth_requestAccounts"})
-        .then((res: any) => {
-          console.log(res);
-          setIsConnected(true)
-        });
+      ethereum.request({ method: 'eth_requestAccounts' }).then((res: any) => {
+        console.log(res);
+        setIsConnected(true);
+      });
     } else {
-      alert("install metamask extension!!");
+      alert('install metamask extension!!');
     }
   };
-
 
   return (
     <>
       <h2 className="contract-tab-title">
         Contract Source Code&nbsp;
-        <button className='ctr-btn' onClick={btnhandler}>
-          {isConnected ?<span className='greenCircle'/> : <span className='redCircle'/>}&nbsp;
-          Connect to Web3
+        <button className="ctr-btn" onClick={btnhandler}>
+          {isConnected ? (
+            <span className="greenCircle" />
+          ) : (
+            <span className="redCircle" />
+          )}
+          &nbsp; Connect to Web3
         </button>
       </h2>
 
-      <br/>
+      <br />
 
       <div className="methods">
         {contractAbi
-          ?.filter((method: any) => method.stateMutability !== "view" && method.stateMutability !== "pure")
+          ?.filter(
+            (method: any) =>
+              method.stateMutability !== 'view' &&
+              method.stateMutability !== 'pure',
+          )
           ?.map((method: any, index: number) => {
             return (
               <div key={index} className="method">
-                <div className="method-name"><span>{index + 1}. </span><span> &nbsp;{method?.name ?? 'name'}</span>
+                <div className="method-name">
+                  <span>{index + 1}. </span>
+                  <span> &nbsp;{method?.name ?? 'name'}</span>
                 </div>
                 <div className="method-params">
                   {method?.inputs?.map((param: any, index: number) => (
                     <div key={index} className="method-params-param">
-                      <div className="method-params-param-name">{param.name} ( {param?.type} )</div>
+                      <div className="method-params-param-name">
+                        {param.name} ( {param?.type} )
+                      </div>
                       <ContractInput
                         method={method}
-                        placeholder={param?.type}/>
+                        placeholder={param?.type}
+                      />
                     </div>
                   )) ?? null}
-                  <button
-                    className='ctr-btn'
-                  >
-                    Query
-                  </button>
-
+                  <button className="ctr-btn">Query</button>
                 </div>
-
               </div>
-            )
+            );
           })}
-
       </div>
     </>
   );
-}
+};
 
 export default WriteContract;
