@@ -7,12 +7,15 @@ import ApolloBlocksSort from './components/ApolloBlocksSort';
 import MainInfoApollo from './components/MainInfoApollo';
 import { Content } from 'components/Content';
 import React from 'react';
+import { useParams } from 'react-router-dom';
 
 export const Apollo = () => {
+  const { address } = useParams();
   const { ref, sortTerm, setSortTerm, renderData, loading } = useSortData(
     getApollosData,
     ' ',
   );
+
   return (
     <Content>
       <Content.Header>

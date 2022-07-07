@@ -1,17 +1,31 @@
 import { Content } from 'components/Content';
 import Loader from 'components/Loader';
+import { useActions } from 'hooks/useActions';
 import useSortData from 'hooks/useSortData';
+import useStoreData from 'hooks/useStoreData';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import BundleBlocksBody from 'pages/Bundles/components/BundleBlocksBody';
 import BundleBlocksHeader from 'pages/Bundles/components/BundleBlocksHeader';
 import BundleMainTabs from 'pages/Bundles/components/BundleMainTabs';
-import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
 import { getBundleInfo, getBundlesData } from 'services/bundle.service';
 
 export const Bundles = () => {
-  const { ref, renderData } = useSortData(getBundlesData, '');
+  const { getBundlesData } = useActions();
+
+  useEffect(() => {
+    getBundlesData();
+  }, []);
+  // const { ref, renderData } = useSortData(getBundlesData, '');
 
   const { renderData: appData } = useSortData(getBundleInfo, '');
+
+  const { data } = useTypedSelector((state) => state.bundles);
+  const { bundlesData } = data || {};
+
+  const { ref, renderData: renderBundles } = useStoreData(bundlesData);
+
+  console.log(renderBundles);
 
   return (
     <Content>
@@ -23,10 +37,10 @@ export const Bundles = () => {
           <div className="bundles_blocks_heading">Recent Bundles</div>
           <div className="bundles_blocks_table">
             <BundleBlocksHeader />
-            {renderData?.data?.length ? (
-              renderData.data.map((item: any, index: number) => (
+            {renderBundles?.data?.length ? (
+              renderBundles.data.map((item: any, index: number) => (
                 <BundleBlocksBody
-                  lastCardRef={renderData?.pagination?.hasNext ? ref : null}
+                  lastCardRef={renderBundles?.pagination?.hasNext ? ref : null}
                   key={index}
                   item={item}
                 />
@@ -36,7 +50,8 @@ export const Bundles = () => {
             )}
           </div>
         </div>
-        {renderData?.pagination?.hasNext && <Loader />}
+
+        {renderBundles?.pagination?.hasNext && <Loader />}
       </Content.Body>
     </Content>
   );

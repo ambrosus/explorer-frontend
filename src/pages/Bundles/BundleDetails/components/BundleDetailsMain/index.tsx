@@ -24,8 +24,8 @@ const BundleDetailsMain = () => {
               <>{address}</>
             ) : (
               <div>
-                {sptilStr.map((item: any) => (
-                  <p>{item}</p>
+                {sptilStr.map(({ item, index }: any) => (
+                  <p key={Math.random()}>{item}</p>
                 ))}
               </div>
             )}

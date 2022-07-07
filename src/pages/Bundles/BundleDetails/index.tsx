@@ -9,10 +9,7 @@ import { useTypedSelector } from 'hooks/useTypedSelector';
 import BundleDetailsMain from 'pages/Bundles/BundleDetails/components/BundleDetailsMain';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import {
-  getBundleData,
-  getBundleWithEntriesData,
-} from 'services/bundle.service';
+import { getBundleData } from 'services/bundle.service';
 
 const BundleDetails = () => {
   const { getBundlesData } = useActions();
@@ -33,7 +30,9 @@ const BundleDetails = () => {
       <Content.Header>
         <BundleDetailsMain />
         <NodeHeader getNodeData={getBundleData}>
-          {({ node }: any) => <BundleDetailsMainTabs data={node} />}
+          {({ node, index }: any) => (
+            <BundleDetailsMainTabs key={index} data={node} />
+          )}
         </NodeHeader>
       </Content.Header>
       <Content.Body>

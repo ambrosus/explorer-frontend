@@ -1,11 +1,6 @@
 import { actionTypes } from '../action-types';
-import { BunlesDataAction } from '../actions';
-
-interface BundleState {
-  loading: boolean;
-  error: object | string | null;
-  data: object | null;
-}
+import { AddressesDataAction } from '../actions';
+import { PagesState } from 'state/state.interface';
 
 const initialState = {
   loading: true,
@@ -13,15 +8,15 @@ const initialState = {
   error: null,
 };
 const reducer = (
-  state: BundleState = initialState,
-  action: BunlesDataAction,
-): BundleState => {
+  state: PagesState = initialState,
+  action: AddressesDataAction,
+): PagesState => {
   switch (action.type) {
-    case actionTypes.SET_BUNDLES_DATA__START:
+    case actionTypes.SET_ADDRESSES_DATA__START:
       return { ...state, loading: true };
-    case actionTypes.SET_BUNDLES_DATA__SUCCESS:
+    case actionTypes.SET_ADDRESSES_DATA__SUCCESS:
       return { ...state, loading: false, data: action.payload };
-    case actionTypes.SET_BUNDLES_DATA__FAIL:
+    case actionTypes.SET_ADDRESSES_DATA__FAIL:
       return { ...state, error: action.payload };
     default:
       return state;

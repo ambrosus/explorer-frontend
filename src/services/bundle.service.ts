@@ -13,14 +13,6 @@ export const getBundlesData = async (sortTerm: any, next: any) => {
   return data;
 };
 
-export const getBundleWithEntriesData = async (...arg: any[]) => {
-  // const bundleId = arg[2];
-  const [bundleId] = arg;
-
-  const data: any = await API.getBundleWithEntries(bundleId);
-  return data;
-};
-
 export const getBundleAssetsData = async (...arg: any[]) => {
   const [sortTerm, next, bundleId] = arg;
 

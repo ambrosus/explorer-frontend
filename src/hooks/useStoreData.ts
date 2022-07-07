@@ -5,7 +5,7 @@ import { useInView } from 'react-intersection-observer';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import removeArrayDuplicates, { log } from 'utils/helpers';
 
-const useAdressData = (firstData: any, meta: any[]) => {
+const useAdressData = (firstData: any) => {
   const { type = '' }: TParams = useParams();
 
   const [renderData, setRenderData] = React.useState<AccountsData | null>([]);
@@ -19,34 +19,19 @@ const useAdressData = (firstData: any, meta: any[]) => {
 
   const firstRender = () => {
     setLoading(true);
-    const isReal = (message: any) => message.includes('No results');
 
-    if (meta) {
+    if (firstData?.meta?.message?.includes('No results')) {
       setLoading(false);
       setRenderData(null);
       return;
     }
-    setRenderData(firstData);
+    setRenderData(firstData || null);
     setLoading(false);
   };
 
   useEffect(() => {
-    if (
-      type?.length &&
-      !(
-        type === '' ||
-        type === 'transfers' ||
-        type === 'block_rewards' ||
-        type === 'sheltering' ||
-        type === 'assets' ||
-        type === 'events'
-      )
-    ) {
-      log('not found term "', type, '"');
-      navigate(`/notfound`, { replace: true });
-    }
     firstRender();
-  }, [pathname]);
+  }, [firstData]);
 
   const concatData = useCallback(() => {
     if (inView) {
@@ -62,8 +47,8 @@ const useAdressData = (firstData: any, meta: any[]) => {
           setLoading(false);
           return {
             ...prev,
-            data: removeArrayDuplicates([...prev.data, ...firstData?.data]),
-            pagination: firstData.pagination,
+            data: removeArrayDuplicates([...prev.data, ...renderData?.data]),
+            pagination: renderData?.pagination,
           };
         });
       }
