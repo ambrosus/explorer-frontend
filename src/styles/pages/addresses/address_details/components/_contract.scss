@@ -209,8 +209,82 @@
         }
       }
 
-      .contract_read {
+      .contract_read , .contract_write {
+        .methods {
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
 
+          .method {
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #EFF2F5;
+            border-radius: 16px;
+            padding: 12px;
+            box-sizing: border-box;
+            gap: 12px;
+
+            &-name {
+              text-transform: capitalize;
+              font-family: 'Proxima Nova', serif;
+              font-style: normal;
+              font-weight: 600;
+              font-size: 14px;
+              line-height: 17px;
+              display: flex;
+              align-items: center;
+              color: #05060F;
+            }
+
+            &-params {
+              display: flex;
+              flex-direction: column;
+              gap: 12px;
+
+              &-param {
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+
+
+                &-name {
+                  font-family: 'Proxima Nova';
+                  font-style: normal;
+                  font-weight: 600;
+                  font-size: 12px;
+                  line-height: 15px;
+                  display: flex;
+                  align-items: center;
+                  color: #05060F;
+                }
+
+                input {
+                  font-family: 'Proxima Nova';
+                  font-style: normal;
+                  font-weight: 400;
+                  font-size: 14px;
+                  line-height: 24px;
+                  /* identical to box height, or 171% */
+
+                  display: flex;
+                  align-items: center;
+
+                  color: #05060F;
+
+                  padding: 12px;
+                  height: 48px;
+                  background: #FFFFFF;
+                  border: 1px solid #EFF2F5;
+                  border-radius: 16px;
+                }
+              }
+
+
+            }
+
+
+          }
+        }
       }
 
       .contract_write {
@@ -237,4 +311,41 @@
     box-sizing: border-box;
     white-space: pre-wrap;
   }
+}
+
+.ctr-btn {
+  display: flex;
+  padding: 5px 12px;
+  width: fit-content;
+  align-items: center;
+  justify-content: center;
+  height: 24px;
+  background: #808A9D;
+  border-radius: 8px;
+  text-align: center;
+  font-family: 'Proxima Nova', serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 11px;
+  line-height: 32px;
+  color: #FFFFFF;
+}
+
+.greenCircle{
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #0fe396;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.redCircle{
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #FF5252;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
