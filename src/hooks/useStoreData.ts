@@ -38,7 +38,7 @@ const useAdressData = (firstData: any) => {
       setLoading(true);
       const next: string = renderData?.pagination?.next;
       if (next) {
-        if (firstData?.meta?.message?.includes('No results')) {
+        if (renderData?.meta?.message?.includes('No results')) {
           setLoading(false);
           setRenderData(null);
           return;
@@ -48,7 +48,7 @@ const useAdressData = (firstData: any) => {
           return {
             ...prev,
             data: removeArrayDuplicates([...prev.data, ...renderData?.data]),
-            pagination: renderData?.pagination,
+            pagination: renderData.pagination,
           };
         });
       }

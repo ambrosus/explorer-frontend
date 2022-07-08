@@ -8,6 +8,7 @@ import BundleBlocksBody from 'pages/Bundles/components/BundleBlocksBody';
 import BundleBlocksHeader from 'pages/Bundles/components/BundleBlocksHeader';
 import BundleMainTabs from 'pages/Bundles/components/BundleMainTabs';
 import { useEffect } from 'react';
+import { useInView } from 'react-intersection-observer';
 import { getBundleInfo, getBundlesData } from 'services/bundle.service';
 
 export const Bundles = () => {
@@ -16,6 +17,7 @@ export const Bundles = () => {
   useEffect(() => {
     getBundlesData();
   }, []);
+
   // const { ref, renderData } = useSortData(getBundlesData, '');
 
   const { renderData: appData } = useSortData(getBundleInfo, '');
@@ -23,9 +25,20 @@ export const Bundles = () => {
   const { data } = useTypedSelector((state) => state.bundles);
   const { bundlesData } = data || {};
 
-  const { ref, renderData: renderBundles } = useStoreData(bundlesData);
+  const { ref, inView } = useInView();
 
-  console.log(renderBundles);
+  const { renderData } = useStoreData(bundlesData);
+
+  console.log(renderData);
+
+  // const getBundles1Data = (
+  //   address: any = null,
+  //   params: any = { limit: 50, next: null },
+  // ) => {
+  //   console.log(params);
+  // };
+
+  // console.log(getBundles1Data());
 
   return (
     <Content>
@@ -37,10 +50,10 @@ export const Bundles = () => {
           <div className="bundles_blocks_heading">Recent Bundles</div>
           <div className="bundles_blocks_table">
             <BundleBlocksHeader />
-            {renderBundles?.data?.length ? (
-              renderBundles.data.map((item: any, index: number) => (
+            {bundlesData?.data?.length ? (
+              bundlesData.data.map((item: any, index: number) => (
                 <BundleBlocksBody
-                  lastCardRef={renderBundles?.pagination?.hasNext ? ref : null}
+                  lastCardRef={bundlesData?.pagination?.hasNext ? ref : null}
                   key={index}
                   item={item}
                 />
@@ -51,7 +64,7 @@ export const Bundles = () => {
           </div>
         </div>
 
-        {renderBundles?.pagination?.hasNext && <Loader />}
+        {bundlesData?.pagination?.hasNext && <Loader />}
       </Content.Body>
     </Content>
   );

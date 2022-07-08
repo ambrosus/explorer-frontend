@@ -197,9 +197,7 @@ export const getBundlesData = (
     });
     try {
       const bundle = API.getBundle(address);
-      const bundlesData = API.getBundles({
-        params,
-      });
+      const bundlesData = API.getBundles(params);
       const bundleAssets = API.getBundleAssets(address, {
         params,
       });
