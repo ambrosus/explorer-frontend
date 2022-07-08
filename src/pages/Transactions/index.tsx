@@ -115,7 +115,7 @@ export const Transactions = () => {
                 isLatest={true}
                 key={i}
                 txhash={tx.hash}
-                method={tx.type}
+                method={tx.type.split(':')[0]}
                 from={tx.from}
                 to={tx.to}
                 date={moment(tx.timestamp * 1000).fromNow()}

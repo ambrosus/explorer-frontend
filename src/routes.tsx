@@ -21,6 +21,7 @@ interface IAppRoutes {
   atlasRoutes: IRoute[];
   bundleRoutes: IRoute[];
   blockRoutes: IRoute[];
+  transactions: IRoute[];
 }
 
 export const routes: IRoute[] = [
@@ -191,6 +192,7 @@ const appRoutes: IAppRoutes = {
   apolloRoutes,
   atlasRoutes,
   blockRoutes,
+  transactions,
 };
 
 export default appRoutes;

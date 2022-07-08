@@ -33,6 +33,18 @@
 
   .apollo_details_balance_cells {
     overflow: hidden;
+    position: relative;
+
+    &--expanded {
+      height: auto;
+      padding-top: 30px;
+      padding-bottom: 30px;
+
+      @media screen and (max-width: 1000px) {
+        padding-top: 12px;
+        padding-bottom: 12px;
+      }
+    }
 
     @media screen and (max-width: 1000px) {
       border-bottom: 1px solid #eff2f5;

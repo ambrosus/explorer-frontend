@@ -70,4 +70,13 @@
     left: -16px;
     top: 15px;
   }
+  &_eye_icon {
+    position: absolute;
+    right: 18px;
+    bottom: 33px;
+
+    @media screen and (max-width: 1000px) {
+      bottom: 12px;
+    }
+  }
 }
