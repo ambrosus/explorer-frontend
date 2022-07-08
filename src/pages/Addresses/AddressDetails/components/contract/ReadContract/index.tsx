@@ -449,9 +449,7 @@ const ReadContract = () => {
       <div className="methods">
         {contractAbi
           .filter(
-            (method: any) =>
-              method.stateMutability == 'view' ||
-              method.stateMutability == 'pure',
+            (method: any) => method.constant && method.type === 'function',
           )
           .map((method: any, index: number) => {
             return <Method key={index} index={index} method={method} />;
