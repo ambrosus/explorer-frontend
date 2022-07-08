@@ -27,7 +27,7 @@ const Method = ({index, method}: any) => {
 
       const sortKeysInObjectByRightParamsSequence = (obj: any, method: any) => {
         const rightParamsSequence = method.inputs.map(
-          (input: any, index: number) => {
+          (input: any) => {
             return input.name;
           },
         );
@@ -62,6 +62,12 @@ const Method = ({index, method}: any) => {
       console.log(e);
     }
   };
+
+  useEffect(() => {
+    if (filtered === 'read' && !method?.inputs.length) {
+      contractCall(method)
+    }
+  }, []);
 
   return (
     <div className="method">
@@ -160,12 +166,16 @@ const Method = ({index, method}: any) => {
                 </div>
               )
             }
-            <button className="ctr-btn" onClick={() => {
-              // if (filtered === 'read' && method?.inputs.length === 'payable') {
-              return contractCall(method)
-            }}>
-              Query
-            </button>
+            {
+              method?.inputs.length ? (
+                <button className="ctr-btn" onClick={() => {
+                  // if (filtered === 'read' && method?.inputs.length === 'payable') {
+                  return contractCall(method)
+                }}>
+                  Query
+                </button>
+              ) : null
+            }
           </div>
           <div>
             <div>
@@ -189,9 +199,12 @@ const Method = ({index, method}: any) => {
             </div>
             {result && filtered !== 'write' && (
               <div className="method-result">
-                {typeof result === 'string'
-                  ? `${result}`
-                  : JSON.stringify(result)}
+                {/*{*/}
+                {/*  typeof result === 'string'*/}
+                {/*  ? `${result}`*/}
+                {/*  : JSON.stringify(result)*/}
+                {/*}*/}
+                {`${result.toString()}`}
               </div>
             )}
           </div>
