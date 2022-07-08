@@ -1,6 +1,4 @@
-import ContractInput from '../ContractInput';
 import Method from './Method';
-import { ethers, providers } from 'ethers';
 import React from 'react';
 
 const ReadContract = () => {

@@ -1,6 +1,5 @@
-import ContractInput from '../ContractInput';
-import { ethers } from 'ethers';
-import React, { useState } from 'react';
+import React, {useState} from 'react';
+import Method from "../ReadContract/Method";
 
 const WriteContract = () => {
   const contractAbi: any = [
@@ -648,11 +647,11 @@ const WriteContract = () => {
     },
   ];
 
-  const { ethereum }: any = window;
+  const {ethereum}: any = window;
   const [isConnected, setIsConnected] = useState<any>(false);
   const btnhandler = () => {
     if (ethereum) {
-      ethereum.request({ method: 'eth_requestAccounts' }).then((res: any) => {
+      ethereum.request({method: 'eth_requestAccounts'}).then((res: any) => {
         console.log(res);
         setIsConnected(true);
       });
@@ -667,46 +666,25 @@ const WriteContract = () => {
         Contract Source Code&nbsp;
         <button className="ctr-btn" onClick={btnhandler}>
           {isConnected ? (
-            <span className="greenCircle" />
+            <span className="greenCircle"/>
           ) : (
-            <span className="redCircle" />
+            <span className="redCircle"/>
           )}
           &nbsp; Connect to Web3
         </button>
       </h2>
 
-      <br />
+      <br/>
 
       <div className="methods">
         {contractAbi
-          ?.filter(
+          .filter(
             (method: any) =>
               method.stateMutability !== 'view' &&
               method.stateMutability !== 'pure',
           )
-          ?.map((method: any, index: number) => {
-            return (
-              <div key={index} className="method">
-                <div className="method-name">
-                  <span>{index + 1}. </span>
-                  <span> &nbsp;{method?.name ?? 'name'}</span>
-                </div>
-                <div className="method-params">
-                  {method?.inputs?.map((param: any, index: number) => (
-                    <div key={index} className="method-params-param">
-                      <div className="method-params-param-name">
-                        {param.name} ( {param?.type} )
-                      </div>
-                      <ContractInput
-                        method={method}
-                        placeholder={param?.type}
-                      />
-                    </div>
-                  )) ?? null}
-                  <button className="ctr-btn">Query</button>
-                </div>
-              </div>
-            );
+          .map((method: any, index: number) => {
+            return <Method key={index} index={index} method={method}/>;
           })}
       </div>
     </>
