@@ -1,17 +1,17 @@
-import api from '../../API/api';
-import ContentCopy from '../../assets/icons/CopyIcons/ContentCopy';
-import ContentCopyed from '../../assets/icons/CopyIcons/ContentCopyed';
-import CopyPopUp from '../../assets/icons/CopyIcons/CopyPopUp';
-import { Content } from '../../components/Content';
-import useCopyContent from '../../hooks/useCopyContent';
-import useDeviceSize from '../../hooks/useDeviceSize';
-import { useTypedSelector } from '../../hooks/useTypedSelector';
-import { numberWithCommas, sliceData10 } from '../../utils/helpers';
-import AddressBlock from '../Addresses/AddressDetails/components/AddressBlocks/AddressBlock';
-import AddressBlocksHeader from '../Addresses/AddressDetails/components/AddressBlocksHeader';
+import AddressBlock from '../../Addresses/AddressDetails/components/AddressBlocks/AddressBlock';
+import AddressBlocksHeader from '../../Addresses/AddressDetails/components/AddressBlocksHeader';
+import api from 'API/api';
+import ContentCopy from 'assets/icons/CopyIcons/ContentCopy';
+import ContentCopyed from 'assets/icons/CopyIcons/ContentCopyed';
+import CopyPopUp from 'assets/icons/CopyIcons/CopyPopUp';
+import { Content } from 'components/Content';
+import useCopyContent from 'hooks/useCopyContent';
+import useDeviceSize from 'hooks/useDeviceSize';
+import { useTypedSelector } from 'hooks/useTypedSelector';
 import moment from 'moment';
 import React, { useEffect, useRef, useState } from 'react';
 import { NavLink, useNavigate, useParams } from 'react-router-dom';
+import { numberWithCommas, sliceData10 } from 'utils/helpers';
 
 export const TransactionDetails = () => {
   const { hash } = useParams();
@@ -47,6 +47,7 @@ export const TransactionDetails = () => {
         setTxData(res.data);
       }
     });
+    console.log(checkOverflow(ref.current));
   }, []);
 
   const redirectToDetails = (txhash: string | number) => {
@@ -67,16 +68,16 @@ export const TransactionDetails = () => {
   };
   return (
     <Content>
-      <section className="address_details transaction-details container">
+      <section className="address_details transaction_details container">
         <Content.Header>
           <div className="address_details_h1 address_details_h1-tx">
             <div>
               <h1>{txData.determinedType}</h1>
               <span className="address_details_h1_status">{txData.status}</span>
             </div>
-            <div className="address_details_copy">
-              <span className="transaction-details__hash">Hash</span>
-              {sliceData10(hash as string)}
+            <div className="address_details_copy" style={{ fontSize: '18px' }}>
+              <span className="transaction_details_hash">Hash</span>
+              {hash}
               <button
                 className={'address_details_copy_btn'}
                 onClick={copyContent}
@@ -112,7 +113,7 @@ export const TransactionDetails = () => {
                 FROM
               </p>
               <NavLink
-                style={{ fontSize: '18px' }}
+                style={{ fontSize: '14px', fontWeight: 600 }}
                 to={`/addresses/${txData.from}`}
                 className="universall_light1"
               >
@@ -125,7 +126,7 @@ export const TransactionDetails = () => {
               TO
             </p>
             <NavLink
-              style={{ fontSize: '18px' }}
+              style={{ fontSize: '14px', fontWeight: 600 }}
               to={`/addresses/${txData.to}`}
               className="universall_light1"
             >
@@ -157,7 +158,8 @@ export const TransactionDetails = () => {
               NONCE (POSITION)
             </p>
             <p className="atlas_details_balance_fonts_bold">
-              {numberWithCommas(txData.nonce)} ({txData.transactionIndex})
+              {numberWithCommas(txData.nonce, +txData.nonce)} (
+              {txData.transactionIndex})
             </p>
           </div>
           <div className="apollo_details_balance_cells">
@@ -174,7 +176,10 @@ export const TransactionDetails = () => {
             <p className="apollo_details_balance_fonts_normal universall_light1">
               BLOCK HASH
             </p>
-            <p className="atlas_details_balance_fonts_bold">
+            <p
+              className="atlas_details_balance_fonts_bold"
+              style={{ color: '#808A9D' }}
+            >
               {txData.blockHash}
             </p>
           </div>
@@ -183,16 +188,16 @@ export const TransactionDetails = () => {
               HEIGHT / CONFIRMATIONS
             </p>
             <p className="atlas_details_balance_fonts_bold">
-              {numberWithCommas(txData.blockNumber)} (
+              {numberWithCommas(txData.blockNumber, txData.blockNumber)} (
               {appData?.netInfo?.lastBlock?.number - txData.blockNumber})
             </p>
           </div>
         </div>
       </section>
       {txData.inners && !!txData.inners.length && (
-        <section className="transactions-details-list">
+        <section className="transactions_details_list">
           <div className="container" style={{ margin: '0 auto' }}>
-            <p className="transactions-details-list__title">Transactions</p>
+            <p className="transactions_details_list_title">Transactions</p>
           </div>
           <div className="container" style={{ margin: '0 auto' }}>
             <AddressBlocksHeader
@@ -209,7 +214,7 @@ export const TransactionDetails = () => {
               isTableColumn={'address_blocks_cells'}
             />
           </div>
-          <div className="transactions-details-list__wrapper container">
+          <div className="transactions_details_list_wrapper container">
             {!!txData.inners &&
               txData.inners.map((tx: any, i) => (
                 <AddressBlock
@@ -228,7 +233,7 @@ export const TransactionDetails = () => {
                   isTableColumn="address_blocks_cells"
                   isIcon={true}
                   inners={tx.inners}
-                  hashOnClick={redirectToDetails}
+                  hashOnClick={true}
                 />
               ))}
           </div>

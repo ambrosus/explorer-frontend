@@ -72,7 +72,7 @@ export const routes: IRoute[] = [
     key: 'Transactions',
     exact: true,
     component: () => <Transactions />,
-    isClick: false,
+    isClick: true,
   },
   {
     path: '/bundles',

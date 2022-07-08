@@ -9,6 +9,10 @@
     border-bottom: 1px solid $secondary;
     background-color: white;
     z-index: 1;
+    overflow-x: auto;
+    &::-webkit-scrollbar {
+      display: none;
+    }
 
     &_filters {
       display: flex;
