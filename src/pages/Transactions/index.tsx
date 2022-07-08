@@ -82,7 +82,6 @@ export const Transactions = () => {
             <span className="transactions_header_num">
               {numberWithCommas(
                 appData?.netInfo?.transactions?.total,
-                appData?.netInfo?.transactions?.total,
               )}
             </span>
           </span>

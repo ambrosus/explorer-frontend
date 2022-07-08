@@ -158,7 +158,7 @@ export const TransactionDetails = () => {
               NONCE (POSITION)
             </p>
             <p className="atlas_details_balance_fonts_bold">
-              {numberWithCommas(txData.nonce, +txData.nonce)} (
+              {numberWithCommas(txData.nonce)} (
               {txData.transactionIndex})
             </p>
           </div>
@@ -188,7 +188,7 @@ export const TransactionDetails = () => {
               HEIGHT / CONFIRMATIONS
             </p>
             <p className="atlas_details_balance_fonts_bold">
-              {numberWithCommas(txData.blockNumber, txData.blockNumber)} (
+              {numberWithCommas(txData.blockNumber)} (
               {appData?.netInfo?.lastBlock?.number - txData.blockNumber})
             </p>
           </div>
