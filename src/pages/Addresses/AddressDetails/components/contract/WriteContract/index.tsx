@@ -1,5 +1,5 @@
 import Method from '../ReadContract/Method';
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 
 const WriteContract = () => {
   const contractAbi = [
@@ -348,12 +348,12 @@ const WriteContract = () => {
       type: 'function',
     },
   ];
-  const {ethereum}: any = window;
+  const { ethereum }: any = window;
   const [isConnected, setIsConnected] = useState<any>(false);
 
   const btnhandler = () => {
     if (ethereum) {
-      ethereum.request({method: 'eth_requestAccounts'}).then((res: any) => {
+      ethereum.request({ method: 'eth_requestAccounts' }).then((res: any) => {
         console.log(res);
         setIsConnected(true);
       });
@@ -368,15 +368,15 @@ const WriteContract = () => {
         Contract Source Code&nbsp;
         <button className="ctr-btn" onClick={btnhandler}>
           {isConnected ? (
-            <span className="greenCircle"/>
+            <span className="greenCircle" />
           ) : (
-            <span className="redCircle"/>
+            <span className="redCircle" />
           )}
           &nbsp; Connect to Web3
         </button>
       </h2>
 
-      <br/>
+      <br />
 
       <div className="methods">
         {contractAbi
@@ -386,10 +386,11 @@ const WriteContract = () => {
           .filter(
             (method: any) =>
               method.stateMutability !== 'view' &&
-              method.stateMutability !== 'pure' && method.type === 'function',
+              method.stateMutability !== 'pure' &&
+              method.type === 'function',
           )
           .map((method: any, index: number) => {
-            return <Method key={index} index={index} method={method}/>;
+            return <Method key={index} index={index} method={method} />;
           })}
       </div>
     </>

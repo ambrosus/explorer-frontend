@@ -849,10 +849,11 @@ const ReadContract = () => {
           .filter(
             (method: any) =>
               (method.stateMutability === 'view' ||
-                method.stateMutability === 'pure') && method.type === 'function',
+                method.stateMutability === 'pure') &&
+              method.type === 'function',
           )
           .map((method: any, index: number) => {
-            return <Method key={index} index={index} method={method}/>;
+            return <Method key={index} index={index} method={method} />;
           })}
       </div>
     </div>
