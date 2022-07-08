@@ -12,7 +12,7 @@ import BundleDetails from 'pages/Bundles/BundleDetails';
 import { Hermes } from 'pages/Hermes';
 import { Home } from 'pages/Home';
 import { Transactions } from 'pages/Transactions';
-import { TransactionDetails } from 'pages/TransactionsDetails';
+import { TransactionDetails } from 'pages/Transactions/TransactionsDetails';
 
 interface IAppRoutes {
   routes: IRoute[];
@@ -21,6 +21,7 @@ interface IAppRoutes {
   atlasRoutes: IRoute[];
   bundleRoutes: IRoute[];
   blockRoutes: IRoute[];
+  transactions: IRoute[];
 }
 
 export const routes: IRoute[] = [
@@ -72,7 +73,7 @@ export const routes: IRoute[] = [
     key: 'Transactions',
     exact: true,
     component: () => <Transactions />,
-    isClick: false,
+    isClick: true,
   },
   {
     path: '/bundles',
@@ -191,6 +192,7 @@ const appRoutes: IAppRoutes = {
   apolloRoutes,
   atlasRoutes,
   blockRoutes,
+  transactions,
 };
 
 export default appRoutes;

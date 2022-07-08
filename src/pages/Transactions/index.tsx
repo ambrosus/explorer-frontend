@@ -16,7 +16,7 @@ export const Transactions = () => {
   const navigate = useNavigate();
   const { data: appData } = useTypedSelector((state: any) => state.app);
 
-  const [txsData, setTxsData] = useState<any>({
+  const [txsData, setTxsData] = useState({
     data: [],
     pagination: {
       hasNext: false,
@@ -40,6 +40,7 @@ export const Transactions = () => {
     ) {
       getTransactions({ type: tab, page: txsData.pagination.next }).then(
         (response: any) => {
+          // @ts-ignore
           setTxsData((state: any) => ({
             data: [...state.data, ...response.data],
             pagination: response.pagination,
@@ -71,19 +72,17 @@ export const Transactions = () => {
     setTab(type);
   };
 
-  const redirectToDetails = (txhash: string | number) => {
-    navigate(`/transactions/${txhash}`);
-  };
-
   return (
     <Content>
       <Content.Header>
-        <div className="transactions-header">
+        <div className="transactions_header">
           <h1>Transactions</h1>
-          <span className="transactions-header__text">
+          <span className="transactions_header_text">
             Total transactions
-            <span className="transactions-header__num">
-              {numberWithCommas(appData?.netInfo?.transactions?.total)}
+            <span className="transactions_header_num">
+              {numberWithCommas(
+                appData?.netInfo?.transactions?.total,
+              )}
             </span>
           </span>
         </div>
@@ -94,43 +93,47 @@ export const Transactions = () => {
           onChange={handleTab}
           selectedItem={tab}
         />
-        {!!txsData.data.length && (
-          <AddressBlocksHeader
-            txhash="txHash"
-            method="Method"
-            from="From"
-            to="To"
-            date="Date"
-            block="Block"
-            amount="Amount"
-            txfee="txFee"
-            token={null}
-            methodFilters={null}
-            isTableColumn={'address_blocks_cells'}
-          />
-        )}
-        {!!txsData.data.length &&
-          txsData.data.map((tx: any, i: number) => (
-            <AddressBlock
-              isLatest={true}
-              key={i}
-              txhash={tx.hash}
-              method={tx.type}
-              from={tx.from}
-              to={tx.to}
-              date={moment(tx.timestamp * 1000).fromNow()}
-              block={tx.blockNumber}
-              amount={tx.value.ether}
-              txfee={tx.gasCost.ether}
-              token={`${tx?.token ? tx?.token : 'AMB'}`}
-              symbol={`${tx?.symbol ? tx?.symbol : 'AMB'}`}
-              isTableColumn="address_blocks_cells"
-              isIcon={true}
-              inners={tx.inners}
-              hashOnClick={redirectToDetails}
+        <div className="transactions_table">
+          {!!txsData.data.length && (
+            <AddressBlocksHeader
+              txhash="txHash"
+              method="Method"
+              from="From"
+              to="To"
+              date="Date"
+              block="Block"
+              amount="Amount"
+              txfee="txFee"
+              token={null}
+              methodFilters={null}
+              isTableColumn={'address_blocks_cells'}
             />
-          ))}
-        <div ref={ref} />
+          )}
+          {!!txsData.data.length &&
+            txsData.data.map((tx: any, i) => (
+              <AddressBlock
+                isLatest={true}
+                key={i}
+                txhash={tx.hash}
+                method={tx.type.split(':')[0]}
+                from={tx.from}
+                to={tx.to}
+                date={moment(tx.timestamp * 1000).fromNow()}
+                block={tx.blockNumber}
+                amount={tx.value.ether}
+                txfee={tx.gasCost.ether}
+                token={`${tx?.token ? tx?.token : 'AMB'}`}
+                symbol={`${tx?.symbol ? tx?.symbol : 'AMB'}`}
+                isTableColumn="address_blocks_cells"
+                isIcon={true}
+                inners={tx.inners}
+                hashOnClick={true}
+                lastCardRef={ref}
+              />
+            ))}
+        </div>
+
+        {/* <div ref={ref} /> */}
         {loading && <Loader />}
       </Content.Body>
     </Content>
