@@ -1,11 +1,11 @@
-import {TParams} from '../../../../../../types';
+import { TParams } from '../../../../../../types';
 import ContractInput from '../ContractInput';
-import {BigNumber, ethers, providers} from 'ethers';
-import React, {useEffect} from 'react';
-import {useParams} from 'react-router-dom';
+import { BigNumber, ethers, providers } from 'ethers';
+import React, { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
-const Method = ({index, method}: any) => {
-  const {filtered} = useParams<TParams>();
+const Method = ({ index, method }: any) => {
+  const { filtered } = useParams<TParams>();
   const [result, setResult] = React.useState<any>(null);
   const [paybleValue, setPaybleValue] = React.useState<any>('0');
   const contactAddress = '0x0608595f49a90e8c707Dd1DE7af080f525A610aD';
@@ -17,7 +17,7 @@ const Method = ({index, method}: any) => {
       let provider = new ethers.providers.JsonRpcProvider(
         process.env.REACT_APP_EXPLORER_NETWORK,
       );
-      const {ethereum}: any = window;
+      const { ethereum }: any = window;
       const providerOrSigner =
         filtered === 'write'
           ? new providers.Web3Provider(ethereum).getSigner()
@@ -49,16 +49,16 @@ const Method = ({index, method}: any) => {
       const toSend =
         method?.stateMutability === 'payable'
           ? [
-            ...Object.values(
-              sortKeysInObjectByRightParamsSequence(input, method),
-            ),
-            {value: paybleValue},
-          ]
+              ...Object.values(
+                sortKeysInObjectByRightParamsSequence(input, method),
+              ),
+              { value: paybleValue },
+            ]
           : [
-            ...Object.values(
-              sortKeysInObjectByRightParamsSequence(input, method),
-            ),
-          ];
+              ...Object.values(
+                sortKeysInObjectByRightParamsSequence(input, method),
+              ),
+            ];
 
       let value = toSend?.length
         ? await contract?.[`${method.name}`](...toSend)
@@ -84,55 +84,54 @@ const Method = ({index, method}: any) => {
         onClick={() => setOpen((prev: any) => !prev)}
       >
         {!open ? (
-            <div className='open-btn'>
-              <svg
+          <div className="open-btn">
+            <svg
+              width="10"
+              height="10"
+              viewBox="0 0 10 10"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                x="10"
+                y="6"
                 width="10"
-                height="10"
-                viewBox="0 0 10 10"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect
-                  x="10"
-                  y="6"
-                  width="10"
-                  height="2"
-                  rx="1"
-                  transform="rotate(-180 10 6)"
-                  fill="#808A9D"
-                />
-                <rect
-                  x="4"
-                  y="10"
-                  width="10"
-                  height="2"
-                  rx="1"
-                  transform="rotate(-90 4 10)"
-                  fill="#808A9D"
-                />
-              </svg>
-            </div>
-
+                height="2"
+                rx="1"
+                transform="rotate(-180 10 6)"
+                fill="#808A9D"
+              />
+              <rect
+                x="4"
+                y="10"
+                width="10"
+                height="2"
+                rx="1"
+                transform="rotate(-90 4 10)"
+                fill="#808A9D"
+              />
+            </svg>
+          </div>
         ) : (
-       <div className='open-btn'>
-         <svg
-           width="10"
-           height="2"
-           viewBox="0 0 10 2"
-           fill="none"
-           xmlns="http://www.w3.org/2000/svg"
-         >
-           <rect
-             x="10"
-             y="2"
-             width="10"
-             height="2"
-             rx="1"
-             transform="rotate(-180 10 2)"
-             fill="#808A9D"
-           />
-         </svg>
-       </div>
+          <div className="open-btn">
+            <svg
+              width="10"
+              height="2"
+              viewBox="0 0 10 2"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                x="10"
+                y="2"
+                width="10"
+                height="2"
+                rx="1"
+                transform="rotate(-180 10 2)"
+                fill="#808A9D"
+              />
+            </svg>
+          </div>
         )}
       </div>
       <div className="method-name">
@@ -153,7 +152,7 @@ const Method = ({index, method}: any) => {
                     value={input[param.name]}
                     onChange={(e: any) =>
                       setInput((prev: any) => {
-                        return {...prev, [param.name]: e.target.value};
+                        return { ...prev, [param.name]: e.target.value };
                       })
                     }
                     method={method}
@@ -202,14 +201,14 @@ const Method = ({index, method}: any) => {
                 <div>
                   <div className="remaining">
                     <svg
-                      style={{marginRight: '0.2rem'}}
+                      style={{ marginRight: '0.2rem' }}
                       width="8"
                       height="10"
                       viewBox="0 0 8 10"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
                     >
-                      <path d="M1 0V9.5H7.5" stroke="#A6B0C3"/>
+                      <path d="M1 0V9.5H7.5" stroke="#A6B0C3" />
                     </svg>
                     remaining {method.outputs[0].type} :
                   </div>
