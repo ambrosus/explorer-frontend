@@ -4,7 +4,7 @@ import { PagesState } from 'state/state.interface';
 
 const initialState: PagesState = {
   loading: true,
-  data: null,
+  data: [],
   error: null,
 };
 const reducer = (

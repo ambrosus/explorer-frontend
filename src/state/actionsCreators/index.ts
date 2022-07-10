@@ -14,7 +14,7 @@ import {
 } from '../actions';
 import API from 'API/api';
 import { Dispatch } from 'redux';
-import { ActionCreator, ActionsFetch } from 'state/state.interface';
+import { ActionsFetch } from 'state/state.interface';
 import { CLIENT_VERSION } from 'utils/constants';
 
 export const setAppDataAsync = () => {
@@ -188,43 +188,35 @@ export const getAtlasData: ActionsFetch = (
 };
 
 export const getBundlesData = (
-  address: any = null,
+  address: any = '',
   params: any = { limit: 20, next: null },
 ) => {
-  return (dispatch: Dispatch<BunlesDataAction>) => {
+  return async (dispatch: Dispatch<BunlesDataAction>) => {
     dispatch({
       type: actionTypes.SET_BUNDLES_DATA__START,
     });
     try {
-      const bundle = API.getBundle(address);
-      const bundlesData = API.getBundles(params);
-      const bundleAssets = API.getBundleAssets(address, {
+      const bundle = await API.getBundle(address);
+      const bundlesData = await API.getBundles(params);
+      const bundleAssets = await API.getBundleAssets(address, {
         params,
       });
-      const bundleEvents = API.getBundleEvents(address, {
+      const bundleEvents = await API.getBundleEvents(address, {
         params,
       });
-      const bundleInfo = API.getInfo();
+      const bundleInfo = await API.getInfo();
 
-      Promise.all([
-        bundle,
-        bundlesData,
-        bundleAssets,
-        bundleEvents,
-        bundleInfo,
-      ]).then((res) =>
-        dispatch({
-          type: actionTypes.SET_BUNDLES_DATA__SUCCESS,
-          payload: {
-            gitTagVersion: CLIENT_VERSION,
-            bundle: res[0],
-            bundlesData: res[1],
-            bundleAssets: res[2],
-            bundleEvents: res[3],
-            bundleInfo: res[4],
-          },
-        }),
-      );
+      dispatch({
+        type: actionTypes.SET_BUNDLES_DATA__SUCCESS,
+        payload: {
+          gitTagVersion: CLIENT_VERSION,
+          // bundle: bundle,
+          // bundlesData: bundlesData,
+          // bundleAssets: bundleAssets,
+          // bundleEvents: bundleEvents,
+          bundleInfo: bundleInfo,
+        },
+      });
     } catch (error: any) {
       dispatch({
         type: actionTypes.SET_BUNDLES_DATA__FAIL,
@@ -233,6 +225,7 @@ export const getBundlesData = (
     }
   };
 };
+
 export const getBlocksData: ActionsFetch = (
   address,
   params = { limit: 20, next: null, sort: '' },

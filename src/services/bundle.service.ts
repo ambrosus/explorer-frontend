@@ -5,7 +5,7 @@ export const getBundleData = async (bundleId: any) => {
   return data;
 };
 
-export const getBundlesData = async (sortTerm: any, next: any) => {
+export const getBundlesData = async (next: any) => {
   const data: any = await API.getBundles({
     limit: 20,
     next: next,

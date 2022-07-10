@@ -1,63 +1,47 @@
-import { TParams } from '../types';
-import { AccountsData } from 'pages/Addresses/addresses.interface';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import removeArrayDuplicates, { log } from 'utils/helpers';
 
-const useAdressData = (firstData: any) => {
-  const { type = '' }: TParams = useParams();
-
-  const [renderData, setRenderData] = React.useState<AccountsData | null>([]);
-  const [loading, setLoading] = React.useState<boolean>(true);
-
+const useStoreData = (firstData: any, funcAction: any, loading: boolean) => {
   const { ref, inView } = useInView();
 
-  const navigate = useNavigate();
+  const [renderData, setRenderData] = useState<any>();
 
-  const { pathname } = useLocation();
-
-  const firstRender = () => {
-    setLoading(true);
-
-    if (firstData?.meta?.message?.includes('No results')) {
-      setLoading(false);
-      setRenderData(null);
-      return;
-    }
-    setRenderData(firstData || null);
-    setLoading(false);
-  };
+  const [isLoad, setIsLoad] = useState(false);
 
   useEffect(() => {
-    firstRender();
-  }, [firstData]);
+    funcAction();
+  }, []);
 
-  const concatData = useCallback(() => {
-    if (inView) {
-      setLoading(true);
-      const next: string = renderData?.pagination?.next;
-      if (next) {
-        if (renderData?.meta?.message?.includes('No results')) {
-          setLoading(false);
-          setRenderData(null);
-          return;
-        }
-        setRenderData((prev: AccountsData) => {
-          setLoading(false);
-          return {
-            ...prev,
-            data: removeArrayDuplicates([...prev.data, ...renderData?.data]),
-            pagination: renderData.pagination,
-          };
-        });
-      }
+  useEffect(() => {
+    if (!loading) {
+      setIsLoad(true);
     }
-  }, [inView]);
+  }, [loading]);
 
-  useEffect(concatData, [inView]);
+  useEffect(() => {
+    if (!!firstData) {
+      setRenderData(firstData);
+    }
+  }, [isLoad]);
 
-  return { ref, renderData, loading };
+  useEffect(() => {
+    const { hasNext } = firstData?.pagination || true;
+    const { next } = firstData?.pagination || {};
+
+    if (hasNext && !!renderData) {
+      funcAction('', { limit: 20, next: next });
+
+      setRenderData((prev: any) => {
+        return {
+          data: removeArrayDuplicates([...prev.data, ...firstData?.data]),
+          pagination: firstData?.pagination,
+        };
+      });
+    }
+  }, [inView, firstData]);
+
+  return { ref, renderData };
 };
 
-export default useAdressData;
+export default useStoreData;

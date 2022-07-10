@@ -80,9 +80,7 @@ export const Transactions = () => {
           <span className="transactions_header_text">
             Total transactions
             <span className="transactions_header_num">
-              {numberWithCommas(
-                appData?.netInfo?.transactions?.total,
-              )}
+              {numberWithCommas(appData?.netInfo?.transactions?.total)}
             </span>
           </span>
         </div>

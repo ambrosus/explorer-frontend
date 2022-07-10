@@ -12,7 +12,7 @@ import { useTypedSelector } from 'hooks/useTypedSelector';
 import moment from 'moment';
 import React, { useEffect, useRef, useState } from 'react';
 import { NavLink, useNavigate, useParams } from 'react-router-dom';
-import {numberWithCommas, sliceData10, sliceData5} from 'utils/helpers';
+import { numberWithCommas, sliceData10, sliceData5 } from 'utils/helpers';
 
 export const TransactionDetails = () => {
   const { hash } = useParams();
@@ -52,7 +52,7 @@ export const TransactionDetails = () => {
       if (checkOverflow(ref.current)) {
         setIsInputExpanded(false);
       }
-    }, 100)
+    }, 100);
   }, []);
 
   const checkOverflow = (el: any) => {
@@ -81,7 +81,9 @@ export const TransactionDetails = () => {
             </div>
             <div className="address_details_copy" style={{ fontSize: '18px' }}>
               <span className="transaction_details_hash">Hash</span>
-              <span style={{ fontSize: '18px', fontWeight: '400' }}>{sliceData5(hash)}</span>
+              <span style={{ fontSize: '18px', fontWeight: '400' }}>
+                {sliceData5(hash)}
+              </span>
               <button
                 className={'address_details_copy_btn'}
                 onClick={copyContent}
@@ -162,25 +164,30 @@ export const TransactionDetails = () => {
               NONCE (POSITION)
             </p>
             <p className="atlas_details_balance_fonts_bold">
-              {numberWithCommas(txData.nonce)} (
-              {txData.transactionIndex})
+              {numberWithCommas(txData.nonce)} ({txData.transactionIndex})
             </p>
           </div>
-          <div className={`apollo_details_balance_cells ${isInputExpanded ? 'apollo_details_balance_cells--expanded' : ''}`}>
+          <div
+            className={`apollo_details_balance_cells ${
+              isInputExpanded ? 'apollo_details_balance_cells--expanded' : ''
+            }`}
+          >
             <p className="apollo_details_balance_fonts_normal universall_light1">
               INPUT DATA
             </p>
             <p
-              className="atlas_details_balance_fonts_bold" ref={ref}
-              style={isInputExpanded ? { wordBreak: 'break-all' } : { paddingRight: '20px' }}
+              className="atlas_details_balance_fonts_bold"
+              ref={ref}
+              style={
+                isInputExpanded
+                  ? { wordBreak: 'break-all' }
+                  : { paddingRight: '20px' }
+              }
             >
               {txData.input}
             </p>
             {isInputExpanded === false && (
-              <span
-                onClick={showInputData}
-                className="address_blocks_eye_icon"
-              >
+              <span onClick={showInputData} className="address_blocks_eye_icon">
                 <Eye />
               </span>
             )}
