@@ -9,6 +9,10 @@
     border-bottom: 1px solid $secondary;
     background-color: white;
     z-index: 1;
+    overflow-x: auto;
+    &::-webkit-scrollbar {
+      display: none;
+    }
 
     &_filters {
       display: flex;
@@ -57,7 +61,12 @@
       overflow-y: scroll;
     }
   }
-
+.contract-link{
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 32px;
+  margin-right: 12px;
+}
   &_link {
     color: $main-light;
     text-decoration: none;

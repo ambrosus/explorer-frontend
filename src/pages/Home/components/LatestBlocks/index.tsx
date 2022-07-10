@@ -2,6 +2,7 @@ import GreenCircle from 'assets/icons/StatusAction/GreenCircle';
 import OrangeCircle from 'assets/icons/StatusAction/OrangeCircle';
 import { LatestBlocksProps } from 'pages/Home/home.interfaces';
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import { calckBlocks, calcTime, sliceData5 } from 'utils/helpers';
 
 const LatestBlocks: React.FC<LatestBlocksProps> = ({
@@ -20,7 +21,9 @@ const LatestBlocks: React.FC<LatestBlocksProps> = ({
         <div className="latest_blocks_cell">
           <div className="latest_blocks_cell_content latest_blocks_font_big">
             <span style={{ marginRight: 8 }}>{online}</span>
-            {number}
+            <NavLink className="" to={`/blocks/${number}`}>
+              {number}
+            </NavLink>
           </div>
 
           <div className="latest_blocks_p latest_blocks_font_small">
@@ -35,7 +38,9 @@ const LatestBlocks: React.FC<LatestBlocksProps> = ({
               Validator
             </div>
             <div className="latest_blocks_font_big latest_blocks_margin-left">
-              {sliceData5(validator as string)}
+              <NavLink className="" to={`/apollo/${validator}`}>
+                {sliceData5(validator as string)}
+              </NavLink>
             </div>
           </div>
           <div className="latest_blocks_cell_content">

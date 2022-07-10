@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 export const MainInfoBlockTable = ({ block }: any) => {
   const { parentHash, hash, stateRoot, extraData } =
@@ -9,7 +10,7 @@ export const MainInfoBlockTable = ({ block }: any) => {
         <div className="main_info_block_table_cell">
           <span className="main_info_block_table_cell_primary">HASH</span>
           <span className="main_info_block_table_cell_secondary gray">
-            {parentHash ?? ''}
+            {hash ?? ''}
           </span>
         </div>
         <div className="main_info_block_table_cell">
@@ -18,7 +19,12 @@ export const MainInfoBlockTable = ({ block }: any) => {
           </span>
           <span className="main_info_block_table_cell_secondary gray">
             {' '}
-            {hash ?? ''}
+            <NavLink
+              className="address_blocks_icon universall_light2"
+              to={`/blocks/${parentHash}`}
+            >
+              {parentHash ?? ''}
+            </NavLink>
           </span>
         </div>
         <div className="main_info_block_table_cell">

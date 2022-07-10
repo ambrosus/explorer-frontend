@@ -144,8 +144,8 @@ const getBundleEvents = (bundleId: any, params = {}) => {
   });
 };
 
-const getBundleWithEntries = async (bundleId: any) => {
-  const data = await axios
+const getBundleWithEntries = (bundleId: any) => {
+  return axios
     .all([
       getBundle(bundleId),
       getBundleAssets(bundleId),
@@ -160,7 +160,6 @@ const getBundleWithEntries = async (bundleId: any) => {
         };
       }),
     );
-  return data;
 };
 
 const searchItem = (term: any) => {

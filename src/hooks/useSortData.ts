@@ -13,72 +13,13 @@ const useSortData = (getData: any, firstSortTerm: any = '') => {
   const [sortTerm, setSortTerm] = React.useState(firstSortTerm);
   const { ref, inView } = useInView();
   const navigate = useNavigate();
-  let interval: any;
 
   const { pathname } = useLocation();
 
-  const infiniteLoad = async () => {
-    if (inView === false && renderData?.data?.length !== undefined) return;
-    setLoading(true);
-    const next: string = renderData?.pagination?.next;
-    if (next) {
-      getData(
-        sortTerm === 'contracts' ? 'address' : sortTerm,
-        next,
-        address,
-      ).then((res: AccountsData) => {
-        if (res?.meta?.message?.includes('No results')) {
-          setLoading(false);
-          setRenderData(null);
-          return;
-        }
-        setRenderData((prev: AccountsData) => {
-          setLoading(false);
-          return {
-            ...prev,
-            data: removeArrayDuplicates([...prev.data, ...res?.data]).filter(
-              (d: any) => d.isContract,
-            ),
-            pagination: res.pagination,
-          };
-        });
-      });
-    } else {
-      getData(
-        sortTerm === 'contracts' ? 'address' : sortTerm,
-        null,
-        address,
-      ).then((res: AccountsData) => {
-        if (res?.meta?.message?.includes('No results')) {
-          setLoading(false);
-          setRenderData(null);
-          return;
-        }
-        setRenderData(res);
-        setLoading(false);
-      });
-    }
-  };
-  useEffect(() => {
-    if (sortTerm === 'contracts') {
-      interval = setInterval(async () => {
-        await infiniteLoad();
-      }, 1000);
-    } else {
-      return;
-    }
-    return () => clearInterval(interval);
-  }, [sortTerm, renderData, inView]);
-
   const firstRender = () => {
-    if (sortTerm === 'contracts') return;
     setLoading(true);
 
-    getData(
-      sortTerm === 'contracts' ? 'address' : sortTerm,
-      null,
-      address,
-    ).then((res: AccountsData) => {
+    getData(sortTerm, null, address).then((res: AccountsData) => {
       if (res?.meta?.message?.includes('No results')) {
         setLoading(false);
         setRenderData(null);
@@ -108,15 +49,9 @@ const useSortData = (getData: any, firstSortTerm: any = '') => {
   }, [pathname]);
 
   const updateData = useCallback(() => {
-    if (sortTerm === 'contracts') return;
-
     if (sortTerm) {
       setLoading(true);
-      getData(
-        sortTerm === 'contracts' ? 'address' : sortTerm,
-        null,
-        address,
-      ).then((res: AccountsData) => {
+      getData(sortTerm, null, address).then((res: AccountsData) => {
         if (res?.meta?.message?.includes('No results')) {
           setLoading(false);
           setRenderData(null);
@@ -137,23 +72,21 @@ const useSortData = (getData: any, firstSortTerm: any = '') => {
       setLoading(true);
       const next: string = renderData?.pagination?.next;
       if (next) {
-        getData(sortTerm === 'contracts' ? '' : sortTerm, next, address).then(
-          (res: AccountsData) => {
-            if (res?.meta?.message?.includes('No results')) {
-              setLoading(false);
-              setRenderData(null);
-              return;
-            }
-            setRenderData((prev: AccountsData) => {
-              setLoading(false);
-              return {
-                ...prev,
-                data: removeArrayDuplicates([...prev.data, ...res?.data]),
-                pagination: res.pagination,
-              };
-            });
-          },
-        );
+        getData(sortTerm, next, address).then((res: AccountsData) => {
+          if (res?.meta?.message?.includes('No results')) {
+            setLoading(false);
+            setRenderData(null);
+            return;
+          }
+          setRenderData((prev: AccountsData) => {
+            setLoading(false);
+            return {
+              ...prev,
+              data: removeArrayDuplicates([...prev.data, ...res?.data]),
+              pagination: res.pagination,
+            };
+          });
+        });
       }
     }
   }, [inView]);

@@ -1,28 +1,33 @@
-import { useEffect, useState } from 'react';
+import { useTypedSelector } from 'hooks/useTypedSelector';
 import { NavLink } from 'react-router-dom';
 import {
   byteToMgb,
   calcDataTime,
-  calcTime,
   sliceData10,
   sliceData5,
 } from 'utils/helpers';
 
 const BundleBlocksBody = ({ lastCardRef, item }: any) => {
-  const isTxHash = (
+  // const { data } = useTypedSelector((state) => state.bundles);
+
+  const isBundle = (
     <NavLink
       to={`${item?.bundleId}`}
       className="bundle_blocks_body_cell"
-      style={{ color: '#808A9D' }}
+      style={{ color: '#808A9D', fontWeight: 600 }}
     >
       {sliceData10(item?.bundleId, 12)}
     </NavLink>
   );
 
   const isBy = (
-    <div className="bundle_blocks_body_cell" style={{ color: '#808A9D' }}>
+    <NavLink
+      to={`/addresses/${item.uploader}`}
+      className="bundle_blocks_body_cell"
+      style={{ color: '#808A9D' }}
+    >
       {sliceData5(item.uploader)}
-    </div>
+    </NavLink>
   );
 
   const isCreated = (
@@ -57,7 +62,7 @@ const BundleBlocksBody = ({ lastCardRef, item }: any) => {
 
   return (
     <div className="bundle_blocks_body" ref={lastCardRef}>
-      {isTxHash}
+      {isBundle}
       {isBy}
       {isCreated}
       {isDuration}

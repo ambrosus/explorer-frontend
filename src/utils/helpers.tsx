@@ -35,6 +35,17 @@ export const calcTime = (time: number | null | undefined) => {
    */
   return moment(time).isValid() ? moment(time * 1000).fromNow() : '';
 };
+export const sliceDataString = (item: string | null | undefined) => {
+  if (!item) {
+    return [];
+  }
+
+  const res = `${item.slice(0, Math.ceil(item.length / 2))} ${item.slice(
+    Math.ceil(item.length / 2),
+  )}`.split(' ');
+
+  return res;
+};
 
 export const setupStyle = (item: string | undefined) => {
   switch (item) {
@@ -173,6 +184,14 @@ export const numberWithCommas = (number: string | number) =>
   +number > 1
     ? number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
     : number;
+
+export const ambMonthUSD = (usd_price: any) => {
+  let result: any = 8 / parseFloat(usd_price);
+  if (!result) {
+    result = 0;
+  }
+  return result.toFixed(2);
+};
 
 export const currenCurrency = (
   value: string | number,
@@ -385,6 +404,14 @@ export const calcDataTime = (time: number | null | undefined) => {
   return moment(time).isValid()
     ? moment(time * 1000).format('ddd, D MMMM YYYY')
     : '';
+};
+
+export const calcBundleTime = (time: number | null | undefined) => {
+  if (!time) {
+    return '';
+  }
+
+  return moment(time).isValid() ? moment(time * 1000).format('HH:mm:ss') : '';
 };
 
 export const bundleExpirationTime = (bundle: any) =>

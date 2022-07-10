@@ -12,16 +12,16 @@ import BundleDetails from 'pages/Bundles/BundleDetails';
 import { Hermes } from 'pages/Hermes';
 import { Home } from 'pages/Home';
 import { Transactions } from 'pages/Transactions';
-import { TransactionDetails } from 'pages/TransactionsDetails';
+import { TransactionDetails } from 'pages/Transactions/TransactionsDetails';
 
 interface IAppRoutes {
   routes: IRoute[];
   addressesRoutes: IRoute[];
   apolloRoutes: IRoute[];
   atlasRoutes: IRoute[];
-  transactions: IRoute[];
   bundleRoutes: IRoute[];
   blockRoutes: IRoute[];
+  transactions: IRoute[];
 }
 
 export const routes: IRoute[] = [
@@ -93,7 +93,7 @@ export const addressesRoutes: IRoute[] = [
   },
   {
     path: '/addresses/:address/:type',
-    key: 'Address Details',
+    key: 'Address Details2',
     exact: true,
     component: () => <AddressDetails />,
     isClick: false,
@@ -101,14 +101,14 @@ export const addressesRoutes: IRoute[] = [
 
   {
     path: '/addresses/:address/:type/:filtered',
-    key: 'Address Details',
+    key: 'Address Details3',
     exact: true,
     component: () => <AddressDetails />,
     isClick: false,
   },
   {
     path: '/addresses/:address/:type/:filtered/:tokenToSorted',
-    key: 'Address Details',
+    key: 'Address Details4',
     exact: true,
     isClick: false,
     component: () => <AddressDetails />,
@@ -191,8 +191,8 @@ const appRoutes: IAppRoutes = {
   addressesRoutes,
   apolloRoutes,
   atlasRoutes,
-  transactions,
   blockRoutes,
+  transactions,
 };
 
 export default appRoutes;

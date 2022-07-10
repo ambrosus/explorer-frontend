@@ -1,20 +1,22 @@
-import BundleTabs from 'pages/Bundles/components/BundleTabs';
-import { useEffect } from 'react';
-import { numberWithCommas } from 'utils/helpers';
+import HeadInfo from 'components/HeadInfo';
+import { useTypedSelector } from 'hooks/useTypedSelector';
+import { ambMonthUSD, numberWithCommas } from 'utils/helpers';
 
 const BundleMainTabs = ({ data }: any) => {
   const {
     totalBundles,
     bundlesActivity,
-    totalAssets,
-    totalEvents,
+    totalAssets = 0,
+    totalEvents = 0,
     bundleCost,
   } = data;
 
-  const totalEntries = 10 + bundleCost?.ether;
+  const { data: appData } = useTypedSelector((state: any) => state.app);
 
-  const avgBundleLoad = totalBundles
-    ? (totalBundles / totalBundles).toFixed(2)
+  const totalEntries = totalAssets + totalEvents;
+
+  const avgBundleLoad = totalEntries
+    ? (totalEntries / totalBundles).toFixed(2)
     : 0;
 
   const itemFirst: any = [
@@ -48,14 +50,16 @@ const BundleMainTabs = ({ data }: any) => {
     {
       _id: 3,
       name: 'APROX BUNDLE',
-      value: `${numberWithCommas(totalBundles)} AMB / cost next month`,
+      value: `${ambMonthUSD(
+        appData?.totalPriceToken.total_price_usd,
+      )} AMB / cost next month`,
     },
   ];
   return (
     <>
       <h1 style={{ margin: '32px 0' }}>Bundles</h1>
-      <BundleTabs data={itemFirst} />
-      <BundleTabs data={itemSecond} />
+      <HeadInfo data={itemFirst} className="bundle_tabs" />
+      <HeadInfo data={itemSecond} className="bundle_tabs" />
       {}
     </>
   );

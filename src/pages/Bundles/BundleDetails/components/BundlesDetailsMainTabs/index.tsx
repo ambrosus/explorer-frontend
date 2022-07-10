@@ -1,8 +1,10 @@
-import BundleDetailsTab from '../BundleDetailsTab';
+import HeadInfo from 'components/HeadInfo';
+import { NavLink } from 'react-router-dom';
 import { BUNDLE_MAX_LOAD } from 'utils/constants';
 import {
   bundleExpirationTime,
   byteToMgb,
+  calcBundleTime,
   calcDataTime,
   sliceData10,
   sliceData5,
@@ -12,22 +14,65 @@ const BundleDetailsMainTabs = ({ data }: any) => {
   const { totalEvents = 0, totalAssets = 0 } = data;
 
   const total = totalEvents + totalAssets;
+  const created = (
+    <span>
+      {calcDataTime(data.uploadTimestamp)}
+      <span style={{ fontSize: 10 }}>
+        {' '}
+        {calcBundleTime(data.uploadTimestamp)}
+      </span>
+    </span>
+  );
+
+  const expired = (
+    <div>
+      {calcDataTime(bundleExpirationTime(data))}
+      <span style={{ fontSize: 10 }}>
+        {' '}
+        {calcBundleTime(data.uploadTimestamp)}
+      </span>
+    </div>
+  );
 
   const itemFirst: any = [
     {
       _id: 1,
       name: 'BY',
-      value: sliceData5(data.uploader),
+      value: (
+        <NavLink
+          to={`/addresses/${data.uploader}`}
+          style={{ color: '#808A9D' }}
+        >
+          {sliceData5(data.uploader)}
+        </NavLink>
+      ),
+      style: {
+        color: '#808A9D',
+      },
     },
     {
       _id: 2,
       name: 'TX HASH',
       value: sliceData10(data?.txHash, 12),
+      style: {
+        color: '#808A9D',
+      },
     },
     {
       _id: 3,
       name: 'BLOCK',
-      value: data.block.number,
+      value: (
+        <NavLink
+          to={`/blocks/${data.block.number}`}
+          style={{ color: '#808A9D' }}
+        >
+          {data.block.number}
+        </NavLink>
+      ),
+
+      style: {
+        color: '#808A9D',
+      },
     },
     {
       _id: 4,
@@ -44,8 +89,9 @@ const BundleDetailsMainTabs = ({ data }: any) => {
     {
       _id: 1,
       name: 'CREATED',
-      value: calcDataTime(data.uploadTimestamp),
+      value: created,
     },
+
     {
       _id: 2,
       name: 'DURATION',
@@ -54,7 +100,7 @@ const BundleDetailsMainTabs = ({ data }: any) => {
     {
       _id: 3,
       name: 'EXPIRATION DATE',
-      value: calcDataTime(bundleExpirationTime(data)),
+      value: expired,
     },
     {
       _id: 4,
@@ -69,8 +115,8 @@ const BundleDetailsMainTabs = ({ data }: any) => {
   ];
   return (
     <>
-      <BundleDetailsTab data={itemFirst} />
-      <BundleDetailsTab data={itemSecond} />
+      <HeadInfo data={itemFirst} className="bundle_details_tab" />
+      <HeadInfo data={itemSecond} className="bundle_details_tab" />
     </>
   );
 };

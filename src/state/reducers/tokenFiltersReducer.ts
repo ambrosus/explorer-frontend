@@ -9,7 +9,7 @@ const initialState = {
   filters: [],
 };
 
-export const tokenFiltersReducer = (
+const reducer = (
   state: TokenFiltersReducerState = initialState,
   action: FiltersAction | any,
 ): TokenFiltersReducerState => {
@@ -26,3 +26,4 @@ export const tokenFiltersReducer = (
       return state;
   }
 };
+export default reducer;
