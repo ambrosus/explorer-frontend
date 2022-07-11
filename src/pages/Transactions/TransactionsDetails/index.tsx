@@ -187,13 +187,13 @@ export const TransactionDetails = () => {
           </div>
         </div>
         <div className="apollo_details_balance apollo_details_balance-tx3">
-          <div className="apollo_details_balance_cells">
+          <div className="apollo_details_balance_cells apollo_details_balance_cells--expanded">
             <p className="apollo_details_balance_fonts_normal universall_light1">
               BLOCK HASH
             </p>
             <p
               className="atlas_details_balance_fonts_bold"
-              style={{ color: '#808A9D' }}
+              style={{ color: '#808A9D', wordBreak: 'break-all' }}
             >
               {txData.blockHash}
             </p>
