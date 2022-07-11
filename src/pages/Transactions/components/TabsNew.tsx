@@ -82,20 +82,22 @@ const TabsNew: FC<TabsNewProps> = ({ tabs, fetchData, fetchParams, render }) => 
           </div>
         </div>
       </div>
-      <AddressBlocksHeader
-        txhash="txHash"
-        method="Method"
-        from="From"
-        to="To"
-        date="Date"
-        block="Block"
-        amount="Amount"
-        txfee="txFee"
-        token={null}
-        methodFilters={null}
-        isTableColumn={'address_blocks_cells'}
-      />
-      {!!tabData.data.length && render(tabData.data)}
+      <div style={{ overflow: 'auto' }}>
+        <AddressBlocksHeader
+          txhash="txHash"
+          method="Method"
+          from="From"
+          to="To"
+          date="Date"
+          block="Block"
+          amount="Amount"
+          txfee="txFee"
+          token={null}
+          methodFilters={null}
+          isTableColumn={'address_blocks_cells no_border'}
+        />
+        {!!tabData.data.length && render(tabData.data)}
+      </div>
       <div ref={ref} />
       {loading && <Loader />}
     </>

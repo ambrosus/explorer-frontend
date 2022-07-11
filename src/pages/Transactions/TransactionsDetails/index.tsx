@@ -204,7 +204,7 @@ export const TransactionDetails = () => {
             </p>
             <p className="atlas_details_balance_fonts_bold">
               {numberWithCommas(txData.blockNumber)} (
-              {appData?.netInfo?.lastBlock?.number - txData.blockNumber})
+              {numberWithCommas(appData?.netInfo?.lastBlock?.number - txData.blockNumber)})
             </p>
           </div>
         </div>
