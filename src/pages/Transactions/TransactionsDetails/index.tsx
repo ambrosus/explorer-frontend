@@ -12,7 +12,7 @@ import { useTypedSelector } from 'hooks/useTypedSelector';
 import moment from 'moment';
 import React, { useEffect, useRef, useState } from 'react';
 import { NavLink, useNavigate, useParams } from 'react-router-dom';
-import {numberWithCommas, sliceData10, sliceData5} from 'utils/helpers';
+import { numberWithCommas, sliceData10, sliceData5 } from 'utils/helpers';
 
 export const TransactionDetails = () => {
   const { hash } = useParams();
@@ -20,7 +20,7 @@ export const TransactionDetails = () => {
   const { FOR_TABLET } = useDeviceSize();
   const ref = useRef(null);
   const { data: appData } = useTypedSelector((state: any) => state.app);
-  const [isInputExpanded, setIsInputExpanded] = useState<null | boolean>(null);
+  const [isInputExpanded, setIsInputExpanded] = useState<null | boolean>(false);
 
   const [txData, setTxData] = useState({
     value: {
@@ -48,11 +48,12 @@ export const TransactionDetails = () => {
         setTxData(res.data);
       }
     });
-    setTimeout(() => {
+    const timeout = setTimeout(() => {
       if (checkOverflow(ref.current)) {
         setIsInputExpanded(false);
       }
-    }, 100)
+    }, 100);
+    return () => clearTimeout(timeout);
   }, []);
 
   const checkOverflow = (el: any) => {
@@ -70,6 +71,10 @@ export const TransactionDetails = () => {
 
   const showInputData = () => setIsInputExpanded(true);
 
+  useEffect(() => {
+    console.log(appData?.netInfo?.lastBlock?.number);
+  }, [appData?.netInfo?.lastBlock?.number]);
+
   return (
     <Content>
       <section className="address_details transaction_details container">
@@ -81,7 +86,9 @@ export const TransactionDetails = () => {
             </div>
             <div className="address_details_copy" style={{ fontSize: '18px' }}>
               <span className="transaction_details_hash">Hash</span>
-              <span style={{ fontSize: '18px', fontWeight: '400' }}>{sliceData5(hash)}</span>
+              <span style={{ fontSize: '18px', fontWeight: '400' }}>
+                {sliceData5(hash)}
+              </span>
               <button
                 className={'address_details_copy_btn'}
                 onClick={copyContent}
@@ -162,25 +169,30 @@ export const TransactionDetails = () => {
               NONCE (POSITION)
             </p>
             <p className="atlas_details_balance_fonts_bold">
-              {numberWithCommas(txData.nonce)} (
-              {txData.transactionIndex})
+              {numberWithCommas(txData.nonce)} ({txData.transactionIndex})
             </p>
           </div>
-          <div className={`apollo_details_balance_cells ${isInputExpanded ? 'apollo_details_balance_cells--expanded' : ''}`}>
+          <div
+            className={`apollo_details_balance_cells ${
+              isInputExpanded ? 'apollo_details_balance_cells--expanded' : ''
+            }`}
+          >
             <p className="apollo_details_balance_fonts_normal universall_light1">
               INPUT DATA
             </p>
             <p
-              className="atlas_details_balance_fonts_bold" ref={ref}
-              style={isInputExpanded ? { wordBreak: 'break-all' } : { paddingRight: '20px' }}
+              className="atlas_details_balance_fonts_bold"
+              ref={ref}
+              style={
+                isInputExpanded
+                  ? { wordBreak: 'break-all' }
+                  : { paddingRight: '20px' }
+              }
             >
               {txData.input}
             </p>
             {isInputExpanded === false && (
-              <span
-                onClick={showInputData}
-                className="address_blocks_eye_icon"
-              >
+              <span onClick={showInputData} className="address_blocks_eye_icon">
                 <Eye />
               </span>
             )}
@@ -203,8 +215,11 @@ export const TransactionDetails = () => {
               HEIGHT / CONFIRMATIONS
             </p>
             <p className="atlas_details_balance_fonts_bold">
-              {numberWithCommas(txData.blockNumber)} (
-              {numberWithCommas(appData?.netInfo?.lastBlock?.number - txData.blockNumber)})
+              {numberWithCommas(txData.blockNumber || 0)} (
+              {numberWithCommas(
+                appData?.netInfo?.lastBlock?.number - txData?.blockNumber || 0,
+              )}
+              )
             </p>
           </div>
         </div>

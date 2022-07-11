@@ -37,8 +37,8 @@
 
     &--expanded {
       height: auto;
-      padding-top: 30px;
-      padding-bottom: 30px;
+      // padding-top: 30px;
+      // padding-bottom: 30px;
 
       @media screen and (max-width: 1000px) {
         padding-top: 12px;
@@ -95,4 +95,3 @@
     display: none;
   }
 }
-
