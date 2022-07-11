@@ -18,8 +18,16 @@ const TabsNew: FC<TabsNewProps> = ({ tabs, fetchData, fetchParams, render }) => 
   });
 
   useEffect(() => {
+    setTabData({
+      data: [],
+      pagination: {
+        hasNext: false,
+        next: null,
+      }
+    });
+
     handleFetchData().then((response: any) => setTabData(response));
-  }, []);
+  }, [tab]);
 
   useEffect(() => {
     if (
@@ -28,7 +36,7 @@ const TabsNew: FC<TabsNewProps> = ({ tabs, fetchData, fetchParams, render }) => 
       tabData.pagination &&
       tabData.pagination.hasNext
     ) {
-      handleFetchData().then(
+      handleFetchData(tabData.pagination.next).then(
         (response: any) => {
           setTabData((state: AccountsData) => ({
             data: [...state.data, ...response.data],
@@ -39,29 +47,19 @@ const TabsNew: FC<TabsNewProps> = ({ tabs, fetchData, fetchParams, render }) => 
     }
   }, [inView]);
 
-  const handleFetchData = () => {
+  const handleFetchData = (page?: number) => {
     setLoading(true);
-    const params: any = { ...fetchParams, page: tabData.pagination.next };
+    const params: any = { ...fetchParams, page };
 
     if (fetchParams.hasOwnProperty('type')) {
       params.type = tab;
     }
-    return fetchData({ ...params, limit: 50 }).finally(() =>
-      setLoading(false),
-    );
+    return fetchData({ ...params, limit: 50 }).finally(() => {
+      setLoading(false);
+    });
   };
 
   const handleTab = (type: string) => {
-    setTabData({
-      data: [],
-      pagination: {
-        hasNext: false,
-        next: null,
-      },
-    });
-
-    handleFetchData().then((response: any) => setTabData(response));
-
     setTab(type);
   };
 
@@ -81,7 +79,6 @@ const TabsNew: FC<TabsNewProps> = ({ tabs, fetchData, fetchParams, render }) => 
               {el.title}
             </span>
             ))}
-            {loading && <Loader />}
           </div>
         </div>
       </div>
@@ -100,6 +97,7 @@ const TabsNew: FC<TabsNewProps> = ({ tabs, fetchData, fetchParams, render }) => 
       />
       {!!tabData.data.length && render(tabData.data)}
       <div ref={ref} />
+      {loading && <Loader />}
     </>
   );
 };

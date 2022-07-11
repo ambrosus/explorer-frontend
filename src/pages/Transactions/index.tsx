@@ -11,66 +11,10 @@ import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { useNavigate } from 'react-router-dom';
+import {Account} from "../Atlas/atlas.interface";
 
 export const Transactions = () => {
-  const navigate = useNavigate();
   const { data: appData } = useTypedSelector((state: any) => state.app);
-
-  const [txsData, setTxsData] = useState({
-    data: [],
-    pagination: {
-      hasNext: false,
-      next: null,
-    },
-  });
-  const [loading, setLoading] = useState(true);
-  const [tab, setTab] = useState('');
-  const { ref, inView } = useInView();
-
-  useEffect(() => {
-    getTransactions().then((response: any) => setTxsData(response));
-  }, []);
-
-  useEffect(() => {
-    if (
-      inView &&
-      !loading &&
-      txsData.pagination &&
-      txsData.pagination.hasNext
-    ) {
-      getTransactions({ type: tab, page: txsData.pagination.next }).then(
-        (response: any) => {
-          // @ts-ignore
-          setTxsData((state: any) => ({
-            data: [...state.data, ...response.data],
-            pagination: response.pagination,
-          }));
-        },
-      );
-    }
-  }, [inView]);
-
-  const getTransactions = (params: object = {}) => {
-    setLoading(true);
-
-    return API.getTransactions({ ...params, limit: 50 }).finally(() =>
-      setLoading(false),
-    );
-  };
-
-  const handleTab = (type: string) => {
-    setTxsData({
-      data: [],
-      pagination: {
-        hasNext: false,
-        next: null,
-      },
-    });
-
-    getTransactions({ type }).then((response: any) => setTxsData(response));
-
-    setTab(type);
-  };
 
   return (
     <Content>
@@ -90,32 +34,15 @@ export const Transactions = () => {
       <Content.Body>
         <TabsNew
           tabs={transactionsTabs}
-          onChange={handleTab}
-          selectedItem={tab}
-        />
-        <div className="transactions_table">
-          {!!txsData.data.length && (
-            <AddressBlocksHeader
-              txhash="txHash"
-              method="Method"
-              from="From"
-              to="To"
-              date="Date"
-              block="Block"
-              amount="Amount"
-              txfee="txFee"
-              token={null}
-              methodFilters={null}
-              isTableColumn={'address_blocks_cells'}
-            />
-          )}
-          {!!txsData.data.length &&
-            txsData.data.map((tx: any, i) => (
+          fetchData={API.getTransactions}
+          fetchParams={{type: ''}}
+          render={(txs: Account[]) => (
+            txs.map((tx: any, i: number) => (
               <AddressBlock
                 isLatest={true}
                 key={i}
                 txhash={tx.hash}
-                method={tx.type.split(':')[0]}
+                method={tx.type}
                 from={tx.from}
                 to={tx.to}
                 date={moment(tx.timestamp * 1000).fromNow()}
@@ -128,13 +55,10 @@ export const Transactions = () => {
                 isIcon={true}
                 inners={tx.inners}
                 hashOnClick={true}
-                lastCardRef={ref}
               />
-            ))}
-        </div>
-
-        {/* <div ref={ref} /> */}
-        {loading && <Loader />}
+            ))
+          )}
+        />
       </Content.Body>
     </Content>
   );

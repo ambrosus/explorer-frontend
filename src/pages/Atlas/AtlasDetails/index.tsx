@@ -1,7 +1,4 @@
 import NodeHeader from '../../../components/NodeHeader';
-import Tabs2 from '../../../components/Tabs/Tabs2';
-import useSortData from '../../../hooks/useSortData';
-import { getAccountTxData } from '../../../services/apollo.service';
 import { getAtlasData } from '../../../services/atlas.service';
 import { atlasDetailsSorting } from '../../../utils/sidePages';
 import AtlasDetailsBalance from './components/AtlasDetailsBalance';

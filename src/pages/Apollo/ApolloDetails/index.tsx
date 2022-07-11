@@ -4,23 +4,22 @@ import {
   getAccountTxData,
   getApolloData,
 } from '../../../services/apollo.service';
-import { apolloDetailsSorting } from '../../../utils/sidePages';
+import {apolloDetailsSorting} from '../../../utils/sidePages';
 import ApolloDetailsBalance from './components/ApolloDetailsBalance';
 import ApolloDetailsMain from './components/ApolloDetailsMain';
 import ApolloDetailsMiningStats from './components/ApolloDetailsMiningStats';
 import { Content } from 'components/Content';
-import Tabs2 from 'components/Tabs/Tabs2';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { TParams } from 'types';
+import API from "../../../API/api";
+import TabsNew from "../../Transactions/components/TabsNew";
+import moment from "moment";
+import AddressBlock from "../../Addresses/AddressDetails/components/AddressBlocks/AddressBlock";
+import {Account} from "../apollo.interface";
 
 export const ApolloDetails = () => {
-  const { address, type = '' }: TParams = useParams();
-
-  const { ref, sortTerm, setSortTerm, renderData, loading } = useSortData(
-    getAccountTxData,
-    type,
-  );
+  const { address }: TParams = useParams();
 
   return (
     <Content>
@@ -38,15 +37,33 @@ export const ApolloDetails = () => {
         </NodeHeader>
       </Content.Header>
       <Content.Body>
-        <Tabs2
-          loading={loading}
-          lastCardRef={ref}
-          transactionType={type}
-          data={sortTerm === type && renderData ? renderData : []}
-          setTransactionType={setSortTerm}
-          isIcon={false}
-          pageType="apollo"
-          sortOptions={apolloDetailsSorting}
+        <TabsNew
+          tabs={apolloDetailsSorting}
+          fetchData={API.getAccountTx}
+          fetchParams={{ address, type: '' }}
+          render={(txs: Account[]) => (
+            txs.map((transaction: any) => (
+              <AddressBlock
+                key={transaction.hash}
+                inners={transaction.inners}
+                isLatest={true}
+                txhash={transaction.hash}
+                method={transaction.type}
+                from={transaction.from}
+                to={transaction.to}
+                date={moment(transaction.timestamp * 1000).fromNow()}
+                block={transaction.blockNumber}
+                amount={transaction.value.ether}
+                txfee={transaction.gasCost.ether}
+                token={`${transaction?.token ? transaction?.token : 'AMB'}`}
+                symbol={`${
+                  transaction?.symbol ? transaction?.symbol : 'AMB'
+                }`}
+                isTableColumn="address_blocks_cells"
+                isIcon={true}
+              />
+            ))
+          )}
         />
       </Content.Body>
     </Content>
