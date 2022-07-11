@@ -10,13 +10,12 @@ import 'styles/Main.scss';
 const Main: React.FC = () => {
   const { pathname } = useLocation();
   const { setAppDataAsync } = useActions();
-  let interval: any;
 
   useEffect(() => {
-    // interval = setInterval(() => {
-    setAppDataAsync();
-    // }, 1000);
-    // return () => clearInterval(interval);
+    const interval = setInterval(() => {
+      setAppDataAsync();
+    }, 1000);
+    return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {
