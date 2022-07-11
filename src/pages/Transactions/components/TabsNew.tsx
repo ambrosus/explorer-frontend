@@ -1,8 +1,11 @@
 import Loader from '../../../components/Loader';
 import AddressBlocksHeader from '../../Addresses/AddressDetails/components/AddressBlocksHeader';
 import { TabsNewProps } from '../transactions.interface';
+import SideMenu from 'assets/icons/SideMenu';
+import ExportCsv from 'components/ExportCsv';
+import useDeviceSize from 'hooks/useDeviceSize';
 import { AccountsData } from 'pages/Addresses/addresses.interface';
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 
 const TabsNew: FC<TabsNewProps> = ({
@@ -13,6 +16,8 @@ const TabsNew: FC<TabsNewProps> = ({
 }) => {
   const [loading, setLoading] = useState(true);
   const [tab, setTab] = useState('');
+  const [isShow, setIsShow] = useState(false);
+
   const { ref, inView } = useInView();
   const [tabData, setTabData] = useState<AccountsData>({
     data: [],
@@ -21,6 +26,11 @@ const TabsNew: FC<TabsNewProps> = ({
       next: null,
     },
   });
+
+  const mobileCalendarRef = useRef(null);
+  const { FOR_TABLET } = useDeviceSize();
+
+  const handleShow = () => setIsShow(!isShow);
 
   useEffect(() => {
     setTabData({
@@ -82,6 +92,19 @@ const TabsNew: FC<TabsNewProps> = ({
                 {el.title}
               </span>
             ))}
+          </div>
+          <div ref={mobileCalendarRef} className="tabs_heading_export_modal">
+            {FOR_TABLET ? (
+              <ExportCsv />
+            ) : (
+              <>
+                <div className="tabs_side_menu">
+                  <button className="tabs_side_menu_icon" onClick={handleShow}>
+                    <SideMenu />
+                  </button>
+                </div>
+              </>
+            )}
           </div>
         </div>
       </div>
