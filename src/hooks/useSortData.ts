@@ -43,7 +43,7 @@ const useSortData = (getData: any, firstSortTerm: any = '') => {
       )
     ) {
       log('not found term "', type, '"');
-      navigate(`/notfound`, { replace: true });
+      navigate(`/notfound`, );
     }
     firstRender();
   }, [pathname]);

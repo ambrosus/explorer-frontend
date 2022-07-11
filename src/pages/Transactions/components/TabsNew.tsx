@@ -1,11 +1,16 @@
+import Loader from '../../../components/Loader';
+import AddressBlocksHeader from '../../Addresses/AddressDetails/components/AddressBlocksHeader';
 import { TabsNewProps } from '../transactions.interface';
-import React, {FC, useEffect, useState} from 'react';
-import {useInView} from "react-intersection-observer";
-import Loader from "../../../components/Loader";
 import { AccountsData } from 'pages/Addresses/addresses.interface';
-import AddressBlocksHeader from "../../Addresses/AddressDetails/components/AddressBlocksHeader";
+import React, { FC, useEffect, useState } from 'react';
+import { useInView } from 'react-intersection-observer';
 
-const TabsNew: FC<TabsNewProps> = ({ tabs, fetchData, fetchParams, render }) => {
+const TabsNew: FC<TabsNewProps> = ({
+  tabs,
+  fetchData,
+  fetchParams,
+  render,
+}) => {
   const [loading, setLoading] = useState(true);
   const [tab, setTab] = useState('');
   const { ref, inView } = useInView();
@@ -23,7 +28,7 @@ const TabsNew: FC<TabsNewProps> = ({ tabs, fetchData, fetchParams, render }) => 
       pagination: {
         hasNext: false,
         next: null,
-      }
+      },
     });
 
     handleFetchData().then((response: any) => setTabData(response));
@@ -36,14 +41,12 @@ const TabsNew: FC<TabsNewProps> = ({ tabs, fetchData, fetchParams, render }) => 
       tabData.pagination &&
       tabData.pagination.hasNext
     ) {
-      handleFetchData(tabData.pagination.next).then(
-        (response: any) => {
-          setTabData((state: AccountsData) => ({
-            data: [...state.data, ...response.data],
-            pagination: response.pagination,
-          }));
-        },
-      );
+      handleFetchData(tabData.pagination.next).then((response: any) => {
+        setTabData((state: AccountsData) => ({
+          data: [...state.data, ...response.data],
+          pagination: response.pagination,
+        }));
+      });
     }
   }, [inView]);
 
@@ -76,8 +79,8 @@ const TabsNew: FC<TabsNewProps> = ({ tabs, fetchData, fetchParams, render }) => 
                 key={el.title}
                 onClick={() => handleTab(el.value)}
               >
-              {el.title}
-            </span>
+                {el.title}
+              </span>
             ))}
           </div>
         </div>

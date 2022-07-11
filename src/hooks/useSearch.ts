@@ -16,9 +16,16 @@ const useSearch = (setIsShow: Function) => {
     () => API.searchItem(debouncedSearchTerm),
     {
       onSuccess: (data: any) => {
+
         if (!data) {
           setErr(true);
         } else {
+          if (
+            debouncedSearchTerm.trim() === '0x0000000000000000000000000000000000000000' || Number(debouncedSearchTerm.trim()) === 0
+          ) {
+            setErr(true);
+            return;
+          }
           let searchTerm = data.data;
           setErr(false);
           if (searchTerm && searchTerm.term !== undefined) {
