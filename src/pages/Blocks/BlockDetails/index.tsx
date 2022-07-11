@@ -85,7 +85,7 @@ export const BlockDetails = () => {
           <DataTitle title="Transactions" />
           <div className="blocks_main_table">
             <BlockHeader />
-            {renderData && renderData.data && renderData.data.length
+            {renderData?.data?.length
               ? renderData.data.map((item: any, index: number) => (
                   <BlockBody
                     lastCardRef={

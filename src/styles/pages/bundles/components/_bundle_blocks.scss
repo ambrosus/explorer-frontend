@@ -1,8 +1,4 @@
 .bundles_blocks {
-  overflow: auto;
-  &::-webkit-scrollbar {
-    display: none;
-  }
   &_heading {
     display: flex;
     align-items: center;
@@ -14,5 +10,9 @@
   }
   &_table {
     min-height: 400px;
+    overflow: auto;
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
 }
