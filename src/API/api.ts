@@ -87,6 +87,7 @@ const getTransaction = (hash: any) => {
 };
 
 const getTransactions = (params: any = {}) => {
+  console.log(2);
   const { type } = params;
   if (type) {
     delete params?.type;
@@ -123,8 +124,8 @@ const getAtlases = (params = {}) => {
   });
 };
 
-export const getAccountTx = (address: any, params = {}) => {
-  return API().get(`accounts/${address}/transactions`, {
+export const getAccountTx = (params: any = {}) => {
+  return API().get(`accounts/${params.address}/transactions`, {
     params,
   });
 };
