@@ -16,6 +16,12 @@ const useSearch = (setIsShow: Function) => {
     () => API.searchItem(debouncedSearchTerm),
     {
       onSuccess: (data: any) => {
+        if (
+          debouncedSearchTerm === '0x0000000000000000000000000000000000000000'
+        ) {
+          setErr(true);
+          return;
+        }
         if (!data) {
           setErr(true);
         } else {

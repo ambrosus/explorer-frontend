@@ -44,7 +44,7 @@ const useAdressData = (getData: any) => {
       )
     ) {
       log('not found term "', type, '"');
-      navigate(`/notfound`, { replace: true });
+      navigate(`/notfound`, );
     }
     firstRender();
   }, [pathname]);
