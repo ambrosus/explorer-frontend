@@ -12,13 +12,12 @@ const useAsyncStoreData = (funcAction: any) => {
   const [loading, setLoading] = useState(true);
 
   const firstRender = () => {
-    if (address) {
-      funcAction(address, null).then(
-        (res: any) => setRenderData(res),
-        setLoading(false),
-      );
-    }
-    funcAction(null).then((res: any) => setRenderData(res), setLoading(false));
+    funcAction(address, null).then(
+      (res: any) => setRenderData(res),
+      setLoading(false),
+    );
+
+    // funcAction(null).then((res: any) => setRenderData(res), setLoading(false));
   };
 
   useEffect(() => {
