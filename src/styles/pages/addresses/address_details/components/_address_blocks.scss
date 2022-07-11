@@ -74,6 +74,9 @@
     position: absolute;
     right: 18px;
     bottom: 33px;
+    &:hover {
+      cursor: pointer;
+    }
 
     @media screen and (max-width: 1000px) {
       bottom: 12px;
