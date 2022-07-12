@@ -53,4 +53,10 @@ moment.updateLocale('en', {
   },
 });
 
+moment.relativeTimeThreshold('s', 60);
+moment.relativeTimeThreshold('m', 60);
+moment.relativeTimeThreshold('h', 24);
+moment.relativeTimeThreshold('d', 29);
+moment.relativeTimeThreshold('M', 12);
+
 export default getMainInfoIcon;
