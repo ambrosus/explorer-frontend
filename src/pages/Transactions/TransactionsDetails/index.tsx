@@ -49,13 +49,13 @@ export const TransactionDetails = () => {
         setTxData(res.data);
       }
     });
-    const timeout = setTimeout(() => {
-      if (checkOverflow(ref.current)) {
-        setIsInputExpanded(false);
-      }
-    }, 100);
-    return () => clearTimeout(timeout);
   }, [hash]);
+
+  useEffect(() => {
+    if (checkOverflow(ref.current)) {
+      setIsInputExpanded(false);
+    }
+  }, [txData])
 
   const checkOverflow = (el: any) => {
     var curOverflow = el.style.overflow;
