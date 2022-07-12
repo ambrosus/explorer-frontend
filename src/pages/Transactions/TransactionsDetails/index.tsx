@@ -54,8 +54,10 @@ export const TransactionDetails = () => {
   useEffect(() => {
     if (checkOverflow(ref.current)) {
       setIsInputExpanded(false);
+    } else {
+      setIsInputExpanded('null');
     }
-  }, [txData])
+  }, [txData, hash])
 
   const checkOverflow = (el: any) => {
     var curOverflow = el.style.overflow;
@@ -170,7 +172,7 @@ export const TransactionDetails = () => {
               NONCE (POSITION)
             </p>
             <p className="atlas_details_balance_fonts_bold">
-              {numberWithCommas(txData.nonce)} ({txData.transactionIndex})
+              {numberWithCommas(txData.nonce)} ({txData.transactionIndex || '-'})
             </p>
           </div>
           <div
@@ -190,7 +192,7 @@ export const TransactionDetails = () => {
                   : { paddingRight: '20px' }
               }
             >
-              {txData.input === '0x' ? '-' : txData.input}
+              {txData.input === '0x' ? '—' : txData.input}
             </p>
             {isInputExpanded !== 'null' && (
               <span onClick={showInputData} className="address_blocks_eye_icon">
