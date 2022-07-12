@@ -12,7 +12,8 @@ import { useTypedSelector } from 'hooks/useTypedSelector';
 import moment from 'moment';
 import React, { useEffect, useRef, useState } from 'react';
 import { NavLink, useParams } from 'react-router-dom';
-import { numberWithCommas, sliceData10, sliceData5 } from 'utils/helpers';
+import {displayAmount, numberWithCommas, sliceData10, sliceData5} from 'utils/helpers';
+import {Currency} from "../../../components/UI/Currency";
 
 export const TransactionDetails = () => {
   const { hash } = useParams();
@@ -54,7 +55,7 @@ export const TransactionDetails = () => {
       }
     }, 100);
     return () => clearTimeout(timeout);
-  }, []);
+  }, [hash]);
 
   const checkOverflow = (el: any) => {
     var curOverflow = el.style.overflow;
@@ -113,7 +114,7 @@ export const TransactionDetails = () => {
               AMOUNT
             </p>
             <p className="atlas_details_balance_fonts_bold">
-              {txData.value.ether} AMB
+              <Currency value={displayAmount(txData.value.ether) || 0} symbol="AMB" />
             </p>
           </div>
           {txData.from && (
@@ -130,18 +131,20 @@ export const TransactionDetails = () => {
               </NavLink>
             </div>
           )}
-          <div className="apollo_details_balance_cells">
-            <p className="apollo_details_balance_fonts_normal universall_light1">
-              TO
-            </p>
-            <NavLink
-              style={{ fontSize: '14px', fontWeight: 600 }}
-              to={`/addresses/${txData.to}`}
-              className="universall_light1"
-            >
-              {sliceData10(txData.to as string, 7)}
-            </NavLink>
-          </div>
+          {txData.to && (
+            <div className="apollo_details_balance_cells">
+              <p className="apollo_details_balance_fonts_normal universall_light1">
+                TO
+              </p>
+              <NavLink
+                style={{ fontSize: '14px', fontWeight: 600 }}
+                to={`/addresses/${txData.to}`}
+                className="universall_light1"
+              >
+                {sliceData10(txData.to as string, 7)}
+              </NavLink>
+            </div>
+          )}
           <div className="apollo_details_balance_cells">
             <p className="apollo_details_balance_fonts_normal universall_light1">
               TX FEE
@@ -187,7 +190,7 @@ export const TransactionDetails = () => {
                   : { paddingRight: '20px' }
               }
             >
-              {txData.input}
+              {txData.input === '0x' ? '-' : txData.input}
             </p>
             {isInputExpanded !== 'null' && (
               <span onClick={showInputData} className="address_blocks_eye_icon">
@@ -240,7 +243,7 @@ export const TransactionDetails = () => {
               txfee="txFee"
               token={null}
               methodFilters={null}
-              isTableColumn={'address_blocks_cells'}
+              isTableColumn={'address_blocks_cells no_border'}
             />
             {!!txData.inners &&
               txData.inners.map((tx: any, i) => (

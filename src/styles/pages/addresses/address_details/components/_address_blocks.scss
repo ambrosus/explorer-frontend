@@ -39,7 +39,6 @@
     display: flex;
     position: relative;
     align-items: center;
-    border-bottom: 1px solid #eff2f5;
 
     height: 48px;
     &_token {
@@ -66,7 +65,7 @@
   &_plus {
     position: absolute;
     background: transparent;
-    left: -16px;
+    left: -11px;
     top: 15px;
   }
   &_eye_icon {

@@ -14,8 +14,12 @@
   &_wrapper {
     overflow: auto;
     margin: 0 auto;
-    overflow: auto;
     padding: 0;
+    transform: translateX(-17px);
+
+    @include for_laptop {
+      transform: none;
+    }
   }
 }
 .transaction_details {
