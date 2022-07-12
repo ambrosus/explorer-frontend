@@ -11,7 +11,7 @@ import useDeviceSize from 'hooks/useDeviceSize';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import moment from 'moment';
 import React, { useEffect, useRef, useState } from 'react';
-import { NavLink, useNavigate, useParams } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import { numberWithCommas, sliceData10, sliceData5 } from 'utils/helpers';
 
 export const TransactionDetails = () => {
@@ -70,6 +70,8 @@ export const TransactionDetails = () => {
   };
 
   const showInputData = () => setIsInputExpanded((state) => !state);
+
+  const confirmations = appData?.netInfo?.lastBlock?.number - txData?.blockNumber;
 
   return (
     <Content>
@@ -199,12 +201,13 @@ export const TransactionDetails = () => {
             <p className="apollo_details_balance_fonts_normal universall_light1">
               BLOCK HASH
             </p>
-            <p
+            <NavLink
+              to={`/blocks/${txData.blockHash}`}
               className="atlas_details_balance_fonts_bold"
               style={{ color: '#808A9D', wordBreak: 'break-all' }}
             >
               {txData.blockHash}
-            </p>
+            </NavLink>
           </div>
           <div className="apollo_details_balance_cells">
             <p className="apollo_details_balance_fonts_normal universall_light1">
@@ -213,7 +216,7 @@ export const TransactionDetails = () => {
             <p className="atlas_details_balance_fonts_bold">
               {numberWithCommas(txData.blockNumber || 0)} (
               {numberWithCommas(
-                appData?.netInfo?.lastBlock?.number - txData?.blockNumber || 0,
+                confirmations > 0 ? confirmations : 0,
               )}
               )
             </p>
@@ -225,7 +228,7 @@ export const TransactionDetails = () => {
           <div className="container" style={{ margin: '0 auto' }}>
             <p className="transactions_details_list_title">Transactions</p>
           </div>
-          <div className="container" style={{ margin: '0 auto' }}>
+          <div className="transactions_details_list_wrapper container">
             <AddressBlocksHeader
               txhash="txHash"
               method="Method"
@@ -239,8 +242,6 @@ export const TransactionDetails = () => {
               methodFilters={null}
               isTableColumn={'address_blocks_cells'}
             />
-          </div>
-          <div className="transactions_details_list_wrapper container">
             {!!txData.inners &&
               txData.inners.map((tx: any, i) => (
                 <AddressBlock

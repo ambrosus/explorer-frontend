@@ -81,7 +81,7 @@ const TabsNew: FC<TabsNewProps> = ({
     setTab(type);
   };
 
-  return tabData.data.length ? (
+  return (
     <>
       <div className="tabs">
         <div className="tabs_heading" tabIndex={-1}>
@@ -123,7 +123,7 @@ const TabsNew: FC<TabsNewProps> = ({
           )}
         </div>
       </div>
-      <div style={{ overflow: 'auto', transform: 'translateX(-12px)'}}>
+      <div className="transactions_wrapper">
         <AddressBlocksHeader
           txhash="txHash"
           method="Method"
@@ -142,7 +142,7 @@ const TabsNew: FC<TabsNewProps> = ({
       <div ref={ref} />
       {loading && <Loader />}
     </>
-  ) : null;
+  );
 };
 
 export default TabsNew;

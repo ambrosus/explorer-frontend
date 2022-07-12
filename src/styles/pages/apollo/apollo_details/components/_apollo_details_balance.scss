@@ -18,6 +18,13 @@
   }
   &-tx2 {
     grid-template-columns: 1.3fr 1fr 2fr;
+
+    .apollo_details_balance_cells {
+      height: auto;
+      padding-top: 30px;
+      padding-bottom: 30px;
+      justify-content: flex-start;
+    }
   }
   &-tx3 {
     grid-template-columns: 3fr 1fr;

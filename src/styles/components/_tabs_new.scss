@@ -1,0 +1,8 @@
+.transactions_wrapper {
+  overflow: auto;
+  transform: translateX(-12px);
+
+  @include for_laptop {
+    width: calc(100% + 16px);
+  }
+}
