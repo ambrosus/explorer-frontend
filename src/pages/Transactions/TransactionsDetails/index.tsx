@@ -20,7 +20,7 @@ export const TransactionDetails = () => {
   const { FOR_TABLET } = useDeviceSize();
   const ref = useRef(null);
   const { data: appData } = useTypedSelector((state: any) => state.app);
-  const [isInputExpanded, setIsInputExpanded] = useState<null | boolean>(false);
+  const [isInputExpanded, setIsInputExpanded] = useState<string | boolean>('null');
 
   const [txData, setTxData] = useState({
     value: {
@@ -69,11 +69,7 @@ export const TransactionDetails = () => {
     return isOverflowing;
   };
 
-  const showInputData = () => setIsInputExpanded(true);
-
-  useEffect(() => {
-    console.log(appData?.netInfo?.lastBlock?.number);
-  }, [appData?.netInfo?.lastBlock?.number]);
+  const showInputData = () => setIsInputExpanded((state) => !state);
 
   return (
     <Content>
@@ -174,7 +170,7 @@ export const TransactionDetails = () => {
           </div>
           <div
             className={`apollo_details_balance_cells ${
-              isInputExpanded ? 'apollo_details_balance_cells--expanded' : ''
+              isInputExpanded === true ? 'apollo_details_balance_cells--expanded' : ''
             }`}
           >
             <p className="apollo_details_balance_fonts_normal universall_light1">
@@ -184,14 +180,14 @@ export const TransactionDetails = () => {
               className="atlas_details_balance_fonts_bold"
               ref={ref}
               style={
-                isInputExpanded
+                isInputExpanded === true
                   ? { wordBreak: 'break-all' }
                   : { paddingRight: '20px' }
               }
             >
               {txData.input}
             </p>
-            {isInputExpanded === false && (
+            {isInputExpanded !== 'null' && (
               <span onClick={showInputData} className="address_blocks_eye_icon">
                 <Eye />
               </span>
@@ -251,7 +247,7 @@ export const TransactionDetails = () => {
                   isLatest={true}
                   key={i}
                   txhash={tx.hash}
-                  method={tx.type}
+                  method={tx.type.split(':')[0]}
                   from={tx.from}
                   to={tx.to}
                   date={moment(tx.timestamp * 1000).fromNow()}

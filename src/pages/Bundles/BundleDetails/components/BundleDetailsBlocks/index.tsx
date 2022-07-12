@@ -2,7 +2,7 @@ import BundleDetailsBlock from '../BundleDetailsBlock';
 import Loader from 'components/Loader';
 import useAdressData from 'hooks/useAdressData';
 import useSortData from 'hooks/useSortData';
-import { useState } from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {
   getBundleAssetsData,
   getBundleData,
@@ -11,6 +11,13 @@ import {
 
 const BundleDetailsBlocks = () => {
   const [tab, setTab] = useState('assets');
+  const tableRef = useRef<any>(null);
+
+  useEffect(() => {
+    if (tableRef.current) {
+      tableRef.current.scrollLeft = 0;
+    }
+  }, [tab]);
 
   const { ref: assetsRef, renderData: assetsData } = useSortData(
     getBundleAssetsData,
@@ -49,7 +56,7 @@ const BundleDetailsBlocks = () => {
         </button>
       </div>
 
-      <div className="bundle_details_blocks_table">
+      <div className="bundle_details_blocks_table" ref={tableRef}>
         <div className="bundle_details_blocks_header">Address</div>
         {tab === 'assets' &&
           assetsData?.data?.length &&

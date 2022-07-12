@@ -5,9 +5,12 @@ import React, { FC } from 'react';
 export const Content: FC<IContentProps> & ITabsComposition = ({
   children,
   isLoading = true,
+  isExpanded,
 }: IContentProps) => (
   <div className="content">
-    <div className="content_backgorund">{children}</div>
+    <div className={`content_backgorund ${isExpanded ? 'content_backgorund_expanded' : ''}`}>
+      {children}
+    </div>
     {!isLoading && <Loader />}
   </div>
 );

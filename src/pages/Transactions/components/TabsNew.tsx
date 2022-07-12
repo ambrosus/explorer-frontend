@@ -7,12 +7,15 @@ import useDeviceSize from 'hooks/useDeviceSize';
 import { AccountsData } from 'pages/Addresses/addresses.interface';
 import React, { FC, useEffect, useRef, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
+import Calendar from "../../../components/Calendar";
+import {useOnClickOutside} from "../../../hooks/useOnClickOutside";
 
 const TabsNew: FC<TabsNewProps> = ({
   tabs,
   fetchData,
   fetchParams,
   render,
+  withoutCalendar,
 }) => {
   const [loading, setLoading] = useState(true);
   const [tab, setTab] = useState('');
@@ -29,6 +32,8 @@ const TabsNew: FC<TabsNewProps> = ({
 
   const mobileCalendarRef = useRef(null);
   const { FOR_TABLET } = useDeviceSize();
+
+  useOnClickOutside(mobileCalendarRef, () => setIsShow(false));
 
   const handleShow = () => setIsShow(!isShow);
 
@@ -76,7 +81,7 @@ const TabsNew: FC<TabsNewProps> = ({
     setTab(type);
   };
 
-  return (
+  return tabData.data.length ? (
     <>
       <div className="tabs">
         <div className="tabs_heading" tabIndex={-1}>
@@ -93,22 +98,32 @@ const TabsNew: FC<TabsNewProps> = ({
               </span>
             ))}
           </div>
-          <div ref={mobileCalendarRef} className="tabs_heading_export_modal">
-            {FOR_TABLET ? (
-              <ExportCsv />
-            ) : (
-              <>
-                <div className="tabs_side_menu">
-                  <button className="tabs_side_menu_icon" onClick={handleShow}>
-                    <SideMenu />
-                  </button>
-                </div>
-              </>
-            )}
-          </div>
+          {isShow && (
+            <div
+              ref={mobileCalendarRef}
+              className="tabs_heading_export_modal_mobile"
+            >
+              <Calendar />
+            </div>
+          )}
+          {!withoutCalendar && (
+            <div ref={mobileCalendarRef} className="tabs_heading_export_modal">
+              {FOR_TABLET ? (
+                <ExportCsv />
+              ) : (
+                <>
+                  <div className="tabs_side_menu">
+                    <button className="tabs_side_menu_icon" onClick={handleShow}>
+                      <SideMenu />
+                    </button>
+                  </div>
+                </>
+              )}
+            </div>
+          )}
         </div>
       </div>
-      <div style={{ overflow: 'auto' }}>
+      <div style={{ overflow: 'auto', transform: 'translateX(-12px)'}}>
         <AddressBlocksHeader
           txhash="txHash"
           method="Method"
@@ -127,7 +142,7 @@ const TabsNew: FC<TabsNewProps> = ({
       <div ref={ref} />
       {loading && <Loader />}
     </>
-  );
+  ) : null;
 };
 
 export default TabsNew;

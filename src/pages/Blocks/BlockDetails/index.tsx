@@ -73,36 +73,37 @@ export const BlockDetails = () => {
   if (isError) navigate(`/notfound`);
 
   return (
-    <Content>
+    <Content isExpanded>
       <Content.Header>
         <HeadingInfo block={block} />
         <BlockHeaderInfo lastBlock={lastBlock} block={block} />
         <MainInfoBlockTable block={block} />
       </Content.Header>
-
-      <Content.Body>
-        <div className="blocks_main">
-          <DataTitle title="Transactions" />
-          <div className="blocks_main_table">
-            <BlockHeader />
-            {renderData?.data?.length
-              ? renderData.data.map((item: any, index: number) => (
-                  <BlockBody
-                    lastCardRef={
-                      renderData?.data?.length - 1 === index &&
-                      renderData?.pagination?.hasNext
-                        ? ref
-                        : undefined
-                    }
-                    key={index}
-                    item={item}
-                  />
-                ))
-              : null}
-          </div>
-          {!loading && renderData?.pagination?.hasNext && <Loader />}
-        </div>
-      </Content.Body>
+        {renderData?.data?.length && (
+          <Content.Body>
+            <div className="blocks_main">
+              <DataTitle title="Transactions" />
+              <div className="blocks_main_table">
+                <BlockHeader />
+                {renderData?.data?.length
+                  ? renderData.data.map((item: any, index: number) => (
+                    <BlockBody
+                      lastCardRef={
+                        renderData?.data?.length - 1 === index &&
+                        renderData?.pagination?.hasNext
+                          ? ref
+                          : undefined
+                      }
+                      key={index}
+                      item={item}
+                    />
+                  ))
+                  : null}
+              </div>
+              {!loading && renderData?.pagination?.hasNext && <Loader />}
+            </div>
+          </Content.Body>
+        )}
     </Content>
   );
 };
