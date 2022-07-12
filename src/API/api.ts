@@ -86,7 +86,6 @@ const getTransaction = (hash: any) => {
 };
 
 const getTransactions = (params: any = {}) => {
-  console.log(2);
   const { type } = params;
   if (type) {
     delete params?.type;
