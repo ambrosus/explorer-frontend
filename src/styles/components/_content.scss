@@ -5,6 +5,10 @@
   flex-direction: column;
   &_backgorund {
     background-color: #f6f6f6;
+
+    &_expanded {
+      height: inherit;
+    }
   }
 
   &_header {

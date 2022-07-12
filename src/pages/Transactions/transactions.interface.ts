@@ -3,4 +3,5 @@ export type TabsNewProps = {
   fetchData: (args: any) => any;
   fetchParams: any;
   render: any;
+  withoutCalendar?: boolean;
 };

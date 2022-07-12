@@ -16,7 +16,7 @@ const BlockBody = ({ lastCardRef, item }: any) => {
         {sliceData5(hash)}
         {/*</NavLink>*/}
       </div>
-      <div className="block_body_cell">{type}</div>
+      <div className="block_body_cell">{type.split(':')[0]}</div>
       <div className="block_body_cell color-gray">
         <NavLink className="universall_light2" to={`/addresses/${from}`}>
           {sliceData5(from)}

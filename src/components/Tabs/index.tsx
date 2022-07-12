@@ -296,7 +296,7 @@ const Tabs: FC<TabsProps> = ({
 
         {/*{type !== 'contract' ? (*/}
         {/*  <>*/}
-        <section className="tabs_table">
+        <section className="tabs_table" style={{ transform: 'translateX(-17px)'}}>
           {renderData?.length && (
             <AddressBlocksHeader
               txhash="txHash"
@@ -312,9 +312,9 @@ const Tabs: FC<TabsProps> = ({
               isTableColumn={isTableColumn}
             />
           )}
-
-          {renderData?.length !== 0
-            ? renderData?.map((transaction: TransactionProps, index: number) =>
+          <div>
+            {renderData?.length !== 0
+              ? renderData?.map((transaction: TransactionProps, index: number) =>
                 (renderData.length > 30 &&
                   renderData.length - 9 === index &&
                   type !== 'ERC-20_Tx') ||
@@ -362,7 +362,8 @@ const Tabs: FC<TabsProps> = ({
                   />
                 ),
               )
-            : null}
+              : null}
+          </div>
 
           {!loading &&
             //TODO вынести условие в константу

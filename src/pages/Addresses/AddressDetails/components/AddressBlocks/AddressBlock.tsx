@@ -70,22 +70,23 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
     (state: any) => state.position,
   );
 
-  const isTxHash: JSX.Element | null = hashOnClick ? (
-    <NavLink
-      to={`/transactions/${txhash}`}
-      className="address_blocks_cell address_blocks_cell-hash universall_light2"
-      style={{ fontWeight: '600' }}
-    >
-      {sliceData10(txhash as string)}
-    </NavLink>
-  ) : (
-    <div
-      className="address_blocks_cell address_blocks_cell-hash universall_light2"
-      style={{ fontWeight: '600' }}
-    >
-      {sliceData10(txhash as string)}
-    </div>
+  const isTxHash: JSX.Element | null = (
+    <>
+      {inners && (
+        <button onClick={handleExpand} className="address_blocks_plus">
+          {isExpanded ? <Minus /> : <Plus />}
+        </button>
+      )}
+      <NavLink
+        to={`/transactions/${txhash}`}
+        className="address_blocks_cell address_blocks_cell-hash universall_light2"
+        style={{ fontWeight: '600' }}
+      >
+        {sliceData10(txhash as string)}
+      </NavLink>
+    </>
   );
+
   const isMethod =
     method === null ? null : (
       <div className="address_blocks_cell" style={{ gap: 4 }}>

@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import {NavLink} from "react-router-dom";
 
 const HeadingInfo = ({ block = { miner: '', number: 0 } }: any) => {
   const func = () => {
@@ -18,7 +19,9 @@ const HeadingInfo = ({ block = { miner: '', number: 0 } }: any) => {
         </div>
         <div className="block_main_title__in">
           <div className="block_main_title_validator">Validator </div>
-          <span className="block_main_title_address">{block?.miner ?? ''}</span>
+          <NavLink to={`apollo/${block?.miner}`} className="block_main_title_address">
+            {block?.miner ?? ''}
+          </NavLink>
         </div>
       </div>
     </>

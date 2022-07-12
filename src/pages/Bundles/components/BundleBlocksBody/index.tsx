@@ -6,6 +6,7 @@ import {
   sliceData10,
   sliceData5,
 } from 'utils/helpers';
+import React from "react";
 
 const BundleBlocksBody = ({ lastCardRef, item }: any) => {
   // const { data } = useTypedSelector((state) => state.bundles);
@@ -52,7 +53,17 @@ const BundleBlocksBody = ({ lastCardRef, item }: any) => {
   );
 
   const isBlock = (
-    <div className="bundle_blocks_body_cell">{item.block.number}</div>
+    <div className="bundle_blocks_body_cell">
+      <NavLink
+        className="address_blocks_icon"
+        style={{
+          fontWeight: 400,
+        }}
+        to={`/blocks/${item.block.number}`}
+      >
+        {item.block.number}
+      </NavLink>
+    </div>
   );
   const isBundleCost = (
     <div className="bundle_blocks_body_cell">
