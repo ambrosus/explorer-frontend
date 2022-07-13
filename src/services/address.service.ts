@@ -260,6 +260,7 @@ async function explorerData(address: string, { page, limit, type }: any) {
         token: 'Amber',
         symbol: 'AMB',
         txFee: ethers.utils.formatUnits(t?.gasCost?.wei, 18),
+        inners: t?.inners,
       };
     });
   } catch (e) {

@@ -46,6 +46,7 @@ export type TransactionProps = {
 };
 
 export interface ExplorerTxType {
+  inners: any;
   hash: any;
   type: any;
   from: string | any[];

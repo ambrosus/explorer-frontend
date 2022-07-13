@@ -264,7 +264,6 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
     ) : (
       <></>
     );
-
   return (
     <>
       <div className={isTableColumn} ref={lastCardRef}>
