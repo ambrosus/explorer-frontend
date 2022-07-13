@@ -43,7 +43,7 @@ export const getAccountTxData = async (
         page: next,
       };
   const data: any = await API.getAccountTx(address).catch(() =>
-    window.location.replace('/notfound'),
+    window.location.href = '/notfound',
   );
   return data;
 };

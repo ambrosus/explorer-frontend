@@ -29,7 +29,6 @@ export const TransactionDetails = () => {
   const [isInputExpanded, setIsInputExpanded] = useState<string | boolean>(
     'null',
   );
-
   const [txData, setTxData] = useState({
     value: {
       ether: '',
@@ -54,6 +53,7 @@ export const TransactionDetails = () => {
     api.getTransaction(hash).then((res: any) => {
       if (res.meta?.code === 200) {
         setTxData(res.data);
+
       }
     });
   }, [hash]);

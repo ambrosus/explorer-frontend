@@ -1,8 +1,8 @@
 import API from '../API/api';
-import { useDebounce } from './useDebounce';
-import { ChangeEvent, FormEvent, useState } from 'react';
-import { useQuery } from 'react-query';
-import { useNavigate } from 'react-router-dom';
+import {useDebounce} from './useDebounce';
+import {ChangeEvent, FormEvent, useState} from 'react';
+import {useQuery} from 'react-query';
+import {useNavigate} from 'react-router-dom';
 
 const useSearch = (setIsShow: Function) => {
   const [err, setErr] = useState<boolean>(false);
@@ -10,7 +10,7 @@ const useSearch = (setIsShow: Function) => {
   const [link, setLink] = useState<string>('');
   const navigate = useNavigate();
 
-  const { isLoading } = useQuery(['search', name], () => API.searchItem(name), {
+  const {isLoading} = useQuery(['search', name], () => name?.length > 0 ? API.searchItem(name) : null, {
     onSuccess: (data: any) => {
       if (!data) {
         setErr(true);
@@ -46,6 +46,14 @@ const useSearch = (setIsShow: Function) => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (
+      name.trim() === '0x0000000000000000000000000000000000000000' ||
+      Number(name.trim()) === 0 ||
+      !name.length
+    ) {
+      setErr(true);
+      return;
+    }
     if (!name) {
       return;
     }

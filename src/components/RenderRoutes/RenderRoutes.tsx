@@ -73,7 +73,7 @@ export const RenderRoutes = (props: any) => {
           {...route}
         />
       ))}
-      <Route path="*" element={<Navigate to="/notfound" replace />} />{' '}
+      <Route path="*" element={<Navigate to="/notfound" />} />{' '}
       <Route path="/notfound" element={<Error404 />} />
     </Routes>
   );
