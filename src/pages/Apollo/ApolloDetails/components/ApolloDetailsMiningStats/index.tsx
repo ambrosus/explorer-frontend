@@ -77,7 +77,13 @@ const ApolloDetailsMiningStats = ({ apollo }: any) => {
             {sameDates ? sameDates : filterDate}
           </span>
         </div>
-        <div>
+        <div
+          style={{
+            display: 'flex',
+            height: '100%',
+            alignItems: 'center',
+          }}
+        >
           <ExportCsv miningStats={onSelect} showText={false} />
         </div>
       </div>

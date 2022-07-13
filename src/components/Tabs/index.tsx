@@ -309,60 +309,68 @@ const Tabs: FC<TabsProps> = ({
               txfee={headerTxfee}
               token={headerToken}
               methodFilters={methodFilters}
-              isTableColumn={isTableColumn}
+              isTableColumn={`${isTableColumn} no_border`}
             />
           )}
-
-          {renderData?.length !== 0
-            ? renderData?.map((transaction: TransactionProps, index: number) =>
-                (renderData.length > 30 &&
-                  renderData.length - 9 === index &&
-                  type !== 'ERC-20_Tx') ||
-                (renderData.length < 30 &&
-                  renderData.length - 1 === index &&
-                  type !== 'ERC-20_Tx') ? (
-                  //TODO double code
-                  <AddressBlock
-                    lastCardRef={lastCardRef}
-                    isLatest={type === 'ERC-20_Tx' && !filtered}
-                    onClick={onClick}
-                    key={transaction.txHash}
-                    txhash={transaction.txHash}
-                    method={transaction.method}
-                    from={transaction.from}
-                    to={transaction.to}
-                    date={moment(transaction.date).fromNow()}
-                    block={transaction.block}
-                    amount={transaction.amount}
-                    txfee={transaction.txFee}
-                    token={`${transaction?.token ? transaction?.token : null}`}
-                    symbol={`${
-                      transaction?.symbol ? transaction?.symbol : null
-                    }`}
-                    isTableColumn={isTableColumn}
-                  />
-                ) : (
-                  <AddressBlock
-                    isLatest={type === 'ERC-20_Tx' && !filtered}
-                    onClick={onClick}
-                    key={transaction.txHash}
-                    txhash={transaction.txHash}
-                    method={transaction.method}
-                    from={transaction.from}
-                    to={transaction.to}
-                    date={moment(transaction.date).fromNow()}
-                    block={transaction.block}
-                    amount={transaction.amount}
-                    txfee={transaction.txFee}
-                    token={`${transaction?.token ? transaction?.token : 'AMB'}`}
-                    symbol={`${
-                      transaction?.symbol ? transaction?.symbol : 'AMB'
-                    }`}
-                    isTableColumn={isTableColumn}
-                  />
-                ),
-              )
-            : null}
+          <div>
+            {renderData?.length !== 0
+              ? renderData?.map(
+                  (transaction: TransactionProps, index: number) =>
+                    (renderData.length > 30 &&
+                      renderData.length - 9 === index &&
+                      type !== 'ERC-20_Tx') ||
+                    (renderData.length < 30 &&
+                      renderData.length - 1 === index &&
+                      type !== 'ERC-20_Tx') ? (
+                      //TODO double code
+                      <AddressBlock
+                        lastCardRef={lastCardRef}
+                        isLatest={type === 'ERC-20_Tx' && !filtered}
+                        onClick={onClick}
+                        key={transaction.txHash}
+                        txhash={transaction.txHash}
+                        method={transaction.method}
+                        from={transaction.from}
+                        to={transaction.to}
+                        date={moment(transaction.date).fromNow()}
+                        block={transaction.block}
+                        amount={transaction.amount}
+                        txfee={transaction.txFee}
+                        token={`${
+                          transaction?.token ? transaction?.token : null
+                        }`}
+                        symbol={`${
+                          transaction?.symbol ? transaction?.symbol : null
+                        }`}
+                        isTableColumn={isTableColumn}
+                        inners={transaction.inners}
+                      />
+                    ) : (
+                      <AddressBlock
+                        isLatest={type === 'ERC-20_Tx' && !filtered}
+                        onClick={onClick}
+                        key={transaction.txHash}
+                        txhash={transaction.txHash}
+                        method={transaction.method}
+                        from={transaction.from}
+                        to={transaction.to}
+                        date={moment(transaction.date).fromNow()}
+                        block={transaction.block}
+                        amount={transaction.amount}
+                        txfee={transaction.txFee}
+                        token={`${
+                          transaction?.token ? transaction?.token : 'AMB'
+                        }`}
+                        symbol={`${
+                          transaction?.symbol ? transaction?.symbol : 'AMB'
+                        }`}
+                        isTableColumn={isTableColumn}
+                        inners={transaction.inners}
+                      />
+                    ),
+                )
+              : null}
+          </div>
 
           {!loading &&
             //TODO вынести условие в константу

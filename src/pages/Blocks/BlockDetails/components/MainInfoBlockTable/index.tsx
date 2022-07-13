@@ -9,7 +9,7 @@ export const MainInfoBlockTable = ({ block }: any) => {
       <div className="main_info_block_table_table">
         <div className="main_info_block_table_cell">
           <span className="main_info_block_table_cell_primary">HASH</span>
-          <span className="main_info_block_table_cell_secondary gray">
+          <span className="main_info_block_table_cell_secondary">
             {hash ?? ''}
           </span>
         </div>

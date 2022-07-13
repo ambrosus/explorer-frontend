@@ -7,7 +7,9 @@
 
   &_table {
     display: grid;
-    grid-template-columns: repeat(5, auto);
+    grid-template-columns:
+      minmax(130px, 1fr) minmax(150px, 1fr)
+      minmax(160px, 1fr) minmax(130px, 1fr) minmax(150px, 1fr);
     background-color: #fff;
     margin-bottom: 32px;
     border: 1px solid #eff2f5;

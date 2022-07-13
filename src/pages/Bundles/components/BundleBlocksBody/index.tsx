@@ -1,4 +1,5 @@
 import { useTypedSelector } from 'hooks/useTypedSelector';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
 import {
   byteToMgb,
@@ -52,7 +53,17 @@ const BundleBlocksBody = ({ lastCardRef, item }: any) => {
   );
 
   const isBlock = (
-    <div className="bundle_blocks_body_cell">{item.block.number}</div>
+    <div className="bundle_blocks_body_cell">
+      <NavLink
+        className="address_blocks_icon"
+        style={{
+          fontWeight: 400,
+        }}
+        to={`/blocks/${item.block.number}`}
+      >
+        {item.block.number}
+      </NavLink>
+    </div>
   );
   const isBundleCost = (
     <div className="bundle_blocks_body_cell">
