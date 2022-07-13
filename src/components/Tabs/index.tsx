@@ -296,7 +296,7 @@ const Tabs: FC<TabsProps> = ({
 
         {/*{type !== 'contract' ? (*/}
         {/*  <>*/}
-        <section className="tabs_table" style={{ transform: 'translateX(-17px)'}}>
+        <section className="tabs_table">
           {renderData?.length && (
             <AddressBlocksHeader
               txhash="txHash"
@@ -309,7 +309,7 @@ const Tabs: FC<TabsProps> = ({
               txfee={headerTxfee}
               token={headerToken}
               methodFilters={methodFilters}
-              isTableColumn={isTableColumn}
+              isTableColumn={`${isTableColumn} no_border`}
             />
           )}
           <div>
@@ -340,6 +340,7 @@ const Tabs: FC<TabsProps> = ({
                       transaction?.symbol ? transaction?.symbol : null
                     }`}
                     isTableColumn={isTableColumn}
+                    inners={transaction.inners}
                   />
                 ) : (
                   <AddressBlock
@@ -359,6 +360,7 @@ const Tabs: FC<TabsProps> = ({
                       transaction?.symbol ? transaction?.symbol : 'AMB'
                     }`}
                     isTableColumn={isTableColumn}
+                    inners={transaction.inners}
                   />
                 ),
               )

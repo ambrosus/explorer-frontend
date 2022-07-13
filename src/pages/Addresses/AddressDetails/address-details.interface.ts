@@ -42,6 +42,7 @@ export type TransactionProps = {
   token: string | undefined;
   txFee: any;
   symbol?: string;
+  inners?: any[];
 };
 
 export interface ExplorerTxType {

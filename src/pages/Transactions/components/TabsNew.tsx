@@ -88,7 +88,7 @@ const TabsNew: FC<TabsNewProps> = ({
           <div className="tabs_heading_filters" tabIndex={-1}>
             {tabs.map((el: any) => (
               <span
-                className={`tabs_link ${
+                className={`tabs_link tabs_link_new ${
                   tab === el.value ? 'tabs_link_active' : ''
                 }`}
                 key={el.title}

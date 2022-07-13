@@ -30,6 +30,7 @@
       minmax(115px, 2fr) minmax(120px, 2fr)
       minmax(250px, 3.5fr) minmax(220px, 2.5fr);
     padding-left: 6px;
+    border-bottom: 1px solid #eff2f5;
 
     &:hover {
       background-color: #eff2f5;
@@ -51,7 +52,6 @@
       position: relative;
       align-items: center;
       height: 48px;
-      border-bottom: 1px solid #eff2f5;
     }
     &_icon {
       display: flex;
