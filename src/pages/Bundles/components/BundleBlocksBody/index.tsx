@@ -1,4 +1,5 @@
 import { useTypedSelector } from 'hooks/useTypedSelector';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
 import {
   byteToMgb,
@@ -6,7 +7,6 @@ import {
   sliceData10,
   sliceData5,
 } from 'utils/helpers';
-import React from "react";
 
 const BundleBlocksBody = ({ lastCardRef, item }: any) => {
   // const { data } = useTypedSelector((state) => state.bundles);

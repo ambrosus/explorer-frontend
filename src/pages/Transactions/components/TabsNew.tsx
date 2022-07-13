@@ -1,4 +1,6 @@
+import Calendar from '../../../components/Calendar';
 import Loader from '../../../components/Loader';
+import { useOnClickOutside } from '../../../hooks/useOnClickOutside';
 import AddressBlocksHeader from '../../Addresses/AddressDetails/components/AddressBlocksHeader';
 import { TabsNewProps } from '../transactions.interface';
 import SideMenu from 'assets/icons/SideMenu';
@@ -7,8 +9,6 @@ import useDeviceSize from 'hooks/useDeviceSize';
 import { AccountsData } from 'pages/Addresses/addresses.interface';
 import React, { FC, useEffect, useRef, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
-import Calendar from "../../../components/Calendar";
-import {useOnClickOutside} from "../../../hooks/useOnClickOutside";
 
 const TabsNew: FC<TabsNewProps> = ({
   tabs,
@@ -113,7 +113,10 @@ const TabsNew: FC<TabsNewProps> = ({
               ) : (
                 <>
                   <div className="tabs_side_menu">
-                    <button className="tabs_side_menu_icon" onClick={handleShow}>
+                    <button
+                      className="tabs_side_menu_icon"
+                      onClick={handleShow}
+                    >
                       <SideMenu />
                     </button>
                   </div>

@@ -8,7 +8,11 @@ export const Content: FC<IContentProps> & ITabsComposition = ({
   isExpanded,
 }: IContentProps) => (
   <div className="content">
-    <div className={`content_backgorund ${isExpanded ? 'content_backgorund_expanded' : ''}`}>
+    <div
+      className={`content_backgorund ${
+        isExpanded ? 'content_backgorund_expanded' : ''
+      }`}
+    >
       {children}
     </div>
     {!isLoading && <Loader />}

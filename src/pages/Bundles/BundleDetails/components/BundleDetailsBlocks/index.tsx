@@ -2,7 +2,7 @@ import BundleDetailsBlock from '../BundleDetailsBlock';
 import Loader from 'components/Loader';
 import useAdressData from 'hooks/useAdressData';
 import useSortData from 'hooks/useSortData';
-import {useEffect, useRef, useState} from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   getBundleAssetsData,
   getBundleData,

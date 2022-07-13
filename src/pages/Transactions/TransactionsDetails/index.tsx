@@ -1,3 +1,4 @@
+import { Currency } from '../../../components/UI/Currency';
 import AddressBlock from '../../Addresses/AddressDetails/components/AddressBlocks/AddressBlock';
 import AddressBlocksHeader from '../../Addresses/AddressDetails/components/AddressBlocksHeader';
 import api from 'API/api';
@@ -12,8 +13,12 @@ import { useTypedSelector } from 'hooks/useTypedSelector';
 import moment from 'moment';
 import React, { useEffect, useRef, useState } from 'react';
 import { NavLink, useParams } from 'react-router-dom';
-import {displayAmount, numberWithCommas, sliceData10, sliceData5} from 'utils/helpers';
-import {Currency} from "../../../components/UI/Currency";
+import {
+  displayAmount,
+  numberWithCommas,
+  sliceData10,
+  sliceData5,
+} from 'utils/helpers';
 
 export const TransactionDetails = () => {
   const { hash } = useParams();
@@ -21,7 +26,9 @@ export const TransactionDetails = () => {
   const { FOR_TABLET } = useDeviceSize();
   const ref = useRef(null);
   const { data: appData } = useTypedSelector((state: any) => state.app);
-  const [isInputExpanded, setIsInputExpanded] = useState<string | boolean>('null');
+  const [isInputExpanded, setIsInputExpanded] = useState<string | boolean>(
+    'null',
+  );
 
   const [txData, setTxData] = useState({
     value: {
@@ -57,7 +64,7 @@ export const TransactionDetails = () => {
     } else {
       setIsInputExpanded('null');
     }
-  }, [txData, hash])
+  }, [txData, hash]);
 
   const checkOverflow = (el: any) => {
     var curOverflow = el.style.overflow;
@@ -74,7 +81,8 @@ export const TransactionDetails = () => {
 
   const showInputData = () => setIsInputExpanded((state) => !state);
 
-  const confirmations = appData?.netInfo?.lastBlock?.number - txData?.blockNumber;
+  const confirmations =
+    appData?.netInfo?.lastBlock?.number - txData?.blockNumber;
 
   return (
     <Content>
@@ -116,7 +124,10 @@ export const TransactionDetails = () => {
               AMOUNT
             </p>
             <p className="atlas_details_balance_fonts_bold">
-              <Currency value={displayAmount(txData.value.ether) || 0} symbol="AMB" />
+              <Currency
+                value={displayAmount(txData.value.ether) || 0}
+                symbol="AMB"
+              />
             </p>
           </div>
           {txData.from && (
@@ -172,12 +183,15 @@ export const TransactionDetails = () => {
               NONCE (POSITION)
             </p>
             <p className="atlas_details_balance_fonts_bold">
-              {numberWithCommas(txData.nonce)} ({txData.transactionIndex || '-'})
+              {numberWithCommas(txData.nonce)} ({txData.transactionIndex || '-'}
+              )
             </p>
           </div>
           <div
             className={`apollo_details_balance_cells ${
-              isInputExpanded === true ? 'apollo_details_balance_cells--expanded' : ''
+              isInputExpanded === true
+                ? 'apollo_details_balance_cells--expanded'
+                : ''
             }`}
           >
             <p className="apollo_details_balance_fonts_normal universall_light1">
@@ -220,10 +234,7 @@ export const TransactionDetails = () => {
             </p>
             <p className="atlas_details_balance_fonts_bold">
               {numberWithCommas(txData.blockNumber || 0)} (
-              {numberWithCommas(
-                confirmations > 0 ? confirmations : 0,
-              )}
-              )
+              {numberWithCommas(confirmations > 0 ? confirmations : 0)})
             </p>
           </div>
         </div>

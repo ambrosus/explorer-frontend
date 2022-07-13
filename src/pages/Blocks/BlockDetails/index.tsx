@@ -79,14 +79,14 @@ export const BlockDetails = () => {
         <BlockHeaderInfo lastBlock={lastBlock} block={block} />
         <MainInfoBlockTable block={block} />
       </Content.Header>
-        {renderData?.data?.length && (
-          <Content.Body>
-            <div className="blocks_main">
-              <DataTitle title="Transactions" />
-              <div className="blocks_main_table">
-                <BlockHeader />
-                {renderData?.data?.length
-                  ? renderData.data.map((item: any, index: number) => (
+      {renderData?.data?.length && (
+        <Content.Body>
+          <div className="blocks_main">
+            <DataTitle title="Transactions" />
+            <div className="blocks_main_table">
+              <BlockHeader />
+              {renderData?.data?.length
+                ? renderData.data.map((item: any, index: number) => (
                     <BlockBody
                       lastCardRef={
                         renderData?.data?.length - 1 === index &&
@@ -98,12 +98,12 @@ export const BlockDetails = () => {
                       item={item}
                     />
                   ))
-                  : null}
-              </div>
-              {!loading && renderData?.pagination?.hasNext && <Loader />}
+                : null}
             </div>
-          </Content.Body>
-        )}
+            {!loading && renderData?.pagination?.hasNext && <Loader />}
+          </div>
+        </Content.Body>
+      )}
     </Content>
   );
 };
