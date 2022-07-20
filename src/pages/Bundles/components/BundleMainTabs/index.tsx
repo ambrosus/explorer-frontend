@@ -6,10 +6,10 @@ const BundleMainTabs = ({ data }: any) => {
   const {
     totalBundles,
     bundlesActivity,
-    totalAssets,
-    totalEvents,
+    totalAssets = 0,
+    totalEvents = 0,
     bundleCost,
-  } = data || 0;
+  } = data || {};
 
   const { data: appData } = useTypedSelector((state: any) => state.app);
 

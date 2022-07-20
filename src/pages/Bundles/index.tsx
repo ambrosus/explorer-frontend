@@ -2,29 +2,28 @@ import { Content } from 'components/Content';
 import Loader from 'components/Loader';
 import { useActions } from 'hooks/useActions';
 import useAsyncStoreData from 'hooks/useAsyncStoreData';
-import useSortData from 'hooks/useSortData';
-import useStoreData from 'hooks/useStoreData';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import BundleBlocksBody from 'pages/Bundles/components/BundleBlocksBody';
 import BundleBlocksHeader from 'pages/Bundles/components/BundleBlocksHeader';
 import BundleMainTabs from 'pages/Bundles/components/BundleMainTabs';
-import { useEffect, useState } from 'react';
-import { useInView } from 'react-intersection-observer';
-import { getBundleInfo, getBundlesData } from 'services/bundle.service';
-import removeArrayDuplicates from 'utils/helpers';
+import { useEffect } from 'react';
+import { getBundlesData as getBundlesRender } from 'services/bundle.service';
 
 export const Bundles = () => {
-  // const { getBundlesData } = useActions();
+  const { getBundlesData } = useActions();
+  useEffect(() => {
+    getBundlesData();
+  }, []);
 
-  const { loading, data } = useTypedSelector((state) => state.bundles);
+  const { data } = useTypedSelector((state) => state.bundles);
+  const { bundleInfo } = data || {};
 
-  const { renderData: data1 } = useAsyncStoreData(getBundleInfo);
-  const { ref: ref1, renderData: data2 } = useAsyncStoreData(getBundlesData);
+  const { ref: ref1, renderData: data2 } = useAsyncStoreData(getBundlesRender);
 
   return (
     <Content>
       <Content.Header>
-        <BundleMainTabs data={data1} />
+        <BundleMainTabs data={bundleInfo} />
       </Content.Header>
       <Content.Body>
         <div className="bundles_blocks">

@@ -188,7 +188,7 @@ export const getAtlasData: ActionsFetch = (
 };
 
 export const getBundlesData = (
-  address: any = '',
+  address: any = undefined,
   params: any = { limit: 20, next: null },
 ) => {
   return async (dispatch: Dispatch<BunlesDataAction>) => {
@@ -196,24 +196,23 @@ export const getBundlesData = (
       type: actionTypes.SET_BUNDLES_DATA__START,
     });
     try {
-      const bundle = await API.getBundle(address);
-      const bundlesData = await API.getBundles(params);
-      const bundleAssets = await API.getBundleAssets(address, {
-        params,
-      });
-      const bundleEvents = await API.getBundleEvents(address, {
-        params,
-      });
       const bundleInfo = await API.getInfo();
+
+      if (!!address) {
+        const bundle = await API.getBundle(address);
+        dispatch({
+          type: actionTypes.SET_BUNDLES_DATA__SUCCESS,
+          payload: {
+            gitTagVersion: CLIENT_VERSION,
+            bundle: bundle,
+          },
+        });
+      }
 
       dispatch({
         type: actionTypes.SET_BUNDLES_DATA__SUCCESS,
         payload: {
           gitTagVersion: CLIENT_VERSION,
-          // bundle: bundle,
-          // bundlesData: bundlesData,
-          // bundleAssets: bundleAssets,
-          // bundleEvents: bundleEvents,
           bundleInfo: bundleInfo,
         },
       });

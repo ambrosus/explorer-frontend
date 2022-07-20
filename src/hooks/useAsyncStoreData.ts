@@ -12,7 +12,7 @@ const useAsyncStoreData = (funcAction: any) => {
   const [loading, setLoading] = useState(true);
 
   const firstRender = () => {
-    funcAction(address, null).then(
+    funcAction(address).then(
       (res: any) => setRenderData(res),
       setLoading(false),
     );
@@ -23,13 +23,13 @@ const useAsyncStoreData = (funcAction: any) => {
   }, []);
 
   useEffect(() => {
-    const { hasNext } = renderData?.pagination || false;
     const { next } = renderData?.pagination || {};
+    const { hasNext } = renderData?.pagination || false;
 
     if (hasNext && !!renderData) {
       setLoading(true);
       if (address) {
-        funcAction(address, next).then((res: any) => {
+        funcAction(address, { limit: 20, next: next }).then((res: any) => {
           setRenderData((prev: any) => {
             return {
               data: removeArrayDuplicates([...prev.data, ...res?.data]),
