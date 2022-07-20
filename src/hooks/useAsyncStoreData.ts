@@ -50,8 +50,6 @@ const useAsyncStoreData = (funcAction: any) => {
     }
   }, [inView]);
 
-  console.log(inView);
-
   return { ref, renderData, loading };
 };
 

@@ -15,20 +15,11 @@ import removeArrayDuplicates from 'utils/helpers';
 
 export const Bundles = () => {
   // const { getBundlesData } = useActions();
-  const { renderData: appData } = useSortData(getBundleInfo, '');
 
   const { loading, data } = useTypedSelector((state) => state.bundles);
 
-  const { bundlesData, bundleInfo } = data || {};
-
-  const { ref, renderData } = useStoreData(
-    bundlesData,
-    getBundlesData,
-    loading,
-  );
   const { renderData: data1 } = useAsyncStoreData(getBundleInfo);
   const { ref: ref1, renderData: data2 } = useAsyncStoreData(getBundlesData);
-  console.log(data2);
 
   return (
     <Content>
