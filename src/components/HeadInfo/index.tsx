@@ -1,6 +1,6 @@
 import HeadInfoCell from 'components/HeadInfo/HeadInfoCell';
 
-const HeadInfo = ({ data, className, style, page }: any) => {
+const HeadInfo = ({ data, className, style = {} }: any) => {
   return (
     <div className={className} style={style}>
       {data?.map((item: any) => (
