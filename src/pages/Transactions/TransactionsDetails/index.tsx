@@ -1,3 +1,4 @@
+import { Currency } from '../../../components/UI/Currency';
 import AddressBlock from '../../Addresses/AddressDetails/components/AddressBlocks/AddressBlock';
 import AddressBlocksHeader from '../../Addresses/AddressDetails/components/AddressBlocksHeader';
 import api from 'API/api';
@@ -11,8 +12,13 @@ import useDeviceSize from 'hooks/useDeviceSize';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import moment from 'moment';
 import React, { useEffect, useRef, useState } from 'react';
-import { NavLink, useNavigate, useParams } from 'react-router-dom';
-import { numberWithCommas, sliceData10, sliceData5 } from 'utils/helpers';
+import { NavLink, useParams } from 'react-router-dom';
+import {
+  displayAmount,
+  numberWithCommas,
+  sliceData10,
+  sliceData5,
+} from 'utils/helpers';
 
 export const TransactionDetails = () => {
   const { hash } = useParams();
@@ -20,8 +26,9 @@ export const TransactionDetails = () => {
   const { FOR_TABLET } = useDeviceSize();
   const ref = useRef(null);
   const { data: appData } = useTypedSelector((state: any) => state.app);
-  const [isInputExpanded, setIsInputExpanded] = useState<null | boolean>(null);
-
+  const [isInputExpanded, setIsInputExpanded] = useState<string | boolean>(
+    'null',
+  );
   const [txData, setTxData] = useState({
     value: {
       ether: '',
@@ -48,12 +55,15 @@ export const TransactionDetails = () => {
         setTxData(res.data);
       }
     });
-    setTimeout(() => {
-      if (checkOverflow(ref.current)) {
-        setIsInputExpanded(false);
-      }
-    }, 100);
-  }, []);
+  }, [hash]);
+
+  useEffect(() => {
+    if (checkOverflow(ref.current)) {
+      setIsInputExpanded(false);
+    } else {
+      setIsInputExpanded('null');
+    }
+  }, [txData, hash]);
 
   const checkOverflow = (el: any) => {
     var curOverflow = el.style.overflow;
@@ -68,7 +78,10 @@ export const TransactionDetails = () => {
     return isOverflowing;
   };
 
-  const showInputData = () => setIsInputExpanded(true);
+  const showInputData = () => setIsInputExpanded((state) => !state);
+
+  const confirmations =
+    appData?.netInfo?.lastBlock?.number - txData?.blockNumber;
 
   return (
     <Content>
@@ -110,7 +123,10 @@ export const TransactionDetails = () => {
               AMOUNT
             </p>
             <p className="atlas_details_balance_fonts_bold">
-              {txData.value.ether} AMB
+              <Currency
+                value={displayAmount(txData.value.ether) || 0}
+                symbol="AMB"
+              />
             </p>
           </div>
           {txData.from && (
@@ -127,18 +143,20 @@ export const TransactionDetails = () => {
               </NavLink>
             </div>
           )}
-          <div className="apollo_details_balance_cells">
-            <p className="apollo_details_balance_fonts_normal universall_light1">
-              TO
-            </p>
-            <NavLink
-              style={{ fontSize: '14px', fontWeight: 600 }}
-              to={`/addresses/${txData.to}`}
-              className="universall_light1"
-            >
-              {sliceData10(txData.to as string, 7)}
-            </NavLink>
-          </div>
+          {txData.to && (
+            <div className="apollo_details_balance_cells">
+              <p className="apollo_details_balance_fonts_normal universall_light1">
+                TO
+              </p>
+              <NavLink
+                style={{ fontSize: '14px', fontWeight: 600 }}
+                to={`/addresses/${txData.to}`}
+                className="universall_light1"
+              >
+                {sliceData10(txData.to as string, 7)}
+              </NavLink>
+            </div>
+          )}
           <div className="apollo_details_balance_cells">
             <p className="apollo_details_balance_fonts_normal universall_light1">
               TX FEE
@@ -164,12 +182,15 @@ export const TransactionDetails = () => {
               NONCE (POSITION)
             </p>
             <p className="atlas_details_balance_fonts_bold">
-              {numberWithCommas(txData.nonce)} ({txData.transactionIndex})
+              {numberWithCommas(txData.nonce)} ({txData.transactionIndex || '-'}
+              )
             </p>
           </div>
           <div
             className={`apollo_details_balance_cells ${
-              isInputExpanded ? 'apollo_details_balance_cells--expanded' : ''
+              isInputExpanded === true
+                ? 'apollo_details_balance_cells--expanded'
+                : ''
             }`}
           >
             <p className="apollo_details_balance_fonts_normal universall_light1">
@@ -179,14 +200,14 @@ export const TransactionDetails = () => {
               className="atlas_details_balance_fonts_bold"
               ref={ref}
               style={
-                isInputExpanded
+                isInputExpanded === true
                   ? { wordBreak: 'break-all' }
                   : { paddingRight: '20px' }
               }
             >
-              {txData.input}
+              {txData.input === '0x' ? '—' : txData.input}
             </p>
-            {isInputExpanded === false && (
+            {isInputExpanded !== 'null' && (
               <span onClick={showInputData} className="address_blocks_eye_icon">
                 <Eye />
               </span>
@@ -194,24 +215,25 @@ export const TransactionDetails = () => {
           </div>
         </div>
         <div className="apollo_details_balance apollo_details_balance-tx3">
-          <div className="apollo_details_balance_cells">
+          <div className="apollo_details_balance_cells apollo_details_balance_cells--expanded">
             <p className="apollo_details_balance_fonts_normal universall_light1">
               BLOCK HASH
             </p>
-            <p
+            <NavLink
+              to={`/blocks/${txData.blockHash}`}
               className="atlas_details_balance_fonts_bold"
-              style={{ color: '#808A9D' }}
+              style={{ color: '#808A9D', wordBreak: 'break-all' }}
             >
               {txData.blockHash}
-            </p>
+            </NavLink>
           </div>
           <div className="apollo_details_balance_cells">
             <p className="apollo_details_balance_fonts_normal universall_light1">
               HEIGHT / CONFIRMATIONS
             </p>
             <p className="atlas_details_balance_fonts_bold">
-              {numberWithCommas(txData.blockNumber)} (
-              {appData?.netInfo?.lastBlock?.number - txData.blockNumber})
+              {numberWithCommas(txData.blockNumber || 0)} (
+              {numberWithCommas(confirmations > 0 ? confirmations : 0)})
             </p>
           </div>
         </div>
@@ -221,7 +243,7 @@ export const TransactionDetails = () => {
           <div className="container" style={{ margin: '0 auto' }}>
             <p className="transactions_details_list_title">Transactions</p>
           </div>
-          <div className="container" style={{ margin: '0 auto' }}>
+          <div className="transactions_details_list_wrapper container">
             <AddressBlocksHeader
               txhash="txHash"
               method="Method"
@@ -233,17 +255,15 @@ export const TransactionDetails = () => {
               txfee="txFee"
               token={null}
               methodFilters={null}
-              isTableColumn={'address_blocks_cells'}
+              isTableColumn={'address_blocks_cells no_border'}
             />
-          </div>
-          <div className="transactions_details_list_wrapper container">
             {!!txData.inners &&
               txData.inners.map((tx: any, i) => (
                 <AddressBlock
                   isLatest={true}
                   key={i}
                   txhash={tx.hash}
-                  method={tx.type}
+                  method={tx.type.split(':')[0]}
                   from={tx.from}
                   to={tx.to}
                   date={moment(tx.timestamp * 1000).fromNow()}

@@ -45,7 +45,7 @@ const ExportCsv = ({ miningStats, showText = true }: any) => {
       }
     : {
         top: topPosition(),
-        left: 0,
+        left: '-137px',
       };
 
   return (

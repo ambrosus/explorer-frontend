@@ -6,7 +6,6 @@
     height: 56px;
     grid-template-columns: 1fr 1fr;
     grid-row-gap: 3vw;
-    border-bottom: 1px solid $secondary;
     background-color: white;
     z-index: 1;
     overflow-x: auto;
@@ -25,7 +24,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: flex-end;
-      position: relative;
+      // position: relative;
 
       @include for_tablet {
         width: 100%;
@@ -44,11 +43,9 @@
 
   &_table {
     padding-left: 10px;
-    // transform: translateX(-26px);
-
+    min-height: 350px;
     -ms-overflow-style: none;
     scrollbar-width: none;
-    display: grid;
     position: relative;
     white-space: nowrap;
     overflow-x: scroll;
@@ -61,12 +58,12 @@
       overflow-y: scroll;
     }
   }
-.contract-link{
-  font-size: 12px;
-  font-weight: 700;
-  line-height: 32px;
-  margin-right: 12px;
-}
+  .contract-link {
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 32px;
+    margin-right: 12px;
+  }
   &_link {
     color: $main-light;
     text-decoration: none;

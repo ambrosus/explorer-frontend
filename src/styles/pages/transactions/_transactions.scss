@@ -12,8 +12,14 @@
   }
 
   &_wrapper {
-    margin: 0 auto;
     overflow: auto;
+    margin: 0 auto;
+    padding: 0;
+    transform: translateX(-17px);
+
+    @include for_laptop {
+      transform: none;
+    }
   }
 }
 .transaction_details {
@@ -37,8 +43,8 @@
 
     &--expanded {
       height: auto;
-      padding-top: 30px;
-      padding-bottom: 30px;
+      // padding-top: 30px;
+      // padding-bottom: 30px;
 
       @media screen and (max-width: 1000px) {
         padding-top: 12px;

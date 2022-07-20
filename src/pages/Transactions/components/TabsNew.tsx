@@ -1,8 +1,13 @@
+import Calendar from '../../../components/Calendar';
 import Loader from '../../../components/Loader';
+import { useOnClickOutside } from '../../../hooks/useOnClickOutside';
 import AddressBlocksHeader from '../../Addresses/AddressDetails/components/AddressBlocksHeader';
 import { TabsNewProps } from '../transactions.interface';
+import SideMenu from 'assets/icons/SideMenu';
+import ExportCsv from 'components/ExportCsv';
+import useDeviceSize from 'hooks/useDeviceSize';
 import { AccountsData } from 'pages/Addresses/addresses.interface';
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 
 const TabsNew: FC<TabsNewProps> = ({
@@ -10,9 +15,12 @@ const TabsNew: FC<TabsNewProps> = ({
   fetchData,
   fetchParams,
   render,
+  withoutCalendar,
 }) => {
   const [loading, setLoading] = useState(true);
   const [tab, setTab] = useState('');
+  const [isShow, setIsShow] = useState(false);
+
   const { ref, inView } = useInView();
   const [tabData, setTabData] = useState<AccountsData>({
     data: [],
@@ -21,6 +29,13 @@ const TabsNew: FC<TabsNewProps> = ({
       next: null,
     },
   });
+
+  const mobileCalendarRef = useRef(null);
+  const { FOR_TABLET } = useDeviceSize();
+
+  useOnClickOutside(mobileCalendarRef, () => setIsShow(false));
+
+  const handleShow = () => setIsShow(!isShow);
 
   useEffect(() => {
     setTabData({
@@ -73,7 +88,7 @@ const TabsNew: FC<TabsNewProps> = ({
           <div className="tabs_heading_filters" tabIndex={-1}>
             {tabs.map((el: any) => (
               <span
-                className={`tabs_link ${
+                className={`tabs_link tabs_link_new ${
                   tab === el.value ? 'tabs_link_active' : ''
                 }`}
                 key={el.title}
@@ -83,22 +98,50 @@ const TabsNew: FC<TabsNewProps> = ({
               </span>
             ))}
           </div>
+          {isShow && (
+            <div
+              ref={mobileCalendarRef}
+              className="tabs_heading_export_modal_mobile"
+            >
+              <Calendar />
+            </div>
+          )}
+          {!withoutCalendar && (
+            <div ref={mobileCalendarRef} className="tabs_heading_export_modal">
+              {FOR_TABLET ? (
+                <ExportCsv />
+              ) : (
+                <>
+                  <div className="tabs_side_menu">
+                    <button
+                      className="tabs_side_menu_icon"
+                      onClick={handleShow}
+                    >
+                      <SideMenu />
+                    </button>
+                  </div>
+                </>
+              )}
+            </div>
+          )}
         </div>
       </div>
-      <AddressBlocksHeader
-        txhash="txHash"
-        method="Method"
-        from="From"
-        to="To"
-        date="Date"
-        block="Block"
-        amount="Amount"
-        txfee="txFee"
-        token={null}
-        methodFilters={null}
-        isTableColumn={'address_blocks_cells'}
-      />
-      {!!tabData.data.length && render(tabData.data)}
+      <div className="transactions_wrapper">
+        <AddressBlocksHeader
+          txhash="txHash"
+          method="Method"
+          from="From"
+          to="To"
+          date="Date"
+          block="Block"
+          amount="Amount"
+          txfee="txFee"
+          token={null}
+          methodFilters={null}
+          isTableColumn={'address_blocks_cells no_border'}
+        />
+        {!!tabData.data.length && render(tabData.data)}
+      </div>
       <div ref={ref} />
       {loading && <Loader />}
     </>

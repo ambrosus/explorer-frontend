@@ -11,15 +11,14 @@
   &_cells {
     position: relative;
     display: grid;
-    max-width: 100%;
+    width: fit-content;
     grid-template-columns:
       minmax(100px, 4fr) minmax(190px, 2fr) minmax(115px, 2fr)
       minmax(115px, 2fr) minmax(120px, 2fr) minmax(120px, 2fr)
       minmax(220px, 4fr) minmax(100px, 2fr);
-
+    margin-left: 17px;
     padding-left: 6px;
     border-bottom: 1px solid #eff2f5;
-
     &:hover {
       background-color: #eff2f5;
     }
@@ -31,6 +30,7 @@
       minmax(115px, 2fr) minmax(120px, 2fr)
       minmax(250px, 3.5fr) minmax(220px, 2.5fr);
     padding-left: 6px;
+    border-bottom: 1px solid #eff2f5;
 
     &:hover {
       background-color: #eff2f5;
@@ -40,7 +40,6 @@
     display: flex;
     position: relative;
     align-items: center;
-    border-bottom: 1px solid #eff2f5;
 
     height: 48px;
     &_token {
@@ -53,7 +52,6 @@
       position: relative;
       align-items: center;
       height: 48px;
-      border-bottom: 1px solid #eff2f5;
     }
     &_icon {
       display: flex;
@@ -67,13 +65,16 @@
   &_plus {
     position: absolute;
     background: transparent;
-    left: -16px;
+    left: -11px;
     top: 15px;
   }
   &_eye_icon {
     position: absolute;
     right: 18px;
     bottom: 33px;
+    &:hover {
+      cursor: pointer;
+    }
 
     @media screen and (max-width: 1000px) {
       bottom: 12px;
