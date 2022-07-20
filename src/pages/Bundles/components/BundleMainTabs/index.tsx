@@ -58,8 +58,8 @@ const BundleMainTabs = ({ data }: any) => {
   return (
     <>
       <h1 style={{ margin: '32px 0' }}>Bundles</h1>
-      <HeadInfo data={itemFirst} className="bundle_tabs" />
-      <HeadInfo data={itemSecond} className="bundle_tabs" />
+      <HeadInfo data={itemFirst} className="head_info head_bundle" />
+      <HeadInfo data={itemSecond} className="head_info" />
       {}
     </>
   );
