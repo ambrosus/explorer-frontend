@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { useParams } from 'react-router-dom';
 import removeArrayDuplicates, { log } from 'utils/helpers';
@@ -16,8 +16,6 @@ const useAsyncStoreData = (funcAction: any) => {
       (res: any) => setRenderData(res),
       setLoading(false),
     );
-
-    // funcAction(null).then((res: any) => setRenderData(res), setLoading(false));
   };
 
   useEffect(() => {
