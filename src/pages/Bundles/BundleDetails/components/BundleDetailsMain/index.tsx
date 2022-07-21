@@ -1,6 +1,5 @@
 import CopyBtn from 'components/CopyBtn';
 import useDeviceSize from 'hooks/useDeviceSize';
-import { useTypedSelector } from 'hooks/useTypedSelector';
 import { useParams } from 'react-router-dom';
 import { sliceDataString } from 'utils/helpers';
 
@@ -8,9 +7,9 @@ const BundleDetailsMain = () => {
   const { address } = useParams();
 
   const sptilStr = sliceDataString(address);
-  const { FOR_PHONE } = useDeviceSize();
+  console.log(sptilStr);
 
-  const { data: renderData } = useTypedSelector((state) => state.bundles);
+  const { FOR_PHONE } = useDeviceSize();
 
   return (
     <>
@@ -24,7 +23,7 @@ const BundleDetailsMain = () => {
               <>{address}</>
             ) : (
               <div>
-                {sptilStr.map(({ item, index }: any) => (
+                {sptilStr.map((item: string) => (
                   <p key={Math.random()}>{item}</p>
                 ))}
               </div>

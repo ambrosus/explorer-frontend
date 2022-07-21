@@ -1,5 +1,4 @@
 import HeadInfo from 'components/HeadInfo';
-import { useTypedSelector } from 'hooks/useTypedSelector';
 import { NavLink } from 'react-router-dom';
 import { BUNDLE_MAX_LOAD } from 'utils/constants';
 import {

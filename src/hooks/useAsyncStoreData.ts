@@ -21,12 +21,11 @@ const useAsyncStoreData = (funcAction: any) => {
   useEffect(() => {
     firstRender();
   }, []);
+  const { hasNext } = renderData?.pagination || false;
 
   useEffect(() => {
     const { next } = renderData?.pagination || {};
-    const { hasNext } = renderData?.pagination || false;
-
-    if (hasNext && !!renderData) {
+    if (hasNext) {
       setLoading(true);
       if (address) {
         funcAction(address, { limit: 20, next: next }).then((res: any) => {
@@ -37,20 +36,20 @@ const useAsyncStoreData = (funcAction: any) => {
             };
           });
         });
-      }
-      funcAction(next).then((res: any) => {
-        setRenderData((prev: any) => {
-          return {
-            data: removeArrayDuplicates([...prev.data, ...res?.data]),
-            pagination: res?.pagination,
-          };
+      } else
+        funcAction({ limit: 20, next: next }).then((res: any) => {
+          return setRenderData((prev: any) => {
+            return {
+              data: removeArrayDuplicates([...prev.data, ...res?.data]),
+              pagination: res.pagination,
+            };
+          });
         });
-      });
       setLoading(false);
     }
   }, [inView]);
 
-  return { ref, renderData, loading };
+  return { ref, renderData, hasNext };
 };
 
 export default useAsyncStoreData;

@@ -3,8 +3,6 @@ import BundleDetailsMainTabs from './components/BundlesDetailsMainTabs';
 import { Content } from 'components/Content';
 import NodeHeader from 'components/NodeHeader';
 import { useActions } from 'hooks/useActions';
-import usePaginationData from 'hooks/usePaginationData';
-import useStoreData from 'hooks/useStoreData';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import BundleDetailsMain from 'pages/Bundles/BundleDetails/components/BundleDetailsMain';
 import { useEffect } from 'react';
@@ -20,8 +18,6 @@ const BundleDetails = () => {
   }, []);
 
   const { data } = useTypedSelector((state) => state.bundles);
-
-  console.log(data);
 
   // getBundleWithEntriesData(address).then((res) => console.log(res));
 
