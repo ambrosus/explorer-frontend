@@ -11,12 +11,12 @@ const Main: React.FC = () => {
   const { pathname } = useLocation();
   const { setAppDataAsync } = useActions();
 
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     setAppDataAsync();
-  //   }, 1000);
-  //   return () => clearInterval(interval);
-  // }, []);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setAppDataAsync();
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     window.scrollTo(0, 0);
