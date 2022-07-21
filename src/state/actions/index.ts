@@ -76,64 +76,24 @@ export type AddressesDataAction =
   | SetAddressesDataActionFailure;
 
 // ***** Apollo Data Action *****
-interface SetApolloDataAction {
-  type: actionTypes.SET_APOLLO_DATA__START;
+interface SetHeadInfoDataAction {
+  type: actionTypes.SET_HEADINFO_DATA__START;
 }
 
-interface SetApolloDataActionSuccess {
-  type: actionTypes.SET_APOLLO_DATA__SUCCESS;
+interface SetHeadInfoDataActionSuccess {
+  type: actionTypes.SET_HEADINFO_DATA__SUCCESS;
   payload: object | null;
 }
 
-interface SetApolloDataActionFailure {
-  type: actionTypes.SET_APOLLO_DATA__FAIL;
+interface SetHeadInfoDataActionFailure {
+  type: actionTypes.SET_HEADINFO_DATA__FAIL;
   payload: object | string | null;
 }
 
 export type ApolloDataAction =
-  | SetApolloDataAction
-  | SetApolloDataActionSuccess
-  | SetApolloDataActionFailure;
-
-// ***** Atlas Data Action *****
-interface SetAtlasDataAction {
-  type: actionTypes.SET_ATLAS_DATA__START;
-}
-
-interface SetAtlasDataActionSuccess {
-  type: actionTypes.SET_ATLAS_DATA__SUCCESS;
-  payload: object | null;
-}
-
-interface SetAtlasDataActionFailure {
-  type: actionTypes.SET_ATLAS_DATA__FAIL;
-  payload: object | string | null;
-}
-
-export type AtlasDataAction =
-  | SetAtlasDataAction
-  | SetAtlasDataActionSuccess
-  | SetAtlasDataActionFailure;
-
-// ***** Blocks Data Action *****
-interface SetBlocksDataAction {
-  type: actionTypes.SET_BLOCKS_DATA__START;
-}
-
-interface SetBlocksDataActionSuccess {
-  type: actionTypes.SET_BLOCKS_DATA__SUCCESS;
-  payload: object | null;
-}
-
-interface SetBlocksDataActionFailure {
-  type: actionTypes.SET_BLOCKS_DATA__FAIL;
-  payload: object | string | null;
-}
-
-export type BlocksDataAction =
-  | SetBlocksDataAction
-  | SetBlocksDataActionSuccess
-  | SetBlocksDataActionFailure;
+  | SetHeadInfoDataAction
+  | SetHeadInfoDataActionSuccess
+  | SetHeadInfoDataActionFailure;
 
 // ***** Bundle Data Action *****
 
@@ -157,64 +117,3 @@ export type BunlesDataAction =
   | SetBundlesDataActionFailure;
 
 // ***** HermesData Action *****
-
-interface SetHermesDataAction {
-  type: actionTypes.SET_HERMES_DATA__START;
-}
-
-interface SetHermesDataActionSuccess {
-  type: actionTypes.SET_HERMES_DATA__SUCCESS;
-  payload: object | null;
-}
-
-interface SetHermesDataActionFailure {
-  type: actionTypes.SET_HERMES_DATA__FAIL;
-  payload: object | string | null;
-}
-
-export type HermesDataAction =
-  | SetHermesDataAction
-  | SetHermesDataActionSuccess
-  | SetHermesDataActionFailure;
-
-// ***** HomeData Action *****
-
-interface SetHomeDataAction {
-  type: actionTypes.SET_HOME_DATA__START;
-}
-
-interface SetHomeDataActionSuccess {
-  type: actionTypes.SET_HOME_DATA__SUCCESS;
-  payload: object | null;
-}
-
-interface SetHomeDataActionFailure {
-  type: actionTypes.SET_HOME_DATA__FAIL;
-  payload: object | string | null;
-}
-
-export type HomeDataAction =
-  | SetHomeDataAction
-  | SetHomeDataActionSuccess
-  | SetHomeDataActionFailure;
-
-// ***** TransactionsData Action *****
-
-interface SetTransactionsDataAction {
-  type: actionTypes.SET_TRANSACTIONS_DATA__START;
-}
-
-interface SetTransactionsDataActionSuccess {
-  type: actionTypes.SET_TRANSACTIONS_DATA__SUCCESS;
-  payload: object | null;
-}
-
-interface SetTransactionsDataActionFailure {
-  type: actionTypes.SET_TRANSACTIONS_DATA__FAIL;
-  payload: object | string | null;
-}
-
-export type TransactionsDataAction =
-  | SetTransactionsDataAction
-  | SetTransactionsDataActionSuccess
-  | SetTransactionsDataActionFailure;

@@ -1,16 +1,9 @@
 import { actionTypes } from '../action-types';
 import {
-  AddressesDataAction,
-  ApolloDataAction,
   AppDataAction,
-  AtlasDataAction,
-  BlocksDataAction,
   BunlesDataAction,
   FiltersAction,
-  HermesDataAction,
-  HomeDataAction,
   PositionAction,
-  TransactionsDataAction,
 } from '../actions';
 import API from 'API/api';
 import { Dispatch } from 'redux';
@@ -40,6 +33,7 @@ export const setAppDataAsync = () => {
         info.total_supply = totalSupply;
         return info;
       });
+      const totalSupply1 = await API.getTokenTotalSupply();
       const totalPriceToken = await API.getTokenMountPrice();
       const { total_price_usd } = await API.getTokenMountPrice().then(
         (res) => res,
@@ -51,6 +45,7 @@ export const setAppDataAsync = () => {
         tokenInfo: tokenInfo,
         totalPriceToken: totalPriceToken,
         total_price_usd: total_price_usd,
+        totalSupply: totalSupply1,
       };
       /*
        * @param {string} url - адрес запроса
@@ -109,84 +104,6 @@ export const clearFilters: any = () => {
 
 // pages actions
 
-export const getAddressesData: ActionsFetch = (
-  address,
-  params = { limit: 20, next: null, sort: '' },
-) => {
-  return (dispatch: Dispatch<AddressesDataAction>) => {
-    dispatch({
-      type: actionTypes.SET_ADDRESSES_DATA__START,
-    });
-    try {
-      Promise.all([]).then((res) =>
-        dispatch({
-          type: actionTypes.SET_ADDRESSES_DATA__SUCCESS,
-          payload: {
-            gitTagVersion: CLIENT_VERSION,
-          },
-        }),
-      );
-    } catch (error: any) {
-      dispatch({
-        type: actionTypes.SET_ADDRESSES_DATA__FAIL,
-        payload: error.message,
-      });
-    }
-  };
-};
-
-export const getApolloData: ActionsFetch = (
-  address,
-  params = { limit: 20, next: null, sort: '' },
-) => {
-  return (dispatch: Dispatch<ApolloDataAction>) => {
-    dispatch({
-      type: actionTypes.SET_APOLLO_DATA__START,
-    });
-    try {
-      Promise.all([]).then((res) =>
-        dispatch({
-          type: actionTypes.SET_APOLLO_DATA__SUCCESS,
-          payload: {
-            gitTagVersion: CLIENT_VERSION,
-          },
-        }),
-      );
-    } catch (error: any) {
-      dispatch({
-        type: actionTypes.SET_APOLLO_DATA__FAIL,
-        payload: error.message,
-      });
-    }
-  };
-};
-
-export const getAtlasData: ActionsFetch = (
-  address,
-  params = { limit: 20, next: null, sort: '' },
-) => {
-  return (dispatch: Dispatch<AtlasDataAction>) => {
-    dispatch({
-      type: actionTypes.SET_ATLAS_DATA__START,
-    });
-    try {
-      Promise.all([]).then((res) =>
-        dispatch({
-          type: actionTypes.SET_ATLAS_DATA__SUCCESS,
-          payload: {
-            gitTagVersion: CLIENT_VERSION,
-          },
-        }),
-      );
-    } catch (error: any) {
-      dispatch({
-        type: actionTypes.SET_ATLAS_DATA__FAIL,
-        payload: error.message,
-      });
-    }
-  };
-};
-
 export const getBundlesData = (
   address: any = undefined,
   params: any = { limit: 20, next: null },
@@ -219,110 +136,6 @@ export const getBundlesData = (
     } catch (error: any) {
       dispatch({
         type: actionTypes.SET_BUNDLES_DATA__FAIL,
-        payload: error.message,
-      });
-    }
-  };
-};
-
-export const getBlocksData: ActionsFetch = (
-  address,
-  params = { limit: 20, next: null, sort: '' },
-) => {
-  return (dispatch: Dispatch<BlocksDataAction>) => {
-    dispatch({
-      type: actionTypes.SET_BLOCKS_DATA__START,
-    });
-    try {
-      Promise.all([]).then((res) =>
-        dispatch({
-          type: actionTypes.SET_BLOCKS_DATA__SUCCESS,
-          payload: {
-            gitTagVersion: CLIENT_VERSION,
-          },
-        }),
-      );
-    } catch (error: any) {
-      dispatch({
-        type: actionTypes.SET_BLOCKS_DATA__FAIL,
-        payload: error.message,
-      });
-    }
-  };
-};
-
-export const getHermesData: ActionsFetch = (
-  address,
-  params = { limit: 20, next: null, sort: '' },
-) => {
-  return (dispatch: Dispatch<HermesDataAction>) => {
-    dispatch({
-      type: actionTypes.SET_HERMES_DATA__START,
-    });
-    try {
-      Promise.all([]).then((res) =>
-        dispatch({
-          type: actionTypes.SET_HERMES_DATA__SUCCESS,
-          payload: {
-            gitTagVersion: CLIENT_VERSION,
-          },
-        }),
-      );
-    } catch (error: any) {
-      dispatch({
-        type: actionTypes.SET_HERMES_DATA__FAIL,
-        payload: error.message,
-      });
-    }
-  };
-};
-
-export const getHomeData: ActionsFetch = (
-  address,
-  params = { limit: 20, next: null, sort: '' },
-) => {
-  return (dispatch: Dispatch<HomeDataAction>) => {
-    dispatch({
-      type: actionTypes.SET_HOME_DATA__START,
-    });
-    try {
-      Promise.all([]).then((res) =>
-        dispatch({
-          type: actionTypes.SET_HOME_DATA__SUCCESS,
-          payload: {
-            gitTagVersion: CLIENT_VERSION,
-          },
-        }),
-      );
-    } catch (error: any) {
-      dispatch({
-        type: actionTypes.SET_HOME_DATA__FAIL,
-        payload: error.message,
-      });
-    }
-  };
-};
-
-export const getTransactionsData: ActionsFetch = (
-  address,
-  params = { limit: 20, next: null, sort: '' },
-) => {
-  return (dispatch: Dispatch<TransactionsDataAction>) => {
-    dispatch({
-      type: actionTypes.SET_TRANSACTIONS_DATA__START,
-    });
-    try {
-      Promise.all([]).then((res) =>
-        dispatch({
-          type: actionTypes.SET_TRANSACTIONS_DATA__SUCCESS,
-          payload: {
-            gitTagVersion: CLIENT_VERSION,
-          },
-        }),
-      );
-    } catch (error: any) {
-      dispatch({
-        type: actionTypes.SET_TRANSACTIONS_DATA__FAIL,
         payload: error.message,
       });
     }
