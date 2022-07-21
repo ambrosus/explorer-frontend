@@ -4,6 +4,7 @@ const transactionFilters = [
   { title: 'All', value: '' },
   { title: 'Transfers', value: 'transfers' },
   { title: 'ERC-20 Tx', value: 'ERC-20_Tx' },
+  { title: 'Contract', value: 'contract' },
 ];
 const ERC20Filters = [
   { title: 'All', value: ' ' },
@@ -51,9 +52,21 @@ export const transactionsTabs = [
   { title: 'Heads', value: 'heads' },
 ];
 
+export const bundleTabs = [
+  { title: 'Assets', value: 'assets' },
+  { title: 'Events', value: 'events' },
+];
+export const contractTabs = [
+  { title: 'CODE', value: 'code' },
+  { title: 'READ CONTRACT', value: 'read' },
+  { title: 'WRITE CONTRACT', value: 'write' },
+];
+
 export const sidePages = {
   transactionFilters,
   ERC20Filters,
   methodFilters,
   apolloDetailsSorting,
+  contractTabs,
+  bundleTabs,
 };

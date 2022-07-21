@@ -28,6 +28,7 @@ export interface TabsProps {
   isIcon: boolean;
   loading?: boolean;
   sortOptions?: any;
+  isContract?: boolean;
 }
 
 export type TransactionProps = {
@@ -41,6 +42,7 @@ export type TransactionProps = {
   token: string | undefined;
   txFee: any;
   symbol?: string;
+  inners?: any[];
 };
 
 export interface ExplorerTxType {
@@ -74,7 +76,7 @@ export interface AddressBlockProps {
   isIcon?: boolean;
   inners?: any[];
   innerLevel?: number;
-  hashOnClick?: (hash: string | number) => any;
+  hashOnClick?: boolean;
 }
 
 export interface TokenProps {

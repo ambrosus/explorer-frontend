@@ -1,21 +1,34 @@
 import React, { FC } from 'react';
+import { NavLink } from 'react-router-dom';
 
-const HeadingInfo = ({ address = '', block = { miner: '' } }: any) => (
-  <div className="block_main_title">
-    <div>
-      <h1 className="block_main_title_heading">
-        Blocks <span className="block_main_title_heading_block">{address}</span>
-      </h1>
-    </div>
-    <div>
-      <div className="block_main_title_validator">
-        Validator{' '}
-        <span className="block_main_title_validator_address">
-          {block?.miner ?? ''}
-        </span>
+const HeadingInfo = ({ block = { miner: '', number: 0 } }: any) => {
+  const func = () => {
+    return setTimeout(() => {
+      return block?.miner ?? 0;
+    }, 100);
+  };
+
+  return (
+    <>
+      <div className="block_main_title">
+        <div className="block_main_title__in">
+          <h1 className="block_main_title_heading">Block details</h1>
+          <span className="block_main_title_heading_block">
+            {block?.number ?? 0}
+          </span>
+        </div>
+        <div className="block_main_title__in">
+          <div className="block_main_title_validator">Validator </div>
+          <NavLink
+            to={`/apollo/${block?.miner}`}
+            className="block_main_title_address"
+          >
+            {block?.miner ?? ''}
+          </NavLink>
+        </div>
       </div>
-    </div>
-  </div>
-);
+    </>
+  );
+};
 
 export default HeadingInfo;

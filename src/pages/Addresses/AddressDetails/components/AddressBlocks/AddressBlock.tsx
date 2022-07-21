@@ -70,30 +70,23 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
     (state: any) => state.position,
   );
 
-  const handleHashClick = () => {
-    if (hashOnClick) {
-      hashOnClick(txhash);
-    }
-  };
-
-  const isTxHash: JSX.Element | null =
-    txhash === null ? null : (
-      <div
-        className="address_blocks_cell address_blocks_cell-hash"
-        style={{
-          fontWeight: '600',
-        }}
+  const isTxHash: JSX.Element | null = (
+    <>
+      {inners && (
+        <button onClick={handleExpand} className="address_blocks_plus">
+          {isExpanded ? <Minus /> : <Plus />}
+        </button>
+      )}
+      <NavLink
+        to={`/transactions/${txhash}`}
+        className="address_blocks_cell address_blocks_cell-hash universall_light2"
+        style={{ fontWeight: '600' }}
       >
-        {inners && (
-          <button onClick={handleExpand} className="address_blocks_plus">
-            {isExpanded ? <Minus /> : <Plus />}
-          </button>
-        )}
-        <span className="universall_light2" onClick={handleHashClick}>
-          {sliceData10(txhash as string)}
-        </span>
-      </div>
-    );
+        {sliceData10(txhash as string)}
+      </NavLink>
+    </>
+  );
+
   const isMethod =
     method === null ? null : (
       <div className="address_blocks_cell" style={{ gap: 4 }}>
@@ -145,7 +138,17 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
     date === null ? null : <div className="address_blocks_cell">{date}</div>;
   const isBlock =
     type === 'ERC-20_Tx' ? null : (
-      <div className="address_blocks_cell">{block}</div>
+      <div className="address_blocks_cell">
+        <NavLink
+          className="address_blocks_icon"
+          style={{
+            fontWeight: 400,
+          }}
+          to={`/blocks/${block}`}
+        >
+          {block}
+        </NavLink>
+      </div>
     );
 
   const Icon = getTokenIcon(symbol as string);
@@ -158,9 +161,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
       ) {
         onClick(item);
         addFilter(item);
-        navigate(`/addresses/${address}/ERC-20_Tx/${item.contract}`, {
-          replace: true,
-        });
+        navigate(`/addresses/${address}/ERC-20_Tx/${item.contract}`);
       } else {
         return '';
       }

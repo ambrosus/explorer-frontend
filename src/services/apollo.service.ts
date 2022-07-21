@@ -42,7 +42,7 @@ export const getAccountTxData = async (
         type: sortTerm,
         page: next,
       };
-  const data: any = await API.getAccountTx(address, params).catch(() =>
+  const data: any = await API.getAccountTx(address).catch(() =>
     window.location.replace('/notfound'),
   );
   return data;

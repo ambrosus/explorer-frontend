@@ -1,0 +1,23 @@
+.head_info {
+  &_cells {
+    display: grid;
+    grid-template-columns: 1fr;
+    height: 104px;
+    padding-left: 32px;
+    white-space: nowrap;
+    padding-right: 10px;
+    border: 0.5px solid #eff2f5;
+    @include for_tablet {
+      height: 64px;
+    }
+
+    &_primary {
+      align-self: flex-end;
+      color: #58667e;
+      text-transform: uppercase;
+    }
+    &_secondary {
+      font-weight: 600;
+    }
+  }
+}

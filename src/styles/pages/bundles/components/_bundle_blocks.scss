@@ -1,0 +1,18 @@
+.bundles_blocks {
+  &_heading {
+    display: flex;
+    align-items: center;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 32px;
+    height: 56px;
+    border-bottom: 1px solid #eff2f5;
+  }
+  &_table {
+    min-height: 400px;
+    overflow: auto;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+}

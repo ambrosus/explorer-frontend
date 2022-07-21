@@ -7,7 +7,9 @@
 
   &_table {
     display: grid;
-    grid-template-columns: repeat(5, auto);
+    grid-template-columns:
+      minmax(130px, 1fr) minmax(150px, 1fr)
+      minmax(160px, 1fr) minmax(130px, 1fr) minmax(150px, 1fr);
     background-color: #fff;
     margin-bottom: 32px;
     border: 1px solid #eff2f5;
@@ -31,6 +33,9 @@
     }
 
     @include for_tablet {
+      gap: 0;
+      padding: 12px 32px;
+      height: max-content;
       border-bottom: 1px solid #eff2f5;
       border-right: none;
 
@@ -46,7 +51,7 @@
 
     &_secondary {
       font-weight: 600;
-      font-size: 18px;
+      font-size: 14px;
       line-height: 24px;
       color: #05060f;
     }

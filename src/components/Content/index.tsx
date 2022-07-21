@@ -5,9 +5,16 @@ import React, { FC } from 'react';
 export const Content: FC<IContentProps> & ITabsComposition = ({
   children,
   isLoading = true,
+  isExpanded,
 }: IContentProps) => (
   <div className="content">
-    <div className="content_backgorund">{children}</div>
+    <div
+      className={`content_backgorund ${
+        isExpanded ? 'content_backgorund_expanded' : ''
+      }`}
+    >
+      {children}
+    </div>
     {!isLoading && <Loader />}
   </div>
 );
@@ -19,12 +26,12 @@ const Header = ({ children, isLoading = true }: IContentProps) => (
     {<div className="container">{children}</div>}
   </div>
 );
-Content.Header = React.memo(Header);
+Content.Header = Header;
 Content.Header.displayName = 'CONTENT_HEADER';
 const Body = ({ children }: IContentProps) => (
   <div className="content_body">
     <div className="container">{children}</div>
   </div>
 );
-Content.Body = React.memo(Body);
+Content.Body = Body;
 Content.Body.displayName = 'CONTENT_HEADER';

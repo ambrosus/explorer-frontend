@@ -1,0 +1,12 @@
+@import './atlas';
+@import './components/atlas_blocks_body';
+@import './components/atlas_blocks_header';
+@import './components/atlas_blocks_sort';
+@import './components/atlas_header_status_modal';
+@import './components/main_info_atlas';
+
+// atalasDetails
+@import './atlas_details/atlas_details';
+@import './atlas_details/components/atlas_details_balance';
+@import './atlas_details/components/atlas_details_main';
+@import './atlas_details/components/atlas_details_mining_stats';
