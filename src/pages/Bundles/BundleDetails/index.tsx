@@ -19,8 +19,6 @@ const BundleDetails = () => {
 
   const { data } = useTypedSelector((state) => state.bundles);
 
-  // getBundleWithEntriesData(address).then((res) => console.log(res));
-
   return (
     <Content>
       <Content.Header>
