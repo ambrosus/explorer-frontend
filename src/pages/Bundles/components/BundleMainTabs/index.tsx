@@ -8,7 +8,7 @@ const BundleMainTabs = ({ data }: any) => {
     bundlesActivity,
     totalAssets = 0,
     totalEvents = 0,
-    bundleCost,
+    bundleCost = 0,
   } = data || {};
 
   const { data: appData } = useTypedSelector((state: any) => state.app);
