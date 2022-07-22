@@ -10,14 +10,14 @@ import { useParams } from 'react-router-dom';
 import { getBundleData } from 'services/bundle.service';
 
 const BundleDetails = () => {
-  const { getBundlesData } = useActions();
+  const { setAppDataAsync } = useActions();
   const { address } = useParams();
 
   useEffect(() => {
-    getBundlesData(address);
+    setAppDataAsync(address);
   }, []);
 
-  const { data } = useTypedSelector((state) => state.bundles);
+  const { data } = useTypedSelector((state) => state.app);
 
   return (
     <Content>

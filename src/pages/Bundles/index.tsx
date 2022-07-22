@@ -10,12 +10,9 @@ import { useEffect } from 'react';
 import { getBundlesData as getBundlesRender } from 'services/bundle.service';
 
 export const Bundles = () => {
-  const { getBundlesData } = useActions();
-  useEffect(() => {
-    getBundlesData();
-  }, []);
+  const { data } = useTypedSelector((state) => state.app);
+  console.log(data);
 
-  const { data } = useTypedSelector((state) => state.bundles);
   const { bundleInfo } = data || {};
 
   const { ref: ref1, renderData: data2 } = useAsyncStoreData(getBundlesRender);
