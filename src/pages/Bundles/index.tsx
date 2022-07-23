@@ -13,14 +13,14 @@ export const Bundles = () => {
   const { data } = useTypedSelector((state) => state.app);
   console.log(data);
 
-  const { bundleInfo } = data || {};
+  const { netInfo } = data || {};
 
   const { ref: ref1, renderData: data2 } = useAsyncStoreData(getBundlesRender);
 
   return (
     <Content>
       <Content.Header>
-        <BundleMainTabs data={bundleInfo} />
+        <BundleMainTabs data={netInfo} />
       </Content.Header>
       <Content.Body>
         <div className="bundles_blocks">

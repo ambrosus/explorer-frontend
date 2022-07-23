@@ -23,7 +23,7 @@ const BundleMainTabs = ({ data }: any) => {
     {
       _id: 1,
       name: 'TOTAL',
-      value: numberWithCommas(totalBundles),
+      value: numberWithCommas(totalBundles) || 0,
     },
     {
       _id: 2,
@@ -40,12 +40,12 @@ const BundleMainTabs = ({ data }: any) => {
     {
       _id: 1,
       name: '24H ACTIVITY',
-      value: bundlesActivity,
+      value: bundlesActivity || 0,
     },
     {
       _id: 2,
       name: 'BUNDLE COST',
-      value: `${bundleCost?.ether} AMB`,
+      value: `${bundleCost?.ether || 0} AMB`,
     },
     {
       _id: 3,
