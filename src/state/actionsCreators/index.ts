@@ -21,11 +21,21 @@ export const setAppDataAsync = (
     try {
       const netInfo = API.getInfo();
       const tokenInfo = API.getToken();
+      const totalSupply = API.getTokenTotalSupply();
 
       if (!!address) {
         const bundleInfo = API.getBundle(address);
+        // const tokenInfo = await API.getToken().then(async (info = {}) => {
+        //   const totalSupply = await API.getTokenTotalSupply().then(
+        //     (totalSupplyToken = {}) => {
+        //       return totalSupplyToken;
+        //     },
+        //   );
+        //   info.total_supply = totalSupply;
+        //   return info;
+        // });
 
-        Promise.allSettled([netInfo, tokenInfo, bundleInfo]).then(
+        Promise.allSettled([netInfo, tokenInfo, bundleInfo, totalSupply]).then(
           (res: any) => {
             dispatch({
               type: actionTypes.SET_APP_DATA__SUCCESS,
@@ -34,21 +44,25 @@ export const setAppDataAsync = (
                 netInfo: res[0].value,
                 tokenInfo: res[1].value,
                 bundleInfo: res[2].value,
+                totalSupply: res[3].value,
               },
             });
           },
         );
       } else
-        Promise.allSettled([netInfo, tokenInfo]).then((res: any) => {
-          dispatch({
-            type: actionTypes.SET_APP_DATA__SUCCESS,
-            payload: {
-              gitTagVersion: CLIENT_VERSION,
-              netInfo: res[0].value,
-              tokenInfo: res[1].value,
-            },
-          });
-        });
+        Promise.allSettled([netInfo, tokenInfo, totalSupply]).then(
+          (res: any) => {
+            dispatch({
+              type: actionTypes.SET_APP_DATA__SUCCESS,
+              payload: {
+                gitTagVersion: CLIENT_VERSION,
+                netInfo: res[0].value,
+                tokenInfo: res[1].value,
+                totalSupply: res[2].value,
+              },
+            });
+          },
+        );
     } catch (error: any) {
       dispatch({
         type: actionTypes.SET_APP_DATA__FAIL,
