@@ -13,6 +13,13 @@
   justify-content: center;
   width: 100%;
   flex: 1 0 auto;
+  min-height: 800px;
+  // @include for_big_tablet {
+  //   min-height: 300px;
+  // }
+  // @include for_phone {
+  //   min-height: 1000px;
+  // }
 }
 
 .container {
