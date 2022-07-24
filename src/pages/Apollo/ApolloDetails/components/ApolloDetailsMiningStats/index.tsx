@@ -1,10 +1,10 @@
-import ExportCsv from '../../../../../components/ExportCsv';
-import { Currency } from '../../../../../components/UI/Currency';
-import { useTypedSelector } from '../../../../../hooks/useTypedSelector';
-import { ambToUSD, formatDate } from '../../../../../utils/helpers';
 import API from 'API/api';
+import ExportCsv from 'components/ExportCsv';
 import { Number } from 'components/Number';
+import { Currency } from 'components/UI/Currency';
+import { useTypedSelector } from 'hooks/useTypedSelector';
 import { useEffect, useState } from 'react';
+import { ambToUSD, formatDate } from 'utils/helpers';
 
 const ApolloDetailsMiningStats = ({ apollo }: any) => {
   const { data: appData } = useTypedSelector((state: any) => state.app);

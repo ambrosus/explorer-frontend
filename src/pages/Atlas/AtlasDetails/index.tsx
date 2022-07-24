@@ -1,12 +1,12 @@
 import API from '../../../API/api';
 import { atlasDetailsSorting } from '../../../utils/sidePages';
-import AddressBlock from '../../Addresses/AddressDetails/components/AddressBlocks/AddressBlock';
 import TabsNew from '../../Transactions/components/TabsNew';
 import AtlasDetailsHead from './components/AtlasDetailsHead';
 import { Content } from 'components/Content';
 import { useActions } from 'hooks/useActions';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import moment from 'moment';
+import AddressBlock from 'pages/Addresses/AddressDetails/components/AddressBlocks';
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { TParams } from 'types';

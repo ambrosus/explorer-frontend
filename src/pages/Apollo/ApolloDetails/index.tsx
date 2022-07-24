@@ -1,25 +1,18 @@
-import API from '../../../API/api';
-import NodeHeader from '../../../components/NodeHeader';
-import useSortData from '../../../hooks/useSortData';
-import {
-  getAccountTxData,
-  getApolloData,
-} from '../../../services/apollo.service';
-import { apolloDetailsSorting } from '../../../utils/sidePages';
-import AddressBlock from '../../Addresses/AddressDetails/components/AddressBlocks/AddressBlock';
-import TabsNew from '../../Transactions/components/TabsNew';
 import { Account } from '../apollo.interface';
 import ApolloDetailsBalance from './components/ApolloDetailsBalance';
 import ApolloDetailsMain from './components/ApolloDetailsMain';
 import ApolloDetailsMiningStats from './components/ApolloDetailsMiningStats';
+import API from 'API/api';
 import { Content } from 'components/Content';
-import HeadInfo from 'components/HeadInfo';
 import { useActions } from 'hooks/useActions';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import moment from 'moment';
-import React, { useCallback, useEffect } from 'react';
+import AddressBlock from 'pages/Addresses/AddressDetails/components/AddressBlocks';
+import TabsNew from 'pages/Transactions/components/TabsNew';
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { TParams } from 'types';
+import { apolloDetailsSorting } from 'utils/sidePages';
 
 export const ApolloDetails = () => {
   const { getAddressData } = useActions();

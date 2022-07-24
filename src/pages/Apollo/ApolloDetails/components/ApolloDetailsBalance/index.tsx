@@ -1,9 +1,9 @@
-import { useTypedSelector } from '../../../../../hooks/useTypedSelector';
-import { ambToUSD, statusMessage } from '../../../../../utils/helpers';
 import HeadInfo from 'components/HeadInfo';
+import { useTypedSelector } from 'hooks/useTypedSelector';
 import React from 'react';
+import { ambToUSD, statusMessage } from 'utils/helpers';
 
-const ApolloDetailsBalance = ({ apollo }: any) => {
+const ApolloDetailsHead = ({ apollo }: any) => {
   const ambBalance = apollo?.balance?.ether || 0;
   const ambStake = apollo?.stake?.ether || 0;
 
@@ -45,4 +45,4 @@ const ApolloDetailsBalance = ({ apollo }: any) => {
   return <HeadInfo data={itemFirst} className="head_info" />;
 };
 
-export default ApolloDetailsBalance;
+export default ApolloDetailsHead;

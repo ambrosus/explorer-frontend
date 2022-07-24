@@ -1,16 +1,16 @@
-import { Currency } from '../../../components/UI/Currency';
-import AddressBlock from '../../Addresses/AddressDetails/components/AddressBlocks/AddressBlock';
-import AddressBlocksHeader from '../../Addresses/AddressDetails/components/AddressBlocksHeader';
 import api from 'API/api';
 import ContentCopy from 'assets/icons/CopyIcons/ContentCopy';
 import ContentCopyed from 'assets/icons/CopyIcons/ContentCopyed';
 import CopyPopUp from 'assets/icons/CopyIcons/CopyPopUp';
 import Eye from 'assets/icons/Eye';
 import { Content } from 'components/Content';
+import { Currency } from 'components/UI/Currency';
 import useCopyContent from 'hooks/useCopyContent';
 import useDeviceSize from 'hooks/useDeviceSize';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import moment from 'moment';
+import AddressBlock from 'pages/Addresses/AddressDetails/components/AddressBlocks';
+import AddressBlocksHeader from 'pages/Addresses/AddressDetails/components/AddressBlocksHeader';
 import React, { useEffect, useRef, useState } from 'react';
 import { NavLink, useParams } from 'react-router-dom';
 import {

@@ -55,7 +55,7 @@ const AtlasDetailsHead = ({ atlas }: any) => {
           target="_blank"
           href={atlas?.url}
         >
-          {atlas?.url || 'wait'}
+          {atlas?.url || 'Loading...'}
         </a>
       ),
     },
@@ -91,7 +91,7 @@ const AtlasDetailsHead = ({ atlas }: any) => {
         <div className="atlas_details_main_nd">
           <h1>ND Atlas</h1>
           <div className="atlas_details_main_online">
-            {atlas?.state || 'WAIT'}
+            {atlas?.state || 'Loading...'}
           </div>
         </div>
         <div className="atlas_details_main_address">
