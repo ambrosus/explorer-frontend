@@ -1,3 +1,4 @@
+import addressReducer from './addressReducer';
 import appReducer from './appReducer';
 import positionReducer from './positionReducer';
 import tokenFiltersReducer from './tokenFiltersReducer';
@@ -7,6 +8,7 @@ const reducers: any = combineReducers({
   app: appReducer,
   position: positionReducer,
   tokenFilters: tokenFiltersReducer,
+  addressData: addressReducer,
 });
 
 export default reducers;

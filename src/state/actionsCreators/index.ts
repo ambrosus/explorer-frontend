@@ -1,19 +1,19 @@
 import { actionTypes } from '../action-types';
-import { AppDataAction, FiltersAction, PositionAction } from '../actions';
+import {
+  AddressesDataAction,
+  AppDataAction,
+  FiltersAction,
+  PositionAction,
+} from '../actions';
 import API from 'API/api';
 import { Dispatch } from 'redux';
-import { ActionsFetch } from 'state/state.interface';
+import { ActionCreator, ActionsFetch } from 'state/state.interface';
 import { CLIENT_VERSION } from 'utils/constants';
 
 export const setAppDataAsync = (
   address: any = undefined,
   params: any = { limit: 20, next: null },
 ) => {
-  /*
-  @param {void}
-  @returns {Promise<AppDataAction>}
-   */
-
   return (dispatch: Dispatch<AppDataAction>) => {
     dispatch({
       type: actionTypes.SET_APP_DATA__START,
@@ -21,44 +21,45 @@ export const setAppDataAsync = (
     try {
       const netInfo = API.getInfo();
       const tokenInfo = API.getToken();
-      const totalSupply = API.getTokenTotalSupply();
+      const total_price_usd = API.getTokenMountPrice();
 
       if (!!address) {
         const bundleInfo = API.getBundle(address);
-        // const tokenInfo = await API.getToken().then(async (info = {}) => {
-        //   const totalSupply = await API.getTokenTotalSupply().then(
-        //     (totalSupplyToken = {}) => {
-        //       return totalSupplyToken;
-        //     },
-        //   );
-        //   info.total_supply = totalSupply;
-        //   return info;
-        // });
+        const apolloInfo = API.getApollo(address);
 
-        Promise.allSettled([netInfo, tokenInfo, bundleInfo, totalSupply]).then(
-          (res: any) => {
-            dispatch({
-              type: actionTypes.SET_APP_DATA__SUCCESS,
-              payload: {
-                gitTagVersion: CLIENT_VERSION,
-                netInfo: res[0].value,
-                tokenInfo: res[1].value,
-                bundleInfo: res[2].value,
-                totalSupply: res[3].value,
+        Promise.allSettled([
+          netInfo,
+          tokenInfo,
+          total_price_usd,
+          bundleInfo,
+          apolloInfo,
+        ]).then((res: any) => {
+          dispatch({
+            type: actionTypes.SET_APP_DATA__SUCCESS,
+            payload: {
+              gitTagVersion: CLIENT_VERSION,
+              netInfo: res[0].value,
+              tokenInfo: {
+                ...res[1].value,
+                total_price_usd: res[2].value.total_price_usd,
               },
-            });
-          },
-        );
+              bundleInfo: res[3].value,
+              apolloInfo: res[4].value,
+            },
+          });
+        });
       } else
-        Promise.allSettled([netInfo, tokenInfo, totalSupply]).then(
+        Promise.allSettled([netInfo, tokenInfo, total_price_usd]).then(
           (res: any) => {
             dispatch({
               type: actionTypes.SET_APP_DATA__SUCCESS,
               payload: {
                 gitTagVersion: CLIENT_VERSION,
                 netInfo: res[0].value,
-                tokenInfo: res[1].value,
-                totalSupply: res[2].value,
+                tokenInfo: {
+                  ...res[1].value,
+                  total_price_usd: res[2].value.total_price_usd,
+                },
               },
             });
           },
@@ -109,3 +110,61 @@ export const clearFilters: any = () => {
     });
   };
 };
+
+export const getAddressData = (
+  address: any = undefined,
+  params = { limit: 20, next: null },
+) => {
+  return (dispatch: Dispatch<AddressesDataAction>) => {
+    dispatch({
+      type: actionTypes.SET_ADDRESS_DATA__START,
+    });
+    try {
+      const apolloInfo = API.getApollo(address);
+      const bundleInfo = API.getBundle(address);
+
+      Promise.allSettled([apolloInfo, bundleInfo]).then((res: any) =>
+        dispatch({
+          type: actionTypes.SET_ADDRESS_DATA__SUCCESS,
+          payload: {
+            apolloInfo: res[0].value,
+            bundleInfo: res[1].value,
+          },
+        }),
+      );
+    } catch (error: any) {
+      dispatch({
+        type: actionTypes.SET_ADDRESS_DATA__FAIL,
+        payload: error.message,
+      });
+    }
+  };
+};
+
+// export const getBundleAddressData: ActionsFetch = (
+//   address,
+//   params = { limit: 20, next: null },
+// ) => {
+//   return async (dispatch: Dispatch<AppDataAction>) => {
+//     dispatch({
+//       type: actionTypes.SET_APP_DATA__START,
+//     });
+//     try {
+//       if (!!address) {
+//         const apolloInfo = await API.getApollo(address);
+
+//         dispatch({
+//           type: actionTypes.SET_APP_DATA__SUCCESS,
+//           payload: {
+//             apolloInfo: apolloInfo,
+//           },
+//         });
+//       }
+//     } catch (error: any) {
+//       dispatch({
+//         type: actionTypes.SET_APP_DATA__FAIL,
+//         payload: error.message,
+//       });
+//     }
+//   };
+// };

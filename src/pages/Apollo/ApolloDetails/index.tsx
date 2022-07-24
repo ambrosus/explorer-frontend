@@ -13,28 +13,32 @@ import ApolloDetailsBalance from './components/ApolloDetailsBalance';
 import ApolloDetailsMain from './components/ApolloDetailsMain';
 import ApolloDetailsMiningStats from './components/ApolloDetailsMiningStats';
 import { Content } from 'components/Content';
+import HeadInfo from 'components/HeadInfo';
+import { useActions } from 'hooks/useActions';
+import { useTypedSelector } from 'hooks/useTypedSelector';
 import moment from 'moment';
-import React from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { TParams } from 'types';
 
 export const ApolloDetails = () => {
+  const { getAddressData } = useActions();
   const { address }: TParams = useParams();
+
+  const { data: addressData } = useTypedSelector((state) => state.addressData);
+
+  console.log(addressData?.apolloInfo?.data);
+
+  useEffect(() => {
+    getAddressData(address);
+  }, []);
 
   return (
     <Content>
       <Content.Header>
-        <NodeHeader getNodeData={getApolloData}>
-          {({ node }: any) => {
-            return node !== null ? (
-              <>
-                <ApolloDetailsMain apollo={node} />
-                <ApolloDetailsBalance apollo={node} />
-                <ApolloDetailsMiningStats apollo={node} />
-              </>
-            ) : null;
-          }}
-        </NodeHeader>
+        <ApolloDetailsMain apollo={addressData?.apolloInfo?.data} />
+        <ApolloDetailsBalance apollo={addressData?.apolloInfo?.data} />
+        <ApolloDetailsMiningStats apollo={addressData?.apolloInfo?.data} />
       </Content.Header>
       <Content.Body>
         <TabsNew

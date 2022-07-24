@@ -51,7 +51,7 @@ const BundleMainTabs = ({ data }: any) => {
       _id: 3,
       name: 'APROX BUNDLE',
       value: `${ambMonthUSD(
-        appData?.tokenInfo.price_usd,
+        appData?.tokenInfo.total_price_usd,
       )} AMB / cost next month`,
     },
   ];

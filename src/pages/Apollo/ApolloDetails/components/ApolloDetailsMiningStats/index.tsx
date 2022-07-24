@@ -54,13 +54,6 @@ const ApolloDetailsMiningStats = ({ apollo }: any) => {
     }
   }, [filterDate]);
 
-  function isValidDate(d: any) {
-    return !isNaN(new Date(d) as any);
-  }
-
-  if (!apollo) {
-    return null;
-  }
   const sameDates =
     filterDate.split('-')?.[0] === filterDate.split('-')?.[1]
       ? filterDate.split('-')?.[0]

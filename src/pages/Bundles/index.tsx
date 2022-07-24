@@ -1,3 +1,4 @@
+import API from 'API/api';
 import { Content } from 'components/Content';
 import Loader from 'components/Loader';
 import { useActions } from 'hooks/useActions';
@@ -7,15 +8,19 @@ import BundleBlocksBody from 'pages/Bundles/components/BundleBlocksBody';
 import BundleBlocksHeader from 'pages/Bundles/components/BundleBlocksHeader';
 import BundleMainTabs from 'pages/Bundles/components/BundleMainTabs';
 import { useEffect } from 'react';
-import { getBundlesData as getBundlesRender } from 'services/bundle.service';
+import { getBundlesData } from 'services/bundle.service';
 
 export const Bundles = () => {
   const { data } = useTypedSelector((state) => state.app);
-  console.log(data);
 
   const { netInfo } = data || {};
 
-  const { ref: ref1, renderData: data2 } = useAsyncStoreData(getBundlesRender);
+  // const infoData = async () => {
+  //   return await API.getInfo();
+  // };
+
+  const { ref: ref1, renderData: data2 } = useAsyncStoreData(getBundlesData);
+  // const { renderData: data4 } = useAsyncStoreData(infoData);
 
   return (
     <Content>

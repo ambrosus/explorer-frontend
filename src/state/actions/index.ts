@@ -56,21 +56,21 @@ interface ClearFiltersTokenAction {
 export type FiltersAction = SetFiltersTokenAction | ClearFiltersTokenAction;
 
 // ***** Addresses Data Action *****
-interface SetAddressesDataAction {
-  type: actionTypes.SET_ADDRESSES_DATA__START;
+interface SetAddressDataAction {
+  type: actionTypes.SET_ADDRESS_DATA__START;
 }
 
-interface SetAddressesDataActionSuccess {
-  type: actionTypes.SET_ADDRESSES_DATA__SUCCESS;
+interface SetAddressDataActionSuccess {
+  type: actionTypes.SET_ADDRESS_DATA__SUCCESS;
   payload: object | null;
 }
 
-interface SetAddressesDataActionFailure {
-  type: actionTypes.SET_ADDRESSES_DATA__FAIL;
+interface SetAddressDataActionFailure {
+  type: actionTypes.SET_ADDRESS_DATA__FAIL;
   payload: object | string | null;
 }
 
 export type AddressesDataAction =
-  | SetAddressesDataAction
-  | SetAddressesDataActionSuccess
-  | SetAddressesDataActionFailure;
+  | SetAddressDataAction
+  | SetAddressDataActionSuccess
+  | SetAddressDataActionFailure;

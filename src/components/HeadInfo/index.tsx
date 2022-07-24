@@ -1,4 +1,5 @@
 import HeadInfoCell from 'components/HeadInfo/HeadInfoCell';
+import React, { memo } from 'react';
 
 const HeadInfo = ({ data, className, style = {} }: any) => {
   return (

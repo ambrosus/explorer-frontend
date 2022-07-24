@@ -10,8 +10,8 @@ export enum actionTypes {
   // ****** tokens filter actions ******
   ADD_FILTER = 'ADD_FILTER',
   CLEAR_FILTERS = 'CLEAR_FILTERS',
-  // ****** addresses data actions ******
-  SET_ADDRESSES_DATA__START = 'SET_ADDRESSES_DATA__START',
-  SET_ADDRESSES_DATA__SUCCESS = 'SET_ADDRESSES_DATA__SUCCESS',
-  SET_ADDRESSES_DATA__FAIL = 'SET_ADDRESSES_DATA__FAIL',
+  // ****** address data actions ******
+  SET_ADDRESS_DATA__START = 'SET_ADDRESS_DATA__START',
+  SET_ADDRESS_DATA__SUCCESS = 'SET_ADDRESS_DATA__SUCCESS',
+  SET_ADDRESS_DATA__FAIL = 'SET_ADDRESS_DATA__FAIL',
 }

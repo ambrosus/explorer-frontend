@@ -5,7 +5,7 @@ export interface PagesState {
 }
 
 export interface ActionCreator {
-  address?: string;
+  address?: string | undefined;
   params?: object | null;
 }
 
