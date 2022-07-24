@@ -7,7 +7,6 @@ const BundleDetailsMain = () => {
   const { address } = useParams();
 
   const sptilStr = sliceDataString(address);
-  console.log(sptilStr);
 
   const { FOR_PHONE } = useDeviceSize();
 

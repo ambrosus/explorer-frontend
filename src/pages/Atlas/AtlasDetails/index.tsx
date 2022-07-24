@@ -1,37 +1,30 @@
 import API from '../../../API/api';
-import NodeHeader from '../../../components/NodeHeader';
-import { getAtlasData } from '../../../services/atlas.service';
 import { atlasDetailsSorting } from '../../../utils/sidePages';
 import AddressBlock from '../../Addresses/AddressDetails/components/AddressBlocks/AddressBlock';
 import TabsNew from '../../Transactions/components/TabsNew';
-import AtlasDetailsBalance from './components/AtlasDetailsBalance';
-import AtlasDetailsMain from './components/AtlasDetailsMain';
-import AtlasDetailsMiningStats from './components/AtlasDetailsMiningStats';
+import AtlasDetailsHead from './components/AtlasDetailsHead';
 import { Content } from 'components/Content';
+import { useActions } from 'hooks/useActions';
+import { useTypedSelector } from 'hooks/useTypedSelector';
 import moment from 'moment';
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { TParams } from 'types';
 
 export const AtlasDetails = () => {
+  const { getAddressData } = useActions();
   const { address }: TParams = useParams();
+
+  useEffect(() => {
+    getAddressData(address);
+  }, []);
+
+  const { data: addressData } = useTypedSelector((state) => state.addressData);
 
   return (
     <Content>
       <Content.Header>
-        <NodeHeader getNodeData={getAtlasData}>
-          {({ node }: any) => {
-            return (
-              node && (
-                <>
-                  <AtlasDetailsMain atlas={node} />
-                  <AtlasDetailsBalance atlas={node} />
-                  <AtlasDetailsMiningStats atlas={node} />
-                </>
-              )
-            );
-          }}
-        </NodeHeader>
+        <AtlasDetailsHead atlas={addressData?.atlasInfo?.data} />
       </Content.Header>
       <Content.Body>
         <TabsNew

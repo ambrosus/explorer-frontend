@@ -1,4 +1,4 @@
-import { Number } from 'components/Number';
+import HeadInfo from 'components/HeadInfo';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 
 const MainInfoAtlas = () => {
@@ -6,25 +6,24 @@ const MainInfoAtlas = () => {
 
   const total = appData?.netInfo?.atlases?.total || 0;
   const avgBlockTime = appData?.netInfo?.avgBlockTime || 0;
+
+  const itemFirst: any = [
+    {
+      _id: 1,
+      name: 'TOTAL NODES',
+      value: total,
+    },
+    {
+      _id: 2,
+      name: 'Avg block / prop. time',
+      value: avgBlockTime.toFixed(2),
+    },
+  ];
   return (
-    <div className="main_info_atlas">
+    <>
       <h1 className="main_info_atlas_heading">Atlas Nodes</h1>
-      <div className="main_info_atlas_table">
-        <div className="main_info_atlas_cell">
-          <span className="main_info_atlas_cell_primary">TOTAL NODES</span>
-          <span className="main_info_atlas_cell_secondary">{total}</span>
-        </div>
-        <div className="main_info_atlas_cell">
-          <span className="main_info_atlas_cell_primary">
-            Avg block / prop. time
-          </span>
-          <span className="main_info_atlas_cell_secondary">
-            {' '}
-            <Number value={avgBlockTime || 0} fixed={2} /> sec.
-          </span>
-        </div>
-      </div>
-    </div>
+      <HeadInfo data={itemFirst} className="head_info" />
+    </>
   );
 };
 

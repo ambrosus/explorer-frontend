@@ -41,7 +41,7 @@ const ApolloDetailsMiningStats = ({ apollo }: any) => {
     const date = filterDate.split('-');
     const fromDate = date[0];
     const toDate = date[1];
-    const { data } = await API.getApolloRewards(apollo.address, {
+    const { data } = await API.getApolloRewards(apollo?.address, {
       from: fromDate,
       to: toDate !== undefined ? toDate : null,
     });

@@ -10,7 +10,9 @@ const AtlasDetailsMain = ({ atlas }: any) => {
     <div className="atlas_details_main">
       <div className="atlas_details_main_nd">
         <h1>ND Atlas</h1>
-        <div className="atlas_details_main_online">{atlas?.state ?? ''}</div>
+        <div className="atlas_details_main_online">
+          {atlas?.state || 'WAIT'}
+        </div>
       </div>
       <div className="atlas_details_main_address">
         <div className="atlas_details_main_cell universall_bold">Address</div>

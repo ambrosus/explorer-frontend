@@ -121,14 +121,16 @@ export const getAddressData = (
     });
     try {
       const apolloInfo = API.getApollo(address);
+      const atlasInfo = API.getAtlas(address);
       const bundleInfo = API.getBundle(address);
 
-      Promise.allSettled([apolloInfo, bundleInfo]).then((res: any) =>
+      Promise.allSettled([apolloInfo, bundleInfo, atlasInfo]).then((res: any) =>
         dispatch({
           type: actionTypes.SET_ADDRESS_DATA__SUCCESS,
           payload: {
             apolloInfo: res[0].value,
             bundleInfo: res[1].value,
+            atlasInfo: res[2].value,
           },
         }),
       );

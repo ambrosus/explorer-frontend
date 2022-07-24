@@ -27,8 +27,6 @@ export const ApolloDetails = () => {
 
   const { data: addressData } = useTypedSelector((state) => state.addressData);
 
-  console.log(addressData?.apolloInfo?.data);
-
   useEffect(() => {
     getAddressData(address);
   }, []);
