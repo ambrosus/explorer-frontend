@@ -1,5 +1,6 @@
 .head_info {
   display: flex;
+
   flex-wrap: wrap;
   padding: 0;
   margin-bottom: 32px;
@@ -11,8 +12,9 @@
     flex-direction: column;
   }
   &_cells {
-    display: grid;
-
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     height: 104px;
     padding-left: 32px;
     white-space: nowrap;
@@ -26,7 +28,7 @@
     }
 
     &_primary {
-      align-self: flex-end;
+      // align-self: flex-end;
       color: #58667e;
       text-transform: uppercase;
     }

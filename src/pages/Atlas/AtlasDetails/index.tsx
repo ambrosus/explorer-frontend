@@ -52,18 +52,15 @@ export const AtlasDetails = () => {
 
   const itemFirst: any = [
     {
-      _id: (Math.random() * 10).toFixed(2),
       name: 'BALANCE',
       value: `${ambBalance.toFixed(2)} AMB / $ ${usdBalance.toFixed(2)}`,
     },
 
     {
-      _id: (Math.random() * 10).toFixed(2),
       name: 'STAKE',
       value: `${ambStake.toFixed(2)} AMB / $ ${usdStake.toFixed(2)}`,
     },
     {
-      _id: (Math.random() * 10).toFixed(2),
       name: 'URL',
       value: (
         <a

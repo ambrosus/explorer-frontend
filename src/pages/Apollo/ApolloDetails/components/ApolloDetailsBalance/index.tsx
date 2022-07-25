@@ -15,12 +15,10 @@ const ApolloDetailsHead = ({ apollo }: any) => {
 
   const itemFirst: any = [
     {
-      _id: 10000,
       name: 'BALANCE',
       value: `${ambBalance.toFixed(2)} AMB / $ ${usdBalance.toFixed(2)}`,
     },
     {
-      _id: 20000,
       name: 'UPTIME',
       value: statusMessage(
         apollo?.state ? apollo : { state: '' },
@@ -31,12 +29,10 @@ const ApolloDetailsHead = ({ apollo }: any) => {
       },
     },
     {
-      _id: 30000,
       name: 'STAKE',
       value: `${ambStake.toFixed(2)} AMB / $ ${usdStake.toFixed(2)}`,
     },
     {
-      _id: 40000,
       name: 'SOFTWARE',
       value: apollo?.version,
     },
