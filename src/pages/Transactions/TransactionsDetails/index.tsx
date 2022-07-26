@@ -1,16 +1,17 @@
-import { Currency } from '../../../components/UI/Currency';
-import AddressBlock from '../../Addresses/AddressDetails/components/AddressBlocks/AddressBlock';
-import AddressBlocksHeader from '../../Addresses/AddressDetails/components/AddressBlocksHeader';
 import api from 'API/api';
 import ContentCopy from 'assets/icons/CopyIcons/ContentCopy';
 import ContentCopyed from 'assets/icons/CopyIcons/ContentCopyed';
 import CopyPopUp from 'assets/icons/CopyIcons/CopyPopUp';
 import Eye from 'assets/icons/Eye';
 import { Content } from 'components/Content';
+import HeadInfo from 'components/HeadInfo';
+import { Currency } from 'components/UI/Currency';
 import useCopyContent from 'hooks/useCopyContent';
 import useDeviceSize from 'hooks/useDeviceSize';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import moment from 'moment';
+import AddressBlock from 'pages/Addresses/AddressDetails/components/AddressBlocks';
+import AddressBlocksHeader from 'pages/Addresses/AddressDetails/components/AddressBlocksHeader';
 import React, { useEffect, useRef, useState } from 'react';
 import { NavLink, useParams } from 'react-router-dom';
 import {
@@ -53,7 +54,6 @@ export const TransactionDetails = () => {
     api.getTransaction(hash).then((res: any) => {
       if (res.meta?.code === 200) {
         setTxData(res.data);
-
       }
     });
   }, [hash]);
@@ -83,6 +83,102 @@ export const TransactionDetails = () => {
 
   const confirmations =
     appData?.netInfo?.lastBlock?.number - txData?.blockNumber;
+
+  const itemFirst: any = [
+    {
+      name: 'AMOUNT',
+      value: `${displayAmount(txData.value.ether)} AMB`,
+    },
+    {
+      name: 'FROM',
+      value: txData?.from ? (
+        <NavLink
+          style={{ fontSize: '14px', fontWeight: 600 }}
+          to={`/addresses/${txData?.from}`}
+          className="universall_light1"
+        >
+          {sliceData10(txData.from as string, 7)}
+        </NavLink>
+      ) : (
+        'No address'
+      ),
+    },
+    {
+      name: 'TO',
+      value: txData?.to ? (
+        <NavLink
+          style={{ fontSize: '14px', fontWeight: 600 }}
+          to={`/addresses/${txData?.to}`}
+          className="universall_light1"
+        >
+          {sliceData10(txData.to as string, 7)}
+        </NavLink>
+      ) : (
+        'No address'
+      ),
+    },
+    {
+      name: 'TX FEE',
+      value: `${txData.gasCost.ether} AMB`,
+    },
+  ];
+
+  // const itemSecond: any = [
+  //   {
+  //     name: 'DATE',
+  //     value:
+  //       moment
+  //         .unix(Number(txData.timestamp))
+  //         .format('ddd, D MMM YYYY HH:mm:ss') || 'Loading',
+  //   },
+  //   {
+  //     name: 'NONCE (POSITION)',
+  //     value: `${numberWithCommas(txData.nonce)} (
+  //               ${txData.transactionIndex || '-'})`,
+  //   },
+  //   {
+  //     name: 'INPUT DATA',
+  //     value: (
+  //       <>
+  //         <p
+  //           className="atlas_details_balance_fonts_bold"
+  //           ref={ref}
+  //           style={
+  //             isInputExpanded === true
+  //               ? { wordBreak: 'break-all' }
+  //               : { paddingRight: '20px' }
+  //           }
+  //         >
+  //           {txData.input === '0x' ? '—' : txData.input}
+  //           {isInputExpanded !== 'null' && (
+  //             <span onClick={showInputData} className="address_blocks_eye_icon">
+  //               <Eye />
+  //             </span>
+  //           )}
+  //         </p>
+  //       </>
+  //     ),
+  //   },
+  // ];
+  const itemThird: any = [
+    {
+      name: 'BLOCK HASH',
+      value: (
+        <NavLink
+          to={`/blocks/${txData.blockHash}`}
+          className="atlas_details_balance_fonts_bold"
+          style={{ color: '#808A9D', wordBreak: 'break-all' }}
+        >
+          {txData.blockHash}
+        </NavLink>
+      ),
+    },
+    {
+      name: 'HEIGHT / CONFIRMATIONS',
+      value: `${numberWithCommas(txData.blockNumber || 0)} (
+        ${numberWithCommas(confirmations > 0 ? confirmations : 0)})`,
+    },
+  ];
 
   return (
     <Content>
@@ -117,128 +213,65 @@ export const TransactionDetails = () => {
               </button>
             </div>
           </div>
-        </Content.Header>
-        <div className="apollo_details_balance apollo_details_balance-tx1">
-          <div className="apollo_details_balance_cells">
-            <p className="apollo_details_balance_fonts_normal universall_light1">
-              AMOUNT
-            </p>
-            <p className="atlas_details_balance_fonts_bold">
-              <Currency
-                value={displayAmount(txData.value.ether) || 0}
-                symbol="AMB"
-              />
-            </p>
-          </div>
-          {txData.from && (
+
+          <HeadInfo data={itemFirst} className="head_info" />
+          {/* <HeadInfo data={itemSecond} className="head_info head_transaction" /> */}
+
+          <div className="apollo_details_balance apollo_details_balance-tx2">
             <div className="apollo_details_balance_cells">
               <p className="apollo_details_balance_fonts_normal universall_light1">
-                FROM
+                DATE
               </p>
-              <NavLink
-                style={{ fontSize: '14px', fontWeight: 600 }}
-                to={`/addresses/${txData.from}`}
-                className="universall_light1"
-              >
-                {sliceData10(txData.from as string, 7)}
-              </NavLink>
+              <p className="atlas_details_balance_fonts_bold">
+                {moment
+                  .unix(Number(txData.timestamp))
+                  .format('ddd, D MMM YYYY HH:mm:ss')}
+              </p>
             </div>
-          )}
-          {txData.to && (
             <div className="apollo_details_balance_cells">
               <p className="apollo_details_balance_fonts_normal universall_light1">
-                TO
+                NONCE (POSITION)
               </p>
-              <NavLink
-                style={{ fontSize: '14px', fontWeight: 600 }}
-                to={`/addresses/${txData.to}`}
-                className="universall_light1"
-              >
-                {sliceData10(txData.to as string, 7)}
-              </NavLink>
+              <p className="atlas_details_balance_fonts_bold">
+                {numberWithCommas(txData.nonce)} (
+                {txData.transactionIndex || '-'})
+              </p>
             </div>
-          )}
-          <div className="apollo_details_balance_cells">
-            <p className="apollo_details_balance_fonts_normal universall_light1">
-              TX FEE
-            </p>
-            <p className="atlas_details_balance_fonts_bold">
-              {txData.gasCost.ether} AMB
-            </p>
-          </div>
-        </div>
-        <div className="apollo_details_balance apollo_details_balance-tx2">
-          <div className="apollo_details_balance_cells">
-            <p className="apollo_details_balance_fonts_normal universall_light1">
-              DATE
-            </p>
-            <p className="atlas_details_balance_fonts_bold">
-              {moment
-                .unix(Number(txData.timestamp))
-                .format('ddd, D MMM YYYY HH:mm:ss')}
-            </p>
-          </div>
-          <div className="apollo_details_balance_cells">
-            <p className="apollo_details_balance_fonts_normal universall_light1">
-              NONCE (POSITION)
-            </p>
-            <p className="atlas_details_balance_fonts_bold">
-              {numberWithCommas(txData.nonce)} ({txData.transactionIndex || '-'}
-              )
-            </p>
-          </div>
-          <div
-            className={`apollo_details_balance_cells ${
-              isInputExpanded === true
-                ? 'apollo_details_balance_cells--expanded'
-                : ''
-            }`}
-          >
-            <p className="apollo_details_balance_fonts_normal universall_light1">
-              INPUT DATA
-            </p>
-            <p
-              className="atlas_details_balance_fonts_bold"
-              ref={ref}
-              style={
+            <div
+              className={`apollo_details_balance_cells ${
                 isInputExpanded === true
-                  ? { wordBreak: 'break-all' }
-                  : { paddingRight: '20px' }
-              }
+                  ? 'apollo_details_balance_cells--expanded'
+                  : ''
+              }`}
             >
-              {txData.input === '0x' ? '—' : txData.input}
-            </p>
-            {isInputExpanded !== 'null' && (
-              <span onClick={showInputData} className="address_blocks_eye_icon">
-                <Eye />
-              </span>
-            )}
+              <p className="apollo_details_balance_fonts_normal universall_light1">
+                INPUT DATA
+              </p>
+              <p
+                className="atlas_details_balance_fonts_bold"
+                ref={ref}
+                style={
+                  isInputExpanded === true
+                    ? { wordBreak: 'break-all' }
+                    : { paddingRight: '20px' }
+                }
+              >
+                {txData.input === '0x' ? '—' : txData.input}
+              </p>
+              {isInputExpanded !== 'null' && (
+                <span
+                  onClick={showInputData}
+                  className="address_blocks_eye_icon"
+                >
+                  <Eye />
+                </span>
+              )}
+            </div>
           </div>
-        </div>
-        <div className="apollo_details_balance apollo_details_balance-tx3">
-          <div className="apollo_details_balance_cells apollo_details_balance_cells--expanded">
-            <p className="apollo_details_balance_fonts_normal universall_light1">
-              BLOCK HASH
-            </p>
-            <NavLink
-              to={`/blocks/${txData.blockHash}`}
-              className="atlas_details_balance_fonts_bold"
-              style={{ color: '#808A9D', wordBreak: 'break-all' }}
-            >
-              {txData.blockHash}
-            </NavLink>
-          </div>
-          <div className="apollo_details_balance_cells">
-            <p className="apollo_details_balance_fonts_normal universall_light1">
-              HEIGHT / CONFIRMATIONS
-            </p>
-            <p className="atlas_details_balance_fonts_bold">
-              {numberWithCommas(txData.blockNumber || 0)} (
-              {numberWithCommas(confirmations > 0 ? confirmations : 0)})
-            </p>
-          </div>
-        </div>
+          <HeadInfo data={itemThird} className="head_info" />
+        </Content.Header>
       </section>
+
       {txData.inners && !!txData.inners.length && (
         <section className="transactions_details_list">
           <div className="container" style={{ margin: '0 auto' }}>

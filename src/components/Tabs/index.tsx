@@ -1,4 +1,3 @@
-import AddressBlock from '../../pages/Addresses/AddressDetails/components/AddressBlocks/AddressBlock';
 import ExportCsv from '../ExportCsv';
 import Loader from '../Loader';
 import NotFoundIcon from 'assets/icons/Errors/NotFoundIcon';
@@ -12,6 +11,7 @@ import {
   TabsProps,
   TransactionProps,
 } from 'pages/Addresses/AddressDetails/address-details.interface';
+import AddressBlock from 'pages/Addresses/AddressDetails/components/AddressBlocks';
 import AddressBlocksHeader from 'pages/Addresses/AddressDetails/components/AddressBlocksHeader';
 import React, { FC, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { NavLink, useParams } from 'react-router-dom';
@@ -37,8 +37,7 @@ const Tabs: FC<TabsProps> = ({
   );
   const mobileCalendarRef = useRef(null);
 
-  const { transactionFilters, ERC20Filters, methodFilters, contractTabs } =
-    sidePages;
+  const { transactionFilters, ERC20Filters, methodFilters } = sidePages;
 
   const headerBlock: any = type === 'ERC-20_Tx' ? null : 'Block';
   const headerTxfee: any = type === 'ERC-20_Tx' ? null : 'txFee';

@@ -1,23 +1,52 @@
 .head_info {
+  display: flex;
+
+  flex-wrap: wrap;
+  padding: 0;
+  margin-bottom: 32px;
+  border-top: 1px solid #eff2f5;
+  border-left: 1px solid #eff2f5;
+  border-radius: 16px;
+  background-color: #fff;
+  @include for_tablet {
+    flex-direction: column;
+  }
   &_cells {
-    display: grid;
-    grid-template-columns: 1fr;
+    display: flex;
+    align-items: center;
     height: 104px;
     padding-left: 32px;
     white-space: nowrap;
     padding-right: 10px;
-    border: 0.5px solid #eff2f5;
+    border-right: 1px solid #eff2f5;
+    border-bottom: 1px solid #eff2f5;
+    flex: 1;
+
     @include for_tablet {
-      height: 64px;
+      flex: 1 0 64px;
     }
 
     &_primary {
-      align-self: flex-end;
+      // align-self: flex-end;
       color: #58667e;
       text-transform: uppercase;
     }
     &_secondary {
       font-weight: 600;
     }
+  }
+}
+
+.head {
+  &_apollo {
+    margin: 32px 0;
+  }
+  &_transaction {
+    display: grid;
+    grid-template-columns:
+      minmax(200px, 2fr) minmax(200px, 2fr)
+      minmax(300px, 3fr);
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
