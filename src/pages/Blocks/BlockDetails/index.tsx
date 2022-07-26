@@ -13,6 +13,8 @@ import BlockHeader from './components/BlockHeader';
 import BlockHeaderInfo from './components/BlockHeaderInfo';
 import HeadingInfo from './components/HeadingInfo';
 import { MainInfoBlockTable } from './components/MainInfoBlockTable';
+import HeadInfo from 'components/HeadInfo';
+import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -38,13 +40,23 @@ interface IBlocksData<T> {
 
 export const BlockDetails = () => {
   const { address }: TParams = useParams();
-  const [block, setBlock] = useState<IBlock[] | null | undefined>(null);
+  const [block, setBlock] = useState<any>(null);
   const navigate = useNavigate();
   const { data: appData } = useTypedSelector((state: any) => state.app);
-  const { lastBlock } = appData?.netInfo ?? {
-    lastBlock: {
-      number: 0,
-    },
+  const {
+    number,
+    blockRewards = 0,
+    totalTransactions = 0,
+    size = 0,
+    timestamp = 0,
+  } = block || 0;
+
+  const txCount = blockRewards?.length + totalTransactions || 0;
+  const { lastBlock } = appData?.netInfo || 0;
+  const confirmations = lastBlock?.number - number;
+
+  const blockStatus = (confirmations: any) => {
+    return confirmations > 0 ? 'Confirmed' : 'Unconfirmed';
   };
 
   const { data, isError, isLoading } = useQuery(
@@ -72,12 +84,39 @@ export const BlockDetails = () => {
 
   if (isError) navigate(`/notfound`);
 
+  const itemFirst: any = [
+    {
+      name: 'STATUS',
+      value: blockStatus(confirmations),
+      style: {
+        color: '#1acd8c',
+      },
+    },
+    {
+      name: 'CONFIRMATIONS',
+      value: confirmations < 0 ? 0 : confirmations || 0,
+    },
+    {
+      name: 'TXS IN THIS BLOCK',
+      value: txCount,
+    },
+    {
+      name: 'SIZE',
+      value: size,
+    },
+    {
+      name: 'CREATED',
+      value: moment(timestamp * 1000).fromNow(),
+    },
+  ];
+
   return (
     <Content isExpanded>
       <Content.Header>
-        <HeadingInfo block={block} />
-        <BlockHeaderInfo lastBlock={lastBlock} block={block} />
-        <MainInfoBlockTable block={block} />
+        {/* <HeadingInfo block={block} /> */}
+        {/* <BlockHeaderInfo lastBlock={lastBlock} block={block} /> */}
+        {/* <MainInfoBlockTable block={block} /> */}
+        <HeadInfo data={itemFirst} className="head_info" />
       </Content.Header>
       {renderData?.data?.length && (
         <Content.Body>

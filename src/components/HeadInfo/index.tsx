@@ -9,6 +9,7 @@ const HeadInfo = ({ data, className, style = {} }: any) => {
           primaryCell={item.name}
           secondaryCell={item.value}
           style={item.style}
+          calendarBtn={item.calendarBtn}
         />
       ))}
     </div>

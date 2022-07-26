@@ -1,9 +1,7 @@
 import { Account } from '../apollo.interface';
-import ApolloDetailsBalance from './components/ApolloDetailsBalance';
-import ApolloDetailsMain from './components/ApolloDetailsMain';
-import ApolloDetailsMiningStats from './components/ApolloDetailsMiningStats';
 import API from 'API/api';
 import { Content } from 'components/Content';
+import CopyBtn from 'components/CopyBtn';
 import ExportCsv from 'components/ExportCsv';
 import HeadInfo from 'components/HeadInfo';
 import { useActions } from 'hooks/useActions';
@@ -36,6 +34,8 @@ export const ApolloDetails = () => {
 
   const usdBalance = +ambToUSD(ambBalance, total_price_usd);
   const usdStake = +ambToUSD(ambStake, total_price_usd);
+
+  const isOffline = apolloData?.status === 'OFFLINE' ? '#bfc9e0' : undefined;
 
   const [rewards, setRewards] = useState<any>({
     blocksRewards: 0,
@@ -98,10 +98,6 @@ export const ApolloDetails = () => {
     }
   }, [filterDate, isLoad]);
 
-  const string = filterDate.split('-');
-
-  console.log(string);
-
   const itemFirst: any = [
     {
       name: 'BALANCE',
@@ -127,22 +123,17 @@ export const ApolloDetails = () => {
   const itemSecond: any = [
     {
       name: 'MINING STATS',
-      value: (
-        <>
-          {string.map((item: string, index: number) => (
-            <p key={index}>{item}</p>
-          ))}
-          <div
-            style={{
-              alignItems: 'center',
-              position: 'absolute',
-              marginLeft: '100px',
-              marginTop: '-36px',
-            }}
-          >
-            <ExportCsv miningStats={onSelect} showText={false} />
-          </div>
-        </>
+      value: filterDate,
+      calendarBtn: (
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            marginLeft: 6,
+          }}
+        >
+          <ExportCsv miningStats={onSelect} showText={false} />
+        </div>
       ),
     },
 
@@ -168,13 +159,28 @@ export const ApolloDetails = () => {
   return (
     <Content>
       <Content.Header>
-        {/* <ApolloDetailsMain apollo={addressData?.apolloInfo?.data} />
-        <ApolloDetailsBalance apollo={addressData?.apolloInfo?.data} />
-        <ApolloDetailsMiningStats apollo={addressData?.apolloInfo?.data} /> */}
-        {/* <ApolloDetailsMiningStats apollo={addressData?.apolloInfo?.data} /> */}
-        <HeadInfo data={itemFirst} className="head_info" />;
-        <HeadInfo data={itemSecond} className="head_info" />;
-        {/* <HeadInfo data={itemSecond} className="head_info" />; */}
+        <div className="apollo_details_main">
+          <div className="apollo_details_main_nd">
+            <h1>ND Apollo</h1>
+            <div
+              className="apollo_details_main_online"
+              style={{ color: isOffline }}
+            >
+              {apolloData?.status ?? 'Loading...'}
+            </div>
+          </div>
+          <div className="apollo_details_main_address">
+            <div className="apollo_details_main_cell universall_bold">
+              Address
+            </div>
+            <div style={{ display: 'flex', gap: 16 }}>
+              <div className="address_content">{address}</div>
+              <CopyBtn />
+            </div>
+          </div>
+        </div>
+        <HeadInfo data={itemFirst} className="head_info" />
+        <HeadInfo data={itemSecond} className="head_info" />
       </Content.Header>
       <Content.Body>
         <TabsNew

@@ -13,8 +13,7 @@
   }
   &_cells {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    align-items: center;
     height: 104px;
     padding-left: 32px;
     white-space: nowrap;
