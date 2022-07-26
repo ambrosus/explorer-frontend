@@ -41,4 +41,12 @@
   &_apollo {
     margin: 32px 0;
   }
+  &_transaction {
+    display: grid;
+    grid-template-columns:
+      minmax(200px, 2fr) minmax(200px, 2fr)
+      minmax(300px, 3fr);
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }

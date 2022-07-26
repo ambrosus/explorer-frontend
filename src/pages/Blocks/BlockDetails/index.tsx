@@ -17,7 +17,7 @@ import HeadInfo from 'components/HeadInfo';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
-import { useNavigate, useParams } from 'react-router-dom';
+import { NavLink, useNavigate, useParams } from 'react-router-dom';
 
 export interface IBlock {
   miner: string;
@@ -49,7 +49,11 @@ export const BlockDetails = () => {
     totalTransactions = 0,
     size = 0,
     timestamp = 0,
-  } = block || 0;
+    parentHash = 0,
+    hash = 0,
+    stateRoot = 0,
+    extraData,
+  } = block || {};
 
   const txCount = blockRewards?.length + totalTransactions || 0;
   const { lastBlock } = appData?.netInfo || 0;
@@ -110,13 +114,55 @@ export const BlockDetails = () => {
     },
   ];
 
+  const itemSecond: any = [
+    {
+      name: 'HASH',
+      value: hash ?? '',
+    },
+    {
+      name: 'PARENT HASH',
+      value: (
+        <NavLink
+          className="address_blocks_icon universall_light2"
+          to={`/blocks/${parentHash}`}
+        >
+          {parentHash ?? ''}
+        </NavLink>
+      ),
+    },
+    {
+      name: 'STATE ROOT HASH ',
+      value: stateRoot ?? '',
+    },
+    {
+      name: 'DATA',
+      value: extraData ?? '',
+    },
+  ];
+
   return (
     <Content isExpanded>
       <Content.Header>
-        {/* <HeadingInfo block={block} /> */}
-        {/* <BlockHeaderInfo lastBlock={lastBlock} block={block} /> */}
-        {/* <MainInfoBlockTable block={block} /> */}
+        <div className="block_main_title">
+          <div className="block_main_title__in">
+            <h1 className="block_main_title_heading">Block details</h1>
+            <span className="block_main_title_heading_block">
+              {block?.number ?? 0}
+            </span>
+          </div>
+          <div className="block_main_title__in">
+            <div className="block_main_title_validator">Validator </div>
+            <NavLink
+              to={`/apollo/${block?.miner}`}
+              className="block_main_title_address"
+            >
+              {block?.miner ?? ''}
+            </NavLink>
+          </div>
+        </div>
+
         <HeadInfo data={itemFirst} className="head_info" />
+        <HeadInfo data={itemSecond} className="head_info" />
       </Content.Header>
       {renderData?.data?.length && (
         <Content.Body>
