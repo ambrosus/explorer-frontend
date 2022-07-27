@@ -9,17 +9,22 @@ import useDeviceSize from 'hooks/useDeviceSize';
 import { AccountsData } from 'pages/Addresses/addresses.interface';
 import React, { FC, useEffect, useRef, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
+import AtlasBlocksSort from "../../Atlas/components/AtlasBlocksSort";
 
 const TabsNew: FC<TabsNewProps> = ({
   tabs,
+  sortOptions,
   fetchData,
   fetchParams,
   render,
   withoutCalendar,
+  initSortTerm = '',
+  tableHeader,
 }) => {
   const [loading, setLoading] = useState(true);
   const [tab, setTab] = useState('');
   const [isShow, setIsShow] = useState(false);
+  const [sortTerm, setSortTerm] = useState(initSortTerm);
 
   const { ref, inView } = useInView();
   const [tabData, setTabData] = useState<AccountsData>({
@@ -83,65 +88,74 @@ const TabsNew: FC<TabsNewProps> = ({
 
   return (
     <>
-      <div className="tabs">
-        <div className="tabs_heading" tabIndex={-1}>
-          <div className="tabs_heading_filters" tabIndex={-1}>
-            {tabs.map((el: any) => (
-              <span
-                className={`tabs_link tabs_link_new ${
-                  tab === el.value ? 'tabs_link_active' : ''
-                }`}
-                key={el.title}
-                onClick={() => handleTab(el.value)}
-              >
+      {tabs ? (
+        <>
+          <div className="tabs">
+            <div className="tabs_heading" tabIndex={-1}>
+              <div className="tabs_heading_filters" tabIndex={-1}>
+                {tabs.map((el: any) => (
+                  <span
+                    className={`tabs_link tabs_link_new ${
+                      tab === el.value ? 'tabs_link_active' : ''
+                    }`}
+                    key={el.title}
+                    onClick={() => handleTab(el.value)}
+                  >
                 {el.title}
               </span>
-            ))}
-          </div>
-          {isShow && (
-            <div
-              ref={mobileCalendarRef}
-              className="tabs_heading_export_modal_mobile"
-            >
-              <Calendar />
-            </div>
-          )}
-          {!withoutCalendar && (
-            <div ref={mobileCalendarRef} className="tabs_heading_export_modal">
-              {FOR_TABLET ? (
-                <ExportCsv />
-              ) : (
-                <>
-                  <div className="tabs_side_menu">
-                    <button
-                      className="tabs_side_menu_icon"
-                      onClick={handleShow}
-                    >
-                      <SideMenu />
-                    </button>
-                  </div>
-                </>
+                ))}
+              </div>
+              {isShow && (
+                <div
+                  ref={mobileCalendarRef}
+                  className="tabs_heading_export_modal_mobile"
+                >
+                  <Calendar />
+                </div>
+              )}
+              {!withoutCalendar && (
+                <div ref={mobileCalendarRef} className="tabs_heading_export_modal">
+                  {FOR_TABLET ? (
+                    <ExportCsv />
+                  ) : (
+                    <>
+                      <div className="tabs_side_menu">
+                        <button
+                          className="tabs_side_menu_icon"
+                          onClick={handleShow}
+                        >
+                          <SideMenu />
+                        </button>
+                      </div>
+                    </>
+                  )}
+                </div>
               )}
             </div>
-          )}
-        </div>
-      </div>
-      <div className="transactions_wrapper">
-        <AddressBlocksHeader
-          txhash="txHash"
-          method="Method"
-          from="From"
-          to="To"
-          date="Date"
-          block="Block"
-          amount="Amount"
-          txfee="txFee"
-          token={null}
-          methodFilters={null}
-          isTableColumn={'address_blocks_cells no_border'}
-        />
-        {!!tabData.data.length && render(tabData.data)}
-      </div>
+          </div>
+          <div className="transactions_wrapper">
+            <AddressBlocksHeader
+              txhash="txHash"
+              method="Method"
+              from="From"
+              to="To"
+              date="Date"
+              block="Block"
+              amount="Amount"
+              txfee="txFee"
+              token={null}
+              methodFilters={null}
+              isTableColumn={'address_blocks_cells no_border'}
+            />
+          </div>
+        </>
+      ) : (
+        <>
+          <AtlasBlocksSort sortTerm={sortTerm} setSortTerm={setSortTerm}/>
+          {tableHeader()}
+        </>
+      )}
+      {!!tabData.data.length && render(tabData.data)}
       <div ref={ref} />
       {loading && <Loader />}
     </>

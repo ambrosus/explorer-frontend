@@ -12,10 +12,10 @@ const Main: React.FC = () => {
   const { setAppDataAsync } = useActions();
 
   useEffect(() => {
-    const interval = setInterval(() => {
+    // const interval = setInterval(() => {
       setAppDataAsync();
-    }, 1000);
-    return () => clearInterval(interval);
+    // }, 1000);
+    // return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {
