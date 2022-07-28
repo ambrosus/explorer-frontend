@@ -2,6 +2,7 @@ import Calendar from '../../../components/Calendar';
 import Loader from '../../../components/Loader';
 import { useOnClickOutside } from '../../../hooks/useOnClickOutside';
 import AddressBlocksHeader from '../../Addresses/AddressDetails/components/AddressBlocksHeader';
+import AtlasBlocksSort from '../../Atlas/components/AtlasBlocksSort';
 import { TabsNewProps } from '../transactions.interface';
 import SideMenu from 'assets/icons/SideMenu';
 import ExportCsv from 'components/ExportCsv';
@@ -9,7 +10,6 @@ import useDeviceSize from 'hooks/useDeviceSize';
 import { AccountsData } from 'pages/Addresses/addresses.interface';
 import React, { FC, useEffect, useRef, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
-import AtlasBlocksSort from "../../Atlas/components/AtlasBlocksSort";
 
 const TabsNew: FC<TabsNewProps> = ({
   tabs,
@@ -101,8 +101,8 @@ const TabsNew: FC<TabsNewProps> = ({
                     key={el.title}
                     onClick={() => handleTab(el.value)}
                   >
-                {el.title}
-              </span>
+                    {el.title}
+                  </span>
                 ))}
               </div>
               {isShow && (
@@ -114,7 +114,10 @@ const TabsNew: FC<TabsNewProps> = ({
                 </div>
               )}
               {!withoutCalendar && (
-                <div ref={mobileCalendarRef} className="tabs_heading_export_modal">
+                <div
+                  ref={mobileCalendarRef}
+                  className="tabs_heading_export_modal"
+                >
                   {FOR_TABLET ? (
                     <ExportCsv />
                   ) : (
@@ -151,7 +154,7 @@ const TabsNew: FC<TabsNewProps> = ({
         </>
       ) : (
         <>
-          <AtlasBlocksSort sortTerm={sortTerm} setSortTerm={setSortTerm}/>
+          <AtlasBlocksSort sortTerm={sortTerm} setSortTerm={setSortTerm} />
           {tableHeader()}
         </>
       )}

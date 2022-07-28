@@ -1,5 +1,10 @@
+import API from '../../API/api';
 import useSortData from '../../hooks/useSortData';
 import { getAtlasesData } from '../../services/atlas.service';
+import { TParams } from '../../types';
+import { apolloDetailsSorting } from '../../utils/sidePages';
+import TabsNew from '../Transactions/components/TabsNew';
+import { TAtlasSortProps } from './atlasBlocks.interface';
 import AtlasBlocksBody from './components/AtlasBlocksBody';
 import AtlasBlocksHeader from './components/AtlasBlocksHeader';
 import AtlasBlocksSort from './components/AtlasBlocksSort';
@@ -7,12 +12,7 @@ import MainInfoAtlas from './components/MainInfoAtlas';
 import { Content } from 'components/Content';
 import Loader from 'components/Loader';
 import React from 'react';
-import TabsNew from "../Transactions/components/TabsNew";
-import API from '../../API/api';
-import {TParams} from "../../types";
-import {useParams} from "react-router-dom";
-import {apolloDetailsSorting} from "../../utils/sidePages";
-import {TAtlasSortProps} from "./atlasBlocks.interface";
+import { useParams } from 'react-router-dom';
 
 const sortOptions: TAtlasSortProps[] = [
   {
@@ -41,8 +41,6 @@ export const Atlas = () => {
     'totalBundles',
   );
 
-
-
   return (
     <Content>
       <Content.Header>
@@ -53,20 +51,16 @@ export const Atlas = () => {
           {/*<AtlasBlocksSort sortTerm={sortTerm} setSortTerm={setSortTerm} />*/}
           <div className="atlas_main_table">
             <TabsNew
-              tableHeader={() => <AtlasBlocksHeader/>}
+              tableHeader={() => <AtlasBlocksHeader />}
               sortOptions={sortOptions}
               fetchData={API.getAtlas}
               initSortTerm={'totalBundles'}
               fetchParams={{ sort: 'totalBundles' }}
-              render={(list: any) => (
+              render={(list: any) =>
                 list.map((el: any, index: any) => (
-                  <AtlasBlocksBody
-                    key={index}
-                    index={index + 1}
-                    item={el}
-                  />
+                  <AtlasBlocksBody key={index} index={index + 1} item={el} />
                 ))
-              )}
+              }
             />
             {/*{renderData && renderData.data && renderData.data.length*/}
             {/*  ? renderData.data.map((item: any, index: number) =>*/}
