@@ -4,12 +4,13 @@ import { NavLink } from 'react-router-dom';
 export const MainInfoBlockTable = ({ block }: any) => {
   const { parentHash, hash, stateRoot, extraData } =
     block !== null && block !== undefined && block;
+
   return (
     <div className="main_info_block_table form-row">
       <div className="main_info_block_table_table">
         <div className="main_info_block_table_cell">
           <span className="main_info_block_table_cell_primary">HASH</span>
-          <span className="main_info_block_table_cell_secondary gray">
+          <span className="main_info_block_table_cell_secondary">
             {hash ?? ''}
           </span>
         </div>

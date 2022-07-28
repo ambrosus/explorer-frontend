@@ -12,7 +12,7 @@ import BundleDetails from 'pages/Bundles/BundleDetails';
 import { Hermes } from 'pages/Hermes';
 import { Home } from 'pages/Home';
 import { Transactions } from 'pages/Transactions';
-import { TransactionDetails } from 'pages/TransactionsDetails';
+import { TransactionDetails } from 'pages/Transactions/TransactionsDetails';
 
 interface IAppRoutes {
   routes: IRoute[];
@@ -21,6 +21,7 @@ interface IAppRoutes {
   atlasRoutes: IRoute[];
   bundleRoutes: IRoute[];
   blockRoutes: IRoute[];
+  transactions: IRoute[];
 }
 
 export const routes: IRoute[] = [
@@ -47,13 +48,6 @@ export const routes: IRoute[] = [
   },
 
   {
-    path: '/hermes',
-    key: 'Hermes',
-    exact: true,
-    component: () => <Hermes />,
-    isClick: false,
-  },
-  {
     path: '/addresses',
     key: 'Addresses',
     exact: true,
@@ -72,7 +66,7 @@ export const routes: IRoute[] = [
     key: 'Transactions',
     exact: true,
     component: () => <Transactions />,
-    isClick: false,
+    isClick: true,
   },
   {
     path: '/bundles',
@@ -122,13 +116,6 @@ export const apolloRoutes: IRoute[] = [
     component: () => <ApolloDetails />,
     isClick: false,
   },
-  {
-    path: '/apollo/:address/:type',
-    key: 'Apollo Details type',
-    exact: true,
-    component: () => <ApolloDetails />,
-    isClick: false,
-  },
 ];
 export const blockRoutes: IRoute[] = [
   {
@@ -144,13 +131,6 @@ export const atlasRoutes: IRoute[] = [
   {
     path: '/atlas/:address',
     key: 'Atlas Details',
-    exact: true,
-    component: () => <AtlasDetails />,
-    isClick: false,
-  },
-  {
-    path: '/atlas/:address/:type',
-    key: 'Atlas Details type',
     exact: true,
     component: () => <AtlasDetails />,
     isClick: false,
@@ -191,6 +171,7 @@ const appRoutes: IAppRoutes = {
   apolloRoutes,
   atlasRoutes,
   blockRoutes,
+  transactions,
 };
 
 export default appRoutes;

@@ -1,5 +1,6 @@
 import { log } from '../utils/helpers';
 import axios from 'axios';
+import { ApiRequest } from 'types';
 
 const tokenApiUrl: any = process.env.REACT_APP_TOKEN_API_URL;
 
@@ -122,8 +123,8 @@ const getAtlases = (params = {}) => {
   });
 };
 
-export const getAccountTx = (address: any, params = {}) => {
-  return API().get(`accounts/${address}/transactions`, {
+export const getAccountTx = (params: any = {}) => {
+  return API().get(`accounts/${params.address}/transactions`, {
     params,
   });
 };

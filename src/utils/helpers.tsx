@@ -301,7 +301,7 @@ export function timeSince(date: any) {
   return Math.floor(seconds) + ' second' + (seconds !== 1 ? 's' : '');
 }
 
-export const statusMessage = (node: any, nodeName: string) => {
+export const statusMessage = (node: any = {}, nodeName: string) => {
   if (node.state === 'RETIRED') {
     return 'Retired';
   }
@@ -356,9 +356,9 @@ export const statusMessage = (node: any, nodeName: string) => {
     }
   }
 };
-export const ambToUSD = (amb: any, usd_price: any) => {
+export const ambToUSD = (amb: any = 0, usd_price: any = 0) => {
   let result = amb * parseFloat(usd_price);
-  return result.toFixed(7);
+  return result.toFixed(2);
 };
 
 export function scientificToDecimal(num: any) {

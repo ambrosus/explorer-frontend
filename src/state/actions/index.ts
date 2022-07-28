@@ -55,23 +55,22 @@ interface ClearFiltersTokenAction {
 }
 export type FiltersAction = SetFiltersTokenAction | ClearFiltersTokenAction;
 
-// ***** Bundle Data Action *****
-
-interface SetBundleDataAction {
-  type: actionTypes.SET_BUNDLE_DATA__START;
+// ***** Addresses Data Action *****
+interface SetAddressDataAction {
+  type: actionTypes.SET_ADDRESS_DATA__START;
 }
 
-interface SetBundleDataActionSuccess {
-  type: actionTypes.SET_BUNDLE_DATA__SUCCESS;
+interface SetAddressDataActionSuccess {
+  type: actionTypes.SET_ADDRESS_DATA__SUCCESS;
   payload: object | null;
 }
 
-interface SetBundleDataActionFailure {
-  type: actionTypes.SET_BUNDLE_DATA__FAIL;
+interface SetAddressDataActionFailure {
+  type: actionTypes.SET_ADDRESS_DATA__FAIL;
   payload: object | string | null;
 }
 
-export type BunleDataAction =
-  | SetBundleDataAction
-  | SetBundleDataActionSuccess
-  | SetBundleDataActionFailure;
+export type AddressesDataAction =
+  | SetAddressDataAction
+  | SetAddressDataActionSuccess
+  | SetAddressDataActionFailure;

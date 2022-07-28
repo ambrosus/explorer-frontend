@@ -1,9 +1,8 @@
-import { TParams } from '../../../../../types';
 import CopyBtn from 'components/CopyBtn';
-import React from 'react';
 import { useParams } from 'react-router-dom';
+import { TParams } from 'types';
 
-const AtlasDetailsBalance = ({ apollo }: any) => {
+const AtlasDetailsBalance = ({ apollo = 0 }: any) => {
   const { address }: TParams = useParams();
 
   const isOffline = apollo?.status === 'OFFLINE' ? '#bfc9e0' : undefined;

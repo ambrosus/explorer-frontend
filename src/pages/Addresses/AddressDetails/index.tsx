@@ -24,9 +24,10 @@ const AddressDetails = () => {
   );
   const {
     loading,
-    data: addressData,
+    data: addressData = {},
     error: errorData,
   } = useTypedSelector((state: any) => state.position);
+
   const { address, type, filtered, tokenToSorted }: TParams = useParams();
   const { setPosition, addFilter } = useActions();
   const [transactionType, setTransactionType] = useState(type || '');
@@ -69,23 +70,23 @@ const AddressDetails = () => {
   };
 
   useEffect(() => {
+    if (address?.trim() === '0x0000000000000000000000000000000000000000') {
+      navigate(`/notfound`);
+    }
     if (tokenToSorted?.length && tokenToSorted !== 'transfers') {
-      navigate(`/notfound`, { replace: true });
+      navigate(`/notfound`);
     }
     if (
       type?.length &&
       !(type === 'ERC-20_Tx' || type === 'transfers' || type === 'contract')
     ) {
-      navigate(`/notfound`, { replace: true });
+      navigate(`/notfound`);
     }
 
     if (address) {
       API.searchItem(address)
-        .then(
-          (data: any) =>
-            !data.meta.search && navigate(`/notfound`, { replace: true }),
-        )
-        .catch(() => navigate(`/notfound`, { replace: true }));
+        .then((data: any) => !data.meta.search && navigate(`/notfound`))
+        .catch(() => navigate(`/notfound`));
     }
   }, []);
 

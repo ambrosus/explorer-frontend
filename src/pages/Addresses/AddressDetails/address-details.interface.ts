@@ -42,9 +42,11 @@ export type TransactionProps = {
   token: string | undefined;
   txFee: any;
   symbol?: string;
+  inners?: any[];
 };
 
 export interface ExplorerTxType {
+  inners: any;
   hash: any;
   type: any;
   from: string | any[];
@@ -75,7 +77,7 @@ export interface AddressBlockProps {
   isIcon?: boolean;
   inners?: any[];
   innerLevel?: number;
-  hashOnClick?: (hash: string | number) => any;
+  hashOnClick?: boolean;
 }
 
 export interface TokenProps {

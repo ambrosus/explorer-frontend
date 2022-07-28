@@ -1,8 +1,7 @@
 import BundleDetailsBlock from '../BundleDetailsBlock';
 import Loader from 'components/Loader';
-import useAdressData from 'hooks/useAdressData';
-import useSortData from 'hooks/useSortData';
-import { useState } from 'react';
+import useAsyncStoreData from 'hooks/useAsyncStoreData';
+import { useEffect, useRef, useState } from 'react';
 import {
   getBundleAssetsData,
   getBundleData,
@@ -11,16 +10,28 @@ import {
 
 const BundleDetailsBlocks = () => {
   const [tab, setTab] = useState('assets');
+  const tableRef = useRef<any>(null);
 
-  const { ref: assetsRef, renderData: assetsData } = useSortData(
-    getBundleAssetsData,
-    '',
-  );
-  const { ref: eventsRef, renderData: eventsData } = useSortData(
-    getBundleEventsData,
-    '',
-  );
-  const { renderData } = useAdressData(getBundleData);
+  useEffect(() => {
+    if (tableRef.current) {
+      tableRef.current.scrollLeft = 0;
+    }
+  }, [tab]);
+
+  const {
+    ref: assetsRef,
+    renderData: assetsData,
+    hasNext: assersNext,
+  } = useAsyncStoreData(getBundleAssetsData);
+  const {
+    ref: eventsRef,
+    renderData: eventsData,
+    hasNext: eventsNext,
+  } = useAsyncStoreData(getBundleEventsData);
+
+  const hasNext = tab === 'assets' ? assersNext : eventsNext;
+
+  const { renderData } = useAsyncStoreData(getBundleData);
 
   return (
     <div className="bundle_details_blocks">
@@ -49,7 +60,7 @@ const BundleDetailsBlocks = () => {
         </button>
       </div>
 
-      <div className="bundle_details_blocks_table">
+      <div className="bundle_details_blocks_table" ref={tableRef}>
         <div className="bundle_details_blocks_header">Address</div>
         {tab === 'assets' &&
           assetsData?.data?.length &&
@@ -71,7 +82,7 @@ const BundleDetailsBlocks = () => {
               bundleRef={eventsData?.pagination?.hasNext ? eventsRef : null}
             />
           ))}
-        {(assetsData?.data?.length || eventsData?.data?.length) && <Loader />}
+        {hasNext && <Loader />}
       </div>
     </div>
   );

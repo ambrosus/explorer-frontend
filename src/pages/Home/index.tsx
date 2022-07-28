@@ -1,22 +1,29 @@
 import { useTypedSelector } from '../../hooks/useTypedSelector';
-import useHomeData from './useHomeData';
+import { LatestTransactionsProps, ResultHomePageData } from './home.interfaces';
+import API from 'API/api';
 import BlocksContent from 'components/BlocksContent';
 import BlocksContentMobile from 'components/BlocksContentMobile';
 import { Content } from 'components/Content';
 import FindWide from 'components/Find/FindWide';
 import useDeviceSize from 'hooks/useDeviceSize';
 import MainInfo from 'pages/Home/components/MainInfo';
-import { useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 export const Home: React.FC = () => {
-  const data = useHomeData();
+  const [data, setData] = useState<ResultHomePageData>();
+
   const { FOR_BIG_TABLET } = useDeviceSize();
   const { data: appData } = useTypedSelector((state: any) => state.app);
+  console.log(appData);
+
+  useEffect(() => {
+    getHomePageData().then((result: ResultHomePageData) => setData(result));
+  }, [data]);
 
   const header = useMemo(
     () =>
       appData && [
-        { name: 'AMB PRICE', value: appData.total_price_usd },
+        { name: 'AMB PRICE', value: appData.tokenInfo.price_usd },
         { name: 'TOTAL SUPPLY', value: appData.netInfo.totalSupply },
         {
           name: 'TOTAL TRANSACTIONS',
@@ -34,6 +41,17 @@ export const Home: React.FC = () => {
       ],
     [appData],
   );
+
+  const getHomePageData: () => Promise<ResultHomePageData> = async () => {
+    const result: ResultHomePageData = {
+      latestBlocks: (await API.getBlocks({ limit: 8 })).data,
+      latestTransactions: (await API.getTransactions({ limit: 6000 })).data
+        .filter((item: LatestTransactionsProps) => item.type !== 'BlockReward')
+        .slice(0, 8),
+    };
+
+    return result;
+  };
 
   return (
     <Content isLoading={!!data && !!appData}>

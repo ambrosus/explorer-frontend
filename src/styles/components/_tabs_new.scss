@@ -1,0 +1,14 @@
+.transactions_wrapper {
+  overflow: auto;
+  transform: translateX(-12px);
+
+  @include for_laptop {
+    width: calc(100% + 16px);
+  }
+}
+
+.tabs_link_new {
+  @include for_phone {
+    margin-right: 20px;
+  }
+}

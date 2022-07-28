@@ -6,6 +6,7 @@ import MainInfoAddresses from './components/MainInfoAddresses';
 import { Content } from 'components/Content';
 import Loader from 'components/Loader';
 import useSortData from 'hooks/useSortData';
+import { useTypedSelector } from 'hooks/useTypedSelector';
 import React from 'react';
 import { getAccountsData } from 'services/accounts.service';
 
@@ -13,6 +14,10 @@ export const Addresses = () => {
   const { ref, sortTerm, setSortTerm, renderData, loading, setRenderData } =
     useSortData(getAccountsData, 'balance');
   const isQueryContracts = sortTerm === 'contracts';
+
+  const { data } = useTypedSelector((state) => state.app);
+
+  console.log(data);
 
   return (
     <Content>

@@ -64,7 +64,16 @@ export const RenderRoutes = (props: any) => {
           {...route}
         />
       ))}
-      <Route path="*" element={<Navigate to="/notfound" replace />} />{' '}
+      {routes.transactions.map((route: any) => (
+        <Route
+          suspense={<Loader />}
+          key={route.key}
+          path={route.path}
+          element={<route.component />}
+          {...route}
+        />
+      ))}
+      <Route path="*" element={<Navigate to="/notfound" />} />{' '}
       <Route path="/notfound" element={<Error404 />} />
     </Routes>
   );

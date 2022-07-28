@@ -1,3 +1,4 @@
+import { ActionCreator } from './state/state.interface';
 import React from 'react';
 
 export interface IRoute {
@@ -14,3 +15,5 @@ export type TParams = {
   filtered?: string;
   tokenToSorted?: string;
 };
+
+export interface ApiRequest extends ActionCreator {}

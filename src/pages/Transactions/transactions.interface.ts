@@ -1,5 +1,7 @@
 export type TabsNewProps = {
   tabs: any;
-  onChange: (value: string) => void;
-  selectedItem: string;
+  fetchData: (args: any) => any;
+  fetchParams: any;
+  render: any;
+  withoutCalendar?: boolean;
 };

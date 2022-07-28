@@ -12,11 +12,11 @@ const BlockBody = ({ lastCardRef, item }: any) => {
   return (
     <div className="block_body" ref={lastCardRef}>
       <div className="block_body_cell color-gray">
-        {/*<NavLink className="universall_light2" to={`/blocks/${hash}`}>*/}
-        {sliceData5(hash)}
-        {/*</NavLink>*/}
+        <NavLink className="universall_light2" to={`/transactions/${hash}`}>
+          {sliceData5(hash)}
+        </NavLink>
       </div>
-      <div className="block_body_cell">{type}</div>
+      <div className="block_body_cell">{type.split(':')[0]}</div>
       <div className="block_body_cell color-gray">
         <NavLink className="universall_light2" to={`/addresses/${from}`}>
           {sliceData5(from)}

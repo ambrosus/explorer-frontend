@@ -1,6 +1,6 @@
-import { apollosSorting } from '../../../../utils/sidePages';
 import { PApolloSort } from '../../apolloBlocks.interface';
 import { FC } from 'react';
+import { apollosSorting } from 'utils/sidePages';
 
 const ApolloBlocksSort: FC<PApolloSort> = ({ sortTerm, setSortTerm }) => {
   function setOptionValue(value: string) {
