@@ -1,12 +1,12 @@
-import React from 'react';
+import API from '../../API/api';
+import { apollosSorting } from '../../utils/sidePages';
+import AtlasBlocksHeader from '../Atlas/components/AtlasBlocksHeader';
+import TabsNew from '../Transactions/components/TabsNew';
 import ApolloBlocksBody from './components/ApolloBlocksBody';
 import { Content } from 'components/Content';
-import AtlasBlocksHeader from "../Atlas/components/AtlasBlocksHeader";
-import API from "../../API/api";
-import TabsNew from "../Transactions/components/TabsNew";
-import {apollosSorting} from "../../utils/sidePages";
 import HeadInfo from 'components/HeadInfo';
 import { useTypedSelector } from 'hooks/useTypedSelector';
+import React from 'react';
 
 export const Apollo = () => {
   const { data: appData } = useTypedSelector((state: any) => state.app);

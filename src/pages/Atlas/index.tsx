@@ -1,4 +1,3 @@
-import React from 'react';
 import API from '../../API/api';
 import TabsNew from '../Transactions/components/TabsNew';
 import { TAtlasSortProps } from './atlasBlocks.interface';
@@ -6,6 +5,7 @@ import AtlasBlocksBody from './components/AtlasBlocksBody';
 import AtlasBlocksHeader from './components/AtlasBlocksHeader';
 import MainInfoAtlas from './components/MainInfoAtlas';
 import { Content } from 'components/Content';
+import React from 'react';
 
 const sortOptions: TAtlasSortProps[] = [
   {

@@ -1,7 +1,12 @@
 import { PAtlasSort, TAtlasSortProps } from '../../atlasBlocks.interface';
 import { FC } from 'react';
 
-const AtlasBlocksSort: FC<PAtlasSort> = ({ label, sortTerm, setSortTerm, sortOptions }) => (
+const AtlasBlocksSort: FC<PAtlasSort> = ({
+  label,
+  sortTerm,
+  setSortTerm,
+  sortOptions,
+}) => (
   <div className="atlas_blocks_sort">
     <div className="atlas_blocks_sort_heading">{label}</div>
     {sortOptions && (

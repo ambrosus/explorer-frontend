@@ -1,11 +1,11 @@
-import React from 'react';
+import API from '../../API/api';
+import TabsNew from '../Transactions/components/TabsNew';
 import BlocksBody from './components/BlocksBody';
 import BlocksHeader from './components/BlocksHeader';
 import { Content } from 'components/Content';
-import API from "../../API/api";
-import TabsNew from "../Transactions/components/TabsNew";
-import { useTypedSelector } from 'hooks/useTypedSelector';
 import HeadInfo from 'components/HeadInfo';
+import { useTypedSelector } from 'hooks/useTypedSelector';
+import React from 'react';
 
 export const Blocks = () => {
   const { data: appData } = useTypedSelector((state: any) => state.app);

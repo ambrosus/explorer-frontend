@@ -1,4 +1,3 @@
-import React, { FC, useEffect, useRef, useState } from 'react';
 import Calendar from '../../../components/Calendar';
 import Loader from '../../../components/Loader';
 import { useOnClickOutside } from '../../../hooks/useOnClickOutside';
@@ -9,6 +8,7 @@ import SideMenu from 'assets/icons/SideMenu';
 import ExportCsv from 'components/ExportCsv';
 import useDeviceSize from 'hooks/useDeviceSize';
 import { AccountsData } from 'pages/Addresses/addresses.interface';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 
 const TabsNew: FC<TabsNewProps> = ({

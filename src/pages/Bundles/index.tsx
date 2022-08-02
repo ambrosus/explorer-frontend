@@ -1,22 +1,16 @@
-import React from "react";
+import API from '../../API/api';
+import TabsNew from '../Transactions/components/TabsNew';
 import { Content } from 'components/Content';
-import useSortData from 'hooks/useSortData';
 import HeadInfo from 'components/HeadInfo';
-import Loader from 'components/Loader';
 import useAsyncStoreData from 'hooks/useAsyncStoreData';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import BundleBlocksBody from 'pages/Bundles/components/BundleBlocksBody';
 import BundleBlocksHeader from 'pages/Bundles/components/BundleBlocksHeader';
-import BundleMainTabs from 'pages/Bundles/components/BundleMainTabs';
-import { getBundleInfo } from 'services/bundle.service';
-import API from "../../API/api";
-import TabsNew from "../Transactions/components/TabsNew";
-import { getBundlesData } from 'services/bundle.service';
+import React from 'react';
 import { ambMonthUSD, numberWithCommas } from 'utils/helpers';
 
 export const Bundles = () => {
   const { data } = useTypedSelector((state) => state.app);
-  const { ref: ref1, renderData: data2 } = useAsyncStoreData(getBundlesData);
 
   const {
     totalBundles,
@@ -68,7 +62,9 @@ export const Bundles = () => {
   return (
     <Content>
       <Content.Header>
-        <BundleMainTabs data={appData} />
+        <h1 style={{ margin: '32px 0' }}>Bundles</h1>
+        <HeadInfo data={itemFirst} className="head_info head_bundle" />
+        <HeadInfo data={itemSecond} className="head_info" />
       </Content.Header>
       <Content.Body>
         <TabsNew
