@@ -146,7 +146,10 @@ const TabsNew: FC<TabsNewProps> = ({
               )}
             </div>
           </div>
-          <div style={{overflow: loading ? 'hidden' : 'auto'}} className="transactions_wrapper">
+          <div
+            style={{ overflow: loading ? 'hidden' : 'auto' }}
+            className="transactions_wrapper"
+          >
             <AddressBlocksHeader
               txhash="txHash"
               method="Method"
@@ -171,7 +174,10 @@ const TabsNew: FC<TabsNewProps> = ({
             setSortTerm={setSortTerm}
             label={label}
           />
-          <div style={{overflow: loading ? 'hidden' : 'auto'}} className="tabs_list">
+          <div
+            style={{ overflow: loading ? 'hidden' : 'auto' }}
+            className="tabs_list"
+          >
             {tableHeader()}
             {!!tabData.data.length && render(tabData.data)}
           </div>
