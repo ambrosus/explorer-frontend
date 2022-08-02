@@ -365,6 +365,7 @@ const Tabs: FC<TabsProps> = ({
                         }`}
                         isTableColumn={isTableColumn}
                         inners={transaction.inners}
+                        isIcon
                       />
                     ),
                 )

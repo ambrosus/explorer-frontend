@@ -44,6 +44,7 @@ const TabsNew: FC<TabsNewProps> = ({
   const handleShow = () => setIsShow(!isShow);
 
   useEffect(() => {
+    setLoading(true);
     setTabData({
       data: [],
       pagination: {
@@ -145,7 +146,7 @@ const TabsNew: FC<TabsNewProps> = ({
               )}
             </div>
           </div>
-          <div className="transactions_wrapper">
+          <div style={{overflow: loading ? 'hidden' : 'auto'}} className="transactions_wrapper">
             <AddressBlocksHeader
               txhash="txHash"
               method="Method"
@@ -170,7 +171,7 @@ const TabsNew: FC<TabsNewProps> = ({
             setSortTerm={setSortTerm}
             label={label}
           />
-          <div className="tabs_list">
+          <div style={{overflow: loading ? 'hidden' : 'auto'}} className="tabs_list">
             {tableHeader()}
             {!!tabData.data.length && render(tabData.data)}
           </div>

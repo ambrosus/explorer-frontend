@@ -1,4 +1,4 @@
-import { PAtlasSort, TAtlasSortProps } from '../../atlasBlocks.interface';
+import { PAtlasSort } from '../../atlasBlocks.interface';
 import { FC } from 'react';
 
 const AtlasBlocksSort: FC<PAtlasSort> = ({
@@ -22,7 +22,7 @@ const AtlasBlocksSort: FC<PAtlasSort> = ({
               setSortTerm(option.value);
             }}
           >
-            {option.label}
+            {option.label || option.title}
           </div>
         ))}
       </div>

@@ -61,6 +61,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
   const { addFilter } = useActions();
   const { address, type }: TParams = useParams();
 
+  console.log(isIcon);
   const navigate = useNavigate();
 
   const [isExpanded, setIsExpanded] = useState(false);
