@@ -1,14 +1,14 @@
+import addressReducer from './addressReducer';
 import appReducer from './appReducer';
-import bundleReducer from './bundleReducer';
 import positionReducer from './positionReducer';
 import tokenFiltersReducer from './tokenFiltersReducer';
 import { combineReducers } from 'redux';
 
-const reducers = combineReducers({
+const reducers: any = combineReducers({
   app: appReducer,
   position: positionReducer,
   tokenFilters: tokenFiltersReducer,
-  // bundles: bundleReducer,
+  addressData: addressReducer,
 });
 
 export default reducers;

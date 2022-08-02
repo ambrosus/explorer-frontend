@@ -1,7 +1,6 @@
 import BundleDetailsBlock from '../BundleDetailsBlock';
 import Loader from 'components/Loader';
-import useAdressData from 'hooks/useAdressData';
-import useSortData from 'hooks/useSortData';
+import useAsyncStoreData from 'hooks/useAsyncStoreData';
 import { useEffect, useRef, useState } from 'react';
 import {
   getBundleAssetsData,
@@ -19,15 +18,20 @@ const BundleDetailsBlocks = () => {
     }
   }, [tab]);
 
-  const { ref: assetsRef, renderData: assetsData } = useSortData(
-    getBundleAssetsData,
-    '',
-  );
-  const { ref: eventsRef, renderData: eventsData } = useSortData(
-    getBundleEventsData,
-    '',
-  );
-  const { renderData } = useAdressData(getBundleData);
+  const {
+    ref: assetsRef,
+    renderData: assetsData,
+    hasNext: assersNext,
+  } = useAsyncStoreData(getBundleAssetsData);
+  const {
+    ref: eventsRef,
+    renderData: eventsData,
+    hasNext: eventsNext,
+  } = useAsyncStoreData(getBundleEventsData);
+
+  const hasNext = tab === 'assets' ? assersNext : eventsNext;
+
+  const { renderData } = useAsyncStoreData(getBundleData);
 
   return (
     <div className="bundle_details_blocks">
@@ -78,7 +82,7 @@ const BundleDetailsBlocks = () => {
               bundleRef={eventsData?.pagination?.hasNext ? eventsRef : null}
             />
           ))}
-        {(assetsData?.data?.length || eventsData?.data?.length) && <Loader />}
+        {hasNext && <Loader />}
       </div>
     </div>
   );

@@ -14,6 +14,7 @@ export const Home: React.FC = () => {
 
   const { FOR_BIG_TABLET } = useDeviceSize();
   const { data: appData } = useTypedSelector((state: any) => state.app);
+  console.log(appData);
 
   useEffect(() => {
     getHomePageData().then((result: ResultHomePageData) => setData(result));
@@ -22,7 +23,7 @@ export const Home: React.FC = () => {
   const header = useMemo(
     () =>
       appData && [
-        { name: 'AMB PRICE', value: appData.total_price_usd },
+        { name: 'AMB PRICE', value: appData.tokenInfo.price_usd },
         { name: 'TOTAL SUPPLY', value: appData.netInfo.totalSupply },
         {
           name: 'TOTAL TRANSACTIONS',

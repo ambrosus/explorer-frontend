@@ -1,17 +1,56 @@
 import React from 'react';
 import ApolloBlocksBody from './components/ApolloBlocksBody';
-import MainInfoApollo from './components/MainInfoApollo';
 import { Content } from 'components/Content';
 import AtlasBlocksHeader from "../Atlas/components/AtlasBlocksHeader";
 import API from "../../API/api";
 import TabsNew from "../Transactions/components/TabsNew";
 import {apollosSorting} from "../../utils/sidePages";
+import HeadInfo from 'components/HeadInfo';
+import { useTypedSelector } from 'hooks/useTypedSelector';
 
 export const Apollo = () => {
+  const { data: appData } = useTypedSelector((state: any) => state.app);
+
+  const {
+    total = 0,
+    online = 0,
+    offline = 0,
+    connecting = 0,
+  } = appData?.netInfo?.apollos || 0;
+
+  const { avgBlockTime = 0 } = appData?.netInfo || 0;
+
+  const itemFirst: any = [
+    {
+      name: 'TOTAL NODES',
+      value: total,
+    },
+    {
+      name: 'ONLINE',
+      value: online,
+      style: {
+        color: '#1acd8c',
+      },
+    },
+    {
+      name: 'OFFLINE',
+      value: offline,
+    },
+    {
+      name: 'CONNECTING',
+      value: connecting,
+    },
+    {
+      name: 'Avg block / prop. time',
+      value: `${avgBlockTime} sec`,
+    },
+  ];
+
   return (
     <Content>
       <Content.Header>
-        <MainInfoApollo />
+        <h1 className="main_info_apollo_heading">Apollo Nodes</h1>
+        <HeadInfo data={itemFirst} className="head_info" />
       </Content.Header>
       <Content.Body>
         <TabsNew

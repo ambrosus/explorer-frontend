@@ -7,7 +7,9 @@ const BundleDetailsMain = () => {
   const { address } = useParams();
 
   const sptilStr = sliceDataString(address);
+
   const { FOR_PHONE } = useDeviceSize();
+
   return (
     <>
       <div className="bundle_details_main">
@@ -20,8 +22,8 @@ const BundleDetailsMain = () => {
               <>{address}</>
             ) : (
               <div>
-                {sptilStr.map((item: any) => (
-                  <p>{item}</p>
+                {sptilStr.map((item: string) => (
+                  <p key={Math.random()}>{item}</p>
                 ))}
               </div>
             )}
