@@ -1,3 +1,4 @@
+import React, { FC, useEffect, useRef, useState } from 'react';
 import Calendar from '../../../components/Calendar';
 import Loader from '../../../components/Loader';
 import { useOnClickOutside } from '../../../hooks/useOnClickOutside';
@@ -8,7 +9,6 @@ import SideMenu from 'assets/icons/SideMenu';
 import ExportCsv from 'components/ExportCsv';
 import useDeviceSize from 'hooks/useDeviceSize';
 import { AccountsData } from 'pages/Addresses/addresses.interface';
-import React, { FC, useEffect, useRef, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 
 const TabsNew: FC<TabsNewProps> = ({
@@ -20,6 +20,7 @@ const TabsNew: FC<TabsNewProps> = ({
   withoutCalendar,
   initSortTerm = '',
   tableHeader,
+  label,
 }) => {
   const [loading, setLoading] = useState(true);
   const [tab, setTab] = useState('');
@@ -50,9 +51,8 @@ const TabsNew: FC<TabsNewProps> = ({
         next: null,
       },
     });
-
     handleFetchData().then((response: any) => setTabData(response));
-  }, [tab]);
+  }, [tab, sortTerm]);
 
   useEffect(() => {
     if (
@@ -72,10 +72,19 @@ const TabsNew: FC<TabsNewProps> = ({
 
   const handleFetchData = (page?: number) => {
     setLoading(true);
-    const params: any = { ...fetchParams, page };
+    const params: any = { ...fetchParams };
 
+    if (fetchParams.hasOwnProperty('page')) {
+      params.page = page;
+    }
+    if (fetchParams.hasOwnProperty('next')) {
+      params.next = page;
+    }
     if (fetchParams.hasOwnProperty('type')) {
       params.type = tab;
+    }
+    if (fetchParams.hasOwnProperty('sort')) {
+      params.sort = sortTerm;
     }
     return fetchData({ ...params, limit: 50 }).finally(() => {
       setLoading(false);
@@ -150,15 +159,23 @@ const TabsNew: FC<TabsNewProps> = ({
               methodFilters={null}
               isTableColumn={'address_blocks_cells no_border'}
             />
+            {!!tabData.data.length && render(tabData.data)}
           </div>
         </>
       ) : (
         <>
-          <AtlasBlocksSort sortTerm={sortTerm} setSortTerm={setSortTerm} />
-          {tableHeader()}
+          <AtlasBlocksSort
+            sortOptions={sortOptions}
+            sortTerm={sortTerm}
+            setSortTerm={setSortTerm}
+            label={label}
+          />
+          <div className="tabs_list">
+            {tableHeader()}
+            {!!tabData.data.length && render(tabData.data)}
+          </div>
         </>
       )}
-      {!!tabData.data.length && render(tabData.data)}
       <div ref={ref} />
       {loading && <Loader />}
     </>

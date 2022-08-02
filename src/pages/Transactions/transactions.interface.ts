@@ -6,5 +6,6 @@ export type TabsNewProps = {
   render: any;
   withoutCalendar?: boolean;
   initSortTerm?: string;
+  label?: string;
   tableHeader?: any;
 };

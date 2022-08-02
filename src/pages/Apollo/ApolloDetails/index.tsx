@@ -40,7 +40,7 @@ export const ApolloDetails = () => {
         <TabsNew
           tabs={apolloDetailsSorting}
           fetchData={API.getAccountTx}
-          fetchParams={{ address, type: '' }}
+          fetchParams={{ address, type: '', page: '' }}
           render={(txs: Account[]) =>
             txs.map((transaction: any) => (
               <AddressBlock

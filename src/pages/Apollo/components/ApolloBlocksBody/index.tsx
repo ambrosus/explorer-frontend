@@ -5,14 +5,10 @@ import { FC } from 'react';
 import { NavLink } from 'react-router-dom';
 import { statusMessage } from 'utils/helpers';
 
-const ApolloBlocksBody: FC<ApolloBodyProps> = ({
-  lastCardRef,
-  index,
-  item,
-}) => {
+const ApolloBlocksBody: FC<ApolloBodyProps> = ({index, item,}) => {
   return (
     item && (
-      <div className="apollo_blocks_body" ref={lastCardRef}>
+      <div className="apollo_blocks_body">
         <div className="apollo_blocks_body_cell">{index}</div>
 
         <NavLink
