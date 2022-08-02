@@ -1,17 +1,16 @@
+import API from '../../API/api';
+import TabsNew from '../Transactions/components/TabsNew';
 import { Content } from 'components/Content';
 import HeadInfo from 'components/HeadInfo';
-import Loader from 'components/Loader';
 import useAsyncStoreData from 'hooks/useAsyncStoreData';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import BundleBlocksBody from 'pages/Bundles/components/BundleBlocksBody';
 import BundleBlocksHeader from 'pages/Bundles/components/BundleBlocksHeader';
-import { getBundlesData } from 'services/bundle.service';
+import React from 'react';
 import { ambMonthUSD, numberWithCommas } from 'utils/helpers';
 
 export const Bundles = () => {
   const { data } = useTypedSelector((state) => state.app);
-
-  const { ref: ref1, renderData: data2 } = useAsyncStoreData(getBundlesData);
 
   const {
     totalBundles,
@@ -68,24 +67,17 @@ export const Bundles = () => {
         <HeadInfo data={itemSecond} className="head_info" />
       </Content.Header>
       <Content.Body>
-        <div className="bundles_blocks">
-          <div className="bundles_blocks_heading">Recent Bundles</div>
-          <div className="bundles_blocks_table">
-            <BundleBlocksHeader />
-            {data2?.data?.length ? (
-              data2.data.map((item: any, index: number) => (
-                <BundleBlocksBody
-                  lastCardRef={data2?.pagination?.hasNext ? ref1 : null}
-                  key={index}
-                  item={item}
-                />
-              ))
-            ) : (
-              <Loader />
-            )}
-          </div>
-        </div>
-        {data2?.pagination?.hasNext && <Loader />}
+        <TabsNew
+          tableHeader={() => <BundleBlocksHeader />}
+          fetchData={API.getBundles}
+          fetchParams={{ next: '' }}
+          label="Recent Bundles"
+          render={(list: any) =>
+            list.map((el: any, index: any) => (
+              <BundleBlocksBody key={index} index={index + 1} item={el} />
+            ))
+          }
+        />
       </Content.Body>
     </Content>
   );

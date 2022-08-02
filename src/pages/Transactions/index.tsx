@@ -29,7 +29,7 @@ export const Transactions = () => {
           withoutCalendar
           tabs={transactionsTabs}
           fetchData={API.getTransactions}
-          fetchParams={{ type: '' }}
+          fetchParams={{ type: '', page: '' }}
           render={(txs: Account[]) =>
             txs.map((tx: any, i: number) => (
               <AddressBlock

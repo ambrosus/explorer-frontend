@@ -17,11 +17,10 @@ interface IBlocksBodyItem {
 
 interface IBlocksBody {
   index: number;
-  lastCardRef?: ((node?: Element | null | undefined) => void) | undefined;
   item: IBlocksBodyItem;
 }
 
-const BlocksBody: FC<IBlocksBody> = ({ index, lastCardRef, item }) => {
+const BlocksBody: FC<IBlocksBody> = ({ index, item }) => {
   const {
     number,
     miner,
@@ -56,7 +55,7 @@ const BlocksBody: FC<IBlocksBody> = ({ index, lastCardRef, item }) => {
   const navigate = useNavigate();
 
   return (
-    <div className="blocks_blocks_body" ref={lastCardRef}>
+    <div className="blocks_blocks_body">
       <div
         className="blocks_blocks_body_cell color-gray universall_link_underline"
         style={{

@@ -22,7 +22,7 @@ const methodFilters = [
 
 export const apollosSorting: TApolloSortProps[] = [
   { title: 'Address', value: 'address' },
-  { title: 'Total blocks', value: ' ' },
+  { title: 'Total blocks', value: 'totalBundles' },
   { title: 'Balance', value: 'balance' },
   { title: 'Stake', value: 'stake' },
 ];

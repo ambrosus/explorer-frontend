@@ -8,9 +8,7 @@ import {
   sliceData5,
 } from 'utils/helpers';
 
-const BundleBlocksBody = ({ lastCardRef, item }: any) => {
-  // const { data } = useTypedSelector((state) => state.bundles);
-
+const BundleBlocksBody = ({ item }: any) => {
   const isBundle = (
     <NavLink
       to={`${item?.bundleId}`}
@@ -72,7 +70,7 @@ const BundleBlocksBody = ({ lastCardRef, item }: any) => {
   );
 
   return (
-    <div className="bundle_blocks_body" ref={lastCardRef}>
+    <div className="bundle_blocks_body">
       {isBundle}
       {isBy}
       {isCreated}

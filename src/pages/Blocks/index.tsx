@@ -1,12 +1,11 @@
-import useSortData from '../../hooks/useSortData';
-import { getBlocksData } from '../../services/block.service';
+import API from '../../API/api';
+import TabsNew from '../Transactions/components/TabsNew';
 import BlocksBody from './components/BlocksBody';
 import BlocksHeader from './components/BlocksHeader';
-import DataTitle from './components/DataTitle';
 import { Content } from 'components/Content';
 import HeadInfo from 'components/HeadInfo';
-import Loader from 'components/Loader';
 import { useTypedSelector } from 'hooks/useTypedSelector';
+import React from 'react';
 
 export const Blocks = () => {
   const { data: appData } = useTypedSelector((state: any) => state.app);
@@ -18,11 +17,6 @@ export const Blocks = () => {
     (appData?.netInfo?.avgBlockGasUsed / appData?.netInfo?.avgBlockGasLimit ||
       0) * 100
   ).toFixed(2)}%)`;
-
-  const { ref, renderData, loading } = useSortData(
-    getBlocksData,
-    'totalBundles',
-  );
 
   const itemFirst: any = [
     {
@@ -53,26 +47,17 @@ export const Blocks = () => {
       </Content.Header>
       <Content.Body>
         <div className="blocks_main">
-          <DataTitle title="Blocks" />
-          <div className="blocks_main_table">
-            <BlocksHeader />
-            {renderData && renderData.data && renderData.data.length
-              ? renderData.data.map((item: any, index: number) => (
-                  <BlocksBody
-                    index={index + 1}
-                    lastCardRef={
-                      renderData.data.length - 1 === index &&
-                      renderData?.pagination?.hasNext
-                        ? ref
-                        : undefined
-                    }
-                    key={index}
-                    item={item}
-                  />
-                ))
-              : null}
-          </div>
-          {!loading && renderData?.pagination?.hasNext && <Loader />}
+          <TabsNew
+            tableHeader={() => <BlocksHeader />}
+            fetchData={API.getBlocks}
+            fetchParams={{ page: '' }}
+            label="Blocks"
+            render={(list: any) =>
+              list.map((el: any, index: any) => (
+                <BlocksBody key={index} index={index + 1} item={el} />
+              ))
+            }
+          />
         </div>
       </Content.Body>
     </Content>
