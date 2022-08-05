@@ -8,13 +8,21 @@ import FindWide from 'components/Find/FindWide';
 import useDeviceSize from 'hooks/useDeviceSize';
 import MainInfo from 'pages/Home/components/MainInfo';
 import { useEffect, useMemo, useState } from 'react';
+import {useActions} from "../../hooks/useActions";
 
 export const Home: React.FC = () => {
   const [data, setData] = useState<ResultHomePageData>();
+  const { setAppDataAsync } = useActions();
 
   const { FOR_BIG_TABLET } = useDeviceSize();
   const { data: appData } = useTypedSelector((state: any) => state.app);
-  console.log(appData);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setAppDataAsync();
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     getHomePageData().then((result: ResultHomePageData) => setData(result));
