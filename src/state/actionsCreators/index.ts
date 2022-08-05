@@ -9,44 +9,27 @@ import API from 'API/api';
 import { Dispatch } from 'redux';
 import { CLIENT_VERSION } from 'utils/constants';
 
-export const setAppDataAsync = (address?: any) => (dispatch: Dispatch<AppDataAction>) => {
-  dispatch({
-    type: actionTypes.SET_APP_DATA__START,
-  });
-  try {
-    const netInfo = API.getInfo();
-    const tokenInfo = API.getToken();
-    const total_price_usd = API.getTokenMountPrice();
-    console.log(1);
-    if (!!address) {
-      const bundleInfo = API.getBundle(address);
-      const apolloInfo = API.getApollo(address);
+export const setAppDataAsync =
+  (address?: any) => (dispatch: Dispatch<AppDataAction>) => {
+    dispatch({
+      type: actionTypes.SET_APP_DATA__START,
+    });
+    try {
+      const netInfo = API.getInfo();
+      const tokenInfo = API.getToken();
+      const total_price_usd = API.getTokenMountPrice();
 
-      Promise.allSettled([
-        netInfo,
-        tokenInfo,
-        total_price_usd,
-        bundleInfo,
-        apolloInfo,
-      ]).then((res: any) => {
-        //TODO refactor
-        dispatch({
-          type: actionTypes.SET_APP_DATA__SUCCESS,
-          payload: {
-            gitTagVersion: CLIENT_VERSION,
-            netInfo: res[0].value,
-            tokenInfo: {
-              ...res[1].value,
-              total_price_usd: res[2].value.total_price_usd,
-            },
-            bundleInfo: res[3].value,
-            apolloInfo: res[4].value,
-          },
-        });
-      });
-    } else
-      Promise.allSettled([netInfo, tokenInfo, total_price_usd]).then(
-        (res: any) => {
+      if (!!address) {
+        const bundleInfo = API.getBundle(address);
+        const apolloInfo = API.getApollo(address);
+
+        Promise.allSettled([
+          netInfo,
+          tokenInfo,
+          total_price_usd,
+          bundleInfo,
+          apolloInfo,
+        ]).then((res: any) => {
           //TODO refactor
           dispatch({
             type: actionTypes.SET_APP_DATA__SUCCESS,
@@ -57,17 +40,35 @@ export const setAppDataAsync = (address?: any) => (dispatch: Dispatch<AppDataAct
                 ...res[1].value,
                 total_price_usd: res[2].value.total_price_usd,
               },
+              bundleInfo: res[3].value,
+              apolloInfo: res[4].value,
             },
           });
-        },
-      );
-  } catch (error: any) {
-    dispatch({
-      type: actionTypes.SET_APP_DATA__FAIL,
-      payload: error.message,
-    });
-  }
-};
+        });
+      } else
+        Promise.allSettled([netInfo, tokenInfo, total_price_usd]).then(
+          (res: any) => {
+            //TODO refactor
+            dispatch({
+              type: actionTypes.SET_APP_DATA__SUCCESS,
+              payload: {
+                gitTagVersion: CLIENT_VERSION,
+                netInfo: res[0].value,
+                tokenInfo: {
+                  ...res[1].value,
+                  total_price_usd: res[2].value.total_price_usd,
+                },
+              },
+            });
+          },
+        );
+    } catch (error: any) {
+      dispatch({
+        type: actionTypes.SET_APP_DATA__FAIL,
+        payload: error.message,
+      });
+    }
+  };
 
 export const setPosition: any = (promiseFunc: any, ...params: any) => {
   return async (dispatch: Dispatch<PositionAction>) => {
@@ -107,7 +108,8 @@ export const clearFilters: any = () => {
   };
 };
 
-export const getAddressData = (address: any) => (dispatch: Dispatch<AddressesDataAction>) => {
+export const getAddressData =
+  (address: any) => (dispatch: Dispatch<AddressesDataAction>) => {
     dispatch({
       type: actionTypes.SET_ADDRESS_DATA__START,
     });
@@ -132,4 +134,4 @@ export const getAddressData = (address: any) => (dispatch: Dispatch<AddressesDat
         payload: error.message,
       });
     }
-};
+  };

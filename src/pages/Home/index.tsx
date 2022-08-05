@@ -1,3 +1,4 @@
+import { useActions } from '../../hooks/useActions';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { LatestTransactionsProps, ResultHomePageData } from './home.interfaces';
 import API from 'API/api';
@@ -8,7 +9,6 @@ import FindWide from 'components/Find/FindWide';
 import useDeviceSize from 'hooks/useDeviceSize';
 import MainInfo from 'pages/Home/components/MainInfo';
 import { useEffect, useMemo, useState } from 'react';
-import {useActions} from "../../hooks/useActions";
 
 export const Home: React.FC = () => {
   const [data, setData] = useState<ResultHomePageData>();
