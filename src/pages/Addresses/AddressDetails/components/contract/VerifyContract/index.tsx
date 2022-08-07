@@ -1,7 +1,11 @@
+import InputContract from 'components/InputContract';
+
 const VerifyContract = () => {
   return (
     <>
-      <div>1</div>
+      <div>
+        <InputContract />
+      </div>
     </>
   );
 };
