@@ -131,6 +131,7 @@ const Tabs: FC<TabsProps> = ({
     } else if (
       filtered === 'code' ||
       filtered === 'write' ||
+      filtered === 'verify' ||
       filtered === 'read'
     ) {
       return `tabs_link ${

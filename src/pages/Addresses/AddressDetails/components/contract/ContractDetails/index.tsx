@@ -1,4 +1,4 @@
-import { Code, ReadContract, WriteContract } from '../index';
+import { Code, ReadContract, WriteContract, VerifyContract } from '../index';
 import ContractHeader from './components/ContractHeader';
 import React from 'react';
 import { useParams } from 'react-router-dom';
@@ -24,6 +24,12 @@ const ContractDetails = () => {
         return (
           <div className="contract_write">
             <WriteContract />
+          </div>
+        );
+      case 'verify':
+        return (
+          <div className="contract_write">
+            <VerifyContract />
           </div>
         );
       default:

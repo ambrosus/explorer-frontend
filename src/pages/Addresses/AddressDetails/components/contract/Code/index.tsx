@@ -1,9 +1,25 @@
 import Link from '../../../../../../assets/icons/Link';
 import CopyIcon from '../CopyIcon';
 import FullScreeDataModal from '../Modal/FullScreeDataModal';
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 
 const Code = () => {
+  const [contractAbi, setContractAbi] = useState<any>([]);
+
+  useEffect(() => {
+    const testUrl =
+      'https://sourcify.dev/server/files/any/1/0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2';
+
+    axios({
+      method: 'get',
+      url: testUrl,
+    })
+      // .then((res) => JSON.parse(res.data.files[0].content))
+      .then((res) => console.log(res.request.response));
+    // .then((res) => setContractAbi(res.output.abi));
+  }, []);
+
   return (
     <div>
       <h2 className="contract-tab-title">Contract Source Code</h2>
