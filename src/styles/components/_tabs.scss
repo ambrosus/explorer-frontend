@@ -9,6 +9,9 @@
     background-color: white;
     z-index: 1;
     overflow-x: auto;
+    margin-left: 15px;
+    border-bottom: 1px solid #eff2f5;
+
     &::-webkit-scrollbar {
       display: none;
     }
@@ -16,7 +19,6 @@
     &_filters {
       display: flex;
       height: 56px;
-      padding-left: 15px;
     }
 
     &_export_modal {

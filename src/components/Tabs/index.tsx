@@ -343,6 +343,7 @@ const Tabs: FC<TabsProps> = ({
                         }`}
                         isTableColumn={isTableColumn}
                         inners={transaction.inners}
+                        status={transaction.status}
                       />
                     ) : (
                       <AddressBlock
@@ -366,6 +367,7 @@ const Tabs: FC<TabsProps> = ({
                         isTableColumn={isTableColumn}
                         inners={transaction.inners}
                         isIcon
+                        status={transaction.status}
                       />
                     ),
                 )

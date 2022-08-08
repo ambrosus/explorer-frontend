@@ -5,7 +5,7 @@ import useDeviceSize from 'hooks/useDeviceSize';
 import { useOnClickOutside } from 'hooks/useOnClickOutside';
 import React, { useEffect, useRef, useState } from 'react';
 
-const ExportCsv = ({ miningStats, showText = true }: any) => {
+const ExportCsv = ({ miningStats, showText = true, initRange }: any) => {
   const [isShow, setIsShow] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const handleClose = () => {
@@ -73,6 +73,7 @@ const ExportCsv = ({ miningStats, showText = true }: any) => {
               setIsLoading={setIsLoading}
               handleClose={handleClose}
               miningStats={miningStats}
+              initRange={initRange}
             />
           </div>
         )}
