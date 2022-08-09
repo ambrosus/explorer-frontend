@@ -91,18 +91,16 @@ const AddressDetails = () => {
   }, []);
 
   useEffect(() => {
-    if (type !== 'contract') {
-      if (address || type || filtered || tokenToSorted) {
-        setPageNum(1);
-        setPosition(null);
-        setTx([]);
-      }
-      return () => {
-        setPageNum(1);
-        setPosition(null);
-        setTx([]);
-      };
+    if (address || type || filtered || tokenToSorted) {
+      setPageNum(1);
+      setPosition(null);
+      setTx([]);
     }
+    return () => {
+      setPageNum(1);
+      setPosition(null);
+      setTx([]);
+    };
   }, [address, type, filtered, tokenToSorted]);
 
   async function getAddressDetailsData() {
@@ -275,7 +273,7 @@ const AddressDetails = () => {
         </Content.Header>
         <Content.Body isLoading={filtered ? !loading : true}>
           <Tabs
-            // isContract={isContract}
+            isContract={isContract}
             pageNum={pageNum}
             lastCardRef={lastCardRef}
             onClick={setSelectedToken}
