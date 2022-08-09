@@ -7,14 +7,10 @@ import {
 } from '../actions';
 import API from 'API/api';
 import { Dispatch } from 'redux';
-import { ActionCreator, ActionsFetch } from 'state/state.interface';
 import { CLIENT_VERSION } from 'utils/constants';
 
-export const setAppDataAsync = (
-  address: any = undefined,
-  params: any = { limit: 20, next: null },
-) => {
-  return (dispatch: Dispatch<AppDataAction>) => {
+export const setAppDataAsync =
+  (address?: any) => (dispatch: Dispatch<AppDataAction>) => {
     dispatch({
       type: actionTypes.SET_APP_DATA__START,
     });
@@ -34,6 +30,7 @@ export const setAppDataAsync = (
           bundleInfo,
           apolloInfo,
         ]).then((res: any) => {
+          //TODO refactor
           dispatch({
             type: actionTypes.SET_APP_DATA__SUCCESS,
             payload: {
@@ -51,6 +48,7 @@ export const setAppDataAsync = (
       } else
         Promise.allSettled([netInfo, tokenInfo, total_price_usd]).then(
           (res: any) => {
+            //TODO refactor
             dispatch({
               type: actionTypes.SET_APP_DATA__SUCCESS,
               payload: {
@@ -71,7 +69,6 @@ export const setAppDataAsync = (
       });
     }
   };
-};
 
 export const setPosition: any = (promiseFunc: any, ...params: any) => {
   return async (dispatch: Dispatch<PositionAction>) => {
@@ -111,11 +108,8 @@ export const clearFilters: any = () => {
   };
 };
 
-export const getAddressData = (
-  address: any = undefined,
-  params = { limit: 20, next: null },
-) => {
-  return (dispatch: Dispatch<AddressesDataAction>) => {
+export const getAddressData =
+  (address: any) => (dispatch: Dispatch<AddressesDataAction>) => {
     dispatch({
       type: actionTypes.SET_ADDRESS_DATA__START,
     });
@@ -141,32 +135,3 @@ export const getAddressData = (
       });
     }
   };
-};
-
-// export const getBundleAddressData: ActionsFetch = (
-//   address,
-//   params = { limit: 20, next: null },
-// ) => {
-//   return async (dispatch: Dispatch<AppDataAction>) => {
-//     dispatch({
-//       type: actionTypes.SET_APP_DATA__START,
-//     });
-//     try {
-//       if (!!address) {
-//         const apolloInfo = await API.getApollo(address);
-
-//         dispatch({
-//           type: actionTypes.SET_APP_DATA__SUCCESS,
-//           payload: {
-//             apolloInfo: apolloInfo,
-//           },
-//         });
-//       }
-//     } catch (error: any) {
-//       dispatch({
-//         type: actionTypes.SET_APP_DATA__FAIL,
-//         payload: error.message,
-//       });
-//     }
-//   };
-// };

@@ -140,6 +140,7 @@ export const AtlasDetails = () => {
                 token={`${transaction?.token ? transaction?.token : 'AMB'}`}
                 symbol={`${transaction?.symbol ? transaction?.symbol : 'AMB'}`}
                 isTableColumn="address_blocks_cells"
+                status={transaction.status}
               />
             ))
           }

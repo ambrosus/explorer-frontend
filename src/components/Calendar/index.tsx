@@ -1,6 +1,6 @@
 import API from 'API/api';
 import { addDays } from 'date-fns';
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { DateRange } from 'react-date-range';
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
@@ -10,11 +10,12 @@ import { TParams } from 'types';
 const Calendar = ({
   setIsLoading,
   handleClose,
-  miningStats = undefined,
+  miningStats,
+  initRange,
 }: any) => {
   const { address }: TParams = useParams();
 
-  const [dataRange, setDataRange] = useState([
+  const [dataRange, setDataRange] = useState(initRange || [
     {
       startDate: new Date(),
       endDate: addDays(new Date(), 0),
@@ -22,6 +23,7 @@ const Calendar = ({
       key: 'selection',
     },
   ]);
+
   const changeData = (item: any) => {
     setDataRange([item.selection]);
   };
@@ -50,12 +52,12 @@ const Calendar = ({
     }
   };
   const exportData = async () => {
-    if (miningStats !== undefined) {
+    if (miningStats) {
       const str = `${formatDate(dataRange[0].startDate)}-${formatDate(
         dataRange[0].endDate,
       )}`;
 
-      miningStats(str);
+      miningStats(str, dataRange);
     } else {
       setIsLoading(true);
       setTimeout(() => {

@@ -9,3 +9,13 @@ export type TabsNewProps = {
   label?: string;
   tableHeader?: any;
 };
+
+export type TabsItemProps = {
+  tab: string;
+  el: {
+    value: string;
+    title: string;
+  };
+  handleTab: (value: string) => void;
+}
+

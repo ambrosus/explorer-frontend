@@ -43,6 +43,7 @@ export type TransactionProps = {
   txFee: any;
   symbol?: string;
   inners?: any[];
+  status?: string;
 };
 
 export interface ExplorerTxType {
@@ -77,7 +78,7 @@ export interface AddressBlockProps {
   isIcon?: boolean;
   inners?: any[];
   innerLevel?: number;
-  hashOnClick?: boolean;
+  status?: string;
 }
 
 export interface TokenProps {

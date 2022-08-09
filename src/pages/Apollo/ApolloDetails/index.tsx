@@ -9,7 +9,7 @@ import { useTypedSelector } from 'hooks/useTypedSelector';
 import moment from 'moment';
 import AddressBlock from 'pages/Addresses/AddressDetails/components/AddressBlocks';
 import TabsNew from 'pages/Transactions/components/TabsNew';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { TParams } from 'types';
 import { ambToUSD, statusMessage, formatDate } from 'utils/helpers';
@@ -28,6 +28,14 @@ export const ApolloDetails = () => {
   const { balance, stake, version } = addressData?.apolloInfo?.data || 0;
   const apolloData = addressData?.apolloInfo?.data;
 
+  const initFilterData = formatDate(
+    apolloData?.lastBlock?.timestamp
+      ? (new Date(apolloData.lastBlock.timestamp * 1000) as any) / 1000
+      : (new Date() as any) / 1000,
+    true,
+    false,
+  );
+
   const { total_price_usd } = appData?.tokenInfo || 0;
   const ambBalance = balance?.ether || 0;
   const ambStake = stake?.ether || 0;
@@ -44,34 +52,19 @@ export const ApolloDetails = () => {
   });
   const [isLoad, setIsLoad] = useState<boolean>(false);
 
-  const [filterDate, setFilterDate] = useState<any>(() => {
-    return formatDate(
-      apolloData?.lastBlock?.timestamp
-        ? (new Date(apolloData.lastBlock.timestamp * 1000) as any) / 1000
-        : (new Date() as any) / 1000,
-      true,
-      false,
-    );
-  });
-
+  const [filterDate, setFilterDate] = useState<any>(() => initFilterData);
+  const [dateRange, setDateRange] = useState<any>(null)
   const { price_usd } = appData?.tokenInfo || 0;
 
   useEffect(() => {
     if (apolloData?.lastBlock) {
-      setFilterDate(() => {
-        return formatDate(
-          apolloData?.lastBlock?.timestamp
-            ? (new Date(apolloData.lastBlock.timestamp * 1000) as any) / 1000
-            : (new Date() as any) / 1000,
-          true,
-          false,
-        );
-      });
+      setFilterDate(() => initFilterData);
     }
   }, [apolloData]);
 
-  const onSelect = (value: any) => {
+  const onSelect = (value: any, range: any) => {
     setFilterDate(value);
+    setDateRange(range)
   };
 
   const fetchRewards = async () => {
@@ -132,7 +125,7 @@ export const ApolloDetails = () => {
             marginLeft: 6,
           }}
         >
-          <ExportCsv miningStats={onSelect} showText={false} />
+          <ExportCsv initRange={dateRange} miningStats={onSelect} showText={false} />
         </div>
       ),
     },
@@ -205,6 +198,7 @@ export const ApolloDetails = () => {
                 symbol={`${transaction?.symbol ? transaction?.symbol : 'AMB'}`}
                 isTableColumn="address_blocks_cells"
                 isIcon={true}
+                status={transaction.status}
               />
             ))
           }
