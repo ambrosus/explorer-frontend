@@ -12,7 +12,6 @@ const Method = ({ index, method }: any) => {
   const [input, setInput] = React.useState<any>({});
   const [open, setOpen] = React.useState<any>(false);
   const contractCall = async (method: any) => {
-    console.log(method);
     try {
       let provider = new ethers.providers.JsonRpcProvider(
         process.env.REACT_APP_EXPLORER_NETWORK,
@@ -43,7 +42,6 @@ const Method = ({ index, method }: any) => {
           newObj[key] = obj[key];
         });
 
-        console.log('newObj', newObj);
         return newObj;
       };
       const toSend =
@@ -64,7 +62,6 @@ const Method = ({ index, method }: any) => {
         ? await contract?.[`${method.name}`](...toSend)
         : await contract?.[`${method.name}`]();
 
-      console.log(value);
       setResult(value);
     } catch (e) {
       console.log(e);

@@ -1,31 +1,44 @@
 import Method from './Method';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { useQuery } from 'react-query';
+import { useParams } from 'react-router-dom';
 
 const ReadContract = () => {
   const [contractAbi, setContractAbi] = useState<any>([]);
+  const { address } = useParams();
 
   useEffect(() => {
-    const testUrl =
-      'https://sourcify.dev/server/files/any/1/0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2';
-
     axios({
       method: 'get',
-      url: testUrl,
+      url: 'https://sourcify.dev/server/files/any/1/0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
     })
-      .then((res) => JSON.parse(res.data.files[0].content))
-      .then((res) => setContractAbi(res.output.abi));
+      .then((res) => {
+        console.log(res);
+
+        return JSON.parse(res.data.files[0].content);
+      })
+      .then((res) => {
+        // console.log(res);
+
+        setContractAbi(res.output.abi);
+      });
   }, []);
-  console.log(contractAbi);
+
+  // const { data } = useQuery('readContract', () => {
+  //   axios({
+  //     method: 'get',
+  //     url: 'https://sourcify.dev/server/files/any/1/0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
+  //   })
+  //     .then((res) => JSON.parse(res.data.files[0].content))
+  //     .then((res) => res.output.abi);
+  // });
 
   return (
     <div>
       <h2 className="contract-tab-title">Contract Source Code</h2>
       <div className="methods">
         {contractAbi
-          // .filter(
-          //   (method: any) => method.constant && method.type === 'function',
-          // )
           .filter(
             (method: any) =>
               (method.stateMutability === 'view' ||

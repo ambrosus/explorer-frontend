@@ -2,11 +2,11 @@ import InputContract from 'components/InputContract';
 
 const VerifyContract = () => {
   return (
-    <>
-      <div>
-        <InputContract />
-      </div>
-    </>
+    <section className="verify_contract">
+      <h2 className="verify_contract-heading">Upload source files</h2>
+
+      <InputContract />
+    </section>
   );
 };
 

@@ -131,13 +131,19 @@ const Tabs: FC<TabsProps> = ({
     } else if (
       filtered === 'code' ||
       filtered === 'write' ||
-      filtered === 'verify' ||
-      filtered === 'read'
+      filtered === 'read' ||
+      filtered === 'verify'
     ) {
       return `tabs_link ${
-        ((filtered === 'code' || filtered === 'read' || filtered === 'write') &&
+        ((filtered === 'code' ||
+          filtered === 'read' ||
+          filtered === 'write' ||
+          filtered === 'verify') &&
           itemValue === 'contract') ||
-        ((filtered === 'code' || filtered === 'read' || filtered === 'write') &&
+        ((filtered === 'code' ||
+          filtered === 'read' ||
+          filtered === 'write' ||
+          filtered === 'verify') &&
           filtered === itemValue) ||
         itemValue === transactionType
           ? 'tabs_link_active'
@@ -193,7 +199,8 @@ const Tabs: FC<TabsProps> = ({
             {!filtered ||
             filtered === 'code' ||
             filtered === 'write' ||
-            filtered === 'read'
+            filtered === 'read' ||
+            filtered === 'verify'
               ? transactionFilters?.length &&
                 transactionFilters.map((filter) => (
                   <>

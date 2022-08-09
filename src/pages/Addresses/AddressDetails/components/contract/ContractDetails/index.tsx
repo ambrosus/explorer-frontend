@@ -43,7 +43,7 @@ const ContractDetails = () => {
 
   return (
     <div className="contract-body">
-      <ContractHeader />
+      {filtered !== 'verify' && <ContractHeader />}
       <div className="contract-body-content">{getTab()}</div>
     </div>
   );

@@ -7,7 +7,7 @@
     justify-content: center;
     width: 100%;
     height: 100%;
-    padding: 0;
+    padding-left: 15px;
     margin: 0;
 
     .contract-body {
@@ -36,10 +36,10 @@
           line-height: 40px;
           display: flex;
           align-items: center;
-          color: #05060F;
+          color: #05060f;
 
           .verified-contract {
-            color: #1ACD8C;
+            color: #1acd8c;
           }
 
           .match-contract {
@@ -67,16 +67,14 @@
             font-weight: 600;
             font-size: 14px;
             line-height: 17px;
-            color: #05060F;
+            color: #05060f;
 
             span {
               font-weight: 400;
             }
-
           }
         }
       }
-
 
       .contract-tab-title {
         font-style: normal;
@@ -85,12 +83,11 @@
         line-height: 40px;
         display: flex;
         align-items: center;
-        color: #05060F;
+        color: #05060f;
       }
 
       .contract_code {
         .files {
-
           display: flex;
           flex-direction: column;
           justify-content: center;
@@ -126,7 +123,7 @@
                 display: flex;
                 align-items: center;
 
-                color: #05060F;
+                color: #05060f;
 
                 span {
                   font-weight: 400;
@@ -153,7 +150,7 @@
               padding: 12px;
               box-sizing: border-box;
               background: rgba(246, 246, 246, 0.3);
-              border: 1px solid #EFF2F5;
+              border: 1px solid #eff2f5;
               border-radius: 16px;
 
               .no-counter {
@@ -184,13 +181,10 @@
                 content: counter(line);
                 display: inline-block;
                 padding: 0px 10px 0px 0px;
-                color: #888
+                color: #888;
               }
             }
-
           }
-
-
         }
 
         .button {
@@ -209,7 +203,8 @@
         }
       }
 
-      .contract_read, .contract_write {
+      .contract_read,
+      .contract_write {
         .methods {
           display: flex;
           flex-direction: column;
@@ -218,7 +213,7 @@
           .method {
             display: flex;
             flex-direction: column;
-            border: 1px solid #EFF2F5;
+            border: 1px solid #eff2f5;
             border-radius: 16px;
             padding: 12px;
             box-sizing: border-box;
@@ -249,7 +244,7 @@
               display: flex;
               align-items: center;
 
-              color: #05060F;
+              color: #05060f;
             }
 
             &-name {
@@ -260,7 +255,7 @@
               line-height: 17px;
               display: flex;
               align-items: center;
-              color: #05060F;
+              color: #05060f;
             }
 
             &-params {
@@ -273,7 +268,6 @@
                 flex-direction: column;
                 gap: 12px;
 
-
                 &-name {
                   font-family: 'Proxima Nova';
                   font-style: normal;
@@ -282,7 +276,7 @@
                   line-height: 15px;
                   display: flex;
                   align-items: center;
-                  color: #05060F;
+                  color: #05060f;
                 }
 
                 input {
@@ -296,32 +290,25 @@
                   display: flex;
                   align-items: center;
 
-                  color: #05060F;
+                  color: #05060f;
 
                   padding: 12px;
                   height: 48px;
-                  background: #FFFFFF;
-                  border: 1px solid #EFF2F5;
+                  background: #ffffff;
+                  border: 1px solid #eff2f5;
                   border-radius: 16px;
                 }
               }
-
-
             }
-
-
           }
         }
       }
 
       .contract_write {
-
       }
-
     }
   }
 }
-
 
 .fullscreen-view {
   overflow-y: scroll;
@@ -331,7 +318,7 @@
   padding: 12px;
   box-sizing: border-box;
   background: white;
-  border: 1px solid #EFF2F5;
+  border: 1px solid #eff2f5;
   border-radius: 16px;
 
   * {
@@ -347,7 +334,7 @@
   align-items: center;
   justify-content: center;
   height: 24px;
-  background: #808A9D;
+  background: #808a9d;
   border-radius: 8px;
   text-align: center;
   font-family: 'Proxima Nova', serif;
@@ -355,7 +342,7 @@
   font-weight: 700;
   font-size: 11px;
   line-height: 32px;
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
 .greenCircle {
@@ -372,7 +359,7 @@
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #FF5252;
+  background: #ff5252;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -386,6 +373,112 @@
   line-height: 24px;
   display: flex;
   align-items: center;
-  color: #A6B0C3;
+  color: #a6b0c3;
+}
 
+.input_contract {
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  display: flex;
+
+  &_add {
+    display: flex;
+    flex-direction: column;
+    height: 164px;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+
+    position: relative;
+    overflow: hidden;
+    border: 2px dashed #808a9d;
+    border-radius: 16px;
+  }
+  &-filehead {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 15px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-top: 32px;
+    &-text {
+      &-left {
+      }
+      &-right {
+      }
+    }
+  }
+
+  &_submit {
+    height: 50px;
+    width: 200px;
+    border: 1px solid #000;
+    border-radius: 16px;
+    justify-content: center;
+    margin-top: 10px;
+  }
+  &_name {
+    border: 1px dashed #000;
+    height: 24px;
+    padding: 2px;
+    margin-bottom: 4px;
+  }
+  &-address {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background: #ffffff;
+
+    &-text {
+      border: 1px solid #eff2f5;
+      border-radius: 16px;
+      padding-left: 12px;
+      height: 48px;
+
+      line-height: 24px;
+      color: #a6b0c3;
+    }
+  }
+
+  &-placeholder {
+    display: inherit;
+    flex-direction: inherit;
+    align-items: inherit;
+    width: inherit;
+  }
+  &-files {
+    // display: none;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+  }
+}
+
+.input_contract-files::file-selector-button {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: 0px;
+  color: rgba(0, 0, 0, 0);
+  cursor: pointer;
+}
+.input_contract-files::file-selector-button:hover {
+  background: rgba(103, 143, 218, 0.1);
+}
+
+.verify_contract {
+  &-heading {
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 40px;
+    margin-bottom: 10px;
+  }
 }
