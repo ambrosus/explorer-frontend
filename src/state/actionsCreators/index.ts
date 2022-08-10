@@ -4,8 +4,10 @@ import {
   AppDataAction,
   FiltersAction,
   PositionAction,
+  SourcifyesDataAction,
 } from '../actions';
 import API from 'API/api';
+import SOURCIFYAPI from 'API/api';
 import { Dispatch } from 'redux';
 import { CLIENT_VERSION } from 'utils/constants';
 
@@ -107,6 +109,32 @@ export const getAddressData =
     } catch (error: any) {
       dispatch({
         type: actionTypes.SET_ADDRESS_DATA__FAIL,
+        payload: error.message,
+      });
+    }
+  };
+
+export const getContractAddressData =
+  (address: any) => (dispatch: Dispatch<SourcifyesDataAction>) => {
+    dispatch({
+      type: actionTypes.SET_SOURCIFY_DATA__START,
+    });
+    try {
+      const accountInfo = API.getAccount(address);
+      const contractInfo = SOURCIFYAPI.getContract(address);
+
+      Promise.allSettled([accountInfo, contractInfo]).then((res: any) =>
+        dispatch({
+          type: actionTypes.SET_SOURCIFY_DATA__SUCCESS,
+          payload: {
+            accountInfo: res[0].value,
+            contractInfo: res[1].value,
+          },
+        }),
+      );
+    } catch (error: any) {
+      dispatch({
+        type: actionTypes.SET_SOURCIFY_DATA__FAIL,
         payload: error.message,
       });
     }

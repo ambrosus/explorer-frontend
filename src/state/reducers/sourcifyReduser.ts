@@ -1,12 +1,6 @@
 import { actionTypes } from '../action-types';
-import { AppDataAction } from '../actions';
+import { SourcifyesDataAction } from '../actions';
 import { PagesState } from 'state/state.interface';
-
-interface AppState {
-  loading: boolean;
-  error: object | string | null;
-  data: object | null;
-}
 
 const initialState = {
   loading: false,
@@ -15,14 +9,14 @@ const initialState = {
 };
 const reducer = (
   state: PagesState = initialState,
-  action: AppDataAction,
-): AppState => {
+  action: SourcifyesDataAction,
+): PagesState => {
   switch (action.type) {
-    case actionTypes.SET_APP_DATA__START:
+    case actionTypes.SET_SOURCIFY_DATA__START:
       return { ...state, loading: true };
-    case actionTypes.SET_APP_DATA__SUCCESS:
+    case actionTypes.SET_SOURCIFY_DATA__SUCCESS:
       return { ...state, loading: false, data: action.payload };
-    case actionTypes.SET_APP_DATA__FAIL:
+    case actionTypes.SET_SOURCIFY_DATA__FAIL:
       return { ...state, error: action.payload };
     default:
       return state;

@@ -74,3 +74,23 @@ export type AddressesDataAction =
   | SetAddressDataAction
   | SetAddressDataActionSuccess
   | SetAddressDataActionFailure;
+
+// ***** Sourcify Data Action *****
+interface SetSourcifyDataAction {
+  type: actionTypes.SET_SOURCIFY_DATA__START;
+}
+
+interface SetSourcifyDataActionSuccess {
+  type: actionTypes.SET_SOURCIFY_DATA__SUCCESS;
+  payload: object | null;
+}
+
+interface SetSourcifyDataActionFailure {
+  type: actionTypes.SET_SOURCIFY_DATA__FAIL;
+  payload: object | string | null;
+}
+
+export type SourcifyesDataAction =
+  | SetSourcifyDataAction
+  | SetSourcifyDataActionSuccess
+  | SetSourcifyDataActionFailure;

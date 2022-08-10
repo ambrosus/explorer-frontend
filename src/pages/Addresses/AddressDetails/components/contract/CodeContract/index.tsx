@@ -9,7 +9,9 @@ import { useParams } from 'react-router-dom';
 const Code = () => {
   const [contractAbi, setContractAbi] = useState<any>([]);
   const { address } = useParams();
-  const { data: addressData } = useTypedSelector((state) => state?.addressData);
+  const { data: addressData } = useTypedSelector((state) => state?.);
+  console.log(addressData);
+  
 
   function IsJsonString(str: any) {
     try {
@@ -19,19 +21,24 @@ const Code = () => {
     }
     return true;
   }
+  const baseUrl = 'https://sourcify.ambrosus.io';
+  const chainID = '22040';
 
   useEffect(() => {
     // const testUrl =
     //   'https://sourcify.dev/server/files/any/1/0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2';
-    const testUrl = `https://sourcify.ambrosus.io/files/any/22040/${address}`;
+    const testUrl = `${baseUrl}/files/any/${chainID}/${address}`;
 
     axios({
       method: 'get',
       url: testUrl,
     })
       // .then((res) => JSON.parse(res.data.files[1].content))
-      .then((res) => res.data.files[1].content)
-      .then((res) => console.log(res));
+      // .then((res) => res.data.files[1].content)
+      .then((res) => console.log(res))
+      .catch((err) => {
+        console.log(err.response);
+      });
     // .then((res) => setContractAbi(res.output.abi));
   }, []);
 

@@ -12,10 +12,12 @@ const VerifyContract = () => {
 
   const [file, setFile] = useState<any>([]);
   const [loading, setLoading] = useState(false);
+  const [verify, setVerify] = useState(false);
   const [contractsToChoose, setContractsToChoose] = useState([]);
   // const [contractsToVerify, setContractsToVerify] = useState();
 
   const { address = '' } = useParams();
+  console.log(contractsToChoose);
 
   const getFileName = (e: any) => {
     e.preventDefault();
@@ -47,7 +49,7 @@ const VerifyContract = () => {
         }
 
         console.log(err.response);
-        // console.log(err);
+
         setLoading(false);
       });
   };
@@ -56,16 +58,16 @@ const VerifyContract = () => {
     e.preventDefault();
   };
 
-  const verifyContract = (e: any, choosenContract: any) => {
+  const verifyContract = (e: any, chosenContract: any) => {
     e.preventDefault();
-
+    setVerify(false);
     let formData = new FormData();
     formData.append('address', address);
     formData.append('chain', '22040');
     file.forEach((file: any) => {
       formData.append('files', file);
     });
-    formData.append('chosenContract', choosenContract);
+    formData.append('chosenContract', chosenContract);
 
     axios
       .post(sourcifyUrl, formData, {
@@ -76,6 +78,7 @@ const VerifyContract = () => {
       .then((res) => {
         console.log('res ', res);
         setLoading(false);
+        setVerify(true);
       })
       .catch((err) => {
         // if (!!err.response.data.contractsToChoose) {
@@ -181,22 +184,24 @@ const VerifyContract = () => {
               )}
             </div>
           </label>
-          <div className="verify_contract-fileslist">
-            <div className="verify_contract-fileslist-heading">Contract</div>
-            {contractsToChoose.map((contract: any, index: number) => (
-              <div key={index} className="verify_contract-fileslist-files">
-                <span className="verify_contract-fileslist-name">
-                  {contract.name}
-                </span>
-                <button
-                  onClick={(e) => verifyContract(e, index)}
-                  className="verify_contract-fileslist-btn"
-                >
-                  Verify
-                </button>
-              </div>
-            ))}
-          </div>
+          {contractsToChoose.length > 0 && (
+            <div className="verify_contract-fileslist">
+              <div className="verify_contract-fileslist-heading">Contract</div>
+              {contractsToChoose.map((contract: any, index: number) => (
+                <div key={index} className="verify_contract-fileslist-files">
+                  <span className="verify_contract-fileslist-name">
+                    {contract.name}
+                  </span>
+                  <button
+                    onClick={(e) => verifyContract(e, index)}
+                    className="verify_contract-fileslist-btn"
+                  >
+                    Verify
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </form>
       <InputContract />
