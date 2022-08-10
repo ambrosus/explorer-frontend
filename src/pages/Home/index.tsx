@@ -28,6 +28,9 @@ export const Home: React.FC = () => {
     getHomePageData().then((result: ResultHomePageData) => setData(result));
   }, [data]);
 
+  // console.log(appData);
+  console.log(data);
+
   const header = useMemo(
     () =>
       appData && [

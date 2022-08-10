@@ -19,17 +19,8 @@ export const setAppDataAsync =
       const tokenInfo = API.getToken();
       const total_price_usd = API.getTokenMountPrice();
 
-      if (!!address) {
-        const bundleInfo = API.getBundle(address);
-        const apolloInfo = API.getApollo(address);
-
-        Promise.allSettled([
-          netInfo,
-          tokenInfo,
-          total_price_usd,
-          bundleInfo,
-          apolloInfo,
-        ]).then((res: any) => {
+      Promise.allSettled([netInfo, tokenInfo, total_price_usd]).then(
+        (res: any) => {
           //TODO refactor
           dispatch({
             type: actionTypes.SET_APP_DATA__SUCCESS,
@@ -40,28 +31,10 @@ export const setAppDataAsync =
                 ...res[1].value,
                 total_price_usd: res[2].value.total_price_usd,
               },
-              bundleInfo: res[3].value,
-              apolloInfo: res[4].value,
             },
           });
-        });
-      } else
-        Promise.allSettled([netInfo, tokenInfo, total_price_usd]).then(
-          (res: any) => {
-            //TODO refactor
-            dispatch({
-              type: actionTypes.SET_APP_DATA__SUCCESS,
-              payload: {
-                gitTagVersion: CLIENT_VERSION,
-                netInfo: res[0].value,
-                tokenInfo: {
-                  ...res[1].value,
-                  total_price_usd: res[2].value.total_price_usd,
-                },
-              },
-            });
-          },
-        );
+        },
+      );
     } catch (error: any) {
       dispatch({
         type: actionTypes.SET_APP_DATA__FAIL,
