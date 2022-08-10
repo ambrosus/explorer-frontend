@@ -4,8 +4,8 @@ const ContractHeader = () => (
   <div className="contract-body-header">
     <div className="contract-body-header-title">
       <h2>
-        Contract Source Code &nbsp;
-        <span className="verified-contract">Verified</span> &nbsp;
+        {'Contract Source Code '}
+        <span className="verified-contract">{'Verified '}</span>
         <span className="match-contract">(Exact Match)</span>
       </h2>
     </div>

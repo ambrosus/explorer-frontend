@@ -1,6 +1,6 @@
 import API from 'API/api';
 import { addDays } from 'date-fns';
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { DateRange } from 'react-date-range';
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
@@ -15,14 +15,16 @@ const Calendar = ({
 }: any) => {
   const { address }: TParams = useParams();
 
-  const [dataRange, setDataRange] = useState(initRange || [
-    {
-      startDate: new Date(),
-      endDate: addDays(new Date(), 0),
-      color: '#05060F',
-      key: 'selection',
-    },
-  ]);
+  const [dataRange, setDataRange] = useState(
+    initRange || [
+      {
+        startDate: new Date(),
+        endDate: addDays(new Date(), 0),
+        color: '#05060F',
+        key: 'selection',
+      },
+    ],
+  );
 
   const changeData = (item: any) => {
     setDataRange([item.selection]);

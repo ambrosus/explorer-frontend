@@ -53,7 +53,7 @@ export const ApolloDetails = () => {
   const [isLoad, setIsLoad] = useState<boolean>(false);
 
   const [filterDate, setFilterDate] = useState<any>(() => initFilterData);
-  const [dateRange, setDateRange] = useState<any>(null)
+  const [dateRange, setDateRange] = useState<any>(null);
   const { price_usd } = appData?.tokenInfo || 0;
 
   useEffect(() => {
@@ -64,7 +64,7 @@ export const ApolloDetails = () => {
 
   const onSelect = (value: any, range: any) => {
     setFilterDate(value);
-    setDateRange(range)
+    setDateRange(range);
   };
 
   const fetchRewards = async () => {
@@ -125,7 +125,11 @@ export const ApolloDetails = () => {
             marginLeft: 6,
           }}
         >
-          <ExportCsv initRange={dateRange} miningStats={onSelect} showText={false} />
+          <ExportCsv
+            initRange={dateRange}
+            miningStats={onSelect}
+            showText={false}
+          />
         </div>
       ),
     },

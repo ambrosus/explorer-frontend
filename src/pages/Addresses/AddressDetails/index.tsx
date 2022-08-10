@@ -239,37 +239,6 @@ const AddressDetails = () => {
               <FilteredToken setSelectedToken={setSelectedToken} />
             )}
           </div>
-          <NodeHeader getNodeData={API.getAccount}>
-            {({ node }: any) => {
-              if (node && node.isContract) {
-                setIsContract(true);
-              }
-              return (
-                node &&
-                node.isContract && (
-                  <div className="wrapper-bytes" ref={showMoreRef}>
-                    <p
-                      className={`${!showMore ? 'gradient-text' : ''}`}
-                      style={{ wordWrap: 'break-word' }}
-                    >
-                      {showMore
-                        ? node.byteCode
-                        : `${node.byteCode.substring(
-                            0,
-                            FOR_TABLET ? 900 : 320,
-                          )}`}
-                    </p>
-                    <button
-                      className="read-more-btn"
-                      onClick={showMoreRefHandler}
-                    >
-                      {showMore ? 'Show less' : 'Show' + ' more'}
-                    </button>
-                  </div>
-                )
-              );
-            }}
-          </NodeHeader>
         </Content.Header>
         <Content.Body isLoading={filtered ? !loading : true}>
           <Tabs

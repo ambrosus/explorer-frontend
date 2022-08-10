@@ -7,7 +7,7 @@ import { Account } from '../Atlas/atlas.interface';
 import TabsNew from './components/TabsNew';
 import { Content } from 'components/Content';
 import moment from 'moment';
-import React from "react";
+import React from 'react';
 
 export const Transactions = () => {
   const { data: appData } = useTypedSelector((state: any) => state.app);

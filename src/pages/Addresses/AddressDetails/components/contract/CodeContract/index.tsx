@@ -2,21 +2,36 @@ import Link from '../../../../../../assets/icons/Link';
 import CopyIcon from '../CopyIcon';
 import FullScreeDataModal from '../Modal/FullScreeDataModal';
 import axios from 'axios';
+import { useTypedSelector } from 'hooks/useTypedSelector';
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 const Code = () => {
   const [contractAbi, setContractAbi] = useState<any>([]);
+  const { address } = useParams();
+  const { data: addressData } = useTypedSelector((state) => state?.addressData);
+
+  function IsJsonString(str: any) {
+    try {
+      JSON.parse(str);
+    } catch (e) {
+      return false;
+    }
+    return true;
+  }
 
   useEffect(() => {
-    const testUrl =
-      'https://sourcify.dev/server/files/any/1/0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2';
+    // const testUrl =
+    //   'https://sourcify.dev/server/files/any/1/0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2';
+    const testUrl = `https://sourcify.ambrosus.io/files/any/22040/${address}`;
 
     axios({
       method: 'get',
       url: testUrl,
     })
-      // .then((res) => JSON.parse(res.data.files[0].content))
-      .then((res) => console.log(res.request.response));
+      // .then((res) => JSON.parse(res.data.files[1].content))
+      .then((res) => res.data.files[1].content)
+      .then((res) => console.log(res));
     // .then((res) => setContractAbi(res.output.abi));
   }, []);
 
@@ -88,6 +103,44 @@ const Code = () => {
 };
 
 export default React.memo(Code);
+
+{
+  /* <NodeHeader getNodeData={API.getAccount}> */
+}
+
+// {({ node }: any) => {
+//   console.log(node);
+
+//   if (node?.isContract) {
+//     setIsContract(true);
+//   }
+//   return (
+//     node?.isContract && (
+//       <div className="wrapper-bytes" ref={showMoreRef}>
+//         <p
+//           className={`${!showMore ? 'gradient-text' : ''}`}
+//           style={{ wordWrap: 'break-word' }}
+//         >
+//           {showMore
+//             ? node.byteCode
+//             : `${node.byteCode.substring(
+//                 0,
+//                 FOR_TABLET ? 900 : 320,
+//               )}`}
+//         </p>
+//         <button
+//           className="read-more-btn"
+//           onClick={showMoreRefHandler}
+//         >
+//           {showMore ? 'Show less' : 'Show' + ' more'}
+//         </button>
+//       </div>
+//     )
+//   );
+// }}
+
+// </NodeHeader>
+
 const files = [
   {
     name: 'LooksRareToken.sol',

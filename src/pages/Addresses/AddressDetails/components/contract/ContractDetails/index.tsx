@@ -1,4 +1,9 @@
-import { Code, ReadContract, WriteContract, VerifyContract } from '../index';
+import {
+  CodeContract,
+  ReadContract,
+  WriteContract,
+  VerifyContract,
+} from '../index';
 import ContractHeader from './components/ContractHeader';
 import React from 'react';
 import { useParams } from 'react-router-dom';
@@ -10,32 +15,32 @@ const ContractDetails = () => {
     switch (filtered) {
       case 'code':
         return (
-          <div className="contract_code">
-            <Code />
+          <div className="code_contract">
+            <CodeContract />
           </div>
         );
       case 'read':
         return (
-          <div className="contract_read">
+          <div className="read_contract">
             <ReadContract />
           </div>
         );
       case 'write':
         return (
-          <div className="contract_write">
+          <div className="write_contract">
             <WriteContract />
           </div>
         );
       case 'verify':
         return (
-          <div className="contract_write">
+          <div className="verify_contract">
             <VerifyContract />
           </div>
         );
       default:
         return (
-          <div className="contract_code">
-            <Code />
+          <div className="code_contract">
+            <CodeContract />
           </div>
         );
     }
