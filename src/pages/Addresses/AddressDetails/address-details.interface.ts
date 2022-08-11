@@ -29,6 +29,7 @@ export interface TabsProps {
   loading?: boolean;
   sortOptions?: any;
   isContract?: boolean;
+  contractInfo: any;
 }
 
 export type TransactionProps = {

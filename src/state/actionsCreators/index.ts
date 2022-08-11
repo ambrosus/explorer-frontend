@@ -86,7 +86,7 @@ export const clearFilters: any = () => {
 export const getAddressData =
   (address: any) => (dispatch: Dispatch<AddressesDataAction>) => {
     dispatch({
-      type: actionTypes.SET_ADDRESS_DATA__START,
+      type: actionTypes.GET_ADDRESS_DATA__START,
     });
     try {
       const apolloInfo = API.getApollo(address);
@@ -97,7 +97,7 @@ export const getAddressData =
       Promise.allSettled([apolloInfo, bundleInfo, atlasInfo, accountInfo]).then(
         (res: any) =>
           dispatch({
-            type: actionTypes.SET_ADDRESS_DATA__SUCCESS,
+            type: actionTypes.GET_ADDRESS_DATA__SUCCESS,
             payload: {
               apolloInfo: res[0].value,
               bundleInfo: res[1].value,
@@ -108,7 +108,7 @@ export const getAddressData =
       );
     } catch (error: any) {
       dispatch({
-        type: actionTypes.SET_ADDRESS_DATA__FAIL,
+        type: actionTypes.GET_ADDRESS_DATA__FAIL,
         payload: error.message,
       });
     }
@@ -117,7 +117,7 @@ export const getAddressData =
 export const getContractAddressData =
   (address: any) => (dispatch: Dispatch<SourcifyesDataAction>) => {
     dispatch({
-      type: actionTypes.SET_SOURCIFY_DATA__START,
+      type: actionTypes.GET_SOURCIFY_DATA__START,
     });
     try {
       const accountInfo = API.getAccount(address);
@@ -125,7 +125,7 @@ export const getContractAddressData =
 
       Promise.allSettled([accountInfo, contractInfo]).then((res: any) =>
         dispatch({
-          type: actionTypes.SET_SOURCIFY_DATA__SUCCESS,
+          type: actionTypes.GET_SOURCIFY_DATA__SUCCESS,
           payload: {
             accountInfo: res[0].value,
             contractInfo: res[1].value,
@@ -134,8 +134,8 @@ export const getContractAddressData =
       );
     } catch (error: any) {
       dispatch({
-        type: actionTypes.SET_SOURCIFY_DATA__FAIL,
-        payload: error.message,
+        type: actionTypes.GET_SOURCIFY_DATA__FAIL,
+        payload: error.response,
       });
     }
   };

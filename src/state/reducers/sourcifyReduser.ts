@@ -12,11 +12,11 @@ const reducer = (
   action: SourcifyesDataAction,
 ): PagesState => {
   switch (action.type) {
-    case actionTypes.SET_SOURCIFY_DATA__START:
+    case actionTypes.GET_SOURCIFY_DATA__START:
       return { ...state, loading: true };
-    case actionTypes.SET_SOURCIFY_DATA__SUCCESS:
+    case actionTypes.GET_SOURCIFY_DATA__SUCCESS:
       return { ...state, loading: false, data: action.payload };
-    case actionTypes.SET_SOURCIFY_DATA__FAIL:
+    case actionTypes.GET_SOURCIFY_DATA__FAIL:
       return { ...state, error: action.payload };
     default:
       return state;

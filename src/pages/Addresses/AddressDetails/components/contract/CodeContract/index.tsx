@@ -1,81 +1,72 @@
-import Link from '../../../../../../assets/icons/Link';
 import CopyIcon from '../CopyIcon';
 import FullScreeDataModal from '../Modal/FullScreeDataModal';
-import axios from 'axios';
+import Link from 'assets/icons/Link';
+import Loader from 'components/Loader';
+import { useActions } from 'hooks/useActions';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { TParams } from 'types';
 
 const Code = () => {
-  const [contractAbi, setContractAbi] = useState<any>([]);
-  const { address } = useParams();
-  const { data: addressData } = useTypedSelector((state) => state?.);
-  console.log(addressData);
-  
+  const { address }: TParams = useParams();
 
-  function IsJsonString(str: any) {
-    try {
-      JSON.parse(str);
-    } catch (e) {
-      return false;
-    }
-    return true;
-  }
-  const baseUrl = 'https://sourcify.ambrosus.io';
-  const chainID = '22040';
-
+  const { getContractAddressData } = useActions();
   useEffect(() => {
-    // const testUrl =
-    //   'https://sourcify.dev/server/files/any/1/0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2';
-    const testUrl = `${baseUrl}/files/any/${chainID}/${address}`;
-
-    axios({
-      method: 'get',
-      url: testUrl,
-    })
-      // .then((res) => JSON.parse(res.data.files[1].content))
-      // .then((res) => res.data.files[1].content)
-      .then((res) => console.log(res))
-      .catch((err) => {
-        console.log(err.response);
-      });
-    // .then((res) => setContractAbi(res.output.abi));
+    getContractAddressData(address);
   }, []);
+  const { data } = useTypedSelector((state) => state?.sourcify);
+  const { files = [] } = data?.contractInfo?.data || {};
+
+  console.log(data);
+
+  const filesToRender: any = files.filter(
+    (file: any) => file.name !== 'metadata.json',
+  );
+
+  const abiToRender =
+    files.filter((file: any) => file.name === 'metadata.json')[0] || [];
+
+  console.log(abiToRender);
 
   return (
     <div>
       <h2 className="contract-tab-title">Contract Source Code</h2>
       <div className="files">
-        {files.map((file, index) => (
-          <div className="code-section">
-            <div className="code-section-header">
-              <div className="code-section-header-title">
-                <h3>
-                  <span>
-                    File {index + 1} of {files.length}:
-                  </span>{' '}
-                  {file.name}
-                </h3>
+        {filesToRender.length ? (
+          filesToRender.map((file: any, index: any) => (
+            <div className="code-section">
+              <div className="code-section-header">
+                <div className="code-section-header-title">
+                  <h3>
+                    <span>
+                      File {index + 1} of {files.length}:
+                    </span>{' '}
+                    {file.name}
+                  </h3>
+                </div>
+                <div className="code-section-header-actions">
+                  <CopyIcon content={file.content} />
+                  <div className="btn-contract-icon">
+                    <Link />
+                  </div>
+                  <div className="btn-contract-icon">
+                    <FullScreeDataModal text={file.content} />
+                  </div>
+                </div>
               </div>
-              <div className="code-section-header-actions">
-                <CopyIcon content={file.content} />
-                <div className="btn-contract-icon">
-                  <Link />
-                </div>
-                <div className="btn-contract-icon">
-                  <FullScreeDataModal text={file.content} />
-                </div>
+              <div className="code-section-body">
+                <pre className="counter">
+                  {file.content.split('\n').map((line: any, index: any) => (
+                    <span key={index}>{line}</span>
+                  ))}
+                </pre>
               </div>
             </div>
-            <div className="code-section-body">
-              <pre className="counter">
-                {file.content.split('\n').map((line, index) => (
-                  <span key={index}>{line}</span>
-                ))}
-              </pre>
-            </div>
-          </div>
-        ))}
+          ))
+        ) : (
+          <Loader />
+        )}
       </div>
 
       <div className="files">
@@ -85,22 +76,22 @@ const Code = () => {
               <h2 className="contract-tab-title">Contract Abi</h2>
             </div>
             <div className="code-section-header-actions">
-              <CopyIcon content={JSON.stringify(abi.content)} />
+              <CopyIcon
+                content={JSON.stringify(
+                  abiToRender?.length && abiToRender?.content,
+                )}
+              />
               <div className="btn-contract-icon">
                 <Link />
               </div>
               <div className="btn-contract-icon">
-                <FullScreeDataModal text={abi.content} />
+                <FullScreeDataModal text={abiToRender?.content} />
               </div>
             </div>
           </div>
           <div className="code-section-body">
             <pre className="no-counter">
-              {JSON.stringify(abi.content)
-                .split('\n')
-                .map((line: any, index: any) => (
-                  <span key={index}>{line}</span>
-                ))}
+              {JSON.stringify(abiToRender.content)}
             </pre>
           </div>
         </div>
@@ -111,74 +102,37 @@ const Code = () => {
 
 export default React.memo(Code);
 
-{
-  /* <NodeHeader getNodeData={API.getAccount}> */
-}
-
-// {({ node }: any) => {
-//   console.log(node);
-
-//   if (node?.isContract) {
-//     setIsContract(true);
-//   }
-//   return (
-//     node?.isContract && (
-//       <div className="wrapper-bytes" ref={showMoreRef}>
-//         <p
-//           className={`${!showMore ? 'gradient-text' : ''}`}
-//           style={{ wordWrap: 'break-word' }}
-//         >
-//           {showMore
-//             ? node.byteCode
-//             : `${node.byteCode.substring(
-//                 0,
-//                 FOR_TABLET ? 900 : 320,
-//               )}`}
-//         </p>
-//         <button
-//           className="read-more-btn"
-//           onClick={showMoreRefHandler}
-//         >
-//           {showMore ? 'Show less' : 'Show' + ' more'}
-//         </button>
-//       </div>
-//     )
-//   );
-// }}
-
-// </NodeHeader>
-
-const files = [
-  {
-    name: 'LooksRareToken.sol',
-    content: `  * @dev Contract module which provides a basic access control mechanism, where
- * there is an account (an owner) that can be granted exclusive access to
- * specific functions.
- *
- * By default, the owner account will be the one that deploys the
-   contract. This
- * can later be changed with {transferOwnership}.
- *
- * This module is used through inheritance. It will make available the
-   modifier
- * \`onlyOwner\`, which can be applied to your functions to restrict their
-   use to
- * the owner.
- */
-abstract contract Ownable is Context {
-    `,
-  },
-  {
-    name: 'Ownable.sol',
-    content:
-      '* @dev Contract module which provides a basic access control mechanism, where\n * there is an account (an owner) that can be granted exclusive access to\n * specific functions.\n *\n * By default, the owner account will be the one that deploys the\n   contract. This\n * can later be changed with {transferOwnership}.\n *\n * This module is used through inheritance. It will make available the\n   modifier\n * `onlyOwner`, which can be applied to your functions to restrict their\n   use to\n * the owner.\n */\nabstract contract Ownable is Context {\n    ',
-  },
-  {
-    name: 'Ownable.sol',
-    content:
-      '* @dev Contract module which provides a basic access control mechanism, where\n * there is an account (an owner) that can be granted exclusive access to\n * specific functions.\n *\n * By default, the owner account will be the one that deploys the\n   contract. This\n * can later be changed with {transferOwnership}.\n *\n * This module is used through inheritance. It will make available the\n   modifier\n * `onlyOwner`, which can be applied to your functions to restrict their\n   use to\n * the owner.\n */\nabstract contract Ownable is Context {\n    ',
-  },
-];
+// const files = [
+//   {
+//     name: 'LooksRareToken.sol',
+//     content: `  * @dev Contract module which provides a basic access control mechanism, where
+//  * there is an account (an owner) that can be granted exclusive access to
+//  * specific functions.
+//  *
+//  * By default, the owner account will be the one that deploys the
+//    contract. This
+//  * can later be changed with {transferOwnership}.
+//  *
+//  * This module is used through inheritance. It will make available the
+//    modifier
+//  * \`onlyOwner\`, which can be applied to your functions to restrict their
+//    use to
+//  * the owner.
+//  */
+// abstract contract Ownable is Context {
+//     `,
+//   },
+//   {
+//     name: 'Ownable.sol',
+//     content:
+//       '* @dev Contract module which provides a basic access control mechanism, where\n * there is an account (an owner) that can be granted exclusive access to\n * specific functions.\n *\n * By default, the owner account will be the one that deploys the\n   contract. This\n * can later be changed with {transferOwnership}.\n *\n * This module is used through inheritance. It will make available the\n   modifier\n * `onlyOwner`, which can be applied to your functions to restrict their\n   use to\n * the owner.\n */\nabstract contract Ownable is Context {\n    ',
+//   },
+//   {
+//     name: 'Ownable.sol',
+//     content:
+//       '* @dev Contract module which provides a basic access control mechanism, where\n * there is an account (an owner) that can be granted exclusive access to\n * specific functions.\n *\n * By default, the owner account will be the one that deploys the\n   contract. This\n * can later be changed with {transferOwnership}.\n *\n * This module is used through inheritance. It will make available the\n   modifier\n * `onlyOwner`, which can be applied to your functions to restrict their\n   use to\n * the owner.\n */\nabstract contract Ownable is Context {\n    ',
+//   },
+// ];
 
 const abi = {
   name: 'abi.json',

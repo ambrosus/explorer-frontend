@@ -5,7 +5,7 @@ import { ApiRequest } from 'types';
 const tokenApiUrl: any = process.env.REACT_APP_TOKEN_API_URL;
 
 const baseApiUrl = process.env.REACT_APP_API_ENDPOINT;
-const sourcifyApiUrl = process.env.REACT_SOURCIFY_API_ENDPOINT;
+const sourcifyApiUrl = process.env.REACT_APP_SOURCIFY_API_ENDPOINT;
 
 const chainID = '22040';
 
@@ -49,14 +49,11 @@ const SOURCIFYAPI = () => {
 
   api.interceptors.response.use(
     (response) => {
-      if (response.data) {
-        return response.data;
-      }
-
       return response;
     },
     (error) => {
-      handleNotFound(error);
+      handleNotFound(error.response);
+      return error.response;
     },
   );
 
@@ -209,7 +206,7 @@ const getInfo = () => {
 };
 
 const getContract = (address: any) => {
-  return SOURCIFYAPI().get(`/files/any/${chainID}/${address}`);
+  return SOURCIFYAPI().get(`files/any/${chainID}/${address}`);
 };
 
 const getToken = () => {
