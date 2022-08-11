@@ -155,12 +155,16 @@ const Tabs: FC<TabsProps> = ({
 
   const contractUrl = (url: any) => {
     if (url === 'contract' && contractInfo?.status === 200) {
+      return '/code';
+    } else if (url === 'contract' && contractInfo?.status !== 200) {
+      return '/verify';
     } else {
+      return '';
     }
   };
 
   const handleShow = () => setIsShow(!isShow);
-  const filereContractTabs =
+  const filteredContractTabs =
     contractInfo?.status === 200
       ? contractTabs.filter((tab) => tab.value !== 'verify')
       : contractTabs.filter((tab) => tab.value === 'verify');
@@ -170,7 +174,7 @@ const Tabs: FC<TabsProps> = ({
       <div className="tabs_heading" tabIndex={-1}>
         <div className="tabs_heading_filters" tabIndex={-1}>
           {contractTabs?.length &&
-            filereContractTabs.map((tab) => (
+            filteredContractTabs.map((tab) => (
               <NavLink
                 key={tab.title}
                 to={`/addresses/${address}/${type}/${
@@ -220,7 +224,7 @@ const Tabs: FC<TabsProps> = ({
                         key={filter.title}
                         to={`/addresses/${address}/${
                           filter.value ? filter.value : ''
-                        }${filter.value === 'contract' ? '/code' : ''} `}
+                        }${contractUrl(filter.value)} `}
                         className={() => handleNavLinkClass(filter.value)}
                         onClick={() => {
                           setTransactionType(filter.value);
