@@ -27,7 +27,7 @@ const VerifyContract = () => {
 
     let formData = new FormData();
     formData.append('address', address);
-    formData.append('chain', '22040');
+    formData.append('chain', '16718');
     files.forEach((file) => {
       formData.append('files', file);
     });
@@ -62,7 +62,7 @@ const VerifyContract = () => {
     setVerify(false);
     let formData = new FormData();
     formData.append('address', address);
-    formData.append('chain', '22040');
+    formData.append('chain', '16718');
     file.forEach((file: any) => {
       formData.append('files', file);
     });

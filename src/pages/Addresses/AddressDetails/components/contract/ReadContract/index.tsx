@@ -1,5 +1,7 @@
 import Method from './Method';
 import axios from 'axios';
+import { useActions } from 'hooks/useActions';
+import { useTypedSelector } from 'hooks/useTypedSelector';
 import React, { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
@@ -8,46 +10,39 @@ const ReadContract = () => {
   const [contractAbi, setContractAbi] = useState<any>([]);
   const { address } = useParams();
 
+  const { getContractAddressData } = useActions();
   useEffect(() => {
-    axios({
-      method: 'get',
-      url: 'https://sourcify.dev/server/files/any/1/0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
-    })
-      .then((res) => {
-        console.log(res);
-
-        return JSON.parse(res.data.files[0].content);
-      })
-      .then((res) => {
-        // console.log(res);
-
-        setContractAbi(res.output.abi);
-      });
+    getContractAddressData(address);
   }, []);
+  const { data } = useTypedSelector((state) => state?.sourcify);
 
-  // const { data } = useQuery('readContract', () => {
-  //   axios({
-  //     method: 'get',
-  //     url: 'https://sourcify.dev/server/files/any/1/0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
-  //   })
-  //     .then((res) => JSON.parse(res.data.files[0].content))
-  //     .then((res) => res.output.abi);
-  // });
+  const { files = [] } = data?.contractInfo?.data || {};
 
+  useEffect(() => {
+    const res = files
+      .filter((file: any) => file.name === 'metadata.json')
+      .map((file: any) => JSON.parse(file.content))
+      .map((file: any) => file.output.abi);
+    // console.log(res[0].output.abi);
+
+    setContractAbi(res[0]);
+  }, []);
+  // console.log(contractAbi);
   return (
     <div>
       <h2 className="contract-tab-title">Contract Source Code</h2>
       <div className="methods">
-        {contractAbi
-          .filter(
-            (method: any) =>
-              (method.stateMutability === 'view' ||
-                method.stateMutability === 'pure') &&
-              method.type === 'function',
-          )
-          .map((method: any, index: number) => {
-            return <Method key={index} index={index} method={method} />;
-          })}
+        {contractAbi &&
+          contractAbi
+            .filter(
+              (method: any) =>
+                (method.stateMutability === 'view' ||
+                  method.stateMutability === 'pure') &&
+                method.type === 'function',
+            )
+            .map((method: any, index: number) => {
+              return <Method key={index} index={index} method={method} />;
+            })}
       </div>
     </div>
   );
