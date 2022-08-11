@@ -17,5 +17,4 @@ export type TabsItemProps = {
     title: string;
   };
   handleTab: (value: string) => void;
-}
-
+};

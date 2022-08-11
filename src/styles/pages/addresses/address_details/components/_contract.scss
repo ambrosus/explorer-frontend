@@ -86,7 +86,7 @@
         color: #05060f;
       }
 
-      .contract_code {
+      .code_contract {
         .files {
           display: flex;
           flex-direction: column;
@@ -146,7 +146,7 @@
             }
 
             &-body {
-              max-width: inherit;
+              max-width: 1140px;
               padding: 12px;
               box-sizing: border-box;
               background: rgba(246, 246, 246, 0.3);
@@ -203,8 +203,8 @@
         }
       }
 
-      .contract_read,
-      .contract_write {
+      .read_contract,
+      .write_contract {
         .methods {
           display: flex;
           flex-direction: column;
@@ -303,9 +303,6 @@
           }
         }
       }
-
-      .contract_write {
-      }
     }
   }
 }
@@ -376,26 +373,97 @@
   color: #a6b0c3;
 }
 
-.input_contract {
-  flex-direction: column;
-  align-items: center;
+.verify_contract-files::file-selector-button {
   width: 100%;
   height: 100%;
-  display: flex;
+  background: transparent;
+  border: 0px;
+  color: rgba(0, 0, 0, 0);
+  cursor: pointer;
+}
+.verify_contract-files::file-selector-button:hover {
+  background: rgba(103, 143, 218, 0.1);
+}
+
+.verify_contract {
+  &-heading {
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 40px;
+    margin-bottom: 10px;
+  }
+
+  &-input {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    display: flex;
+  }
+  &-addfiles {
+    display: flex;
+    width: 100%;
+    margin-top: 30px;
+    gap: 20px;
+  }
 
   &_add {
     display: flex;
     flex-direction: column;
-    height: 164px;
+    min-height: 164px;
+    height: 100%;
     width: 100%;
     align-items: center;
     justify-content: center;
-    margin-top: 30px;
-
+    flex-grow: 1;
     position: relative;
     overflow: hidden;
     border: 2px dashed #808a9d;
     border-radius: 16px;
+  }
+
+  &-fileslist {
+    display: flex;
+    flex-direction: column;
+    min-height: 164px;
+    height: 100%;
+    width: 100%;
+    flex-grow: 1;
+    background: #eff2f5;
+    border-radius: 16px;
+    gap: 12px;
+    padding: 0 12px;
+
+    &-files {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 48px;
+      background: #fff;
+      border-radius: 16px;
+      padding: 0 12px;
+    }
+    &-name {
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 24px;
+    }
+    &-btn {
+      width: 80px;
+      height: 24px;
+      background: #808a9d;
+      border-radius: 8px;
+      color: #fff;
+    }
+    &-heading {
+      display: flex;
+      align-items: center;
+      font-weight: 600;
+      font-size: 12px;
+      line-height: 15px;
+      margin-top: 12px;
+      height: 24px;
+    }
   }
   &-filehead {
     font-style: normal;
@@ -459,26 +527,5 @@
     top: 0;
     left: 0;
     overflow: hidden;
-  }
-}
-
-.input_contract-files::file-selector-button {
-  width: 100%;
-  height: 100%;
-  background: transparent;
-  border: 0px;
-  color: rgba(0, 0, 0, 0);
-  cursor: pointer;
-}
-.input_contract-files::file-selector-button:hover {
-  background: rgba(103, 143, 218, 0.1);
-}
-
-.verify_contract {
-  &-heading {
-    font-weight: 700;
-    font-size: 18px;
-    line-height: 40px;
-    margin-bottom: 10px;
   }
 }

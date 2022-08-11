@@ -1,5 +1,6 @@
 import { actionTypes } from '../action-types';
 import { AppDataAction } from '../actions';
+import { PagesState } from 'state/state.interface';
 
 interface AppState {
   loading: boolean;
@@ -13,7 +14,7 @@ const initialState = {
   error: null,
 };
 const reducer = (
-  state: AppState = initialState,
+  state: PagesState = initialState,
   action: AppDataAction,
 ): AppState => {
   switch (action.type) {

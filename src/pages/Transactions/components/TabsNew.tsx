@@ -3,7 +3,7 @@ import Loader from '../../../components/Loader';
 import { useOnClickOutside } from '../../../hooks/useOnClickOutside';
 import AddressBlocksHeader from '../../Addresses/AddressDetails/components/AddressBlocksHeader';
 import AtlasBlocksSort from '../../Atlas/components/AtlasBlocksSort';
-import {TabsItemProps, TabsNewProps} from '../transactions.interface';
+import { TabsItemProps, TabsNewProps } from '../transactions.interface';
 import SideMenu from 'assets/icons/SideMenu';
 import ExportCsv from 'components/ExportCsv';
 import useDeviceSize from 'hooks/useDeviceSize';
@@ -11,17 +11,16 @@ import { AccountsData } from 'pages/Addresses/addresses.interface';
 import React, { FC, useEffect, useRef, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 
-const TabItem: FC<TabsItemProps> = ({tab, el, handleTab}) => {
+const TabItem: FC<TabsItemProps> = ({ tab, el, handleTab }) => {
   const ref = useRef(null);
 
   const isOverflown = (el: any) => {
     const curOverflow = el.style.overflow;
 
-    if ( !curOverflow || curOverflow === "visible" )
-      el.style.overflow = "hidden";
+    if (!curOverflow || curOverflow === 'visible') el.style.overflow = 'hidden';
 
-    const isOverflowing = el.clientWidth < el.scrollWidth
-      || el.clientHeight < el.scrollHeight;
+    const isOverflowing =
+      el.clientWidth < el.scrollWidth || el.clientHeight < el.scrollHeight;
 
     el.style.overflow = curOverflow;
 
@@ -43,7 +42,7 @@ const TabItem: FC<TabsItemProps> = ({tab, el, handleTab}) => {
     >
       {el.title}
     </span>
-  )
+  );
 };
 const TabsNew: FC<TabsNewProps> = ({
   tabs,

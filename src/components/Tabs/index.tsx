@@ -28,6 +28,7 @@ const Tabs: FC<TabsProps> = ({
   loading,
   transactionType,
   isContract,
+  contractInfo,
 }) => {
   const [isShow, setIsShow] = useState(false);
   const { address, type, filtered, tokenToSorted } = useParams();
@@ -152,27 +153,41 @@ const Tabs: FC<TabsProps> = ({
     }
   };
 
+  const contractUrl = (url: any) => {
+    if (url === 'contract' && contractInfo?.status === 200) {
+      return '/code';
+    } else if (url === 'contract' && contractInfo?.status !== 200) {
+      return '/verify';
+    } else {
+      return '';
+    }
+  };
+
   const handleShow = () => setIsShow(!isShow);
+  const filteredContractTabs =
+    contractInfo?.status === 200
+      ? contractTabs.filter((tab) => tab.value !== 'verify')
+      : contractTabs.filter((tab) => tab.value === 'verify');
 
   const contractView = (
     <div className="contract">
       <div className="tabs_heading" tabIndex={-1}>
         <div className="tabs_heading_filters" tabIndex={-1}>
           {contractTabs?.length &&
-            contractTabs.map((filter) => (
+            filteredContractTabs.map((tab) => (
               <NavLink
-                key={filter.title}
+                key={tab.title}
                 to={`/addresses/${address}/${type}/${
-                  filter.value ? filter.value : ''
+                  tab.value ? tab.value : ''
                 }`}
                 className={() =>
-                  `contract-link ${handleNavLinkClass(filter.value)}`
+                  `contract-link ${handleNavLinkClass(tab.value)}`
                 }
                 onClick={() => {
-                  setTransactionType(filter.value);
+                  setTransactionType(tab.value);
                 }}
               >
-                {filter.title}
+                {tab.title}
               </NavLink>
             ))}
         </div>
@@ -209,7 +224,7 @@ const Tabs: FC<TabsProps> = ({
                         key={filter.title}
                         to={`/addresses/${address}/${
                           filter.value ? filter.value : ''
-                        }${filter.value === 'contract' ? '/code' : '/'} `}
+                        }${contractUrl(filter.value)} `}
                         className={() => handleNavLinkClass(filter.value)}
                         onClick={() => {
                           setTransactionType(filter.value);
