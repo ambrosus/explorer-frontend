@@ -17,7 +17,6 @@ const VerifyContract = () => {
   // const [contractsToVerify, setContractsToVerify] = useState();
 
   const { address = '' } = useParams();
-  console.log(contractsToChoose);
 
   const getFileName = (e: any) => {
     e.preventDefault();

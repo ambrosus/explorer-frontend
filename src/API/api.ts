@@ -7,7 +7,14 @@ const tokenApiUrl: any = process.env.REACT_APP_TOKEN_API_URL;
 const baseApiUrl = process.env.REACT_APP_API_ENDPOINT;
 const sourcifyApiUrl = process.env.REACT_APP_SOURCIFY_API_ENDPOINT;
 
+// testnet
 const chainID = '22040';
+
+// mainnet
+// const chainID = '16718';
+
+//devnet
+// const chainID = '30746';
 
 const API = () => {
   const api = axios.create({
