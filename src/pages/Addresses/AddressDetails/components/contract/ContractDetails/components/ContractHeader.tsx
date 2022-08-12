@@ -11,7 +11,7 @@ const ContractHeader = () => {
     getContractAddressData(address);
   }, []);
   const { data } = useTypedSelector((state) => state?.sourcify);
-  const { status } = data?.contractInfo?.data || '';
+  const { status, files } = data?.contractInfo?.data || [];
 
   return (
     <div className="contract-body-header">
