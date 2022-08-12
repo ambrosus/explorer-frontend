@@ -189,26 +189,22 @@ const Method = ({ index, method }: any) => {
               </button>
             ) : null}
           </div>
-          <div>
-            <div>
-              {method?.outputs?.length > 0 && (
-                <div>
-                  <div className="remaining">
-                    <svg
-                      style={{ marginRight: '0.2rem' }}
-                      width="8"
-                      height="10"
-                      viewBox="0 0 8 10"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path d="M1 0V9.5H7.5" stroke="#A6B0C3" />
-                    </svg>
-                    remaining {method.outputs[0].type} :
-                  </div>
-                </div>
-              )}
-            </div>
+          <div className="result">
+            {method?.outputs?.length > 0 && (
+              <div className="remaining">
+                <svg
+                  style={{ marginRight: '0.2rem' }}
+                  width="8"
+                  height="10"
+                  viewBox="0 0 8 10"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M1 0V9.5H7.5" stroke="#A6B0C3" />
+                </svg>
+                remaining {method.outputs[0].type}:
+              </div>
+            )}
             {result && filtered !== 'write' && (
               <div className="method-result">
                 {/*{*/}

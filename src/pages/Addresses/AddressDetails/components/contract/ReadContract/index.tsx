@@ -1,9 +1,7 @@
 import Method from './Method';
-import axios from 'axios';
 import { useActions } from 'hooks/useActions';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import React, { useEffect, useState } from 'react';
-import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 
 const ReadContract = () => {
