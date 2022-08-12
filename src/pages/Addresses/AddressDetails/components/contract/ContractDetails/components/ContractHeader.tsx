@@ -48,9 +48,11 @@ const ContractHeader = () => {
         <p>
           {'Optimization Enabled: '}
           <span>
-            {`${optimizer.enabled === true ? 'Yes' : 'No'} with ${
-              optimizer.runs
-            } runs`}
+            {`${
+              optimizer?.enabled === true
+                ? `Yes with ${optimizer?.runs} runs`
+                : 'No'
+            } `}
           </span>
         </p>
         <p>
