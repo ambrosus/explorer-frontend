@@ -1,6 +1,6 @@
 import { useActions } from 'hooks/useActions';
 import { useTypedSelector } from 'hooks/useTypedSelector';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { firstLetterUp } from 'utils/helpers';
 
@@ -10,8 +10,17 @@ const ContractHeader = () => {
   useEffect(() => {
     getContractAddressData(address);
   }, []);
+
+  const [contractInfo, setContractInfo] = useState([]);
   const { data } = useTypedSelector((state) => state?.sourcify);
-  const { status, files } = data?.contractInfo?.data || [];
+  const sourcifyData = data?.contractInfo?.data;
+  // const files = data?.contractInfo?.data?.files;
+
+  const res = sourcifyData?.files?.find(
+    (file: any) => file.name === 'metadata.json',
+  );
+  const res1 = JSON.parse(res?.content || '{}');
+  const res2 = Object.values(res1?.settings?.compilationTarget || {})[0];
 
   return (
     <div className="contract-body-header">
@@ -19,7 +28,7 @@ const ContractHeader = () => {
         <h2>
           {'Contract Source Code '}
           <span className="verified-contract">{'Verified '}</span>
-          <span className="match-contract">{`(${status} Match)`}</span>
+          <span className="match-contract">{`(${sourcifyData?.status} Match)`}</span>
         </h2>
       </div>
       <div className="contract-body-header-info">
