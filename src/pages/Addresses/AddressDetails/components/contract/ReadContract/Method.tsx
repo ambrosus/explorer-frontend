@@ -8,7 +8,8 @@ const Method = ({ index, method }: any) => {
   const { filtered } = useParams<TParams>();
   const [result, setResult] = React.useState<any>(null);
   const [paybleValue, setPaybleValue] = React.useState<any>('0');
-  const { address: contractAddress = '' } = useParams();
+
+  const { address = '' } = useParams();
   const [input, setInput] = React.useState<any>({});
   const [open, setOpen] = React.useState<any>(false);
   const contractCall = async (method: any) => {
@@ -21,11 +22,7 @@ const Method = ({ index, method }: any) => {
         filtered === 'write'
           ? new providers.Web3Provider(ethereum).getSigner()
           : provider;
-      const contract = new ethers.Contract(
-        contractAddress,
-        [method],
-        providerOrSigner,
-      );
+      const contract = new ethers.Contract(address, [method], providerOrSigner);
 
       const sortKeysInObjectByRightParamsSequence = (obj: any, method: any) => {
         const rightParamsSequence = method.inputs.map((input: any) => {
