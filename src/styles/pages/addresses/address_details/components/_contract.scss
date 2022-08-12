@@ -362,6 +362,12 @@
   justify-content: center;
 }
 
+.result {
+  display: flex;
+  flex-flow: row nowrap;
+  grid-column-gap: 1ch;
+}
+
 .remaining {
   font-family: 'Proxima Nova';
   font-style: normal;
