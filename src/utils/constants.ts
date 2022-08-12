@@ -5,10 +5,10 @@ export const { ethereum }: any = window;
 export const ENABLE_LOGS = process.env.NODE_ENV !== 'production';
 
 // testnet
-// export const chainID = '22040';
+export const chainID = '22040';
 
 // mainnet
-export const chainID = '16718';
+// export const chainID = '16718';
 
 //devnet
 // export const chainID = '30746';
