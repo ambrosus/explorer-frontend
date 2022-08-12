@@ -1,9 +1,11 @@
 import FileAdd from 'assets/icons/FileAdd';
 import SandWatch from 'assets/icons/SandWatch';
 import axios from 'axios';
+import ContractErrorMessage from 'components/ContractErrorMessage';
 import InputContract from 'components/InputContract';
 import { useRef, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { chainID } from 'utils/constants';
 
 const VerifyContract = () => {
   const sourcifyUrl = 'https://sourcify.ambrosus.io';
@@ -11,14 +13,15 @@ const VerifyContract = () => {
   const fileInput = useRef<any>(null);
 
   const [file, setFile] = useState<any>([]);
-  const [loading, setLoading] = useState(false);
-  const [verify, setVerify] = useState(false);
   const [contractsToChoose, setContractsToChoose] = useState([]);
-  // const [contractsToVerify, setContractsToVerify] = useState();
+
+  const [loading, setLoading] = useState(false);
+  const [errMessage, setErrMessage] = useState(false);
 
   const { address = '' } = useParams();
+  const navigate = useNavigate();
 
-  const getFileName = (e: any) => {
+  const setFiles = (e: any) => {
     e.preventDefault();
     setLoading(true);
 
@@ -27,7 +30,7 @@ const VerifyContract = () => {
 
     let formData = new FormData();
     formData.append('address', address);
-    formData.append('chain', '16718');
+    formData.append('chain', chainID);
     files.forEach((file) => {
       formData.append('files', file);
     });
@@ -39,7 +42,9 @@ const VerifyContract = () => {
         },
       })
       .then((res) => {
-        console.log('res ', res);
+        if (res.status === 200) {
+          navigate(`/addresses/${address}/contract/code`, { replace: true });
+        }
         setLoading(false);
       })
       .catch((err) => {
@@ -47,22 +52,22 @@ const VerifyContract = () => {
           setContractsToChoose(err.response.data.contractsToChoose);
         }
 
-        console.log(err.response);
-
+        setErrMessage(err.response.data.error);
         setLoading(false);
       });
   };
 
   const clearAddFiles = (e: any) => {
     e.preventDefault();
+    setFile([]);
+    setContractsToChoose([]);
   };
 
   const verifyContract = (e: any, chosenContract: any) => {
     e.preventDefault();
-    setVerify(false);
     let formData = new FormData();
     formData.append('address', address);
-    formData.append('chain', '16718');
+    formData.append('chain', chainID);
     file.forEach((file: any) => {
       formData.append('files', file);
     });
@@ -75,19 +80,17 @@ const VerifyContract = () => {
         },
       })
       .then((res) => {
-        console.log('res ', res);
+        if (res.status === 200) {
+          navigate(`/addresses/${address}/contract/code`, { replace: true });
+        }
         setLoading(false);
-        setVerify(true);
       })
       .catch((err) => {
-        // if (!!err.response.data.contractsToChoose) {
-        //   setContractsToChoose(err.response.data.contractsToChoose);
-        // }
-
-        console.log(err.response);
+        setErrMessage(err.response.data.error);
         setLoading(false);
       });
   };
+
   return (
     <section className="verify_contract">
       <h2 className="verify_contract-heading">Upload source files</h2>
@@ -138,6 +141,12 @@ const VerifyContract = () => {
         </label>
         <div className="verify_contract-addfiles">
           <label className="verify_contract_add" htmlFor="files">
+            {errMessage &&
+              contractsToChoose.length === 0 &&
+              file.length > 0 && (
+                <ContractErrorMessage errMessage={errMessage} />
+              )}
+
             <input
               className="verify_contract-files"
               id="files"
@@ -145,14 +154,21 @@ const VerifyContract = () => {
               accept=".sol, .json"
               multiple
               ref={fileInput}
-              onChange={getFileName}
+              onChange={(e: any) => setFiles(e)}
             />
 
-            <div className="verify_contract-placeholder">
+            <div
+              className="verify_contract-placeholder"
+              style={{
+                marginTop: contractsToChoose.length === 0 ? 0 : 12,
+                justifyContent:
+                  contractsToChoose.length === 0 ? 'center' : 'flex-start',
+              }}
+            >
               {file?.length === 0 ? (
                 <>
                   <FileAdd />
-                  <p style={{ marginTop: 15 }}>Drag and Drop files here</p>
+                  <p style={{ marginTop: 10 }}>Drag and Drop files here</p>
                   <p>or Browse files</p>
                 </>
               ) : (
