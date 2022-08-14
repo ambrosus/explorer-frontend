@@ -61,6 +61,8 @@ const VerifyContract = () => {
     e.preventDefault();
     setFile([]);
     setContractsToChoose([]);
+    setErrMessage(false);
+    setLoading(false);
   };
 
   const verifyContract = (e: any, chosenContract: any) => {
