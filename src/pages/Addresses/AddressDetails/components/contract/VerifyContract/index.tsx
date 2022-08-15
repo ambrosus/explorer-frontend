@@ -154,12 +154,6 @@ const VerifyContract = () => {
         </label>
         <div className="verify_contract-addfiles">
           <label className="verify_contract_add" htmlFor="files">
-            {errMessage &&
-              contractsToChoose?.length === 0 &&
-              file.length > 0 && (
-                <ContractErrorMessage errMessage={errMessage} />
-              )}
-
             <input
               className="verify_contract-files"
               id="files"
@@ -169,6 +163,11 @@ const VerifyContract = () => {
               ref={fileInput}
               onChange={(e: any) => setFiles(e)}
             />
+            {errMessage &&
+              contractsToChoose?.length === 0 &&
+              file.length > 0 && (
+                <ContractErrorMessage errMessage={errMessage} />
+              )}
 
             <div
               className="verify_contract-placeholder"
