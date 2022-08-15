@@ -1,6 +1,8 @@
 import { useActions } from '../../../../../../hooks/useActions';
 import { useTypedSelector } from '../../../../../../hooks/useTypedSelector';
+import switchChainId from '../../../../../../utils/switchChainId';
 import Method from '../ReadContract/Method';
+import { utils } from 'ethers';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
@@ -16,7 +18,7 @@ const WriteContract = () => {
   }, []);
   const { data } = useTypedSelector((state) => state?.sourcify);
 
-  const { files = [] } = data?.contractInfo?.data || {};
+  const files = data?.contractInfo?.data?.files || [];
 
   useEffect(() => {
     const res = files
@@ -24,16 +26,29 @@ const WriteContract = () => {
       .map((file: any) => JSON.parse(file.content))
       .map((file: any) => file.output.abi);
 
-    setContractAbi(res[0]);
-  }, []);
+    setContractAbi(res[0] || []);
+  }, [files]);
 
   const btnhandler = () => {
     if (ethereum) {
-      ethereum.request({ method: 'eth_requestAccounts' }).then(() => {
+      ethereum.request({ method: 'eth_requestAccounts' }).then(async () => {
+        const chainId = await ethereum.request({ method: 'eth_chainId' });
+        const appChainId = utils.hexValue(
+          +(process.env.REACT_APP_CHAIN_ID ?? 16718),
+        );
+
+        if (chainId !== appChainId) {
+          await switchChainId(ethereum);
+        }
+        ethereum.on('chainChanged', (newChainId: any) => {
+          if (newChainId !== appChainId) {
+            window.location.reload();
+          }
+        });
         setIsConnected(true);
       });
     } else {
-      alert('install metamask extension!!');
+      window.open('https://metamask.io/', '_blank');
     }
   };
 
