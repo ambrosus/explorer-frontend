@@ -417,5 +417,4 @@ export const calcBundleTime = (time: number | null | undefined) => {
 export const bundleExpirationTime = (bundle: any) =>
   bundle.uploadTimestamp + bundle.storagePeriods * 13 * 28 * 24 * 60 * 60;
 
-export const firstLetterUp = (str: string) =>
-  str[0].toUpperCase() + str.slice(1);
+export const firstLetterUp = (str = ' ') => str[0].toUpperCase() + str.slice(1);
