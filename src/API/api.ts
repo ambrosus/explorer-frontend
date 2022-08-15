@@ -9,8 +9,6 @@ const sourcifyApiUrl = process.env.REACT_APP_SOURCIFY_API_ENDPOINT;
 
 const chainID = process.env.REACT_APP_CHAIN_ID;
 
-console.log(chainID);
-
 const API = () => {
   const api = axios.create({
     baseURL: baseApiUrl,
