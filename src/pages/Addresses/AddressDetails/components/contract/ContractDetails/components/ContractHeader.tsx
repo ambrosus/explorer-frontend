@@ -14,7 +14,6 @@ const ContractHeader = () => {
   const [contractInfo, setContractInfo] = useState([]);
   const { data } = useTypedSelector((state) => state?.sourcify);
   const sourcifyData = data?.contractInfo?.data;
-  console.log(sourcifyData);
 
   const filterFiles = sourcifyData?.files?.find(
     (file: any) => file.name === 'metadata.json',
@@ -23,7 +22,6 @@ const ContractHeader = () => {
   const contractName: any = Object.values(
     parsedFiles?.settings?.compilationTarget || {},
   )[0];
-  console.log(parsedFiles);
 
   const optimizer = parsedFiles?.settings?.optimizer;
 
@@ -33,7 +31,9 @@ const ContractHeader = () => {
         <h2>
           {'Contract Source Code '}
           <span className="verified-contract">{'Verified '}</span>
-          <span className="match-contract">{`(${sourcifyData?.status} Match)`}</span>
+          <span className="match-contract">{`(${firstLetterUp(
+            sourcifyData?.status,
+          )} Match)`}</span>
         </h2>
       </div>
       <div className="contract-body-header-info">
@@ -57,7 +57,9 @@ const ContractHeader = () => {
         </p>
         <p>
           {'Other Settings: '}
-          <span>{`default evmVersion: ${parsedFiles?.settings?.evmVersion}`}</span>
+          <span>{`evmVersion: ${firstLetterUp(
+            parsedFiles?.settings?.evmVersion,
+          )}`}</span>
         </p>
       </div>
     </div>
