@@ -33,21 +33,22 @@ const WriteContract = () => {
     if (ethereum) {
       ethereum.request({ method: 'eth_requestAccounts' }).then(async () => {
         const chainId = await ethereum.request({ method: 'eth_chainId' });
-        const hexChainId = utils.hexValue(+chainId);
+        const appChainId = utils.hexValue(
+          +(process.env.REACT_APP_CHAIN_ID ?? 16718),
+        );
 
-        //TODO: get from .env
-        if (hexChainId !== '0x5618') {
-          await switchChainId(ethereum, '22040');
+        if (chainId !== appChainId) {
+          await switchChainId(ethereum);
         }
         ethereum.on('chainChanged', (newChainId: any) => {
-          if (newChainId !== '0x5618') {
+          if (newChainId !== appChainId) {
             window.location.reload();
           }
         });
         setIsConnected(true);
       });
     } else {
-      alert('install metamask extension!!');
+      window.open('https://metamask.io/', '_blank');
     }
   };
 
