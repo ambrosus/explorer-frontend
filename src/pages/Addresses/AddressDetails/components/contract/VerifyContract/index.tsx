@@ -5,9 +5,10 @@ import ContractErrorMessage from 'components/ContractErrorMessage';
 import InputContract from 'components/InputContract';
 import { useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { chainID } from 'utils/constants';
 
 const VerifyContract = () => {
+  const chainID = process.env.REACT_APP_CHAIN_ID;
+
   const sourcifyUrl = 'https://sourcify.ambrosus.io';
 
   const fileInput = useRef<any>(null);
@@ -16,7 +17,7 @@ const VerifyContract = () => {
   const [contractsToChoose, setContractsToChoose] = useState([]);
 
   const [loading, setLoading] = useState(false);
-  const [errMessage, setErrMessage] = useState(false);
+  const [errMessage, setErrMessage] = useState(null);
 
   const { address = '' } = useParams();
   const navigate = useNavigate();
@@ -24,11 +25,12 @@ const VerifyContract = () => {
   const setFiles = (e: any) => {
     e.preventDefault();
     setLoading(true);
+    setErrMessage(null);
 
     const files = [...file, ...fileInput.current.files];
     setFile((prev: any) => [...prev, ...fileInput.current.files]);
 
-    let formData = new FormData();
+    let formData: any = new FormData();
     formData.append('address', address);
     formData.append('chain', chainID);
     files.forEach((file) => {
@@ -48,26 +50,35 @@ const VerifyContract = () => {
         setLoading(false);
       })
       .catch((err) => {
-        if (!!err.response.data.contractsToChoose) {
+        if (err.response.data.contractsToChoose) {
           setContractsToChoose(err.response.data.contractsToChoose);
+          setLoading(false);
         }
-
-        setErrMessage(err.response.data.error);
-        setLoading(false);
+        console.log(err.response);
+        if (err.response.data.message) {
+          setErrMessage(err.response.data.message);
+          setLoading(false);
+        }
+        if (err.response.data.error) {
+          setErrMessage(err.response.data.error);
+          setLoading(false);
+        }
       });
   };
+
+  console.log(contractsToChoose);
 
   const clearAddFiles = (e: any) => {
     e.preventDefault();
     setFile([]);
     setContractsToChoose([]);
-    setErrMessage(false);
+    setErrMessage(null);
     setLoading(false);
   };
 
   const verifyContract = (e: any, chosenContract: any) => {
     e.preventDefault();
-    let formData = new FormData();
+    let formData: any = new FormData();
     formData.append('address', address);
     formData.append('chain', chainID);
     file.forEach((file: any) => {
@@ -144,7 +155,7 @@ const VerifyContract = () => {
         <div className="verify_contract-addfiles">
           <label className="verify_contract_add" htmlFor="files">
             {errMessage &&
-              contractsToChoose.length === 0 &&
+              contractsToChoose?.length === 0 &&
               file.length > 0 && (
                 <ContractErrorMessage errMessage={errMessage} />
               )}
@@ -162,9 +173,9 @@ const VerifyContract = () => {
             <div
               className="verify_contract-placeholder"
               style={{
-                marginTop: contractsToChoose.length === 0 ? 0 : 12,
+                marginTop: contractsToChoose?.length === 0 ? 0 : 12,
                 justifyContent:
-                  contractsToChoose.length === 0 ? 'center' : 'flex-start',
+                  contractsToChoose?.length === 0 ? 'center' : 'flex-start',
               }}
             >
               {file?.length === 0 ? (
