@@ -7,7 +7,7 @@ const HeadInfoCell = ({
   return (
     <>
       <div className="head_info_cells">
-        <div>
+        <div style={{ width: 'inherit' }}>
           <div className="head_info_cells_primary">{primaryCell}</div>
           <div className="head_info_cells_secondary" style={style}>
             {secondaryCell}

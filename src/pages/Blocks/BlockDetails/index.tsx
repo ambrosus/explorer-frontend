@@ -123,7 +123,7 @@ export const BlockDetails = () => {
       name: 'PARENT HASH',
       value: (
         <NavLink
-          className="address_blocks_icon universall_light2"
+          className="address_blocks_icon head_info_cells_secondary"
           to={`/blocks/${parentHash}`}
         >
           {parentHash ?? ''}
