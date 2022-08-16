@@ -215,6 +215,24 @@ const AddressDetails = () => {
   }, [addressData]);
 
   const { FOR_TABLET } = useDeviceSize();
+
+  // const starFunc = () => {
+  //   const starLines = 10;
+  //   let starResult = '';
+
+  //   for (let i = 0; i <= starLines; i++) {
+  //     for (let j = 0; j < starLines - i; j++) {
+  //       starResult += ' ';
+  //     }
+  //     for (let j = 0; j < 2 * i + 1; j++) {
+  //       starResult += '*';
+  //     }
+  //     starResult += '\n';
+  //   }
+  //   return starResult;
+  // };
+
+  // console.log(starFunc());
   return (
     <Content>
       <section className="address_details">

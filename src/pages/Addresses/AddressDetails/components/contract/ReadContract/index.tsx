@@ -25,7 +25,7 @@ const ReadContract = () => {
 
     setContractAbi(res[0]);
   }, []);
-  // console.log(contractAbi);
+
   return (
     <div>
       <h2 className="contract-tab-title">Contract Source Code</h2>
