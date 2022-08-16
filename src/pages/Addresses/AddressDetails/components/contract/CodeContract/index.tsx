@@ -36,7 +36,7 @@ const Code = () => {
                 <div className="code-section-header-title">
                   <h3>
                     <span>
-                      File {index + 1} of {files.length}:
+                      File {index + 1} of {files.length - 1}:
                     </span>{' '}
                     {file.name}
                   </h3>
