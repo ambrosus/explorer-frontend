@@ -2,7 +2,6 @@ import { useTypedSelector } from 'hooks/useTypedSelector';
 import { OverallBalanceProps } from 'pages/Addresses/AddressDetails/address-details.interface';
 import React, { useEffect, useState } from 'react';
 
-
 const OverallBalance: React.FC<OverallBalanceProps> = ({ addressBalance }) => {
   const [amountInUsd, setAmountInUsd] = useState(0);
   const [addressBalanceBuffer, setAddressBalanceBuffer] = useState(

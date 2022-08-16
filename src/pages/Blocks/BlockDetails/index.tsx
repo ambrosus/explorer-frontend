@@ -1,5 +1,6 @@
 import { Content } from '../../../components/Content';
 import Loader from '../../../components/Loader';
+import { useActions } from '../../../hooks/useActions';
 import useSortData from '../../../hooks/useSortData';
 import { useTypedSelector } from '../../../hooks/useTypedSelector';
 import {
@@ -18,7 +19,6 @@ import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { NavLink, useNavigate, useParams } from 'react-router-dom';
-import {useActions} from "../../../hooks/useActions";
 
 export interface IBlock {
   miner: string;

@@ -1,12 +1,12 @@
 import API from '../../API/api';
+import { useActions } from '../../hooks/useActions';
 import TabsNew from '../Transactions/components/TabsNew';
 import BlocksBody from './components/BlocksBody';
 import BlocksHeader from './components/BlocksHeader';
 import { Content } from 'components/Content';
 import HeadInfo from 'components/HeadInfo';
 import { useTypedSelector } from 'hooks/useTypedSelector';
-import React, {useEffect} from 'react';
-import {useActions} from "../../hooks/useActions";
+import React, { useEffect } from 'react';
 
 export const Blocks = () => {
   const { setAppDataAsync } = useActions();
@@ -20,7 +20,6 @@ export const Blocks = () => {
     (appData?.netInfo?.avgBlockGasUsed / appData?.netInfo?.avgBlockGasLimit ||
       0) * 100
   ).toFixed(2)}%)`;
-
 
   useEffect(() => {
     const interval = setInterval(() => {

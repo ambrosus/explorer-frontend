@@ -1,8 +1,8 @@
+import { useTypedSelector } from '../../hooks/useTypedSelector';
 import LatestTransactions from 'pages/Home/components/LastestTransactions';
 import LatestBlocks from 'pages/Home/components/LatestBlocks';
 import { BlocksContentProps } from 'pages/Home/home.interfaces';
 import React, { FC } from 'react';
-import {useTypedSelector} from "../../hooks/useTypedSelector";
 
 const BlocksContent: FC<BlocksContentProps> = ({ data }) => {
   const { data: appData } = useTypedSelector((state: any) => state.app);
@@ -43,6 +43,6 @@ const BlocksContent: FC<BlocksContentProps> = ({ data }) => {
       </div>
     </div>
   );
-}
+};
 
 export default BlocksContent;

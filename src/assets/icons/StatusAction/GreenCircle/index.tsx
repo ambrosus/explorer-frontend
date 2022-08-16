@@ -5,9 +5,9 @@ const GreenCircle = (props: any) => {
   let fill = '#1ACD8C';
 
   if (props.status === 'FAIL') {
-    fill = '#ff7474'
+    fill = '#ff7474';
   } else if (props.status === 'PENDING') {
-    fill = '#ffd400'
+    fill = '#ffd400';
   }
 
   return (
@@ -18,12 +18,7 @@ const GreenCircle = (props: any) => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <rect
-        width={8}
-        height={8}
-        rx={4}
-        fill={fill}
-      />
+      <rect width={8} height={8} rx={4} fill={fill} />
     </svg>
   );
 };
