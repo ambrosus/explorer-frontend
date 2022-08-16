@@ -2,11 +2,9 @@ import { useTypedSelector } from 'hooks/useTypedSelector';
 import { OverallBalanceProps } from 'pages/Addresses/AddressDetails/address-details.interface';
 import React, { useEffect, useState } from 'react';
 
-//TODO refactor
-let amountInUsdBuffer = 0;
 
 const OverallBalance: React.FC<OverallBalanceProps> = ({ addressBalance }) => {
-  const [amountInUsd, setAmountInUsd] = useState(amountInUsdBuffer);
+  const [amountInUsd, setAmountInUsd] = useState(0);
   const [addressBalanceBuffer, setAddressBalanceBuffer] = useState(
     +addressBalance,
   );
@@ -20,7 +18,6 @@ const OverallBalance: React.FC<OverallBalanceProps> = ({ addressBalance }) => {
       appData?.total_price_usd
     ) {
       const usdPrice = appData.total_price_usd * +addressBalance;
-      amountInUsdBuffer = usdPrice;
       setAmountInUsd(usdPrice);
       setAddressBalanceBuffer(+addressBalance);
     }
@@ -41,7 +38,7 @@ const OverallBalance: React.FC<OverallBalanceProps> = ({ addressBalance }) => {
         }}
       >
         <span className="address_details_info_text_span universall_dark">
-          {`${isNaN(addressBalanceBuffer) ? 0.0 : addressBalanceBuffer} AMB`}{' '}
+          {`${isNaN(+addressBalance) ? 0.0 : addressBalance} AMB`}{' '}
         </span>
         <span className="address_details_info_text_span universall_dark">
           /

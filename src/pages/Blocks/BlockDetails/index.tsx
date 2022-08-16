@@ -18,6 +18,7 @@ import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { NavLink, useNavigate, useParams } from 'react-router-dom';
+import {useActions} from "../../../hooks/useActions";
 
 export interface IBlock {
   miner: string;
@@ -39,6 +40,7 @@ interface IBlocksData<T> {
 }
 
 export const BlockDetails = () => {
+  const { setAppDataAsync } = useActions();
   const { address }: TParams = useParams();
   const [block, setBlock] = useState<any>(null);
   const navigate = useNavigate();
@@ -81,6 +83,13 @@ export const BlockDetails = () => {
     getBlockTransactionsData,
     address,
   );
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setAppDataAsync();
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     if (!isLoading) setBlock(data?.data);

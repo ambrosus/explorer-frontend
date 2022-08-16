@@ -276,6 +276,7 @@ async function explorerData(address: string, { page, limit, type }: any) {
         symbol: 'AMB',
         txFee: ethers.utils.formatUnits(t?.gasCost?.wei, 18),
         inners: t?.inners,
+        status: t?.status,
       };
     });
   } catch (e) {

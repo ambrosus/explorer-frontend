@@ -5,9 +5,12 @@ import BlocksHeader from './components/BlocksHeader';
 import { Content } from 'components/Content';
 import HeadInfo from 'components/HeadInfo';
 import { useTypedSelector } from 'hooks/useTypedSelector';
-import React from 'react';
+import React, {useEffect} from 'react';
+import {useActions} from "../../hooks/useActions";
 
 export const Blocks = () => {
+  const { setAppDataAsync } = useActions();
+
   const { data: appData } = useTypedSelector((state: any) => state.app);
   const total = appData?.netInfo?.lastBlock?.number || 0;
   const avgBlockTime = appData?.netInfo?.avgBlockTime || 0;
@@ -17,6 +20,14 @@ export const Blocks = () => {
     (appData?.netInfo?.avgBlockGasUsed / appData?.netInfo?.avgBlockGasLimit ||
       0) * 100
   ).toFixed(2)}%)`;
+
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setAppDataAsync();
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   const itemFirst: any = [
     {

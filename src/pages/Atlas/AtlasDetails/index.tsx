@@ -15,11 +15,12 @@ import { ambToUSD } from 'utils/helpers';
 import { atlasDetailsSorting } from 'utils/sidePages';
 
 export const AtlasDetails = () => {
-  const { getAddressData } = useActions();
+  const { getAddressData, setAppDataAsync } = useActions();
   const { address }: TParams = useParams();
 
   useEffect(() => {
     getAddressData(address);
+    setAppDataAsync();
   }, []);
 
   const { data: appData } = useTypedSelector((state: any) => state.app);
@@ -122,7 +123,7 @@ export const AtlasDetails = () => {
         <TabsNew
           tabs={atlasDetailsSorting}
           fetchData={API.getAccountTx}
-          fetchParams={{ address, page: '' }}
+          fetchParams={{ address, page: '', type: '' }}
           render={(txs: any) =>
             txs.map((transaction: any) => (
               <AddressBlock
