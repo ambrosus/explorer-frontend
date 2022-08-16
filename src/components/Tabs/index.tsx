@@ -13,10 +13,11 @@ import {
 } from 'pages/Addresses/AddressDetails/address-details.interface';
 import AddressBlock from 'pages/Addresses/AddressDetails/components/AddressBlocks';
 import AddressBlocksHeader from 'pages/Addresses/AddressDetails/components/AddressBlocksHeader';
+import { ContractDetails } from 'pages/Addresses/AddressDetails/components/contract';
 import React, { FC, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { NavLink, useParams } from 'react-router-dom';
 import { setupStyle, toUniqueValueByBlock } from 'utils/helpers';
-import { sidePages } from 'utils/sidePages';
+import { contractTabs, sidePages } from 'utils/sidePages';
 
 const Tabs: FC<TabsProps> = ({
   data,
@@ -26,7 +27,8 @@ const Tabs: FC<TabsProps> = ({
   pageNum,
   loading,
   transactionType,
-  // isContract,
+  isContract,
+  contractInfo,
 }) => {
   const [isShow, setIsShow] = useState(false);
   const { address, type, filtered, tokenToSorted } = useParams();
@@ -103,10 +105,8 @@ const Tabs: FC<TabsProps> = ({
   }, [data, filtered, type]);
 
   useEffect(() => {
-    if (type !== 'contract') {
-      if (address || type || filtered || tokenToSorted) {
-        setRenderData(null);
-      }
+    if (address || type || filtered || tokenToSorted) {
+      setRenderData(null);
     }
   }, [address, type, filtered, tokenToSorted]);
 
@@ -132,82 +132,71 @@ const Tabs: FC<TabsProps> = ({
     } else if (
       filtered === 'code' ||
       filtered === 'write' ||
-      filtered === 'read'
+      filtered === 'read' ||
+      filtered === 'verify'
     ) {
       return `tabs_link ${
-        itemValue === transactionType ||
-        !(filtered === 'code' || filtered === 'read' || filtered === 'write') ||
-        itemValue === 'contract' ||
-        ((filtered === 'code' || filtered === 'read' || filtered === 'write') &&
-          itemValue === filtered &&
-          itemValue === 'contract')
+        ((filtered === 'code' ||
+          filtered === 'read' ||
+          filtered === 'write' ||
+          filtered === 'verify') &&
+          itemValue === 'contract') ||
+        ((filtered === 'code' ||
+          filtered === 'read' ||
+          filtered === 'write' ||
+          filtered === 'verify') &&
+          filtered === itemValue) ||
+        itemValue === transactionType
           ? 'tabs_link_active'
           : ''
       }`;
     }
   };
 
+  const contractUrl = (url: any) => {
+    if (url === 'contract' && contractInfo?.status === 200) {
+      return '/code';
+    } else if (url === 'contract' && contractInfo?.status !== 200) {
+      return '/verify';
+    } else {
+      return '';
+    }
+  };
+
   const handleShow = () => setIsShow(!isShow);
-  //
-  // const contractView = (
-  //   <div className="contract">
-  //     <div className="tabs_heading" tabIndex={-1}>
-  //       <div className="tabs_heading_filters" tabIndex={-1}>
-  //         {contractTabs?.length &&
-  //           contractTabs.map((filter) => (
-  //             <NavLink
-  //               key={filter.title}
-  //               to={`/addresses/${address}/${type}/${
-  //                 filter.value ? filter.value : ''
-  //               }`}
-  //               className={() =>
-  //                 `contract-link ${handleNavLinkClass(filter.value)}`
-  //               }
-  //               onClick={() => {
-  //                 setTransactionType(filter.value);
-  //               }}
-  //             >
-  //               {filter.title}
-  //             </NavLink>
-  //           ))}
-  //       </div>
-  //     </div>
-  //     <div>
-  //       {filtered === 'code' && (
-  //         <div className="contract_code">
-  //           <div className="contract_code_heading">
-  //             <div className="contract_code_heading_title">
-  //               <span>Code</span>
-  //             </div>
-  //           </div>
-  //           <div className="contract_code_body">[CODE_BODY]</div>
-  //         </div>
-  //       )}
-  //
-  //       {filtered === 'read' && (
-  //         <div className="contract_read">
-  //           <div className="contract_read_heading">
-  //             <div className="contract_read_heading_title">
-  //               <span>Read contracts</span>
-  //             </div>
-  //           </div>
-  //           <div className="contract_read_body">[READ_CONTRACT_BODY]</div>
-  //         </div>
-  //       )}
-  //
-  //       {filtered === 'write' && (
-  //         <div className="contract_write">
-  //           <div className="contract_write_heading">
-  //             <div className="contract_write_heading_title">
-  //               <span>Write contracts</span>
-  //             </div>
-  //           </div>
-  //           <div className="contract_write_body">[WRITE_CONTRACTS_BODY]</div>
-  //         </div>
-  //       )}
-  //     </div>
-  //   </div>
-  // );
+  const filteredContractTabs =
+    contractInfo?.status === 200
+      ? contractTabs.filter((tab) => tab.value !== 'verify')
+      : contractTabs.filter((tab) => tab.value === 'verify');
+
+  const contractView = (
+    <div className="contract">
+      <div className="tabs_heading" tabIndex={-1}>
+        <div className="tabs_heading_filters" tabIndex={-1}>
+          {contractTabs?.length &&
+            filteredContractTabs.map((tab) => (
+              <NavLink
+                key={tab.title}
+                to={`/addresses/${address}/${type}/${
+                  tab.value ? tab.value : ''
+                }`}
+                className={() =>
+                  `contract-link ${handleNavLinkClass(tab.value)}`
+                }
+                onClick={() => {
+                  setTransactionType(tab.value);
+                }}
+              >
+                {tab.title}
+              </NavLink>
+            ))}
+        </div>
+      </div>
+      <div className="contract-details">
+        <ContractDetails />
+      </div>
+    </div>
+  );
 
   return (
     <>
@@ -225,33 +214,17 @@ const Tabs: FC<TabsProps> = ({
             {!filtered ||
             filtered === 'code' ||
             filtered === 'write' ||
-            filtered === 'read'
+            filtered === 'read' ||
+            filtered === 'verify'
               ? transactionFilters?.length &&
-                transactionFilters.map(
-                  (filter) =>
-                    // <>
-                    //   {isContract ? (
-                    //     <NavLink
-                    //       key={filter.title}
-                    //       to={`/addresses/${address}/${
-                    //         filter.value ? filter.value : ''
-                    //       }${filter.value === 'contract' ? '/code' : '/'} `}
-                    //       className={() => handleNavLinkClass(filter.value)}
-                    //       onClick={() => {
-                    //         console.log(filter);
-                    //
-                    //         setTransactionType(filter.value);
-                    //       }}
-                    //     >
-                    //       {filter.title}
-                    //     </NavLink>
-                    //   ) : (
-                    filter.value !== 'contract' && (
+                transactionFilters.map((filter) => (
+                  <>
+                    {isContract ? (
                       <NavLink
                         key={filter.title}
                         to={`/addresses/${address}/${
                           filter.value ? filter.value : ''
-                        }${filter.value === 'contract' ? '/code' : '/'} `}
+                        }${contractUrl(filter.value)} `}
                         className={() => handleNavLinkClass(filter.value)}
                         onClick={() => {
                           setTransactionType(filter.value);
@@ -259,10 +232,24 @@ const Tabs: FC<TabsProps> = ({
                       >
                         {filter.title}
                       </NavLink>
-                    ),
-                  //   )}
-                  // </>
-                )
+                    ) : (
+                      filter.value !== 'contract' && (
+                        <NavLink
+                          key={filter.title}
+                          to={`/addresses/${address}/${
+                            filter.value ? filter.value : ''
+                          }${filter.value === 'contract' ? '/code' : '/'} `}
+                          className={() => handleNavLinkClass(filter.value)}
+                          onClick={() => {
+                            setTransactionType(filter.value);
+                          }}
+                        >
+                          {filter.title}
+                        </NavLink>
+                      )
+                    )}
+                  </>
+                ))
               : ERC20Filters?.length &&
                 ERC20Filters.map((filter) => (
                   <NavLink
@@ -293,120 +280,111 @@ const Tabs: FC<TabsProps> = ({
           </div>
         </div>
 
-        {/*{type !== 'contract' ? (*/}
-        {/*  <>*/}
-        <section className="tabs_table">
-          {renderData?.length && (
-            <AddressBlocksHeader
-              txhash="txHash"
-              method="Method"
-              from="From"
-              to="To"
-              date="Date"
-              block={headerBlock}
-              amount="Amount"
-              txfee={headerTxfee}
-              token={headerToken}
-              methodFilters={methodFilters}
-              isTableColumn={`${isTableColumn} no_border`}
-            />
-          )}
-          <div>
-            {renderData?.length !== 0
-              ? renderData?.map(
-                  (transaction: TransactionProps, index: number) =>
-                    (renderData.length > 30 &&
-                      renderData.length - 9 === index &&
-                      type !== 'ERC-20_Tx') ||
-                    (renderData.length < 30 &&
-                      renderData.length - 1 === index &&
-                      type !== 'ERC-20_Tx') ? (
-                      //TODO double code
-                      <AddressBlock
-                        lastCardRef={lastCardRef}
-                        isLatest={type === 'ERC-20_Tx' && !filtered}
-                        onClick={onClick}
-                        key={transaction.txHash}
-                        txhash={transaction.txHash}
-                        method={transaction.method}
-                        from={transaction.from}
-                        to={transaction.to}
-                        date={moment(transaction.date).fromNow()}
-                        block={transaction.block}
-                        amount={transaction.amount}
-                        txfee={transaction.txFee}
-                        token={`${
-                          transaction?.token ? transaction?.token : null
-                        }`}
-                        symbol={`${
-                          transaction?.symbol ? transaction?.symbol : null
-                        }`}
-                        isTableColumn={isTableColumn}
-                        inners={transaction.inners}
-                        status={transaction.status}
-                      />
-                    ) : (
-                      <AddressBlock
-                        isLatest={type === 'ERC-20_Tx' && !filtered}
-                        onClick={onClick}
-                        key={transaction.txHash}
-                        txhash={transaction.txHash}
-                        method={transaction.method}
-                        from={transaction.from}
-                        to={transaction.to}
-                        date={moment(transaction.date).fromNow()}
-                        block={transaction.block}
-                        amount={transaction.amount}
-                        txfee={transaction.txFee}
-                        token={`${
-                          transaction?.token ? transaction?.token : 'AMB'
-                        }`}
-                        symbol={`${
-                          transaction?.symbol ? transaction?.symbol : 'AMB'
-                        }`}
-                        isTableColumn={isTableColumn}
-                        inners={transaction.inners}
-                        isIcon
-                        status={transaction.status}
-                      />
-                    ),
-                )
-              : null}
-          </div>
+        {type !== 'contract' ? (
+          <>
+            <section className="tabs_table">
+              {renderData?.length && (
+                <AddressBlocksHeader
+                  txhash="txHash"
+                  method="Method"
+                  from="From"
+                  to="To"
+                  date="Date"
+                  block={headerBlock}
+                  amount="Amount"
+                  txfee={headerTxfee}
+                  token={headerToken}
+                  methodFilters={methodFilters}
+                  isTableColumn={isTableColumn}
+                />
+              )}
 
-          {!loading &&
-            //TODO вынести условие в константу
-            !renderData?.length &&
-            pageNum < addressData?.meta?.totalPages &&
-            type !== 'ERC-20_Tx' &&
-            pageNum < addressData?.meta?.totalPages && (
-              <div style={{ height: 10, width: '100%' }} ref={lastCardRef} />
+              {renderData?.length !== 0
+                ? renderData?.map(
+                    (transaction: TransactionProps, index: number) =>
+                      (renderData.length > 30 &&
+                        renderData.length - 9 === index &&
+                        type !== 'ERC-20_Tx') ||
+                      (renderData.length < 30 &&
+                        renderData.length - 1 === index &&
+                        type !== 'ERC-20_Tx') ? (
+                        //TODO double code
+                        <AddressBlock
+                          lastCardRef={lastCardRef}
+                          isLatest={type === 'ERC-20_Tx' && !filtered}
+                          onClick={onClick}
+                          key={transaction.txHash}
+                          txhash={transaction.txHash}
+                          method={transaction.method}
+                          from={transaction.from}
+                          to={transaction.to}
+                          date={moment(transaction.date).fromNow()}
+                          block={transaction.block}
+                          amount={transaction.amount}
+                          txfee={transaction.txFee}
+                          token={`${
+                            transaction?.token ? transaction?.token : null
+                          }`}
+                          symbol={`${
+                            transaction?.symbol ? transaction?.symbol : null
+                          }`}
+                          isTableColumn={isTableColumn}
+                        />
+                      ) : (
+                        <AddressBlock
+                          isLatest={type === 'ERC-20_Tx' && !filtered}
+                          onClick={onClick}
+                          key={transaction.txHash}
+                          txhash={transaction.txHash}
+                          method={transaction.method}
+                          from={transaction.from}
+                          to={transaction.to}
+                          date={moment(transaction.date).fromNow()}
+                          block={transaction.block}
+                          amount={transaction.amount}
+                          txfee={transaction.txFee}
+                          token={`${
+                            transaction?.token ? transaction?.token : 'AMB'
+                          }`}
+                          symbol={`${
+                            transaction?.symbol ? transaction?.symbol : 'AMB'
+                          }`}
+                          isTableColumn={isTableColumn}
+                        />
+                      ),
+                  )
+                : null}
+
+              {!loading &&
+                //TODO вынести условие в константу
+                !renderData?.length &&
+                pageNum < addressData?.meta?.totalPages &&
+                type !== 'ERC-20_Tx' &&
+                pageNum < addressData?.meta?.totalPages && (
+                  <div
+                    style={{ height: 10, width: '100%' }}
+                    ref={lastCardRef}
+                  />
+                )}
+
+              {!loading && !renderData?.length && noDtaFound() && (
+                <div className="tabs_not_found" ref={lastCardRef}>
+                  <NotFoundIcon />
+                  <span className="tabs_not_found_text">
+                    No results were found for this query.
+                  </span>
+                </div>
+              )}
+            </section>
+            {loading && (
+              <div style={{ top: '-20px', position: 'relative' }}>
+                <Loader />
+              </div>
             )}
-
-          {!loading && !renderData?.length && noDtaFound() && (
-            <div className="tabs_not_found" ref={lastCardRef}>
-              <NotFoundIcon />
-              <span className="tabs_not_found_text">
-                No results were found for this query.
-              </span>
-            </div>
-          )}
-        </section>
-        {loading && (
-          <div
-            style={{
-              marginTop: !renderData?.length ? -300 : 0,
-              top: '-20px',
-              position: 'relative',
-            }}
-          >
-            <Loader />
-          </div>
+          </>
+        ) : (
+          contractView
         )}
-        {/*  </>*/}
-        {/*) : (*/}
-        {/*  contractView*/}
-        {/*) }*/}
       </div>
     </>
   );

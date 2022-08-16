@@ -11,7 +11,13 @@ import { formatEther } from 'ethers/lib/utils';
 import { useActions } from 'hooks/useActions';
 import useDeviceSize from 'hooks/useDeviceSize';
 import { useTypedSelector } from 'hooks/useTypedSelector';
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react';
 import { shallowEqual } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getDataForAddress } from 'services/address.service';
@@ -28,13 +34,22 @@ const AddressDetails = () => {
     error: errorData,
   } = useTypedSelector((state: any) => state.position);
 
+  const { getContractAddressData } = useActions();
+  useEffect(() => {
+    getContractAddressData(address);
+  }, []);
+
+  const { data: sourcifyData } = useTypedSelector((state) => state?.sourcify);
+  const { accountInfo, contractInfo } = sourcifyData || {};
+  const { isContract } = accountInfo?.data || false;
+
   const { address, type, filtered, tokenToSorted }: TParams = useParams();
   const { setPosition, addFilter } = useActions();
   const [transactionType, setTransactionType] = useState(type || '');
   const [selectedToken, setSelectedToken] = useState<TokenType | null>(null);
   const [tx, setTx] = useState<TransactionProps[] | []>([]);
   const [pageNum, setPageNum] = useState(1);
-  const [isContract, setIsContract] = useState(false);
+
   const [limitNum] = useState(50);
   const [showMore, setShowMore] = useState(false);
   const showMoreRef: any = useRef(null);
@@ -91,18 +106,16 @@ const AddressDetails = () => {
   }, []);
 
   useEffect(() => {
-    if (type !== 'contract') {
-      if (address || type || filtered || tokenToSorted) {
-        setPageNum(1);
-        setPosition(null);
-        setTx([]);
-      }
-      return () => {
-        setPageNum(1);
-        setPosition(null);
-        setTx([]);
-      };
+    if (address || type || filtered || tokenToSorted) {
+      setPageNum(1);
+      setPosition(null);
+      setTx([]);
     }
+    return () => {
+      setPageNum(1);
+      setPosition(null);
+      setTx([]);
+    };
   }, [address, type, filtered, tokenToSorted]);
 
   async function getAddressDetailsData() {
@@ -244,12 +257,8 @@ const AddressDetails = () => {
           </div>
           <NodeHeader getNodeData={API.getAccount}>
             {({ node }: any) => {
-              if (node && node.isContract) {
-                setIsContract(true);
-              }
               return (
-                node &&
-                node.isContract && (
+                node?.isContract && (
                   <div className="wrapper-bytes" ref={showMoreRef}>
                     <p
                       className={`${!showMore ? 'gradient-text' : ''}`}
@@ -266,7 +275,7 @@ const AddressDetails = () => {
                       className="read-more-btn"
                       onClick={showMoreRefHandler}
                     >
-                      {showMore ? 'Show less' : 'Show' + ' more'}
+                      {showMore ? 'Show less' : 'Show more'}
                     </button>
                   </div>
                 )
@@ -276,7 +285,7 @@ const AddressDetails = () => {
         </Content.Header>
         <Content.Body isLoading={filtered ? !loading : true}>
           <Tabs
-            // isContract={isContract}
+            isContract={isContract}
             pageNum={pageNum}
             lastCardRef={lastCardRef}
             onClick={setSelectedToken}
@@ -286,6 +295,7 @@ const AddressDetails = () => {
             loading={loading}
             setTransactionType={setTransactionType}
             isIcon={true}
+            contractInfo={contractInfo}
           />
         </Content.Body>
       </section>

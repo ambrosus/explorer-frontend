@@ -60,6 +60,7 @@ export const contractTabs = [
   { title: 'CODE', value: 'code' },
   { title: 'READ CONTRACT', value: 'read' },
   { title: 'WRITE CONTRACT', value: 'write' },
+  { title: 'VERIFY CONTRACT', value: 'verify' },
 ];
 
 export const sidePages = {

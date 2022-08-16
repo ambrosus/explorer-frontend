@@ -78,7 +78,12 @@ const sortedLatestTransactionsData = async (
         params: {
           page: page,
           pageSize: 1000,
-          contract: token.contract,
+          contract:
+            token.contract !== 'code' &&
+            token.contract !== 'read' &&
+            token.contract !== 'write'
+              ? token.contract
+              : '',
         },
       });
       return tokensTransactions.txids.map(async (tx: string) => {
@@ -140,7 +145,12 @@ const blockBookApiTokensSearch: any = async (
           params: {
             page: page,
             pageSize: 1000,
-            contract: token.contract,
+            contract:
+              token.contract !== 'code' &&
+              token.contract !== 'read' &&
+              token.contract !== 'write'
+                ? token.contract
+                : '',
           },
         });
         return (
@@ -177,7 +187,12 @@ const bbDataFilter = async (
       params: {
         page: page,
         pageSize: !type ? limit : selectedTokenFilter ? 1000 : 100,
-        contract: selectedTokenFilter ? selectedTokenFilter : '',
+        contract:
+          selectedTokenFilter !== 'code' &&
+          selectedTokenFilter !== 'read' &&
+          selectedTokenFilter !== 'write'
+            ? selectedTokenFilter
+            : '',
       },
     });
 
