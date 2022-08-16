@@ -56,6 +56,7 @@ export interface ExplorerTxType {
   blockNumber: any;
   value: { wei: ethers.BigNumberish };
   gasCost: { wei: any };
+  status: string;
 }
 
 export interface AddressBlockProps {

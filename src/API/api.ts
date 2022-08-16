@@ -52,8 +52,8 @@ const getAccount = (address: any) => {
   return API().get(`accounts/${address}`);
 };
 
-const getAtlas = (params: any) => {
-  return API().get(`atlases?limit=30&sort=${params.sort}`);
+const getAtlas = (address: any) => {
+  return API().get(`atlases/${address}`);
 };
 
 const getAtlasBundles = (address: any, params: any) => {
