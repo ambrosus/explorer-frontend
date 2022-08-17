@@ -176,11 +176,7 @@ export const BlockDetails = () => {
         <HeadInfo data={itemFirst} className="head_info" />
         <HeadInfo
           data={itemSecond}
-          styleCell={
-            FOR_TABLET
-              ? { width: '50%' }
-              : { width: '100%', paddingRight: '35px' }
-          }
+          styleCell={FOR_TABLET ? { flexBasis: '50%' } : { flexBasis: '64px' }}
           className="head_info"
         />
       </Content.Header>
