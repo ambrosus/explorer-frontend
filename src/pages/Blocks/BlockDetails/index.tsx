@@ -1,5 +1,6 @@
 import { Content } from '../../../components/Content';
 import Loader from '../../../components/Loader';
+import { useActions } from '../../../hooks/useActions';
 import useSortData from '../../../hooks/useSortData';
 import { useTypedSelector } from '../../../hooks/useTypedSelector';
 import {
@@ -41,6 +42,7 @@ interface IBlocksData<T> {
 }
 
 export const BlockDetails = () => {
+  const { setAppDataAsync } = useActions();
   const { address }: TParams = useParams();
   const [block, setBlock] = useState<any>(null);
   const navigate = useNavigate();
@@ -85,6 +87,13 @@ export const BlockDetails = () => {
   );
 
   useEffect(() => {
+    const interval = setInterval(() => {
+      setAppDataAsync();
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
     if (!isLoading) setBlock(data?.data);
   }, [isLoading]);
 
@@ -126,7 +135,7 @@ export const BlockDetails = () => {
       name: 'PARENT HASH',
       value: (
         <NavLink
-          className="address_blocks_icon universall_light2"
+          className="address_blocks_icon head_info_cells_secondary"
           to={`/blocks/${parentHash}`}
         >
           {sliceData10(parentHash, FOR_TABLET ? 20 : 10)}

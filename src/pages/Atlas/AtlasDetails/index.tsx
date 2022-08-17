@@ -29,7 +29,9 @@ export const AtlasDetails = () => {
 
   const ambBalance = atlasData?.balance?.ether || 0;
   const ambStake = atlasData?.stake?.ether || 0;
-  const total_price_usd = appData?.total_price_usd || 0;
+  const total_price_usd = appData?.tokenInfo?.total_price_usd || 0;
+  console.log(total_price_usd);
+
   const usdBalance = +ambToUSD(ambBalance, total_price_usd);
   const usdStake = +ambToUSD(ambStake, total_price_usd);
 
@@ -115,14 +117,14 @@ export const AtlasDetails = () => {
             </div>
           </div>
         </div>
-        <HeadInfo data={itemFirst} className="head_info" />;
-        <HeadInfo data={itemSecond} className="head_info" />;
+        <HeadInfo data={itemFirst} className="head_info" />
+        <HeadInfo data={itemSecond} className="head_info" />
       </Content.Header>
       <Content.Body>
         <TabsNew
           tabs={atlasDetailsSorting}
           fetchData={API.getAccountTx}
-          fetchParams={{ address, page: '' }}
+          fetchParams={{ address, page: '', type: '' }}
           render={(txs: any) =>
             txs.map((transaction: any) => (
               <AddressBlock
