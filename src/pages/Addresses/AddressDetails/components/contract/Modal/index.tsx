@@ -9,23 +9,10 @@ const Modal = ({ children, handleClick }: any) => {
   }, []);
   return (
     <>
-      <section
-        style={{
-          zIndex: 1000,
-          display: 'grid',
-          position: 'fixed',
-          background: 'rgba(0,0,0,0.3)',
-          top: -350,
-          width: '100%',
-          left: 0,
-          overflowY: 'scroll',
-          bottom: -150,
-          right: 0,
-          placeItems: 'center center',
-        }}
-        onClick={handleClick}
-      >
-        <div onClick={(e) => e.stopPropagation()}>{children}</div>
+      <section className="fullscreen" onClick={handleClick}>
+        <div style={{ borderRadius: 16 }} onClick={(e) => e.preventDefault()}>
+          {children}
+        </div>
       </section>
     </>
   );

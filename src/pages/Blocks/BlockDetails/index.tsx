@@ -14,10 +14,12 @@ import BlockHeaderInfo from './components/BlockHeaderInfo';
 import HeadingInfo from './components/HeadingInfo';
 import { MainInfoBlockTable } from './components/MainInfoBlockTable';
 import HeadInfo from 'components/HeadInfo';
+import useDeviceSize from 'hooks/useDeviceSize';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { NavLink, useNavigate, useParams } from 'react-router-dom';
+import { sliceData10, sliceData5 } from 'utils/helpers';
 
 export interface IBlock {
   miner: string;
@@ -49,7 +51,7 @@ export const BlockDetails = () => {
     totalTransactions = 0,
     size = 0,
     timestamp = 0,
-    parentHash = 0,
+    parentHash = '',
     hash = 0,
     stateRoot = 0,
     extraData,
@@ -87,6 +89,7 @@ export const BlockDetails = () => {
   }, [isLoading]);
 
   if (isError) navigate(`/notfound`);
+  const { FOR_TABLET } = useDeviceSize();
 
   const itemFirst: any = [
     {
@@ -117,7 +120,7 @@ export const BlockDetails = () => {
   const itemSecond: any = [
     {
       name: 'HASH',
-      value: hash ?? '',
+      value: sliceData10(hash, FOR_TABLET ? 20 : 10),
     },
     {
       name: 'PARENT HASH',
@@ -126,17 +129,17 @@ export const BlockDetails = () => {
           className="address_blocks_icon universall_light2"
           to={`/blocks/${parentHash}`}
         >
-          {parentHash ?? ''}
+          {sliceData10(parentHash, FOR_TABLET ? 20 : 10)}
         </NavLink>
       ),
     },
     {
       name: 'STATE ROOT HASH ',
-      value: stateRoot ?? '',
+      value: sliceData10(stateRoot, FOR_TABLET ? 20 : 10),
     },
     {
       name: 'DATA',
-      value: extraData ?? '',
+      value: sliceData10(extraData, FOR_TABLET ? 20 : 10),
     },
   ];
 
@@ -162,7 +165,15 @@ export const BlockDetails = () => {
         </div>
 
         <HeadInfo data={itemFirst} className="head_info" />
-        <HeadInfo data={itemSecond} className="head_info" />
+        <HeadInfo
+          data={itemSecond}
+          styleCell={
+            FOR_TABLET
+              ? { width: '50%' }
+              : { width: '100%', paddingRight: '35px' }
+          }
+          className="head_info"
+        />
       </Content.Header>
       {renderData?.data?.length && (
         <Content.Body>
