@@ -116,8 +116,8 @@ export const AtlasDetails = () => {
             </div>
           </div>
         </div>
-        <HeadInfo data={itemFirst} className="head_info" />;
-        <HeadInfo data={itemSecond} className="head_info" />;
+        <HeadInfo data={itemFirst} className="head_info" />
+        <HeadInfo data={itemSecond} className="head_info" />
       </Content.Header>
       <Content.Body>
         <TabsNew
