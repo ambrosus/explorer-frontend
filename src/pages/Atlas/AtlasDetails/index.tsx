@@ -15,12 +15,11 @@ import { ambToUSD } from 'utils/helpers';
 import { atlasDetailsSorting } from 'utils/sidePages';
 
 export const AtlasDetails = () => {
-  const { getAddressData, setAppDataAsync } = useActions();
+  const { getAddressData } = useActions();
   const { address }: TParams = useParams();
 
   useEffect(() => {
     getAddressData(address);
-    setAppDataAsync();
   }, []);
 
   const { data: appData } = useTypedSelector((state: any) => state.app);
@@ -30,7 +29,9 @@ export const AtlasDetails = () => {
 
   const ambBalance = atlasData?.balance?.ether || 0;
   const ambStake = atlasData?.stake?.ether || 0;
-  const total_price_usd = appData?.total_price_usd || 0;
+  const total_price_usd = appData?.tokenInfo?.total_price_usd || 0;
+  console.log(total_price_usd);
+
   const usdBalance = +ambToUSD(ambBalance, total_price_usd);
   const usdStake = +ambToUSD(ambStake, total_price_usd);
 

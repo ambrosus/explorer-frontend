@@ -14,9 +14,9 @@ const OverallBalance: React.FC<OverallBalanceProps> = ({ addressBalance }) => {
       //TODO !addressBalance
       addressBalance !== undefined &&
       addressBalance !== null &&
-      appData?.total_price_usd
+      appData?.tokenInfo?.total_price_usd
     ) {
-      const usdPrice = appData.total_price_usd * +addressBalance;
+      const usdPrice = appData?.tokenInfo?.total_price_usd * +addressBalance;
       setAmountInUsd(usdPrice);
       setAddressBalanceBuffer(+addressBalance);
     }
