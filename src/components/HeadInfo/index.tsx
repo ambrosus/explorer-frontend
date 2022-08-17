@@ -1,6 +1,6 @@
 import HeadInfoCell from 'components/HeadInfo/HeadInfoCell';
 
-const HeadInfo = ({ data, className, style = {} }: any) => {
+const HeadInfo = ({ data, className, style = {}, styleCell }: any) => {
   return (
     <div className={className} style={style}>
       {data?.map((item: any) => (
@@ -10,6 +10,7 @@ const HeadInfo = ({ data, className, style = {} }: any) => {
           secondaryCell={item.value}
           style={item.style}
           calendarBtn={item.calendarBtn}
+          styleCell={styleCell}
         />
       ))}
     </div>

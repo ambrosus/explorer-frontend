@@ -216,6 +216,7 @@ const AddressDetails = () => {
   }, [addressData]);
 
   const { FOR_TABLET } = useDeviceSize();
+
   return (
     <Content>
       <section className="address_details">

@@ -76,3 +76,18 @@
     }
   }
 }
+
+.fullscreen {
+  z-index: 1000;
+  display: grid;
+  position: fixed;
+  background: rgba(0, 0, 0, 0.3);
+  top: 0;
+  width: 100%;
+  left: 0;
+  overflow-y: scroll;
+  bottom: 0;
+  right: 0;
+  place-items: center center;
+  padding-top: 20px;
+}

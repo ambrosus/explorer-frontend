@@ -21,14 +21,13 @@ const ReadContract = () => {
       .filter((file: any) => file.name === 'metadata.json')
       .map((file: any) => JSON.parse(file.content))
       .map((file: any) => file.output.abi);
-    // console.log(res[0].output.abi);
 
     setContractAbi(res[0]);
   }, []);
-  // console.log(contractAbi);
+
   return (
     <div>
-      <h2 className="contract-tab-title">Contract Source Code</h2>
+      <h2 className="contract-tab-title">Read Contract Information</h2>
       <div className="methods">
         {contractAbi &&
           contractAbi
@@ -39,7 +38,14 @@ const ReadContract = () => {
                 method.type === 'function',
             )
             .map((method: any, index: number) => {
-              return <Method key={index} index={index} method={method} />;
+              return (
+                <Method
+                  key={index}
+                  index={index}
+                  method={method}
+                  buttonName={'Query'}
+                />
+              );
             })}
       </div>
     </div>
