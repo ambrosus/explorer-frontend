@@ -56,7 +56,7 @@ export const Home: React.FC = () => {
   const getHomePageData: () => Promise<ResultHomePageData> = async () => {
     const result: ResultHomePageData = {
       latestBlocks: (await API.getBlocks({ limit: 8 })).data,
-      latestTransactions: (await API.getTransactions({ limit: 6000 })).data
+      latestTransactions: (await API.getTransactions({ limit: 10, type: 'transactions' })).data
         .filter((item: LatestTransactionsProps) => item.type !== 'BlockReward')
         .slice(0, 8),
     };
