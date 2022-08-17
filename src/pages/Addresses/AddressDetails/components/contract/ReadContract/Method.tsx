@@ -4,7 +4,7 @@ import { BigNumber, ethers, providers } from 'ethers';
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-const Method = ({ index, method }: any) => {
+const Method = ({ index, method, buttonName }: any) => {
   const { filtered } = useParams<TParams>();
   const [result, setResult] = React.useState<any>(null);
   const [paybleValue, setPaybleValue] = React.useState<any>('0');
@@ -174,7 +174,7 @@ const Method = ({ index, method }: any) => {
                   return contractCall(method);
                 }}
               >
-                Query
+                {buttonName}
               </button>
             ) : null}
             {filtered === 'write' ? (
@@ -185,7 +185,7 @@ const Method = ({ index, method }: any) => {
                   return contractCall(method);
                 }}
               >
-                Query
+                {buttonName}
               </button>
             ) : null}
           </div>

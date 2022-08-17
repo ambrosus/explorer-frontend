@@ -39,7 +39,7 @@ export const ApolloDetails = () => {
   const { total_price_usd } = appData?.tokenInfo || 0;
   const ambBalance = balance?.ether || 0;
   const ambStake = stake?.ether || 0;
-
+  console.log(total_price_usd);
   const usdBalance = +ambToUSD(ambBalance, total_price_usd);
   const usdStake = +ambToUSD(ambStake, total_price_usd);
 
@@ -197,7 +197,7 @@ export const ApolloDetails = () => {
                 date={moment(transaction.timestamp * 1000).fromNow()}
                 block={transaction.blockNumber}
                 amount={transaction.value.ether}
-                txfee={transaction.gasCost.ether}
+                txfee={transaction.gasUsed}
                 token={`${transaction?.token ? transaction?.token : 'AMB'}`}
                 symbol={`${transaction?.symbol ? transaction?.symbol : 'AMB'}`}
                 isTableColumn="address_blocks_cells"

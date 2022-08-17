@@ -6,14 +6,15 @@ import { NavLink } from 'react-router-dom';
 import { calckBlocks, calcTime, sliceData5 } from 'utils/helpers';
 
 const LatestBlocks: React.FC<LatestBlocksProps> = ({
-  number,
+  number = 0,
   index,
   timestamp,
   validator,
   totalTransactions,
   blockReward,
+  lastBlock = 0,
 }) => {
-  const online = index > 1 ? <GreenCircle /> : <OrangeCircle />;
+  const online = lastBlock > number ? <GreenCircle /> : <OrangeCircle />;
 
   return (
     <>

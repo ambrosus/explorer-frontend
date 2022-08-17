@@ -27,6 +27,7 @@ export type LatestBlocksProps = {
   validator?: string;
   blockReward?: any;
   name?: string;
+  lastBlock?: number;
 };
 
 export type LatestTransactionsProps = {

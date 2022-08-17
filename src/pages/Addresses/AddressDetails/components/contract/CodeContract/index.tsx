@@ -4,7 +4,7 @@ import Link from 'assets/icons/Link';
 import Loader from 'components/Loader';
 import { useActions } from 'hooks/useActions';
 import { useTypedSelector } from 'hooks/useTypedSelector';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { TParams } from 'types';
 
@@ -36,7 +36,7 @@ const Code = () => {
                 <div className="code-section-header-title">
                   <h3>
                     <span>
-                      File {index + 1} of {files.length}:
+                      File {index + 1} of {files.length - 1}:
                     </span>{' '}
                     {file.name}
                   </h3>

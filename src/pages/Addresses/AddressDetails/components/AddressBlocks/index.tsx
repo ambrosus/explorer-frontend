@@ -212,7 +212,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
           className="universall_indent_icon"
           style={{ display: 'flex', alignItems: 'center' }}
         >
-          <GreenCircle isYellow={status !== 'SUCCESS'} />
+          <GreenCircle status={status} />
         </span>
         <Tooltip val={String(scientificToDecimal(txfee))} />
         <span data-tip data-for={scientificToDecimal(txfee)}>
