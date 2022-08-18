@@ -55,7 +55,7 @@ const WriteContract = () => {
   return (
     <>
       <h2 className="contract-tab-title">
-        Contract Source Code&nbsp;
+        {'Write Contract'}&nbsp;
         <button className="ctr-btn" onClick={btnhandler}>
           {isConnected ? (
             <span className="greenCircle" />
@@ -80,7 +80,14 @@ const WriteContract = () => {
               method.type === 'function',
           )
           .map((method: any, index: number) => {
-            return <Method key={index} index={index} method={method} />;
+            return (
+              <Method
+                key={index}
+                index={index}
+                method={method}
+                buttonName={'Write'}
+              />
+            );
           })}
       </div>
     </>

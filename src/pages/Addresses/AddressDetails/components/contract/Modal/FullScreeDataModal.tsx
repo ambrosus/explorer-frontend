@@ -1,29 +1,36 @@
-import FullScreen from '../../../../../../assets/icons/FullScreen';
-import useToggle from '../../../../../../hooks/useToggle';
 import Portal from '../Portal';
 import Modal from './index';
-import React from 'react';
+import FullScreen from 'assets/icons/FullScreen';
+import { useOnClickOutside } from 'hooks/useOnClickOutside';
+import useToggle from 'hooks/useToggle';
+import React, { useRef, useState } from 'react';
 
 const FullScreeDataModal = (text: any) => {
-  const { toggled, setToggle } = useToggle();
+  const [isShow, setIsShow] = useState<boolean>(false);
+  const popUpRef = useRef(null);
 
   function handleOpen() {
-    setToggle((prev: boolean) => !prev);
+    setIsShow(true);
   }
 
-  return toggled ? (
+  useOnClickOutside(popUpRef, () => setIsShow(false));
+  console.log(isShow);
+
+  return (
     <>
-      <FullScreen onClick={handleOpen} />
-      <Portal>
-        <Modal handleClick={handleOpen}>
-          <div className="fullscreen-view">
-            <pre className="counter">{JSON.stringify(text, null, '')}</pre>
-          </div>
-        </Modal>
-      </Portal>
+      <button onClick={handleOpen}>
+        <FullScreen />
+      </button>
+      {isShow && (
+        <Portal>
+          <Modal handleClick={handleOpen}>
+            <div className="fullscreen-view" ref={popUpRef}>
+              <pre className="counter">{JSON.stringify(text, null, '')}</pre>
+            </div>
+          </Modal>
+        </Portal>
+      )}
     </>
-  ) : (
-    <FullScreen onClick={handleOpen} />
   );
 };
 
