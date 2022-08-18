@@ -66,8 +66,6 @@ const VerifyContract = () => {
       });
   };
 
-  console.log(contractsToChoose);
-
   const clearAddFiles = (e: any) => {
     e.preventDefault();
     setFile([]);
