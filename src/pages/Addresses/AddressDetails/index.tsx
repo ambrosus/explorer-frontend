@@ -33,6 +33,7 @@ const AddressDetails = () => {
     data: addressData = {},
     error: errorData,
   } = useTypedSelector((state: any) => state.position);
+  const { address, type, filtered, tokenToSorted }: TParams = useParams();
 
   const { getContractAddressData } = useActions();
   useEffect(() => {
@@ -43,7 +44,6 @@ const AddressDetails = () => {
   const { accountInfo, contractInfo } = sourcifyData || {};
   const { isContract } = accountInfo?.data || false;
 
-  const { address, type, filtered, tokenToSorted }: TParams = useParams();
   const { setPosition, addFilter } = useActions();
   const [transactionType, setTransactionType] = useState(type || '');
   const [selectedToken, setSelectedToken] = useState<TokenType | null>(null);
