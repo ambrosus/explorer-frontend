@@ -11,7 +11,7 @@ import TabsNew from 'pages/Transactions/components/TabsNew';
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { TParams } from 'types';
-import { ambToUSD } from 'utils/helpers';
+import { ambToUSD, diffStyleToCell } from 'utils/helpers';
 import { atlasDetailsSorting } from 'utils/sidePages';
 
 export const AtlasDetails = () => {
@@ -30,7 +30,6 @@ export const AtlasDetails = () => {
   const ambBalance = atlasData?.balance?.ether || 0;
   const ambStake = atlasData?.stake?.ether || 0;
   const total_price_usd = appData?.tokenInfo?.total_price_usd || 0;
-  console.log(total_price_usd);
 
   const usdBalance = +ambToUSD(ambBalance, total_price_usd);
   const usdStake = +ambToUSD(ambStake, total_price_usd);
@@ -55,12 +54,12 @@ export const AtlasDetails = () => {
   const itemFirst: any = [
     {
       name: 'BALANCE',
-      value: `${ambBalance.toFixed(2)} AMB / $ ${usdBalance.toFixed(2)}`,
+      value: diffStyleToCell(ambBalance, usdBalance),
     },
 
     {
       name: 'STAKE',
-      value: `${ambStake.toFixed(2)} AMB / $ ${usdStake.toFixed(2)}`,
+      value: diffStyleToCell(ambStake, usdStake),
     },
     {
       name: 'URL',
@@ -80,12 +79,12 @@ export const AtlasDetails = () => {
   const itemSecond: any = [
     {
       name: 'AVAILABLE PAYOUT BALANCE',
-      value: `${available.toFixed(2)} AMB / $ ${usdAvailable.toFixed(2)}`,
+      value: diffStyleToCell(available, usdAvailable),
     },
 
     {
       name: 'FORECASTED REVENUE',
-      value: `${forecast.toFixed(2)} AMB / $ ${usdForecast.toFixed(2)}`,
+      value: diffStyleToCell(forecast, usdForecast),
     },
     {
       name: 'NEXT PAYOUT DATE',

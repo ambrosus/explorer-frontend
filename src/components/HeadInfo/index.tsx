@@ -1,4 +1,5 @@
 import HeadInfoCell from 'components/HeadInfo/HeadInfoCell';
+import { memo } from 'react';
 
 const HeadInfo = ({ data, className, style = {}, styleCell }: any) => {
   return (
@@ -17,4 +18,4 @@ const HeadInfo = ({ data, className, style = {}, styleCell }: any) => {
   );
 };
 
-export default HeadInfo;
+export default memo(HeadInfo);

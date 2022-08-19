@@ -27,10 +27,6 @@ const TabItem: FC<TabsItemProps> = ({ tab, el, handleTab }) => {
     return isOverflowing;
   };
 
-  useEffect(() => {
-    console.log(isOverflown(ref.current));
-  }, []);
-
   return (
     <span
       ref={ref}

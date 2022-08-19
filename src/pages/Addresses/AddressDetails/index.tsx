@@ -11,13 +11,7 @@ import { formatEther } from 'ethers/lib/utils';
 import { useActions } from 'hooks/useActions';
 import useDeviceSize from 'hooks/useDeviceSize';
 import { useTypedSelector } from 'hooks/useTypedSelector';
-import React, {
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { shallowEqual } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getDataForAddress } from 'services/address.service';
@@ -28,22 +22,19 @@ const AddressDetails = () => {
     (state) => state.tokenFilters,
     shallowEqual,
   );
+  const { getContractAddressData } = useActions();
+
   const {
     loading,
     data: addressData = {},
     error: errorData,
   } = useTypedSelector((state: any) => state.position);
-
-  const { getContractAddressData } = useActions();
-  useEffect(() => {
-    getContractAddressData(address);
-  }, []);
+  const { address, type, filtered, tokenToSorted }: TParams = useParams();
 
   const { data: sourcifyData } = useTypedSelector((state) => state?.sourcify);
   const { accountInfo, contractInfo } = sourcifyData || {};
   const { isContract } = accountInfo?.data || false;
 
-  const { address, type, filtered, tokenToSorted }: TParams = useParams();
   const { setPosition, addFilter } = useActions();
   const [transactionType, setTransactionType] = useState(type || '');
   const [selectedToken, setSelectedToken] = useState<TokenType | null>(null);
@@ -83,6 +74,10 @@ const AddressDetails = () => {
       observer.current.observe(node);
     }
   };
+
+  useEffect(() => {
+    getContractAddressData(address);
+  }, [address]);
 
   useEffect(() => {
     if (address?.trim() === '0x0000000000000000000000000000000000000000') {
@@ -212,7 +207,6 @@ const AddressDetails = () => {
         ),
       );
     }
-    console.log(addressData);
   }, [addressData]);
 
   const { FOR_TABLET } = useDeviceSize();

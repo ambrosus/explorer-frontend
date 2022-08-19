@@ -12,7 +12,12 @@ import TabsNew from 'pages/Transactions/components/TabsNew';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { TParams } from 'types';
-import { ambToUSD, statusMessage, formatDate } from 'utils/helpers';
+import {
+  ambToUSD,
+  statusMessage,
+  formatDate,
+  diffStyleToCell,
+} from 'utils/helpers';
 import { apolloDetailsSorting } from 'utils/sidePages';
 
 export const ApolloDetails = () => {
@@ -39,7 +44,7 @@ export const ApolloDetails = () => {
   const { total_price_usd } = appData?.tokenInfo || 0;
   const ambBalance = balance?.ether || 0;
   const ambStake = stake?.ether || 0;
-  console.log(total_price_usd);
+
   const usdBalance = +ambToUSD(ambBalance, total_price_usd);
   const usdStake = +ambToUSD(ambStake, total_price_usd);
 
@@ -90,11 +95,12 @@ export const ApolloDetails = () => {
       };
     }
   }, [filterDate, isLoad]);
-
   const itemFirst: any = [
     {
       name: 'BALANCE',
-      value: `${ambBalance.toFixed(2)} AMB / $ ${usdBalance.toFixed(2)}`,
+      value: diffStyleToCell(ambBalance, usdBalance),
+
+      // `${ambBalance.toFixed(2)} AMB / $ ${usdBalance.toFixed(2)}`,
     },
     {
       name: 'UPTIME',
@@ -105,13 +111,15 @@ export const ApolloDetails = () => {
     },
     {
       name: 'STAKE',
-      value: `${ambStake.toFixed(2)} AMB / $ ${usdStake.toFixed(2)}`,
+      value: diffStyleToCell(ambStake, usdStake),
     },
     {
       name: 'SOFTWARE',
       value: version,
     },
   ];
+
+  console.log(rewards.transactionsRewards);
 
   const itemSecond: any = [
     {
@@ -136,16 +144,21 @@ export const ApolloDetails = () => {
 
     {
       name: 'BLOCK REWARDS',
-      value: `${(rewards?.blocksRewards || 0).toFixed(2)} AMB / $ ${ambToUSD(
+      value: diffStyleToCell(
         rewards?.blocksRewards,
-        price_usd,
-      )}`,
+        ambToUSD(rewards?.blocksRewards, price_usd),
+      ),
     },
     {
       name: 'TRANSACTIONS REWARDS',
-      value: `${(rewards.transactionsRewards || 0).toFixed(
-        2,
-      )} AMB / $ ${ambToUSD(rewards.transactionsRewards, price_usd)}`,
+      value: (
+        <>
+          {`${(rewards?.transactionsRewards || 0).toFixed(5)} AMB / `}
+          <span style={{ fontWeight: 400 }}>
+            {`$ ${ambToUSD(rewards.transactionsRewards, price_usd)}`}
+          </span>
+        </>
+      ),
     },
     {
       name: 'TOTAL BLOCKS MINED',
@@ -197,7 +210,7 @@ export const ApolloDetails = () => {
                 date={moment(transaction.timestamp * 1000).fromNow()}
                 block={transaction.blockNumber}
                 amount={transaction.value.ether}
-                txfee={transaction.gasUsed}
+                txfee={transaction.gasCost.ether}
                 token={`${transaction?.token ? transaction?.token : 'AMB'}`}
                 symbol={`${transaction?.symbol ? transaction?.symbol : 'AMB'}`}
                 isTableColumn="address_blocks_cells"

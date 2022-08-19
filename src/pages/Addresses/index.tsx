@@ -17,8 +17,6 @@ export const Addresses = () => {
 
   const { data } = useTypedSelector((state) => state.app);
 
-  console.log(data);
-
   return (
     <Content>
       <Content.Header>
