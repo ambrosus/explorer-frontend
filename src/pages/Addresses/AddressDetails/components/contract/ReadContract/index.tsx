@@ -7,6 +7,9 @@ import { useParams } from 'react-router-dom';
 const ReadContract = () => {
   const [contractAbi, setContractAbi] = useState<any>([]);
   const { address } = useParams();
+  const [isLoading, setIsLoading] = useState(true);
+
+  console.log('contract ABI', contractAbi);
 
   const { getContractAddressData } = useActions();
   useEffect(() => {
@@ -15,38 +18,40 @@ const ReadContract = () => {
   const { data } = useTypedSelector((state) => state?.sourcify);
 
   const { files = [] } = data?.contractInfo?.data || {};
+  console.log(files);
 
   useEffect(() => {
     const res = files
       .filter((file: any) => file.name === 'metadata.json')
       .map((file: any) => JSON.parse(file.content))
       .map((file: any) => file.output.abi);
+    console.log(res);
 
     setContractAbi(res[0]);
-  }, []);
+    setIsLoading(false);
+  }, [isLoading]);
 
   return (
     <div>
       <h2 className="contract-tab-title">Read Contract Information</h2>
       <div className="methods">
-        {contractAbi &&
-          contractAbi
-            .filter(
-              (method: any) =>
-                (method.stateMutability === 'view' ||
-                  method.stateMutability === 'pure') &&
-                method.type === 'function',
-            )
-            .map((method: any, index: number) => {
-              return (
-                <Method
-                  key={index}
-                  index={index}
-                  method={method}
-                  buttonName={'Query'}
-                />
-              );
-            })}
+        {contractAbi
+          ?.filter(
+            (method: any) =>
+              (method.stateMutability === 'view' ||
+                method.stateMutability === 'pure') &&
+              method.type === 'function',
+          )
+          .map((method: any, index: number) => {
+            return (
+              <Method
+                key={index}
+                index={index}
+                method={method}
+                buttonName={'Query'}
+              />
+            );
+          })}
       </div>
     </div>
   );

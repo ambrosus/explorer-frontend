@@ -1,3 +1,5 @@
+import { memo } from 'react';
+
 const HeadInfoCell = ({
   primaryCell,
   secondaryCell,
@@ -18,4 +20,4 @@ const HeadInfoCell = ({
   );
 };
 
-export default HeadInfoCell;
+export default memo(HeadInfoCell);
