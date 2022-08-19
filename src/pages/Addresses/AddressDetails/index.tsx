@@ -212,7 +212,6 @@ const AddressDetails = () => {
         ),
       );
     }
-    console.log(addressData);
   }, [addressData]);
 
   const { FOR_TABLET } = useDeviceSize();
