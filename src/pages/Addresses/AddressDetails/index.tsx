@@ -11,13 +11,7 @@ import { formatEther } from 'ethers/lib/utils';
 import { useActions } from 'hooks/useActions';
 import useDeviceSize from 'hooks/useDeviceSize';
 import { useTypedSelector } from 'hooks/useTypedSelector';
-import React, {
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { shallowEqual } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getDataForAddress } from 'services/address.service';
