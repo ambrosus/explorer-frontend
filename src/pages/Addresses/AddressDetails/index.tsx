@@ -22,17 +22,14 @@ const AddressDetails = () => {
     (state) => state.tokenFilters,
     shallowEqual,
   );
+  const { getContractAddressData } = useActions();
+
   const {
     loading,
     data: addressData = {},
     error: errorData,
   } = useTypedSelector((state: any) => state.position);
   const { address, type, filtered, tokenToSorted }: TParams = useParams();
-
-  const { getContractAddressData } = useActions();
-  useEffect(() => {
-    getContractAddressData(address);
-  }, []);
 
   const { data: sourcifyData } = useTypedSelector((state) => state?.sourcify);
   const { accountInfo, contractInfo } = sourcifyData || {};
@@ -77,6 +74,10 @@ const AddressDetails = () => {
       observer.current.observe(node);
     }
   };
+
+  useEffect(() => {
+    getContractAddressData(address);
+  }, [address]);
 
   useEffect(() => {
     if (address?.trim() === '0x0000000000000000000000000000000000000000') {

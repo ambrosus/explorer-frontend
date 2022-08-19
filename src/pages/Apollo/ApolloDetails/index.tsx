@@ -210,7 +210,7 @@ export const ApolloDetails = () => {
                 date={moment(transaction.timestamp * 1000).fromNow()}
                 block={transaction.blockNumber}
                 amount={transaction.value.ether}
-                txfee={transaction.gasUsed}
+                txfee={transaction.gasCost.ether}
                 token={`${transaction?.token ? transaction?.token : 'AMB'}`}
                 symbol={`${transaction?.symbol ? transaction?.symbol : 'AMB'}`}
                 isTableColumn="address_blocks_cells"

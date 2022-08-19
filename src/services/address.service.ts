@@ -302,7 +302,7 @@ export const getDataForAddress = async (address: string, params: any) => {
     //TODO дважды метод
     const transactionsAll: any = removeArrayDuplicates(
       [...bbTxData, ...exploreData],
-      'block',
+      'txHash',
     );
 
     return {

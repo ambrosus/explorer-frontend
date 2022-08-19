@@ -350,6 +350,7 @@ const Tabs: FC<TabsProps> = ({
                             transaction?.symbol ? transaction?.symbol : 'AMB'
                           }`}
                           isTableColumn={isTableColumn}
+                          inners={transaction.inners}
                         />
                       ),
                   )
