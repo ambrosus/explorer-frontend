@@ -42,17 +42,8 @@ const AddressDetails = () => {
   const [pageNum, setPageNum] = useState(1);
 
   const [limitNum] = useState(50);
-  const [showMore, setShowMore] = useState(false);
-  const showMoreRef: any = useRef(null);
   const observer = useRef<IntersectionObserver>();
   const navigate = useNavigate();
-
-  const showMoreRefHandler = () => {
-    setShowMore(!showMore);
-    if (showMoreRef.current) {
-      showMoreRef?.current?.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
 
   const lastCardRef = (node: any) => {
     if (loading) return;
@@ -250,33 +241,6 @@ const AddressDetails = () => {
               <FilteredToken setSelectedToken={setSelectedToken} />
             )}
           </div>
-          <NodeHeader getNodeData={API.getAccount}>
-            {({ node }: any) => {
-              return (
-                node?.isContract && (
-                  <div className="wrapper-bytes" ref={showMoreRef}>
-                    <p
-                      className={`${!showMore ? 'gradient-text' : ''}`}
-                      style={{ wordWrap: 'break-word' }}
-                    >
-                      {showMore
-                        ? node.byteCode
-                        : `${node.byteCode.substring(
-                            0,
-                            FOR_TABLET ? 900 : 320,
-                          )}`}
-                    </p>
-                    <button
-                      className="read-more-btn"
-                      onClick={showMoreRefHandler}
-                    >
-                      {showMore ? 'Show less' : 'Show more'}
-                    </button>
-                  </div>
-                )
-              );
-            }}
-          </NodeHeader>
         </Content.Header>
         <Content.Body isLoading={filtered ? !loading : true}>
           <Tabs

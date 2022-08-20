@@ -1,24 +1,23 @@
-import { useActions } from '../../../../../../hooks/useActions';
-import { useTypedSelector } from '../../../../../../hooks/useTypedSelector';
-import switchChainId from '../../../../../../utils/switchChainId';
 import Method from '../ReadContract/Method';
 import { utils } from 'ethers';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
+import { getContractData } from 'services/contract.service';
+import switchChainId from 'utils/switchChainId';
 
 const WriteContract = () => {
   const { ethereum }: any = window;
   const [isConnected, setIsConnected] = useState<any>(false);
   const [contractAbi, setContractAbi] = useState<any>([]);
-  const { address } = useParams();
+  const { address = '' } = useParams();
 
-  const { getContractAddressData } = useActions();
-  useEffect(() => {
-    getContractAddressData(address);
-  }, []);
-  const { data } = useTypedSelector((state) => state?.sourcify);
+  const { data: contractData, isLoading } = useQuery(
+    `write data ${address}`,
+    () => getContractData(address),
+  );
 
-  const files = data?.contractInfo?.data?.files || [];
+  const files = contractData?.data?.files || [];
 
   useEffect(() => {
     const res = files
@@ -27,7 +26,7 @@ const WriteContract = () => {
       .map((file: any) => file.output.abi);
 
     setContractAbi(res[0] || []);
-  }, [files]);
+  }, [isLoading]);
 
   const btnhandler = () => {
     if (ethereum) {

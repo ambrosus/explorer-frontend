@@ -1,7 +1,7 @@
-import ContentCopy from '../../../../../../assets/icons/CopyIcons/ContentCopy';
-import ContentCopyed from '../../../../../../assets/icons/CopyIcons/ContentCopyed';
-import CopyPopUp from '../../../../../../assets/icons/CopyIcons/CopyPopUp';
-import useDeviceSize from '../../../../../../hooks/useDeviceSize';
+import ContentCopy from 'assets/icons/CopyIcons/ContentCopy';
+import ContentCopyed from 'assets/icons/CopyIcons/ContentCopyed';
+import CopyPopUp from 'assets/icons/CopyIcons/CopyPopUp';
+import useDeviceSize from 'hooks/useDeviceSize';
 import React, { useEffect, useState } from 'react';
 
 const CopyIcon = ({ content }: any) => {

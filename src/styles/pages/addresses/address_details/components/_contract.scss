@@ -163,7 +163,6 @@
               }
 
               .counter {
-                white-space: break-spaces;
                 max-height: 256px;
                 overflow-y: scroll;
                 background: transparent;
@@ -317,6 +316,7 @@
   background: white;
   border: 1px solid #eff2f5;
   border-radius: 16px;
+  word-break: break-all;
 
   * {
     box-sizing: border-box;
