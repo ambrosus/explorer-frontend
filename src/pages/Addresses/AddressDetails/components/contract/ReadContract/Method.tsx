@@ -1,8 +1,11 @@
 import ContractInput from '../ContractInput';
+import CheckCircle from 'assets/icons/CheckCircle';
 import Minus from 'assets/icons/Minus';
 import Plus from 'assets/icons/Plus';
+import WarningError from 'assets/icons/WarningError';
+import Spinner from 'components/Spinner';
 import { ethers, providers } from 'ethers';
-import React, { useEffect } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { TParams } from 'types';
 
@@ -10,12 +13,16 @@ const Method = ({ index, method, buttonName }: any) => {
   const { filtered } = useParams<TParams>();
   const [result, setResult] = React.useState<any>(null);
   const [paybleValue, setPaybleValue] = React.useState<any>('0');
+  const [error, setError] = React.useState<any>('');
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const { address = '' } = useParams();
   const [input, setInput] = React.useState<any>({});
   const [open, setOpen] = React.useState<any>(false);
   const contractCall = async (method: any) => {
+    setError('');
     try {
+      setIsLoading(true);
       let provider = new ethers.providers.JsonRpcProvider(
         process.env.REACT_APP_EXPLORER_NETWORK,
       );
@@ -61,21 +68,34 @@ const Method = ({ index, method, buttonName }: any) => {
         ? await contract?.[`${method.name}`](...toSend)
         : await contract?.[`${method.name}`]();
 
-      setResult(value);
-    } catch (e) {
-      console.log(e);
+      if (value) {
+        setResult(value);
+        setError('');
+        setIsLoading(false);
+      }
+    } catch (e: any) {
+      setIsLoading(true);
+      if (e.message) {
+        setError(e.message);
+        setIsLoading(false);
+      }
     }
   };
+  const renderError = error.split(' (');
 
   useEffect(() => {
     if (filtered === 'read' && !method?.inputs.length) {
       contractCall(method);
     }
   }, []);
+  console.log(result);
 
   return (
-    <div className="method" onClick={() => setOpen((prev: any) => !prev)}>
-      <div className="method-toggle">
+    <div className="method">
+      <div
+        className="method-toggle"
+        onClick={() => setOpen((prev: any) => !prev)}
+      >
         {!open ? (
           <div className="open-btn">
             <Plus />
@@ -86,9 +106,15 @@ const Method = ({ index, method, buttonName }: any) => {
           </div>
         )}
       </div>
-      <div className="method-name">
+      <div
+        className="method-name"
+        onClick={() => setOpen((prev: any) => !prev)}
+      >
         <span>{index + 1}. </span>
-        <span> &nbsp;{method?.name ?? 'name'}</span>
+        <span style={{ paddingLeft: 8, textTransform: 'capitalize' }}>
+          {' '}
+          {method?.name ?? 'name'}
+        </span>
       </div>
       {open && (
         <>
@@ -97,7 +123,15 @@ const Method = ({ index, method, buttonName }: any) => {
               return (
                 <div key={index} className="method-params-param">
                   <div className="method-params-param-name">
-                    {param.name} ( {param?.type} )
+                    <span className="method-params-param-name universall_capitalize">
+                      {param.name}
+                    </span>
+                    <span
+                      className="method-params-param-name"
+                      style={{ paddingLeft: 4 }}
+                    >
+                      ({param?.type})
+                    </span>
                   </div>
                   <ContractInput
                     key={index}
@@ -126,24 +160,52 @@ const Method = ({ index, method, buttonName }: any) => {
             )}
             {filtered === 'read' && method?.inputs.length ? (
               <button
-                className="ctr-btn"
+                className="contract-method"
                 onClick={() => {
                   // if (filtered === 'read' && method?.inputs.length === 'payable') {
                   return contractCall(method);
                 }}
               >
-                {buttonName}
+                <span className="contract-method-btn">{buttonName} </span>
+                {isLoading && <Spinner />}
+
+                {result && (
+                  <span className="contract-method-sucess">
+                    <CheckCircle /> &nbsp;&nbsp;Success!
+                  </span>
+                )}
+
+                {error && (
+                  <>
+                    <span className="contract-method-icon">
+                      <WarningError />
+                    </span>
+                    <span className="contract-method-message">
+                      {renderError[0]}
+                    </span>
+                  </>
+                )}
               </button>
             ) : null}
             {filtered === 'write' ? (
               <button
-                className="ctr-btn"
+                className="contract-method"
                 onClick={() => {
                   // if (filtered === 'read' && method?.inputs.length === 'payable') {
                   return contractCall(method);
                 }}
               >
-                {buttonName}
+                <span className="contract-method-btn">{buttonName}</span>
+                {error && (
+                  <>
+                    <span className="contract-method-icon">
+                      <WarningError />
+                    </span>
+                    <span className="contract-method-message">
+                      {renderError[0]}
+                    </span>
+                  </>
+                )}
               </button>
             ) : null}
           </div>
@@ -179,4 +241,4 @@ const Method = ({ index, method, buttonName }: any) => {
     </div>
   );
 };
-export default Method;
+export default memo(Method);

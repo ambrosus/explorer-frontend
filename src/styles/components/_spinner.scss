@@ -1,0 +1,42 @@
+.spinner {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: conic-gradient(#eff2f5, #05060f);
+  margin-left: 6px;
+  animation: rotating 1s linear infinite;
+
+  &::before {
+    content: '';
+    position: absolute;
+    height: 12px;
+    width: 12px;
+    border-radius: 50%;
+    background: #fff;
+    top: 4px;
+    left: 4px;
+  }
+
+  @keyframes rotating {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* track */
+
+  /* indicator */
+
+  //   position: absolute;
+  //   left: 8.33%;
+  //   right: 8.34%;
+  //   top: 91.65%;
+  //   bottom: -74.99%;
+
+  //   background: #05060f;
+  //   transform: rotate(-90deg);
+}
