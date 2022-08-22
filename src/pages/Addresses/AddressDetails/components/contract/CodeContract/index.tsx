@@ -67,7 +67,7 @@ const Code = () => {
                 <div className="code-section-header-title">
                   <h3>
                     <span>
-                      File {index + 1} of {filesToRender.length}:
+                      {`File ${index + 1} of ${filesToRender.length}`}:
                     </span>{' '}
                     {file.name}
                   </h3>
@@ -83,9 +83,9 @@ const Code = () => {
                   <div className="btn-contract-icon">
                     <FullScreeDataModal
                       text={file.content}
-                      filesToRender={filesToRender}
                       showRefHandler={showRefHandler}
-                      codeSectionRef={codeSectionRef}
+                      fileOf={`File ${index + 1} of ${filesToRender.length}`}
+                      fileName={file.name}
                     />
                   </div>
                 </div>

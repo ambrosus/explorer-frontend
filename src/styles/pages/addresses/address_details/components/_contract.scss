@@ -138,10 +138,6 @@
                 width: 100px;
                 position: relative;
                 gap: 16px;
-
-                .btn-contract-icon {
-                  cursor: pointer;
-                }
               }
             }
 
@@ -321,23 +317,62 @@
   overflow-y: scroll;
   bottom: 0;
   right: 0;
-  place-items: center center;
-  padding-top: 20px;
+
+  // padding-top: 20px;
+}
+.fullscreen_modal {
+  display: flex;
+  width: 100%;
+  // flex-direction: column;
   &-view {
     overflow-y: scroll;
     margin: 0 auto;
-    width: 90% !important;
-    height: 90% !important;
-    padding: 12px;
+    width: 100%;
+    padding: 32px 32px 0 150px;
     box-sizing: border-box;
     background: white;
     border: 1px solid #eff2f5;
-    border-radius: 16px;
     word-break: break-all;
     white-space: pre-wrap;
   }
+  &-heading {
+    display: flex;
+    justify-content: space-between;
+  }
+  &-buttons {
+    display: flex;
+    gap: 50px;
+  }
+  &-btn1 {
+    display: flex;
+    gap: 14px;
+  }
+  &-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 65px;
+    height: 24px;
+    color: #fff;
+    background: #808a9d;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 11px;
+    line-height: 32px;
+  }
 }
-
+.button1_copy {
+  position: absolute;
+  left: -10px;
+}
+.btn-contract-icon {
+  cursor: pointer;
+  position: relative;
+}
+.code-section-header-actions {
+  display: flex;
+  margin-top: 10px;
+}
 // .ctr-btn {
 //   display: flex;
 //   padding: 5px 12px;
