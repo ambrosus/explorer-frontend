@@ -16,7 +16,8 @@ const Code = () => {
 
   const [abiToRender, setAbiToRender] = useState<any>([]);
   const [showMore, setShowMore] = useState(false);
-  const showMoreRef: any = useRef(null);
+  const showMoreRef = useRef<HTMLInputElement>(null);
+  const codeSectionRef = useRef<HTMLInputElement>(null);
 
   const { FOR_TABLET } = useDeviceSize();
 
@@ -25,9 +26,8 @@ const Code = () => {
     () => getContractData(address),
   );
 
-  const { data: accountData, isLoading: isLoad } = useQuery(
-    `account data ${address}`,
-    () => getAccountData(address),
+  const { data: accountData } = useQuery(`account data ${address}`, () =>
+    getAccountData(address),
   );
 
   const files = contractData?.data?.files || [];
@@ -52,7 +52,11 @@ const Code = () => {
     }
   };
 
-  console.log(filesToRender);
+  const showRefHandler = () => {
+    if (codeSectionRef) {
+      codeSectionRef?.current?.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   return (
     <div>
@@ -60,7 +64,7 @@ const Code = () => {
       <div className="files">
         {filesToRender.length ? (
           filesToRender.map((file: any, index: any) => (
-            <div className="code-section" key={index}>
+            <div className="code-section" key={index} ref={codeSectionRef}>
               <div className="code-section-header">
                 <div className="code-section-header-title">
                   <h3>
@@ -72,9 +76,12 @@ const Code = () => {
                 </div>
                 <div className="code-section-header-actions">
                   <CopyIcon content={file.content} />
-                  <div className="btn-contract-icon">
+                  <button
+                    className="btn-contract-icon"
+                    onClick={showRefHandler}
+                  >
                     <Link />
-                  </div>
+                  </button>
                   <div className="btn-contract-icon">
                     <FullScreeDataModal text={file.content} />
                   </div>
