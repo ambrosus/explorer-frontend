@@ -11,7 +11,7 @@ const VerifyContract = () => {
 
   const sourcifyUrl = 'https://sourcify.ambrosus.io';
 
-  const fileInput = useRef<any>(null);
+  const fileInput = useRef<any>();
 
   const [file, setFile] = useState<string[]>([]);
   const [contractsToChoose, setContractsToChoose] = useState([]);
@@ -72,11 +72,8 @@ const VerifyContract = () => {
     setContractsToChoose([]);
     setErrMessage(null);
     setLoading(false);
+    fileInput.current.value = '';
   };
-
-  const res = fileInput.current.files[0];
-
-  console.log(res);
 
   const verifyContract = (
     e: React.MouseEvent<Element, MouseEvent>,

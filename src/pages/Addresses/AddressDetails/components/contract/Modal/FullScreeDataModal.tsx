@@ -14,7 +14,6 @@ const FullScreeDataModal = ({ text }: any) => {
   }
 
   useOnClickOutside(popUpRef, () => setIsShow(false));
-  console.log(text);
 
   return (
     <>
