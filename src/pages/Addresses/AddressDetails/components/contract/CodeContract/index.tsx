@@ -1,9 +1,7 @@
 import CopyIcon from '../CopyIcon';
 import FullScreeDataModal from '../Modal/FullScreeDataModal';
-import API from 'API/api';
 import Link from 'assets/icons/Link';
 import Loader from 'components/Loader';
-import NodeHeader from 'components/NodeHeader';
 import useDeviceSize from 'hooks/useDeviceSize';
 import React, { useEffect, useRef, useState } from 'react';
 import { useQuery } from 'react-query';
@@ -69,7 +67,7 @@ const Code = () => {
                 <div className="code-section-header-title">
                   <h3>
                     <span>
-                      File {index + 1} of {files.length - 1}:
+                      File {index + 1} of {filesToRender.length}:
                     </span>{' '}
                     {file.name}
                   </h3>
@@ -83,7 +81,12 @@ const Code = () => {
                     <Link />
                   </button>
                   <div className="btn-contract-icon">
-                    <FullScreeDataModal text={file.content} />
+                    <FullScreeDataModal
+                      text={file.content}
+                      filesToRender={filesToRender}
+                      showRefHandler={showRefHandler}
+                      codeSectionRef={codeSectionRef}
+                    />
                   </div>
                 </div>
               </div>

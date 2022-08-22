@@ -310,20 +310,30 @@
   }
 }
 
-.fullscreen-view {
+.fullscreen {
+  z-index: 1000;
+  display: grid;
+  position: fixed;
+  background: rgba(0, 0, 0, 0.3);
+  top: 0;
+  width: 100%;
+  left: 0;
   overflow-y: scroll;
-  margin: 0 auto;
-  width: 90% !important;
-  height: 90% !important;
-  padding: 12px;
-  box-sizing: border-box;
-  background: white;
-  border: 1px solid #eff2f5;
-  border-radius: 16px;
-  word-break: break-all;
-
-  * {
+  bottom: 0;
+  right: 0;
+  place-items: center center;
+  padding-top: 20px;
+  &-view {
+    overflow-y: scroll;
+    margin: 0 auto;
+    width: 90% !important;
+    height: 90% !important;
+    padding: 12px;
     box-sizing: border-box;
+    background: white;
+    border: 1px solid #eff2f5;
+    border-radius: 16px;
+    word-break: break-all;
     white-space: pre-wrap;
   }
 }
