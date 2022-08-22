@@ -106,7 +106,10 @@ const Method = ({ index, method, buttonName }: any) => {
           </div>
         )}
       </div>
-      <div className="method-name">
+      <div
+        className="method-name"
+        onClick={() => setOpen((prev: any) => !prev)}
+      >
         <span>{index + 1}. </span>
         <span style={{ paddingLeft: 8, textTransform: 'capitalize' }}>
           {' '}
