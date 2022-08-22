@@ -5,7 +5,7 @@ import { useOnClickOutside } from 'hooks/useOnClickOutside';
 import useToggle from 'hooks/useToggle';
 import React, { useRef, useState } from 'react';
 
-const FullScreeDataModal = (text: any) => {
+const FullScreeDataModal = ({ text }: any) => {
   const [isShow, setIsShow] = useState<boolean>(false);
   const popUpRef = useRef(null);
 
@@ -14,6 +14,7 @@ const FullScreeDataModal = (text: any) => {
   }
 
   useOnClickOutside(popUpRef, () => setIsShow(false));
+  console.log(text);
 
   return (
     <>
@@ -24,7 +25,7 @@ const FullScreeDataModal = (text: any) => {
         <Portal>
           <Modal handleClick={handleOpen}>
             <div className="fullscreen-view" ref={popUpRef}>
-              <pre className="counter">{JSON.stringify(text, null, '')}</pre>
+              <div className="counter">{text}</div>
             </div>
           </Modal>
         </Portal>

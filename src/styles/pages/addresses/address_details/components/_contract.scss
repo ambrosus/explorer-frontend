@@ -163,7 +163,6 @@
               }
 
               .counter {
-                white-space: break-spaces;
                 max-height: 256px;
                 overflow-y: scroll;
                 background: transparent;
@@ -256,6 +255,9 @@
               display: flex;
               align-items: center;
               color: #05060f;
+              &:hover {
+                cursor: pointer;
+              }
             }
 
             &-params {
@@ -317,6 +319,7 @@
   background: white;
   border: 1px solid #eff2f5;
   border-radius: 16px;
+  word-break: break-all;
 
   * {
     box-sizing: border-box;
@@ -427,6 +430,10 @@
     border: 2px dashed #808a9d;
     border-radius: 16px;
     padding: 0 12px;
+    &:hover {
+      border: 2px dashed #678fda;
+      background-color: rgba(103, 143, 218, 0.1);
+    }
   }
 
   &-fileslist {
