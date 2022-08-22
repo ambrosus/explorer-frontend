@@ -28,7 +28,7 @@ const CopyIcon = ({ content }: any) => {
     <div className="btn-contract-icon" onClick={() => copyContent(content)}>
       {isCopy ? <ContentCopyed /> : <ContentCopy />}
       {FOR_TABLET && isCopyPopup && isCopy && (
-        <div className="button_copy">
+        <div className="button1_copy">
           <CopyPopUp x={3} y={20} values="Copyed" />
         </div>
       )}
