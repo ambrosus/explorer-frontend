@@ -2,6 +2,9 @@
   &_link_underline {
     text-decoration: underline;
   }
+  &_capitalize {
+    text-transform: capitalize;
+  }
 
   &_dark {
     color: $main;
