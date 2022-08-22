@@ -7,13 +7,13 @@ import { useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 const VerifyContract = () => {
-  const chainID = process.env.REACT_APP_CHAIN_ID;
+  const chainID: string = process.env.REACT_APP_CHAIN_ID || '';
 
   const sourcifyUrl = 'https://sourcify.ambrosus.io';
 
   const fileInput = useRef<any>(null);
 
-  const [file, setFile] = useState<any>([]);
+  const [file, setFile] = useState<string[]>([]);
   const [contractsToChoose, setContractsToChoose] = useState([]);
 
   const [loading, setLoading] = useState(false);
@@ -22,15 +22,15 @@ const VerifyContract = () => {
   const { address = '' } = useParams();
   const navigate = useNavigate();
 
-  const setFiles = (e: any) => {
+  const setFiles = (e: React.MouseEvent<Element, MouseEvent>) => {
     e.preventDefault();
     setLoading(true);
     setErrMessage(null);
 
     const files = [...file, ...fileInput.current.files];
-    setFile((prev: any) => [...prev, ...fileInput.current.files]);
+    setFile((prev) => [...prev, ...fileInput.current.files]);
 
-    let formData: any = new FormData();
+    let formData: FormData = new FormData();
     formData.append('address', address);
     formData.append('chain', chainID);
     files.forEach((file) => {
@@ -66,7 +66,7 @@ const VerifyContract = () => {
       });
   };
 
-  const clearAddFiles = (e: any) => {
+  const clearAddFiles = (e: React.MouseEvent<Element, MouseEvent>) => {
     e.preventDefault();
     setFile([]);
     setContractsToChoose([]);
@@ -74,7 +74,14 @@ const VerifyContract = () => {
     setLoading(false);
   };
 
-  const verifyContract = (e: any, chosenContract: any) => {
+  const res = fileInput.current.files[0];
+
+  console.log(res);
+
+  const verifyContract = (
+    e: React.MouseEvent<Element, MouseEvent>,
+    chosenContract: number,
+  ) => {
     e.preventDefault();
     let formData: any = new FormData();
     formData.append('address', address);
@@ -144,7 +151,7 @@ const VerifyContract = () => {
             </div>
             <button
               onClick={clearAddFiles}
-              className="verify_contract-filehead-text-right"
+              className="verify_contract-filehead-text-right universall_light2 universall_semibold"
             >
               Clear files
             </button>
@@ -178,13 +185,22 @@ const VerifyContract = () => {
               {file?.length === 0 ? (
                 <>
                   <FileAdd />
-                  <p style={{ marginTop: 10 }}>Drag and Drop files here</p>
-                  <p>or Browse files</p>
+                  <p className="universall_semibold" style={{ marginTop: 10 }}>
+                    Drag and Drop files here
+                  </p>
+                  <p className="universall_semibold ">
+                    or <span className="universall_light2">Browse files</span>
+                  </p>
                 </>
               ) : (
                 !loading && (
                   <div style={{ width: '100%', paddingLeft: 12 }}>
-                    <p>Added files</p>
+                    <p
+                      className="universall_semibold"
+                      style={{ marginBottom: 6, fontSize: 12 }}
+                    >
+                      Added files
+                    </p>
                     {file.map((item: any, index: number) => (
                       <p style={{ color: '#A6B0C3' }} key={index}>
                         {item.name}
@@ -204,7 +220,7 @@ const VerifyContract = () => {
                   <p>
                     <SandWatch />
                   </p>
-                  <p>Checking contract ...</p>
+                  <p className="universall_semibold">Checking contract ...</p>
                 </div>
               )}
             </div>

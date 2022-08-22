@@ -8,8 +8,8 @@ import switchChainId from 'utils/switchChainId';
 
 const WriteContract = () => {
   const { ethereum }: any = window;
-  const [isConnected, setIsConnected] = useState<any>(false);
-  const [contractAbi, setContractAbi] = useState<any>([]);
+  const [isConnected, setIsConnected] = useState<boolean>(false);
+  const [contractAbi, setContractAbi] = useState<string[]>([]);
   const { address = '' } = useParams();
 
   const { data: contractData, isLoading } = useQuery(
