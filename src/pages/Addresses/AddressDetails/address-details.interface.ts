@@ -15,6 +15,7 @@ export type TokenType = {
 };
 export type OverallBalanceProps = {
   addressBalance: string | number;
+  address: string;
 };
 
 export interface TabsProps {
@@ -57,6 +58,7 @@ export interface ExplorerTxType {
   blockNumber: any;
   value: { wei: ethers.BigNumberish };
   gasCost: { wei: any };
+  status: string;
 }
 
 export interface AddressBlockProps {

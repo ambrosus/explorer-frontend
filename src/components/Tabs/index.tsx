@@ -279,7 +279,11 @@ const Tabs: FC<TabsProps> = ({
             )}
           </div>
         </div>
-
+        {loading && (
+          <div style={{ top: '-20px', position: 'relative' }}>
+            <Loader />
+          </div>
+        )}
         {type !== 'contract' ? (
           <>
             <section className="tabs_table">
@@ -350,6 +354,7 @@ const Tabs: FC<TabsProps> = ({
                             transaction?.symbol ? transaction?.symbol : 'AMB'
                           }`}
                           isTableColumn={isTableColumn}
+                          inners={transaction.inners}
                         />
                       ),
                   )
@@ -376,11 +381,6 @@ const Tabs: FC<TabsProps> = ({
                 </div>
               )}
             </section>
-            {loading && (
-              <div style={{ top: '-20px', position: 'relative' }}>
-                <Loader />
-              </div>
-            )}
           </>
         ) : (
           contractView

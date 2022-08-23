@@ -1,12 +1,13 @@
 import { log } from '../utils/helpers';
 import axios from 'axios';
 import { ApiRequest } from 'types';
-import { chainID } from 'utils/constants';
 
 const tokenApiUrl: any = process.env.REACT_APP_TOKEN_API_URL;
 
 const baseApiUrl = process.env.REACT_APP_API_ENDPOINT;
 const sourcifyApiUrl = process.env.REACT_APP_SOURCIFY_API_ENDPOINT;
+
+const chainID = process.env.REACT_APP_CHAIN_ID;
 
 const API = () => {
   const api = axios.create({
@@ -79,8 +80,8 @@ const getAccount = (address: any) => {
   return API().get(`accounts/${address}`);
 };
 
-const getAtlas = (params: any) => {
-  return API().get(`atlases?limit=30&sort=${params.sort}`);
+const getAtlas = (address: any) => {
+  return API().get(`atlases/${address}`);
 };
 
 const getAtlasBundles = (address: any, params: any) => {

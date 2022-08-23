@@ -3,32 +3,36 @@ import SandWatch from 'assets/icons/SandWatch';
 import axios from 'axios';
 import ContractErrorMessage from 'components/ContractErrorMessage';
 import InputContract from 'components/InputContract';
+import Spinner from 'components/Spinner';
 import { useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { chainID } from 'utils/constants';
 
 const VerifyContract = () => {
+  const chainID: string = process.env.REACT_APP_CHAIN_ID || '';
+
   const sourcifyUrl = 'https://sourcify.ambrosus.io';
 
-  const fileInput = useRef<any>(null);
+  const fileInput = useRef<any>();
 
-  const [file, setFile] = useState<any>([]);
+  const [file, setFile] = useState<string[]>([]);
   const [contractsToChoose, setContractsToChoose] = useState([]);
+  const [chosenContract, setChosenContract] = useState<number>();
 
   const [loading, setLoading] = useState(false);
-  const [errMessage, setErrMessage] = useState(false);
+  const [errMessage, setErrMessage] = useState(null);
 
   const { address = '' } = useParams();
   const navigate = useNavigate();
 
-  const setFiles = (e: any) => {
+  const setFiles = (e: React.MouseEvent<Element, MouseEvent>) => {
     e.preventDefault();
     setLoading(true);
+    setErrMessage(null);
 
     const files = [...file, ...fileInput.current.files];
-    setFile((prev: any) => [...prev, ...fileInput.current.files]);
+    setFile((prev) => [...prev, ...fileInput.current.files]);
 
-    let formData = new FormData();
+    let formData: FormData = new FormData();
     formData.append('address', address);
     formData.append('chain', chainID);
     files.forEach((file) => {
@@ -48,24 +52,41 @@ const VerifyContract = () => {
         setLoading(false);
       })
       .catch((err) => {
-        if (!!err.response.data.contractsToChoose) {
+        if (err.response.data.contractsToChoose) {
           setContractsToChoose(err.response.data.contractsToChoose);
+          setLoading(false);
         }
 
-        setErrMessage(err.response.data.error);
-        setLoading(false);
+        if (err.response.data.message) {
+          setErrMessage(err.response.data.message);
+          setLoading(false);
+        }
+        if (err.response.data.error) {
+          setErrMessage(err.response.data.error);
+          setLoading(false);
+        }
       });
   };
 
-  const clearAddFiles = (e: any) => {
+  const clearAddFiles = (e: React.MouseEvent<Element, MouseEvent>) => {
     e.preventDefault();
     setFile([]);
     setContractsToChoose([]);
+    setErrMessage(null);
+    setLoading(false);
+    fileInput.current.value = '';
   };
 
-  const verifyContract = (e: any, chosenContract: any) => {
+  const verifyContract = (
+    e: React.MouseEvent<Element, MouseEvent>,
+    index: number,
+  ) => {
     e.preventDefault();
-    let formData = new FormData();
+    setChosenContract(index);
+    setErrMessage(null);
+    setLoading(true);
+
+    let formData: any = new FormData();
     formData.append('address', address);
     formData.append('chain', chainID);
     file.forEach((file: any) => {
@@ -88,6 +109,7 @@ const VerifyContract = () => {
       .catch((err) => {
         setErrMessage(err.response.data.error);
         setLoading(false);
+        console.log(errMessage);
       });
   };
 
@@ -133,7 +155,7 @@ const VerifyContract = () => {
             </div>
             <button
               onClick={clearAddFiles}
-              className="verify_contract-filehead-text-right"
+              className="verify_contract-filehead-text-right universall_light2 universall_semibold"
             >
               Clear files
             </button>
@@ -141,12 +163,6 @@ const VerifyContract = () => {
         </label>
         <div className="verify_contract-addfiles">
           <label className="verify_contract_add" htmlFor="files">
-            {errMessage &&
-              contractsToChoose.length === 0 &&
-              file.length > 0 && (
-                <ContractErrorMessage errMessage={errMessage} />
-              )}
-
             <input
               className="verify_contract-files"
               id="files"
@@ -156,25 +172,39 @@ const VerifyContract = () => {
               ref={fileInput}
               onChange={(e: any) => setFiles(e)}
             />
+            {errMessage &&
+              contractsToChoose?.length === 0 &&
+              file.length > 0 && (
+                <ContractErrorMessage errMessage={errMessage} />
+              )}
 
             <div
               className="verify_contract-placeholder"
               style={{
-                marginTop: contractsToChoose.length === 0 ? 0 : 12,
+                marginTop: contractsToChoose?.length === 0 ? 0 : 12,
                 justifyContent:
-                  contractsToChoose.length === 0 ? 'center' : 'flex-start',
+                  contractsToChoose?.length === 0 ? 'center' : 'flex-start',
               }}
             >
               {file?.length === 0 ? (
                 <>
                   <FileAdd />
-                  <p style={{ marginTop: 10 }}>Drag and Drop files here</p>
-                  <p>or Browse files</p>
+                  <p className="universall_semibold" style={{ marginTop: 10 }}>
+                    Drag and Drop files here
+                  </p>
+                  <p className="universall_semibold ">
+                    or <span className="universall_light2">Browse files</span>
+                  </p>
                 </>
               ) : (
                 !loading && (
                   <div style={{ width: '100%', paddingLeft: 12 }}>
-                    <p>Added files</p>
+                    <p
+                      className="universall_semibold"
+                      style={{ marginBottom: 6, fontSize: 12 }}
+                    >
+                      Added files
+                    </p>
                     {file.map((item: any, index: number) => (
                       <p style={{ color: '#A6B0C3' }} key={index}>
                         {item.name}
@@ -194,7 +224,7 @@ const VerifyContract = () => {
                   <p>
                     <SandWatch />
                   </p>
-                  <p>Checking contract ...</p>
+                  <p className="universall_semibold">Checking contract ...</p>
                 </div>
               )}
             </div>
@@ -202,17 +232,30 @@ const VerifyContract = () => {
           {contractsToChoose.length > 0 && (
             <div className="verify_contract-fileslist">
               <div className="verify_contract-fileslist-heading">Contract</div>
+
               {contractsToChoose.map((contract: any, index: number) => (
                 <div key={index} className="verify_contract-fileslist-files">
                   <span className="verify_contract-fileslist-name">
                     {contract.name}
                   </span>
-                  <button
-                    onClick={(e) => verifyContract(e, index)}
-                    className="verify_contract-fileslist-btn"
-                  >
-                    Verify
-                  </button>
+                  {index === chosenContract && errMessage && (
+                    <div className="verify_contract-errmessage">
+                      <ContractErrorMessage errMessage={errMessage} />
+                    </div>
+                  )}
+
+                  {index === chosenContract && loading ? (
+                    <div style={{ paddingRight: 25 }}>
+                      <Spinner />
+                    </div>
+                  ) : (
+                    <button
+                      onClick={(e) => verifyContract(e, index)}
+                      className="verify_contract-fileslist-btn"
+                    >
+                      Verify
+                    </button>
+                  )}
                 </div>
               ))}
             </div>

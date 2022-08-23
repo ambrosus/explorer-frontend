@@ -1,13 +1,17 @@
 import API from '../../API/api';
+import { useActions } from '../../hooks/useActions';
+import { numberWithCommas } from '../../utils/helpers';
 import TabsNew from '../Transactions/components/TabsNew';
 import BlocksBody from './components/BlocksBody';
 import BlocksHeader from './components/BlocksHeader';
 import { Content } from 'components/Content';
 import HeadInfo from 'components/HeadInfo';
 import { useTypedSelector } from 'hooks/useTypedSelector';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 export const Blocks = () => {
+  const { setAppDataAsync } = useActions();
+
   const { data: appData } = useTypedSelector((state: any) => state.app);
   const total = appData?.netInfo?.lastBlock?.number || 0;
   const avgBlockTime = appData?.netInfo?.avgBlockTime || 0;
@@ -18,10 +22,17 @@ export const Blocks = () => {
       0) * 100
   ).toFixed(2)}%)`;
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setAppDataAsync();
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
   const itemFirst: any = [
     {
       name: 'TOTAL NODES',
-      value: total,
+      value: numberWithCommas(total),
     },
     {
       name: 'AVG. BLOCK SIZE',
@@ -33,7 +44,7 @@ export const Blocks = () => {
     },
     {
       name: 'AVG. NECTAR USED',
-      value: `${avgBlockGasUsed.toFixed(1)} ${avgNectarPerc}`,
+      value: `${numberWithCommas(avgBlockGasUsed.toFixed(1))} ${avgNectarPerc}`,
     },
   ];
 

@@ -6,7 +6,7 @@ const WarningAmber = (props: SVGProps<SVGSVGElement>) => (
     {...props}
     width={24}
     height={24}
-    fill="none"
+    fill="#FF6060"
     xmlns="http://www.w3.org/2000/svg"
   >
     <path

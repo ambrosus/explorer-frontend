@@ -2,6 +2,9 @@
   &_link_underline {
     text-decoration: underline;
   }
+  &_capitalize {
+    text-transform: capitalize;
+  }
 
   &_dark {
     color: $main;
@@ -14,7 +17,9 @@
   &_light2 {
     color: #808a9d;
   }
-
+  &_semibold {
+    font-weight: 600;
+  }
   &_bold {
     font-weight: 700;
   }
@@ -34,6 +39,9 @@
     &:hover {
       color: #fff;
     }
+  }
+  &_ibm_font {
+    font-family: IBM Plex Mono, sans-serif;
   }
 }
 

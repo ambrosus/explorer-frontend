@@ -1,10 +1,10 @@
-import ContentCopy from '../../../../../../assets/icons/CopyIcons/ContentCopy';
-import ContentCopyed from '../../../../../../assets/icons/CopyIcons/ContentCopyed';
-import CopyPopUp from '../../../../../../assets/icons/CopyIcons/CopyPopUp';
-import useDeviceSize from '../../../../../../hooks/useDeviceSize';
+import ContentCopy from 'assets/icons/CopyIcons/ContentCopy';
+import ContentCopyed from 'assets/icons/CopyIcons/ContentCopyed';
+import CopyPopUp from 'assets/icons/CopyIcons/CopyPopUp';
+import useDeviceSize from 'hooks/useDeviceSize';
 import React, { useEffect, useState } from 'react';
 
-const CopyIcon = ({ content }: any) => {
+const ContractCopyBtn = ({ content }: any) => {
   const [isCopy, setIsCopy] = useState(false);
   const [isCopyPopup, setIsCopyPopup] = useState(false);
 
@@ -28,7 +28,7 @@ const CopyIcon = ({ content }: any) => {
     <div className="btn-contract-icon" onClick={() => copyContent(content)}>
       {isCopy ? <ContentCopyed /> : <ContentCopy />}
       {FOR_TABLET && isCopyPopup && isCopy && (
-        <div className="button_copy">
+        <div className="button1_copy">
           <CopyPopUp x={3} y={20} values="Copyed" />
         </div>
       )}
@@ -36,4 +36,4 @@ const CopyIcon = ({ content }: any) => {
   );
 };
 
-export default CopyIcon;
+export default ContractCopyBtn;

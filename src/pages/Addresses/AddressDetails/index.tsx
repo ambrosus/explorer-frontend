@@ -11,13 +11,7 @@ import { formatEther } from 'ethers/lib/utils';
 import { useActions } from 'hooks/useActions';
 import useDeviceSize from 'hooks/useDeviceSize';
 import { useTypedSelector } from 'hooks/useTypedSelector';
-import React, {
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { shallowEqual } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getDataForAddress } from 'services/address.service';
@@ -28,22 +22,19 @@ const AddressDetails = () => {
     (state) => state.tokenFilters,
     shallowEqual,
   );
+  const { getContractAddressData } = useActions();
+
   const {
     loading,
     data: addressData = {},
     error: errorData,
   } = useTypedSelector((state: any) => state.position);
-
-  const { getContractAddressData } = useActions();
-  useEffect(() => {
-    getContractAddressData(address);
-  }, []);
+  const { address, type, filtered, tokenToSorted }: TParams = useParams();
 
   const { data: sourcifyData } = useTypedSelector((state) => state?.sourcify);
   const { accountInfo, contractInfo } = sourcifyData || {};
   const { isContract } = accountInfo?.data || false;
 
-  const { address, type, filtered, tokenToSorted }: TParams = useParams();
   const { setPosition, addFilter } = useActions();
   const [transactionType, setTransactionType] = useState(type || '');
   const [selectedToken, setSelectedToken] = useState<TokenType | null>(null);
@@ -51,17 +42,8 @@ const AddressDetails = () => {
   const [pageNum, setPageNum] = useState(1);
 
   const [limitNum] = useState(50);
-  const [showMore, setShowMore] = useState(false);
-  const showMoreRef: any = useRef(null);
   const observer = useRef<IntersectionObserver>();
   const navigate = useNavigate();
-
-  const showMoreRefHandler = () => {
-    setShowMore(!showMore);
-    if (showMoreRef.current) {
-      showMoreRef?.current?.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
 
   const lastCardRef = (node: any) => {
     if (loading) return;
@@ -85,17 +67,21 @@ const AddressDetails = () => {
   };
 
   useEffect(() => {
+    getContractAddressData(address);
+  }, [address]);
+
+  useEffect(() => {
     if (address?.trim() === '0x0000000000000000000000000000000000000000') {
-      navigate(`/notfound`);
+      window.location.replace(`/notfound`);
     }
     if (tokenToSorted?.length && tokenToSorted !== 'transfers') {
-      navigate(`/notfound`);
+      window.location.replace(`/notfound`);
     }
     if (
       type?.length &&
       !(type === 'ERC-20_Tx' || type === 'transfers' || type === 'contract')
     ) {
-      navigate(`/notfound`);
+      window.location.replace(`/notfound`);
     }
 
     if (address) {
@@ -215,6 +201,7 @@ const AddressDetails = () => {
   }, [addressData]);
 
   const { FOR_TABLET } = useDeviceSize();
+
   return (
     <Content>
       <section className="address_details">
@@ -240,6 +227,7 @@ const AddressDetails = () => {
                   addressData?.balance &&
                   Number(formatEther(addressData.balance)).toFixed(2)
                 }
+                address={address || ''}
               />
 
               <Token
@@ -254,33 +242,6 @@ const AddressDetails = () => {
               <FilteredToken setSelectedToken={setSelectedToken} />
             )}
           </div>
-          <NodeHeader getNodeData={API.getAccount}>
-            {({ node }: any) => {
-              return (
-                node?.isContract && (
-                  <div className="wrapper-bytes" ref={showMoreRef}>
-                    <p
-                      className={`${!showMore ? 'gradient-text' : ''}`}
-                      style={{ wordWrap: 'break-word' }}
-                    >
-                      {showMore
-                        ? node.byteCode
-                        : `${node.byteCode.substring(
-                            0,
-                            FOR_TABLET ? 900 : 320,
-                          )}`}
-                    </p>
-                    <button
-                      className="read-more-btn"
-                      onClick={showMoreRefHandler}
-                    >
-                      {showMore ? 'Show less' : 'Show more'}
-                    </button>
-                  </div>
-                )
-              );
-            }}
-          </NodeHeader>
         </Content.Header>
         <Content.Body isLoading={filtered ? !loading : true}>
           <Tabs
