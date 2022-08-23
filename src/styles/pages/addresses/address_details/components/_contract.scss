@@ -490,7 +490,12 @@
     line-height: 40px;
     margin-bottom: 10px;
   }
-
+  &-errmessage {
+    position: absolute;
+    top: -58px;
+    right: 112px;
+    width: max-content;
+  }
   &-input {
     flex-direction: column;
     align-items: center;
@@ -545,6 +550,7 @@
       background: #fff;
       border-radius: 16px;
       padding: 0 12px;
+      position: relative;
     }
     &-name {
       font-weight: 600;
