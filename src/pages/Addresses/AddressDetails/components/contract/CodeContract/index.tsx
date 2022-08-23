@@ -128,7 +128,6 @@ const Code = () => {
                   </li>
                 ))}
               </ol>
-              {/* {JSON.stringify(abiToRender, null, ' ')} */}
             </pre>
           </div>
         </div>
