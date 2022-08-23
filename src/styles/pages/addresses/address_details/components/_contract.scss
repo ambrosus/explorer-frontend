@@ -158,14 +158,6 @@
                 counter-reset: line;
               }
 
-              .counter {
-                max-height: 256px;
-                overflow-y: scroll;
-                background: transparent;
-                border-radius: 2px;
-                counter-reset: line;
-              }
-
               .counter span {
                 display: block;
                 line-height: inherit;
@@ -310,34 +302,42 @@
   z-index: 1000;
   display: grid;
   position: fixed;
-  background: rgba(0, 0, 0, 0.3);
+  background: #fff;
   top: 0;
   width: 100%;
   left: 0;
-  overflow-y: scroll;
+  // overflow-y: scroll;
   bottom: 0;
   right: 0;
-
-  // padding-top: 20px;
 }
 .fullscreen_modal {
   display: flex;
   width: 100%;
-  // flex-direction: column;
+  overflow-y: scroll;
+
   &-view {
     overflow-y: scroll;
     margin: 0 auto;
     width: 100%;
-    padding: 32px 32px 0 150px;
-    box-sizing: border-box;
-    background: white;
-    border: 1px solid #eff2f5;
+
+    max-width: 1140px;
+
     word-break: break-all;
     white-space: pre-wrap;
   }
   &-heading {
     display: flex;
     justify-content: space-between;
+
+    background: #fff;
+    margin: 32px 0 12px;
+  }
+  &-body {
+    background: rgba(246, 246, 246, 0.3);
+    border: 1px solid #eff2f5;
+    border-radius: 16px;
+    padding: 20px;
+    font-family: IBM Plex Mono, sans-serif;
   }
   &-buttons {
     display: flex;
@@ -639,4 +639,13 @@
     overflow: hidden;
     z-index: 1000;
   }
+}
+
+.counter {
+  max-height: 256px;
+  overflow-y: scroll;
+  background: transparent;
+  border-radius: 2px;
+  counter-reset: line;
+  font-family: IBM Plex Mono, sans-serif;
 }
