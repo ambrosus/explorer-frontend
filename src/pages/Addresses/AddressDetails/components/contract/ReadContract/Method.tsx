@@ -80,7 +80,13 @@ const Method = ({ index, method, buttonName }: any) => {
     setIsLoading(false);
   };
 
-  const renderError = useMemo(() => error.split(' ('), []);
+  const renderError = useMemo(() => error.split(' ('), [error]);
+
+  const toggleOpen = () => {
+    setOpen(!open);
+    setError('');
+    setResult(null);
+  };
 
   useEffect(() => {
     if (filtered === 'read' && !method?.inputs.length) {
@@ -104,10 +110,7 @@ const Method = ({ index, method, buttonName }: any) => {
           </div>
         )}
       </div>
-      <div
-        className="method-name"
-        onClick={() => setOpen((prev: any) => !prev)}
-      >
+      <div className="method-name" onClick={() => toggleOpen()}>
         <span>{index + 1}. </span>
         <span style={{ paddingLeft: 8, textTransform: 'capitalize' }}>
           {' '}
