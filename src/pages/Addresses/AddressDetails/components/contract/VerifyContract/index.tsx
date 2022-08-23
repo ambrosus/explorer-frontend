@@ -3,6 +3,7 @@ import SandWatch from 'assets/icons/SandWatch';
 import axios from 'axios';
 import ContractErrorMessage from 'components/ContractErrorMessage';
 import InputContract from 'components/InputContract';
+import Spinner from 'components/Spinner';
 import { useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -15,6 +16,7 @@ const VerifyContract = () => {
 
   const [file, setFile] = useState<string[]>([]);
   const [contractsToChoose, setContractsToChoose] = useState([]);
+  const [chosenContract, setChosenContract] = useState<number>();
 
   const [loading, setLoading] = useState(false);
   const [errMessage, setErrMessage] = useState(null);
@@ -54,7 +56,7 @@ const VerifyContract = () => {
           setContractsToChoose(err.response.data.contractsToChoose);
           setLoading(false);
         }
-        console.log(err.response);
+
         if (err.response.data.message) {
           setErrMessage(err.response.data.message);
           setLoading(false);
@@ -77,9 +79,13 @@ const VerifyContract = () => {
 
   const verifyContract = (
     e: React.MouseEvent<Element, MouseEvent>,
-    chosenContract: number,
+    index: number,
   ) => {
     e.preventDefault();
+    setChosenContract(index);
+    setErrMessage(null);
+    setLoading(true);
+
     let formData: any = new FormData();
     formData.append('address', address);
     formData.append('chain', chainID);
@@ -103,6 +109,7 @@ const VerifyContract = () => {
       .catch((err) => {
         setErrMessage(err.response.data.error);
         setLoading(false);
+        console.log(errMessage);
       });
   };
 
@@ -225,17 +232,30 @@ const VerifyContract = () => {
           {contractsToChoose.length > 0 && (
             <div className="verify_contract-fileslist">
               <div className="verify_contract-fileslist-heading">Contract</div>
+
               {contractsToChoose.map((contract: any, index: number) => (
                 <div key={index} className="verify_contract-fileslist-files">
                   <span className="verify_contract-fileslist-name">
                     {contract.name}
                   </span>
-                  <button
-                    onClick={(e) => verifyContract(e, index)}
-                    className="verify_contract-fileslist-btn"
-                  >
-                    Verify
-                  </button>
+                  {index === chosenContract && errMessage && (
+                    <div className="verify_contract-errmessage">
+                      <ContractErrorMessage errMessage={errMessage} />
+                    </div>
+                  )}
+
+                  {index === chosenContract && loading ? (
+                    <div style={{ paddingRight: 25 }}>
+                      <Spinner />
+                    </div>
+                  ) : (
+                    <button
+                      onClick={(e) => verifyContract(e, index)}
+                      className="verify_contract-fileslist-btn"
+                    >
+                      Verify
+                    </button>
+                  )}
                 </div>
               ))}
             </div>
