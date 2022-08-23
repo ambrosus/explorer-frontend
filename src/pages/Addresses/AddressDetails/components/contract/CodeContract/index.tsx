@@ -3,7 +3,7 @@ import FullScreeDataModal from '../Modal/FullScreeDataModal';
 import Link from 'assets/icons/Link';
 import Loader from 'components/Loader';
 import useDeviceSize from 'hooks/useDeviceSize';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 import { getAccountData, getContractData } from 'services/contract.service';
@@ -29,9 +29,19 @@ const Code = () => {
   );
 
   const files = contractData?.data?.files || [];
+  useEffect(() => {
+    const fileElement = document.getElementById(
+      window.location.hash.replace('#', ''),
+    );
 
-  const filesToRender: any = files.filter(
-    (file: any) => file.name !== 'metadata.json',
+    if (fileElement) {
+      fileElement.scrollIntoView(true);
+    }
+  }, [files]);
+
+  const filesToRender: [] = useMemo(
+    () => files.filter((file: any) => file.name !== 'metadata.json'),
+    [files],
   );
 
   useEffect(() => {
@@ -56,13 +66,17 @@ const Code = () => {
     }
   };
 
+  const setAnchorLink = (anchor: string) => {
+    navigator.clipboard.writeText(`${window.location.href}#${anchor}`);
+  };
+
   return (
     <div>
       <h2 className="contract-tab-title">Contract Source Code</h2>
       <div className="files">
         {filesToRender.length ? (
           filesToRender.map((file: any, index: any) => (
-            <div className="code-section" key={index} ref={codeSectionRef}>
+            <div className="code-section" key={index} id={file.name}>
               <div className="code-section-header">
                 <div className="code-section-header-title">
                   <h3>
@@ -76,7 +90,7 @@ const Code = () => {
                   <CopyIcon content={file.content} />
                   <button
                     className="btn-contract-icon"
-                    onClick={showRefHandler}
+                    onClick={() => setAnchorLink(file.name)}
                   >
                     <Link />
                   </button>

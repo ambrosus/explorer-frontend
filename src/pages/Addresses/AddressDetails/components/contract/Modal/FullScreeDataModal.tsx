@@ -1,11 +1,8 @@
 import CopyIcon from '../CopyIcon';
 import Portal from '../Portal';
-import Modal from './index';
 import FullScreen from 'assets/icons/FullScreen';
 import Link from 'assets/icons/Link';
-import { useOnClickOutside } from 'hooks/useOnClickOutside';
-import useToggle from 'hooks/useToggle';
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 
 const FullScreeDataModal = ({
   text,
@@ -14,14 +11,11 @@ const FullScreeDataModal = ({
   fileName,
 }: any) => {
   const [isShow, setIsShow] = useState<boolean>(false);
-  const popUpRef = useRef(null);
 
   function handleOpen() {
     setIsShow(true);
   }
   const handleClose = () => setIsShow(false);
-
-  // useOnClickOutside(popUpRef, () => setIsShow(false));
 
   return (
     <>
