@@ -4,7 +4,7 @@ import CopyPopUp from 'assets/icons/CopyIcons/CopyPopUp';
 import useDeviceSize from 'hooks/useDeviceSize';
 import React, { useEffect, useState } from 'react';
 
-const CopyIcon = ({ content }: any) => {
+const ContractCopyBtn = ({ content }: any) => {
   const [isCopy, setIsCopy] = useState(false);
   const [isCopyPopup, setIsCopyPopup] = useState(false);
 
@@ -36,4 +36,4 @@ const CopyIcon = ({ content }: any) => {
   );
 };
 
-export default CopyIcon;
+export default ContractCopyBtn;
