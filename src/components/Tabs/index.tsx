@@ -292,9 +292,16 @@ const Tabs: FC<TabsProps> = ({
             )}
           </div>
         </div>
-
-        {/*{type !== 'contract' ? (*/}
-        {/*  <>*/}
+        {loading && (
+          <div
+            style={{
+              top: '-20px',
+              position: 'relative',
+            }}
+          >
+            <Loader />
+          </div>
+        )}
         <section className="tabs_table">
           {renderData?.length && (
             <AddressBlocksHeader
@@ -390,21 +397,6 @@ const Tabs: FC<TabsProps> = ({
             </div>
           )}
         </section>
-        {loading && (
-          <div
-            style={{
-              marginTop: !renderData?.length ? -300 : 0,
-              top: '-20px',
-              position: 'relative',
-            }}
-          >
-            <Loader />
-          </div>
-        )}
-        {/*  </>*/}
-        {/*) : (*/}
-        {/*  contractView*/}
-        {/*) }*/}
       </div>
     </>
   );

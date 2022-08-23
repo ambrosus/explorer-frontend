@@ -15,6 +15,7 @@ export type TokenType = {
 };
 export type OverallBalanceProps = {
   addressBalance: string | number;
+  address: string;
 };
 
 export interface TabsProps {

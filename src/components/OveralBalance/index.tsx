@@ -2,13 +2,16 @@ import { useTypedSelector } from 'hooks/useTypedSelector';
 import { OverallBalanceProps } from 'pages/Addresses/AddressDetails/address-details.interface';
 import React, { useEffect, useState } from 'react';
 
-//TODO refactor
-let amountInUsdBuffer = 0;
+let buffer: string | number = '0';
+let addressBuffer = '';
 
-const OverallBalance: React.FC<OverallBalanceProps> = ({ addressBalance }) => {
-  const [amountInUsd, setAmountInUsd] = useState(amountInUsdBuffer);
+const OverallBalance: React.FC<OverallBalanceProps> = ({
+  addressBalance,
+  address,
+}) => {
+  const [amountInUsd, setAmountInUsd] = useState(0);
   const [addressBalanceBuffer, setAddressBalanceBuffer] = useState(
-    +addressBalance,
+    address !== addressBuffer ? 0 : +buffer,
   );
   const { data: appData } = useTypedSelector((state: any) => state.app);
 
@@ -17,10 +20,12 @@ const OverallBalance: React.FC<OverallBalanceProps> = ({ addressBalance }) => {
       //TODO !addressBalance
       addressBalance !== undefined &&
       addressBalance !== null &&
-      appData?.total_price_usd
+      appData?.tokenInfo?.total_price_usd
     ) {
-      const usdPrice = appData.total_price_usd * +addressBalance;
-      amountInUsdBuffer = usdPrice;
+      addressBuffer = address;
+      buffer = addressBalance;
+
+      const usdPrice = appData?.tokenInfo?.price_usd * +addressBalance;
       setAmountInUsd(usdPrice);
       setAddressBalanceBuffer(+addressBalance);
     }
@@ -41,7 +46,7 @@ const OverallBalance: React.FC<OverallBalanceProps> = ({ addressBalance }) => {
         }}
       >
         <span className="address_details_info_text_span universall_dark">
-          {`${isNaN(addressBalanceBuffer) ? 0.0 : addressBalanceBuffer} AMB`}{' '}
+          {`${isNaN(+addressBalanceBuffer) ? 0.0 : addressBalanceBuffer} AMB`}{' '}
         </span>
         <span className="address_details_info_text_span universall_dark">
           /

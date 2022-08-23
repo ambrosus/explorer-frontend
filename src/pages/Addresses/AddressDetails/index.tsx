@@ -71,16 +71,16 @@ const AddressDetails = () => {
 
   useEffect(() => {
     if (address?.trim() === '0x0000000000000000000000000000000000000000') {
-      navigate(`/notfound`);
+      window.location.replace(`/notfound`);
     }
     if (tokenToSorted?.length && tokenToSorted !== 'transfers') {
-      navigate(`/notfound`);
+      window.location.replace(`/notfound`);
     }
     if (
       type?.length &&
       !(type === 'ERC-20_Tx' || type === 'transfers' || type === 'contract')
     ) {
-      navigate(`/notfound`);
+      window.location.replace(`/notfound`);
     }
 
     if (address) {
@@ -227,6 +227,7 @@ const AddressDetails = () => {
                   addressData?.balance &&
                   Number(formatEther(addressData.balance)).toFixed(2)
                 }
+                address={address || ''}
               />
 
               <Token
