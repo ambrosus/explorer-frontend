@@ -38,8 +38,6 @@ const useAsyncStoreData = (funcAction: any) => {
         });
       } else
         funcAction({ limit: 20, next: next }).then((res: any) => {
-          console.log(res);
-
           return setRenderData((prev: any) => {
             return {
               data: removeArrayDuplicates([...prev?.data, ...res?.data]),

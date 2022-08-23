@@ -56,7 +56,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
   isTableColumn,
   isIcon,
   inners,
-  hashOnClick,
+  status,
 }) => {
   const { addFilter } = useActions();
   const { address, type }: TParams = useParams();
@@ -212,7 +212,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
           className="universall_indent_icon"
           style={{ display: 'flex', alignItems: 'center' }}
         >
-          <GreenCircle />
+          <GreenCircle status={status} />
         </span>
         <Tooltip val={String(scientificToDecimal(txfee))} />
         <span data-tip data-for={scientificToDecimal(txfee)}>
@@ -296,6 +296,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
               symbol={`${transaction?.symbol ? transaction?.symbol : 'AMB'}`}
               isTableColumn={isTableColumn}
               inners={transaction.inners}
+              status={transaction.status}
             />
           </div>
         ))}

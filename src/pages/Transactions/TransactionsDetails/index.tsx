@@ -48,6 +48,7 @@ export const TransactionDetails = () => {
     determinedType: '',
     blockNumber: 0,
     status: '',
+    type: '',
   });
 
   useEffect(() => {
@@ -123,43 +124,6 @@ export const TransactionDetails = () => {
     },
   ];
 
-  // const itemSecond: any = [
-  //   {
-  //     name: 'DATE',
-  //     value:
-  //       moment
-  //         .unix(Number(txData.timestamp))
-  //         .format('ddd, D MMM YYYY HH:mm:ss') || 'Loading',
-  //   },
-  //   {
-  //     name: 'NONCE (POSITION)',
-  //     value: `${numberWithCommas(txData.nonce)} (
-  //               ${txData.transactionIndex || '-'})`,
-  //   },
-  //   {
-  //     name: 'INPUT DATA',
-  //     value: (
-  //       <>
-  //         <p
-  //           className="atlas_details_balance_fonts_bold"
-  //           ref={ref}
-  //           style={
-  //             isInputExpanded === true
-  //               ? { wordBreak: 'break-all' }
-  //               : { paddingRight: '20px' }
-  //           }
-  //         >
-  //           {txData.input === '0x' ? '—' : txData.input}
-  //           {isInputExpanded !== 'null' && (
-  //             <span onClick={showInputData} className="address_blocks_eye_icon">
-  //               <Eye />
-  //             </span>
-  //           )}
-  //         </p>
-  //       </>
-  //     ),
-  //   },
-  // ];
   const itemThird: any = [
     {
       name: 'BLOCK HASH',
@@ -186,7 +150,11 @@ export const TransactionDetails = () => {
         <Content.Header>
           <div className="address_details_h1 address_details_h1-tx">
             <div>
-              <h1>{txData.determinedType}</h1>
+              <h1>
+                {txData.determinedType === 'Undetermined'
+                  ? txData.type
+                  : txData.determinedType}
+              </h1>
               <span className="address_details_h1_status">{txData.status}</span>
             </div>
             <div className="address_details_copy" style={{ fontSize: '18px' }}>
@@ -215,7 +183,6 @@ export const TransactionDetails = () => {
           </div>
 
           <HeadInfo data={itemFirst} className="head_info" />
-          {/* <HeadInfo data={itemSecond} className="head_info head_transaction" /> */}
 
           <div className="apollo_details_balance apollo_details_balance-tx2">
             <div className="apollo_details_balance_cells">
@@ -309,7 +276,7 @@ export const TransactionDetails = () => {
                   isTableColumn="address_blocks_cells"
                   isIcon={true}
                   inners={tx.inners}
-                  hashOnClick={true}
+                  status={tx.status}
                 />
               ))}
           </div>

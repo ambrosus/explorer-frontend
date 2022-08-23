@@ -9,10 +9,15 @@ import { useTypedSelector } from 'hooks/useTypedSelector';
 import moment from 'moment';
 import AddressBlock from 'pages/Addresses/AddressDetails/components/AddressBlocks';
 import TabsNew from 'pages/Transactions/components/TabsNew';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { TParams } from 'types';
-import { ambToUSD, statusMessage, formatDate } from 'utils/helpers';
+import {
+  ambToUSD,
+  statusMessage,
+  formatDate,
+  diffStyleToCell,
+} from 'utils/helpers';
 import { apolloDetailsSorting } from 'utils/sidePages';
 
 export const ApolloDetails = () => {
@@ -27,6 +32,14 @@ export const ApolloDetails = () => {
   }, []);
   const { balance, stake, version } = addressData?.apolloInfo?.data || 0;
   const apolloData = addressData?.apolloInfo?.data;
+
+  const initFilterData = formatDate(
+    apolloData?.lastBlock?.timestamp
+      ? (new Date(apolloData.lastBlock.timestamp * 1000) as any) / 1000
+      : (new Date() as any) / 1000,
+    true,
+    false,
+  );
 
   const { total_price_usd } = appData?.tokenInfo || 0;
   const ambBalance = balance?.ether || 0;
@@ -44,34 +57,19 @@ export const ApolloDetails = () => {
   });
   const [isLoad, setIsLoad] = useState<boolean>(false);
 
-  const [filterDate, setFilterDate] = useState<any>(() => {
-    return formatDate(
-      apolloData?.lastBlock?.timestamp
-        ? (new Date(apolloData.lastBlock.timestamp * 1000) as any) / 1000
-        : (new Date() as any) / 1000,
-      true,
-      false,
-    );
-  });
-
+  const [filterDate, setFilterDate] = useState<any>(() => initFilterData);
+  const [dateRange, setDateRange] = useState<any>(null);
   const { price_usd } = appData?.tokenInfo || 0;
 
   useEffect(() => {
     if (apolloData?.lastBlock) {
-      setFilterDate(() => {
-        return formatDate(
-          apolloData?.lastBlock?.timestamp
-            ? (new Date(apolloData.lastBlock.timestamp * 1000) as any) / 1000
-            : (new Date() as any) / 1000,
-          true,
-          false,
-        );
-      });
+      setFilterDate(() => initFilterData);
     }
   }, [apolloData]);
 
-  const onSelect = (value: any) => {
+  const onSelect = (value: any, range: any) => {
     setFilterDate(value);
+    setDateRange(range);
   };
 
   const fetchRewards = async () => {
@@ -97,11 +95,12 @@ export const ApolloDetails = () => {
       };
     }
   }, [filterDate, isLoad]);
-
   const itemFirst: any = [
     {
       name: 'BALANCE',
-      value: `${ambBalance.toFixed(2)} AMB / $ ${usdBalance.toFixed(2)}`,
+      value: diffStyleToCell(ambBalance, usdBalance),
+
+      // `${ambBalance.toFixed(2)} AMB / $ ${usdBalance.toFixed(2)}`,
     },
     {
       name: 'UPTIME',
@@ -112,13 +111,15 @@ export const ApolloDetails = () => {
     },
     {
       name: 'STAKE',
-      value: `${ambStake.toFixed(2)} AMB / $ ${usdStake.toFixed(2)}`,
+      value: diffStyleToCell(ambStake, usdStake),
     },
     {
       name: 'SOFTWARE',
       value: version,
     },
   ];
+
+  console.log(rewards.transactionsRewards);
 
   const itemSecond: any = [
     {
@@ -132,23 +133,32 @@ export const ApolloDetails = () => {
             marginLeft: 6,
           }}
         >
-          <ExportCsv miningStats={onSelect} showText={false} />
+          <ExportCsv
+            initRange={dateRange}
+            miningStats={onSelect}
+            showText={false}
+          />
         </div>
       ),
     },
 
     {
       name: 'BLOCK REWARDS',
-      value: `${(rewards?.blocksRewards || 0).toFixed(2)} AMB / $ ${ambToUSD(
+      value: diffStyleToCell(
         rewards?.blocksRewards,
-        price_usd,
-      )}`,
+        ambToUSD(rewards?.blocksRewards, price_usd),
+      ),
     },
     {
       name: 'TRANSACTIONS REWARDS',
-      value: `${(rewards.transactionsRewards || 0).toFixed(
-        2,
-      )} AMB / $ ${ambToUSD(rewards.transactionsRewards, price_usd)}`,
+      value: (
+        <>
+          {`${(rewards?.transactionsRewards || 0).toFixed(5)} AMB / `}
+          <span style={{ fontWeight: 400 }}>
+            {`$ ${ambToUSD(rewards.transactionsRewards, price_usd)}`}
+          </span>
+        </>
+      ),
     },
     {
       name: 'TOTAL BLOCKS MINED',
@@ -205,6 +215,7 @@ export const ApolloDetails = () => {
                 symbol={`${transaction?.symbol ? transaction?.symbol : 'AMB'}`}
                 isTableColumn="address_blocks_cells"
                 isIcon={true}
+                status={transaction.status}
               />
             ))
           }

@@ -21,7 +21,6 @@ export const App = (): JSX.Element => (
         <Main />
       </BrowserRouter>
     </Provider>
-    <ReactQueryDevtools initialIsOpen={false} />
   </QueryClientProvider>
 );
 

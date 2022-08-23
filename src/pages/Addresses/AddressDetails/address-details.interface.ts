@@ -30,6 +30,7 @@ export interface TabsProps {
   loading?: boolean;
   sortOptions?: any;
   isContract?: boolean;
+  contractInfo: any;
 }
 
 export type TransactionProps = {
@@ -44,6 +45,7 @@ export type TransactionProps = {
   txFee: any;
   symbol?: string;
   inners?: any[];
+  status?: string;
 };
 
 export interface ExplorerTxType {
@@ -56,6 +58,7 @@ export interface ExplorerTxType {
   blockNumber: any;
   value: { wei: ethers.BigNumberish };
   gasCost: { wei: any };
+  status: string;
 }
 
 export interface AddressBlockProps {
@@ -78,7 +81,7 @@ export interface AddressBlockProps {
   isIcon?: boolean;
   inners?: any[];
   innerLevel?: number;
-  hashOnClick?: boolean;
+  status?: string;
 }
 
 export interface TokenProps {

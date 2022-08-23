@@ -5,6 +5,10 @@ import { ApiRequest } from 'types';
 const tokenApiUrl: any = process.env.REACT_APP_TOKEN_API_URL;
 
 const baseApiUrl = process.env.REACT_APP_API_ENDPOINT;
+const sourcifyApiUrl = process.env.REACT_APP_SOURCIFY_API_ENDPOINT;
+
+const chainID = process.env.REACT_APP_CHAIN_ID;
+
 const API = () => {
   const api = axios.create({
     baseURL: baseApiUrl,
@@ -32,6 +36,30 @@ const API = () => {
   return api;
 };
 
+const SOURCIFYAPI = () => {
+  const api = axios.create({
+    baseURL: sourcifyApiUrl,
+  });
+
+  function handleNotFound(err: any) {
+    if (err) {
+      log(err);
+    }
+  }
+
+  api.interceptors.response.use(
+    (response) => {
+      return response;
+    },
+    (error) => {
+      handleNotFound(error.response);
+      return error.response;
+    },
+  );
+
+  return api;
+};
+
 const getBlocks = async (params = {}) => {
   return await API().get('blocks', {
     params,
@@ -52,8 +80,8 @@ const getAccount = (address: any) => {
   return API().get(`accounts/${address}`);
 };
 
-const getAtlas = (params: any) => {
-  return API().get(`atlases?limit=30&sort=${params.sort}`);
+const getAtlas = (address: any) => {
+  return API().get(`atlases/${address}`);
 };
 
 const getAtlasBundles = (address: any, params: any) => {
@@ -177,6 +205,10 @@ const getInfo = () => {
   return API().get(`info/`);
 };
 
+const getContract = (address: any) => {
+  return SOURCIFYAPI().get(`files/any/${chainID}/${address}`);
+};
+
 const getToken = () => {
   return axios.get(tokenApiUrl).then(({ data }) => data.data);
 };
@@ -208,6 +240,7 @@ const followTheLinkRange = async (fromDate: any, toDate: any, address: any) => {
 
 const api = {
   API: API(),
+  SOURCIFYAPI: SOURCIFYAPI(),
   getBlocks,
   getBlockTransactions,
   getTransactions,
@@ -219,6 +252,7 @@ const api = {
   getAtlases,
   getApolloRewards,
   getInfo,
+  getContract,
   getToken,
   getAccountTx,
   getBlock,

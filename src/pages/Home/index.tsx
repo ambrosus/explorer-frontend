@@ -1,3 +1,4 @@
+import { useActions } from '../../hooks/useActions';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { LatestTransactionsProps, ResultHomePageData } from './home.interfaces';
 import API from 'API/api';
@@ -11,10 +12,17 @@ import { useEffect, useMemo, useState } from 'react';
 
 export const Home: React.FC = () => {
   const [data, setData] = useState<ResultHomePageData>();
+  const { setAppDataAsync } = useActions();
 
   const { FOR_BIG_TABLET } = useDeviceSize();
   const { data: appData } = useTypedSelector((state: any) => state.app);
-  console.log(appData);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setAppDataAsync();
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     getHomePageData().then((result: ResultHomePageData) => setData(result));
@@ -45,7 +53,9 @@ export const Home: React.FC = () => {
   const getHomePageData: () => Promise<ResultHomePageData> = async () => {
     const result: ResultHomePageData = {
       latestBlocks: (await API.getBlocks({ limit: 8 })).data,
-      latestTransactions: (await API.getTransactions({ limit: 6000 })).data
+      latestTransactions: (
+        await API.getTransactions({ limit: 10, type: 'transactions' })
+      ).data
         .filter((item: LatestTransactionsProps) => item.type !== 'BlockReward')
         .slice(0, 8),
     };
