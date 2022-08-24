@@ -328,9 +328,12 @@
   &-heading {
     display: flex;
     justify-content: space-between;
-
+    align-items: center;
     background: #fff;
-    margin: 32px 0 12px;
+    position: fixed;
+    width: 100%;
+    max-width: 1140px;
+    height: 60px;
   }
   &-body {
     background: rgba(246, 246, 246, 0.3);
@@ -373,23 +376,26 @@
   display: flex;
   margin-top: 10px;
 }
-// .ctr-btn {
-//   display: flex;
-//   padding: 5px 12px;
-//   width: fit-content;
-//   align-items: center;
-//   justify-content: center;
-//   height: 24px;
-//   background: #808a9d;
-//   border-radius: 8px;
-//   text-align: center;
-//   font-family: 'Proxima Nova', serif;
-//   font-style: normal;
-//   font-weight: 700;
-//   font-size: 11px;
-//   line-height: 32px;
-//   color: #ffffff;
-// }
+.ctr-btn {
+  display: flex;
+
+  height: 24px;
+  width: fit-content;
+  align-items: center;
+  justify-content: center;
+
+  background: #a6b0c3;
+
+  border-radius: 8px;
+
+  margin-left: 9px;
+  padding: 0 24px 0 12px;
+
+  font-weight: 700;
+  font-size: 11px;
+  line-height: 32px;
+  color: #ffffff;
+}
 
 .contract-method {
   display: flex;

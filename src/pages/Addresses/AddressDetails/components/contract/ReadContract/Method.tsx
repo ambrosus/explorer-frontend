@@ -17,8 +17,9 @@ const Method = ({ index, method, buttonName }: any) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const { address = '' } = useParams();
-  const [input, setInput] = React.useState<any>({});
+  const [inputValue, setInputValue] = React.useState<any>({});
   const [open, setOpen] = React.useState<any>(false);
+  const [resultMessage, setResultMessage] = useState<string | null>(null);
   const contractCall = async () => {
     setError('');
     setResult(null);
@@ -55,13 +56,13 @@ const Method = ({ index, method, buttonName }: any) => {
         method?.stateMutability === 'payable'
           ? [
               ...Object.values(
-                sortKeysInObjectByRightParamsSequence(input, method),
+                sortKeysInObjectByRightParamsSequence(inputValue, method),
               ),
               { value: paybleValue },
             ]
           : [
               ...Object.values(
-                sortKeysInObjectByRightParamsSequence(input, method),
+                sortKeysInObjectByRightParamsSequence(inputValue, method),
               ),
             ];
 
@@ -71,6 +72,7 @@ const Method = ({ index, method, buttonName }: any) => {
 
       if (value) {
         setResult(value);
+        setResultMessage('Success!');
       }
     } catch (e: any) {
       if (e.message) {
@@ -85,7 +87,9 @@ const Method = ({ index, method, buttonName }: any) => {
   const toggleOpen = () => {
     setOpen(!open);
     setError('');
-    setResult(null);
+    setResultMessage(null);
+    setInputValue('');
+    setPaybleValue(0);
   };
 
   useEffect(() => {
@@ -134,15 +138,16 @@ const Method = ({ index, method, buttonName }: any) => {
                       ({param?.type})
                     </span>
                   </div>
-                  <ContractInput
+
+                  <input
+                    type="text"
                     key={index}
-                    value={input[param.name]}
+                    value={inputValue[param.name]}
                     onChange={(e: any) =>
-                      setInput((prev: any) => {
+                      setInputValue((prev: any) => {
                         return { ...prev, [param.name]: e.target.value };
                       })
                     }
-                    method={method}
                     placeholder={param?.type}
                   />
                 </div>
@@ -151,11 +156,11 @@ const Method = ({ index, method, buttonName }: any) => {
             {method?.stateMutability === 'payable' && (
               <div key={index} className="method-params-param">
                 <div className="method-params-param-name">value ( uint )</div>
-                <ContractInput
+                <input
+                  type="text"
                   key={index}
                   value={paybleValue}
                   onChange={(e: any) => setPaybleValue(e.target.value)}
-                  method={method}
                 />
               </div>
             )}
@@ -165,9 +170,9 @@ const Method = ({ index, method, buttonName }: any) => {
                 <span className="contract-method-btn">{buttonName} </span>
                 {isLoading && <Spinner />}
 
-                {result && (
+                {result && resultMessage && (
                   <span className="contract-method-sucess">
-                    <CheckCircle /> &nbsp;&nbsp;Success!
+                    <CheckCircle /> &nbsp;&nbsp; {resultMessage}
                   </span>
                 )}
 

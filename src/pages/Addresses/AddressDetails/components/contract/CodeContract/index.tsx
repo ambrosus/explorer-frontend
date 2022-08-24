@@ -140,13 +140,11 @@ const Code = () => {
               <h2 className="contract-tab-title">Contract Byte Code</h2>
             </div>
             <div className="code-section-header-actions">
-              <ContractCopyBtn content={accountData?.data?.byteCode} />
-              <div className="btn-contract-icon">
-                <Link />
-              </div>
-              <div className="btn-contract-icon">
-                <FullScreeDataModal text={accountData?.data?.byteCode} />
-              </div>
+              <ConstractSideBtn
+                content={accountData?.data?.byteCode}
+                fileOf={null}
+                name="Contract Byte Code"
+              />
             </div>
           </div>
 
