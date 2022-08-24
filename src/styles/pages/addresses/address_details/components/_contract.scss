@@ -328,9 +328,12 @@
   &-heading {
     display: flex;
     justify-content: space-between;
-
+    align-items: center;
     background: #fff;
-    margin: 32px 0 12px;
+    position: fixed;
+    width: 100%;
+    max-width: 1140px;
+    height: 60px;
   }
   &-body {
     background: rgba(246, 246, 246, 0.3);
