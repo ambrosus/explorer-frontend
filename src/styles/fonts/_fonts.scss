@@ -1,9 +1,11 @@
 @font-face {
   font-family: 'Roboto';
   src: url('../../assets/fonts/Roboto-Thin.eot');
-  src: url('../../assets/fonts/Roboto-Thin.eot?#iefix') format('embedded-opentype'),
-  url('../../assets/fonts/Roboto-Thin.woff2') format('woff2'), url('../../assets/fonts/Roboto-Thin.woff') format('woff'),
-  url('../../assets/fonts/Roboto-Thin.ttf') format('truetype');
+  src: url('../../assets/fonts/Roboto-Thin.eot?#iefix')
+      format('embedded-opentype'),
+    url('../../assets/fonts/Roboto-Thin.woff2') format('woff2'),
+    url('../../assets/fonts/Roboto-Thin.woff') format('woff'),
+    url('../../assets/fonts/Roboto-Thin.ttf') format('truetype');
   font-weight: 100;
   font-style: normal;
   font-display: swap;
@@ -11,8 +13,10 @@
 
 @font-face {
   font-family: 'Proxima Nova';
-  src: url('../../assets/fonts/ProximaNova/ProximaNova-Regular.woff2') format('woff2'),
-  url('../../assets/fonts/ProximaNova/ProximaNova-Regular.ttf') format('truetype');
+  src: url('../../assets/fonts/ProximaNova/ProximaNova-Regular.woff2')
+      format('woff2'),
+    url('../../assets/fonts/ProximaNova/ProximaNova-Regular.ttf')
+      format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -20,8 +24,10 @@
 
 @font-face {
   font-family: 'Proxima Nova';
-  src: url('../../assets/fonts/ProximaNova/ProximaNova-LightIt.woff2') format('woff2'),
-  url('../../assets/fonts/ProximaNova/ProximaNova-LightIt.ttf') format('truetype');
+  src: url('../../assets/fonts/ProximaNova/ProximaNova-LightIt.woff2')
+      format('woff2'),
+    url('../../assets/fonts/ProximaNova/ProximaNova-LightIt.ttf')
+      format('truetype');
   font-weight: 300;
   font-style: italic;
   font-display: swap;
@@ -29,8 +35,10 @@
 
 @font-face {
   font-family: 'Proxima Nova';
-  src: url('../../assets/fonts/ProximaNova/ProximaNova-RegularIt.woff2') format('woff2'),
-  url('../../assets/fonts/ProximaNova/ProximaNova-RegularIt.ttf') format('truetype');
+  src: url('../../assets/fonts/ProximaNova/ProximaNova-RegularIt.woff2')
+      format('woff2'),
+    url('../../assets/fonts/ProximaNova/ProximaNova-RegularIt.ttf')
+      format('truetype');
   font-weight: normal;
   font-style: italic;
   font-display: swap;
@@ -38,8 +46,10 @@
 
 @font-face {
   font-family: 'Proxima Nova';
-  src: url('../../assets/fonts/ProximaNova/ProximaNova-Semibold.woff2') format('woff2'),
-  url('../../assets/fonts/ProximaNova/ProximaNova-Semibold.ttf') format('truetype');
+  src: url('../../assets/fonts/ProximaNova/ProximaNova-Semibold.woff2')
+      format('woff2'),
+    url('../../assets/fonts/ProximaNova/ProximaNova-Semibold.ttf')
+      format('truetype');
   font-weight: 600;
   font-style: normal;
   font-display: swap;
@@ -47,8 +57,10 @@
 
 @font-face {
   font-family: 'Proxima Nova';
-  src: url('../../assets/fonts/ProximaNova/ProximaNova-SemiboldIt.woff2') format('woff2'),
-  url('../../assets/fonts/ProximaNova/ProximaNova-SemiboldIt.ttf') format('truetype');
+  src: url('../../assets/fonts/ProximaNova/ProximaNova-SemiboldIt.woff2')
+      format('woff2'),
+    url('../../assets/fonts/ProximaNova/ProximaNova-SemiboldIt.ttf')
+      format('truetype');
   font-weight: 600;
   font-style: italic;
   font-display: swap;
@@ -56,8 +68,10 @@
 
 @font-face {
   font-family: 'Proxima Nova';
-  src: url('../../assets/fonts/ProximaNova/ProximaNova-ThinIt.woff2') format('woff2'),
-  url('../../assets/fonts/ProximaNova/ProximaNova-ThinIt.ttf') format('truetype');
+  src: url('../../assets/fonts/ProximaNova/ProximaNova-ThinIt.woff2')
+      format('woff2'),
+    url('../../assets/fonts/ProximaNova/ProximaNova-ThinIt.ttf')
+      format('truetype');
   font-weight: 100;
   font-style: italic;
   font-display: swap;
@@ -65,8 +79,10 @@
 
 @font-face {
   font-family: 'Proxima Nova';
-  src: url('../../assets/fonts/ProximaNova/ProximaNovaT-Thin.woff2') format('woff2'),
-  url('../../assets/fonts/ProximaNova/ProximaNovaT-Thin.ttf') format('truetype');
+  src: url('../../assets/fonts/ProximaNova/ProximaNovaT-Thin.woff2')
+      format('woff2'),
+    url('../../assets/fonts/ProximaNova/ProximaNovaT-Thin.ttf')
+      format('truetype');
   font-weight: 100;
   font-style: normal;
   font-display: swap;
@@ -74,8 +90,10 @@
 
 @font-face {
   font-family: 'Proxima Nova';
-  src: url('../../assets/fonts/ProximaNova/ProximaNova-Black.woff2') format('woff2'),
-  url('../../assets/fonts/ProximaNova/ProximaNova-Black.ttf') format('truetype');
+  src: url('../../assets/fonts/ProximaNova/ProximaNova-Black.woff2')
+      format('woff2'),
+    url('../../assets/fonts/ProximaNova/ProximaNova-Black.ttf')
+      format('truetype');
   font-weight: 900;
   font-style: normal;
   font-display: swap;
@@ -83,8 +101,10 @@
 
 @font-face {
   font-family: 'Proxima Nova';
-  src: url('../../assets/fonts/ProximaNova/ProximaNova-BlackIt.woff2') format('woff2'),
-  url('../../assets/fonts/ProximaNova/ProximaNova-BlackIt.ttf') format('truetype');
+  src: url('../../assets/fonts/ProximaNova/ProximaNova-BlackIt.woff2')
+      format('woff2'),
+    url('../../assets/fonts/ProximaNova/ProximaNova-BlackIt.ttf')
+      format('truetype');
   font-weight: 900;
   font-style: italic;
   font-display: swap;
@@ -92,8 +112,10 @@
 
 @font-face {
   font-family: 'Proxima Nova';
-  src: url('../../assets/fonts/ProximaNova/ProximaNova-Bold.woff2') format('woff2'),
-  url('../../assets/fonts/ProximaNova/ProximaNova-Bold.ttf') format('truetype');
+  src: url('../../assets/fonts/ProximaNova/ProximaNova-Bold.woff2')
+      format('woff2'),
+    url('../../assets/fonts/ProximaNova/ProximaNova-Bold.ttf')
+      format('truetype');
   font-weight: bold;
   font-style: normal;
   font-display: swap;
@@ -101,8 +123,10 @@
 
 @font-face {
   font-family: 'Proxima Nova';
-  src: url('../../assets/fonts/ProximaNova/ProximaNova-BoldIt.woff2') format('woff2'),
-  url('../../assets/fonts/ProximaNova/ProximaNova-BoldIt.ttf') format('truetype');
+  src: url('../../assets/fonts/ProximaNova/ProximaNova-BoldIt.woff2')
+      format('woff2'),
+    url('../../assets/fonts/ProximaNova/ProximaNova-BoldIt.ttf')
+      format('truetype');
   font-weight: bold;
   font-style: italic;
   font-display: swap;
@@ -110,8 +134,10 @@
 
 @font-face {
   font-family: 'Proxima Nova';
-  src: url('../../assets/fonts/ProximaNova/ProximaNova-Extrabld.woff2') format('woff2'),
-  url('../../assets/fonts/ProximaNova/ProximaNova-Extrabld.ttf') format('truetype');
+  src: url('../../assets/fonts/ProximaNova/ProximaNova-Extrabld.woff2')
+      format('woff2'),
+    url('../../assets/fonts/ProximaNova/ProximaNova-Extrabld.ttf')
+      format('truetype');
   font-weight: bold;
   font-style: normal;
   font-display: swap;
@@ -119,8 +145,10 @@
 
 @font-face {
   font-family: 'Proxima Nova';
-  src: url('../../assets/fonts/ProximaNova/ProximaNova-ExtrabldIt.woff2') format('woff2'),
-  url('../../assets/fonts/ProximaNova/ProximaNova-ExtrabldIt.ttf') format('truetype');
+  src: url('../../assets/fonts/ProximaNova/ProximaNova-ExtrabldIt.woff2')
+      format('woff2'),
+    url('../../assets/fonts/ProximaNova/ProximaNova-ExtrabldIt.ttf')
+      format('truetype');
   font-weight: bold;
   font-style: italic;
   font-display: swap;
@@ -128,9 +156,70 @@
 
 @font-face {
   font-family: 'Proxima Nova';
-  src: url('../../assets/fonts/ProximaNova/ProximaNova-Light.woff2') format('woff2'),
-  url('../../assets/fonts/ProximaNova/ProximaNova-Light.ttf') format('truetype');
+  src: url('../../assets/fonts/ProximaNova/ProximaNova-Light.woff2')
+      format('woff2'),
+    url('../../assets/fonts/ProximaNova/ProximaNova-Light.ttf')
+      format('truetype');
   font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'IBM Plex Mono';
+  src: url('../../assets/fonts/IbmPlexMono/IBMPlexMono-Thin.ttf')
+    format('truetype');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'IBM Plex Mono';
+  src: url('../../assets/fonts/IbmPlexMono/IBMPlexMono-ExtraLight.ttf')
+    format('truetype');
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  src: url('../../assets/fonts/IbmPlexMono/IBMPlexMono-Light.ttf')
+    format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'IBM Plex Mono';
+  src: url('../../assets/fonts/IbmPlexMono/IBMPlexMono-Regular.ttf')
+    format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  src: url('../../assets/fonts/IbmPlexMono/IBMPlexMono-Medium.ttf')
+    format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  src: url('../../assets/fonts/IbmPlexMono/IBMPlexMono-SemiBold.ttf')
+    format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  src: url('../../assets/fonts/IbmPlexMono/IBMPlexMono-Bold.ttf')
+    format('truetype');
+  font-weight: 700;
   font-style: normal;
   font-display: swap;
 }

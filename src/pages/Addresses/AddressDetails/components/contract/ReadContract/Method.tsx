@@ -5,7 +5,7 @@ import Plus from 'assets/icons/Plus';
 import WarningError from 'assets/icons/WarningError';
 import Spinner from 'components/Spinner';
 import { ethers, providers } from 'ethers';
-import React, { memo, useEffect, useState } from 'react';
+import React, { memo, useEffect, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { TParams } from 'types';
 
@@ -19,8 +19,9 @@ const Method = ({ index, method, buttonName }: any) => {
   const { address = '' } = useParams();
   const [input, setInput] = React.useState<any>({});
   const [open, setOpen] = React.useState<any>(false);
-  const contractCall = async (method: any) => {
+  const contractCall = async () => {
     setError('');
+    setResult(null);
     try {
       setIsLoading(true);
       let provider = new ethers.providers.JsonRpcProvider(
@@ -70,25 +71,28 @@ const Method = ({ index, method, buttonName }: any) => {
 
       if (value) {
         setResult(value);
-        setError('');
-        setIsLoading(false);
       }
     } catch (e: any) {
-      setIsLoading(true);
       if (e.message) {
         setError(e.message);
-        setIsLoading(false);
       }
     }
+    setIsLoading(false);
   };
-  const renderError = error.split(' (');
+
+  const renderError = useMemo(() => error.split(' ('), [error]);
+
+  const toggleOpen = () => {
+    setOpen(!open);
+    setError('');
+    setResult(null);
+  };
 
   useEffect(() => {
     if (filtered === 'read' && !method?.inputs.length) {
-      contractCall(method);
+      contractCall();
     }
   }, []);
-  console.log(result);
 
   return (
     <div className="method">
@@ -106,10 +110,7 @@ const Method = ({ index, method, buttonName }: any) => {
           </div>
         )}
       </div>
-      <div
-        className="method-name"
-        onClick={() => setOpen((prev: any) => !prev)}
-      >
+      <div className="method-name" onClick={() => toggleOpen()}>
         <span>{index + 1}. </span>
         <span style={{ paddingLeft: 8, textTransform: 'capitalize' }}>
           {' '}
@@ -158,14 +159,9 @@ const Method = ({ index, method, buttonName }: any) => {
                 />
               </div>
             )}
-            {filtered === 'read' && method?.inputs.length ? (
-              <button
-                className="contract-method"
-                onClick={() => {
-                  // if (filtered === 'read' && method?.inputs.length === 'payable') {
-                  return contractCall(method);
-                }}
-              >
+            {((filtered === 'read' && method?.inputs.length) ||
+              filtered === 'write') && (
+              <button className="contract-method" onClick={contractCall}>
                 <span className="contract-method-btn">{buttonName} </span>
                 {isLoading && <Spinner />}
 
@@ -186,28 +182,7 @@ const Method = ({ index, method, buttonName }: any) => {
                   </>
                 )}
               </button>
-            ) : null}
-            {filtered === 'write' ? (
-              <button
-                className="contract-method"
-                onClick={() => {
-                  // if (filtered === 'read' && method?.inputs.length === 'payable') {
-                  return contractCall(method);
-                }}
-              >
-                <span className="contract-method-btn">{buttonName}</span>
-                {error && (
-                  <>
-                    <span className="contract-method-icon">
-                      <WarningError />
-                    </span>
-                    <span className="contract-method-message">
-                      {renderError[0]}
-                    </span>
-                  </>
-                )}
-              </button>
-            ) : null}
+            )}
           </div>
           <div className="result">
             {method?.outputs?.length > 0 && (
@@ -226,14 +201,7 @@ const Method = ({ index, method, buttonName }: any) => {
               </div>
             )}
             {result && filtered !== 'write' && (
-              <div className="method-result">
-                {/*{*/}
-                {/*  typeof result === 'string'*/}
-                {/*  ? `${result}`*/}
-                {/*  : JSON.stringify(result)*/}
-                {/*}*/}
-                {`${result.toString()}`}
-              </div>
+              <div className="method-result">{`${result.toString()}`}</div>
             )}
           </div>
         </>
