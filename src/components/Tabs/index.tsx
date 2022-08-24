@@ -279,11 +279,6 @@ const Tabs: FC<TabsProps> = ({
             )}
           </div>
         </div>
-        {loading && (
-          <div style={{ top: '-20px', position: 'relative' }}>
-            <Loader />
-          </div>
-        )}
         {type !== 'contract' ? (
           <>
             <section className="tabs_table">
@@ -359,7 +354,11 @@ const Tabs: FC<TabsProps> = ({
                       ),
                   )
                 : null}
-
+              {loading && (
+                <div style={{ top: '-20px', position: 'relative' }}>
+                  <Loader />
+                </div>
+              )}
               {!loading &&
                 //TODO вынести условие в константу
                 !renderData?.length &&
