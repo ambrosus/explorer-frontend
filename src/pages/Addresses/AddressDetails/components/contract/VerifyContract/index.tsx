@@ -4,7 +4,7 @@ import axios from 'axios';
 import ContractErrorMessage from 'components/ContractErrorMessage';
 import InputContract from 'components/InputContract';
 import Spinner from 'components/Spinner';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 const VerifyContract = () => {
@@ -109,7 +109,7 @@ const VerifyContract = () => {
       .catch((err) => {
         setErrMessage(err.response.data.error);
         setLoading(false);
-        console.log(errMessage);
+        setTimeout(() => setErrMessage(null), 5000);
       });
   };
 

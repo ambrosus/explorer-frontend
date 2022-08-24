@@ -1,6 +1,4 @@
 import FullScreen from 'assets/icons/FullScreen';
-import Link from 'assets/icons/Link';
-import ContractCopyBtn from 'components/ContractCopyBtn';
 import Portal from 'components/Portal';
 import React, { useState } from 'react';
 
