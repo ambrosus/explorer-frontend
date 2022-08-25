@@ -8,7 +8,9 @@ const ConstractSideBtn = ({ content, name, fileOf, isAbi }: any) => {
   const [isCopy, setIsCopy] = useState(false);
 
   const setAnchorLink = (anchor: string) => {
-    navigator.clipboard.writeText(`${window.location.href}#${anchor}`);
+    navigator.clipboard.writeText(
+      `${window.location.host}${window.location.pathname}#${anchor}`,
+    );
     setIsCopy(true);
   };
 
