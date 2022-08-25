@@ -34,7 +34,13 @@ const FullScreeDataModal = ({ text, fileOf, fileName }: any) => {
                 </div>
 
                 <div className="fullscreen_modal-body">
-                  <ol style={{ paddingLeft: 20 }}>
+                  <ol
+                    style={{
+                      paddingLeft: 20,
+                      listStylePosition: 'inside',
+                      marginTop: 46,
+                    }}
+                  >
                     {text.split('\n').map((line: any, index: any) => (
                       <li className="universall_ibm_font" key={index}>
                         {line}
