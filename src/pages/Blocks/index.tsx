@@ -1,5 +1,6 @@
 import API from '../../API/api';
 import { useActions } from '../../hooks/useActions';
+import { numberWithCommas } from '../../utils/helpers';
 import TabsNew from '../Transactions/components/TabsNew';
 import BlocksBody from './components/BlocksBody';
 import BlocksHeader from './components/BlocksHeader';
@@ -31,7 +32,7 @@ export const Blocks = () => {
   const itemFirst: any = [
     {
       name: 'TOTAL NODES',
-      value: total,
+      value: numberWithCommas(total),
     },
     {
       name: 'AVG. BLOCK SIZE',
@@ -43,7 +44,7 @@ export const Blocks = () => {
     },
     {
       name: 'AVG. NECTAR USED',
-      value: `${avgBlockGasUsed.toFixed(1)} ${avgNectarPerc}`,
+      value: `${numberWithCommas(avgBlockGasUsed.toFixed(1))} ${avgNectarPerc}`,
     },
   ];
 

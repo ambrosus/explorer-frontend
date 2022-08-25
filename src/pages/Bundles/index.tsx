@@ -39,7 +39,7 @@ export const Bundles = () => {
     },
     {
       name: 'AVERAGE BUNDLE LOAD',
-      value: avgBundleLoad,
+      value: numberWithCommas(avgBundleLoad),
     },
   ];
   const itemSecond: any = [
