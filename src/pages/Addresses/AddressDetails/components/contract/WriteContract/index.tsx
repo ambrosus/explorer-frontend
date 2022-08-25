@@ -69,9 +69,6 @@ const WriteContract = () => {
 
       <div className="methods">
         {contractAbi
-          // .filter(
-          //   (method: any) => !method.constant && method.type === 'function',
-          // )
           .filter(
             (method: any) =>
               method.stateMutability !== 'view' &&

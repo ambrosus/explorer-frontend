@@ -66,9 +66,16 @@ const Method = ({ index, method, buttonName }: any) => {
               ),
             ];
 
-      let value = toSend?.length
-        ? await contract?.[`${method.name}`](...toSend)
-        : await contract?.[`${method.name}`]();
+      let value;
+      if (toSend?.length) {
+        value = await contract?.[`${method.name}`](...toSend).then((res: any) =>
+          res.wait ? res.wait() : res,
+        );
+      } else {
+        value = await contract?.[`${method.name}`]();
+      }
+
+      console.log(value, 'method');
 
       if (value) {
         setResult(value);
