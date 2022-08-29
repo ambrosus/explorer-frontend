@@ -28,16 +28,19 @@ const Code = () => {
     getAccountData(address),
   );
 
-  const files = contractData?.data?.files || [];
-  useEffect(() => {
-    const fileElement = document.getElementById(
-      window.location.hash.replace('#', ''),
-    );
+  const files = useMemo(
+    () => contractData?.data?.files || [],
+    [contractData?.data?.files],
+  );
+  const fileElement: any = document.getElementById(
+    window.location.hash.replace('#', ''),
+  );
 
+  useEffect(() => {
     if (fileElement) {
-      fileElement.scrollIntoView(true);
+      fileElement.scrollIntoView({ behavior: 'smooth' });
     }
-  }, [files]);
+  }, [fileElement]);
 
   const filesToRender: [] = useMemo(
     () => files.filter((file: any) => file.name !== 'metadata.json'),
@@ -140,13 +143,11 @@ const Code = () => {
               <h2 className="contract-tab-title">Contract Byte Code</h2>
             </div>
             <div className="code-section-header-actions">
-              <ContractCopyBtn content={accountData?.data?.byteCode} />
-              <div className="btn-contract-icon">
-                <Link />
-              </div>
-              <div className="btn-contract-icon">
-                <FullScreeDataModal text={accountData?.data?.byteCode} />
-              </div>
+              <ConstractSideBtn
+                content={accountData?.data?.byteCode}
+                fileOf={null}
+                name="Contract Byte Code"
+              />
             </div>
           </div>
 
@@ -165,9 +166,9 @@ const Code = () => {
                       FOR_TABLET ? 900 : 320,
                     )}`}
               </p>
-              <button className="read-more-btn" onClick={showMoreRefHandler}>
+              {/* <button className="read-more-btn" onClick={showMoreRefHandler}>
                 {showMore ? 'Show less' : 'Show more'}
-              </button>
+              </button> */}
             </div>
           )}
         </div>
