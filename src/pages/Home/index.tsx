@@ -20,13 +20,10 @@ export const Home: React.FC = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setAppDataAsync();
+      getHomePageData().then((result: ResultHomePageData) => setData(result));
     }, 1000);
     return () => clearInterval(interval);
   }, []);
-
-  useEffect(() => {
-    getHomePageData().then((result: ResultHomePageData) => setData(result));
-  }, [data]);
 
   const header = useMemo(
     () =>
