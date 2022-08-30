@@ -207,7 +207,7 @@ const Method = ({ index, method, buttonName }: any) => {
             )}
           </div>
           <div className="result">
-            {method?.outputs?.length > 0 && (
+            {method.outputs.length && method.stateMutability === 'view' && (
               <div className="remaining">
                 <svg
                   style={{ marginRight: '0.2rem' }}
