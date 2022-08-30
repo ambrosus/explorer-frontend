@@ -39,11 +39,13 @@ const WriteContract = () => {
         if (chainId !== appChainId) {
           await switchChainId(ethereum);
         }
+
         ethereum.on('chainChanged', (newChainId: any) => {
           if (newChainId !== appChainId) {
             window.location.reload();
           }
         });
+
         setIsConnected(true);
       });
     } else {
