@@ -1,7 +1,4 @@
-import Link from 'assets/icons/Link';
-import ContractCopyBtn from 'components/ContractCopyBtn';
 import ConstractSideBtn from 'components/ContractSideBtn';
-import FullScreeDataModal from 'components/FullScreeDataModal';
 import Loader from 'components/Loader';
 import useDeviceSize from 'hooks/useDeviceSize';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
@@ -14,7 +11,7 @@ const Code = () => {
   const { address = '' }: TParams = useParams();
 
   const [abiToRender, setAbiToRender] = useState<any>([]);
-  const [showMore, setShowMore] = useState(false);
+  const [showMore] = useState(false);
   const showMoreRef = useRef<HTMLInputElement>(null);
 
   const { FOR_TABLET } = useDeviceSize();
@@ -36,16 +33,16 @@ const Code = () => {
     window.location.hash.replace('#', ''),
   );
 
-  useEffect(() => {
-    if (fileElement) {
-      fileElement.scrollIntoView({ behavior: 'smooth' });
-    }
-  }, [fileElement]);
-
   const filesToRender: [] = useMemo(
     () => files.filter((file: any) => file.name !== 'metadata.json'),
     [files],
   );
+
+  useEffect(() => {
+    if (fileElement && filesToRender.length) {
+      fileElement.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [fileElement, filesToRender.length]);
 
   useEffect(() => {
     const res = files
@@ -55,13 +52,6 @@ const Code = () => {
 
     setAbiToRender(res[0]);
   }, [isLoading]);
-
-  const showMoreRefHandler = () => {
-    setShowMore(!showMore);
-    if (showMoreRef.current) {
-      showMoreRef?.current?.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
 
   const JSONItem = useMemo(
     () => JSON.stringify(abiToRender, null, ' '),
@@ -106,20 +96,14 @@ const Code = () => {
         ) : (
           <Loader />
         )}
-      </div>
 
-      <div className="files">
-        <div className="code-section">
+        <div className="code-section" id={'abi'}>
           <div className="code-section-header">
             <div className="code-section-header-title">
               <h2 className="contract-tab-title">Contract Abi</h2>
             </div>
             <div className="code-section-header-actions">
-              <ConstractSideBtn
-                content={JSONItem}
-                fileOf={null}
-                name={'Contract Abi'}
-              />
+              <ConstractSideBtn content={JSONItem} fileOf={null} name={'abi'} />
             </div>
           </div>
           <div className="code-section-body">
@@ -134,10 +118,8 @@ const Code = () => {
             </pre>
           </div>
         </div>
-      </div>
 
-      <div className="files">
-        <div className="code-section">
+        <div className="code-section" id={'bytecode'}>
           <div className="code-section-header">
             <div className="code-section-header-title">
               <h2 className="contract-tab-title">Contract Byte Code</h2>
@@ -146,7 +128,7 @@ const Code = () => {
               <ConstractSideBtn
                 content={accountData?.data?.byteCode}
                 fileOf={null}
-                name="Contract Byte Code"
+                name="bytecode"
               />
             </div>
           </div>
@@ -166,9 +148,6 @@ const Code = () => {
                       FOR_TABLET ? 900 : 320,
                     )}`}
               </p>
-              {/* <button className="read-more-btn" onClick={showMoreRefHandler}>
-                {showMore ? 'Show less' : 'Show more'}
-              </button> */}
             </div>
           )}
         </div>
