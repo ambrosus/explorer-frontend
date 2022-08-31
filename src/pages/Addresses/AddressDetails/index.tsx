@@ -1,5 +1,4 @@
 import API from '../../../API/api';
-import NodeHeader from '../../../components/NodeHeader';
 import { TokenType, TransactionProps } from './address-details.interface';
 import { Content } from 'components/Content';
 import CopyBtn from 'components/CopyBtn';
@@ -72,6 +71,7 @@ const AddressDetails = () => {
 
   useEffect(() => {
     if (address?.trim() === '0x0000000000000000000000000000000000000000') {
+      console.log(1);
       window.location.replace(`/notfound`);
     }
     if (tokenToSorted?.length && tokenToSorted !== 'transfers') {
@@ -89,7 +89,7 @@ const AddressDetails = () => {
         .then((data: any) => !data.meta.search && navigate(`/notfound`))
         .catch(() => navigate(`/notfound`));
     }
-  }, []);
+  }, [address]);
 
   useEffect(() => {
     if (address || type || filtered || tokenToSorted) {
