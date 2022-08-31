@@ -1,4 +1,3 @@
-import ContractInput from '../ContractInput';
 import CheckCircle from 'assets/icons/CheckCircle';
 import Minus from 'assets/icons/Minus';
 import Plus from 'assets/icons/Plus';
@@ -23,6 +22,7 @@ const Method = ({ index, method, buttonName }: any) => {
   const contractCall = async () => {
     setError('');
     setResult(null);
+
     try {
       setIsLoading(true);
       let provider = new ethers.providers.JsonRpcProvider(
@@ -66,9 +66,17 @@ const Method = ({ index, method, buttonName }: any) => {
               ),
             ];
 
-      let value = toSend?.length
-        ? await contract?.[`${method.name}`](...toSend)
-        : await contract?.[`${method.name}`]();
+      let value;
+
+      if (toSend?.length) {
+        value = await contract?.[`${method.name}`](...toSend).then(
+          (res: any) => {
+            return res.wait ? res.wait() : res;
+          },
+        );
+      } else {
+        value = await contract?.[`${method.name}`]();
+      }
 
       if (value) {
         setResult(value);
@@ -87,15 +95,22 @@ const Method = ({ index, method, buttonName }: any) => {
   const toggleOpen = () => {
     setOpen(!open);
     setError('');
-    setResultMessage(null);
+
+    if (!(method.stateMutability === 'view' && !method.inputs.length)) {
+      setResult(null);
+      setResultMessage(null);
+    }
+
     setInputValue('');
     setPaybleValue(0);
   };
 
   useEffect(() => {
-    if (filtered === 'read' && !method?.inputs.length) {
-      contractCall();
-    }
+    (async () => {
+      if (method.stateMutability === 'view' && !method.inputs.length) {
+        await contractCall();
+      }
+    })();
   }, []);
 
   return (
@@ -166,8 +181,10 @@ const Method = ({ index, method, buttonName }: any) => {
             )}
             {((filtered === 'read' && method?.inputs.length) ||
               filtered === 'write') && (
-              <button className="contract-method" onClick={contractCall}>
-                <span className="contract-method-btn">{buttonName} </span>
+              <div className="contract-method">
+                <button className="contract-method-btn" onClick={contractCall}>
+                  {buttonName}
+                </button>
                 {isLoading && <Spinner />}
 
                 {result && resultMessage && (
@@ -186,11 +203,11 @@ const Method = ({ index, method, buttonName }: any) => {
                     </span>
                   </>
                 )}
-              </button>
+              </div>
             )}
           </div>
           <div className="result">
-            {method?.outputs?.length > 0 && (
+            {method.outputs.length && method.stateMutability === 'view' && (
               <div className="remaining">
                 <svg
                   style={{ marginRight: '0.2rem' }}
@@ -202,7 +219,7 @@ const Method = ({ index, method, buttonName }: any) => {
                 >
                   <path d="M1 0V9.5H7.5" stroke="#A6B0C3" />
                 </svg>
-                remaining {method.outputs[0].type}:
+                {method.outputs[0].type}:
               </div>
             )}
             {result && filtered !== 'write' && (

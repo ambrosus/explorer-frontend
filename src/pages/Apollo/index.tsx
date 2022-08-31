@@ -54,7 +54,7 @@ export const Apollo = () => {
       </Content.Header>
       <Content.Body>
         <TabsNew
-          tableHeader={() => <AtlasBlocksHeader />}
+          tableHeader={() => <AtlasBlocksHeader pageTitle="apollos" />}
           sortOptions={apollosSorting}
           fetchData={API.getApollos}
           initSortTerm={'totalBundles'}

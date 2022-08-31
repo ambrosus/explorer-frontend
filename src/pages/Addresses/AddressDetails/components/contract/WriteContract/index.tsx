@@ -39,11 +39,13 @@ const WriteContract = () => {
         if (chainId !== appChainId) {
           await switchChainId(ethereum);
         }
+
         ethereum.on('chainChanged', (newChainId: any) => {
           if (newChainId !== appChainId) {
             window.location.reload();
           }
         });
+
         setIsConnected(true);
       });
     } else {
@@ -69,9 +71,6 @@ const WriteContract = () => {
 
       <div className="methods">
         {contractAbi
-          // .filter(
-          //   (method: any) => !method.constant && method.type === 'function',
-          // )
           .filter(
             (method: any) =>
               method.stateMutability !== 'view' &&
