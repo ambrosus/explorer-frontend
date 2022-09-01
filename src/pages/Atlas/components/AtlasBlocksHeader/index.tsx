@@ -4,7 +4,7 @@ import { useRef, useState, FC } from 'react';
 
 type IAtlasBlocksHeader = {
   pageTitle?: string;
-}
+};
 
 const AtlasBlocksHeader: FC<IAtlasBlocksHeader> = ({ pageTitle }) => {
   const [isShow, setIsShow] = useState(false);
@@ -28,7 +28,7 @@ const AtlasBlocksHeader: FC<IAtlasBlocksHeader> = ({ pageTitle }) => {
         )}
       </div>
 
-      <div className="atlas_blocks_header_cell">Total { pageTitle }</div>
+      <div className="atlas_blocks_header_cell">Total {pageTitle}</div>
       <div className="atlas_blocks_header_cell">Balance</div>
       <div className="atlas_blocks_header_cell">Stake</div>
     </div>
