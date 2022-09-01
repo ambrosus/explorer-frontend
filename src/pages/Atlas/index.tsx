@@ -14,7 +14,7 @@ const sortOptions: TAtlasSortProps[] = [
     value: 'address',
   },
   {
-    label: 'Total atlases',
+    label: 'Total bundles',
     value: 'totalBundles',
   },
   {
@@ -53,7 +53,7 @@ export const Atlas = () => {
       </Content.Header>
       <Content.Body>
         <TabsNew
-          tableHeader={() => <AtlasBlocksHeader pageTitle="atlases" />}
+          tableHeader={() => <AtlasBlocksHeader pageTitle="bundles" />}
           sortOptions={sortOptions}
           fetchData={API.getAtlases}
           initSortTerm={'totalBundles'}
