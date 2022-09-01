@@ -1,32 +1,35 @@
 .find_wide_mobile {
   display: flex;
   margin: 20px auto;
-  border: 1px solid $main-light;
-  border-radius: 16px;
+  border: 1px solid #A2B2D8;
+  border-radius: 24px;
   min-width: 320px;
   width: 85%;
-  background-color: $black;
-  border-radius: 16px;
 
   &_input {
-    background-color: $black;
     height: 48px;
     border: 0px;
-    border-radius: 16px;
+    border-radius: 24px;
     flex: 20;
     padding: 12px;
     color: #fff;
+
+    &::placeholder {
+      color: #A2B2D8;
+    }
   }
 
   &_btn {
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 16px;
-    border: 0px;
+    border-radius: 24px;
     flex: 1;
     min-width: 50px;
-    background-color: $black;
+
+    svg path {
+      fill: #A2B2D8;
+    }
   }
 }
 

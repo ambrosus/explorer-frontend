@@ -23,7 +23,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ menu, setIsShow, isShow }) => {
         </button>
         {isShow && (
           <div className="mobile_menu_modal">
-            <span style={{ backgroundColor: '#212121' }}>
+            <span>
               <FindWideMobile setIsShow={setIsShow} />
             </span>
             {menu}

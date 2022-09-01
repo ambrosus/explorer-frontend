@@ -6,21 +6,17 @@
   width: 100px;
 
   &_btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 40px;
-    width: 40px;
-    border: 1px solid #808a9d;
-    border-radius: 16px;
-    background-color: #212121;
+    svg rect {
+      fill: #1D1D1D;
+    }
   }
 
   &_modal {
+    box-shadow: 0px 16px 32px 0px #698EE233;
     display: grid;
     grid-template-rows: repeat(8, auto);
     position: absolute;
-    background-color: #212121;
+    background-color: #fff;
     right: 0px;
     margin-top: 40px;
     width: 360px;

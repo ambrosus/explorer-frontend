@@ -3,9 +3,10 @@ import { store } from './state';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { ReactQueryDevtools } from 'react-query/devtools';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
+import { Web3ReactProvider } from '@web3-react/core';
+import { providers } from 'ethers';
 
 /*
  * @param {Provider} store - redux store
@@ -14,12 +15,16 @@ import { BrowserRouter } from 'react-router-dom';
  */
 const queryClient = new QueryClient();
 
+const getLibrary = (provider:any = null) => new providers.Web3Provider(provider);
+
 export const App = (): JSX.Element => (
   <QueryClientProvider client={queryClient}>
     <Provider store={store}>
-      <BrowserRouter>
-        <Main />
-      </BrowserRouter>
+      <Web3ReactProvider getLibrary={getLibrary}>
+        <BrowserRouter basename={process.env.PUBLIC_URL}>
+          <Main />
+        </BrowserRouter>
+      </Web3ReactProvider>
     </Provider>
   </QueryClientProvider>
 );
