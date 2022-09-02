@@ -1,10 +1,12 @@
 import AtlasHeaderStatusModal from './AtlasHeaderStatusModal';
-import ArrowDown from 'assets/icons/Arrows/ArrowDown';
-import ArrowUp from 'assets/icons/Arrows/ArrowUp';
 import { useOnClickOutside } from 'hooks/useOnClickOutside';
-import { useRef, useState } from 'react';
+import { useRef, useState, FC } from 'react';
 
-const AtlasBlocksHeader = () => {
+type IAtlasBlocksHeader = {
+  pageTitle?: string;
+};
+
+const AtlasBlocksHeader: FC<IAtlasBlocksHeader> = ({ pageTitle }) => {
   const [isShow, setIsShow] = useState(false);
   const statusRef = useRef(null);
   const toggleStatus = () => setIsShow(!isShow);
@@ -26,7 +28,7 @@ const AtlasBlocksHeader = () => {
         )}
       </div>
 
-      <div className="atlas_blocks_header_cell">Total bundles</div>
+      <div className="atlas_blocks_header_cell">Total {pageTitle}</div>
       <div className="atlas_blocks_header_cell">Balance</div>
       <div className="atlas_blocks_header_cell">Stake</div>
     </div>

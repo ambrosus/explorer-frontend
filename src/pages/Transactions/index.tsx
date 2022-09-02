@@ -1,17 +1,13 @@
 import API from '../../API/api';
-import Loader from '../../components/Loader';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { numberWithCommas } from '../../utils/helpers';
 import { transactionsTabs } from '../../utils/sidePages';
-import AddressBlock from '../Addresses/AddressDetails/components/AddressBlocks/AddressBlock';
-import AddressBlocksHeader from '../Addresses/AddressDetails/components/AddressBlocksHeader';
+import AddressBlock from '../Addresses/AddressDetails/components/AddressBlocks';
 import { Account } from '../Atlas/atlas.interface';
 import TabsNew from './components/TabsNew';
 import { Content } from 'components/Content';
 import moment from 'moment';
-import React, { useEffect, useState } from 'react';
-import { useInView } from 'react-intersection-observer';
-import { useNavigate } from 'react-router-dom';
+import React from 'react';
 
 export const Transactions = () => {
   const { data: appData } = useTypedSelector((state: any) => state.app);
@@ -34,7 +30,7 @@ export const Transactions = () => {
           withoutCalendar
           tabs={transactionsTabs}
           fetchData={API.getTransactions}
-          fetchParams={{ type: '' }}
+          fetchParams={{ type: '', page: '' }}
           render={(txs: Account[]) =>
             txs.map((tx: any, i: number) => (
               <AddressBlock
@@ -53,7 +49,7 @@ export const Transactions = () => {
                 isTableColumn="address_blocks_cells"
                 isIcon={true}
                 inners={tx.inners}
-                hashOnClick={true}
+                status={tx.status}
               />
             ))
           }

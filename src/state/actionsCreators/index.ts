@@ -1,52 +1,42 @@
 import { actionTypes } from '../action-types';
-import { AppDataAction, FiltersAction, PositionAction } from '../actions';
+import {
+  AddressesDataAction,
+  AppDataAction,
+  FiltersAction,
+  PositionAction,
+  SourcifyesDataAction,
+} from '../actions';
 import API from 'API/api';
+import SOURCIFYAPI from 'API/api';
 import { Dispatch } from 'redux';
 import { CLIENT_VERSION } from 'utils/constants';
 
-export const setAppDataAsync = () => {
-  /*
-  @param {void}
-  @returns {Promise<AppDataAction>}
-   */
-
-  return async (dispatch: Dispatch<AppDataAction>) => {
+export const setAppDataAsync =
+  (address?: any) => (dispatch: Dispatch<AppDataAction>) => {
     dispatch({
       type: actionTypes.SET_APP_DATA__START,
     });
     try {
-      //TODO промис ол
-      const netInfo = await API.getInfo();
-      // https://token.ambrosus.io/price
-      const tokenInfo = await API.getToken().then(async (info = {}) => {
-        const totalSupply = await API.getTokenTotalSupply().then(
-          (totalSupplyToken = {}) => {
-            return totalSupplyToken;
-          },
-        );
-        info.total_supply = totalSupply;
-        return info;
-      });
-      const totalPriceToken = await API.getTokenMountPrice();
-      const { total_price_usd } = await API.getTokenMountPrice().then(
-        (res) => res,
-      );
+      const netInfo = API.getInfo();
+      const tokenInfo = API.getToken();
+      const total_price_usd = API.getTokenMountPrice();
 
-      const result = {
-        gitTagVersion: CLIENT_VERSION,
-        netInfo: netInfo,
-        tokenInfo: tokenInfo,
-        totalPriceToken: totalPriceToken,
-        total_price_usd: total_price_usd,
-      };
-      /*
-       * @param {string} url - адрес запроса
-       * @returns {Promise<AppDataAction>}
-       */
-      dispatch({
-        type: actionTypes.SET_APP_DATA__SUCCESS,
-        payload: result,
-      });
+      Promise.allSettled([netInfo, tokenInfo, total_price_usd]).then(
+        (res: any) => {
+          //TODO refactor
+          dispatch({
+            type: actionTypes.SET_APP_DATA__SUCCESS,
+            payload: {
+              gitTagVersion: CLIENT_VERSION,
+              netInfo: res[0].value,
+              tokenInfo: {
+                ...res[1].value,
+                total_price_usd: res[2].value.total_price_usd,
+              },
+            },
+          });
+        },
+      );
     } catch (error: any) {
       dispatch({
         type: actionTypes.SET_APP_DATA__FAIL,
@@ -54,7 +44,6 @@ export const setAppDataAsync = () => {
       });
     }
   };
-};
 
 export const setPosition: any = (promiseFunc: any, ...params: any) => {
   return async (dispatch: Dispatch<PositionAction>) => {
@@ -94,41 +83,59 @@ export const clearFilters: any = () => {
   };
 };
 
-// export const getBundlesData = (
-//   address: any = null,
-//   params = { limit: 20, next: null },
-// ) => {
-//   return async (dispatch: Dispatch<BunleDataAction>) => {
-//     dispatch({
-//       type: actionTypes.SET_BUNDLE_DATA__START,
-//     });
-//     try {
-//       const bundle = await API.getBundle(address);
-//       const bundlesData = await API.getBundles({
-//         params,
-//       });
-//       const bundleAssets = await API.getBundleAssets(address, {
-//         params,
-//       });
-//       const bundleEvents = await API.getBundleEvents(address, {
-//         params,
-//       });
-//       const result = {
-//         bundle: bundle,
-//         bundlesData: bundlesData,
-//         bundleAssets: bundleAssets,
-//         bundleEvents: bundleEvents,
-//       };
+export const getAddressData =
+  (address: any) => (dispatch: Dispatch<AddressesDataAction>) => {
+    dispatch({
+      type: actionTypes.GET_ADDRESS_DATA__START,
+    });
+    try {
+      const apolloInfo = API.getApollo(address);
+      const atlasInfo = API.getAtlas(address);
+      const bundleInfo = API.getBundle(address);
+      const accountInfo = API.getAccount(address);
 
-//       dispatch({
-//         type: actionTypes.SET_BUNDLE_DATA__SUCCESS,
-//         payload: result,
-//       });
-//     } catch (error: any) {
-//       dispatch({
-//         type: actionTypes.SET_BUNDLE_DATA__FAIL,
-//         payload: error.message,
-//       });
-//     }
-//   };
-// };
+      Promise.allSettled([apolloInfo, bundleInfo, atlasInfo, accountInfo]).then(
+        (res: any) =>
+          dispatch({
+            type: actionTypes.GET_ADDRESS_DATA__SUCCESS,
+            payload: {
+              apolloInfo: res[0].value,
+              bundleInfo: res[1].value,
+              atlasInfo: res[2].value,
+              accountInfo: res[3].value,
+            },
+          }),
+      );
+    } catch (error: any) {
+      dispatch({
+        type: actionTypes.GET_ADDRESS_DATA__FAIL,
+        payload: error.message,
+      });
+    }
+  };
+
+export const getContractAddressData =
+  (address: any) => (dispatch: Dispatch<SourcifyesDataAction>) => {
+    dispatch({
+      type: actionTypes.GET_SOURCIFY_DATA__START,
+    });
+    try {
+      const accountInfo = API.getAccount(address);
+      const contractInfo = SOURCIFYAPI.getContract(address);
+
+      Promise.allSettled([accountInfo, contractInfo]).then((res: any) =>
+        dispatch({
+          type: actionTypes.GET_SOURCIFY_DATA__SUCCESS,
+          payload: {
+            accountInfo: res[0].value,
+            contractInfo: res[1].value,
+          },
+        }),
+      );
+    } catch (error: any) {
+      dispatch({
+        type: actionTypes.GET_SOURCIFY_DATA__FAIL,
+        payload: error.response,
+      });
+    }
+  };

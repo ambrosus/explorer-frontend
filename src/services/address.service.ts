@@ -78,7 +78,12 @@ const sortedLatestTransactionsData = async (
         params: {
           page: page,
           pageSize: 1000,
-          contract: token.contract,
+          contract:
+            token.contract !== 'code' &&
+            token.contract !== 'read' &&
+            token.contract !== 'write'
+              ? token.contract
+              : '',
         },
       });
       return tokensTransactions.txids.map(async (tx: string) => {
@@ -140,7 +145,12 @@ const blockBookApiTokensSearch: any = async (
           params: {
             page: page,
             pageSize: 1000,
-            contract: token.contract,
+            contract:
+              token.contract !== 'code' &&
+              token.contract !== 'read' &&
+              token.contract !== 'write'
+                ? token.contract
+                : '',
           },
         });
         return (
@@ -177,7 +187,12 @@ const bbDataFilter = async (
       params: {
         page: page,
         pageSize: !type ? limit : selectedTokenFilter ? 1000 : 100,
-        contract: selectedTokenFilter ? selectedTokenFilter : '',
+        contract:
+          selectedTokenFilter !== 'code' &&
+          selectedTokenFilter !== 'read' &&
+          selectedTokenFilter !== 'write'
+            ? selectedTokenFilter
+            : '',
       },
     });
 
@@ -260,6 +275,8 @@ async function explorerData(address: string, { page, limit, type }: any) {
         token: 'Amber',
         symbol: 'AMB',
         txFee: ethers.utils.formatUnits(t?.gasCost?.wei, 18),
+        inners: t?.inners,
+        status: t?.status,
       };
     });
   } catch (e) {
@@ -285,7 +302,7 @@ export const getDataForAddress = async (address: string, params: any) => {
     //TODO дважды метод
     const transactionsAll: any = removeArrayDuplicates(
       [...bbTxData, ...exploreData],
-      'block',
+      'txHash',
     );
 
     return {

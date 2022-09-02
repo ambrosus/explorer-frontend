@@ -1,61 +1,54 @@
+import HeadInfo from 'components/HeadInfo';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 
 const MainInfoApollo = () => {
   const { data: appData } = useTypedSelector((state: any) => state.app);
+
   const {
-    apollos: { total, online, offline, connecting },
-    avgBlockTime,
-  } = appData?.netInfo ?? {
-    apollos: {
-      total: 0,
-      online: 0,
-      offline: 0,
-      connecting: 0,
+    total = 0,
+    online = 0,
+    offline = 0,
+    connecting = 0,
+  } = appData?.netInfo?.apollos || 0;
+
+  const { avgBlockTime = 0 } = appData?.netInfo || 0;
+
+  const itemFirst: any = [
+    {
+      _id: 1,
+      name: 'TOTAL NODES',
+      value: total,
     },
-    avgBlockTime: 0,
-  };
+    {
+      _id: 2,
+      name: 'ONLINE',
+      value: online,
+      style: {
+        color: '#1acd8c',
+      },
+    },
+    {
+      _id: 3,
+      name: 'OFFLINE',
+      value: offline,
+    },
+    {
+      _id: 4,
+      name: 'CONNECTING',
+      value: connecting,
+    },
+    {
+      _id: 5,
+      name: 'Avg block / prop. time',
+      value: `${avgBlockTime} sec`,
+    },
+  ];
 
   return (
-    <div className="main_info_apollo">
+    <>
       <h1 className="main_info_apollo_heading">Apollo Nodes</h1>
-      <div className="main_info_apollo_table">
-        <div className="main_info_apollo_cell">
-          <span className="main_info_apollo_cell_primary">TOTAL NODES</span>
-          <span className="main_info_apollo_cell_secondary">{total || 0}</span>
-        </div>
-        <div className="main_info_apollo_cell">
-          <span className="main_info_apollo_cell_primary">ONLINE</span>
-          <span
-            className="main_info_apollo_cell_secondary"
-            style={{
-              color: '#1acd8c',
-            }}
-          >
-            {online || 0}
-          </span>
-        </div>
-        <div className="main_info_apollo_cell">
-          <span className="main_info_apollo_cell_primary">OFFLINE</span>
-          <span className="main_info_apollo_cell_secondary">
-            {offline || 0}
-          </span>
-        </div>
-        <div className="main_info_apollo_cell">
-          <span className="main_info_apollo_cell_primary">CONNECTING</span>
-          <span className="main_info_apollo_cell_secondary">
-            {connecting || 0}
-          </span>
-        </div>
-        <div className="main_info_apollo_cell">
-          <span className="main_info_apollo_cell_primary">
-            Avg block / prop. time
-          </span>
-          <span className="main_info_apollo_cell_secondary">
-            {avgBlockTime} sec
-          </span>
-        </div>
-      </div>
-    </div>
+      <HeadInfo data={itemFirst} className="head_info" />
+    </>
   );
 };
 

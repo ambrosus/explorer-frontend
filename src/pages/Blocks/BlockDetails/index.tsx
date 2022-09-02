@@ -1,5 +1,6 @@
 import { Content } from '../../../components/Content';
 import Loader from '../../../components/Loader';
+import { useActions } from '../../../hooks/useActions';
 import useSortData from '../../../hooks/useSortData';
 import { useTypedSelector } from '../../../hooks/useTypedSelector';
 import {
@@ -13,9 +14,13 @@ import BlockHeader from './components/BlockHeader';
 import BlockHeaderInfo from './components/BlockHeaderInfo';
 import HeadingInfo from './components/HeadingInfo';
 import { MainInfoBlockTable } from './components/MainInfoBlockTable';
+import HeadInfo from 'components/HeadInfo';
+import useDeviceSize from 'hooks/useDeviceSize';
+import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
-import { useNavigate, useParams } from 'react-router-dom';
+import { NavLink, useNavigate, useParams } from 'react-router-dom';
+import { sliceData10, sliceData5 } from 'utils/helpers';
 
 export interface IBlock {
   miner: string;
@@ -37,14 +42,29 @@ interface IBlocksData<T> {
 }
 
 export const BlockDetails = () => {
+  const { setAppDataAsync } = useActions();
   const { address }: TParams = useParams();
-  const [block, setBlock] = useState<IBlock[] | null | undefined>(null);
+  const [block, setBlock] = useState<any>(null);
   const navigate = useNavigate();
   const { data: appData } = useTypedSelector((state: any) => state.app);
-  const { lastBlock } = appData?.netInfo ?? {
-    lastBlock: {
-      number: 0,
-    },
+  const {
+    number,
+    blockRewards = 0,
+    totalTransactions = 0,
+    size = 0,
+    timestamp = 0,
+    parentHash = '',
+    hash = 0,
+    stateRoot = 0,
+    extraData,
+  } = block || {};
+
+  const txCount = blockRewards?.length + totalTransactions || 0;
+  const { lastBlock } = appData?.netInfo || 0;
+  const confirmations = lastBlock?.number - number;
+
+  const blockStatus = (confirmations: any) => {
+    return confirmations > 0 ? 'Confirmed' : 'Unconfirmed';
   };
 
   const { data, isError, isLoading } = useQuery(
@@ -67,17 +87,98 @@ export const BlockDetails = () => {
   );
 
   useEffect(() => {
+    const interval = setInterval(() => {
+      setAppDataAsync();
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
     if (!isLoading) setBlock(data?.data);
   }, [isLoading]);
 
   if (isError) navigate(`/notfound`);
+  const { FOR_TABLET } = useDeviceSize();
+
+  const itemFirst: any = [
+    {
+      name: 'STATUS',
+      value: blockStatus(confirmations),
+      style: {
+        color: '#1acd8c',
+      },
+    },
+    {
+      name: 'CONFIRMATIONS',
+      value: confirmations < 0 ? 0 : confirmations || 0,
+    },
+    {
+      name: 'TXS IN THIS BLOCK',
+      value: txCount,
+    },
+    {
+      name: 'SIZE',
+      value: size,
+    },
+    {
+      name: 'CREATED',
+      value: moment(timestamp * 1000).fromNow(),
+    },
+  ];
+
+  const itemSecond: any = [
+    {
+      name: 'HASH',
+      value: sliceData10(hash, FOR_TABLET ? 20 : 10),
+    },
+    {
+      name: 'PARENT HASH',
+      value: (
+        <NavLink
+          className="address_blocks_icon head_info_cells_secondary"
+          to={`/blocks/${parentHash}`}
+        >
+          {sliceData10(parentHash, FOR_TABLET ? 20 : 10)}
+        </NavLink>
+      ),
+    },
+    {
+      name: 'STATE ROOT HASH ',
+      value: sliceData10(stateRoot, FOR_TABLET ? 20 : 10),
+    },
+    {
+      name: 'DATA',
+      value: sliceData10(extraData, FOR_TABLET ? 20 : 10),
+    },
+  ];
 
   return (
     <Content isExpanded>
       <Content.Header>
-        <HeadingInfo block={block} />
-        <BlockHeaderInfo lastBlock={lastBlock} block={block} />
-        <MainInfoBlockTable block={block} />
+        <div className="block_main_title">
+          <div className="block_main_title__in">
+            <h1 className="block_main_title_heading">Block details</h1>
+            <span className="block_main_title_heading_block">
+              {block?.number ?? 0}
+            </span>
+          </div>
+          <div className="block_main_title__in">
+            <div className="block_main_title_validator">Validator </div>
+            <NavLink
+              to={`/apollo/${block?.miner}`}
+              className="block_main_title_address"
+            >
+              {block?.miner ?? ''}
+            </NavLink>
+          </div>
+        </div>
+
+        <HeadInfo data={itemFirst} className="head_info" />
+        <HeadInfo
+          data={itemSecond}
+          styleCell={FOR_TABLET ? { flexBasis: '50%' } : { flexBasis: '64px' }}
+          className="head_info"
+        />
       </Content.Header>
       {renderData?.data?.length && (
         <Content.Body>

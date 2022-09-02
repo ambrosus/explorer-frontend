@@ -1,5 +1,5 @@
 import { MainInfoProps } from '../../home.interfaces';
-import getMainInfoIcon from 'config';
+import getMainInfoIcon from 'config/index';
 import React from 'react';
 import { currenCurrency, nameCurrency, numberWithCommas } from 'utils/helpers';
 

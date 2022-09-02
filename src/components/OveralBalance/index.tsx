@@ -1,14 +1,21 @@
+import { numberWithCommas } from '../../utils/helpers';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import { OverallBalanceProps } from 'pages/Addresses/AddressDetails/address-details.interface';
 import React, { useEffect, useState } from 'react';
 
-//TODO refactor
-let amountInUsdBuffer = 0;
+let buffer: string | number = '0';
+let dollarBuffer: string | number = '';
+let addressBuffer = '';
 
-const OverallBalance: React.FC<OverallBalanceProps> = ({ addressBalance }) => {
-  const [amountInUsd, setAmountInUsd] = useState(amountInUsdBuffer);
+const OverallBalance: React.FC<OverallBalanceProps> = ({
+  addressBalance,
+  address,
+}) => {
+  const [amountInUsd, setAmountInUsd] = useState(
+    address !== addressBuffer ? 0 : +dollarBuffer,
+  );
   const [addressBalanceBuffer, setAddressBalanceBuffer] = useState(
-    +addressBalance,
+    address !== addressBuffer ? 0 : +buffer,
   );
   const { data: appData } = useTypedSelector((state: any) => state.app);
 
@@ -17,10 +24,12 @@ const OverallBalance: React.FC<OverallBalanceProps> = ({ addressBalance }) => {
       //TODO !addressBalance
       addressBalance !== undefined &&
       addressBalance !== null &&
-      appData?.total_price_usd
+      appData?.tokenInfo?.total_price_usd
     ) {
-      const usdPrice = appData.total_price_usd * +addressBalance;
-      amountInUsdBuffer = usdPrice;
+      addressBuffer = address;
+      buffer = addressBalance;
+      const usdPrice = appData?.tokenInfo?.price_usd * +addressBalance;
+      dollarBuffer = usdPrice;
       setAmountInUsd(usdPrice);
       setAddressBalanceBuffer(+addressBalance);
     }
@@ -41,13 +50,17 @@ const OverallBalance: React.FC<OverallBalanceProps> = ({ addressBalance }) => {
         }}
       >
         <span className="address_details_info_text_span universall_dark">
-          {`${isNaN(addressBalanceBuffer) ? 0.0 : addressBalanceBuffer} AMB`}{' '}
+          {`${
+            isNaN(+addressBalanceBuffer)
+              ? 0.0
+              : numberWithCommas(addressBalanceBuffer)
+          } AMB`}{' '}
         </span>
         <span className="address_details_info_text_span universall_dark">
           /
         </span>
         <span className="address_details_info_text_span universall_light2">{`$ ${
-          amountInUsd === NaN ? 0.0 : amountInUsd.toFixed(2)
+          amountInUsd === NaN ? 0.0 : numberWithCommas(amountInUsd.toFixed(2))
         }`}</span>
       </div>
     </div>

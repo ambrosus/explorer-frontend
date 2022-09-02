@@ -114,12 +114,14 @@ export default function removeArrayDuplicates<
   });
 }
 
-export const numWithCommas = (val: number) => {
+export const numWithCommas = (val: number | string) => {
   /*
    * @param {number} x - Number to format
    * @returns {string}
    */
-  return val ? val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : 0;
+  if (typeof val === 'string') {
+    return val.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  } else return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 };
 
 export const isFloat = (n: number | string) => {
@@ -301,7 +303,7 @@ export function timeSince(date: any) {
   return Math.floor(seconds) + ' second' + (seconds !== 1 ? 's' : '');
 }
 
-export const statusMessage = (node: any, nodeName: string) => {
+export const statusMessage = (node: any = {}, nodeName: string) => {
   if (node.state === 'RETIRED') {
     return 'Retired';
   }
@@ -356,9 +358,10 @@ export const statusMessage = (node: any, nodeName: string) => {
     }
   }
 };
-export const ambToUSD = (amb: any, usd_price: any) => {
+export const ambToUSD = (amb: any = 0, usd_price: any = 0) => {
   let result = amb * parseFloat(usd_price);
-  return result.toFixed(7);
+
+  return result.toFixed(2);
 };
 
 export function scientificToDecimal(num: any) {
@@ -416,3 +419,20 @@ export const calcBundleTime = (time: number | null | undefined) => {
 
 export const bundleExpirationTime = (bundle: any) =>
   bundle.uploadTimestamp + bundle.storagePeriods * 13 * 28 * 24 * 60 * 60;
+
+export const firstLetterUp = (str = ' ') => str[0].toUpperCase() + str.slice(1);
+
+export const diffStyleToCell = (
+  value1: number | string = 0,
+  value2: number | string = 0,
+): JSX.Element => {
+  return (
+    <>
+      <span>{numberWithCommas((+value1).toFixed(2))}</span>
+      {` AMB / `}
+      <span style={{ fontWeight: 400 }}>
+        {`$ ${numberWithCommas((+value2).toFixed(2))}`}
+      </span>
+    </>
+  );
+};

@@ -1,5 +1,4 @@
 import API from '../API/api';
-import { useDebounce } from './useDebounce';
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
@@ -10,42 +9,54 @@ const useSearch = (setIsShow: Function) => {
   const [link, setLink] = useState<string>('');
   const navigate = useNavigate();
 
-  const { isLoading } = useQuery(['search', name], () => API.searchItem(name), {
-    onSuccess: (data: any) => {
-      if (!data) {
+  const { isLoading } = useQuery(
+    ['search', name],
+    () => (name?.length > 0 ? API.searchItem(name) : null),
+    {
+      onSuccess: (data: any) => {
+        if (!data) {
+          setErr(true);
+        } else {
+          if (
+            name.trim() === '0x0000000000000000000000000000000000000000' ||
+            Number(name.trim()) === 0 ||
+            !name.length
+          ) {
+            setErr(true);
+            return;
+          }
+          let searchTerm = data.data;
+          setErr(false);
+          if (searchTerm && searchTerm.term !== undefined) {
+            const urlParts = data?.meta.search.trim().split('/');
+            urlParts[urlParts.length - 1] = searchTerm.term;
+            searchTerm = urlParts.join('/');
+          } else {
+            searchTerm = data?.meta.search;
+          }
+          if (data.meta.search && !searchTerm.trim().includes(['hermes'])) {
+            setLink(`/${searchTerm.trim()}/`);
+          } else {
+            setErr(true);
+          }
+        }
+      },
+      onError: () => {
         setErr(true);
-      } else {
-        if (
-          name.trim() === '0x0000000000000000000000000000000000000000' ||
-          Number(name.trim()) === 0 ||
-          !name.length
-        ) {
-          setErr(true);
-          return;
-        }
-        let searchTerm = data.data;
-        setErr(false);
-        if (searchTerm && searchTerm.term !== undefined) {
-          const urlParts = data?.meta.search.trim().split('/');
-          urlParts[urlParts.length - 1] = searchTerm.term;
-          searchTerm = urlParts.join('/');
-        } else {
-          searchTerm = data?.meta.search;
-        }
-        if (data.meta.search && !searchTerm.trim().includes(['hermes'])) {
-          setLink(`/${searchTerm.trim()}/`);
-        } else {
-          setErr(true);
-        }
-      }
+      },
     },
-    onError: () => {
-      setErr(true);
-    },
-  });
+  );
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (
+      name.trim() === '0x0000000000000000000000000000000000000000' ||
+      Number(name.trim()) === 0 ||
+      !name.length
+    ) {
+      setErr(true);
+      return;
+    }
     if (!name) {
       return;
     }

@@ -5,7 +5,8 @@ export const getBundleData = async (bundleId: any) => {
   return data;
 };
 
-export const getBundlesData = async (sortTerm: any, next: any) => {
+export const getBundlesData = async (params = { next: null }) => {
+  const { next } = params;
   const data: any = await API.getBundles({
     limit: 20,
     next: next,
@@ -13,29 +14,26 @@ export const getBundlesData = async (sortTerm: any, next: any) => {
   return data;
 };
 
-export const getBundleWithEntriesData = async (...arg: any[]) => {
-  // const bundleId = arg[2];
-  const [bundleId] = arg;
-
-  const data: any = await API.getBundleWithEntries(bundleId);
-  return data;
-};
-
-export const getBundleAssetsData = async (...arg: any[]) => {
-  const [sortTerm, next, bundleId] = arg;
-
+export const getBundleAssetsData = async (
+  bundleId: any,
+  params = { limit: 20, next: null },
+) => {
+  const { limit, next } = params;
   const data: any = await API.getBundleAssets(bundleId, {
-    limit: 20,
+    limit: limit,
     next: next,
   });
   return data;
 };
 
-export const getBundleEventsData = async (...arg: any[]) => {
-  const [sortTerm, next, bundleId] = arg;
+export const getBundleEventsData = async (
+  bundleId: any,
+  params = { limit: 20, next: null },
+) => {
+  const { limit, next } = params;
 
   const data: any = await API.getBundleEvents(bundleId, {
-    limit: 20,
+    limit: limit,
     next: next,
   });
   return data;

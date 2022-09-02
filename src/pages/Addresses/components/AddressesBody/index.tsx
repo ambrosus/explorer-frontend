@@ -17,6 +17,7 @@ const AddressesBody: FC<AddressesBodyProps> = ({
   lastCardRef,
 }) => {
   const { data: appData } = useTypedSelector((state: any) => state.app);
+
   const totalSupply = appData && appData.tokenInfo.total_supply;
   const ambBalance = balance && balance.ether ? balance.ether : 0;
   const holdingPercentage = (ambBalance / totalSupply) * 100;

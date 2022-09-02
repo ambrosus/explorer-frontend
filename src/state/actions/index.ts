@@ -55,23 +55,42 @@ interface ClearFiltersTokenAction {
 }
 export type FiltersAction = SetFiltersTokenAction | ClearFiltersTokenAction;
 
-// ***** Bundle Data Action *****
-
-interface SetBundleDataAction {
-  type: actionTypes.SET_BUNDLE_DATA__START;
+// ***** Addresses Data Action *****
+interface GetAddressDataAction {
+  type: actionTypes.GET_ADDRESS_DATA__START;
 }
 
-interface SetBundleDataActionSuccess {
-  type: actionTypes.SET_BUNDLE_DATA__SUCCESS;
+interface GetAddressDataActionSuccess {
+  type: actionTypes.GET_ADDRESS_DATA__SUCCESS;
   payload: object | null;
 }
 
-interface SetBundleDataActionFailure {
-  type: actionTypes.SET_BUNDLE_DATA__FAIL;
+interface GetAddressDataActionFailure {
+  type: actionTypes.GET_ADDRESS_DATA__FAIL;
   payload: object | string | null;
 }
 
-export type BunleDataAction =
-  | SetBundleDataAction
-  | SetBundleDataActionSuccess
-  | SetBundleDataActionFailure;
+export type AddressesDataAction =
+  | GetAddressDataAction
+  | GetAddressDataActionSuccess
+  | GetAddressDataActionFailure;
+
+// ***** Sourcify Data Action *****
+interface GetSourcifyDataAction {
+  type: actionTypes.GET_SOURCIFY_DATA__START;
+}
+
+interface GetSourcifyDataActionSuccess {
+  type: actionTypes.GET_SOURCIFY_DATA__SUCCESS;
+  payload: object | null;
+}
+
+interface GetSourcifyDataActionFailure {
+  type: actionTypes.GET_SOURCIFY_DATA__FAIL;
+  payload: object | string | null;
+}
+
+export type SourcifyesDataAction =
+  | GetSourcifyDataAction
+  | GetSourcifyDataActionSuccess
+  | GetSourcifyDataActionFailure;

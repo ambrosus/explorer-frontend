@@ -1,5 +1,4 @@
 import API from '../../../API/api';
-import NodeHeader from '../../../components/NodeHeader';
 import { TokenType, TransactionProps } from './address-details.interface';
 import { Content } from 'components/Content';
 import CopyBtn from 'components/CopyBtn';
@@ -22,30 +21,28 @@ const AddressDetails = () => {
     (state) => state.tokenFilters,
     shallowEqual,
   );
+  const { getContractAddressData } = useActions();
+
   const {
     loading,
     data: addressData = {},
     error: errorData,
   } = useTypedSelector((state: any) => state.position);
   const { address, type, filtered, tokenToSorted }: TParams = useParams();
+
+  const { data: sourcifyData } = useTypedSelector((state) => state?.sourcify);
+  const { accountInfo, contractInfo } = sourcifyData || {};
+  const { isContract } = accountInfo?.data || false;
+
   const { setPosition, addFilter } = useActions();
   const [transactionType, setTransactionType] = useState(type || '');
   const [selectedToken, setSelectedToken] = useState<TokenType | null>(null);
   const [tx, setTx] = useState<TransactionProps[] | []>([]);
   const [pageNum, setPageNum] = useState(1);
-  const [isContract, setIsContract] = useState(false);
+
   const [limitNum] = useState(50);
-  const [showMore, setShowMore] = useState(false);
-  const showMoreRef: any = useRef(null);
   const observer = useRef<IntersectionObserver>();
   const navigate = useNavigate();
-
-  const showMoreRefHandler = () => {
-    setShowMore(!showMore);
-    if (showMoreRef.current) {
-      showMoreRef?.current?.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
 
   const lastCardRef = (node: any) => {
     if (loading) return;
@@ -69,17 +66,22 @@ const AddressDetails = () => {
   };
 
   useEffect(() => {
+    getContractAddressData(address);
+  }, [address]);
+
+  useEffect(() => {
     if (address?.trim() === '0x0000000000000000000000000000000000000000') {
-      navigate(`/notfound`);
+      console.log(1);
+      window.location.replace(`/notfound`);
     }
     if (tokenToSorted?.length && tokenToSorted !== 'transfers') {
-      navigate(`/notfound`);
+      window.location.replace(`/notfound`);
     }
     if (
       type?.length &&
       !(type === 'ERC-20_Tx' || type === 'transfers' || type === 'contract')
     ) {
-      navigate(`/notfound`);
+      window.location.replace(`/notfound`);
     }
 
     if (address) {
@@ -87,21 +89,19 @@ const AddressDetails = () => {
         .then((data: any) => !data.meta.search && navigate(`/notfound`))
         .catch(() => navigate(`/notfound`));
     }
-  }, []);
+  }, [address]);
 
   useEffect(() => {
-    if (type !== 'contract') {
-      if (address || type || filtered || tokenToSorted) {
-        setPageNum(1);
-        setPosition(null);
-        setTx([]);
-      }
-      return () => {
-        setPageNum(1);
-        setPosition(null);
-        setTx([]);
-      };
+    if (address || type || filtered || tokenToSorted) {
+      setPageNum(1);
+      setPosition(null);
+      setTx([]);
     }
+    return () => {
+      setPageNum(1);
+      setPosition(null);
+      setTx([]);
+    };
   }, [address, type, filtered, tokenToSorted]);
 
   async function getAddressDetailsData() {
@@ -201,6 +201,7 @@ const AddressDetails = () => {
   }, [addressData]);
 
   const { FOR_TABLET } = useDeviceSize();
+
   return (
     <Content>
       <section className="address_details">
@@ -226,6 +227,7 @@ const AddressDetails = () => {
                   addressData?.balance &&
                   Number(formatEther(addressData.balance)).toFixed(2)
                 }
+                address={address || ''}
               />
 
               <Token
@@ -240,41 +242,10 @@ const AddressDetails = () => {
               <FilteredToken setSelectedToken={setSelectedToken} />
             )}
           </div>
-          <NodeHeader getNodeData={API.getAccount}>
-            {({ node }: any) => {
-              if (node && node.isContract) {
-                setIsContract(true);
-              }
-              return (
-                node &&
-                node.isContract && (
-                  <div className="wrapper-bytes" ref={showMoreRef}>
-                    <p
-                      className={`${!showMore ? 'gradient-text' : ''}`}
-                      style={{ wordWrap: 'break-word' }}
-                    >
-                      {showMore
-                        ? node.byteCode
-                        : `${node.byteCode.substring(
-                            0,
-                            FOR_TABLET ? 900 : 320,
-                          )}`}
-                    </p>
-                    <button
-                      className="read-more-btn"
-                      onClick={showMoreRefHandler}
-                    >
-                      {showMore ? 'Show less' : 'Show' + ' more'}
-                    </button>
-                  </div>
-                )
-              );
-            }}
-          </NodeHeader>
         </Content.Header>
         <Content.Body isLoading={filtered ? !loading : true}>
           <Tabs
-            // isContract={isContract}
+            isContract={isContract}
             pageNum={pageNum}
             lastCardRef={lastCardRef}
             onClick={setSelectedToken}
@@ -284,6 +255,7 @@ const AddressDetails = () => {
             loading={loading}
             setTransactionType={setTransactionType}
             isIcon={true}
+            contractInfo={contractInfo}
           />
         </Content.Body>
       </section>
