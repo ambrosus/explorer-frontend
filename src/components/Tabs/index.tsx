@@ -299,7 +299,7 @@ const Tabs: FC<TabsProps> = ({
               )}
 
               {renderData?.length !== 0
-                ? renderData?.map(
+                ? renderData?.filter((el: TransactionProps) => el.block !== 0).map(
                     (transaction: TransactionProps, index: number) =>
                       (renderData.length > 30 &&
                         renderData.length - 9 === index &&

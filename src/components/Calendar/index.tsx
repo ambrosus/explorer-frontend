@@ -8,7 +8,6 @@ import { useParams } from 'react-router-dom';
 import { TParams } from 'types';
 
 const Calendar = ({
-  setIsLoading,
   handleClose,
   miningStats,
   initRange,
@@ -61,11 +60,8 @@ const Calendar = ({
 
       miningStats(str, dataRange);
     } else {
-      setIsLoading(true);
       setTimeout(() => {
-        exportCallback().then((d) => {
-          setIsLoading(false);
-        });
+        exportCallback()
       }, 0);
     }
     handleClose();
