@@ -105,7 +105,7 @@ const Code = () => {
               <h2 className="contract-tab-title">Contract Abi</h2>
             </div>
             <div className="code-section-header-actions">
-              <ConstractSideBtn content={JSONItem} fileOf={null} name={'abi'} />
+              <ConstractSideBtn content={JSONItem} fileOf={null} name={'Abi'} />
             </div>
           </div>
           <div className="code-section-body">
@@ -133,7 +133,7 @@ const Code = () => {
               <ConstractSideBtn
                 content={accountData?.data?.byteCode}
                 fileOf={null}
-                name="bytecode"
+                name="Bytecode"
               />
             </div>
           </div>
