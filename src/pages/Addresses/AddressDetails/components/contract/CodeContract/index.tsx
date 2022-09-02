@@ -40,7 +40,9 @@ const Code = () => {
 
   useEffect(() => {
     if (fileElement && filesToRender.length) {
-      fileElement.scrollIntoView({ behavior: 'smooth' });
+      setTimeout(() => {
+        fileElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 200);
     }
   }, [fileElement, filesToRender.length]);
 
@@ -97,7 +99,7 @@ const Code = () => {
           <Loader />
         )}
 
-        <div className="code-section" id={'abi'}>
+        <div className="code-section code-section__scroll-offset" id={'abi'}>
           <div className="code-section-header">
             <div className="code-section-header-title">
               <h2 className="contract-tab-title">Contract Abi</h2>
@@ -119,7 +121,10 @@ const Code = () => {
           </div>
         </div>
 
-        <div className="code-section" id={'bytecode'}>
+        <div
+          className="code-section code-section__scroll-offset"
+          id={'bytecode'}
+        >
           <div className="code-section-header">
             <div className="code-section-header-title">
               <h2 className="contract-tab-title">Contract Byte Code</h2>
