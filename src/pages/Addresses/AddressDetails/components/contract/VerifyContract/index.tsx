@@ -27,8 +27,6 @@ const VerifyContract = () => {
   const setFiles = (e: React.MouseEvent<Element, MouseEvent>) => {
     e.preventDefault();
 
-    console.log('setFiles');
-
     const newFile = fileInput.current.files[0];
 
     const isAlreadyExist = file.find((fl: any) => {
@@ -97,8 +95,6 @@ const VerifyContract = () => {
   ) => {
     e.preventDefault();
 
-    console.log('verifyContract');
-
     setChosenContract(index);
     setErrMessage(null);
     setLoading(true);
@@ -109,7 +105,7 @@ const VerifyContract = () => {
     file.forEach((file: any) => {
       formData.append('files', file);
     });
-    formData.append('chosenContract', chosenContract);
+    formData.append('chosenContract', index);
 
     axios
       .post(sourcifyUrl, formData, {
