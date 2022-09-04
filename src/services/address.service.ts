@@ -196,6 +196,14 @@ const bbDataFilter = async (
       },
     });
 
+    if (!bbApi) {
+      return {
+        bbApi: {},
+        addressBalance: '',
+        bbTxData: [],
+      }
+    }
+
     const addressBalance: string = bbApi.balance;
 
     const blockBookApiTransactions =
@@ -290,12 +298,12 @@ export const getDataForAddress = async (address: string, params: any) => {
   try {
     const blockBookApiTokens: any = await blockBookApiTokensSearch(url, params);
     const { addressBalance, bbApi, bbTxData }: TransactionProps[] | any =
-      await bbDataFilter(url, params);
+      await bbDataFilter(url, params) || {};
 
     const defaultFilters: TokenType[] =
       (await getTokensBalance(blockBookApiTokens, address)) || [];
     const exploreData: TransactionProps[] = await explorerData(address, params);
-
+    console.log(exploreData);
     const latestTransactions: TransactionProps[] =
       (await sortedLatestTransactionsData(defaultFilters, url, page)) || [];
 
