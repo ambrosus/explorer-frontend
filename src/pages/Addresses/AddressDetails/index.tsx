@@ -50,6 +50,7 @@ const AddressDetails = () => {
       observer.current.disconnect();
     }
     observer.current = new IntersectionObserver((entries) => {
+      console.log(addressData);
       if (
         entries[0].isIntersecting &&
         addressData &&
