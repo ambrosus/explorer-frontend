@@ -129,7 +129,7 @@ export const Header = () => {
               </li>
               <li>
                 <Docs />
-                <a href="/">Docs</a>
+                <a href="https://github.com/ambrosus/" target="_blank">Docs</a>
               </li>
               <li>
                 <Message />
@@ -137,12 +137,12 @@ export const Header = () => {
               </li>
               <li>
                 <Book />
-                <a href="/">Brand materials</a>
+                <a href="https://drive.google.com/drive/folders/1oaihzknRMGLKlmTe-7HU5Vx6I_-sQay1?usp=sharing" target="_blank">Brand materials</a>
               </li>
             </ul>
             <ul className="side-menu__list side-menu__list_socials">
               <li>
-                <a href="/">
+                <a href="https://twitter.com/airdao_io" target="_blank">
                   <Twitter />
                 </a>
               </li>
@@ -152,7 +152,7 @@ export const Header = () => {
                 </a>
               </li>
               <li>
-                <a href="/">
+                <a href="https://www.reddit.com/r/AirDAO/" target="_blank">
                   <Reddit />
                 </a>
               </li>
@@ -163,14 +163,6 @@ export const Header = () => {
               </li>
             </ul>
           </div>
-          <a
-            href="https://blog.ambrosus.io/ambrosus-guide-connecting-and-transacting-via-the-amb-bridge-89f27a60b8d2"
-            className="side-menu__guide"
-            target="_blank"
-          >
-            <img src={question} alt="question" />
-            Bridge Guide
-          </a>
         </>
       )}
     </div>

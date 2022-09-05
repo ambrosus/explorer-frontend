@@ -4,7 +4,7 @@ import logo from 'assets/svg/logo-air.svg';
 import FindWideMobile from 'components/Find/FindWideMobile';
 import { useOnClickOutside } from 'hooks/useOnClickOutside';
 import React, { useRef } from 'react';
-import {NavLink} from "react-router-dom";
+import { NavLink } from 'react-router-dom';
 
 interface MobileMenuProps {
   menu: any;
@@ -26,7 +26,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ menu, setIsShow, isShow }) => {
         {isShow && (
           <div className="mobile_menu_modal">
             <NavLink to="/" className="mobile_menu_logo">
-              <img src={logo} alt="logo"/>
+              <img src={logo} alt="logo" />
             </NavLink>
             <span>
               <FindWideMobile setIsShow={setIsShow} />

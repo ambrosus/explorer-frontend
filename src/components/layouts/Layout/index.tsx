@@ -1,6 +1,7 @@
 import { Header } from '../Header';
+import { NewHeader } from '../NewHeader';
 import React, { FC } from 'react';
-import { NewHeader } from "../NewHeader";
+
 export interface LayoutProps {
   children: React.ReactNode;
 }
