@@ -87,10 +87,18 @@ const AddressDetails = () => {
 
     if (address) {
       API.searchItem(address)
-        .then((data: any) => !data.meta.search && navigate(`/notfound`))
-        .catch(() => navigate(`/notfound`));
+        .then((data: any) => {
+          console.log(data);
+          !data.meta.search && window.location.replace(`/notfound`)
+        })
+        .catch(() => {
+          console.log(addressData);
+          if (addressData.balance === '') {
+            window.location.replace(`/notfound`)
+          }
+        });
     }
-  }, [address]);
+  }, [addressData]);
 
   useEffect(() => {
     if (address || type || filtered || tokenToSorted) {
