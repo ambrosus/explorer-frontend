@@ -106,7 +106,7 @@ export const Header = () => {
               </li>
               <li>
                 <a className="side-menu__list-link" href="/staking">
-                  Stake
+                  Staking
                   <img src={question} alt="question" />
                 </a>
               </li>
