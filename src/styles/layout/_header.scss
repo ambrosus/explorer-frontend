@@ -2,6 +2,7 @@
 /* width */
 ::-webkit-scrollbar {
   width: 8px;
+  height: 8px;
 }
 
 /* Track */
@@ -25,25 +26,21 @@
   flex-direction: column;
   padding: 32px 34px 32px 13px;
   width: 320px;
-  height: 100vh;
   z-index: 999999;
   border-radius: 0 18px 18px 0;
   background: #EEEEEE;
-  overflow: auto;
   box-shadow: 66px 0px 27px rgba(71, 117, 224, 0.01), 37px 0px 22px rgba(71, 117, 224, 0.05), 17px 0px 17px rgba(71, 117, 224, 0.09), 4px 0px 9px rgba(71, 117, 224, 0.1), 0px 0px 0px rgba(71, 117, 224, 0.1);
   font-family: Inter, sans-serif;
   box-sizing: border-box;
+  padding-top: 0;
+  padding-bottom: 0;
+  height: 60px;
+  transition: .3s;
+  padding-right: 14px;
+  overflow: hidden;
 
-  @media only screen and (max-width: 2050px) {
-    padding-top: 0;
-    padding-bottom: 0;
-    height: 61px;
-    transition: .3s;
-    padding-right: 14px;
-    overflow: hidden;
-    &_expanded {
-      height: 100vh!important;
-    }
+  &_expanded {
+    height: 100vh!important;
   }
 
   @media only screen and (max-width: 720px) {
@@ -55,10 +52,8 @@
 }
 
 .side-menu__mobile-wrapper {
-  @media only screen and (max-width: 2050px) {
-    display: flex;
-    align-items: center;
-  }
+  display: flex;
+  align-items: center;
 
   @media only screen and (max-width: 720px) {
     padding: 0 24px;
@@ -114,10 +109,25 @@
     line-height: 140%;
     font-weight: 300;
     font-size: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    img {
+      display: none;
+      position: absolute;
+      right: 20px;
+    }
+
+    &:hover img {
+      display: block;
+    }
   }
 
   svg {
     margin-right: 5px;
+    width: 24px;
+    height: 24px;
   }
 
   li {
@@ -155,18 +165,28 @@
 .side-menu__list-vote {
   display: flex;
   align-items: center;
-  font-weight: 300;
 
   span {
     color: #a2a2a2;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 140%;
 
     &:last-child {
+      display: none;
       font-size: 11px;
       padding: 4px 8px;
       margin-left: 8px;
       border-radius: 4px;
       border: 1px solid #a2a2a2;
-      line-height: 140%;
+      position: absolute;
+      left: 110px;
+    }
+  }
+
+  &:hover {
+    span:last-child {
+      display: block;
     }
   }
 }
@@ -188,7 +208,7 @@
 
 .side-menu__hamburger {
   background: transparent;
-  display: none;
+  display: flex;
   border-radius: 15px;
   height: 44px;
   align-items: center;
@@ -196,9 +216,6 @@
   border: 0;
   margin-left: auto;
 
-  @media only screen and (max-width: 2050px) {
-    display: flex;
-  }
 }
 
 .side-menu__address-block-title {

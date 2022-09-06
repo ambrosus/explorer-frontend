@@ -11,6 +11,7 @@ import menu from '../../../assets/svg/menu.svg';
 import { ReactComponent as Message } from '../../../assets/svg/message-plus.svg';
 import { ReactComponent as Metamask } from '../../../assets/svg/metamask.svg';
 import { ReactComponent as Reddit } from '../../../assets/svg/reddit.svg';
+import { ReactComponent as Smile } from '../../../assets/svg/smile.svg';
 import { ReactComponent as Telegram } from '../../../assets/svg/telegram.svg';
 import { ReactComponent as Twitter } from '../../../assets/svg/twitter.svg';
 import useAuthorization from '../../../hooks/useAuthorization';
@@ -32,7 +33,7 @@ const AddressBlock = ({ address = '' }) => {
       <div className="address-block__metamask-icon">
         <Metamask />
       </div>
-      <span style={{ fontWeight: 300 }}>
+      <span style={{ fontWeight: 300, fontSize: 16 }}>
         {`${address.slice(0, 4)}...${address.slice(
           address.length - 4,
           address.length,
@@ -70,7 +71,9 @@ export const Header = () => {
     <div className={`side-menu${isOpen ? ' side-menu_expanded' : ''}`}>
       <div className="side-menu__mobile-wrapper">
         <div className="side-menu__logo">
-          <Logo />
+          <a href="https://airdao.io/">
+            <Logo />
+          </a>
         </div>
         <button
           type="button"
@@ -96,16 +99,21 @@ export const Header = () => {
             )}
             <ul className="side-menu__list">
               <li>
-                <a href="/firepot/swap">FirepotSwap</a>
+                <a href="/firepot/swap">
+                  FirepotSwap
+                  <img src={question} alt="question" />
+                </a>
               </li>
               <li>
                 <a className="side-menu__list-link" href="/staking">
-                  Staking
+                  Stake
+                  <img src={question} alt="question" />
                 </a>
               </li>
               <li>
                 <a className="side-menu__list-link" href="/bridge">
                   Bridge
+                  <img src={question} alt="question" />
                 </a>
               </li>
               <li>
@@ -115,10 +123,15 @@ export const Header = () => {
                   href="/explorer"
                 >
                   Network Explorer
+                  <img src={question} alt="question" />
                 </a>
               </li>
               <li className="side-menu__list-vote">
                 <span>DAO Tools</span>
+                <span>Coming Soon</span>
+              </li>
+              <li className="side-menu__list-vote">
+                <span>Stablecoin</span>
                 <span>Coming Soon</span>
               </li>
             </ul>
@@ -129,7 +142,9 @@ export const Header = () => {
               </li>
               <li>
                 <Docs />
-                <a href="https://github.com/ambrosus/" target="_blank">Docs</a>
+                <a href="https://github.com/ambrosus/" target="_blank">
+                  Docs
+                </a>
               </li>
               <li>
                 <Message />
@@ -137,7 +152,16 @@ export const Header = () => {
               </li>
               <li>
                 <Book />
-                <a href="https://drive.google.com/drive/folders/1oaihzknRMGLKlmTe-7HU5Vx6I_-sQay1?usp=sharing" target="_blank">Brand materials</a>
+                <a
+                  href="https://drive.google.com/drive/folders/1oaihzknRMGLKlmTe-7HU5Vx6I_-sQay1?usp=sharing"
+                  target="_blank"
+                >
+                  Brand materials
+                </a>
+              </li>
+              <li>
+                <Smile />
+                <a href="mailto:support@airdao.io ">Team</a>
               </li>
             </ul>
             <ul className="side-menu__list side-menu__list_socials">
