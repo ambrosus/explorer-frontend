@@ -28,7 +28,7 @@
       gap: 16px;
       font-size: 18px;
       line-height: 40px;
-      @include for_big_tablet {
+      @include for_laptop {
         font-size: 17px;
       }
       @include for_tablet {
