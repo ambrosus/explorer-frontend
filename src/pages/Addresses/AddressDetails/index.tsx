@@ -72,22 +72,22 @@ const AddressDetails = () => {
   useEffect(() => {
     if (address?.trim() === '0x0000000000000000000000000000000000000000') {
       console.log(1);
-      window.location.replace(`/notfound`);
+      window.location.replace(`/explorer/notfound`);
     }
     if (tokenToSorted?.length && tokenToSorted !== 'transfers') {
-      window.location.replace(`/notfound`);
+      window.location.replace(`/explorer/notfound`);
     }
     if (
       type?.length &&
       !(type === 'ERC-20_Tx' || type === 'transfers' || type === 'contract')
     ) {
-      window.location.replace(`/notfound`);
+      window.location.replace(`/explorer/notfound`);
     }
 
     if (address) {
       API.searchItem(address)
-        .then((data: any) => !data.meta.search && navigate(`/notfound`))
-        .catch(() => navigate(`/notfound`));
+        .then((data: any) => !data.meta.search && navigate(`/explorer/notfound`))
+        .catch(() => navigate(`/explorer/notfound`));
     }
   }, [address]);
 
