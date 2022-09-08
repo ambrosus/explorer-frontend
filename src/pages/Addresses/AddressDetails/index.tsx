@@ -89,12 +89,12 @@ const AddressDetails = () => {
       API.searchItem(address)
         .then((data: any) => {
           console.log(data);
-          !data.meta.search && window.location.replace(`/notfound`)
+          !data.meta.search && window.location.replace(`/notfound`);
         })
         .catch(() => {
           console.log(addressData);
           if (addressData.balance === '') {
-            window.location.replace(`/notfound`)
+            window.location.replace(`/notfound`);
           }
         });
     }
