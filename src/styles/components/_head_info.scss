@@ -14,8 +14,8 @@
   &_cells {
     display: flex;
     align-items: center;
-    height: 104px;
-    padding-left: 32px;
+    padding: 32px 0 32px 32px;
+
     white-space: nowrap;
     padding-right: 10px;
     border-right: 1px solid #eff2f5;
@@ -23,8 +23,9 @@
     flex: 1;
     width: 100%;
 
-    @include for_tablet {
-      flex: 1 0 64px;
+    @include for_big_tablet {
+      flex: 1 0 0;
+      padding: 12px 0 12px 32px;
     }
 
     &_primary {
