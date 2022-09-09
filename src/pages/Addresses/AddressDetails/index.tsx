@@ -72,7 +72,6 @@ const AddressDetails = () => {
 
   useEffect(() => {
     if (address?.trim() === '0x0000000000000000000000000000000000000000') {
-      console.log(1);
       window.location.replace(`/notfound`);
     }
     if (tokenToSorted?.length && tokenToSorted !== 'transfers') {
@@ -80,7 +79,12 @@ const AddressDetails = () => {
     }
     if (
       type?.length &&
-      !(type === 'ERC-20_Tx' || type === 'transfers' || type === 'contract')
+      !(
+        type === 'ERC-20_Tx' ||
+        type === 'transfers' ||
+        type === 'contract' ||
+        type === 'events'
+      )
     ) {
       window.location.replace(`/notfound`);
     }
@@ -88,11 +92,9 @@ const AddressDetails = () => {
     if (address) {
       API.searchItem(address)
         .then((data: any) => {
-          console.log(data);
           !data.meta.search && window.location.replace(`/notfound`);
         })
         .catch(() => {
-          console.log(addressData);
           if (addressData.balance === '') {
             window.location.replace(`/notfound`);
           }
@@ -187,7 +189,7 @@ const AddressDetails = () => {
             (item: TransactionProps) => item.method === 'Transfer',
           );
           return type === 'transfers' ? transfersDataTx : newTx;
-        } else if (type === 'contract') {
+        } else if (type === 'contract' || type === 'events') {
           const newTx: any = [];
           return newTx;
         }

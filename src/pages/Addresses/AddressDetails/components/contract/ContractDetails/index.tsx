@@ -5,7 +5,7 @@ import {
   VerifyContract,
 } from '../index';
 import ContractHeader from './components/ContractHeader';
-import React from 'react';
+import React, { memo } from 'react';
 import { useParams } from 'react-router-dom';
 
 const ContractDetails = () => {
@@ -54,4 +54,4 @@ const ContractDetails = () => {
   );
 };
 
-export default ContractDetails;
+export default memo(ContractDetails);
