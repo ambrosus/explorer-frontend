@@ -196,6 +196,14 @@ const bbDataFilter = async (
       },
     });
 
+    if (!bbApi) {
+      return {
+        bbApi: null,
+        addressBalance: '',
+        bbTxData: [],
+      };
+    }
+
     const addressBalance: string = bbApi.balance;
 
     const blockBookApiTransactions =
@@ -221,25 +229,31 @@ const bbDataFilter = async (
     const bbTxData =
       filteredBlockBookApiTransactionsData?.map((item: any) => {
         const t = item.value;
+
+        const currentTx = t?.tokenTransfers.find((el: any) => {
+          if (el.token === selectedTokenFilter) {
+            return el;
+          }
+        })
         return {
           txHash: t?.txid,
           method: t?.tokenTransfers ? 'Transfer' : 'Transaction',
           from: t?.tokenTransfers
-            ? t?.tokenTransfers?.[0]?.from
+            ? currentTx.from
             : t?.vin?.[0]?.addresses?.[0],
           to: t?.tokenTransfers
-            ? t?.tokenTransfers?.[0]?.to
+            ? currentTx.to
             : t?.vout?.[0]?.addresses?.[0],
           date: t?.blockTime * 1000,
           block: t?.blockHeight,
           amount: t?.tokenTransfers
-            ? Number(formatEther(t?.tokenTransfers[0].value))
+            ? Number(formatEther(currentTx.value))
             : Number(formatEther(t?.value)),
-          token: t?.tokenTransfers?.[0]?.name
-            ? getTokenName(t?.tokenTransfers[0].name)
+          token: currentTx.name
+            ? getTokenName(currentTx.name)
             : 'AMB',
-          symbol: t?.tokenTransfers?.[0]?.symbol
-            ? getTokenName(t?.tokenTransfers[0]?.symbol)
+          symbol: currentTx.symbol
+            ? getTokenName(currentTx.symbol)
             : 'AMB',
           txFee: ethers.utils.formatUnits(t?.fees, 18),
         };
@@ -256,29 +270,36 @@ const bbDataFilter = async (
 
 async function explorerData(address: string, { page, limit, type }: any) {
   try {
-    const { data: explorerTrans } = await API.getAccountTx({
+    // @ts-ignore
+    const { data: explorerTrans, meta } = await API.getAccountTx({
       page,
       limit,
       type,
       address,
     });
 
-    return explorerTrans.map((t: ExplorerTxType) => {
-      return {
-        txHash: t?.hash,
-        method: t?.type,
-        from: t?.from,
-        to: t?.to,
-        date: t?.timestamp * 1000,
-        block: t?.blockNumber,
-        amount: Number(formatEther(t?.value.wei)),
-        token: 'Amber',
-        symbol: 'AMB',
-        txFee: ethers.utils.formatUnits(t?.gasCost?.wei, 18),
-        inners: t?.inners,
-        status: t?.status,
-      };
-    });
+    return {
+      explorerTxs: explorerTrans.map((t: ExplorerTxType) => {
+        return {
+          txHash: t?.hash,
+          method: t?.type,
+          from: t?.from,
+          to: t?.to,
+          date: t?.timestamp * 1000,
+          block: t?.blockNumber,
+          amount: Number(formatEther(t?.value.wei)),
+          token: 'Amber',
+          symbol: 'AMB',
+          txFee: ethers.utils.formatUnits(t?.gasCost?.wei, 18),
+          inners: t?.inners,
+          status: t?.status,
+        };
+      }),
+      pagination: {
+        page,
+        totalPages: Math.ceil(meta.total / 50),
+      },
+    };
   } catch (e) {
     log(e);
   }
@@ -290,18 +311,19 @@ export const getDataForAddress = async (address: string, params: any) => {
   try {
     const blockBookApiTokens: any = await blockBookApiTokensSearch(url, params);
     const { addressBalance, bbApi, bbTxData }: TransactionProps[] | any =
-      await bbDataFilter(url, params);
+      (await bbDataFilter(url, params)) || {};
 
     const defaultFilters: TokenType[] =
       (await getTokensBalance(blockBookApiTokens, address)) || [];
-    const exploreData: TransactionProps[] = await explorerData(address, params);
-
+    const { explorerTxs, pagination }: any = await explorerData(
+      address,
+      params,
+    );
     const latestTransactions: TransactionProps[] =
       (await sortedLatestTransactionsData(defaultFilters, url, page)) || [];
-
     //TODO дважды метод
     const transactionsAll: any = removeArrayDuplicates(
-      [...bbTxData, ...exploreData],
+      [...bbTxData, ...explorerTxs],
       'txHash',
     );
 
@@ -313,7 +335,7 @@ export const getDataForAddress = async (address: string, params: any) => {
           : transactionsAll,
       tokens: [...defaultFilters],
       latestTransactions,
-      meta: bbApi,
+      meta: bbApi || pagination,
     };
   } catch (e) {
     log(e);
