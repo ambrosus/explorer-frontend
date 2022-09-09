@@ -62,7 +62,7 @@ export const routes: IRoute[] = [
     isClick: true,
   },
   {
-    path: '/transactions',
+    path: '/tx',
     key: 'Transactions',
     exact: true,
     component: () => <Transactions />,
@@ -139,7 +139,7 @@ export const atlasRoutes: IRoute[] = [
 
 export const transactions: IRoute[] = [
   {
-    path: '/transactions/:hash',
+    path: '/tx/:hash',
     key: 'TransactionsDetails',
     exact: true,
     component: () => <TransactionDetails />,
