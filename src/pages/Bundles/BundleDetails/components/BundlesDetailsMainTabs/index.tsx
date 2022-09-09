@@ -54,10 +54,7 @@ const BundleDetailsMainTabs = ({ data }: any) => {
       _id: 2,
       name: 'TX HASH',
       value: (
-        <NavLink
-          to={`/tx/${data?.txHash}`}
-          style={{ color: '#808A9D' }}
-        >
+        <NavLink to={`/tx/${data?.txHash}`} style={{ color: '#808A9D' }}>
           {sliceData10(data?.txHash, 12)}
         </NavLink>
       ),

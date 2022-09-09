@@ -1,8 +1,8 @@
+import { useTypedSelector } from '../../hooks/useTypedSelector';
 import LatestTransactions from 'pages/Home/components/LastestTransactions';
 import LatestBlocks from 'pages/Home/components/LatestBlocks';
 import { BlocksContentProps } from 'pages/Home/home.interfaces';
 import React, { FC, useState } from 'react';
-import {useTypedSelector} from "../../hooks/useTypedSelector";
 
 const BlocksContentMobile: FC<BlocksContentProps> = ({ data }) => {
   const [index, setIndex] = useState<number>(1);
