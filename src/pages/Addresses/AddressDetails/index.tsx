@@ -86,7 +86,9 @@ const AddressDetails = () => {
 
     if (address) {
       API.searchItem(address)
-        .then((data: any) => !data.meta.search && navigate(`/explorer/notfound`))
+        .then(
+          (data: any) => !data.meta.search && navigate(`/explorer/notfound`),
+        )
         .catch(() => navigate(`/explorer/notfound`));
     }
   }, [address]);

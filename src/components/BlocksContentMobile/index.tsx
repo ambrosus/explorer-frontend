@@ -2,9 +2,11 @@ import LatestTransactions from 'pages/Home/components/LastestTransactions';
 import LatestBlocks from 'pages/Home/components/LatestBlocks';
 import { BlocksContentProps } from 'pages/Home/home.interfaces';
 import React, { FC, useState } from 'react';
+import {useTypedSelector} from "../../hooks/useTypedSelector";
 
 const BlocksContentMobile: FC<BlocksContentProps> = ({ data }) => {
   const [index, setIndex] = useState<number>(1);
+  const { data: appData } = useTypedSelector((state: any) => state.app);
 
   return (
     <div className="blocks_content_mobile">
@@ -39,6 +41,7 @@ const BlocksContentMobile: FC<BlocksContentProps> = ({ data }) => {
                 totalTransactions={item.totalTransactions}
                 blockReward={item?.blockRewards}
                 name="name"
+                lastBlock={appData.netInfo.lastBlock.number}
               />
             ))}
           </>

@@ -21,7 +21,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ menu, setIsShow, isShow }) => {
     <>
       <div ref={menuRef} className="mobile_menu">
         <button onClick={() => setIsShow(!isShow)} className="mobile_menu_btn">
-          {isShow ? <BurgerMenuClose /> : <BurgerMenuOpen />} Explorer
+          {isShow ? <BurgerMenuClose /> : <BurgerMenuOpen />} {isShow ? 'Close' : 'Explorer'}
         </button>
         {isShow && (
           <div className="mobile_menu_modal">
