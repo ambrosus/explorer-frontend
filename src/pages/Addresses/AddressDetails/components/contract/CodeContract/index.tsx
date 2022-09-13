@@ -40,7 +40,9 @@ const Code = () => {
 
   useEffect(() => {
     if (fileElement && filesToRender.length) {
-      fileElement.scrollIntoView({ behavior: 'smooth' });
+      setTimeout(() => {
+        fileElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 200);
     }
   }, [fileElement, filesToRender.length]);
 
@@ -97,13 +99,13 @@ const Code = () => {
           <Loader />
         )}
 
-        <div className="code-section" id={'abi'}>
+        <div className="code-section code-section__scroll-offset" id={'Abi'}>
           <div className="code-section-header">
             <div className="code-section-header-title">
               <h2 className="contract-tab-title">Contract Abi</h2>
             </div>
             <div className="code-section-header-actions">
-              <ConstractSideBtn content={JSONItem} fileOf={null} name={'abi'} />
+              <ConstractSideBtn content={JSONItem} fileOf={null} name={'Abi'} />
             </div>
           </div>
           <div className="code-section-body">
@@ -119,7 +121,10 @@ const Code = () => {
           </div>
         </div>
 
-        <div className="code-section" id={'bytecode'}>
+        <div
+          className="code-section code-section__scroll-offset"
+          id={'Bytecode'}
+        >
           <div className="code-section-header">
             <div className="code-section-header-title">
               <h2 className="contract-tab-title">Contract Byte Code</h2>
@@ -128,7 +133,7 @@ const Code = () => {
               <ConstractSideBtn
                 content={accountData?.data?.byteCode}
                 fileOf={null}
-                name="bytecode"
+                name="Bytecode"
               />
             </div>
           </div>

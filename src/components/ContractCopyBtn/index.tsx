@@ -29,7 +29,7 @@ const ContractCopyBtn = ({ content }: any) => {
       {isCopy ? <ContentCopyed /> : <ContentCopy />}
       {FOR_TABLET && isCopyPopup && isCopy && (
         <div className="button1_copy">
-          <CopyPopUp x={3} y={20} values="Copyed" />
+          <CopyPopUp x={3} y={20} values="Copied" />
         </div>
       )}
     </div>

@@ -299,8 +299,9 @@ const Tabs: FC<TabsProps> = ({
               )}
 
               {renderData?.length !== 0
-                ? renderData?.map(
-                    (transaction: TransactionProps, index: number) =>
+                ? renderData
+                    ?.filter((el: TransactionProps) => el.block !== 0)
+                    .map((transaction: TransactionProps, index: number) =>
                       (renderData.length > 30 &&
                         renderData.length - 9 === index &&
                         type !== 'ERC-20_Tx') ||
@@ -352,7 +353,7 @@ const Tabs: FC<TabsProps> = ({
                           inners={transaction.inners}
                         />
                       ),
-                  )
+                    )
                 : null}
               {loading && (
                 <div style={{ top: '-20px', position: 'relative' }}>

@@ -50,6 +50,7 @@ const AddressDetails = () => {
       observer.current.disconnect();
     }
     observer.current = new IntersectionObserver((entries) => {
+      console.log(addressData);
       if (
         entries[0].isIntersecting &&
         addressData &&
@@ -86,12 +87,18 @@ const AddressDetails = () => {
 
     if (address) {
       API.searchItem(address)
-        .then(
-          (data: any) => !data.meta.search && navigate(`/explorer/notfound`),
-        )
-        .catch(() => navigate(`/explorer/notfound`));
+        .then((data: any) => {
+          console.log(data);
+          !data.meta.search && window.location.replace(`/notfound`);
+        })
+        .catch(() => {
+          console.log(addressData);
+          if (addressData.balance === '') {
+            window.location.replace(`/notfound`);
+          }
+        });
     }
-  }, [address]);
+  }, [addressData]);
 
   useEffect(() => {
     if (address || type || filtered || tokenToSorted) {

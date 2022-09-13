@@ -591,6 +591,9 @@
     align-items: center;
     width: 100%;
     margin-top: 32px;
+
+    user-select: none;
+
     &-text {
       display: flex;
       width: 100%;
