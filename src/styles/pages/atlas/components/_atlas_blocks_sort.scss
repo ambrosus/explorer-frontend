@@ -11,12 +11,18 @@
     font-weight: 700;
     font-size: 18px;
     line-height: 32px;
+    @include for_small_phone {
+      display: none;
+    }
   }
 
   &_cells {
     display: flex;
     flex: 3;
     gap: 12px;
+    @include for_small_phone {
+      justify-content: center;
+    }
   }
 
   &_cell {
