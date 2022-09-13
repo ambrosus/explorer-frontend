@@ -1,0 +1,83 @@
+.contract_events {
+  display: flex;
+  position: relative;
+  &-find {
+    position: absolute;
+    right: 0;
+  }
+  &-heading,
+  &-body {
+    display: grid;
+    grid-template-columns:
+      minmax(70px, 1fr) minmax(70px, 1fr) minmax(70px, 1fr)
+      minmax(500px, 4fr);
+    grid-gap: 32px;
+    padding: 16px 0;
+    margin-left: 15px;
+  }
+  &-heading {
+    &-cell {
+      font-weight: 700;
+      font-size: 12px;
+      line-height: 32px;
+    }
+  }
+  &-body {
+    border-bottom: 1px solid #eff2f5;
+    &-cells {
+      display: flex;
+      flex-direction: column;
+      row-gap: 12px;
+    }
+    &-cell {
+      display: grid;
+      grid-template-columns: minmax(90px, 1fr) minmax(500px, 6fr);
+      white-space: nowrap;
+      align-items: center;
+      &-btn {
+        width: 74px;
+        height: 24px;
+        border: 1px solid #eff2f5;
+        margin-right: 12px;
+        border-radius: 8px;
+      }
+    }
+    &-subcell {
+      display: flex;
+      align-items: center;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 24px;
+    }
+
+    &-transfer {
+      display: flex;
+      align-items: center;
+      column-gap: 8px;
+    }
+    &-modal {
+      &-cell {
+        display: grid;
+        grid-template-columns: minmax(100px, 1fr) minmax(500px, 6fr);
+      }
+      &-address {
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 24px;
+        color: #808a9d;
+      }
+    }
+  }
+  &-find {
+    width: 218px;
+    height: 32px;
+
+    border-radius: 16px;
+    &-input {
+      width: 218px;
+      height: 32px;
+      border: 1px solid #eff2f5;
+      border-radius: 16px;
+    }
+  }
+}

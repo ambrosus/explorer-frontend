@@ -5,6 +5,12 @@
   &_capitalize {
     text-transform: capitalize;
   }
+  &_filter {
+    &-btn {
+      display: flex;
+      margin-left: 6px;
+    }
+  }
 
   &_dark {
     color: $main;
@@ -17,11 +23,23 @@
   &_light2 {
     color: #808a9d;
   }
+  &_light3 {
+    color: #a6b0c3;
+  }
   &_semibold {
     font-weight: 600;
   }
   &_bold {
     font-weight: 700;
+  }
+  &_green {
+    color: #1acd8c;
+  }
+  &_red {
+    color: #ff3a75;
+  }
+  &_ibm {
+    font-family: IBM Plex Mono, sans-serif;
   }
 
   &_indent {
