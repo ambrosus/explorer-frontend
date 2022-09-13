@@ -1,3 +1,4 @@
+import EventDetails from './EventDetails';
 import ArrowDownBig from 'assets/icons/Arrows/ArrowDownBig';
 import FilterIcon from 'assets/icons/FilterIcon';
 import { memo } from 'react';
@@ -120,6 +121,7 @@ const ContractEvents = () => {
           />
         </label>
       </div>
+      <EventDetails />
     </>
   );
 };

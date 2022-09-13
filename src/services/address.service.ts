@@ -225,7 +225,7 @@ const bbDataFilter = async (
       blockBookApiTransactionsData.filter(
         (item: any) => item.value !== undefined,
       );
-    console.log(filteredBlockBookApiTransactionsData);
+
     const bbTxData =
       filteredBlockBookApiTransactionsData?.map((item: any) => {
         const t = item.value;
@@ -234,27 +234,21 @@ const bbDataFilter = async (
           if (el.token === selectedTokenFilter) {
             return el;
           }
-        })
+        });
         return {
           txHash: t?.txid,
           method: t?.tokenTransfers ? 'Transfer' : 'Transaction',
           from: t?.tokenTransfers
             ? currentTx.from
             : t?.vin?.[0]?.addresses?.[0],
-          to: t?.tokenTransfers
-            ? currentTx.to
-            : t?.vout?.[0]?.addresses?.[0],
+          to: t?.tokenTransfers ? currentTx.to : t?.vout?.[0]?.addresses?.[0],
           date: t?.blockTime * 1000,
           block: t?.blockHeight,
           amount: t?.tokenTransfers
             ? Number(formatEther(currentTx.value))
             : Number(formatEther(t?.value)),
-          token: currentTx.name
-            ? getTokenName(currentTx.name)
-            : 'AMB',
-          symbol: currentTx.symbol
-            ? getTokenName(currentTx.symbol)
-            : 'AMB',
+          token: currentTx.name ? getTokenName(currentTx.name) : 'AMB',
+          symbol: currentTx.symbol ? getTokenName(currentTx.symbol) : 'AMB',
           txFee: ethers.utils.formatUnits(t?.fees, 18),
         };
       }) ?? [];
