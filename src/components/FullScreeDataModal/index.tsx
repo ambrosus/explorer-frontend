@@ -1,9 +1,17 @@
 import FullScreen from 'assets/icons/FullScreen';
 import Portal from 'components/Portal';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const FullScreeDataModal = ({ text, fileOf, fileName }: any) => {
   const [isShow, setIsShow] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (isShow) {
+      // @ts-ignore
+      document.querySelector('body').style.overflow = 'hidden';
+    } //@ts-ignore
+    else document.querySelector('body').style.overflow = '';
+  }, [isShow]);
 
   function handleOpen() {
     setIsShow(true);

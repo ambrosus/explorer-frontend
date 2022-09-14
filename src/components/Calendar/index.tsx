@@ -7,12 +7,7 @@ import 'react-date-range/dist/theme/default.css';
 import { useParams } from 'react-router-dom';
 import { TParams } from 'types';
 
-const Calendar = ({
-  setIsLoading,
-  handleClose,
-  miningStats,
-  initRange,
-}: any) => {
+const Calendar = ({ handleClose, miningStats, initRange }: any) => {
   const { address }: TParams = useParams();
 
   const [dataRange, setDataRange] = useState(
@@ -61,11 +56,8 @@ const Calendar = ({
 
       miningStats(str, dataRange);
     } else {
-      setIsLoading(true);
       setTimeout(() => {
-        exportCallback().then((d) => {
-          setIsLoading(false);
-        });
+        exportCallback();
       }, 0);
     }
     handleClose();

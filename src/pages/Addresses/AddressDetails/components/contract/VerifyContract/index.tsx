@@ -4,7 +4,7 @@ import axios from 'axios';
 import ContractErrorMessage from 'components/ContractErrorMessage';
 import InputContract from 'components/InputContract';
 import Spinner from 'components/Spinner';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 const VerifyContract = () => {
@@ -26,11 +26,19 @@ const VerifyContract = () => {
 
   const setFiles = (e: React.MouseEvent<Element, MouseEvent>) => {
     e.preventDefault();
+
+    const newFile = fileInput.current.files[0];
+
+    const isAlreadyExist = file.find((fl: any) => {
+      return fl.name === newFile.name && fl.size === newFile.size;
+    });
+
+    if (!!isAlreadyExist) return;
+
     setLoading(true);
     setErrMessage(null);
-
-    const files = [...file, ...fileInput.current.files];
-    setFile((prev) => [...prev, ...fileInput.current.files]);
+    const files = [...file, newFile];
+    setFile(files);
 
     let formData: FormData = new FormData();
     formData.append('address', address);
@@ -55,15 +63,19 @@ const VerifyContract = () => {
         if (err.response.data.contractsToChoose) {
           setContractsToChoose(err.response.data.contractsToChoose);
           setLoading(false);
+          return;
         }
 
         if (err.response.data.message) {
           setErrMessage(err.response.data.message);
           setLoading(false);
+          return;
         }
+
         if (err.response.data.error) {
           setErrMessage(err.response.data.error);
           setLoading(false);
+          return;
         }
       });
   };
@@ -82,6 +94,7 @@ const VerifyContract = () => {
     index: number,
   ) => {
     e.preventDefault();
+
     setChosenContract(index);
     setErrMessage(null);
     setLoading(true);
@@ -92,7 +105,7 @@ const VerifyContract = () => {
     file.forEach((file: any) => {
       formData.append('files', file);
     });
-    formData.append('chosenContract', chosenContract);
+    formData.append('chosenContract', index);
 
     axios
       .post(sourcifyUrl, formData, {
@@ -138,7 +151,7 @@ const VerifyContract = () => {
             disabled
           />
         </label>
-        <label className="verify_contract-filehead">
+        <div className="verify_contract-filehead">
           <div className="verify_contract-filehead-text">
             <div className="verify_contract-filehead-text-left">
               Please add contract{' '}
@@ -160,7 +173,7 @@ const VerifyContract = () => {
               Clear files
             </button>
           </div>
-        </label>
+        </div>
         <div className="verify_contract-addfiles">
           <label className="verify_contract_add" htmlFor="files">
             <input

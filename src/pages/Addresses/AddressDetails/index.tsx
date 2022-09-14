@@ -50,6 +50,7 @@ const AddressDetails = () => {
       observer.current.disconnect();
     }
     observer.current = new IntersectionObserver((entries) => {
+      console.log(addressData);
       if (
         entries[0].isIntersecting &&
         addressData &&
@@ -71,27 +72,35 @@ const AddressDetails = () => {
 
   useEffect(() => {
     if (address?.trim() === '0x0000000000000000000000000000000000000000') {
-      console.log(1);
-      window.location.replace(`/explorer/notfound`);
+      window.location.replace(`/notfound`);
     }
     if (tokenToSorted?.length && tokenToSorted !== 'transfers') {
       window.location.replace(`/explorer/notfound`);
     }
     if (
       type?.length &&
-      !(type === 'ERC-20_Tx' || type === 'transfers' || type === 'contract')
+      !(
+        type === 'ERC-20_Tx' ||
+        type === 'transfers' ||
+        type === 'contract' ||
+        type === 'events'
+      )
     ) {
       window.location.replace(`/explorer/notfound`);
     }
 
     if (address) {
       API.searchItem(address)
-        .then(
-          (data: any) => !data.meta.search && navigate(`/explorer/notfound`),
-        )
-        .catch(() => navigate(`/explorer/notfound`));
+        .then((data: any) => {
+          !data.meta.search && window.location.replace(`/notfound`);
+        })
+        .catch(() => {
+          if (addressData.balance === '') {
+            window.location.replace(`/notfound`);
+          }
+        });
     }
-  }, [address]);
+  }, [addressData]);
 
   useEffect(() => {
     if (address || type || filtered || tokenToSorted) {
@@ -180,7 +189,7 @@ const AddressDetails = () => {
             (item: TransactionProps) => item.method === 'Transfer',
           );
           return type === 'transfers' ? transfersDataTx : newTx;
-        } else if (type === 'contract') {
+        } else if (type === 'contract' || type === 'events') {
           const newTx: any = [];
           return newTx;
         }

@@ -835,6 +835,13 @@
   dependencies:
     "@babel/plugin-transform-react-jsx" "^7.16.7"
 
+"@babel/plugin-transform-react-jsx-self@^7.17.12":
+  version "7.17.12"
+  resolved "https://registry.yarnpkg.com/@babel/plugin-transform-react-jsx-self/-/plugin-transform-react-jsx-self-7.17.12.tgz#7f2e9b8c08d6a4204733138d8c29d4dba4bb66c2"
+  integrity sha512-7S9G2B44EnYOx74mue02t1uD8ckWZ/ee6Uz/qfdzc35uWHX5NgRy9i+iJSb2LFRgMd+QV9zNcStQaazzzZ3n3Q==
+  dependencies:
+    "@babel/helper-plugin-utils" "^7.17.12"
+
 "@babel/plugin-transform-react-jsx@^7.16.7", "@babel/plugin-transform-react-jsx@^7.17.12":
   version "7.17.12"
   resolved "https://registry.npmjs.org/@babel/plugin-transform-react-jsx/-/plugin-transform-react-jsx-7.17.12.tgz"
@@ -3405,10 +3412,10 @@ aggregate-error@^3.0.0:
     clean-stack "^2.0.0"
     indent-string "^4.0.0"
 
-airdao-menu@^2.0.9:
-  version "2.0.9"
-  resolved "https://registry.yarnpkg.com/airdao-menu/-/airdao-menu-2.0.9.tgz#200c8558ed84685a127d7fcbff56786f9186d934"
-  integrity sha512-oQapEOp+l/rWH+YebKlIwOkBV1P3TxpJ0bhEtI3mMaBdR6GsLhYhU9qo0tijOnU8qtvyRz/LmnAxfpfGCKgS0w==
+airdao-menu@^2.1.13:
+  version "2.1.13"
+  resolved "https://registry.yarnpkg.com/airdao-menu/-/airdao-menu-2.1.13.tgz#acc91975474f93653467c0661a7f829157c88bd7"
+  integrity sha512-qIBM8uNNeXm2sbhfivAiD5f/r4zmnswqIhNuX9Jq902AmwHjgprjDiFwub+HJWD7lTR4OgENl+reDLccOX3c1g==
 
 ajv-formats@^2.1.1:
   version "2.1.1"

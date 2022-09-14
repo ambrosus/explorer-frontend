@@ -5,6 +5,7 @@ const transactionFilters = [
   { title: 'Transfers', value: 'transfers' },
   { title: 'ERC-20 Tx', value: 'ERC-20_Tx' },
   { title: 'Contract', value: 'contract' },
+  { title: 'Events', value: 'events' },
 ];
 const ERC20Filters = [
   { title: 'All', value: ' ' },
@@ -22,7 +23,7 @@ const methodFilters = [
 
 export const apollosSorting: TApolloSortProps[] = [
   { title: 'Address', value: 'address' },
-  { title: 'Total appollos', value: 'totalBundles' },
+  { title: 'Total blocks', value: 'totalBundles' },
   { title: 'Balance', value: 'balance' },
   { title: 'Stake', value: 'stake' },
 ];
