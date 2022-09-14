@@ -1,7 +1,4 @@
 .layout {
-  display: flex;
-  height: 100vh;
-  width: 100vw;
   margin: auto;
   flex-direction: column;
   min-height: 450px;
@@ -12,14 +9,13 @@
   color: #212121;
   justify-content: center;
   width: 100%;
-  flex: 1 0 auto;
-  min-height: 800px;
 }
 
 .container {
   margin: 0 auto;
   width: 100%;
   max-width: 1140px;
+  position: relative;
   @include for_laptop {
     padding: 5px 20px;
   }
