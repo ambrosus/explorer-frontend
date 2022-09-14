@@ -20,6 +20,7 @@
   margin: 0 auto;
   width: 100%;
   max-width: 1140px;
+  position: relative;
   @include for_laptop {
     padding: 5px 20px;
   }

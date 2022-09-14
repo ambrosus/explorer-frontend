@@ -141,14 +141,7 @@ const TabsNew: FC<TabsNewProps> = ({
                   />
                 ))}
               </div>
-              {isShow && (
-                <div
-                  ref={mobileCalendarRef}
-                  className="tabs_heading_export_modal_mobile"
-                >
-                  <Calendar />
-                </div>
-              )}
+
               {!withoutCalendar && (
                 <div
                   ref={mobileCalendarRef}
@@ -172,6 +165,14 @@ const TabsNew: FC<TabsNewProps> = ({
               )}
             </div>
           </div>
+          {isShow && (
+            <div
+              ref={mobileCalendarRef}
+              className="tabs_heading_export_modal_mobile"
+            >
+              <Calendar />
+            </div>
+          )}
           <div
             style={{ overflow: loading ? 'hidden' : 'auto' }}
             className="transactions_wrapper"
