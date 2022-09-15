@@ -17,22 +17,22 @@
     align-items: center;
     padding: 10px 32px;
     background: rgba(255, 255, 255, 0.5);
-    border: 1.5px solid #457EFF;
+    border: 1.5px solid #457eff;
     backdrop-filter: blur(4px);
     border-radius: 90px;
-    color: #457EFF;
+    color: #457eff;
 
     svg {
       margin-right: 16px;
 
       rect {
-        fill: #457EFF;
+        fill: #457eff;
       }
     }
   }
 
   &_modal {
-    box-shadow: 0px 16px 32px 0px #698EE233;
+    box-shadow: 0px 16px 32px 0px #698ee233;
     background-color: #fff;
     padding: 20px;
     right: 0px;
@@ -42,6 +42,7 @@
     position: fixed;
     margin-top: 0;
     top: 0;
+    overflow-y: scroll;
     @include for_phone {
       width: 100%;
     }

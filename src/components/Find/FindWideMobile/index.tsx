@@ -22,7 +22,7 @@ const FindWideMobile: React.FC<FindWideMobileProps> = ({
           type="text"
           style={{
             fontSize: 16,
-            color: err ? 'red' : 'white',
+            color: err ? 'red' : 'black',
           }}
           value={name}
           onChange={handleChange}

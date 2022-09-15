@@ -180,44 +180,45 @@ const Tabs: FC<TabsProps> = ({
     [contractTabs],
   );
 
-  let contractView;
+  // let contractView;
 
-  if (type === 'contract') {
-    contractView = (
-      <div className="contract">
-        <div className="tabs_heading" tabIndex={-1}>
-          <div className="tabs_heading_filters" tabIndex={-1}>
-            {contractTabs?.length &&
-              filteredContractTabs.map((tab) => (
-                <NavLink
-                  key={tab.title}
-                  to={`/addresses/${address}/${type}/${
-                    tab.value ? tab.value : ''
-                  }`}
-                  className={() =>
-                    `contract-link ${handleNavLinkClass(tab.value)}`
-                  }
-                  onClick={() => {
-                    setTransactionType(tab.value);
-                  }}
-                >
-                  {tab.title}
-                </NavLink>
-              ))}
-          </div>
-        </div>
-        <div className="contract-details">
-          <ContractDetails />
+  // if (type === 'contract') {
+  let contractView = (
+    <div className="contract">
+      <div className="tabs_heading" tabIndex={-1}>
+        <div className="tabs_heading_filters" tabIndex={-1}>
+          {contractTabs?.length &&
+            filteredContractTabs.map((tab) => (
+              <NavLink
+                key={tab.title}
+                to={`/addresses/${address}/${type}/${
+                  tab.value ? tab.value : ''
+                }`}
+                className={() =>
+                  `contract-link ${handleNavLinkClass(tab.value)}`
+                }
+                onClick={() => {
+                  setTransactionType(tab.value);
+                }}
+              >
+                {tab.title}
+              </NavLink>
+            ))}
         </div>
       </div>
-    );
-  } else {
-    contractView = (
-      <div className="contract">
-        <ContractEvents />
+      <div className="contract-details">
+        <ContractDetails />
       </div>
-    );
-  }
+    </div>
+  );
+  // }
+  // else {
+  //   contractView = (
+  //     <div className="contract">
+  //       <ContractEvents />
+  //     </div>
+  //   );
+  // }
 
   return (
     <>
