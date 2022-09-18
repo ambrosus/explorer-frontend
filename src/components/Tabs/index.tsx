@@ -275,63 +275,54 @@ const Tabs: FC<TabsProps> = ({
             />
           )}
 
-          {renderData?.length !== 0
-            ? renderData
+          {renderData?.length !== 0 &&
+            renderData
               ?.filter((el: TransactionProps) => el.block !== 0)
-              .map((transaction: TransactionProps, index: number) =>
-                (renderData.length > 30 &&
-                  renderData.length - 9 === index &&
-                  type !== 'ERC-20_Tx') ||
-                (renderData.length < 30 &&
-                  renderData.length - 1 === index &&
-                  type !== 'ERC-20_Tx') ? (
-                  //TODO double code
-                  <AddressBlock
-                    lastCardRef={lastCardRef}
-                    isLatest={type === 'ERC-20_Tx' && !filtered}
-                    onClick={onClick}
-                    key={transaction.txHash}
-                    txhash={transaction.txHash}
-                    method={transaction.method}
-                    from={transaction.from}
-                    to={transaction.to}
-                    date={moment(transaction.date).fromNow()}
-                    block={transaction.block}
-                    amount={transaction.amount}
-                    txfee={transaction.txFee}
-                    token={`${
-                      transaction?.token ? transaction?.token : null
-                    }`}
-                    symbol={`${
-                      transaction?.symbol ? transaction?.symbol : null
-                    }`}
-                    isTableColumn={isTableColumn}
-                  />
-                ) : (
-                  <AddressBlock
-                    isLatest={type === 'ERC-20_Tx' && !filtered}
-                    onClick={onClick}
-                    key={transaction.txHash}
-                    txhash={transaction.txHash}
-                    method={transaction.method}
-                    from={transaction.from}
-                    to={transaction.to}
-                    date={moment(transaction.date).fromNow()}
-                    block={transaction.block}
-                    amount={transaction.amount}
-                    txfee={transaction.txFee}
-                    token={`${
-                      transaction?.token ? transaction?.token : 'AMB'
-                    }`}
-                    symbol={`${
-                      transaction?.symbol ? transaction?.symbol : 'AMB'
-                    }`}
-                    isTableColumn={isTableColumn}
-                    inners={transaction.inners}
-                  />
-                ),
-              )
-            : null}
+              .map((transaction: TransactionProps, index: number) => {
+                const props = {
+                  isLatest: type === 'ERC-20_Tx' && !filtered,
+                  onClick: onClick,
+                  txhash: transaction.txHash,
+                  method: transaction.method,
+                  from: transaction.from,
+                  to: transaction.to,
+                  date: moment(transaction.date).fromNow(),
+                  block: transaction.block,
+                  amount: transaction.amount,
+                  txfee: transaction.txFee,
+                  token: transaction?.token || null,
+                  symbol: transaction?.symbol || null,
+                  isTableColumn: isTableColumn,
+                };
+
+                // todo: this if looks like bugged.
+                // perhaps index check was for lastCardRef props
+                // and type check was for token and symbol props
+                if (
+                  type === 'ERC-20_Tx' ||
+                  renderData.length - (renderData.length > 30 ? 9 : 1) !== index
+                ) {
+                  return (
+                    <AddressBlock
+                      {...props}
+                      key={transaction.txHash}
+                      lastCardRef={lastCardRef}
+                    />
+                  );
+                } else {
+                  props.token = props.token || 'AMB';
+                  props.symbol = props.symbol || 'AMB';
+
+                  return (
+                    <AddressBlock
+                      {...props}
+                      key={transaction.txHash}
+                      inners={transaction.inners}
+                    />
+                  );
+                }
+              })}
+
           {loading && (
             <div style={{ top: '-20px', position: 'relative' }}>
               <Loader />
