@@ -149,13 +149,9 @@ const Tabs: FC<TabsProps> = ({
   };
 
   const contractUrl = (url: any) => {
-    if (url === 'contract' && contractInfo?.status === 200) {
-      return '/code';
-    } else if (url === 'contract' && contractInfo?.status !== 200) {
-      return '/verify';
-    } else {
-      return '';
-    }
+    if (url === 'contract' && contractInfo?.status === 200) return '/code';
+    if (url === 'contract' && contractInfo?.status !== 200) return '/verify';
+    return '';
   };
 
   const handleShow = () => setIsShow(!isShow);
@@ -167,8 +163,63 @@ const Tabs: FC<TabsProps> = ({
     [contractTabs],
   );
 
-  let tabsView;
+  const isContractTab = ['code', 'write', 'read', 'verify'].includes(
+    filtered || '',
+  );
 
+  let navLinks;
+  if (!filtered || isContractTab) {
+    if (transactionFilters?.length)
+      navLinks = transactionFilters.map((filter) => {
+        if (isContract)
+          return (
+            <NavLink
+              key={filter.title}
+              to={`/addresses/${address}/${filter.value || ''}${contractUrl(
+                filter.value,
+              )} `}
+              className={() => handleNavLinkClass(filter.value)}
+              onClick={() => {
+                setTransactionType(filter.value);
+              }}
+            >
+              {filter.title}
+            </NavLink>
+          );
+
+        if (filter.value !== 'contract' && filter.value !== 'events')
+          return (
+            <NavLink
+              key={filter.title}
+              to={`/addresses/${address}/${filter.value || ''} `}
+              className={() => handleNavLinkClass(filter.value)}
+              onClick={() => {
+                setTransactionType(filter.value);
+              }}
+            >
+              {filter.title}
+            </NavLink>
+          );
+
+        return null;
+      });
+  } else {
+    if (ERC20Filters?.length)
+      navLinks = ERC20Filters.map((filter) => (
+        <NavLink
+          key={filter.title}
+          to={`/addresses/${address}/ERC-20_Tx/${filtered}/${filter.value} `}
+          className={() => handleNavLinkClass(`${filter?.title}s`)}
+          onClick={(e) => {
+            setTransactionType(filter.value);
+          }}
+        >
+          {filter.title}
+        </NavLink>
+      ));
+  }
+
+  let tabsView;
   if (type === 'contract') {
     tabsView = (
       <div className="contract">
@@ -324,59 +375,7 @@ const Tabs: FC<TabsProps> = ({
                 <Calendar />
               </div>
             )}
-            {!filtered ||
-            filtered === 'code' ||
-            filtered === 'write' ||
-            filtered === 'read' ||
-            filtered === 'verify'
-              ? transactionFilters?.length &&
-                transactionFilters.map((filter) => (
-                  <>
-                    {isContract ? (
-                      <NavLink
-                        key={filter.title}
-                        to={`/addresses/${address}/${
-                          filter.value ? filter.value : ''
-                        }${contractUrl(filter.value)} `}
-                        className={() => handleNavLinkClass(filter.value)}
-                        onClick={() => {
-                          setTransactionType(filter.value);
-                        }}
-                      >
-                        {filter.title}
-                      </NavLink>
-                    ) : (
-                      filter.value !== 'contract' &&
-                      filter.value !== 'events' && (
-                        <NavLink
-                          key={filter.title}
-                          to={`/addresses/${address}/${
-                            filter.value ? filter.value : ''
-                          }${filter.value === 'contract' ? '/code' : '/'} `}
-                          className={() => handleNavLinkClass(filter.value)}
-                          onClick={() => {
-                            setTransactionType(filter.value);
-                          }}
-                        >
-                          {filter.title}
-                        </NavLink>
-                      )
-                    )}
-                  </>
-                ))
-              : ERC20Filters?.length &&
-                ERC20Filters.map((filter) => (
-                  <NavLink
-                    key={filter.title}
-                    to={`/addresses/${address}/ERC-20_Tx/${filtered}/${filter.value} `}
-                    className={() => handleNavLinkClass(`${filter?.title}s`)}
-                    onClick={(e) => {
-                      setTransactionType(filter.value);
-                    }}
-                  >
-                    {filter.title}
-                  </NavLink>
-                ))}
+            {navLinks}
           </div>
 
           <div ref={mobileCalendarRef} className="tabs_heading_export_modal">
