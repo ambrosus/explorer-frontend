@@ -1,3 +1,4 @@
+import ContractEvents from '../ContractEvents';
 import {
   CodeContract,
   ReadContract,
@@ -5,7 +6,8 @@ import {
   VerifyContract,
 } from '../index';
 import ContractHeader from './components/ContractHeader';
-import React, { memo } from 'react';
+import Loader from 'components/Loader';
+import React, { memo, Suspense } from 'react';
 import { useParams } from 'react-router-dom';
 
 const ContractDetails = () => {
@@ -37,6 +39,8 @@ const ContractDetails = () => {
             <VerifyContract />
           </div>
         );
+      case 'events':
+        return <ContractEvents />;
       default:
         return (
           <div className="code_contract">
@@ -48,7 +52,7 @@ const ContractDetails = () => {
 
   return (
     <div className="contract-body">
-      {filtered !== 'verify' && <ContractHeader />}
+      {filtered !== 'verify' && filtered !== 'events' && <ContractHeader />}
       <div className="contract-body-content">{getTab()}</div>
     </div>
   );

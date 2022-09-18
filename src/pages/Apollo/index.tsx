@@ -6,9 +6,9 @@ import ApolloBlocksBody from './components/ApolloBlocksBody';
 import { Content } from 'components/Content';
 import HeadInfo from 'components/HeadInfo';
 import { useTypedSelector } from 'hooks/useTypedSelector';
-import React from 'react';
+import React, { memo } from 'react';
 
-export const Apollo = () => {
+export const Apollo = memo(() => {
   const { data: appData } = useTypedSelector((state: any) => state.app);
 
   const {
@@ -69,4 +69,4 @@ export const Apollo = () => {
       </Content.Body>
     </Content>
   );
-};
+});

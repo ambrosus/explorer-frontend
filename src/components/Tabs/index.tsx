@@ -13,10 +13,11 @@ import {
 } from 'pages/Addresses/AddressDetails/address-details.interface';
 import AddressBlock from 'pages/Addresses/AddressDetails/components/AddressBlocks';
 import AddressBlocksHeader from 'pages/Addresses/AddressDetails/components/AddressBlocksHeader';
-import ContractEvents from 'pages/Addresses/AddressDetails/components/ContractEvents';
 import { ContractDetails } from 'pages/Addresses/AddressDetails/components/contract';
+import ContractEvents from 'pages/Addresses/AddressDetails/components/contract/ContractEvents';
 import React, {
   FC,
+  Suspense,
   useEffect,
   useLayoutEffect,
   useMemo,
@@ -141,17 +142,20 @@ const Tabs: FC<TabsProps> = ({
       filtered === 'code' ||
       filtered === 'write' ||
       filtered === 'read' ||
+      filtered === 'events' ||
       filtered === 'verify'
     ) {
       return `tabs_link ${
         ((filtered === 'code' ||
           filtered === 'read' ||
           filtered === 'write' ||
+          filtered === 'events' ||
           filtered === 'verify') &&
           itemValue === 'contract') ||
         ((filtered === 'code' ||
           filtered === 'read' ||
           filtered === 'write' ||
+          filtered === 'events' ||
           filtered === 'verify') &&
           filtered === itemValue) ||
         itemValue === transactionType
@@ -177,47 +181,40 @@ const Tabs: FC<TabsProps> = ({
       contractInfo?.status === 200
         ? contractTabs.filter((tab) => tab.value !== 'verify')
         : contractTabs.filter((tab) => tab.value === 'verify'),
-    [contractTabs],
+
+    [contractInfo],
   );
 
-  let contractView;
-
-  if (type === 'contract') {
-    contractView = (
-      <div className="contract">
-        <div className="tabs_heading" tabIndex={-1}>
-          <div className="tabs_heading_filters" tabIndex={-1}>
-            {contractTabs?.length &&
-              filteredContractTabs.map((tab) => (
-                <NavLink
-                  key={tab.title}
-                  to={`/addresses/${address}/${type}/${
-                    tab.value ? tab.value : ''
-                  }`}
-                  className={() =>
-                    `contract-link ${handleNavLinkClass(tab.value)}`
-                  }
-                  onClick={() => {
-                    setTransactionType(tab.value);
-                  }}
-                >
-                  {tab.title}
-                </NavLink>
-              ))}
-          </div>
+  const contractView = (
+    <div className="contract">
+      <div className="tabs_heading" tabIndex={-1}>
+        <div className="tabs_heading_filters" tabIndex={-1}>
+          {contractTabs?.length &&
+            filteredContractTabs.map((tab) => (
+              <NavLink
+                key={tab.title}
+                to={`/addresses/${address}/${type}/${
+                  tab.value ? tab.value : ''
+                }`}
+                className={() =>
+                  `contract-link ${handleNavLinkClass(tab.value)}`
+                }
+                onClick={() => {
+                  setTransactionType(tab.value);
+                }}
+              >
+                {tab.title}
+              </NavLink>
+            ))}
         </div>
-        <div className="contract-details">
+      </div>
+      <div className="contract-details">
+        <Suspense fallback={<Loader />}>
           <ContractDetails />
-        </div>
+        </Suspense>
       </div>
-    );
-  } else {
-    contractView = (
-      <div className="contract">
-        <ContractEvents />
-      </div>
-    );
-  }
+    </div>
+  );
 
   return (
     <>
@@ -236,6 +233,7 @@ const Tabs: FC<TabsProps> = ({
             filtered === 'code' ||
             filtered === 'write' ||
             filtered === 'read' ||
+            filtered === 'events' ||
             filtered === 'verify'
               ? transactionFilters?.length &&
                 transactionFilters.map((filter) => (

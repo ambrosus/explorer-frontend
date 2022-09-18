@@ -1,5 +1,5 @@
 import Method from './Method';
-import { useEffect, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 import { getContractData } from 'services/contract.service';
@@ -50,4 +50,4 @@ const ReadContract = () => {
   );
 };
 
-export default ReadContract;
+export default memo(ReadContract);
