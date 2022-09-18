@@ -123,38 +123,32 @@ const Tabs: FC<TabsProps> = ({
 
   const handleNavLinkClass = (itemValue: any) => {
     if (type !== 'contract') {
-      return `tabs_link ${
+      if (
         itemValue === transactionType ||
         (transactionType === 'ERC-20_Tx' &&
-          itemValue === 'Transferss' &&
+          itemValue === 'Transferss' && // todo is it typo?
           tokenToSorted !== undefined) ||
         (transactionType === 'ERC-20_Tx' &&
           tokenToSorted === undefined &&
           itemValue === 'Alls')
-          ? 'tabs_link_active'
-          : ''
-      }`;
-    } else if (
-      filtered === 'code' ||
-      filtered === 'write' ||
-      filtered === 'read' ||
-      filtered === 'verify'
-    ) {
-      return `tabs_link ${
-        ((filtered === 'code' ||
-          filtered === 'read' ||
-          filtered === 'write' ||
-          filtered === 'verify') &&
-          itemValue === 'contract') ||
-        ((filtered === 'code' ||
-          filtered === 'read' ||
-          filtered === 'write' ||
-          filtered === 'verify') &&
-          filtered === itemValue) ||
+      )
+        return `tabs_link tabs_link_active`;
+
+      return `tabs_link `;
+    }
+
+    const isContractTab = ['code', 'write', 'read', 'verify'].includes(
+      filtered || '',
+    );
+
+    if (isContractTab) {
+      if (
+        itemValue === 'contract' ||
+        itemValue === filtered ||
         itemValue === transactionType
-          ? 'tabs_link_active'
-          : ''
-      }`;
+      )
+        return 'tabs_link tabs_link_active';
+      return 'tabs_link';
     }
   };
 
