@@ -167,10 +167,10 @@ const Tabs: FC<TabsProps> = ({
     [contractTabs],
   );
 
-  let contractView;
+  let tabsView;
 
   if (type === 'contract') {
-    contractView = (
+    tabsView = (
       <div className="contract">
         <div className="tabs_heading" tabIndex={-1}>
           <div className="tabs_heading_filters" tabIndex={-1}>
@@ -198,12 +198,117 @@ const Tabs: FC<TabsProps> = ({
         </div>
       </div>
     );
-  } else {
-    contractView = (
+  } else if (type === 'events') {
+    tabsView = (
       <div className="contract">
         <ContractEvents />
       </div>
     );
+  } else {
+    tabsView = (
+      <>
+        <section className="tabs_table">
+          {renderData?.length && (
+            <AddressBlocksHeader
+              txhash="txHash"
+              method="Method"
+              from="From"
+              to="To"
+              date="Date"
+              block={headerBlock}
+              amount="Amount"
+              txfee={headerTxfee}
+              token={headerToken}
+              methodFilters={methodFilters}
+              isTableColumn={isTableColumn}
+            />
+          )}
+
+          {renderData?.length !== 0
+            ? renderData
+              ?.filter((el: TransactionProps) => el.block !== 0)
+              .map((transaction: TransactionProps, index: number) =>
+                (renderData.length > 30 &&
+                  renderData.length - 9 === index &&
+                  type !== 'ERC-20_Tx') ||
+                (renderData.length < 30 &&
+                  renderData.length - 1 === index &&
+                  type !== 'ERC-20_Tx') ? (
+                  //TODO double code
+                  <AddressBlock
+                    lastCardRef={lastCardRef}
+                    isLatest={type === 'ERC-20_Tx' && !filtered}
+                    onClick={onClick}
+                    key={transaction.txHash}
+                    txhash={transaction.txHash}
+                    method={transaction.method}
+                    from={transaction.from}
+                    to={transaction.to}
+                    date={moment(transaction.date).fromNow()}
+                    block={transaction.block}
+                    amount={transaction.amount}
+                    txfee={transaction.txFee}
+                    token={`${
+                      transaction?.token ? transaction?.token : null
+                    }`}
+                    symbol={`${
+                      transaction?.symbol ? transaction?.symbol : null
+                    }`}
+                    isTableColumn={isTableColumn}
+                  />
+                ) : (
+                  <AddressBlock
+                    isLatest={type === 'ERC-20_Tx' && !filtered}
+                    onClick={onClick}
+                    key={transaction.txHash}
+                    txhash={transaction.txHash}
+                    method={transaction.method}
+                    from={transaction.from}
+                    to={transaction.to}
+                    date={moment(transaction.date).fromNow()}
+                    block={transaction.block}
+                    amount={transaction.amount}
+                    txfee={transaction.txFee}
+                    token={`${
+                      transaction?.token ? transaction?.token : 'AMB'
+                    }`}
+                    symbol={`${
+                      transaction?.symbol ? transaction?.symbol : 'AMB'
+                    }`}
+                    isTableColumn={isTableColumn}
+                    inners={transaction.inners}
+                  />
+                ),
+              )
+            : null}
+          {loading && (
+            <div style={{ top: '-20px', position: 'relative' }}>
+              <Loader />
+            </div>
+          )}
+          {!loading &&
+            //TODO вынести условие в константу
+            !renderData?.length &&
+            pageNum < addressData?.meta?.totalPages &&
+            type !== 'ERC-20_Tx' &&
+            pageNum < addressData?.meta?.totalPages && (
+              <div
+                style={{ height: 10, width: '100%' }}
+                ref={lastCardRef}
+              />
+            )}
+
+          {!loading && !renderData?.length && noDtaFound() && (
+            <div className="tabs_not_found" ref={lastCardRef}>
+              <NotFoundIcon />
+              <span className="tabs_not_found_text">
+                    No results were found for this query.
+                  </span>
+            </div>
+          )}
+        </section>
+      </>
+    )
   }
 
   return (
@@ -288,112 +393,7 @@ const Tabs: FC<TabsProps> = ({
             )}
           </div>
         </div>
-        {type !== 'contract' && type !== 'events' ? (
-          <>
-            <section className="tabs_table">
-              {renderData?.length && (
-                <AddressBlocksHeader
-                  txhash="txHash"
-                  method="Method"
-                  from="From"
-                  to="To"
-                  date="Date"
-                  block={headerBlock}
-                  amount="Amount"
-                  txfee={headerTxfee}
-                  token={headerToken}
-                  methodFilters={methodFilters}
-                  isTableColumn={isTableColumn}
-                />
-              )}
-
-              {renderData?.length !== 0
-                ? renderData
-                    ?.filter((el: TransactionProps) => el.block !== 0)
-                    .map((transaction: TransactionProps, index: number) =>
-                      (renderData.length > 30 &&
-                        renderData.length - 9 === index &&
-                        type !== 'ERC-20_Tx') ||
-                      (renderData.length < 30 &&
-                        renderData.length - 1 === index &&
-                        type !== 'ERC-20_Tx') ? (
-                        //TODO double code
-                        <AddressBlock
-                          lastCardRef={lastCardRef}
-                          isLatest={type === 'ERC-20_Tx' && !filtered}
-                          onClick={onClick}
-                          key={transaction.txHash}
-                          txhash={transaction.txHash}
-                          method={transaction.method}
-                          from={transaction.from}
-                          to={transaction.to}
-                          date={moment(transaction.date).fromNow()}
-                          block={transaction.block}
-                          amount={transaction.amount}
-                          txfee={transaction.txFee}
-                          token={`${
-                            transaction?.token ? transaction?.token : null
-                          }`}
-                          symbol={`${
-                            transaction?.symbol ? transaction?.symbol : null
-                          }`}
-                          isTableColumn={isTableColumn}
-                        />
-                      ) : (
-                        <AddressBlock
-                          isLatest={type === 'ERC-20_Tx' && !filtered}
-                          onClick={onClick}
-                          key={transaction.txHash}
-                          txhash={transaction.txHash}
-                          method={transaction.method}
-                          from={transaction.from}
-                          to={transaction.to}
-                          date={moment(transaction.date).fromNow()}
-                          block={transaction.block}
-                          amount={transaction.amount}
-                          txfee={transaction.txFee}
-                          token={`${
-                            transaction?.token ? transaction?.token : 'AMB'
-                          }`}
-                          symbol={`${
-                            transaction?.symbol ? transaction?.symbol : 'AMB'
-                          }`}
-                          isTableColumn={isTableColumn}
-                          inners={transaction.inners}
-                        />
-                      ),
-                    )
-                : null}
-              {loading && (
-                <div style={{ top: '-20px', position: 'relative' }}>
-                  <Loader />
-                </div>
-              )}
-              {!loading &&
-                //TODO вынести условие в константу
-                !renderData?.length &&
-                pageNum < addressData?.meta?.totalPages &&
-                type !== 'ERC-20_Tx' &&
-                pageNum < addressData?.meta?.totalPages && (
-                  <div
-                    style={{ height: 10, width: '100%' }}
-                    ref={lastCardRef}
-                  />
-                )}
-
-              {!loading && !renderData?.length && noDtaFound() && (
-                <div className="tabs_not_found" ref={lastCardRef}>
-                  <NotFoundIcon />
-                  <span className="tabs_not_found_text">
-                    No results were found for this query.
-                  </span>
-                </div>
-              )}
-            </section>
-          </>
-        ) : (
-          contractView
-        )}
+        {tabsView}
       </div>
     </>
   );
