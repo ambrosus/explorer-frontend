@@ -69,42 +69,38 @@ const Tabs: FC<TabsProps> = ({
   useOnClickOutside(mobileCalendarRef, () => setIsShow(false));
 
   useLayoutEffect(() => {
-    if (type !== 'contract') {
-      if (
-        addressData?.latestTransactions?.length &&
-        type === 'ERC-20_Tx' &&
-        !filtered
-      ) {
-        setRenderData(toUniqueValueByBlock(addressData.latestTransactions));
-      }
+    if (type === 'contract') return;
 
-      if (addressData && !loading) {
-        if (data?.length && type !== 'ERC-20_Tx' && !filtered) {
-          if (type === 'transfers') {
-            let transfersDataTx: TransactionProps[];
-            setRenderData((prev: any) => {
-              if (prev === null) {
-                transfersDataTx = data.filter(
-                  (item: TransactionProps) => item.method === 'Transfer',
-                );
-                return transfersDataTx
-                  ? toUniqueValueByBlock(transfersDataTx)
-                  : toUniqueValueByBlock(prev);
-              } else {
-                transfersDataTx = [...prev, ...data].filter(
-                  (item: TransactionProps) => item.method === 'Transfer',
-                );
-                return toUniqueValueByBlock(transfersDataTx) || [];
-              }
-            });
-          } else {
-            setRenderData(toUniqueValueByBlock(data));
-          }
-        }
-        if (data?.length && filtered && type === 'ERC-20_Tx') {
-          setRenderData(toUniqueValueByBlock(data));
-        }
+    if (
+      addressData?.latestTransactions?.length &&
+      type === 'ERC-20_Tx' &&
+      !filtered
+    )
+      setRenderData(toUniqueValueByBlock(addressData.latestTransactions));
+
+    if (!addressData || loading) return;
+
+    if (data?.length && type !== 'ERC-20_Tx' && !filtered) {
+      if (type === 'transfers') {
+        let transfersDataTx: TransactionProps[];
+        setRenderData((prev: any) => {
+          if (prev === null) prev = [];
+
+          transfersDataTx = [...prev, ...data].filter(
+            (item: TransactionProps) => item.method === 'Transfer',
+          );
+
+          return transfersDataTx // todo: empty array is truthy value, looks like a bug
+            ? toUniqueValueByBlock(transfersDataTx)
+            : toUniqueValueByBlock(prev);
+        });
+      } else {
+        setRenderData(toUniqueValueByBlock(data));
       }
+    }
+
+    if (data?.length && filtered && type === 'ERC-20_Tx') {
+      setRenderData(toUniqueValueByBlock(data));
     }
     //TODO !!
   }, [data, filtered, type]);
