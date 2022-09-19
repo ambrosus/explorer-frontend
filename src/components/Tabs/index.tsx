@@ -151,7 +151,7 @@ const Tabs: FC<TabsProps> = ({
   const contractUrl = (url: any) => {
     if (url === 'contract' && contractInfo?.status === 200) return '/code';
     if (url === 'contract' && contractInfo?.status !== 200) return '/verify';
-    return '';
+    return '/';
   };
 
   const handleShow = () => setIsShow(!isShow);
@@ -168,40 +168,34 @@ const Tabs: FC<TabsProps> = ({
   );
 
   let navLinks;
+  // todo refactor: add `contractFilters` or something
+
+  // todo use `/addresses/${address}/contract/` url (without specifying /code or /verify).
+  //  redirect to /code or /verify in Contract component
   if (!filtered || isContractTab) {
     if (transactionFilters?.length)
       navLinks = transactionFilters.map((filter) => {
-        if (isContract)
-          return (
-            <NavLink
-              key={filter.title}
-              to={`/addresses/${address}/${filter.value || ''}${contractUrl(
-                filter.value,
-              )} `}
-              className={() => handleNavLinkClass(filter.value)}
-              onClick={() => {
-                setTransactionType(filter.value);
-              }}
-            >
-              {filter.title}
-            </NavLink>
-          );
+        if (
+          !isContract &&
+          (filter.value === 'contract' || filter.value === 'events')
+        )
+          // don't show 'contract' and 'event' tab for non contracts
+          return null;
 
-        if (filter.value !== 'contract' && filter.value !== 'events')
-          return (
-            <NavLink
-              key={filter.title}
-              to={`/addresses/${address}/${filter.value || ''} `}
-              className={() => handleNavLinkClass(filter.value)}
-              onClick={() => {
-                setTransactionType(filter.value);
-              }}
-            >
-              {filter.title}
-            </NavLink>
-          );
-
-        return null;
+        return (
+          <NavLink
+            key={filter.title}
+            to={`/addresses/${address}/${filter.value || ''}${contractUrl(
+              filter.value,
+            )} `}
+            className={() => handleNavLinkClass(filter.value)}
+            onClick={() => {
+              setTransactionType(filter.value);
+            }}
+          >
+            {filter.title}
+          </NavLink>
+        );
       });
   } else {
     if (ERC20Filters?.length)
@@ -334,23 +328,20 @@ const Tabs: FC<TabsProps> = ({
             pageNum < addressData?.meta?.totalPages &&
             type !== 'ERC-20_Tx' &&
             pageNum < addressData?.meta?.totalPages && (
-              <div
-                style={{ height: 10, width: '100%' }}
-                ref={lastCardRef}
-              />
+              <div style={{ height: 10, width: '100%' }} ref={lastCardRef} />
             )}
 
           {!loading && !renderData?.length && noDtaFound() && (
             <div className="tabs_not_found" ref={lastCardRef}>
               <NotFoundIcon />
               <span className="tabs_not_found_text">
-                    No results were found for this query.
-                  </span>
+                No results were found for this query.
+              </span>
             </div>
           )}
         </section>
       </>
-    )
+    );
   }
 
   return (
