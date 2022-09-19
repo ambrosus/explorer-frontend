@@ -1,28 +1,7 @@
 import Method from './Method';
-import { useEffect, useState } from 'react';
-import { useQuery } from 'react-query';
-import { useParams } from 'react-router-dom';
-import { getContractData } from 'services/contract.service';
 
-const ReadContract = () => {
-  const [contractAbi, setContractAbi] = useState<any>([]);
-  const { address = '' } = useParams();
-
-  const { data: contractData, isLoading } = useQuery(
-    `read data ${address}`,
-    () => getContractData(address),
-  );
-
-  const files = contractData?.data?.files || [];
-
-  useEffect(() => {
-    const res = files
-      .filter((file: any) => file.name === 'metadata.json')
-      .map((file: any) => JSON.parse(file.content))
-      .map((file: any) => file.output.abi);
-
-    setContractAbi(res[0]);
-  }, [isLoading]);
+const ReadContract = (props: any) => {
+  const { contractAbi } = props;
 
   return (
     <div>

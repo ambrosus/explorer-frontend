@@ -119,8 +119,7 @@ const Tabs: FC<TabsProps> = ({
 
   const handleNavLinkClass = (itemValue: any) => {
     if (type === 'contract') {
-      if (itemValue === 'contract')
-        return 'tabs_link tabs_link_active';
+      if (itemValue === 'contract') return 'tabs_link tabs_link_active';
     } else if (
       itemValue === transactionType ||
       (transactionType === 'ERC-20_Tx' &&
@@ -196,7 +195,11 @@ const Tabs: FC<TabsProps> = ({
   let tabsView;
   if (type === 'contract') {
     tabsView = (
-      <ContractDetails address={address} contractInfo={contractInfo} selectedTab={filtered} />
+      <ContractDetails
+        address={address}
+        contractInfo={contractInfo}
+        selectedTab={filtered}
+      />
     );
   } else if (type === 'events') {
     tabsView = (

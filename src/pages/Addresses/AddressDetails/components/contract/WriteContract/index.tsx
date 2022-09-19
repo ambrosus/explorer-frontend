@@ -1,32 +1,13 @@
 import Method from '../ReadContract/Method';
 import { utils } from 'ethers';
-import { useEffect, useState } from 'react';
-import { useQuery } from 'react-query';
-import { useParams } from 'react-router-dom';
-import { getContractData } from 'services/contract.service';
+import { useState } from 'react';
 import switchChainId from 'utils/switchChainId';
 
-const WriteContract = () => {
+const WriteContract = (props: any) => {
+  const { contractAbi } = props;
+
   const { ethereum }: any = window;
   const [isConnected, setIsConnected] = useState<boolean>(false);
-  const [contractAbi, setContractAbi] = useState<string[]>([]);
-  const { address = '' } = useParams();
-
-  const { data: contractData, isLoading } = useQuery(
-    `write data ${address}`,
-    () => getContractData(address),
-  );
-
-  const files = contractData?.data?.files || [];
-
-  useEffect(() => {
-    const res = files
-      .filter((file: any) => file.name === 'metadata.json')
-      .map((file: any) => JSON.parse(file.content))
-      .map((file: any) => file.output.abi);
-
-    setContractAbi(res[0] || []);
-  }, [isLoading]);
 
   const btnhandler = () => {
     if (ethereum) {
@@ -40,6 +21,7 @@ const WriteContract = () => {
           await switchChainId(ethereum);
         }
 
+        // todo ????
         ethereum.on('chainChanged', (newChainId: any) => {
           if (newChainId !== appChainId) {
             window.location.reload();
