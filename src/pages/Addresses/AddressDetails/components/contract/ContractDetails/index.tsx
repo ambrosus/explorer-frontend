@@ -9,6 +9,8 @@ import React, { memo } from 'react';
 const ContractDetails = (props: any) => {
   const { contractInfo, address, selectedTab } = props;
 
+  // todo use contractInfo in child components instead of query sourcify again
+
   function getTab() {
     switch (selectedTab) {
       case 'code':
