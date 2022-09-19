@@ -14,7 +14,7 @@ import {
 import AddressBlock from 'pages/Addresses/AddressDetails/components/AddressBlocks';
 import AddressBlocksHeader from 'pages/Addresses/AddressDetails/components/AddressBlocksHeader';
 import ContractEvents from 'pages/Addresses/AddressDetails/components/ContractEvents';
-import { ContractDetails } from 'pages/Addresses/AddressDetails/components/contract';
+import ContractDetails from 'pages/Addresses/AddressDetails/components/contract';
 import React, {
   FC,
   useEffect,
@@ -155,13 +155,6 @@ const Tabs: FC<TabsProps> = ({
   };
 
   const handleShow = () => setIsShow(!isShow);
-  const filteredContractTabs = useMemo(
-    () =>
-      contractInfo?.status === 200
-        ? contractTabs.filter((tab) => tab.value !== 'verify')
-        : contractTabs.filter((tab) => tab.value === 'verify'),
-    [contractTabs],
-  );
 
   const isContractTab = ['code', 'write', 'read', 'verify'].includes(
     filtered || '',
@@ -216,32 +209,12 @@ const Tabs: FC<TabsProps> = ({
   let tabsView;
   if (type === 'contract') {
     tabsView = (
-      <div className="contract">
-        <div className="tabs_heading" tabIndex={-1}>
-          <div className="tabs_heading_filters" tabIndex={-1}>
-            {contractTabs?.length &&
-              filteredContractTabs.map((tab) => (
-                <NavLink
-                  key={tab.title}
-                  to={`/addresses/${address}/${type}/${
-                    tab.value ? tab.value : ''
-                  }`}
-                  className={() =>
-                    `contract-link ${handleNavLinkClass(tab.value)}`
-                  }
-                  onClick={() => {
-                    setTransactionType(tab.value);
-                  }}
-                >
-                  {tab.title}
-                </NavLink>
-              ))}
-          </div>
-        </div>
-        <div className="contract-details">
-          <ContractDetails />
-        </div>
-      </div>
+      <ContractDetails
+        contractInfo={contractInfo}
+        address={address}
+        selectedTab={filtered}
+        setTransactionType={setTransactionType}
+      />
     );
   } else if (type === 'events') {
     tabsView = (

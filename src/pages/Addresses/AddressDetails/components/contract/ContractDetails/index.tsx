@@ -1,18 +1,16 @@
-import {
-  CodeContract,
-  ReadContract,
-  WriteContract,
-  VerifyContract,
-} from '../index';
+import CodeContract from '../CodeContract';
+import ReadContract from '../ReadContract';
+import VerifyContract from '../VerifyContract';
+import WriteContract from '../WriteContract';
 import ContractHeader from './components/ContractHeader';
+import ContractTabs from './components/ContractTabs';
 import React, { memo } from 'react';
-import { useParams } from 'react-router-dom';
 
-const ContractDetails = () => {
-  const { filtered } = useParams();
+const ContractDetails = (props: any) => {
+  const { contractInfo, address, selectedTab, setTransactionType } = props;
 
   function getTab() {
-    switch (filtered) {
+    switch (selectedTab) {
       case 'code':
         return (
           <div className="code_contract">
@@ -47,9 +45,20 @@ const ContractDetails = () => {
   }
 
   return (
-    <div className="contract-body">
-      {filtered !== 'verify' && <ContractHeader />}
-      <div className="contract-body-content">{getTab()}</div>
+    <div className="contract">
+      <ContractTabs
+        contractInfo={contractInfo}
+        address={address}
+        selectedTab={selectedTab}
+        setTransactionType={setTransactionType}
+      />
+
+      <div className="contract-details">
+        <div className="contract-body">
+          {selectedTab !== 'verify' && <ContractHeader />}
+          <div className="contract-body-content">{getTab()}</div>
+        </div>
+      </div>
     </div>
   );
 };
