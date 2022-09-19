@@ -6,8 +6,7 @@ import {
   VerifyContract,
 } from '../index';
 import ContractHeader from './components/ContractHeader';
-import Loader from 'components/Loader';
-import React, { memo, Suspense } from 'react';
+import React, { memo } from 'react';
 import { useParams } from 'react-router-dom';
 
 const ContractDetails = () => {

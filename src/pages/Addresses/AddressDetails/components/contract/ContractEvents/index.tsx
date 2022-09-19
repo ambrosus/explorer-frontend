@@ -1,7 +1,7 @@
 import EventDetails from './EventDetails';
 import Loader from 'components/Loader';
-import { ethers, EventFilter } from 'ethers';
-import { memo, useLayoutEffect } from 'react';
+import { ethers } from 'ethers';
+import { memo } from 'react';
 import { useEffect, useMemo, useState } from 'react';
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
@@ -9,7 +9,7 @@ import { getContractData } from 'services/contract.service';
 
 const ContractEvents = () => {
   const [contractAbi, setContractAbi] = useState<any>([]);
-  const [isFetch, setIsFetch] = useState(false);
+  const [contract, setContract] = useState<any>();
 
   const { address = '' } = useParams();
   const [isLoading, setIsLoading] = useState(true);
@@ -40,9 +40,8 @@ const ContractEvents = () => {
         parsedContent.output.abi,
         provider,
       );
-
+      setContract(contract);
       setContractAbi(parsedContent.output.abi);
-      console.log(`ABI ` + parsedContent.output.abi);
 
       const result = await contract?.queryFilter('*' as any);
 
@@ -62,7 +61,6 @@ const ContractEvents = () => {
     // eventsData[0]?.getTransactionReceipt().then((res) => console.log(res));
     // console.log(eventsData[0]);
   }, [isLoading]);
-  console.log(eventsData);
 
   return (
     <>
@@ -82,6 +80,7 @@ const ContractEvents = () => {
             event={item.event}
             addresses={item.args}
             eventData={item}
+            contract={contract}
           />
         ))}
     </>

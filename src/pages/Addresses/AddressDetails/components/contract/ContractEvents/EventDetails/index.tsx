@@ -5,20 +5,17 @@ import ArrowUpBig from 'assets/icons/Arrows/ArrowUpBig';
 import FilterIcon from 'assets/icons/FilterIcon';
 import useHover from 'hooks/useHover';
 import moment from 'moment';
-import { useEffect, useState } from 'react';
-import { calcDataTime, calcTime, sliceData5 } from 'utils/helpers';
-import { calcBundleTime } from 'utils/helpers';
+import { useEffect, useLayoutEffect, useMemo, useState } from 'react';
+import { useQuery } from 'react-query';
+import { calcTime, sliceData5 } from 'utils/helpers';
 
 const EventDetails = ({
   txHash,
   blockNumber,
-  methodId,
-
   topics,
-  contractAbi,
   event,
-  addresses,
   eventData,
+  contract,
 }: any) => {
   const [isShow, setIsShow] = useState<boolean>(false);
   const toggleMethod = () => {
@@ -30,19 +27,35 @@ const EventDetails = ({
 
   useEffect(() => {
     eventData?.getTransaction().then((res: any) => setTxData(res));
+    console.log(txData);
   }, []);
 
   useEffect(() => {
     eventData?.getBlock().then((res: any) => setBlockData(res));
   }, []);
+  const methodId = useMemo(
+    () => txData?.data?.substring(0, 10),
+    [txData?.data],
+  );
+
+  useEffect(() => {
+    if (eventData.eventSignature) {
+      // console.log(contract.interface.parseLog(eventData));
+    }
+  }, []);
 
   useEffect(() => {
     if (!!event) {
-      const res = contractAbi
-        ?.filter((item: any) => item.type === 'event')
-        .find((item: any) => item.name === event);
+      const res = contract.interface.parseLog(eventData);
+      const bigNuber = eventData.args.filter(
+        (item: any) => item === 'BigNumber',
+      );
+      // console.log(bigNuber);
 
-      setInputs(res?.inputs);
+      // const res1 = contract.interface.getFunction(txData.data.substring(0, 10));
+      // console.log(res1);
+
+      setInputs(res?.eventFragment.inputs);
     }
   }, []);
 
@@ -67,7 +80,7 @@ const EventDetails = ({
               className="contract_events-body-cell universall_light3"
             >
               {calcTime(blockData?.timestamp)}
-              {isHovered ? (
+              {isHovered && (
                 <div className="contract_events-body-cell-hovered">
                   <span className="universall_triangle"></span>
                   <span className="contract_events-body-cell-time">
@@ -76,7 +89,7 @@ const EventDetails = ({
                     )}
                   </span>
                 </div>
-              ) : null}
+              )}
             </div>
           </div>
           <div className="contract_events-body-cells">
@@ -87,7 +100,7 @@ const EventDetails = ({
               </button>
             </div>
           </div>
-          <div className="contract_events-body-cells">0x91c5bc0a</div>
+          <div className="contract_events-body-cells">{methodId}</div>
           <div className="contract_events-body-cells">
             <div className="contract_events-body-transfer">
               <button
