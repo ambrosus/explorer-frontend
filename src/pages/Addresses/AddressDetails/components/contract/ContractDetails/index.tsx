@@ -10,9 +10,22 @@ import React, { memo } from 'react';
 const ContractDetails = (props: any) => {
   const { contractInfo, address, selectedTab } = props;
 
-  const sourcifyFiles = contractInfo?.data?.files || [];
-  const sourcifyMetadata = parseMetadata(sourcifyFiles);
-  const contractAbi = sourcifyMetadata.output?.abi;
+  const { sourcifyFiles, sourcifyMetadata, contractAbi } =
+    parseSourcifyOutput(contractInfo);
+  const isContractVerified = !!contractAbi;
+
+  if (!isContractVerified && selectedTab !== 'verify') {
+    // todo redirect to verify tab
+  }
+
+  // only if contract verified
+  if (isContractProxy(contractAbi)) {
+    // todo get implementation address
+    // todo get implementation abi
+    // todo readAsProxy and writeAsProxy tab
+    // todo maybe write some info about implementation in contract header
+    // todo merge proxy and implementation abi and use it for events tab
+  }
 
   function getTab() {
     switch (selectedTab) {
@@ -42,7 +55,7 @@ const ContractDetails = (props: any) => {
         );
       case 'events':
         return <ContractEvents />;
-      default:
+      default:  // todo redirect to .../contract/
         return (
           <div className="code_contract">
             <CodeContract files={sourcifyFiles} abi={contractAbi} />
@@ -75,16 +88,42 @@ const ContractDetails = (props: any) => {
   );
 };
 
-const parseMetadata = (sourcifyFiles: any) => {
-  const metadata = sourcifyFiles.find(
-    (file: any) => file.name === 'metadata.json',
+const isContractProxy = (abi: any): boolean => {
+  const fallback = abi.find((item: any) => item.type === 'fallback');
+  if (!fallback) return false;
+
+  const implementation = abi.find(
+    (item: any) => item.name === 'implementation',
   );
-  try {
-    return JSON.parse(metadata?.content);
-  } catch (e) {
-    console.error(e);
-    return {};
-  }
+  if (
+    !implementation ||
+    implementation.type !== 'function' ||
+    implementation.stateMutability !== 'view' ||
+    implementation.outputs[0]?.type !== 'address'
+  )
+    return false;
+
+  return true;
+};
+
+const parseSourcifyOutput = (sourcifyData: any) => {
+  const parseMetadata = (sourcifyFiles: any) => {
+    const metadata = sourcifyFiles.find(
+      (file: any) => file.name === 'metadata.json',
+    );
+    try {
+      return JSON.parse(metadata?.content);
+    } catch (e) {
+      console.error(e);
+      return {};
+    }
+  };
+
+  const sourcifyFiles = sourcifyData?.data?.files || [];
+  const sourcifyMetadata = parseMetadata(sourcifyFiles);
+  const contractAbi = sourcifyMetadata.output?.abi;
+
+  return { sourcifyFiles, sourcifyMetadata, contractAbi };
 };
 
 export default memo(ContractDetails);
