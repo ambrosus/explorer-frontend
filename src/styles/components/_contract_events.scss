@@ -95,6 +95,13 @@
       height: 32px;
       border: 1px solid #eff2f5;
       border-radius: 16px;
+      padding-left: 16px;
+      color: #a6b0c3;
+      font-size: 16px;
+
+      &::placeholder {
+        color: #a6b0c3;
+      }
     }
   }
 }

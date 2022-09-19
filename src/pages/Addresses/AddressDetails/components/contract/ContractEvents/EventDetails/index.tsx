@@ -5,7 +5,7 @@ import ArrowUpBig from 'assets/icons/Arrows/ArrowUpBig';
 import FilterIcon from 'assets/icons/FilterIcon';
 import useHover from 'hooks/useHover';
 import moment from 'moment';
-import { useEffect, useLayoutEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useQuery } from 'react-query';
 import { calcTime, sliceData5 } from 'utils/helpers';
 
@@ -151,14 +151,14 @@ const EventDetails = ({
         </div>
       </div>
 
-      <label htmlFor="username" className="contract_events-find">
-        Click me
+      <form action="">
         <input
           type="text"
           id="username"
           className="contract_events-find-input"
+          placeholder="Filter by  Block or Topic"
         />
-      </label>
+      </form>
     </div>
   );
 };
