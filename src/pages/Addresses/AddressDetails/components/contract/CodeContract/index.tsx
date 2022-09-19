@@ -1,7 +1,7 @@
 import ConstractSideBtn from 'components/ContractSideBtn';
 import Loader from 'components/Loader';
 import useDeviceSize from 'hooks/useDeviceSize';
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { memo, useEffect, useMemo, useRef, useState } from 'react';
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 import { getAccountData, getContractData } from 'services/contract.service';
@@ -161,4 +161,4 @@ const Code = () => {
   );
 };
 
-export default React.memo(Code);
+export default memo(Code);

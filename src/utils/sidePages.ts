@@ -5,7 +5,6 @@ const transactionFilters = [
   { title: 'Transfers', value: 'transfers' },
   { title: 'ERC-20 Tx', value: 'ERC-20_Tx' },
   { title: 'Contract', value: 'contract' },
-  { title: 'Events', value: 'events' },
 ];
 const ERC20Filters = [
   { title: 'All', value: ' ' },
@@ -62,6 +61,7 @@ export const contractTabs = [
   { title: 'READ CONTRACT', value: 'read' },
   { title: 'WRITE CONTRACT', value: 'write' },
   { title: 'VERIFY CONTRACT', value: 'verify' },
+  { title: 'EVENTS', value: 'events' },
 ];
 
 export const sidePages = {

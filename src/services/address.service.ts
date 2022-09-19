@@ -225,7 +225,7 @@ const bbDataFilter = async (
       blockBookApiTransactionsData.filter(
         (item: any) => item.value !== undefined,
       );
-    console.log(filteredBlockBookApiTransactionsData);
+
     const bbTxData =
       filteredBlockBookApiTransactionsData?.map((item: any) => {
         const t = item.value;

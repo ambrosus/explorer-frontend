@@ -1,6 +1,6 @@
 import Method from '../ReadContract/Method';
 import { utils } from 'ethers';
-import { useEffect, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 import { getContractData } from 'services/contract.service';
@@ -92,4 +92,4 @@ const WriteContract = () => {
   );
 };
 
-export default WriteContract;
+export default memo(WriteContract);
