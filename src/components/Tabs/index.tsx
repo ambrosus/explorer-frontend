@@ -118,34 +118,21 @@ const Tabs: FC<TabsProps> = ({
     : 'addresses_body_no_data';
 
   const handleNavLinkClass = (itemValue: any) => {
-    if (type !== 'contract') {
-      if (
-        itemValue === transactionType ||
-        (transactionType === 'ERC-20_Tx' &&
-          itemValue === 'Transferss' && // todo is it typo?
-          tokenToSorted !== undefined) ||
-        (transactionType === 'ERC-20_Tx' &&
-          tokenToSorted === undefined &&
-          itemValue === 'Alls')
-      )
-        return `tabs_link tabs_link_active`;
-
-      return `tabs_link `;
-    }
-
-    const isContractTab = ['code', 'write', 'read', 'verify'].includes(
-      filtered || '',
-    );
-
-    if (isContractTab) {
-      if (
-        itemValue === 'contract' ||
-        itemValue === filtered ||
-        itemValue === transactionType
-      )
+    if (type === 'contract') {
+      if (itemValue === 'contract')
         return 'tabs_link tabs_link_active';
-      return 'tabs_link';
-    }
+    } else if (
+      itemValue === transactionType ||
+      (transactionType === 'ERC-20_Tx' &&
+        itemValue === 'Transferss' && // todo is it typo?
+        tokenToSorted !== undefined) ||
+      (transactionType === 'ERC-20_Tx' &&
+        tokenToSorted === undefined &&
+        itemValue === 'Alls')
+    )
+      return `tabs_link tabs_link_active`;
+
+    return 'tabs_link';
   };
 
   const contractUrl = (url: any) => {
