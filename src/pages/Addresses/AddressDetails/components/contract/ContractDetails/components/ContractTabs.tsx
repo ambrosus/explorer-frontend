@@ -3,7 +3,7 @@ import React, { memo, useMemo } from 'react';
 import { NavLink } from 'react-router-dom';
 
 const ContractTabs = (props: any) => {
-  const { contractInfo, address, selectedTab, setTransactionType } = props;
+  const { contractInfo, address, selectedTab } = props;
 
   const filteredContractTabs = useMemo(
     () =>
@@ -28,9 +28,6 @@ const ContractTabs = (props: any) => {
               className={() =>
                 `contract-link tabs_link ${activeClass(tab.value)}`
               }
-              onClick={() => {
-                setTransactionType(tab.value);
-              }}
             >
               {tab.title}
             </NavLink>

@@ -7,7 +7,7 @@ import ContractTabs from './components/ContractTabs';
 import React, { memo } from 'react';
 
 const ContractDetails = (props: any) => {
-  const { contractInfo, address, selectedTab, setTransactionType } = props;
+  const { contractInfo, address, selectedTab } = props;
 
   function getTab() {
     switch (selectedTab) {
@@ -50,7 +50,6 @@ const ContractDetails = (props: any) => {
         contractInfo={contractInfo}
         address={address}
         selectedTab={selectedTab}
-        setTransactionType={setTransactionType}
       />
 
       <div className="contract-details">

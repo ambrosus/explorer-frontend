@@ -209,12 +209,7 @@ const Tabs: FC<TabsProps> = ({
   let tabsView;
   if (type === 'contract') {
     tabsView = (
-      <ContractDetails
-        contractInfo={contractInfo}
-        address={address}
-        selectedTab={filtered}
-        setTransactionType={setTransactionType}
-      />
+      <ContractDetails address={address} contractInfo={contractInfo} selectedTab={filtered} />
     );
   } else if (type === 'events') {
     tabsView = (
@@ -352,5 +347,4 @@ const Tabs: FC<TabsProps> = ({
     </>
   );
 };
-
 export default React.memo(Tabs);
