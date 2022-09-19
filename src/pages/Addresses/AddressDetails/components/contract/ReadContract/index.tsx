@@ -1,28 +1,7 @@
 import Method from './Method';
-import { memo, useEffect, useState } from 'react';
-import { useQuery } from 'react-query';
-import { useParams } from 'react-router-dom';
-import { getContractData } from 'services/contract.service';
 
-const ReadContract = () => {
-  const [contractAbi, setContractAbi] = useState<any>([]);
-  const { address = '' } = useParams();
-
-  const { data: contractData, isSuccess } = useQuery(
-    `read data ${address}`,
-    () => getContractData(address),
-  );
-
-  const files = contractData?.data?.files || [];
-  const status = contractData?.status || '';
-
-  useEffect(() => {
-    if (status === 200) {
-      const res = files.find((file: any) => file.name === 'metadata.json');
-      const parsedContent = JSON.parse(res?.content);
-      setContractAbi(parsedContent.output.abi);
-    }
-  }, [isSuccess]);
+const ReadContract = (props: any) => {
+  const { contractAbi } = props;
 
   return (
     <div>
@@ -50,4 +29,4 @@ const ReadContract = () => {
   );
 };
 
-export default memo(ReadContract);
+export default ReadContract;
