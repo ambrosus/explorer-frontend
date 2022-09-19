@@ -1,29 +1,14 @@
-import { useActions } from 'hooks/useActions';
-import { useTypedSelector } from 'hooks/useTypedSelector';
-import React, { memo, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { memo } from 'react';
 import { firstLetterUp } from 'utils/helpers';
 
-const ContractHeader = () => {
-  const { address } = useParams();
-  const { getContractAddressData } = useActions();
-  useEffect(() => {
-    getContractAddressData(address);
-  }, []);
+const ContractHeader = (props: any) => {
+  const { status, metadata } = props;
 
-  const [contractInfo, setContractInfo] = useState([]);
-  const { data } = useTypedSelector((state) => state?.sourcify);
-  const sourcifyData = data?.contractInfo?.data;
-
-  const filterFiles = sourcifyData?.files?.find(
-    (file: any) => file.name === 'metadata.json',
-  );
-  const parsedFiles = JSON.parse(filterFiles?.content || '{}');
   const contractName: any = Object.values(
-    parsedFiles?.settings?.compilationTarget || {},
+    metadata?.settings?.compilationTarget || {},
   )[0];
 
-  const optimizer = parsedFiles?.settings?.optimizer;
+  const optimizer = metadata?.settings?.optimizer;
 
   return (
     <div className="contract-body-header">
@@ -32,7 +17,7 @@ const ContractHeader = () => {
           {'Contract Source Code '}
           <span className="verified-contract">{'Verified '}</span>
           <span className="match-contract">{`(${firstLetterUp(
-            sourcifyData?.status,
+            status,
           )} Match)`}</span>
         </h2>
       </div>
@@ -43,7 +28,7 @@ const ContractHeader = () => {
         </p>
         <p>
           {'Compiler Version: '}
-          <span>{parsedFiles?.compiler?.version}</span>
+          <span>{metadata?.compiler?.version}</span>
         </p>
         <p>
           {'Optimization Enabled: '}
@@ -58,7 +43,7 @@ const ContractHeader = () => {
         <p>
           {'Other Settings: '}
           <span>{`evmVersion: ${firstLetterUp(
-            parsedFiles?.settings?.evmVersion,
+            metadata?.settings?.evmVersion,
           )}`}</span>
         </p>
       </div>
