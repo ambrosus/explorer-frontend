@@ -1,3 +1,4 @@
 import ContractDetails from './ContractDetails';
+import ContractEvents from './ContractEvents';
 
-export default ContractDetails;
+export { ContractDetails, ContractEvents };

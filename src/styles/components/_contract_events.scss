@@ -34,6 +34,23 @@
       grid-template-columns: minmax(90px, 1fr) minmax(500px, 6fr);
       white-space: nowrap;
       align-items: center;
+      position: relative;
+      &-hovered {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 25px;
+        left: -8px;
+      }
+      &-time {
+        display: flex;
+        align-items: center;
+        height: 24px;
+        background-color: #808a9d;
+        color: #fff;
+        padding: 0 6px;
+        border-radius: 5px;
+      }
       &-btn {
         width: 74px;
         height: 24px;

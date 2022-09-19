@@ -9,7 +9,7 @@ import { useTypedSelector } from 'hooks/useTypedSelector';
 import moment from 'moment';
 import AddressBlock from 'pages/Addresses/AddressDetails/components/AddressBlocks';
 import TabsNew from 'pages/Transactions/components/TabsNew';
-import React, { useEffect, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { TParams } from 'types';
 import {
@@ -20,7 +20,7 @@ import {
 } from 'utils/helpers';
 import { apolloDetailsSorting } from 'utils/sidePages';
 
-export const ApolloDetails = () => {
+export const ApolloDetails = memo(() => {
   const { getAddressData } = useActions();
   const { address }: TParams = useParams();
 
@@ -118,8 +118,6 @@ export const ApolloDetails = () => {
       value: version,
     },
   ];
-
-  console.log(rewards.transactionsRewards);
 
   const itemSecond: any = [
     {
@@ -223,4 +221,4 @@ export const ApolloDetails = () => {
       </Content.Body>
     </Content>
   );
-};
+});

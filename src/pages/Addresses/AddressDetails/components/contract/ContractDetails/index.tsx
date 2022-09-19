@@ -1,4 +1,5 @@
 import CodeContract from '../CodeContract';
+import ContractEvents from '../ContractEvents';
 import ReadContract from '../ReadContract';
 import VerifyContract from '../VerifyContract';
 import WriteContract from '../WriteContract';
@@ -39,6 +40,8 @@ const ContractDetails = (props: any) => {
             <VerifyContract />
           </div>
         );
+      case 'events':
+        return <ContractEvents />;
       default:
         return (
           <div className="code_contract">
@@ -58,8 +61,7 @@ const ContractDetails = (props: any) => {
 
       <div className="contract-details">
         <div className="contract-body">
-
-          {selectedTab !== 'verify' && (
+          {selectedTab !== 'verify' && selectedTab !== 'events' && (
             <ContractHeader
               sourcifyStatus={contractInfo?.data?.status}
               metadata={sourcifyMetadata}
@@ -80,7 +82,7 @@ const parseMetadata = (sourcifyFiles: any) => {
   try {
     return JSON.parse(metadata?.content);
   } catch (e) {
-    console.error(e)
+    console.error(e);
     return {};
   }
 };

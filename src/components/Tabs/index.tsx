@@ -13,10 +13,13 @@ import {
 } from 'pages/Addresses/AddressDetails/address-details.interface';
 import AddressBlock from 'pages/Addresses/AddressDetails/components/AddressBlocks';
 import AddressBlocksHeader from 'pages/Addresses/AddressDetails/components/AddressBlocksHeader';
-import ContractEvents from 'pages/Addresses/AddressDetails/components/ContractEvents';
-import ContractDetails from 'pages/Addresses/AddressDetails/components/contract';
+import {
+  ContractDetails,
+  ContractEvents,
+} from 'pages/Addresses/AddressDetails/components/contract';
 import React, {
   FC,
+  Suspense,
   useEffect,
   useLayoutEffect,
   useMemo,

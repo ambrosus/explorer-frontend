@@ -1,6 +1,5 @@
 import Main from './components/Main/Main';
 import { store } from './state';
-import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
