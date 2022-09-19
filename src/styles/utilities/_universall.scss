@@ -61,6 +61,16 @@
   &_ibm_font {
     font-family: IBM Plex Mono, sans-serif;
   }
+
+  &_triangle {
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+
+    border-bottom: 6px solid #808a9d;
+    margin-left: 42px;
+  }
 }
 
 .loader {

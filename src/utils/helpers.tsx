@@ -35,6 +35,18 @@ export const calcTime = (time: number | null | undefined) => {
    */
   return moment(time).isValid() ? moment(time * 1000).fromNow() : '';
 };
+
+export const calcTimeAgo = (time: number | null | undefined) => {
+  if (!time) {
+    return '';
+  }
+  /*
+   * @param {string} time
+   * @returns {string}
+   */
+  return moment(time).isValid() ? moment(time * 1000).fromNow() : '';
+};
+
 export const sliceDataString = (item: string | null | undefined) => {
   if (!item) {
     return [];
