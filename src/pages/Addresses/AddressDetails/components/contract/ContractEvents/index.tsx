@@ -1,6 +1,7 @@
 import EventDetails from './EventDetails';
+import Loader from 'components/Loader';
 import { ethers, EventFilter } from 'ethers';
-import { memo } from 'react';
+import { memo, useLayoutEffect } from 'react';
 import { useEffect, useMemo, useState } from 'react';
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
@@ -8,7 +9,10 @@ import { getContractData } from 'services/contract.service';
 
 const ContractEvents = () => {
   const [contractAbi, setContractAbi] = useState<any>([]);
+  const [isFetch, setIsFetch] = useState(false);
+
   const { address = '' } = useParams();
+  const [isLoading, setIsLoading] = useState(true);
 
   const provider = useMemo(
     () =>
@@ -18,72 +22,68 @@ const ContractEvents = () => {
     [process.env.REACT_APP_EXPLORER_NETWORK],
   );
 
-  const { data: contractData, isLoading } = useQuery(
+  const { data: contractData, isSuccess } = useQuery(
     `events data ${address}`,
     () => getContractData(address),
   );
-  const [contractRes, setContractRes] = useState<any>();
+  const [eventsData, setEventsData] = useState<any>([]);
 
-  const files = contractData?.data?.files || [];
+  const files = contractData?.data?.files;
   const status = contractData?.status || '';
 
-  useEffect(() => {
+  const func = async () => {
     if (status === 200) {
       const res = files.find((file: any) => file.name === 'metadata.json');
       const parsedContent = JSON.parse(res?.content);
+      const contract = new ethers.Contract(
+        address,
+        parsedContent.output.abi,
+        provider,
+      );
 
       setContractAbi(parsedContent.output.abi);
+      console.log(`ABI ` + parsedContent.output.abi);
+
+      const result = await contract?.queryFilter('*' as any);
+
+      setEventsData(result);
+      setIsLoading(false);
     }
-  }, [isLoading]);
-
-  const contract = useMemo(
-    () => new ethers.Contract(address, contractAbi, provider),
-    [address],
-  );
-
-  const res = contract.interface;
-
-  console.log(res);
-
-  const {
-    data: eventsData = [],
-    isSuccess,
-
-    isFetching,
-  } = useQuery(
-    `events details data ${address}`,
-    async () => {
-      const block = await provider.getBlockNumber();
-
-      return contract.queryFilter('*' as any, block - 1000, block);
-    },
-    { suspense: true },
-  );
+  };
 
   useEffect(() => {
-    console.log(eventsData);
+    func();
+  }, [isSuccess]);
+
+  useEffect(() => {
     // eventsData[0].getBlock().then((res) => console.log(res));
-    // eventsData[0]?.getTransaction().then((res) => console.log(res));
+    // eventsData[0]?.getTransaction().then((res: any) => console.log(res));
+    // eventsData[1]?.getTransaction().then((res: any) => console.log(res));
     // eventsData[0]?.getTransactionReceipt().then((res) => console.log(res));
     // console.log(eventsData[0]);
-  }, [isFetching]);
-  // console.log(contractAbi);
+  }, [isLoading]);
+  console.log(eventsData);
 
   return (
     <>
-      {/* {isSuccess &&
-        eventsData
-          ?.sort((a, b) => b.blockNumber - a.blockNumber)
-          .map((item, index) => (
-            <EventDetails
-              key={index}
-              txHash={item.transactionHash}
-              blockNumber={item.blockNumber}
-              topics={item.topics}
-              contractAbi={contractAbi}
-              event={item.event}
-            />
-          ))} */}
+      <div>{isLoading && <Loader />}</div>
+      {eventsData
+        ?.sort(
+          (a: { blockNumber: number }, b: { blockNumber: number }) =>
+            b.blockNumber - a.blockNumber,
+        )
+        .map((item: any, index: any) => (
+          <EventDetails
+            key={index}
+            txHash={item.transactionHash}
+            blockNumber={item.blockNumber}
+            topics={item.topics}
+            contractAbi={contractAbi}
+            event={item.event}
+            addresses={item.args}
+            eventData={item}
+          />
+        ))}
     </>
   );
 };

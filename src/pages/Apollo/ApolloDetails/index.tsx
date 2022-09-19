@@ -119,8 +119,6 @@ export const ApolloDetails = memo(() => {
     },
   ];
 
-  console.log(rewards.transactionsRewards);
-
   const itemSecond: any = [
     {
       name: 'MINING STATS',
