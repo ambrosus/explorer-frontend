@@ -10,6 +10,14 @@ const ContractEvents = () => {
   const [contractAbi, setContractAbi] = useState<any>([]);
   const { address = '' } = useParams();
 
+  const provider = useMemo(
+    () =>
+      new ethers.providers.JsonRpcProvider(
+        process.env.REACT_APP_EXPLORER_NETWORK,
+      ),
+    [process.env.REACT_APP_EXPLORER_NETWORK],
+  );
+
   const { data: contractData, isLoading } = useQuery(
     `events data ${address}`,
     () => getContractData(address),
@@ -28,14 +36,14 @@ const ContractEvents = () => {
     }
   }, [isLoading]);
 
-  let provider = new ethers.providers.JsonRpcProvider(
-    process.env.REACT_APP_EXPLORER_NETWORK,
-  );
-
   const contract = useMemo(
     () => new ethers.Contract(address, contractAbi, provider),
     [address],
   );
+
+  const res = contract.interface;
+
+  console.log(res);
 
   const {
     data: eventsData = [],
@@ -47,18 +55,18 @@ const ContractEvents = () => {
     async () => {
       const block = await provider.getBlockNumber();
 
-      return contract.queryFilter('*' as any, block - 3000, block);
+      return contract.queryFilter('*' as any, block - 1000, block);
     },
     { suspense: true },
   );
 
   useEffect(() => {
-    // console.log(eventsData);
-    eventsData[0].getBlock().then((res) => console.log(res));
-    eventsData[0]?.getTransaction().then((res) => console.log(res));
-    eventsData[0]?.getTransactionReceipt().then((res) => console.log(res));
+    console.log(eventsData);
+    // eventsData[0].getBlock().then((res) => console.log(res));
+    // eventsData[0]?.getTransaction().then((res) => console.log(res));
+    // eventsData[0]?.getTransactionReceipt().then((res) => console.log(res));
     // console.log(eventsData[0]);
-  }, [isSuccess]);
+  }, [isFetching]);
   // console.log(contractAbi);
 
   return (
@@ -66,13 +74,14 @@ const ContractEvents = () => {
       {/* {isSuccess &&
         eventsData
           ?.sort((a, b) => b.blockNumber - a.blockNumber)
-          .map((event, index) => (
+          .map((item, index) => (
             <EventDetails
               key={index}
-              txHash={event.transactionHash}
-              blockNumber={event.blockNumber}
-              topics={event.topics}
+              txHash={item.transactionHash}
+              blockNumber={item.blockNumber}
+              topics={item.topics}
               contractAbi={contractAbi}
+              event={item.event}
             />
           ))} */}
     </>

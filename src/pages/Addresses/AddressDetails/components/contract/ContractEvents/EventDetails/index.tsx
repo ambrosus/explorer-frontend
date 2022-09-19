@@ -2,7 +2,7 @@ import EventTopics from '../EventTopics';
 import ArrowDownBig from 'assets/icons/Arrows/ArrowDownBig';
 import ArrowUpBig from 'assets/icons/Arrows/ArrowUpBig';
 import FilterIcon from 'assets/icons/FilterIcon';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { sliceData5 } from 'utils/helpers';
 
 const EventDetails = ({
@@ -12,13 +12,19 @@ const EventDetails = ({
   txData,
   topics,
   contractAbi,
+  event,
 }: any) => {
   const [isShow, setIsShow] = useState<boolean>(false);
   const toggleMethod = () => {
     setIsShow((prev) => !prev);
   };
 
-  const res = contractAbi?.filter((item: any) => item.type === 'event');
+  useEffect(() => {
+    if (contractAbi) {
+      const res = contractAbi?.filter((item: any) => item.type === 'event');
+      // .find((item: any) => item.name === event);
+    }
+  }, []);
 
   // console.log(contractAbi);
 
@@ -57,7 +63,7 @@ const EventDetails = ({
               >
                 {isShow ? <ArrowDownBig /> : <ArrowUpBig />}
               </button>
-              <span>Transfer</span>
+              <span>{event}</span>
               <span className="universall_ibm">(index_topic_1</span>
               <span className="universall_semibold universall_green universall_ibm">
                 address
