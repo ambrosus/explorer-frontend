@@ -1,21 +1,13 @@
 import { contractTabs } from '../../../../../../../utils/sidePages';
-import React, { memo, useMemo } from 'react';
+import React, { memo } from 'react';
 import { NavLink } from 'react-router-dom';
 
 const ContractTabs = (props: any) => {
-  const { contractInfo, address, selectedTab } = props;
+  const { address, allowedTabs, selectedTab } = props;
 
-  const filteredContractTabs = useMemo(
-    () =>
-      contractInfo?.status === 200
-        ? contractTabs.filter((tab) => tab.value !== 'verify')
-        : contractTabs.filter((tab) => tab.value === 'verify'),
-    [contractTabs],
+  const filteredContractTabs = contractTabs.filter((tab) =>
+    allowedTabs.includes(tab.value),
   );
-
-  const activeClass = (itemValue: any) => {
-    return itemValue === selectedTab ? 'tabs_link_active' : '';
-  };
 
   return (
     <div className="tabs_heading" tabIndex={-1}>
@@ -25,9 +17,9 @@ const ContractTabs = (props: any) => {
             <NavLink
               key={tab.title}
               to={`/addresses/${address}/contract/${tab.value || ''}`}
-              className={() =>
-                `contract-link tabs_link ${activeClass(tab.value)}`
-              }
+              className={`contract-link tabs_link ${
+                tab.value === selectedTab ? 'tabs_link_active' : ''
+              }`}
             >
               {tab.title}
             </NavLink>
