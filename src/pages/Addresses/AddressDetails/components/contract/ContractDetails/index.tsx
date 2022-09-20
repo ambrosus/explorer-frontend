@@ -38,13 +38,13 @@ const ContractDetails = (props: any) => {
       case 'read':
         return (
           <div className="read_contract">
-            <ReadContract contractAbi={contractAbi} />
+            <ReadContract contractAbi={contractAbi} contractAddress={address}/>
           </div>
         );
       case 'write':
         return (
           <div className="write_contract">
-            <WriteContract contractAbi={contractAbi} />
+            <WriteContract contractAbi={contractAbi} contractAddress={address}/>
           </div>
         );
       case 'verify':

@@ -1,29 +1,31 @@
 import Method from './Method';
 
 const ReadContract = (props: any) => {
-  const { contractAbi } = props;
+  const { contractAbi, contractAddress } = props;
+
+  const readMethods = contractAbi.filter(
+    (method: any) =>
+      method.type === 'function' &&
+      (method.stateMutability === 'view' || method.stateMutability === 'pure'),
+  );
 
   return (
     <div>
       <h2 className="contract-tab-title">Read Contract Information</h2>
+
       <div className="methods">
-        {contractAbi
-          ?.filter(
-            (method: any) =>
-              (method.stateMutability === 'view' ||
-                method.stateMutability === 'pure') &&
-              method.type === 'function',
-          )
-          .map((method: any, index: number) => {
-            return (
-              <Method
-                key={index}
-                index={index}
-                method={method}
-                buttonName={'Query'}
-              />
-            );
-          })}
+        {readMethods.map((method: any, index: number) => {
+          return (
+            <Method
+              key={index}
+              index={index}
+              method={method}
+              buttonName={'Query'}
+              address={contractAddress}
+              isRead={true}
+            />
+          );
+        })}
       </div>
     </div>
   );

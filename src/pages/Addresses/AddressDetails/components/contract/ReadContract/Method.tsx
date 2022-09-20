@@ -5,7 +5,6 @@ import WarningError from 'assets/icons/WarningError';
 import Spinner from 'components/Spinner';
 import { ethers, providers } from 'ethers';
 import React, { memo, useEffect, useMemo, useState } from 'react';
-import { useParams } from 'react-router-dom';
 
 const Method = (props: any) => {
   const [open, setOpen] = React.useState<any>(false);
@@ -18,12 +17,8 @@ const Method = (props: any) => {
   const [error, setError] = React.useState<any>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const { index, method, buttonName } = props;
+  const { address, isRead, index, method, buttonName } = props;
   const { ethereum }: any = window;
-
-  const { address = '' } = useParams(); // todo get from props
-  const isRead =
-    method.stateMutability === 'view' || method.stateMutability === 'pure'; // todo get from props
 
   const readProvider = new ethers.providers.JsonRpcProvider(
     process.env.REACT_APP_EXPLORER_NETWORK,
