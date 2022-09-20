@@ -57,18 +57,21 @@ const Tabs: FC<TabsProps> = ({
   const headerToken: any = type === 'ERC-20_Tx' ? 'token' : null;
 
   const noDtaFound = () => {
-    if (type === 'contract') return;
-
-    if (pageNum < addressData?.meta?.totalPages && type !== 'ERC-20_Tx')
-      return false;
-
-    setTimeout(() => {
-      const found = !loading && !renderData?.length;
-      setNotFound(found);
-    }, 500);
-    return notFound;
+    if (type !== 'contract') {
+      if (pageNum < addressData?.meta?.totalPages && type !== 'ERC-20_Tx') {
+        return false;
+      } else {
+        setTimeout(() => {
+          if (!loading && !renderData?.length) {
+            setNotFound(true);
+          } else {
+            setNotFound(false);
+          }
+        }, 500);
+      }
+      return notFound;
+    }
   };
-
   useOnClickOutside(mobileCalendarRef, () => setIsShow(false));
 
   useLayoutEffect(() => {
