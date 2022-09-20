@@ -9,7 +9,9 @@ const WriteContract = (props: any) => {
   const { ethereum }: any = window;
   const [isConnected, setIsConnected] = useState<boolean>(false);
 
-  const writeMethods = contractAbi.filter(
+  if (!contractAbi) return <></>;
+
+  const writeMethods = contractAbi?.filter(
     (method: any) =>
       method.type === 'function' &&
       !(method.stateMutability === 'view' || method.stateMutability === 'pure'),

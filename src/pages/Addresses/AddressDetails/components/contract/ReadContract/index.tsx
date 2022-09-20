@@ -3,6 +3,8 @@ import Method from './Method';
 const ReadContract = (props: any) => {
   const { contractAbi, contractAddress } = props;
 
+  if (!contractAbi) return <></>;
+
   const readMethods = contractAbi.filter(
     (method: any) =>
       method.type === 'function' &&
