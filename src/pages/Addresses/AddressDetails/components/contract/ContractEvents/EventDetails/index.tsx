@@ -1,12 +1,11 @@
-import EventTopics from '../EventTopics';
 import EventDetailsItem from './EventDetailsItem';
+import EventTopics from './EventTopics';
 import ArrowDownBig from 'assets/icons/Arrows/ArrowDownBig';
 import ArrowUpBig from 'assets/icons/Arrows/ArrowUpBig';
 import FilterIcon from 'assets/icons/FilterIcon';
 import useHover from 'hooks/useHover';
 import moment from 'moment';
 import { useEffect, useMemo, useState } from 'react';
-import { useQuery } from 'react-query';
 import { calcTime, sliceData5 } from 'utils/helpers';
 
 const EventDetails = ({
@@ -27,7 +26,6 @@ const EventDetails = ({
 
   useEffect(() => {
     eventData?.getTransaction().then((res: any) => setTxData(res));
-    console.log(txData);
   }, []);
 
   useEffect(() => {
@@ -39,21 +37,11 @@ const EventDetails = ({
   );
 
   useEffect(() => {
-    if (eventData.eventSignature) {
-      // console.log(contract.interface.parseLog(eventData));
-    }
-  }, []);
-
-  useEffect(() => {
     if (!!event) {
       const res = contract.interface.parseLog(eventData);
       const bigNuber = eventData.args.filter(
         (item: any) => item === 'BigNumber',
       );
-      // console.log(bigNuber);
-
-      // const res1 = contract.interface.getFunction(txData.data.substring(0, 10));
-      // console.log(res1);
 
       setInputs(res?.eventFragment.inputs);
     }

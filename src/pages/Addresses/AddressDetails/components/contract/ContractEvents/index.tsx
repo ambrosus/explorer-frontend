@@ -30,6 +30,7 @@ const ContractEvents = () => {
 
   const files = contractData?.data?.files;
   const status = contractData?.status || '';
+  const [eventsToRender, setEventsToRender] = useState<any>([]);
 
   const func = async () => {
     if (status === 200) {
@@ -46,6 +47,7 @@ const ContractEvents = () => {
       const result = await contract?.queryFilter('*' as any);
 
       setEventsData(result);
+
       setIsLoading(false);
     }
   };
