@@ -1,14 +1,29 @@
-import React, { memo } from 'react';
+import { useActions } from 'hooks/useActions';
+import { useTypedSelector } from 'hooks/useTypedSelector';
+import React, { memo, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { firstLetterUp } from 'utils/helpers';
 
-const ContractHeader = (props: any) => {
-  const { status, metadata } = props;
+const ContractHeader = () => {
+  const { address } = useParams();
+  const { getContractAddressData } = useActions();
+  useEffect(() => {
+    getContractAddressData(address);
+  }, []);
 
+  const [contractInfo, setContractInfo] = useState([]);
+  const { data } = useTypedSelector((state) => state?.sourcify);
+  const sourcifyData = data?.contractInfo?.data;
+
+  const filterFiles = sourcifyData?.files?.find(
+    (file: any) => file.name === 'metadata.json',
+  );
+  const parsedFiles = JSON.parse(filterFiles?.content || '{}');
   const contractName: any = Object.values(
-    metadata?.settings?.compilationTarget || {},
+    parsedFiles?.settings?.compilationTarget || {},
   )[0];
 
-  const optimizer = metadata?.settings?.optimizer;
+  const optimizer = parsedFiles?.settings?.optimizer;
 
   return (
     <div className="contract-body-header">
@@ -17,7 +32,7 @@ const ContractHeader = (props: any) => {
           {'Contract Source Code '}
           <span className="verified-contract">{'Verified '}</span>
           <span className="match-contract">{`(${firstLetterUp(
-            status,
+            sourcifyData?.status,
           )} Match)`}</span>
         </h2>
       </div>
@@ -28,7 +43,7 @@ const ContractHeader = (props: any) => {
         </p>
         <p>
           {'Compiler Version: '}
-          <span>{metadata?.compiler?.version}</span>
+          <span>{parsedFiles?.compiler?.version}</span>
         </p>
         <p>
           {'Optimization Enabled: '}
@@ -43,7 +58,7 @@ const ContractHeader = (props: any) => {
         <p>
           {'Other Settings: '}
           <span>{`evmVersion: ${firstLetterUp(
-            metadata?.settings?.evmVersion,
+            parsedFiles?.settings?.evmVersion,
           )}`}</span>
         </p>
       </div>

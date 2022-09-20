@@ -1,4 +1,13 @@
+import CodeContract from './CodeContract';
 import ContractDetails from './ContractDetails';
-import ContractEvents from './ContractEvents';
+import ReadContract from './ReadContract';
+import VerifyContract from './VerifyContract';
+import WriteContract from './WriteContract';
 
-export { ContractDetails, ContractEvents };
+export {
+  ContractDetails,
+  CodeContract,
+  ReadContract,
+  WriteContract,
+  VerifyContract,
+};
