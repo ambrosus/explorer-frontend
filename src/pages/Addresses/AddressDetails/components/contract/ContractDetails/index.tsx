@@ -1,37 +1,36 @@
-import CodeContract from '../CodeContract';
 import ContractEvents from '../ContractEvents';
-import ReadContract from '../ReadContract';
-import VerifyContract from '../VerifyContract';
-import WriteContract from '../WriteContract';
+import {
+  CodeContract,
+  ReadContract,
+  WriteContract,
+  VerifyContract,
+} from '../index';
 import ContractHeader from './components/ContractHeader';
-import ContractTabs from './components/ContractTabs';
-import React, { memo } from 'react';
+import Loader from 'components/Loader';
+import React, { memo, Suspense } from 'react';
+import { useParams } from 'react-router-dom';
 
-const ContractDetails = (props: any) => {
-  const { contractInfo, address, selectedTab } = props;
-
-  const sourcifyFiles = contractInfo?.data?.files || [];
-  const sourcifyMetadata = parseMetadata(sourcifyFiles);
-  const contractAbi = sourcifyMetadata.output?.abi;
+const ContractDetails = () => {
+  const { filtered } = useParams();
 
   function getTab() {
-    switch (selectedTab) {
+    switch (filtered) {
       case 'code':
         return (
           <div className="code_contract">
-            <CodeContract files={sourcifyFiles} contractAbi={contractAbi} />
+            <CodeContract />
           </div>
         );
       case 'read':
         return (
           <div className="read_contract">
-            <ReadContract contractAbi={contractAbi} />
+            <ReadContract />
           </div>
         );
       case 'write':
         return (
           <div className="write_contract">
-            <WriteContract contractAbi={contractAbi} />
+            <WriteContract />
           </div>
         );
       case 'verify':
@@ -45,46 +44,18 @@ const ContractDetails = (props: any) => {
       default:
         return (
           <div className="code_contract">
-            <CodeContract files={sourcifyFiles} abi={contractAbi} />
+            <CodeContract />
           </div>
         );
     }
   }
 
   return (
-    <div className="contract">
-      <ContractTabs
-        contractInfo={contractInfo}
-        address={address}
-        selectedTab={selectedTab}
-      />
-
-      <div className="contract-details">
-        <div className="contract-body">
-          {selectedTab !== 'verify' && selectedTab !== 'events' && (
-            <ContractHeader
-              sourcifyStatus={contractInfo?.data?.status}
-              metadata={sourcifyMetadata}
-            />
-          )}
-
-          <div className="contract-body-content">{getTab()}</div>
-        </div>
-      </div>
+    <div className="contract-body">
+      {filtered !== 'verify' && filtered !== 'events' && <ContractHeader />}
+      <div className="contract-body-content">{getTab()}</div>
     </div>
   );
-};
-
-const parseMetadata = (sourcifyFiles: any) => {
-  const metadata = sourcifyFiles.find(
-    (file: any) => file.name === 'metadata.json',
-  );
-  try {
-    return JSON.parse(metadata?.content);
-  } catch (e) {
-    console.error(e);
-    return {};
-  }
 };
 
 export default memo(ContractDetails);
