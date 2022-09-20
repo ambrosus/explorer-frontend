@@ -148,16 +148,12 @@ const Tabs: FC<TabsProps> = ({
 
   const handleShow = () => setIsShow(!isShow);
 
-  const isContractTab = ['code', 'write', 'read', 'verify'].includes(
-    filtered || '',
-  );
-
   let navLinks;
   // todo refactor: add `contractFilters` or something
 
   // todo use `/addresses/${address}/contract/` url (without specifying /code or /verify).
   //  redirect to /code or /verify in Contract component
-  if (!filtered || isContractTab) {
+  if (!filtered || isContract) {
     if (transactionFilters?.length)
       navLinks = transactionFilters.map((filter) => {
         if (
