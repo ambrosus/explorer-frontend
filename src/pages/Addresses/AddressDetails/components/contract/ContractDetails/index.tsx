@@ -6,6 +6,7 @@ import VerifyContract from '../VerifyContract';
 import WriteContract from '../WriteContract';
 import ContractHeader from './components/ContractHeader';
 import ContractTabs from './components/ContractTabs';
+import { ethers } from 'ethers';
 import React, { memo } from 'react';
 import { Navigate } from 'react-router-dom';
 
@@ -35,12 +36,23 @@ const ContractDetails = (props: any) => {
     return <Navigate to={`/addresses/${address}/contract/${redirectTab}`} />;
   }
 
+  const proxyData = {
+    implementationAddress: null,
+    implementationAbi: [],
+  };
   if (isContractProxy) {
-    // todo get implementation address
-    // todo get implementation abi
-    // todo readAsProxy and writeAsProxy tab
-    // todo maybe write some info about implementation in contract header
-    // todo merge proxy and implementation abi and use it for events tab
+    const readProvider = new ethers.providers.JsonRpcProvider(
+      process.env.REACT_APP_EXPLORER_NETWORK,
+    );
+    const contract = new ethers.Contract(address, contractAbi, readProvider);
+
+    proxyData.implementationAddress = contract
+      .implementation()
+      .then((res: any) => {
+        // todo get implementation abi
+        // todo maybe write some info about implementation in contract header
+        // todo merge proxy and implementation abi and use it for events tab
+      });
   }
 
   function getTab() {
@@ -54,13 +66,34 @@ const ContractDetails = (props: any) => {
       case 'read':
         return (
           <div className="read_contract">
-            <ReadContract contractAbi={contractAbi} contractAddress={address}/>
+            <ReadContract contractAbi={contractAbi} contractAddress={address} />
+          </div>
+        );
+      case 'readAsProxy':
+        return (
+          <div className="read_contract">
+            <ReadContract
+              contractAbi={proxyData.implementationAbi}
+              contractAddress={address}
+            />
           </div>
         );
       case 'write':
         return (
           <div className="write_contract">
-            <WriteContract contractAbi={contractAbi} contractAddress={address}/>
+            <WriteContract
+              contractAbi={contractAbi}
+              contractAddress={address}
+            />
+          </div>
+        );
+      case 'writeAsProxy':
+        return (
+          <div className="write_contract">
+            <WriteContract
+              contractAbi={proxyData.implementationAbi}
+              contractAddress={address}
+            />
           </div>
         );
       case 'verify':

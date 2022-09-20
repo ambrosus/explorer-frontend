@@ -60,6 +60,8 @@ export const contractTabs = [
   { title: 'CODE', value: 'code' },
   { title: 'READ CONTRACT', value: 'read' },
   { title: 'WRITE CONTRACT', value: 'write' },
+  { title: 'READ CONTRACT AS PROXY', value: 'readAsProxy' },
+  { title: 'WRITE CONTRACT AS PROXY', value: 'writeAsProxy' },
   { title: 'VERIFY CONTRACT', value: 'verify' },
   { title: 'EVENTS', value: 'events' },
 ];
