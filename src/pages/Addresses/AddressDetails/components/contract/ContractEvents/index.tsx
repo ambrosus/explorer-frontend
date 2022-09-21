@@ -8,11 +8,9 @@ import { useParams } from 'react-router-dom';
 import { getContractData } from 'services/contract.service';
 
 const ContractEvents = () => {
-  const [contractAbi, setContractAbi] = useState<any>([]);
-  const [contract, setContract] = useState<any>();
-
   const { address = '' } = useParams();
-  const [isLoading, setIsLoading] = useState(true);
+  const [eventsToRender, setEventsToRender] = useState<any>([]);
+  const [isLoading, setIsLoading] = useState<any>([]);
 
   const provider = useMemo(
     () =>
@@ -26,11 +24,12 @@ const ContractEvents = () => {
     `events data ${address}`,
     () => getContractData(address),
   );
-  const [eventsData, setEventsData] = useState<any>([]);
 
-  const files = contractData?.data?.files;
-  const status = contractData?.status || '';
-  const [eventsToRender, setEventsToRender] = useState<any>([]);
+  const files = useMemo(
+    () => contractData?.data?.files,
+    [contractData?.data?.files],
+  );
+  const status = useMemo(() => contractData?.status, [contractData?.status]);
 
   const func = async () => {
     if (status === 200) {
@@ -41,13 +40,39 @@ const ContractEvents = () => {
         parsedContent.output.abi,
         provider,
       );
-      setContract(contract);
-      setContractAbi(parsedContent.output.abi);
 
       const result = await contract?.queryFilter('*' as any);
 
-      setEventsData(result);
+      result.forEach(async (item: any) => {
+        const blockData = await item.getBlock();
+        const txData = await item.getTransaction();
 
+        const methodId = txData?.data?.substring(0, 10);
+
+        const parseLog = contract.interface.parseLog(item);
+
+        const data = {
+          txHash: item.transactionHash || null,
+          timestamp: blockData.timestamp || null,
+          blockNumber: item.blockNumber || null,
+          event: item.event || null,
+          methodId: methodId || null,
+          inputs: parseLog?.eventFragment.inputs || [],
+          addressFrom: txData.from || null,
+          addressTo: txData.to || null,
+          topics: item.topics || [],
+        };
+        isLoading &&
+          setEventsToRender((prev: any) => {
+            let res;
+            if (prev === Array) {
+              res = data;
+            } else {
+              res = [...prev, data];
+            }
+            return res;
+          });
+      });
       setIsLoading(false);
     }
   };
@@ -56,18 +81,10 @@ const ContractEvents = () => {
     func();
   }, [isSuccess]);
 
-  useEffect(() => {
-    // eventsData[0].getBlock().then((res) => console.log(res));
-    // eventsData[0]?.getTransaction().then((res: any) => console.log(res));
-    // eventsData[1]?.getTransaction().then((res: any) => console.log(res));
-    // eventsData[0]?.getTransactionReceipt().then((res) => console.log(res));
-    // console.log(eventsData[0]);
-  }, [isLoading]);
-
   return (
     <>
-      <div>{isLoading && <Loader />}</div>
-      {eventsData
+      <div>{eventsToRender.length === 0 && <Loader />}</div>
+      {eventsToRender
         ?.sort(
           (a: { blockNumber: number }, b: { blockNumber: number }) =>
             b.blockNumber - a.blockNumber,
@@ -75,14 +92,15 @@ const ContractEvents = () => {
         .map((item: any, index: any) => (
           <EventDetails
             key={index}
-            txHash={item.transactionHash}
+            addressFrom={item.addressFrom}
+            addressTo={item.addressTo}
             blockNumber={item.blockNumber}
-            topics={item.topics}
-            contractAbi={contractAbi}
             event={item.event}
-            addresses={item.args}
-            eventData={item}
-            contract={contract}
+            inputs={item.inputs}
+            methodId={item.methodId}
+            timestamp={item.timestamp}
+            topics={item.topics}
+            txHash={item.txHash}
           />
         ))}
     </>

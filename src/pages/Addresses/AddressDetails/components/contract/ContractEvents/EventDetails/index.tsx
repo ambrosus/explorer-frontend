@@ -5,47 +5,25 @@ import ArrowUpBig from 'assets/icons/Arrows/ArrowUpBig';
 import FilterIcon from 'assets/icons/FilterIcon';
 import useHover from 'hooks/useHover';
 import moment from 'moment';
-import { useEffect, useMemo, useState } from 'react';
+import { useState } from 'react';
 import { calcTime, sliceData5 } from 'utils/helpers';
 
 const EventDetails = ({
-  txHash,
+  addressFrom,
+  addressTo,
   blockNumber,
-  topics,
   event,
-  eventData,
-  contract,
+  inputs,
+  methodId,
+  timestamp,
+  topics,
+  txHash,
 }: any) => {
   const [isShow, setIsShow] = useState<boolean>(false);
+  const [isLoad, setIsLoad] = useState<boolean>(false);
   const toggleMethod = () => {
     setIsShow((prev) => !prev);
   };
-  const [inputs, setInputs] = useState([]);
-  const [txData, setTxData] = useState<any>({});
-  const [blockData, setBlockData] = useState<any>({});
-
-  useEffect(() => {
-    eventData?.getTransaction().then((res: any) => setTxData(res));
-  }, []);
-
-  useEffect(() => {
-    eventData?.getBlock().then((res: any) => setBlockData(res));
-  }, []);
-  const methodId = useMemo(
-    () => txData?.data?.substring(0, 10),
-    [txData?.data],
-  );
-
-  useEffect(() => {
-    if (!!event) {
-      const res = contract.interface.parseLog(eventData);
-      const bigNuber = eventData.args.filter(
-        (item: any) => item === 'BigNumber',
-      );
-
-      setInputs(res?.eventFragment.inputs);
-    }
-  }, []);
 
   const [hoverRef, isHovered] = useHover<HTMLDivElement>();
 
@@ -67,14 +45,12 @@ const EventDetails = ({
               ref={hoverRef}
               className="contract_events-body-cell universall_light3"
             >
-              {calcTime(blockData?.timestamp)}
+              {calcTime(timestamp)}
               {isHovered && (
                 <div className="contract_events-body-cell-hovered">
                   <span className="universall_triangle"></span>
                   <span className="contract_events-body-cell-time">
-                    {moment(blockData?.timestamp * 1000).format(
-                      'MMM-D-YYYY h:mm:ss a',
-                    )}
+                    {moment(timestamp * 1000).format('MMM-D-YYYY h:mm:ss a')}
                   </span>
                 </div>
               )}
@@ -100,7 +76,7 @@ const EventDetails = ({
               <span>{event}</span>
               <pre className="universall_ibm">
                 (
-                {inputs.map((input: any, index) => (
+                {inputs?.map((input: any, index: any) => (
                   <EventDetailsItem key={index} input={input} index={index} />
                 ))}
                 )
@@ -111,13 +87,13 @@ const EventDetails = ({
                 <div className="contract_events-body-modal-cell">
                   <div>address from</div>
                   <div className="contract_events-body-modal-address">
-                    {txData?.from}
+                    {addressFrom}
                   </div>
                 </div>
                 <div className="contract_events-body-modal-cell">
                   <div>address to</div>
                   <div className="contract_events-body-modal-address">
-                    {txData?.to}
+                    {addressTo}
                   </div>
                 </div>
                 <div className="contract_events-body-modal-cell">
