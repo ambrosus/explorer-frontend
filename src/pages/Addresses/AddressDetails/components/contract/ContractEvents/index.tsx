@@ -52,18 +52,31 @@ const ContractEvents = () => {
 
         const parseLog = contract.interface.parseLog(item);
 
+        const inputs = parseLog?.eventFragment.inputs || [];
+        const inputsData = inputs.map((input: any) => {
+          return {
+            name: input.name,
+            type: input.type,
+            value: parseLog?.args[input.name],
+            indexed: input.indexed,
+          };
+        });
+        const nonTopics = inputsData.filter((input: any) => !input.indexed);
+
         const data = {
           txHash: item.transactionHash || null,
           timestamp: blockData.timestamp || null,
           blockNumber: item.blockNumber || null,
           event: item.event || null,
           methodId: methodId || null,
-          inputs: parseLog?.eventFragment.inputs || [],
           addressFrom: txData.from || null,
           addressTo: txData.to || null,
           topics: item.topics || [],
-          uint256: item.args.at(-1).toString(),
+          inputs,
+          inputsData,
+          nonTopics,
         };
+        console.log(  data);
 
         isLoading &&
           setEventsToRender((prev: any) => {
