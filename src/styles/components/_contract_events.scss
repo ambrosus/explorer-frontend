@@ -56,11 +56,18 @@
         border-radius: 5px;
       }
       &-btn {
+        display: flex;
+        align-items: center;
+
         width: 74px;
         height: 24px;
         border: 1px solid #eff2f5;
         margin-right: 12px;
         border-radius: 8px;
+        font-weight: 700;
+        font-size: 11px;
+        line-height: 32px;
+        padding-left: 8px;
       }
     }
     &-subcell {

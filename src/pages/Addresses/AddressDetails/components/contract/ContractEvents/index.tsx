@@ -61,7 +61,9 @@ const ContractEvents = () => {
             indexed: input.indexed,
           };
         });
+
         const nonTopics = inputsData.filter((input: any) => !input.indexed);
+        console.log(nonTopics);
 
         const data = {
           txHash: item.transactionHash || null,
@@ -192,8 +194,9 @@ const ContractEvents = () => {
                 topics={item.topics}
                 txHash={item.txHash}
                 searchValue={searchValue}
-                uint256={item.uint256}
                 handleFindValue={handleFindValue}
+                inputsData={item.inputsData}
+                nonTopics={item.nonTopics}
               />
             ))}
         </div>

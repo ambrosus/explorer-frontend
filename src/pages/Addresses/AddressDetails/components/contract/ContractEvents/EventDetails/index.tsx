@@ -1,5 +1,7 @@
 import EventDetailsItem from './EventDetailsItem';
 import EventTopics from './EventTopics';
+import EventModal from './EventsModal';
+import ArrowDown from 'assets/icons/Arrows/ArrowDown';
 import ArrowDownBig from 'assets/icons/Arrows/ArrowDownBig';
 import ArrowUpBig from 'assets/icons/Arrows/ArrowUpBig';
 import FilterIcon from 'assets/icons/FilterIcon';
@@ -19,6 +21,8 @@ const EventDetails = ({
   topics,
   txHash,
   handleFindValue,
+  inputsData,
+  nonTopics,
 }: any) => {
   const [isShow, setIsShow] = useState<boolean>(false);
 
@@ -70,7 +74,7 @@ const EventDetails = ({
               className="contract_events-body-transfer"
               onClick={toggleMethod}
             >
-              {isShow ? <ArrowDownBig /> : <ArrowUpBig />}
+              {isShow ? <ArrowUpBig /> : <ArrowDownBig />}
             </button>
             <span>{event}</span>
             <pre className="universall_ibm">
@@ -81,40 +85,34 @@ const EventDetails = ({
               )
             </pre>
           </div>
-          {isShow && (
-            <div className="contract_events-body-modal">
-              <div className="contract_events-body-modal-cell">
-                <div>address from</div>
-                <div className="contract_events-body-modal-address">
-                  {addressFrom}
-                </div>
-              </div>
-              <div className="contract_events-body-modal-cell">
-                <div>address to</div>
-                <div className="contract_events-body-modal-address">
-                  {addressTo}
-                </div>
-              </div>
-              <div className="contract_events-body-modal-cell">
-                <div>uint256 value</div>
-                <div>3761172685</div>
-              </div>
-            </div>
-          )}
+
+          <div className="contract_events-body-modal">
+            {isShow &&
+              inputsData.map((input: any, index: any) => (
+                <EventModal
+                  key={index}
+                  type={input.type}
+                  name={input.name}
+                  value={input.value}
+                  indexed={input.indexed}
+                />
+              ))}
+          </div>
 
           {topics.map((topic: any, index: any) => (
             <EventTopics key={index} topic={topic} numberTopic={index} />
           ))}
-
-          <div className="contract_events-body-cell">
-            <button
-              className="contract_events-body-cell-btn"
-              onClick={handleFindValue}
-            >
-              Address
-            </button>
-            <div>0x000000000000000000000000000000003f7a7530</div>
-          </div>
+          {nonTopics.map((nonTopic: any, index: any) => (
+            <div className="contract_events-body-cell" key={index}>
+              <button
+                className="contract_events-body-cell-btn"
+                onClick={handleFindValue}
+              >
+                Address <ArrowDown />
+              </button>
+              <div>{nonTopic.value.toString()}</div>
+            </div>
+          ))}
         </div>
       </div>
     </>
