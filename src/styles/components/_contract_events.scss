@@ -1,5 +1,7 @@
 .contract_events {
   display: flex;
+  flex-direction: column;
+
   position: relative;
   &-find {
     position: absolute;
@@ -10,8 +12,8 @@
     display: grid;
     grid-template-columns:
       minmax(70px, 1fr) minmax(70px, 1fr) minmax(70px, 1fr)
-      minmax(500px, 4fr);
-    grid-gap: 32px;
+      minmax(500px, 5fr);
+
     padding: 16px 0;
     margin-left: 15px;
   }
@@ -35,6 +37,8 @@
       white-space: nowrap;
       align-items: center;
       position: relative;
+      height: 24px;
+
       &-hovered {
         display: flex;
         flex-direction: column;
@@ -86,22 +90,32 @@
     }
   }
   &-find {
-    width: 218px;
-    height: 32px;
+    display: flex;
+    align-items: flex-end;
 
     border-radius: 16px;
     &-input {
+      color: #a6b0c3;
+      width: 172px;
+      border: 0;
+      &::placeholder {
+        color: #a6b0c3;
+      }
+    }
+
+    &-label {
+      display: flex;
+      align-items: center;
       width: 218px;
       height: 32px;
       border: 1px solid #eff2f5;
       border-radius: 16px;
       padding-left: 16px;
-      color: #a6b0c3;
       font-size: 16px;
-
-      &::placeholder {
-        color: #a6b0c3;
-      }
+    }
+    &-btn {
+      display: flex;
+      align-items: center;
     }
   }
 }

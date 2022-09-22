@@ -1,4 +1,5 @@
 import EventDetails from './EventDetails';
+import Search from 'assets/icons/Search';
 import Loader from 'components/Loader';
 import { ethers } from 'ethers';
 import { memo } from 'react';
@@ -31,7 +32,7 @@ const ContractEvents = () => {
   );
   const status = useMemo(() => contractData?.status, [contractData?.status]);
 
-  const func = async () => {
+  const getEventData = async () => {
     if (status === 200) {
       const res = files.find((file: any) => file.name === 'metadata.json');
       const parsedContent = JSON.parse(res?.content);
@@ -61,9 +62,22 @@ const ContractEvents = () => {
           addressFrom: txData.from || null,
           addressTo: txData.to || null,
           topics: item.topics || [],
+          uint256: item.args.at(-1).toString(),
         };
+
         isLoading &&
           setEventsToRender((prev: any) => {
+            let res;
+            if (prev === Array) {
+              res = data;
+            } else {
+              res = [...prev, data];
+            }
+            return res;
+          });
+
+        isLoading &&
+          setFilteredEvents((prev: any) => {
             let res;
             if (prev === Array) {
               res = data;
@@ -76,33 +90,89 @@ const ContractEvents = () => {
       setIsLoading(false);
     }
   };
+  const [searchValue, setSearchValue] = useState('');
+  const [filteredEvents, setFilteredEvents] = useState<any>([]);
 
   useEffect(() => {
-    func();
+    getEventData();
   }, [isSuccess]);
+
+  const findDataFromEvent = (e: any) => {
+    e.preventDefault();
+    const str = searchValue.substring(0, 2);
+
+    if (str === '0x') {
+      setFilteredEvents(
+        filteredEvents.filter((event: any) => event.topics[0] === searchValue),
+      );
+    } else {
+      setFilteredEvents(
+        filteredEvents.filter(
+          (event: any) => event.blockNumber === +searchValue,
+        ),
+      );
+    }
+  };
+
+  const handleSearchChange = (e: any) => {
+    e.preventDefault();
+
+    setSearchValue(e.target.value);
+  };
 
   return (
     <>
-      <div>{eventsToRender.length === 0 && <Loader />}</div>
-      {eventsToRender
-        ?.sort(
-          (a: { blockNumber: number }, b: { blockNumber: number }) =>
-            b.blockNumber - a.blockNumber,
-        )
-        .map((item: any, index: any) => (
-          <EventDetails
-            key={index}
-            addressFrom={item.addressFrom}
-            addressTo={item.addressTo}
-            blockNumber={item.blockNumber}
-            event={item.event}
-            inputs={item.inputs}
-            methodId={item.methodId}
-            timestamp={item.timestamp}
-            topics={item.topics}
-            txHash={item.txHash}
-          />
-        ))}
+      <div className="contract_events">
+        <div className="contract_events-table">
+          <div className="contract_events-find">
+            <form onSubmit={(e) => findDataFromEvent(e)}>
+              <label className="contract_events-find-label" htmlFor="html">
+                <input
+                  type="text"
+                  id="html"
+                  value={searchValue}
+                  onChange={(e) => handleSearchChange(e)}
+                  placeholder="Filter by  Block or Topic"
+                  className="contract_events-find-input"
+                />
+                <button type="submit" className="contract_events-find-btn">
+                  <Search fill={'#808A9D'} />
+                </button>
+              </label>
+            </form>
+          </div>
+          <div className="contract_events-heading">
+            <div className="contract_events-heading-cell">Txn Hash</div>
+            <div className="contract_events-heading-cell">Block</div>
+            <div className="contract_events-heading-cell">Method ID</div>
+            <div className="contract_events-heading-cell">Logs</div>
+          </div>
+
+          <div>{eventsToRender.length === 0 && <Loader />}</div>
+
+          {eventsToRender
+            ?.sort(
+              (a: { blockNumber: number }, b: { blockNumber: number }) =>
+                b.blockNumber - a.blockNumber,
+            )
+            .map((item: any, index: any) => (
+              <EventDetails
+                key={index}
+                addressFrom={item.addressFrom}
+                addressTo={item.addressTo}
+                blockNumber={item.blockNumber}
+                event={item.event}
+                inputs={item.inputs}
+                methodId={item.methodId}
+                timestamp={item.timestamp}
+                topics={item.topics}
+                txHash={item.txHash}
+                searchValue={searchValue}
+                uint256={item.uint256}
+              />
+            ))}
+        </div>
+      </div>
     </>
   );
 };
