@@ -63,7 +63,6 @@ const ContractEvents = () => {
         });
 
         const nonTopics = inputsData.filter((input: any) => !input.indexed);
-        console.log(nonTopics);
 
         const data = {
           txHash: item.transactionHash || null,
@@ -104,25 +103,26 @@ const ContractEvents = () => {
       setIsLoading(false);
     }
   };
-  const [searchValue, setSearchValue] = useState('');
   const [filteredEvents, setFilteredEvents] = useState<any>([]);
 
   useEffect(() => {
     getEventData();
   }, [isSuccess]);
 
-  const handleFindValue = (e: any) => {
+  const [searchValue, setSearchValue] = useState('');
+
+  const handleSearchChange = (e: any) => {
     e.preventDefault();
+    setFilteredEvents(eventsToRender);
+    setSearchValue(e.target.value);
   };
 
   const handleSubmitFormEvent = (e: any) => {
     e.preventDefault();
-    // const str = searchValue.substring(0, 2);
 
     if (searchValue === '') {
       setFilteredEvents(eventsToRender);
     } else if (ethers.utils.isHexString(searchValue)) {
-      console.log('pusto');
       setFilteredEvents(
         filteredEvents.filter((event: any) => event.topics[0] === searchValue),
       );
@@ -132,19 +132,24 @@ const ContractEvents = () => {
           (event: any) => event.blockNumber === +searchValue,
         ),
       );
-    } else {
-      console.log('pusto');
     }
-    console.log(searchValue);
+  };
+
+  const handleFindValue = (e: any, findValue: any) => {
+    e.preventDefault();
+
+    if (ethers.utils.isHexString(findValue)) {
+      setFilteredEvents(
+        filteredEvents.filter((event: any) => event.topics[0] === findValue),
+      );
+    } else if (!isNaN(Number(findValue))) {
+      setFilteredEvents(
+        filteredEvents.filter((event: any) => event.blockNumber === +findValue),
+      );
+    }
   };
 
   console.log(filteredEvents);
-
-  const handleSearchChange = (e: any) => {
-    e.preventDefault();
-    setFilteredEvents(eventsToRender);
-    setSearchValue(e.target.value);
-  };
 
   return (
     <>

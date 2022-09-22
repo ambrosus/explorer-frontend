@@ -1,8 +1,8 @@
 import EventDetailsItem from './EventDetailsItem';
-import EventTopics from './EventTopics';
 import EventModal from './EventsModal';
 import ArrowDown from 'assets/icons/Arrows/ArrowDown';
 import ArrowDownBig from 'assets/icons/Arrows/ArrowDownBig';
+import ArrowUp from 'assets/icons/Arrows/ArrowUp';
 import ArrowUpBig from 'assets/icons/Arrows/ArrowUpBig';
 import FilterIcon from 'assets/icons/FilterIcon';
 import useHover from 'hooks/useHover';
@@ -31,6 +31,10 @@ const EventDetails = ({
   };
 
   const [hoverRef, isHovered] = useHover<HTMLDivElement>();
+  const [isShowBtn, setIsShowBtn] = useState<boolean>(false);
+  const HandleClick = () => {
+    setIsShowBtn((prev) => !prev);
+  };
 
   return (
     <>
@@ -55,9 +59,15 @@ const EventDetails = ({
           </div>
         </div>
         <div className="contract_events-body-cells">
-          <div className="contract_events-body-subcell universall_light2">
+          <div
+            className="contract_events-body-subcell universall_light2 universall_cursor"
+            onClick={(e) => handleFindValue(e, blockNumber)}
+          >
             {blockNumber}
-            <button className="universall_filter-btn" onClick={handleFindValue}>
+            <button
+              className="universall_filter-btn"
+              onClick={(e) => handleFindValue(e, blockNumber)}
+            >
               <FilterIcon />
             </button>
           </div>
@@ -98,21 +108,57 @@ const EventDetails = ({
                 />
               ))}
           </div>
+          {topics.map((topic: any, index: any) => {
+            const isZeroTopic =
+              index === 0
+                ? 'contract_events-body-subcell universall_light3 universall_cursor'
+                : '';
 
-          {topics.map((topic: any, index: any) => (
-            <EventTopics key={index} topic={topic} numberTopic={index} />
-          ))}
-          {nonTopics.map((nonTopic: any, index: any) => (
-            <div className="contract_events-body-cell" key={index}>
-              <button
-                className="contract_events-body-cell-btn"
-                onClick={handleFindValue}
-              >
-                Address <ArrowDown />
-              </button>
-              <div>{nonTopic.value.toString()}</div>
-            </div>
-          ))}
+            return (
+              <div className="contract_events-body-cell">
+                <div className={isZeroTopic}>{`[topic${index}]`}</div>
+                <pre
+                  className={isZeroTopic}
+                  onClick={(e) => handleFindValue(e, topic)}
+                >
+                  {topic}
+                  {index === 0 && (
+                    <button
+                      className="universall_filter-btn"
+                      onClick={(e) => handleFindValue(e, topic)}
+                    >
+                      <FilterIcon />
+                    </button>
+                  )}
+                </pre>
+              </div>
+            );
+          })}
+          <div style={{ position: 'relative' }}>
+            {nonTopics.map((nonTopic: any, index: any) => (
+              <div className="contract_events-body-cell" key={index}>
+                <button
+                  className="contract_events-body-cell-btn"
+                  onClick={HandleClick}
+                >
+                  {'Address'} {isShowBtn ? <ArrowUp /> : <ArrowDown />}
+                </button>
+                <div>{nonTopic.value.toString()}</div>
+              </div>
+            ))}
+            {isShowBtn && (
+              <div className="contract_events-body-value">
+                {typesOfValue.map((value: any, index: any) => (
+                  <button
+                    className="contract_events-body-value-btn"
+                    key={index}
+                  >
+                    {value}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </>
@@ -120,3 +166,5 @@ const EventDetails = ({
 };
 
 export default EventDetails;
+
+const typesOfValue = ['Hex', 'Number', 'Text', 'Address'];
