@@ -76,7 +76,6 @@ const ContractEvents = () => {
           inputsData,
           nonTopics,
         };
-        console.log(  data);
 
         isLoading &&
           setEventsToRender((prev: any) => {
@@ -110,26 +109,38 @@ const ContractEvents = () => {
     getEventData();
   }, [isSuccess]);
 
-  const findDataFromEvent = (e: any) => {
+  const handleFindValue = (e: any) => {
     e.preventDefault();
-    const str = searchValue.substring(0, 2);
+  };
 
-    if (str === '0x') {
+  const handleSubmitFormEvent = (e: any) => {
+    e.preventDefault();
+    // const str = searchValue.substring(0, 2);
+
+    if (searchValue === '') {
+      setFilteredEvents(eventsToRender);
+    } else if (ethers.utils.isHexString(searchValue)) {
+      console.log('pusto');
       setFilteredEvents(
         filteredEvents.filter((event: any) => event.topics[0] === searchValue),
       );
-    } else {
+    } else if (!isNaN(Number(searchValue))) {
       setFilteredEvents(
         filteredEvents.filter(
           (event: any) => event.blockNumber === +searchValue,
         ),
       );
+    } else {
+      console.log('pusto');
     }
+    console.log(searchValue);
   };
+
+  console.log(filteredEvents);
 
   const handleSearchChange = (e: any) => {
     e.preventDefault();
-
+    setFilteredEvents(eventsToRender);
     setSearchValue(e.target.value);
   };
 
@@ -138,7 +149,7 @@ const ContractEvents = () => {
       <div className="contract_events">
         <div className="contract_events-table">
           <div className="contract_events-find">
-            <form onSubmit={(e) => findDataFromEvent(e)}>
+            <form onSubmit={(e) => handleSubmitFormEvent(e)}>
               <label className="contract_events-find-label" htmlFor="html">
                 <input
                   type="text"
@@ -163,7 +174,7 @@ const ContractEvents = () => {
 
           <div>{eventsToRender.length === 0 && <Loader />}</div>
 
-          {eventsToRender
+          {filteredEvents
             ?.sort(
               (a: { blockNumber: number }, b: { blockNumber: number }) =>
                 b.blockNumber - a.blockNumber,
@@ -182,6 +193,7 @@ const ContractEvents = () => {
                 txHash={item.txHash}
                 searchValue={searchValue}
                 uint256={item.uint256}
+                handleFindValue={handleFindValue}
               />
             ))}
         </div>

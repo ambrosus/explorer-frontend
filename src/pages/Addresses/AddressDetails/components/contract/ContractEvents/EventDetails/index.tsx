@@ -18,6 +18,7 @@ const EventDetails = ({
   timestamp,
   topics,
   txHash,
+  handleFindValue,
 }: any) => {
   const [isShow, setIsShow] = useState<boolean>(false);
 
@@ -52,7 +53,7 @@ const EventDetails = ({
         <div className="contract_events-body-cells">
           <div className="contract_events-body-subcell universall_light2">
             {blockNumber}
-            <button className="universall_filter-btn">
+            <button className="universall_filter-btn" onClick={handleFindValue}>
               <FilterIcon />
             </button>
           </div>
@@ -106,7 +107,12 @@ const EventDetails = ({
           ))}
 
           <div className="contract_events-body-cell">
-            <button className="contract_events-body-cell-btn">Address</button>
+            <button
+              className="contract_events-body-cell-btn"
+              onClick={handleFindValue}
+            >
+              Address
+            </button>
             <div>0x000000000000000000000000000000003f7a7530</div>
           </div>
         </div>
