@@ -1,153 +1,170 @@
-import EventTopics from '../EventTopics';
 import EventDetailsItem from './EventDetailsItem';
+import EventModal from './EventsModal';
+import ArrowDown from 'assets/icons/Arrows/ArrowDown';
 import ArrowDownBig from 'assets/icons/Arrows/ArrowDownBig';
+import ArrowUp from 'assets/icons/Arrows/ArrowUp';
 import ArrowUpBig from 'assets/icons/Arrows/ArrowUpBig';
 import FilterIcon from 'assets/icons/FilterIcon';
 import useHover from 'hooks/useHover';
 import moment from 'moment';
-import { useEffect, useState } from 'react';
-import { calcDataTime, calcTime, sliceData5 } from 'utils/helpers';
-import { calcBundleTime } from 'utils/helpers';
+import { FormEvent, useState } from 'react';
+import { calcTime, sliceData5 } from 'utils/helpers';
 
 const EventDetails = ({
-  txHash,
+  addressFrom,
+  addressTo,
   blockNumber,
-  methodId,
-
-  topics,
-  contractAbi,
   event,
-  addresses,
-  eventData,
+  inputs,
+  methodId,
+  timestamp,
+  topics,
+  txHash,
+  handleFindValue,
+  inputsData,
+  nonTopics,
 }: any) => {
   const [isShow, setIsShow] = useState<boolean>(false);
+
   const toggleMethod = () => {
     setIsShow((prev) => !prev);
   };
-  const [inputs, setInputs] = useState([]);
-  const [txData, setTxData] = useState<any>({});
-  const [blockData, setBlockData] = useState<any>({});
-
-  useEffect(() => {
-    eventData?.getTransaction().then((res: any) => setTxData(res));
-  }, []);
-
-  useEffect(() => {
-    eventData?.getBlock().then((res: any) => setBlockData(res));
-  }, []);
-
-  useEffect(() => {
-    if (!!event) {
-      const res = contractAbi
-        ?.filter((item: any) => item.type === 'event')
-        .find((item: any) => item.name === event);
-
-      setInputs(res?.inputs);
-    }
-  }, []);
 
   const [hoverRef, isHovered] = useHover<HTMLDivElement>();
+  const [isShowBtn, setIsShowBtn] = useState<boolean>(false);
+  const HandleClick = () => {
+    setIsShowBtn((prev) => !prev);
+  };
 
   return (
-    <div className="contract_events">
-      <div className="contract_events-table">
-        <div className="contract_events-heading">
-          <div className="contract_events-heading-cell">Txn Hash</div>
-          <div className="contract_events-heading-cell">Block</div>
-          <div className="contract_events-heading-cell">Method ID</div>
-          <div className="contract_events-heading-cell">Logs</div>
-        </div>
-        <div className="contract_events-body">
-          <div className="contract_events-body-cells">
-            <div className="contract_events-body-cell universall_light2">
-              {sliceData5(txHash)}
-            </div>
-            <div
-              ref={hoverRef}
-              className="contract_events-body-cell universall_light3"
-            >
-              {calcTime(blockData?.timestamp)}
-              {isHovered ? (
-                <div className="contract_events-body-cell-hovered">
-                  <span className="universall_triangle"></span>
-                  <span className="contract_events-body-cell-time">
-                    {moment(blockData?.timestamp * 1000).format(
-                      'MMM-D-YYYY h:mm:ss a',
-                    )}
-                  </span>
-                </div>
-              ) : null}
-            </div>
+    <>
+      <div className="contract_events-body">
+        <div className="contract_events-body-cells">
+          <div className="contract_events-body-cell universall_light2">
+            {sliceData5(txHash)}
           </div>
-          <div className="contract_events-body-cells">
-            <div className="contract_events-body-subcell universall_light2">
-              {blockNumber}
-              <button className="universall_filter-btn">
-                <FilterIcon />
-              </button>
-            </div>
-          </div>
-          <div className="contract_events-body-cells">0x91c5bc0a</div>
-          <div className="contract_events-body-cells">
-            <div className="contract_events-body-transfer">
-              <button
-                className="contract_events-body-transfer"
-                onClick={toggleMethod}
-              >
-                {isShow ? <ArrowDownBig /> : <ArrowUpBig />}
-              </button>
-              <span>{event}</span>
-              <pre className="universall_ibm">
-                (
-                {inputs.map((input: any, index) => (
-                  <EventDetailsItem key={index} input={input} index={index} />
-                ))}
-                )
-              </pre>
-            </div>
-            {isShow && (
-              <div className="contract_events-body-modal">
-                <div className="contract_events-body-modal-cell">
-                  <div>address from</div>
-                  <div className="contract_events-body-modal-address">
-                    {txData?.from}
-                  </div>
-                </div>
-                <div className="contract_events-body-modal-cell">
-                  <div>address to</div>
-                  <div className="contract_events-body-modal-address">
-                    {txData?.to}
-                  </div>
-                </div>
-                <div className="contract_events-body-modal-cell">
-                  <div>uint256 value</div>
-                  <div>3761172685</div>
-                </div>
+          <div
+            ref={hoverRef}
+            className="contract_events-body-cell universall_light3"
+          >
+            {calcTime(timestamp)}
+            {isHovered && (
+              <div className="contract_events-body-cell-hovered">
+                <span className="universall_triangle"></span>
+                <span className="contract_events-body-cell-time">
+                  {moment(timestamp * 1000).format('MMM-D-YYYY h:mm:ss a')}
+                </span>
               </div>
             )}
+          </div>
+        </div>
+        <div className="contract_events-body-cells">
+          <div
+            className="contract_events-body-subcell universall_light2 universall_cursor"
+            onClick={(e) => handleFindValue(e, blockNumber)}
+          >
+            {blockNumber}
+            <button
+              className="universall_filter-btn"
+              onClick={(e) => handleFindValue(e, blockNumber)}
+            >
+              <FilterIcon />
+            </button>
+          </div>
+        </div>
+        <div
+          className="contract_events-body-cells"
+          style={{ height: 24, justifyContent: 'center' }}
+        >
+          {methodId}
+        </div>
+        <div className="contract_events-body-cells">
+          <div className="contract_events-body-transfer">
+            <button
+              className="contract_events-body-transfer"
+              onClick={toggleMethod}
+            >
+              {isShow ? <ArrowUpBig /> : <ArrowDownBig />}
+            </button>
+            <span>{event}</span>
+            <pre className="universall_ibm">
+              (
+              {inputs?.map((input: any, index: any) => (
+                <EventDetailsItem key={index} input={input} index={index} />
+              ))}
+              )
+            </pre>
+          </div>
 
-            {topics.map((topic: any, index: any) => (
-              <EventTopics key={index} topic={topic} numberTopic={index} />
+          <div className="contract_events-body-modal">
+            {isShow &&
+              inputsData.map((input: any, index: any) => (
+                <EventModal
+                  key={index}
+                  type={input.type}
+                  name={input.name}
+                  value={input.value}
+                  indexed={input.indexed}
+                />
+              ))}
+          </div>
+          {topics.map((topic: any, index: any) => {
+            const isZeroTopic =
+              index === 0
+                ? 'contract_events-body-subcell universall_light3 universall_cursor'
+                : '';
+
+            return (
+              <div className="contract_events-body-cell">
+                <div className={isZeroTopic}>{`[topic${index}]`}</div>
+                <pre
+                  className={isZeroTopic}
+                  onClick={(e) => handleFindValue(e, topic)}
+                >
+                  {topic}
+                  {index === 0 && (
+                    <button
+                      className="universall_filter-btn"
+                      onClick={(e) => handleFindValue(e, topic)}
+                    >
+                      <FilterIcon />
+                    </button>
+                  )}
+                </pre>
+              </div>
+            );
+          })}
+          <div style={{ position: 'relative' }}>
+            {nonTopics.map((nonTopic: any, index: any) => (
+              <div className="contract_events-body-cell" key={index}>
+                <button
+                  className="contract_events-body-cell-btn"
+                  onClick={HandleClick}
+                >
+                  {'Address'} {isShowBtn ? <ArrowUp /> : <ArrowDown />}
+                </button>
+                <div>{nonTopic.value.toString()}</div>
+              </div>
             ))}
-
-            <div className="contract_events-body-cell">
-              <button className="contract_events-body-cell-btn">Address</button>
-              <div>0x000000000000000000000000000000003f7a7530</div>
-            </div>
+            {isShowBtn && (
+              <div className="contract_events-body-value">
+                {typesOfValue.map((value: any, index: any) => (
+                  <button
+                    className="contract_events-body-value-btn"
+                    key={index}
+                  >
+                    {value}
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </div>
-
-      <label htmlFor="username" className="contract_events-find">
-        Click me
-        <input
-          type="text"
-          id="username"
-          className="contract_events-find-input"
-        />
-      </label>
-    </div>
+    </>
   );
 };
 
 export default EventDetails;
+
+const typesOfValue = ['Hex', 'Number', 'Text', 'Address'];
