@@ -109,3 +109,11 @@ export interface ITokenItemProps {
   selectedToken: any;
   setToken: any;
 }
+
+export interface IContractEvents {
+  txHash: string;
+  date: Date;
+  block: number;
+  methodId: number;
+  logs: string;
+}
