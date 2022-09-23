@@ -28,7 +28,9 @@ const renderWithReduxAndRouter = (
     ...render(
       <QueryClientProvider client={queryClient}>
         <Provider store={store}>
-          <BrowserRouter>{component}</BrowserRouter>
+          <BrowserRouter basename={process.env.PUBLIC_URL}>
+            {component}
+          </BrowserRouter>
         </Provider>
       </QueryClientProvider>,
     ),

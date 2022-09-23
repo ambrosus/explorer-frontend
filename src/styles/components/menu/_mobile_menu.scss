@@ -6,25 +6,43 @@
   width: 100px;
 
   &_btn {
+    z-index: 99999;
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
-    align-items: center;
+    flex-direction: row;
     justify-content: center;
-    height: 40px;
-    width: 40px;
-    border: 1px solid #808a9d;
-    border-radius: 16px;
-    background-color: #212121;
+    align-items: center;
+    padding: 10px 32px;
+    background: rgba(255, 255, 255, 0.5);
+    border: 1.5px solid #457eff;
+    backdrop-filter: blur(4px);
+    border-radius: 90px;
+    color: #457eff;
+
+    svg {
+      margin-right: 16px;
+
+      rect {
+        fill: #457eff;
+      }
+    }
   }
 
   &_modal {
-    display: grid;
-    grid-template-rows: repeat(8, auto);
-    position: absolute;
-    background-color: #212121;
+    box-shadow: 0px 16px 32px 0px #698ee233;
+    background-color: #fff;
+    padding: 20px;
     right: 0px;
-    margin-top: 40px;
-    width: 360px;
     z-index: 100;
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    margin-top: 0;
+    top: 0;
+    overflow-y: scroll;
     @include for_phone {
       width: 100%;
     }

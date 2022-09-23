@@ -1,5 +1,3 @@
-import api from '../../../../../../API/api';
-import Loader from '../../../../../../components/Loader';
 import CodeContract from '../CodeContract';
 import ContractEvents from '../ContractEvents';
 import ReadContract from '../ReadContract';
@@ -7,6 +5,8 @@ import VerifyContract from '../VerifyContract';
 import WriteContract from '../WriteContract';
 import ContractHeader from './components/ContractHeader';
 import ContractTabs from './components/ContractTabs';
+import api from 'API/api';
+import Loader from 'components/Loader';
 import { ethers } from 'ethers';
 import React, { memo, useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
@@ -45,8 +45,8 @@ const ContractDetails = (props: any) => {
   const isContractProxy = checkIsContractProxy(contractAbi);
 
   // todo: `events` will be moved outside contract again; prepare for it
-  const allowedTabs = ['events'];
-  if (isContractVerified) allowedTabs.push('code', 'read', 'write');
+  const allowedTabs = [];
+  if (isContractVerified) allowedTabs.push('code', 'read', 'write', 'events');
   if (!isContractVerified) allowedTabs.push('verify');
   if (isContractProxy) allowedTabs.push('readAsProxy', 'writeAsProxy');
 

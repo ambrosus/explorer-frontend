@@ -13,10 +13,7 @@ import {
 } from 'pages/Addresses/AddressDetails/address-details.interface';
 import AddressBlock from 'pages/Addresses/AddressDetails/components/AddressBlocks';
 import AddressBlocksHeader from 'pages/Addresses/AddressDetails/components/AddressBlocksHeader';
-import {
-  ContractDetails,
-  ContractEvents,
-} from 'pages/Addresses/AddressDetails/components/contract';
+import { ContractDetails } from 'pages/Addresses/AddressDetails/components/contract';
 import React, {
   FC,
   Suspense,
@@ -202,12 +199,6 @@ const Tabs: FC<TabsProps> = ({
         contractInfo={contractInfo}
         selectedTab={filtered}
       />
-    );
-  } else if (type === 'events') {
-    tabsView = (
-      <div className="contract">
-        <ContractEvents />
-      </div>
     );
   } else {
     tabsView = (

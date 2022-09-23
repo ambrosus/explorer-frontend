@@ -70,10 +70,10 @@ const AddressDetails = () => {
 
   useEffect(() => {
     if (address?.trim() === '0x0000000000000000000000000000000000000000') {
-      window.location.replace(`/notfound`);
+      window.location.replace(`/explorer/notfound`);
     }
     if (tokenToSorted?.length && tokenToSorted !== 'transfers') {
-      window.location.replace(`/notfound`);
+      window.location.replace(`/explorer/notfound`);
     }
     if (
       type?.length &&
@@ -84,17 +84,17 @@ const AddressDetails = () => {
         type === 'events'
       )
     ) {
-      window.location.replace(`/notfound`);
+      window.location.replace(`/explorer/notfound`);
     }
 
     if (address) {
       API.searchItem(address)
         .then((data: any) => {
-          !data.meta.search && window.location.replace(`/notfound`);
+          !data.meta.search && window.location.replace(`/explorer/notfound`);
         })
         .catch(() => {
           if (addressData.balance === '') {
-            window.location.replace(`/notfound`);
+            window.location.replace(`/explorer/notfound`);
           }
         });
     }

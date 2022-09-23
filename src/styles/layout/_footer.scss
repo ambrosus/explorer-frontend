@@ -1,72 +1,49 @@
 .footer {
+  padding: 65px 0;
   width: 100%;
-  bottom: 0px;
-  background: linear-gradient(180deg, #212121 0%, #212121 100%);
-  color: $white;
-  z-index: 4;
-  flex: 0 0 auto;
-  &_border {
-    display: flex;
+  box-shadow: 0px -4px 16px 0px #698EE233;
+}
 
-    height: 138px;
-    align-items: center;
-    justify-content: center;
-    margin-top: 45px;
-    border-top: 1px solid #8f8f8f;
-    background: linear-gradient(180deg, #212121 0%, #212121 100%);
+.footer-wrapper {
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
 
-    @include for_phone {
-      margin-right: 20px;
-      margin-left: 20px;
-    }
-  }
   @include for_tablet {
-    height: 250px;
-  }
-
-  &_container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    @include for_tablet {
-      // width: 320px;
-      margin: auto;
-      display: flex;
-      flex-direction: column;
-      height: 250px;
-      padding: 45px 0;
-
-      border-collapse: collapse;
-    }
-
-    .mail {
-      a {
-        text-decoration: none;
-        font-family: Proxima Nova;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 16px;
-        line-height: 140%;
-        text-align: center;
-        color: #8f8f8f;
-      }
-    }
-
-    .socials-icons {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      max-width: 100%;
-      gap: 30px;
-    }
+    flex-direction: column;
   }
 }
 
-.logoFooter {
+.footer__item {
+  display: flex;
+  flex-direction: column;
+
   @include for_tablet {
-    display: flex;
-    justify-content: center;
-    padding-top: 32px;
-    width: 320px;
+    margin-top: 40px;
   }
+}
+
+.footer__title {
+  font-weight: 700;
+  margin-bottom: 16px;
+  line-height: 24px;
+}
+
+.footer__link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  margin-bottom: 16px;
+  line-height: 24px;
+}
+
+.footer__mail {
+  color: #457EFF;
+  margin-bottom: 37px;
+  text-decoration: none;
+}
+
+.footer__socials img {
+  margin-right: 15px;
 }
