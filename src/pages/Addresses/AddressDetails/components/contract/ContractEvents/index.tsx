@@ -4,6 +4,7 @@ import Loader from 'components/Loader';
 import { ethers } from 'ethers';
 import { memo } from 'react';
 import { useEffect, useMemo, useState } from 'react';
+import { useInView } from 'react-intersection-observer';
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 import { getContractData } from 'services/contract.service';
@@ -104,6 +105,7 @@ const ContractEvents = () => {
     }
   };
   const [filteredEvents, setFilteredEvents] = useState<any>([]);
+  const [data, setData] = useState<any>([]);
 
   useEffect(() => {
     getEventData();
@@ -148,8 +150,14 @@ const ContractEvents = () => {
       );
     }
   };
+  const { ref, inView } = useInView();
+  const [page, setPage] = useState(0);
 
-  console.log(filteredEvents);
+  useEffect(() => {
+    setPage((prev) => prev + 20);
+  }, [inView]);
+
+  // console.log(filteredEvents.slice(0, 20));
 
   return (
     <>
@@ -182,7 +190,8 @@ const ContractEvents = () => {
           <div>{eventsToRender.length === 0 && <Loader />}</div>
 
           {filteredEvents
-            ?.sort(
+            ?.slice(0, page)
+            .sort(
               (a: { blockNumber: number }, b: { blockNumber: number }) =>
                 b.blockNumber - a.blockNumber,
             )
@@ -204,6 +213,7 @@ const ContractEvents = () => {
                 nonTopics={item.nonTopics}
               />
             ))}
+          {eventsToRender.length !== 0 && <div ref={ref}></div>}
         </div>
       </div>
     </>
