@@ -14,15 +14,7 @@ import {
 import AddressBlock from 'pages/Addresses/AddressDetails/components/AddressBlocks';
 import AddressBlocksHeader from 'pages/Addresses/AddressDetails/components/AddressBlocksHeader';
 import { ContractDetails } from 'pages/Addresses/AddressDetails/components/contract';
-import React, {
-  FC,
-  Suspense,
-  useEffect,
-  useLayoutEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import React, { FC, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { NavLink, useParams } from 'react-router-dom';
 import { setupStyle, toUniqueValueByBlock } from 'utils/helpers';
 import { contractTabs, sidePages } from 'utils/sidePages';
