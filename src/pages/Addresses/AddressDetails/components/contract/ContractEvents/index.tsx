@@ -1,4 +1,5 @@
 import EventDetails from './EventDetails';
+import Discard from 'assets/icons/Discard';
 import Search from 'assets/icons/Search';
 import Loader from 'components/Loader';
 import { ethers } from 'ethers';
@@ -54,6 +55,8 @@ const ContractEvents = () => {
         const parseLog = contract.interface.parseLog(item);
 
         const inputs = parseLog?.eventFragment.inputs || [];
+        console.log(inputs);
+
         const inputsData = inputs.map((input: any) => {
           return {
             name: input.name,
@@ -105,7 +108,6 @@ const ContractEvents = () => {
     }
   };
   const [filteredEvents, setFilteredEvents] = useState<any>([]);
-  const [data, setData] = useState<any>([]);
 
   useEffect(() => {
     getEventData();
@@ -119,9 +121,8 @@ const ContractEvents = () => {
     setSearchValue(e.target.value);
   };
 
-  const handleSubmitFormEvent = (e: any) => {
+  const handleFindSubmit = (e: any) => {
     e.preventDefault();
-
     if (searchValue === '') {
       setFilteredEvents(eventsToRender);
     } else if (ethers.utils.isHexString(searchValue)) {
@@ -139,6 +140,7 @@ const ContractEvents = () => {
 
   const handleFindValue = (e: any, findValue: any) => {
     e.preventDefault();
+    setSearchValue(findValue);
 
     if (ethers.utils.isHexString(findValue)) {
       setFilteredEvents(
@@ -157,15 +159,14 @@ const ContractEvents = () => {
     setPage((prev) => prev + 20);
   }, [inView]);
 
-  // console.log(filteredEvents.slice(0, 20));
-
   return (
     <>
       <div className="contract_events">
         <div className="contract_events-table">
           <div className="contract_events-find">
-            <form onSubmit={(e) => handleSubmitFormEvent(e)}>
+            <form onSubmit={(e) => handleFindSubmit(e)}>
               <label className="contract_events-find-label" htmlFor="html">
+                <pre className="contract_events-find-text">Filter by: </pre>
                 <input
                   type="text"
                   id="html"
@@ -174,9 +175,19 @@ const ContractEvents = () => {
                   placeholder="Filter by  Block or Topic"
                   className="contract_events-find-input"
                 />
-                <button type="submit" className="contract_events-find-btn">
-                  <Search fill={'#808A9D'} />
-                </button>
+                {searchValue === '' ? (
+                  <button type="submit" className="contract_events-find-btn">
+                    <Search fill={'#808A9D'} />
+                  </button>
+                ) : (
+                  <button
+                    type="submit"
+                    className="contract_events-find-btn"
+                    onClick={() => setSearchValue('')}
+                  >
+                    <Discard />
+                  </button>
+                )}
               </label>
             </form>
           </div>
@@ -211,6 +222,7 @@ const ContractEvents = () => {
                 handleFindValue={handleFindValue}
                 inputsData={item.inputsData}
                 nonTopics={item.nonTopics}
+                setSearchValue={setSearchValue}
               />
             ))}
           {eventsToRender.length !== 0 && <div ref={ref}></div>}

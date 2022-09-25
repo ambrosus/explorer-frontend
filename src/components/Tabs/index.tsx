@@ -13,19 +13,8 @@ import {
 } from 'pages/Addresses/AddressDetails/address-details.interface';
 import AddressBlock from 'pages/Addresses/AddressDetails/components/AddressBlocks';
 import AddressBlocksHeader from 'pages/Addresses/AddressDetails/components/AddressBlocksHeader';
-import {
-  ContractDetails,
-  ContractEvents,
-} from 'pages/Addresses/AddressDetails/components/contract';
-import React, {
-  FC,
-  Suspense,
-  useEffect,
-  useLayoutEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import { ContractDetails } from 'pages/Addresses/AddressDetails/components/contract';
+import React, { FC, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { NavLink, useParams } from 'react-router-dom';
 import { setupStyle, toUniqueValueByBlock } from 'utils/helpers';
 import { contractTabs, sidePages } from 'utils/sidePages';
@@ -202,12 +191,6 @@ const Tabs: FC<TabsProps> = ({
         contractInfo={contractInfo}
         selectedTab={filtered}
       />
-    );
-  } else if (type === 'events') {
-    tabsView = (
-      <div className="contract">
-        <ContractEvents />
-      </div>
     );
   } else {
     tabsView = (

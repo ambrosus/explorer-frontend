@@ -1,28 +1,33 @@
 <!DOCTYPE html>
-<html lang='en'>
-<head>
-  <meta charset='utf-8' />
-  <link href='%PUBLIC_URL%/favicon.ico' rel='icon' />
-  <meta content='width=device-width, initial-scale=1' name='viewport' />
-  <meta content='no-cache' http-equiv='Cache-Control'>
-  <meta content='#000000' name='theme-color' />
-  <meta
-    content='Web site created using create-react-app'
-    name='description'
-  />
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link href="%PUBLIC_URL%/favicon.ico" rel="icon" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <meta content="no-cache" http-equiv="Cache-Control" />
+    <meta content="#000000" name="theme-color" />
+    <meta
+      content="Web site created using create-react-app"
+      name="description"
+    />
+    <base href="%PUBLIC_URL%/" />
 
-  <!-- Apple -->
-  <meta content='yes' name='apple-mobile-web-app-capable' />
-  <meta content='yes' name='apple-touch-fullscreen' />
-  <meta content='#ffffff' name='apple-mobile-web-app-status-bar-style' />
-  <!-- Favicon -->
-  <link href='%PUBLIC_URL%/favicon.png' rel='shortcut icon' type='image/png'>
-  <!--
+    <!-- Apple -->
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="yes" name="apple-touch-fullscreen" />
+    <meta content="#ffffff" name="apple-mobile-web-app-status-bar-style" />
+    <!-- Favicon -->
+    <link
+      href="%PUBLIC_URL%/favicon.png"
+      rel="shortcut icon"
+      type="image/png"
+    />
+    <!--
     manifest.json provides metadata used when your web app is installed on a
     user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
   -->
-  <link href='%PUBLIC_URL%/manifest.json' rel='manifest' />
-  <!--
+    <link href="%PUBLIC_URL%/manifest.json" rel="manifest" />
+    <!--
     Notice the use of %PUBLIC_URL% in the tags above.
     It will be replaced with the URL of the `public` folder during the build.
     Only files inside the `public` folder can be referenced from the HTML.
@@ -31,14 +36,44 @@
     work correctly both with client-side routing and a non-root public URL.
     Learn how to configure a non-root public URL by running `npm run build`.
   -->
-  <title>Ambrosus Explorer</title>
-</head>
-<body>
-<noscript>You need to enable JavaScript to run this app.</noscript>
-<div id='root'></div>
-<div id="portal"></div>
+    <title>AirDAO | Ambrosus Network Explorer</title>
+    <meta property="og:title" content="AirDAO | Ambrosus Network Explorer" />
+    <meta name="twitter:title" content="AirDAO | Ambrosus Network Explorer" />
 
-<!--
+    <meta
+      name="description"
+      content="The AirDAO explorer allows you to analyze the Ambrosus blockchain for transactions, addresses, tokens, prices, and other activities on AMB-NET."
+    />
+    <meta
+      property="og:description"
+      content="The AirDAO explorer allows you to analyze the Ambrosus blockchain for transactions, addresses, tokens, prices, and other activities on AMB-NET."
+    />
+    <meta
+      name="twitter:description"
+      content="The AirDAO explorer allows you to analyze the Ambrosus blockchain for transactions, addresses, tokens, prices, and other activities on AMB-NET."
+    />
+
+    <!-- Google Tag Manager -->
+    <script>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != 'dataLayer' ? '&l=' + l : '';
+        j.async = true;
+        j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, 'script', 'dataLayer', 'GTM-NB9VBWH');
+    </script>
+    <!-- End Google Tag Manager -->
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+    <div id="portal"></div>
+
+    <!--
   This HTML file is a template.
   If you open it directly in the browser, you will see an empty page.
 
@@ -48,5 +83,29 @@
   To begin the development, run `npm start` or `yarn start`.
   To create a production bundle, use `npm run build` or `yarn build`.
 -->
-</body>
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-Z4QJE54Z4R"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+
+      gtag('config', 'G-Z4QJE54Z4R');
+    </script>
+
+    <!-- Google Tag Manager (noscript) -->
+    <noscript
+      ><iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-NB9VBWH"
+        height="0"
+        width="0"
+        style="display: none; visibility: hidden"
+      ></iframe
+    ></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+  </body>
 </html>

@@ -33,11 +33,12 @@
       }
 
       &_mobile {
-        margin-top: 50px;
+        // margin-top: 50px;
         position: absolute;
-        z-index: 3;
+        z-index: 999;
+        right: 0;
         @include for_tablet {
-          margin-top: 39px;
+          // margin-top: 39px;
         }
       }
     }

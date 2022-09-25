@@ -1,13 +1,12 @@
 import EventDetailsItem from './EventDetailsItem';
 import EventModal from './EventsModal';
-import ArrowDown from 'assets/icons/Arrows/ArrowDown';
 import ArrowDownBig from 'assets/icons/Arrows/ArrowDownBig';
-import ArrowUp from 'assets/icons/Arrows/ArrowUp';
 import ArrowUpBig from 'assets/icons/Arrows/ArrowUpBig';
 import FilterIcon from 'assets/icons/FilterIcon';
 import useHover from 'hooks/useHover';
 import moment from 'moment';
-import { FormEvent, useState } from 'react';
+import { useState } from 'react';
+import { memo } from 'react';
 import { calcTime, sliceData5 } from 'utils/helpers';
 
 const EventDetails = ({
@@ -58,16 +57,13 @@ const EventDetails = ({
             )}
           </div>
         </div>
-        <div className="contract_events-body-cells">
-          <div
-            className="contract_events-body-subcell universall_light2 universall_cursor"
-            onClick={(e) => handleFindValue(e, blockNumber)}
-          >
+        <div
+          className="contract_events-body-cells"
+          onClick={(e) => handleFindValue(e, blockNumber)}
+        >
+          <div className="contract_events-body-subcell universall_light2 universall_cursor">
             {blockNumber}
-            <button
-              className="universall_filter-btn"
-              onClick={(e) => handleFindValue(e, blockNumber)}
-            >
+            <button className="universall_filter-btn">
               <FilterIcon />
             </button>
           </div>
@@ -115,18 +111,15 @@ const EventDetails = ({
                 : '';
 
             return (
-              <div className="contract_events-body-cell">
+              <div
+                className="contract_events-body-cell"
+                onClick={(e) => handleFindValue(e, topic)}
+              >
                 <div className={isZeroTopic}>{`[topic${index}]`}</div>
-                <pre
-                  className={isZeroTopic}
-                  onClick={(e) => handleFindValue(e, topic)}
-                >
+                <pre className={isZeroTopic}>
                   {topic}
                   {index === 0 && (
-                    <button
-                      className="universall_filter-btn"
-                      onClick={(e) => handleFindValue(e, topic)}
-                    >
+                    <button className="universall_filter-btn">
                       <FilterIcon />
                     </button>
                   )}
@@ -135,7 +128,7 @@ const EventDetails = ({
             );
           })}
           <div style={{ position: 'relative' }}>
-            {nonTopics.map((nonTopic: any, index: any) => (
+            {/* {nonTopics.map((nonTopic: any, index: any) => (
               <div className="contract_events-body-cell" key={index}>
                 <button
                   className="contract_events-body-cell-btn"
@@ -145,7 +138,7 @@ const EventDetails = ({
                 </button>
                 <div>{nonTopic.value.toString()}</div>
               </div>
-            ))}
+            ))} */}
             {isShowBtn && (
               <div className="contract_events-body-value">
                 {typesOfValue.map((value: any, index: any) => (
@@ -165,6 +158,6 @@ const EventDetails = ({
   );
 };
 
-export default EventDetails;
+export default memo(EventDetails);
 
 const typesOfValue = ['Hex', 'Number', 'Text', 'Address'];

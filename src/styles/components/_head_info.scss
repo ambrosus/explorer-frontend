@@ -25,7 +25,7 @@
 
     @include for_big_tablet {
       flex: 1 0 0;
-      padding: 12px 0 12px 32px;
+      padding: 12px 12px 12px 22px;
     }
 
     &_primary {
@@ -39,7 +39,6 @@
       text-overflow: ellipsis;
       overflow: hidden;
       white-space: nowrap;
-      width: 100%;
     }
   }
 }
