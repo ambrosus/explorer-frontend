@@ -5,81 +5,51 @@ import WarningError from 'assets/icons/WarningError';
 import Spinner from 'components/Spinner';
 import { ethers, providers } from 'ethers';
 import React, { memo, useEffect, useMemo, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { TParams } from 'types';
 
-const Method = ({ index, method, buttonName }: any) => {
-  const { filtered } = useParams<TParams>();
+const Method = (props: any) => {
+  const [open, setOpen] = React.useState<any>(false);
+
+  const [inputValue, setInputValue] = React.useState<any>({});
+  const [payableValue, setPayableValue] = React.useState<any>('0');
+
   const [result, setResult] = React.useState<any>(null);
-  const [paybleValue, setPaybleValue] = React.useState<any>('0');
+  const [resultMessage, setResultMessage] = useState<string | null>(null);
   const [error, setError] = React.useState<any>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const { address = '' } = useParams();
-  const [inputValue, setInputValue] = React.useState<any>({});
-  const [open, setOpen] = React.useState<any>(false);
-  const [resultMessage, setResultMessage] = useState<string | null>(null);
+  const { address, isRead, index, method, buttonName } = props;
+  const { ethereum }: any = window;
+
+  const readProvider = new ethers.providers.JsonRpcProvider(
+    process.env.REACT_APP_EXPLORER_NETWORK,
+  );
+
   const contractCall = async () => {
     setError('');
     setResult(null);
 
     try {
       setIsLoading(true);
-      let provider = new ethers.providers.JsonRpcProvider(
-        process.env.REACT_APP_EXPLORER_NETWORK,
-      );
-      const { ethereum }: any = window;
-      const providerOrSigner =
-        filtered === 'write'
-          ? new providers.Web3Provider(ethereum).getSigner()
-          : provider;
+
+      const providerOrSigner = isRead
+        ? readProvider
+        : new providers.Web3Provider(ethereum).getSigner();
+
       const contract = new ethers.Contract(address, [method], providerOrSigner);
 
-      const sortKeysInObjectByRightParamsSequence = (obj: any, method: any) => {
-        const rightParamsSequence = method.inputs.map((input: any) => {
-          return input.name;
-        });
+      const methodArgs = method.inputs.map(
+        // in right order
+        (input: any) => inputValue[input.name],
+      );
+      if (method?.stateMutability === 'payable')
+        methodArgs.push({ value: payableValue });
 
-        let keys = Object.keys(obj).sort((a: any, b: any) => {
-          return (
-            rightParamsSequence.indexOf(a) - rightParamsSequence.indexOf(b)
-          );
-        });
-        let newObj: any = {};
-        keys.forEach((key: any) => {
-          newObj[key] = obj[key];
-        });
+      const methodResponse = await contract[method.name](...methodArgs).then(
+        (res: any) => (res.wait ? res.wait() : res),
+      );
 
-        return newObj;
-      };
-      const toSend =
-        method?.stateMutability === 'payable'
-          ? [
-              ...Object.values(
-                sortKeysInObjectByRightParamsSequence(inputValue, method),
-              ),
-              { value: paybleValue },
-            ]
-          : [
-              ...Object.values(
-                sortKeysInObjectByRightParamsSequence(inputValue, method),
-              ),
-            ];
-
-      let value;
-
-      if (toSend?.length) {
-        value = await contract?.[`${method.name}`](...toSend).then(
-          (res: any) => {
-            return res.wait ? res.wait() : res;
-          },
-        );
-      } else {
-        value = await contract?.[`${method.name}`]();
-      }
-
-      if (value) {
-        setResult(value);
+      if (methodResponse) {
+        setResult(methodResponse);
         setResultMessage('Success!');
       }
     } catch (e: any) {
@@ -96,95 +66,67 @@ const Method = ({ index, method, buttonName }: any) => {
     setOpen(!open);
     setError('');
 
-    if (!(method.stateMutability === 'view' && !method.inputs.length)) {
+    // don't reset results for read method without inputs
+    if (!(isRead && method.inputs.length === 0)) {
       setResult(null);
       setResultMessage(null);
     }
 
     setInputValue('');
-    setPaybleValue(0);
+    setPayableValue(0);
   };
 
+  // call read method without inputs on load (like etherscan do)
   useEffect(() => {
-    (async () => {
-      if (method.stateMutability === 'view' && !method.inputs.length) {
-        await contractCall();
-      }
-    })();
+    if (isRead && method.inputs.length === 0) contractCall().then();
   }, []);
 
   return (
     <div className="method">
-      <div
-        className="method-toggle"
-        onClick={() => setOpen((prev: any) => !prev)}
-      >
-        {!open ? (
-          <div className="open-btn">
-            <Plus />
-          </div>
-        ) : (
-          <div className="open-btn">
-            <Minus />
-          </div>
-        )}
+      <div className="method-toggle" onClick={toggleOpen}>
+        <div className="open-btn">{!open ? <Plus /> : <Minus />}</div>
       </div>
-      <div className="method-name" onClick={() => toggleOpen()}>
+
+      <div className="method-name" onClick={toggleOpen}>
         <span>{index + 1}. </span>
-        <span style={{ paddingLeft: 8, textTransform: 'capitalize' }}>
-          {' '}
-          {method?.name ?? 'name'}
-        </span>
+        <span style={{ paddingLeft: 8 }}> {method?.name ?? 'name'}</span>
       </div>
+
       {open && (
         <>
           <div className="method-params">
             {method?.inputs?.map((param: any, index: number) => {
               return (
-                <div key={index} className="method-params-param">
-                  <div className="method-params-param-name">
-                    <span className="method-params-param-name universall_capitalize">
-                      {param.name}
-                    </span>
-                    <span
-                      className="method-params-param-name"
-                      style={{ paddingLeft: 4 }}
-                    >
-                      ({param?.type})
-                    </span>
-                  </div>
-
-                  <input
-                    type="text"
-                    key={index}
-                    value={inputValue[param.name]}
-                    onChange={(e: any) =>
-                      setInputValue((prev: any) => {
-                        return { ...prev, [param.name]: e.target.value };
-                      })
-                    }
-                    placeholder={param?.type}
-                  />
-                </div>
+                <MethodParam
+                  key={index}
+                  paramName={param.name}
+                  paramType={param.type}
+                  value={inputValue[param.name]}
+                  onChange={(e: any) =>
+                    setInputValue((prev: any) => {
+                      return { ...prev, [param.name]: e.target.value };
+                    })
+                  }
+                />
               );
             }) ?? null}
+
             {method?.stateMutability === 'payable' && (
-              <div key={index} className="method-params-param">
-                <div className="method-params-param-name">value ( uint )</div>
-                <input
-                  type="text"
-                  key={index}
-                  value={paybleValue}
-                  onChange={(e: any) => setPaybleValue(e.target.value)}
-                />
-              </div>
+              <MethodParam
+                key={'__value'}
+                paramName="value"
+                paramType="uint"
+                value={payableValue}
+                onChange={(e: any) => setPayableValue(e.target.value)}
+              />
             )}
-            {((filtered === 'read' && method?.inputs.length) ||
-              filtered === 'write') && (
+
+            {!(isRead && method?.inputs.length === 0) && (
               <div className="contract-method">
                 <button className="contract-method-btn" onClick={contractCall}>
                   {buttonName}
                 </button>
+
                 {isLoading && <Spinner />}
 
                 {result && resultMessage && (
@@ -206,24 +148,18 @@ const Method = ({ index, method, buttonName }: any) => {
               </div>
             )}
           </div>
+
           <div className="result">
-            {method.outputs.length !== 0 && method.stateMutability === 'view' && (
-              <div className="remaining">
-                <svg
-                  style={{ marginRight: '0.2rem' }}
-                  width="8"
-                  height="10"
-                  viewBox="0 0 8 10"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M1 0V9.5H7.5" stroke="#A6B0C3" />
-                </svg>
-                {method.outputs[0].type}:
-              </div>
-            )}
-            {result && filtered !== 'write' && (
-              <div className="method-result">{`${result.toString()}`}</div>
+            {isRead && method.outputs.length !== 0 && (
+              <>
+                <div className="remaining">
+                  <ResultTypeSvg />
+                  {method.outputs[0].type}:
+                </div>
+                <div className="method-result">
+                  {result && result.toString()}
+                </div>
+              </>
             )}
           </div>
         </>
@@ -231,4 +167,42 @@ const Method = ({ index, method, buttonName }: any) => {
     </div>
   );
 };
+
+const MethodParam = (props: any) => {
+  const { paramName, paramType, value, onChange } = props;
+
+  return (
+    <div className="method-params-param">
+      <div className="method-params-param-name">
+        <span className="method-params-param-name">{paramName}</span>
+        <span className="method-params-param-name" style={{ paddingLeft: 4 }}>
+          ({paramType})
+        </span>
+      </div>
+
+      <input
+        type="text"
+        value={value}
+        onChange={onChange}
+        placeholder={paramType}
+      />
+    </div>
+  );
+};
+
+const ResultTypeSvg = () => {
+  return (
+    <svg
+      style={{ marginRight: '0.2rem' }}
+      width="8"
+      height="10"
+      viewBox="0 0 8 10"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path d="M1 0V9.5H7.5" stroke="#A6B0C3" />
+    </svg>
+  );
+};
+
 export default memo(Method);
