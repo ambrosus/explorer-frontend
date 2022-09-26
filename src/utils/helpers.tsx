@@ -10,7 +10,7 @@ export const sliceData5 = (item: string | null | undefined) => {
   if (!item) {
     return '';
   }
-  return item.length > 5
+  return item.length > 10
     ? `${item.slice(0, 5)}...${item.slice(item.length - 5)}`
     : item;
 };

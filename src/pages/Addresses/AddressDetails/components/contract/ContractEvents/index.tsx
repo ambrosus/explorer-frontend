@@ -56,7 +56,6 @@ const ContractEvents = () => {
         const parseLog = contract.interface.parseLog(item);
 
         const inputs = parseLog?.eventFragment.inputs || [];
-        console.log(inputs);
 
         const inputsData = inputs.map((input: any) => {
           return {
@@ -115,15 +114,26 @@ const ContractEvents = () => {
   }, [isSuccess]);
 
   const [searchValue, setSearchValue] = useState('');
+  const [findInputValue, setFindInputValue] = useState('');
+  const [isShowFindResult, setIsShowFindResult] = useState(false);
 
   const handleSearchChange = (e: any) => {
     e.preventDefault();
-    setFilteredEvents(eventsToRender);
     setSearchValue(e.target.value);
+    setIsShowFindResult(false);
+    console.log(e.target.value);
+
+    if (e.target.value === '') {
+      setFilteredEvents(eventsToRender);
+    }
   };
 
   const handleFindSubmit = (e: any) => {
     e.preventDefault();
+    setIsShowFindResult(true);
+    setFindInputValue(searchValue);
+    console.log(ethers.utils.isHexString(searchValue));
+
     if (searchValue === '') {
       setFilteredEvents(eventsToRender);
     } else if (ethers.utils.isHexString(searchValue)) {
@@ -136,12 +146,18 @@ const ContractEvents = () => {
           (event: any) => event.blockNumber === +searchValue,
         ),
       );
+      console.log('noNan');
+    } else {
+      setFilteredEvents(
+        filteredEvents.filter((event: any) => event.topics[0] === searchValue),
+      );
     }
   };
 
   const handleFindValue = (e: any, findValue: any) => {
     e.preventDefault();
     setSearchValue(findValue);
+    setFindInputValue(findValue);
 
     if (ethers.utils.isHexString(findValue)) {
       setFilteredEvents(
@@ -156,16 +172,24 @@ const ContractEvents = () => {
   const { ref, inView } = useInView();
   const [page, setPage] = useState(0);
 
+  const clearFindValue = () => {
+    setSearchValue('');
+    // setFindInputValue('');
+    setFilteredEvents(eventsToRender);
+    setIsShowFindResult(false);
+  };
+
   useEffect(() => {
     setPage((prev) => prev + 20);
   }, [inView]);
+  console.log(filteredEvents);
 
   return (
     <>
       <div className="contract_events">
         <div className="contract_events-table">
           <div className="contract_events-find">
-            {searchValue !== '' && (
+            {isShowFindResult && (
               <pre className="contract_events-find-modal">
                 {'Filtered by Block: '}
                 <span
@@ -174,12 +198,12 @@ const ContractEvents = () => {
                     fontWeight: '600',
                   }}
                 >
-                  {sliceData5(searchValue)}
+                  {sliceData5(findInputValue)}
                 </span>
                 <button
                   type="submit"
                   className="contract_events-find-btn"
-                  onClick={() => setSearchValue('')}
+                  onClick={() => clearFindValue()}
                 >
                   <Discard />
                 </button>
@@ -216,11 +240,12 @@ const ContractEvents = () => {
           <div>{eventsToRender.length === 0 && <Loader />}</div>
 
           {filteredEvents
-            ?.slice(0, page)
             .sort(
               (a: { blockNumber: number }, b: { blockNumber: number }) =>
                 b.blockNumber - a.blockNumber,
             )
+            ?.slice(0, page)
+
             .map((item: any, index: any) => (
               <EventDetails
                 key={index}
