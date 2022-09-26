@@ -1,5 +1,6 @@
 import EventDetails from './EventDetails';
 import Discard from 'assets/icons/Discard';
+import NotFoundIcon from 'assets/icons/Errors/NotFoundIcon';
 import Search from 'assets/icons/Search';
 import Loader from 'components/Loader';
 import { ethers } from 'ethers';
@@ -18,6 +19,7 @@ const ContractEvents = () => {
   const [searchValue, setSearchValue] = useState('');
   const [findInputValue, setFindInputValue] = useState('');
   const [isShowFindResult, setIsShowFindResult] = useState(false);
+  const [filterBy, setFilterBy] = useState('');
 
   const provider = new ethers.providers.JsonRpcProvider(
     process.env.REACT_APP_EXPLORER_NETWORK,
@@ -84,8 +86,6 @@ const ContractEvents = () => {
     }
   };
 
-  console.log(eventsToRender);
-
   useEffect(() => {
     getEventData();
   }, [isSuccess]);
@@ -95,10 +95,12 @@ const ContractEvents = () => {
       return eventsToRender;
     }
     if (ethers.utils.isHexString(findInputValue)) {
+      setFilterBy('Topic');
       return eventsToRender.filter(
         (event: any) => event.topics[0] === findInputValue,
       );
     } else if (!isNaN(Number(findInputValue))) {
+      setFilterBy('Block');
       return eventsToRender.filter(
         (event: any) => event.blockNumber === +findInputValue,
       );
@@ -141,7 +143,7 @@ const ContractEvents = () => {
           <div className="contract_events-find">
             {isShowFindResult && (
               <pre className="contract_events-find-modal">
-                {'Filtered by Block: '}
+                {`Filtered by ${filterBy}: `}
                 <span
                   className="contract_events-find-modal"
                   style={{
@@ -215,6 +217,14 @@ const ContractEvents = () => {
                 setSearchValue={setSearchValue}
               />
             ))}
+          {filteredEvents.length === 0 && isSuccess && (
+            <div className="tabs_not_found">
+              <NotFoundIcon />
+              <span className="tabs_not_found_text">
+                No results were found for this query.
+              </span>
+            </div>
+          )}
           {eventsToRender.length !== 0 && <div ref={ref}></div>}
         </div>
       </div>
