@@ -1,5 +1,6 @@
 import EventDetails from './EventDetails';
 import Discard from 'assets/icons/Discard';
+import NotFoundIcon from 'assets/icons/Errors/NotFoundIcon';
 import Search from 'assets/icons/Search';
 import Loader from 'components/Loader';
 import { ethers } from 'ethers';
@@ -9,18 +10,19 @@ import { useInView } from 'react-intersection-observer';
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 import { getContractData } from 'services/contract.service';
+import { sliceData5 } from 'utils/helpers';
 
 const ContractEvents = () => {
   const { address = '' } = useParams();
-  const [eventsToRender, setEventsToRender] = useState<any>([]);
-  const [isLoading, setIsLoading] = useState<any>([]);
 
-  const provider = useMemo(
-    () =>
-      new ethers.providers.JsonRpcProvider(
-        process.env.REACT_APP_EXPLORER_NETWORK,
-      ),
-    [process.env.REACT_APP_EXPLORER_NETWORK],
+  const [eventsToRender, setEventsToRender] = useState<any>([]);
+  const [searchValue, setSearchValue] = useState('');
+  const [findInputValue, setFindInputValue] = useState('');
+  const [isShowFindResult, setIsShowFindResult] = useState(false);
+  const [filterBy, setFilterBy] = useState('');
+
+  const provider = new ethers.providers.JsonRpcProvider(
+    process.env.REACT_APP_EXPLORER_NETWORK,
   );
 
   const { data: contractData, isSuccess } = useQuery(
@@ -28,15 +30,11 @@ const ContractEvents = () => {
     () => getContractData(address),
   );
 
-  const files = useMemo(
-    () => contractData?.data?.files,
-    [contractData?.data?.files],
-  );
-  const status = useMemo(() => contractData?.status, [contractData?.status]);
-
   const getEventData = async () => {
-    if (status === 200) {
-      const res = files.find((file: any) => file.name === 'metadata.json');
+    if (contractData?.status === 200) {
+      const res = contractData?.data?.files?.find(
+        (file: any) => file.name === 'metadata.json',
+      );
       const parsedContent = JSON.parse(res?.content);
       const contract = new ethers.Contract(
         address,
@@ -44,18 +42,17 @@ const ContractEvents = () => {
         provider,
       );
 
-      const result = await contract?.queryFilter('*' as any);
+      const eventsArr = await contract?.queryFilter('*' as any);
 
-      result.forEach(async (item: any) => {
-        const blockData = await item.getBlock();
-        const txData = await item.getTransaction();
+      const result = eventsArr.map((item: any) => {
+        const blockData = item.getBlock();
+        const txData = item.getTransaction();
 
         const methodId = txData?.data?.substring(0, 10);
 
         const parseLog = contract.interface.parseLog(item);
 
         const inputs = parseLog?.eventFragment.inputs || [];
-        console.log(inputs);
 
         const inputsData = inputs.map((input: any) => {
           return {
@@ -82,78 +79,58 @@ const ContractEvents = () => {
           nonTopics,
         };
 
-        isLoading &&
-          setEventsToRender((prev: any) => {
-            let res;
-            if (prev === Array) {
-              res = data;
-            } else {
-              res = [...prev, data];
-            }
-            return res;
-          });
-
-        isLoading &&
-          setFilteredEvents((prev: any) => {
-            let res;
-            if (prev === Array) {
-              res = data;
-            } else {
-              res = [...prev, data];
-            }
-            return res;
-          });
+        return data;
       });
-      setIsLoading(false);
+
+      setEventsToRender(result);
     }
   };
-  const [filteredEvents, setFilteredEvents] = useState<any>([]);
 
   useEffect(() => {
     getEventData();
   }, [isSuccess]);
 
-  const [searchValue, setSearchValue] = useState('');
+  const filteredEvents = useMemo(() => {
+    if (findInputValue === '') {
+      return eventsToRender;
+    }
+    if (ethers.utils.isHexString(findInputValue)) {
+      setFilterBy('Topic');
+      return eventsToRender.filter(
+        (event: any) => event.topics[0] === findInputValue,
+      );
+    } else if (!isNaN(Number(findInputValue))) {
+      setFilterBy('Block');
+      return eventsToRender.filter(
+        (event: any) => event.blockNumber === +findInputValue,
+      );
+    } else {
+      return [];
+    }
+  }, [eventsToRender, findInputValue]);
 
   const handleSearchChange = (e: any) => {
     e.preventDefault();
-    setFilteredEvents(eventsToRender);
     setSearchValue(e.target.value);
+    setIsShowFindResult(false);
   };
 
-  const handleFindSubmit = (e: any) => {
+  const handleFindSubmit = (e: any, findValue: any) => {
     e.preventDefault();
-    if (searchValue === '') {
-      setFilteredEvents(eventsToRender);
-    } else if (ethers.utils.isHexString(searchValue)) {
-      setFilteredEvents(
-        filteredEvents.filter((event: any) => event.topics[0] === searchValue),
-      );
-    } else if (!isNaN(Number(searchValue))) {
-      setFilteredEvents(
-        filteredEvents.filter(
-          (event: any) => event.blockNumber === +searchValue,
-        ),
-      );
-    }
-  };
 
-  const handleFindValue = (e: any, findValue: any) => {
-    e.preventDefault();
     setSearchValue(findValue);
-
-    if (ethers.utils.isHexString(findValue)) {
-      setFilteredEvents(
-        filteredEvents.filter((event: any) => event.topics[0] === findValue),
-      );
-    } else if (!isNaN(Number(findValue))) {
-      setFilteredEvents(
-        filteredEvents.filter((event: any) => event.blockNumber === +findValue),
-      );
-    }
+    setFindInputValue(findValue);
+    setIsShowFindResult(true);
   };
+
   const { ref, inView } = useInView();
   const [page, setPage] = useState(0);
+
+  const clearFindValue = () => {
+    setSearchValue('');
+    setFindInputValue('');
+    setIsShowFindResult(false);
+  };
 
   useEffect(() => {
     setPage((prev) => prev + 20);
@@ -164,30 +141,44 @@ const ContractEvents = () => {
       <div className="contract_events">
         <div className="contract_events-table">
           <div className="contract_events-find">
-            <form onSubmit={(e) => handleFindSubmit(e)}>
-              <label className="contract_events-find-label" htmlFor="html">
-                <pre className="contract_events-find-text">Filter by: </pre>
+            {isShowFindResult && (
+              <pre className="contract_events-find-modal">
+                {`Filtered by ${filterBy}: `}
+                <span
+                  className="contract_events-find-modal"
+                  style={{
+                    fontWeight: '600',
+                  }}
+                >
+                  {sliceData5(findInputValue)}
+                </span>
+                <button
+                  type="submit"
+                  className="contract_events-find-btn"
+                  onClick={() => clearFindValue()}
+                >
+                  <Discard />
+                </button>
+              </pre>
+            )}
+
+            <form onSubmit={(e) => handleFindSubmit(e, searchValue)}>
+              <label
+                className="contract_events-find-label"
+                htmlFor="find-block"
+              >
                 <input
                   type="text"
-                  id="html"
+                  id="find-block"
                   value={searchValue}
-                  onChange={(e) => handleSearchChange(e)}
+                  onChange={handleSearchChange}
                   placeholder="Filter by  Block or Topic"
                   className="contract_events-find-input"
                 />
-                {searchValue === '' ? (
-                  <button type="submit" className="contract_events-find-btn">
-                    <Search fill={'#808A9D'} />
-                  </button>
-                ) : (
-                  <button
-                    type="submit"
-                    className="contract_events-find-btn"
-                    onClick={() => setSearchValue('')}
-                  >
-                    <Discard />
-                  </button>
-                )}
+
+                <button type="submit" className="contract_events-find-btn">
+                  <Search fill={'#808A9D'} />
+                </button>
               </label>
             </form>
           </div>
@@ -201,11 +192,12 @@ const ContractEvents = () => {
           <div>{eventsToRender.length === 0 && <Loader />}</div>
 
           {filteredEvents
-            ?.slice(0, page)
             .sort(
               (a: { blockNumber: number }, b: { blockNumber: number }) =>
                 b.blockNumber - a.blockNumber,
             )
+            ?.slice(0, page)
+
             .map((item: any, index: any) => (
               <EventDetails
                 key={index}
@@ -219,12 +211,20 @@ const ContractEvents = () => {
                 topics={item.topics}
                 txHash={item.txHash}
                 searchValue={searchValue}
-                handleFindValue={handleFindValue}
+                handleFindSubmit={handleFindSubmit}
                 inputsData={item.inputsData}
                 nonTopics={item.nonTopics}
                 setSearchValue={setSearchValue}
               />
             ))}
+          {filteredEvents.length === 0 && isSuccess && (
+            <div className="tabs_not_found">
+              <NotFoundIcon />
+              <span className="tabs_not_found_text">
+                No results were found for this query.
+              </span>
+            </div>
+          )}
           {eventsToRender.length !== 0 && <div ref={ref}></div>}
         </div>
       </div>

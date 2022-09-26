@@ -19,7 +19,7 @@ const EventDetails = ({
   timestamp,
   topics,
   txHash,
-  handleFindValue,
+  handleFindSubmit,
   inputsData,
   nonTopics,
 }: any) => {
@@ -59,7 +59,7 @@ const EventDetails = ({
         </div>
         <div
           className="contract_events-body-cells"
-          onClick={(e) => handleFindValue(e, blockNumber)}
+          onClick={(e) => handleFindSubmit(e, blockNumber)}
         >
           <div className="contract_events-body-subcell universall_light2 universall_cursor">
             {blockNumber}
@@ -113,7 +113,7 @@ const EventDetails = ({
             return (
               <div
                 className="contract_events-body-cell"
-                onClick={(e) => handleFindValue(e, topic)}
+                onClick={(e) => handleFindSubmit(e, topic)}
               >
                 <div className={isZeroTopic}>{`[topic${index}]`}</div>
                 <pre className={isZeroTopic}>
