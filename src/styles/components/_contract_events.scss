@@ -125,9 +125,18 @@
   }
   &-find {
     display: flex;
-    align-items: flex-end;
+    align-items: center;
 
     border-radius: 16px;
+    &-modal {
+      display: flex;
+      align-items: center;
+
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 24px;
+      color: #a6b0c3;
+    }
     &-input {
       color: #a6b0c3;
       width: 100%;

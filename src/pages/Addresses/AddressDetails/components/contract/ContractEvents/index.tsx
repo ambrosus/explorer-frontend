@@ -9,6 +9,7 @@ import { useInView } from 'react-intersection-observer';
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 import { getContractData } from 'services/contract.service';
+import { sliceData5 } from 'utils/helpers';
 
 const ContractEvents = () => {
   const { address = '' } = useParams();
@@ -164,30 +165,44 @@ const ContractEvents = () => {
       <div className="contract_events">
         <div className="contract_events-table">
           <div className="contract_events-find">
+            {searchValue !== '' && (
+              <pre className="contract_events-find-modal">
+                {'Filtered by Block: '}
+                <span
+                  className="contract_events-find-modal"
+                  style={{
+                    fontWeight: '600',
+                  }}
+                >
+                  {sliceData5(searchValue)}
+                </span>
+                <button
+                  type="submit"
+                  className="contract_events-find-btn"
+                  onClick={() => setSearchValue('')}
+                >
+                  <Discard />
+                </button>
+              </pre>
+            )}
+
             <form onSubmit={(e) => handleFindSubmit(e)}>
-              <label className="contract_events-find-label" htmlFor="html">
-                <pre className="contract_events-find-text">Filter by: </pre>
+              <label
+                className="contract_events-find-label"
+                htmlFor="find-block"
+              >
                 <input
                   type="text"
-                  id="html"
+                  id="find-block"
                   value={searchValue}
                   onChange={(e) => handleSearchChange(e)}
                   placeholder="Filter by  Block or Topic"
                   className="contract_events-find-input"
                 />
-                {searchValue === '' ? (
-                  <button type="submit" className="contract_events-find-btn">
-                    <Search fill={'#808A9D'} />
-                  </button>
-                ) : (
-                  <button
-                    type="submit"
-                    className="contract_events-find-btn"
-                    onClick={() => setSearchValue('')}
-                  >
-                    <Discard />
-                  </button>
-                )}
+
+                <button type="submit" className="contract_events-find-btn">
+                  <Search fill={'#808A9D'} />
+                </button>
               </label>
             </form>
           </div>
