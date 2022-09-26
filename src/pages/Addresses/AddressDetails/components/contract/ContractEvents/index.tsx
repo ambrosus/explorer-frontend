@@ -13,15 +13,14 @@ import { sliceData5 } from 'utils/helpers';
 
 const ContractEvents = () => {
   const { address = '' } = useParams();
-  const [eventsToRender, setEventsToRender] = useState<any>([]);
-  const [isLoading, setIsLoading] = useState<any>([]);
 
-  const provider = useMemo(
-    () =>
-      new ethers.providers.JsonRpcProvider(
-        process.env.REACT_APP_EXPLORER_NETWORK,
-      ),
-    [process.env.REACT_APP_EXPLORER_NETWORK],
+  const [eventsToRender, setEventsToRender] = useState<any>([]);
+  const [searchValue, setSearchValue] = useState('');
+  const [findInputValue, setFindInputValue] = useState('');
+  const [isShowFindResult, setIsShowFindResult] = useState(false);
+
+  const provider = new ethers.providers.JsonRpcProvider(
+    process.env.REACT_APP_EXPLORER_NETWORK,
   );
 
   const { data: contractData, isSuccess } = useQuery(
@@ -29,15 +28,11 @@ const ContractEvents = () => {
     () => getContractData(address),
   );
 
-  const files = useMemo(
-    () => contractData?.data?.files,
-    [contractData?.data?.files],
-  );
-  const status = useMemo(() => contractData?.status, [contractData?.status]);
-
   const getEventData = async () => {
-    if (status === 200) {
-      const res = files.find((file: any) => file.name === 'metadata.json');
+    if (contractData?.status === 200) {
+      const res = contractData?.data?.files?.find(
+        (file: any) => file.name === 'metadata.json',
+      );
       const parsedContent = JSON.parse(res?.content);
       const contract = new ethers.Contract(
         address,
@@ -45,11 +40,11 @@ const ContractEvents = () => {
         provider,
       );
 
-      const result = await contract?.queryFilter('*' as any);
+      const eventsArr = await contract?.queryFilter('*' as any);
 
-      result.forEach(async (item: any) => {
-        const blockData = await item.getBlock();
-        const txData = await item.getTransaction();
+      const result = eventsArr.map((item: any) => {
+        const blockData = item.getBlock();
+        const txData = item.getTransaction();
 
         const methodId = txData?.data?.substring(0, 10);
 
@@ -82,107 +77,62 @@ const ContractEvents = () => {
           nonTopics,
         };
 
-        isLoading &&
-          setEventsToRender((prev: any) => {
-            let res;
-            if (prev === Array) {
-              res = data;
-            } else {
-              res = [...prev, data];
-            }
-            return res;
-          });
-
-        isLoading &&
-          setFilteredEvents((prev: any) => {
-            let res;
-            if (prev === Array) {
-              res = data;
-            } else {
-              res = [...prev, data];
-            }
-            return res;
-          });
+        return data;
       });
-      setIsLoading(false);
+
+      setEventsToRender(result);
     }
   };
-  const [filteredEvents, setFilteredEvents] = useState<any>([]);
+
+  console.log(eventsToRender);
 
   useEffect(() => {
     getEventData();
   }, [isSuccess]);
 
-  const [searchValue, setSearchValue] = useState('');
-  const [findInputValue, setFindInputValue] = useState('');
-  const [isShowFindResult, setIsShowFindResult] = useState(false);
+  const filteredEvents = useMemo(() => {
+    if (findInputValue === '') {
+      return eventsToRender;
+    }
+    if (ethers.utils.isHexString(findInputValue)) {
+      return eventsToRender.filter(
+        (event: any) => event.topics[0] === findInputValue,
+      );
+    } else if (!isNaN(Number(findInputValue))) {
+      return eventsToRender.filter(
+        (event: any) => event.blockNumber === +findInputValue,
+      );
+    } else {
+      return [];
+    }
+  }, [eventsToRender, findInputValue]);
 
   const handleSearchChange = (e: any) => {
     e.preventDefault();
     setSearchValue(e.target.value);
     setIsShowFindResult(false);
-    console.log(e.target.value);
-
-    if (e.target.value === '') {
-      setFilteredEvents(eventsToRender);
-    }
   };
 
-  const handleFindSubmit = (e: any) => {
+  const handleFindSubmit = (e: any, findValue: any) => {
     e.preventDefault();
-    setIsShowFindResult(true);
-    setFindInputValue(searchValue);
-    console.log(ethers.utils.isHexString(searchValue));
 
-    if (searchValue === '') {
-      setFilteredEvents(eventsToRender);
-    } else if (ethers.utils.isHexString(searchValue)) {
-      setFilteredEvents(
-        filteredEvents.filter((event: any) => event.topics[0] === searchValue),
-      );
-    } else if (!isNaN(Number(searchValue))) {
-      setFilteredEvents(
-        filteredEvents.filter(
-          (event: any) => event.blockNumber === +searchValue,
-        ),
-      );
-      console.log('noNan');
-    } else {
-      setFilteredEvents(
-        filteredEvents.filter((event: any) => event.topics[0] === searchValue),
-      );
-    }
-  };
-
-  const handleFindValue = (e: any, findValue: any) => {
-    e.preventDefault();
     setSearchValue(findValue);
     setFindInputValue(findValue);
-
-    if (ethers.utils.isHexString(findValue)) {
-      setFilteredEvents(
-        filteredEvents.filter((event: any) => event.topics[0] === findValue),
-      );
-    } else if (!isNaN(Number(findValue))) {
-      setFilteredEvents(
-        filteredEvents.filter((event: any) => event.blockNumber === +findValue),
-      );
-    }
+    setIsShowFindResult(true);
   };
+
   const { ref, inView } = useInView();
   const [page, setPage] = useState(0);
 
   const clearFindValue = () => {
     setSearchValue('');
-    // setFindInputValue('');
-    setFilteredEvents(eventsToRender);
+    setFindInputValue('');
     setIsShowFindResult(false);
   };
 
   useEffect(() => {
     setPage((prev) => prev + 20);
   }, [inView]);
-  console.log(filteredEvents);
 
   return (
     <>
@@ -210,7 +160,7 @@ const ContractEvents = () => {
               </pre>
             )}
 
-            <form onSubmit={(e) => handleFindSubmit(e)}>
+            <form onSubmit={(e) => handleFindSubmit(e, searchValue)}>
               <label
                 className="contract_events-find-label"
                 htmlFor="find-block"
@@ -219,7 +169,7 @@ const ContractEvents = () => {
                   type="text"
                   id="find-block"
                   value={searchValue}
-                  onChange={(e) => handleSearchChange(e)}
+                  onChange={handleSearchChange}
                   placeholder="Filter by  Block or Topic"
                   className="contract_events-find-input"
                 />
@@ -259,7 +209,7 @@ const ContractEvents = () => {
                 topics={item.topics}
                 txHash={item.txHash}
                 searchValue={searchValue}
-                handleFindValue={handleFindValue}
+                handleFindSubmit={handleFindSubmit}
                 inputsData={item.inputsData}
                 nonTopics={item.nonTopics}
                 setSearchValue={setSearchValue}
