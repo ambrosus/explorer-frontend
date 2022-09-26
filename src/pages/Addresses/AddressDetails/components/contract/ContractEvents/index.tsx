@@ -20,6 +20,7 @@ const ContractEvents = () => {
   const [findInputValue, setFindInputValue] = useState('');
   const [isShowFindResult, setIsShowFindResult] = useState(false);
   const [filterBy, setFilterBy] = useState('');
+  const [isLoad, setIsLoad] = useState(false);
 
   const provider = new ethers.providers.JsonRpcProvider(
     process.env.REACT_APP_EXPLORER_NETWORK,
@@ -32,6 +33,7 @@ const ContractEvents = () => {
 
   const getEventData = async () => {
     if (contractData?.status === 200) {
+      setIsLoad(false);
       const res = contractData?.data?.files?.find(
         (file: any) => file.name === 'metadata.json',
       );
@@ -83,6 +85,7 @@ const ContractEvents = () => {
       });
 
       setEventsToRender(result);
+      setIsLoad(true);
     }
   };
 
@@ -217,7 +220,7 @@ const ContractEvents = () => {
                 setSearchValue={setSearchValue}
               />
             ))}
-          {filteredEvents.length === 0 && isSuccess && (
+          {filteredEvents.length === 0 && isLoad && (
             <div className="tabs_not_found">
               <NotFoundIcon />
               <span className="tabs_not_found_text">
