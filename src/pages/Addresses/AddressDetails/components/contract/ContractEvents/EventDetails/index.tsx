@@ -7,6 +7,7 @@ import useHover from 'hooks/useHover';
 import moment from 'moment';
 import { useState } from 'react';
 import { memo } from 'react';
+import { NavLink } from 'react-router-dom';
 import { calcTime, sliceData5 } from 'utils/helpers';
 
 const EventDetails = ({
@@ -57,13 +58,18 @@ const EventDetails = ({
             )}
           </div>
         </div>
-        <div
-          className="contract_events-body-cells"
-          onClick={(e) => handleFindSubmit(e, blockNumber)}
-        >
-          <div className="contract_events-body-subcell universall_light2 universall_cursor">
-            {blockNumber}
-            <button className="universall_filter-btn">
+        <div className="contract_events-body-cells">
+          <div className="contract_events-body-subcell ">
+            <NavLink
+              to={`/blocks/${blockNumber}`}
+              className="contract_events-body-navlink universall_light2"
+            >
+              {blockNumber}
+            </NavLink>
+            <button
+              className="universall_filter-btn"
+              onClick={(e) => handleFindSubmit(e, blockNumber)}
+            >
               <FilterIcon />
             </button>
           </div>
@@ -107,23 +113,25 @@ const EventDetails = ({
           {topics.map((topic: any, index: any) => {
             const isZeroTopic =
               index === 0
-                ? 'contract_events-body-subcell universall_light3 universall_cursor'
+                ? 'contract_events-body-subcell universall_light3'
                 : '';
 
             return (
-              <div
-                className="contract_events-body-cell"
-                onClick={(e) => handleFindSubmit(e, topic)}
-              >
+              <div className="contract_events-body-cell">
                 <div className={isZeroTopic}>{`[topic${index}]`}</div>
-                <pre className={isZeroTopic}>
-                  {topic}
-                  {index === 0 && (
-                    <button className="universall_filter-btn">
-                      <FilterIcon />
-                    </button>
-                  )}
-                </pre>
+                {
+                  <pre className={isZeroTopic}>
+                    {topic}
+                    {index === 0 && (
+                      <button
+                        className="universall_filter-btn"
+                        onClick={(e) => handleFindSubmit(e, topic)}
+                      >
+                        <FilterIcon />
+                      </button>
+                    )}
+                  </pre>
+                }
               </div>
             );
           })}

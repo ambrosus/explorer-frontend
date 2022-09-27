@@ -73,9 +73,12 @@
     &-subcell {
       display: flex;
       align-items: center;
+    }
+    &-navlink {
       font-weight: 600;
       font-size: 14px;
       line-height: 24px;
+      text-decoration: none;
     }
 
     &-transfer {

@@ -115,6 +115,9 @@ const ContractEvents = () => {
   const handleSearchChange = (e: any) => {
     e.preventDefault();
     setSearchValue(e.target.value);
+    if (e.target.value === '') {
+      setFindInputValue(e.target.value);
+    }
     setIsShowFindResult(false);
   };
 
