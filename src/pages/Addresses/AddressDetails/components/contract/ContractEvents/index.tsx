@@ -14,8 +14,6 @@ import { sliceData5 } from 'utils/helpers';
 
 const ContractEvents = () => {
   const { address = '' } = useParams();
-  const params = useParams();
-  console.log(params);
 
   const [eventsToRender, setEventsToRender] = useState<any>([]);
   const [searchValue, setSearchValue] = useState('');
@@ -63,7 +61,6 @@ const ContractEvents = () => {
           const getTransaction = item.getTransaction;
 
           const parseLog = contract.interface.parseLog(item);
-
           const inputs = parseLog?.eventFragment.inputs || [];
 
           const inputsData = inputs.map((input: any) => {
@@ -150,9 +147,6 @@ const ContractEvents = () => {
     setPage((prev) => prev + 20);
   }, [inView]);
 
-  useEffect(() => {
-    console.log(page);
-  }, [page]);
   return (
     <>
       <div className="contract_events">
