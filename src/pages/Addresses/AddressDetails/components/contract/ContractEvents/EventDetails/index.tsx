@@ -5,19 +5,17 @@ import ArrowUpBig from 'assets/icons/Arrows/ArrowUpBig';
 import FilterIcon from 'assets/icons/FilterIcon';
 import useHover from 'hooks/useHover';
 import moment from 'moment';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { memo } from 'react';
 import { NavLink } from 'react-router-dom';
 import { calcTime, sliceData5 } from 'utils/helpers';
 
 const EventDetails = ({
-  addressFrom,
-  addressTo,
   blockNumber,
   event,
   inputs,
-  methodId,
-  timestamp,
+  getTransaction,
+  getBlock,
   topics,
   txHash,
   handleFindSubmit,
@@ -32,9 +30,28 @@ const EventDetails = ({
 
   const [hoverRef, isHovered] = useHover<HTMLDivElement>();
   const [isShowBtn, setIsShowBtn] = useState<boolean>(false);
+  const [blockData, setBlockData] = useState<any>();
+  const [txData, setTxData] = useState<any>();
+  const [isLoad, setIsLoad] = useState<boolean>(true);
   const HandleClick = () => {
     setIsShowBtn((prev) => !prev);
   };
+
+  const getBllockData = async () => {
+    const blockData = await getBlock();
+    const resTxData = await getTransaction();
+
+    setBlockData(blockData);
+    setTxData(resTxData);
+    setIsLoad(true);
+  };
+
+  useEffect(() => {
+    getBllockData();
+  }, [isLoad]);
+
+  const methodId = txData?.data?.substring(0, 10);
+  const timestamp = blockData?.timestamp;
 
   return (
     <>
@@ -88,7 +105,7 @@ const EventDetails = ({
             >
               {isShow ? <ArrowUpBig /> : <ArrowDownBig />}
             </button>
-            <span>{event}</span>
+            <span style={{ fontWeight: 600 }}>{event}</span>
             <pre className="universall_ibm">
               (
               {inputs?.map((input: any, index: any) => (
