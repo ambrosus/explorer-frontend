@@ -53,6 +53,7 @@
         background-color: #808a9d;
         color: #fff;
         padding: 0 6px;
+        font-size: 12px;
         border-radius: 5px;
       }
       &-btn {
@@ -90,6 +91,7 @@
       &-cell {
         display: grid;
         grid-template-columns: minmax(100px, 1fr) minmax(500px, 6fr);
+        grid-gap: 8px;
       }
       &-heading {
         display: flex;

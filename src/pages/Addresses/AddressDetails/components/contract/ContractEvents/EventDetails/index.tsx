@@ -57,14 +57,17 @@ const EventDetails = ({
     <>
       <div className="contract_events-body">
         <div className="contract_events-body-cells">
-          <div className="contract_events-body-cell universall_light2">
+          <div
+            className="contract_events-body-cell universall_light2"
+            style={{ fontWeight: 600 }}
+          >
             {sliceData5(txHash)}
           </div>
           <div
             ref={hoverRef}
             className="contract_events-body-cell universall_light3"
           >
-            {calcTime(timestamp)}
+            <span style={{ fontSize: 12 }}>{calcTime(timestamp)}</span>
             {isHovered && (
               <div className="contract_events-body-cell-hovered">
                 <span className="universall_triangle"></span>

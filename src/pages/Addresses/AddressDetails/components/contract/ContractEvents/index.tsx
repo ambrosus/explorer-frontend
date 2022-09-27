@@ -150,6 +150,9 @@ const ContractEvents = () => {
     setPage((prev) => prev + 20);
   }, [inView]);
 
+  useEffect(() => {
+    console.log(page);
+  }, [page]);
   return (
     <>
       <div className="contract_events">
@@ -203,7 +206,7 @@ const ContractEvents = () => {
             <div className="contract_events-heading-cell">Logs</div>
           </div>
 
-          <div>{eventsToRender.length === 0 && <Loader />}</div>
+          <div>{!filteredEvents.length && <Loader />}</div>
 
           {filteredEvents.map((item: any, index: any) => (
             <EventDetails
@@ -220,7 +223,8 @@ const ContractEvents = () => {
               nonTopics={item.nonTopics}
             />
           ))}
-          {!filteredEvents.length && (
+
+          {is404 && (
             <div className="tabs_not_found">
               <NotFoundIcon />
               <span className="tabs_not_found_text">
@@ -228,7 +232,8 @@ const ContractEvents = () => {
               </span>
             </div>
           )}
-          {filteredEvents.length && <div ref={ref} />}
+
+          {filteredEvents.length === 0 && <div ref={ref} />}
         </div>
       </div>
     </>
