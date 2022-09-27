@@ -14,6 +14,8 @@ import { sliceData5 } from 'utils/helpers';
 
 const ContractEvents = () => {
   const { address = '' } = useParams();
+  const params = useParams();
+  console.log(params);
 
   const [eventsToRender, setEventsToRender] = useState<any>([]);
   const [searchValue, setSearchValue] = useState('');
@@ -21,6 +23,11 @@ const ContractEvents = () => {
   const [isShowFindResult, setIsShowFindResult] = useState(false);
   const [filterBy, setFilterBy] = useState('');
   const [isLoad, setIsLoad] = useState(false);
+  const [page, setPage] = useState(0);
+
+  const [is404, setIs404] = useState(false);
+
+  const { ref, inView } = useInView();
 
   const provider = new ethers.providers.JsonRpcProvider(
     process.env.REACT_APP_EXPLORER_NETWORK,
@@ -33,7 +40,6 @@ const ContractEvents = () => {
 
   const getEventData = async () => {
     if (contractData?.status === 200) {
-      setIsLoad(false);
       const res = contractData?.data?.files?.find(
         (file: any) => file.name === 'metadata.json',
       );
@@ -46,43 +52,45 @@ const ContractEvents = () => {
 
       const eventsArr = await contract?.queryFilter('*' as any);
 
-      const result = eventsArr.map((item: any) => {
-        const blockData = item.getBlock();
-        const txData = item.getTransaction();
+      const result = eventsArr
+        .sort(
+          (a: { blockNumber: number }, b: { blockNumber: number }) =>
+            b.blockNumber - a.blockNumber,
+        )
+        .slice(0, page)
+        .map((item: any) => {
+          const getBlock = item.getBlock;
+          const getTransaction = item.getTransaction;
 
-        const methodId = txData?.data?.substring(0, 10);
+          const parseLog = contract.interface.parseLog(item);
 
-        const parseLog = contract.interface.parseLog(item);
+          const inputs = parseLog?.eventFragment.inputs || [];
 
-        const inputs = parseLog?.eventFragment.inputs || [];
+          const inputsData = inputs.map((input: any) => {
+            return {
+              name: input.name,
+              type: input.type,
+              value: parseLog?.args[input.name],
+              indexed: input.indexed,
+            };
+          });
 
-        const inputsData = inputs.map((input: any) => {
-          return {
-            name: input.name,
-            type: input.type,
-            value: parseLog?.args[input.name],
-            indexed: input.indexed,
+          const nonTopics = inputsData.filter((input: any) => !input.indexed);
+
+          const data = {
+            txHash: item.transactionHash || null,
+            blockNumber: item.blockNumber || null,
+            event: item.event || null,
+            topics: item.topics || [],
+            getBlock,
+            getTransaction,
+            inputs,
+            inputsData,
+            nonTopics,
           };
+
+          return data;
         });
-
-        const nonTopics = inputsData.filter((input: any) => !input.indexed);
-
-        const data = {
-          txHash: item.transactionHash || null,
-          timestamp: blockData.timestamp || null,
-          blockNumber: item.blockNumber || null,
-          event: item.event || null,
-          methodId: methodId || null,
-          addressFrom: txData.from || null,
-          addressTo: txData.to || null,
-          topics: item.topics || [],
-          inputs,
-          inputsData,
-          nonTopics,
-        };
-
-        return data;
-      });
 
       setEventsToRender(result);
       setIsLoad(true);
@@ -91,23 +99,26 @@ const ContractEvents = () => {
 
   useEffect(() => {
     getEventData();
-  }, [isSuccess]);
+  }, [isSuccess, isLoad]);
 
   const filteredEvents = useMemo(() => {
     if (findInputValue === '') {
       return eventsToRender;
     }
     if (ethers.utils.isHexString(findInputValue)) {
+      setIs404(false);
       setFilterBy('Topic');
       return eventsToRender.filter(
         (event: any) => event.topics[0] === findInputValue,
       );
     } else if (!isNaN(Number(findInputValue))) {
+      setIs404(false);
       setFilterBy('Block');
       return eventsToRender.filter(
         (event: any) => event.blockNumber === +findInputValue,
       );
     } else {
+      setIs404(true);
       return [];
     }
   }, [eventsToRender, findInputValue]);
@@ -115,6 +126,9 @@ const ContractEvents = () => {
   const handleSearchChange = (e: any) => {
     e.preventDefault();
     setSearchValue(e.target.value);
+    if (e.target.value === '') {
+      setFindInputValue(e.target.value);
+    }
     setIsShowFindResult(false);
   };
 
@@ -126,9 +140,6 @@ const ContractEvents = () => {
     setIsShowFindResult(true);
   };
 
-  const { ref, inView } = useInView();
-  const [page, setPage] = useState(0);
-
   const clearFindValue = () => {
     setSearchValue('');
     setFindInputValue('');
@@ -139,6 +150,9 @@ const ContractEvents = () => {
     setPage((prev) => prev + 20);
   }, [inView]);
 
+  useEffect(() => {
+    console.log(page);
+  }, [page]);
   return (
     <>
       <div className="contract_events">
@@ -192,35 +206,25 @@ const ContractEvents = () => {
             <div className="contract_events-heading-cell">Logs</div>
           </div>
 
-          <div>{eventsToRender.length === 0 && <Loader />}</div>
+          <div>{!filteredEvents.length && <Loader />}</div>
 
-          {filteredEvents
-            .sort(
-              (a: { blockNumber: number }, b: { blockNumber: number }) =>
-                b.blockNumber - a.blockNumber,
-            )
-            ?.slice(0, page)
+          {filteredEvents.map((item: any, index: any) => (
+            <EventDetails
+              key={index}
+              blockNumber={item.blockNumber}
+              event={item.event}
+              inputs={item.inputs}
+              getTransaction={item.getTransaction}
+              getBlock={item.getBlock}
+              topics={item.topics}
+              txHash={item.txHash}
+              handleFindSubmit={handleFindSubmit}
+              inputsData={item.inputsData}
+              nonTopics={item.nonTopics}
+            />
+          ))}
 
-            .map((item: any, index: any) => (
-              <EventDetails
-                key={index}
-                addressFrom={item.addressFrom}
-                addressTo={item.addressTo}
-                blockNumber={item.blockNumber}
-                event={item.event}
-                inputs={item.inputs}
-                methodId={item.methodId}
-                timestamp={item.timestamp}
-                topics={item.topics}
-                txHash={item.txHash}
-                searchValue={searchValue}
-                handleFindSubmit={handleFindSubmit}
-                inputsData={item.inputsData}
-                nonTopics={item.nonTopics}
-                setSearchValue={setSearchValue}
-              />
-            ))}
-          {filteredEvents.length === 0 && isLoad && (
+          {is404 && (
             <div className="tabs_not_found">
               <NotFoundIcon />
               <span className="tabs_not_found_text">
@@ -228,7 +232,8 @@ const ContractEvents = () => {
               </span>
             </div>
           )}
-          {eventsToRender.length !== 0 && <div ref={ref}></div>}
+
+          {filteredEvents.length === 0 && <div ref={ref} />}
         </div>
       </div>
     </>

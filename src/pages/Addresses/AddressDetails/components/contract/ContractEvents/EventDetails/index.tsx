@@ -5,18 +5,17 @@ import ArrowUpBig from 'assets/icons/Arrows/ArrowUpBig';
 import FilterIcon from 'assets/icons/FilterIcon';
 import useHover from 'hooks/useHover';
 import moment from 'moment';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { memo } from 'react';
+import { NavLink } from 'react-router-dom';
 import { calcTime, sliceData5 } from 'utils/helpers';
 
 const EventDetails = ({
-  addressFrom,
-  addressTo,
   blockNumber,
   event,
   inputs,
-  methodId,
-  timestamp,
+  getTransaction,
+  getBlock,
   topics,
   txHash,
   handleFindSubmit,
@@ -31,22 +30,44 @@ const EventDetails = ({
 
   const [hoverRef, isHovered] = useHover<HTMLDivElement>();
   const [isShowBtn, setIsShowBtn] = useState<boolean>(false);
+  const [blockData, setBlockData] = useState<any>();
+  const [txData, setTxData] = useState<any>();
+  const [isLoad, setIsLoad] = useState<boolean>(true);
   const HandleClick = () => {
     setIsShowBtn((prev) => !prev);
   };
+
+  const getBllockData = async () => {
+    const blockData = await getBlock();
+    const resTxData = await getTransaction();
+
+    setBlockData(blockData);
+    setTxData(resTxData);
+    setIsLoad(true);
+  };
+
+  useEffect(() => {
+    getBllockData();
+  }, [isLoad]);
+
+  const methodId = txData?.data?.substring(0, 10);
+  const timestamp = blockData?.timestamp;
 
   return (
     <>
       <div className="contract_events-body">
         <div className="contract_events-body-cells">
-          <div className="contract_events-body-cell universall_light2">
+          <div
+            className="contract_events-body-cell universall_light2"
+            style={{ fontWeight: 600 }}
+          >
             {sliceData5(txHash)}
           </div>
           <div
             ref={hoverRef}
             className="contract_events-body-cell universall_light3"
           >
-            {calcTime(timestamp)}
+            <span style={{ fontSize: 12 }}>{calcTime(timestamp)}</span>
             {isHovered && (
               <div className="contract_events-body-cell-hovered">
                 <span className="universall_triangle"></span>
@@ -57,13 +78,18 @@ const EventDetails = ({
             )}
           </div>
         </div>
-        <div
-          className="contract_events-body-cells"
-          onClick={(e) => handleFindSubmit(e, blockNumber)}
-        >
-          <div className="contract_events-body-subcell universall_light2 universall_cursor">
-            {blockNumber}
-            <button className="universall_filter-btn">
+        <div className="contract_events-body-cells">
+          <div className="contract_events-body-subcell ">
+            <NavLink
+              to={`/blocks/${blockNumber}`}
+              className="contract_events-body-navlink universall_light2"
+            >
+              {blockNumber}
+            </NavLink>
+            <button
+              className="universall_filter-btn"
+              onClick={(e) => handleFindSubmit(e, blockNumber)}
+            >
               <FilterIcon />
             </button>
           </div>
@@ -82,7 +108,7 @@ const EventDetails = ({
             >
               {isShow ? <ArrowUpBig /> : <ArrowDownBig />}
             </button>
-            <span>{event}</span>
+            <span style={{ fontWeight: 600 }}>{event}</span>
             <pre className="universall_ibm">
               (
               {inputs?.map((input: any, index: any) => (
@@ -107,23 +133,25 @@ const EventDetails = ({
           {topics.map((topic: any, index: any) => {
             const isZeroTopic =
               index === 0
-                ? 'contract_events-body-subcell universall_light3 universall_cursor'
+                ? 'contract_events-body-subcell universall_light3'
                 : '';
 
             return (
-              <div
-                className="contract_events-body-cell"
-                onClick={(e) => handleFindSubmit(e, topic)}
-              >
+              <div className="contract_events-body-cell">
                 <div className={isZeroTopic}>{`[topic${index}]`}</div>
-                <pre className={isZeroTopic}>
-                  {topic}
-                  {index === 0 && (
-                    <button className="universall_filter-btn">
-                      <FilterIcon />
-                    </button>
-                  )}
-                </pre>
+                {
+                  <pre className={isZeroTopic}>
+                    {topic}
+                    {index === 0 && (
+                      <button
+                        className="universall_filter-btn"
+                        onClick={(e) => handleFindSubmit(e, topic)}
+                      >
+                        <FilterIcon />
+                      </button>
+                    )}
+                  </pre>
+                }
               </div>
             );
           })}

@@ -53,6 +53,7 @@
         background-color: #808a9d;
         color: #fff;
         padding: 0 6px;
+        font-size: 12px;
         border-radius: 5px;
       }
       &-btn {
@@ -73,9 +74,12 @@
     &-subcell {
       display: flex;
       align-items: center;
+    }
+    &-navlink {
       font-weight: 600;
       font-size: 14px;
       line-height: 24px;
+      text-decoration: none;
     }
 
     &-transfer {
@@ -87,12 +91,17 @@
       &-cell {
         display: grid;
         grid-template-columns: minmax(100px, 1fr) minmax(500px, 6fr);
+        grid-gap: 8px;
+      }
+      &-heading {
+        display: flex;
+        align-items: center;
+        font-weight: 600;
       }
       &-address {
         font-weight: 600;
         font-size: 14px;
         line-height: 24px;
-        color: #808a9d;
       }
     }
     &-value {
@@ -138,7 +147,6 @@
       color: #a6b0c3;
     }
     &-input {
-      color: #a6b0c3;
       width: 100%;
       border: 0;
       padding-right: 6px;
