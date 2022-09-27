@@ -18,8 +18,9 @@ const ContractDetails = (props: any) => {
   const { sourcifyFiles, sourcifyMetadata, contractAbi } = parseSourcifyOutput(
     contractInfo?.data,
   );
-  const { data: proxyImplAbi, isLoading } = useQuery('implAddress', () =>
-    getProxyImplAbi(contractAbi, address),
+  const { data: proxyImplAbi, isLoading } = useQuery(
+    `implAddress ${address}`,
+    () => getProxyImplAbi(contractAbi, address),
   );
 
   // don't show anything before we get the proxy impl abi

@@ -12,7 +12,7 @@ import { useParams } from 'react-router-dom';
 import { getContractData } from 'services/contract.service';
 import { sliceData5 } from 'utils/helpers';
 
-const ContractEvents = () => {
+const ContractEvents = ({ abi }: any) => {
   const { address = '' } = useParams();
 
   const [eventsToRender, setEventsToRender] = useState<any>([]);
@@ -30,73 +30,54 @@ const ContractEvents = () => {
   const provider = new ethers.providers.JsonRpcProvider(
     process.env.REACT_APP_EXPLORER_NETWORK,
   );
-
-  const { data: contractData, isSuccess } = useQuery(
-    `events data ${address}`,
-    () => getContractData(address),
-  );
+  const contract = new ethers.Contract(address, abi, provider);
 
   const getEventData = async () => {
-    if (contractData?.status === 200) {
-      const res = contractData?.data?.files?.find(
-        (file: any) => file.name === 'metadata.json',
-      );
-      const parsedContent = JSON.parse(res?.content);
-      const contract = new ethers.Contract(
-        address,
-        parsedContent.output.abi,
-        provider,
-      );
+    const eventsArr = await contract?.queryFilter('*' as any);
 
-      const eventsArr = await contract?.queryFilter('*' as any);
-
-      const result = eventsArr
-        .sort(
-          (a: { blockNumber: number }, b: { blockNumber: number }) =>
-            b.blockNumber - a.blockNumber,
-        )
-        .slice(0, page)
-        .map((item: any) => {
-          const getBlock = item.getBlock;
-          const getTransaction = item.getTransaction;
-
-          const parseLog = contract.interface.parseLog(item);
-          const inputs = parseLog?.eventFragment.inputs || [];
-
-          const inputsData = inputs.map((input: any) => {
-            return {
-              name: input.name,
-              type: input.type,
-              value: parseLog?.args[input.name],
-              indexed: input.indexed,
-            };
-          });
-
-          const nonTopics = inputsData.filter((input: any) => !input.indexed);
-
-          const data = {
-            txHash: item.transactionHash || null,
-            blockNumber: item.blockNumber || null,
-            event: item.event || null,
-            topics: item.topics || [],
-            getBlock,
-            getTransaction,
-            inputs,
-            inputsData,
-            nonTopics,
+    const result = eventsArr
+      .sort(
+        (a: { blockNumber: number }, b: { blockNumber: number }) =>
+          b.blockNumber - a.blockNumber,
+      )
+      .slice(0, page)
+      .map((item: any) => {
+        const parseLog = contract.interface.parseLog(item);
+        const inputs = parseLog?.eventFragment.inputs || [];
+        const inputsData = inputs.map((input: any) => {
+          return {
+            name: input.name,
+            type: input.type,
+            value: parseLog?.args[input.name],
+            indexed: input.indexed,
           };
-
-          return data;
         });
 
-      setEventsToRender(result);
-      setIsLoad(true);
-    }
+        const nonTopics = inputsData.filter((input: any) => !input.indexed);
+
+        const data = {
+          txHash: item.transactionHash || null,
+          blockNumber: item.blockNumber || null,
+          event: item.event || null,
+          topics: item.topics || [],
+          getBlock: item.getTransaction,
+          getTransaction: item.getTransaction,
+          inputs,
+          inputsData,
+          nonTopics,
+        };
+
+        return data;
+      });
+
+    setEventsToRender(result);
+    setIsLoad(true);
   };
 
   useEffect(() => {
     getEventData();
-  }, [isSuccess, isLoad]);
+    console.log(1);
+  }, [isLoad]);
 
   const filteredEvents = useMemo(() => {
     if (findInputValue === '') {
