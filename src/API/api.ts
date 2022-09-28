@@ -145,6 +145,10 @@ const getApollos = (params = {}) => {
   });
 };
 
+const getAddresses = (params = {}) => {
+  return API().get('v2/addresses', { params });
+};
+
 const getAtlases = (params = {}) => {
   return API().get(`atlases`, {
     params,
@@ -270,6 +274,7 @@ const api = {
   getTokenTotalSupply,
   getAtlasBundles,
   followTheLinkRange,
+  getAddresses,
 };
 
 export default api;
