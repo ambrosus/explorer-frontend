@@ -8,58 +8,35 @@ import ContractTabs from './components/ContractTabs';
 import api from 'API/api';
 import Loader from 'components/Loader';
 import { ethers } from 'ethers';
-import React, { memo, useEffect, useState } from 'react';
+import React, { memo } from 'react';
+import { useQuery } from 'react-query';
 import { Navigate } from 'react-router-dom';
 
 const ContractDetails = (props: any) => {
   const { contractInfo, address, selectedTab } = props;
 
-  // fetched async after loading
-  const [proxyImplAddress, setProxyImplAddress] = useState(null);
-  const [proxyImplAbi, setProxyImplAbi] = useState(null);
-
-  const readProvider = new ethers.providers.JsonRpcProvider(
-    process.env.REACT_APP_EXPLORER_NETWORK,
-  );
-
-  useEffect(() => {
-    if (!proxyImplAddress) return;
-    api.getContract(proxyImplAddress).then((res: any) => {
-      const { contractAbi: proxyAbi } = parseSourcifyOutput(res?.data);
-      setProxyImplAbi(proxyAbi);
-    });
-    // todo maybe write some info about implementation in contract header
-    // todo merge proxy and implementation abi and use it for events tab
-  }, [proxyImplAddress]);
-
-  if (!contractInfo) {
-    // we need contract info to render tabs, but this was render before sourcify response.
-    // show loader until we get contract info
-    return <Loader />;
-  }
-
   const { sourcifyFiles, sourcifyMetadata, contractAbi } = parseSourcifyOutput(
     contractInfo?.data,
   );
-  const isContractVerified = !!contractAbi;
-  const isContractProxy = checkIsContractProxy(contractAbi);
+  const { data: proxyImplAbi, isLoading } = useQuery(
+    `implAddress ${address}`,
+    () => getProxyImplAbi(contractAbi, address),
+  );
 
-  // todo: `events` will be moved outside contract again; prepare for it
+  // don't show anything before we get the proxy impl abi
+  if (isLoading) return <Loader />;
+
+  const isContractVerified = !!contractAbi;
+
   const allowedTabs = [];
   if (isContractVerified) allowedTabs.push('code', 'read', 'write', 'events');
   if (!isContractVerified) allowedTabs.push('verify');
-  if (isContractProxy) allowedTabs.push('readAsProxy', 'writeAsProxy');
+  if (proxyImplAbi?.length) allowedTabs.push('readAsProxy', 'writeAsProxy');
 
   // if wrong tab selected, redirect to /code or /verify tab
   if (!allowedTabs.includes(selectedTab)) {
     const redirectTab = isContractVerified ? 'code' : 'verify';
     return <Navigate to={`/addresses/${address}/contract/${redirectTab}`} />;
-  }
-
-  // if contract is proxy, fetch implementation address
-  if (isContractProxy) {
-    const contract = new ethers.Contract(address, contractAbi, readProvider);
-    contract.implementation().then((res: any) => setProxyImplAddress(res));
   }
 
   function getTab() {
@@ -110,7 +87,7 @@ const ContractDetails = (props: any) => {
           </div>
         );
       case 'events':
-        return <ContractEvents />;
+        return <ContractEvents abi={[...contractAbi, ...proxyImplAbi]} />;
     }
   }
 
@@ -136,6 +113,27 @@ const ContractDetails = (props: any) => {
       </div>
     </div>
   );
+};
+
+const getProxyImplAbi = async (proxyAbi: any, address: string) => {
+  // if contract is proxy, fetch implementation address and abi for that address
+  if (!checkIsContractProxy(proxyAbi)) return [];
+
+  const readProvider = new ethers.providers.JsonRpcProvider(
+    process.env.REACT_APP_EXPLORER_NETWORK,
+  );
+
+  try {
+    const contract = new ethers.Contract(address, proxyAbi, readProvider);
+    const implAddress = await contract.implementation();
+
+    const sourcifyData = await api.getContract(implAddress);
+    const { contractAbi: implAbi } = parseSourcifyOutput(sourcifyData?.data);
+
+    return implAbi;
+  } catch (e) {
+    return [];
+  }
 };
 
 const checkIsContractProxy = (abi: any): boolean => {
