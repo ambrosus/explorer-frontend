@@ -185,12 +185,14 @@ const Tabs: FC<TabsProps> = ({
 
   let tabsView;
   if (type === 'contract') {
-    tabsView = (
+    tabsView = contractInfo ? (
       <ContractDetails
         address={address}
         contractInfo={contractInfo}
         selectedTab={filtered}
       />
+    ) : (
+      <Loader />
     );
   } else {
     tabsView = (
