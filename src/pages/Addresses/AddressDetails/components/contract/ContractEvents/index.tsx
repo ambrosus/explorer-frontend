@@ -39,7 +39,6 @@ const ContractEvents = ({ abi }: any) => {
         (a: { blockNumber: number }, b: { blockNumber: number }) =>
           b.blockNumber - a.blockNumber,
       )
-      .slice(0, page)
       .map((item: any) => {
         const parseLog = contract.interface.parseLog(item);
         const inputs = parseLog?.eventFragment.inputs || [];
@@ -188,7 +187,7 @@ const ContractEvents = ({ abi }: any) => {
 
           <div>{!filteredEvents.length && !is404 && <Loader />}</div>
 
-          {filteredEvents.map((item: any, index: any) => (
+          {filteredEvents.slice(0, page).map((item: any, index: any) => (
             <EventDetails
               key={index}
               blockNumber={item.blockNumber}
@@ -213,7 +212,7 @@ const ContractEvents = ({ abi }: any) => {
             </div>
           )}
 
-          {filteredEvents.length === 0 && <div ref={ref} />}
+          <div ref={ref} />
         </div>
       </div>
     </>
