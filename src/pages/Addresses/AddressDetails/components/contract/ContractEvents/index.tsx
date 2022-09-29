@@ -90,20 +90,21 @@ const ContractEvents = ({ abi }: any) => {
     } else if (!isNaN(Number(findInputValue))) {
       setIs404(false);
       setFilterBy('Block');
+
       return eventsToRender.filter(
         (event: any) => event.blockNumber === +findInputValue,
       );
     } else {
-      setIs404(true);
       return [];
     }
   }, [eventsToRender, findInputValue]);
+  console.log(filteredEvents);
 
   useEffect(() => {
-    if (!filteredEvents.length && ethers.utils.isHexString(findInputValue)) {
+    if (!filteredEvents.length && isLoad) {
       setIs404(true);
     }
-  }, [findInputValue]);
+  }, [filteredEvents]);
 
   const handleSearchChange = (e: any) => {
     e.preventDefault();
@@ -158,7 +159,10 @@ const ContractEvents = ({ abi }: any) => {
               </pre>
             )}
 
-            <form onSubmit={(e) => handleFindSubmit(e, searchValue)}>
+            <form
+              onSubmit={(e) => handleFindSubmit(e, searchValue)}
+              autoComplete="off"
+            >
               <label
                 className="contract_events-find-label"
                 htmlFor="find-block"
@@ -185,7 +189,7 @@ const ContractEvents = ({ abi }: any) => {
             <div className="contract_events-heading-cell">Logs</div>
           </div>
 
-          <div>{!filteredEvents.length && !is404 && <Loader />}</div>
+          <div>{!isLoad && <Loader />}</div>
 
           {filteredEvents.slice(0, page).map((item: any, index: any) => (
             <EventDetails
@@ -200,6 +204,7 @@ const ContractEvents = ({ abi }: any) => {
               handleFindSubmit={handleFindSubmit}
               inputsData={item.inputsData}
               nonTopics={item.nonTopics}
+              i={index}
             />
           ))}
 
