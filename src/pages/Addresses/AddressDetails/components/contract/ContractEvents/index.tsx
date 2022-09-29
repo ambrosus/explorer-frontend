@@ -22,6 +22,7 @@ const ContractEvents = ({ abi }: any) => {
   const [page, setPage] = useState(0);
 
   const [is404, setIs404] = useState(false);
+  console.log(is404);
 
   const { ref, inView } = useInView();
 
@@ -101,7 +102,7 @@ const ContractEvents = ({ abi }: any) => {
   }, [eventsToRender, findInputValue]);
 
   useEffect(() => {
-    if (!filteredEvents.length) {
+    if (!filteredEvents.length && ethers.utils.isHexString(findInputValue)) {
       setIs404(true);
     }
   }, [findInputValue]);
