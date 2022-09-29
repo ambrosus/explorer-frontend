@@ -86,13 +86,15 @@
 
     &-transfer {
       display: flex;
-      align-items: center;
+      // align-items: center;
       column-gap: 8px;
     }
 
     &-topics {
-      display: grid;
-      grid-template-columns: repeat(3, auto);
+      display: flex;
+      // grid-template-columns: repeat(3, auto);
+      padding-top: 2px;
+      flex-flow: row wrap;
     }
     &-modal {
       &-cell {
