@@ -7,7 +7,8 @@ import useHover from 'hooks/useHover';
 import moment from 'moment';
 import { useEffect, useState } from 'react';
 import { memo } from 'react';
-import { NavLink } from 'react-router-dom';
+import { useQuery } from 'react-query';
+import { NavLink, useParams } from 'react-router-dom';
 import { calcTime, sliceData5 } from 'utils/helpers';
 
 const EventDetails = ({
@@ -21,6 +22,7 @@ const EventDetails = ({
   handleFindSubmit,
   inputsData,
   nonTopics,
+  i,
 }: any) => {
   const [isShow, setIsShow] = useState<boolean>(false);
 
@@ -30,9 +32,7 @@ const EventDetails = ({
 
   const [hoverRef, isHovered] = useHover<HTMLDivElement>();
   const [isShowBtn, setIsShowBtn] = useState<boolean>(false);
-  const [blockData, setBlockData] = useState<any>();
-  const [txData, setTxData] = useState<any>();
-  const [isLoad, setIsLoad] = useState<boolean>(true);
+
   const HandleClick = () => {
     setIsShowBtn((prev) => !prev);
   };
@@ -41,16 +41,22 @@ const EventDetails = ({
     const blockData = await getBlock();
     const resTxData = await getTransaction();
 
-    setBlockData(blockData);
-    setTxData(resTxData);
-    setIsLoad(true);
+    const data = {
+      blockData,
+      resTxData,
+    };
+
+    return data;
   };
 
-  useEffect(() => {
-    getBllockData();
-  }, [isLoad]);
+  const { data } = useQuery(
+    `fetch data ${blockNumber} ${event}`,
+    getBllockData,
+  );
 
-  const methodId = txData?.data?.substring(0, 10);
+  const { blockData, resTxData } = data || {};
+
+  const methodId = resTxData?.data?.substring(0, 10);
   const timestamp = blockData?.timestamp;
 
   return (
@@ -68,11 +74,10 @@ const EventDetails = ({
               {sliceData5(txHash)}
             </NavLink>
           </div>
-          <div
-            ref={hoverRef}
-            className="contract_events-body-cell universall_light3"
-          >
-            <span style={{ fontSize: 12 }}>{calcTime(timestamp)}</span>
+          <div className="contract_events-body-cell universall_light3">
+            <span style={{ fontSize: 12, color: 'inherit' }} ref={hoverRef}>
+              {calcTime(timestamp)}
+            </span>
             {isHovered && (
               <div className="contract_events-body-cell-hovered">
                 <span className="universall_triangle"></span>
@@ -115,7 +120,7 @@ const EventDetails = ({
             </button>
             <span style={{ fontWeight: 600, paddingTop: 2 }}>{event}</span>
             <pre className="contract_events-body-topics universall_ibm">
-              {'( '}
+              {/* {'( '} */}
               {inputs?.map((input: any, index: any) => (
                 <EventDetailsItem
                   key={index}
@@ -124,7 +129,7 @@ const EventDetails = ({
                   lastIndex={inputs.length - 1}
                 />
               ))}
-              {' )'}
+              {/* {' )'} */}
             </pre>
           </div>
 
