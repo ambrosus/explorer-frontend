@@ -1,10 +1,10 @@
-import React from 'react';
 import API from '../../API/api';
 import TabsNew from '../Transactions/components/TabsNew';
 import AddressesBody from './components/AddressesBody';
+import AddressesHeader from './components/AddressesHeader';
 import MainInfoAddresses from './components/MainInfoAddresses';
 import { Content } from 'components/Content';
-import AddressesHeader from "./components/AddressesHeader";
+import React from 'react';
 
 const sortOptions = [
   {
@@ -36,7 +36,7 @@ export const Addresses = () => {
               initSortTerm={'balance'}
               fetchParams={{ sort: '', page: '' }}
               label="Addresses"
-              render={(accounts: any) => (
+              render={(accounts: any) =>
                 accounts.map((account: any, index: any) => (
                   <AddressesBody
                     key={account._id}
@@ -47,7 +47,7 @@ export const Addresses = () => {
                     txCount={account.totalTx}
                   />
                 ))
-              )}
+              }
             />
           </div>
         </div>
