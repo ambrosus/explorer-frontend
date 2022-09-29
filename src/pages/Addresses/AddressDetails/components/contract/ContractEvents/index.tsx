@@ -7,9 +7,7 @@ import { ethers } from 'ethers';
 import { memo } from 'react';
 import { useEffect, useMemo, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
-import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
-import { getContractData } from 'services/contract.service';
 import { sliceData5 } from 'utils/helpers';
 
 const ContractEvents = ({ abi }: any) => {
@@ -30,9 +28,10 @@ const ContractEvents = ({ abi }: any) => {
   const provider = new ethers.providers.JsonRpcProvider(
     process.env.REACT_APP_EXPLORER_NETWORK,
   );
-  const contract = new ethers.Contract(address, abi, provider);
 
   const getEventData = async () => {
+    const contract = new ethers.Contract(address, abi, provider);
+
     const eventsArr = await contract?.queryFilter('*' as any);
 
     const result = eventsArr
@@ -76,7 +75,6 @@ const ContractEvents = ({ abi }: any) => {
 
   useEffect(() => {
     getEventData();
-    console.log(1);
   }, [isLoad]);
 
   const filteredEvents = useMemo(() => {
@@ -86,6 +84,7 @@ const ContractEvents = ({ abi }: any) => {
     if (ethers.utils.isHexString(findInputValue)) {
       setIs404(false);
       setFilterBy('Topic');
+
       return eventsToRender.filter(
         (event: any) => event.topics[0] === findInputValue,
       );
@@ -100,6 +99,12 @@ const ContractEvents = ({ abi }: any) => {
       return [];
     }
   }, [eventsToRender, findInputValue]);
+
+  useEffect(() => {
+    if (!filteredEvents.length) {
+      setIs404(true);
+    }
+  }, [findInputValue]);
 
   const handleSearchChange = (e: any) => {
     e.preventDefault();
@@ -181,7 +186,7 @@ const ContractEvents = ({ abi }: any) => {
             <div className="contract_events-heading-cell">Logs</div>
           </div>
 
-          <div>{!filteredEvents.length && <Loader />}</div>
+          <div>{!filteredEvents.length && !is404 && <Loader />}</div>
 
           {filteredEvents.map((item: any, index: any) => (
             <EventDetails
