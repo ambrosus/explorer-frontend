@@ -59,7 +59,7 @@ const ContractEvents = ({ abi }: any) => {
           blockNumber: item.blockNumber || null,
           event: item.event || null,
           topics: item.topics || [],
-          getBlock: item.getTransaction,
+          getBlock: item.getBlock,
           getTransaction: item.getTransaction,
           inputs,
           inputsData,
@@ -101,7 +101,7 @@ const ContractEvents = ({ abi }: any) => {
   }, [eventsToRender, findInputValue]);
 
   useEffect(() => {
-    if (!filteredEvents.length) {
+    if (!filteredEvents.length && ethers.utils.isHexString(findInputValue)) {
       setIs404(true);
     }
   }, [findInputValue]);
