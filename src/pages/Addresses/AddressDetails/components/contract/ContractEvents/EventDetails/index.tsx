@@ -61,7 +61,12 @@ const EventDetails = ({
             className="contract_events-body-cell universall_light2"
             style={{ fontWeight: 600 }}
           >
-            {sliceData5(txHash)}
+            <NavLink
+              to={`/tx/${txHash}`}
+              className="contract_events-body-navlink universall_light2"
+            >
+              {sliceData5(txHash)}
+            </NavLink>
           </div>
           <div
             ref={hoverRef}
@@ -109,12 +114,15 @@ const EventDetails = ({
               {isShow ? <ArrowUpBig /> : <ArrowDownBig />}
             </button>
             <span style={{ fontWeight: 600 }}>{event}</span>
-            <pre className="universall_ibm">
-              (
+            <pre className="contract_events-body-topics universall_ibm">
               {inputs?.map((input: any, index: any) => (
-                <EventDetailsItem key={index} input={input} index={index} />
+                <EventDetailsItem
+                  key={index}
+                  input={input}
+                  index={index}
+                  lastIndex={inputs.length - 1}
+                />
               ))}
-              )
             </pre>
           </div>
 
@@ -137,7 +145,7 @@ const EventDetails = ({
                 : '';
 
             return (
-              <div className="contract_events-body-cell">
+              <div className="contract_events-body-cell" key={index}>
                 <div className={isZeroTopic}>{`[topic${index}]`}</div>
                 {
                   <pre className={isZeroTopic}>

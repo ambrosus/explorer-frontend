@@ -7,6 +7,7 @@
     position: absolute;
     right: 0;
   }
+
   &-heading,
   &-body {
     display: grid;
@@ -17,6 +18,7 @@
     padding: 16px 0;
     margin-left: 15px;
   }
+
   &-heading {
     &-cell {
       font-weight: 700;
@@ -24,6 +26,7 @@
       line-height: 32px;
     }
   }
+
   &-body {
     border-bottom: 1px solid #eff2f5;
     &-cells {
@@ -79,13 +82,17 @@
       font-weight: 600;
       font-size: 14px;
       line-height: 24px;
-      text-decoration: none;
     }
 
     &-transfer {
       display: flex;
       align-items: center;
       column-gap: 8px;
+    }
+
+    &-topics {
+      display: grid;
+      grid-template-columns: repeat(3, auto);
     }
     &-modal {
       &-cell {
