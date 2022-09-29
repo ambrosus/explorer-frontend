@@ -99,7 +99,7 @@
     &-modal {
       &-cell {
         display: grid;
-        grid-template-columns: minmax(100px, 1fr) minmax(500px, 6fr);
+        grid-template-columns: minmax(120px, 1fr) minmax(500px, 6fr);
         grid-gap: 8px;
       }
       &-heading {
