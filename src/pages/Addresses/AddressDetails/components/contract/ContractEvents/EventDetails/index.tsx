@@ -113,8 +113,9 @@ const EventDetails = ({
             >
               {isShow ? <ArrowUpBig /> : <ArrowDownBig />}
             </button>
-            <span style={{ fontWeight: 600 }}>{event}</span>
+            <span style={{ fontWeight: 600, paddingTop: 2 }}>{event}</span>
             <pre className="contract_events-body-topics universall_ibm">
+              {'( '}
               {inputs?.map((input: any, index: any) => (
                 <EventDetailsItem
                   key={index}
@@ -123,6 +124,7 @@ const EventDetails = ({
                   lastIndex={inputs.length - 1}
                 />
               ))}
+              {' )'}
             </pre>
           </div>
 

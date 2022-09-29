@@ -3,7 +3,7 @@ import React, { memo } from 'react';
 const EventDetailsItem = ({ input, index, lastIndex }: any) => {
   return (
     <div>
-      {index === 0 && '( '}
+      {/* {index === 0 && '( '} */}
       <span className="universall_ibm">
         {input.indexed && `index_topic_${index + 1} `}
       </span>
@@ -13,9 +13,9 @@ const EventDetailsItem = ({ input, index, lastIndex }: any) => {
       </span>
       <span className="universall_semibold universall_red universall_ibm">
         {`${input.name}`}
-        {input.indexed && ', '}
+        {index !== lastIndex && ', '}
       </span>
-      {index === lastIndex && ' )'}
+      {/* {index === lastIndex && ' )'} */}
     </div>
   );
 };
