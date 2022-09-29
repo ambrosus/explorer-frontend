@@ -22,7 +22,6 @@ const ContractEvents = ({ abi }: any) => {
   const [page, setPage] = useState(0);
 
   const [is404, setIs404] = useState(false);
-  console.log(is404);
 
   const { ref, inView } = useInView();
 
@@ -60,7 +59,7 @@ const ContractEvents = ({ abi }: any) => {
           blockNumber: item.blockNumber || null,
           event: item.event || null,
           topics: item.topics || [],
-          getBlock: item.getTransaction,
+          getBlock: item.getBlock,
           getTransaction: item.getTransaction,
           inputs,
           inputsData,
