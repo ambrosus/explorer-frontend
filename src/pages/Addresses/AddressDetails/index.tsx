@@ -42,7 +42,6 @@ const AddressDetails = () => {
 
   const [limitNum] = useState(50);
   const observer = useRef<IntersectionObserver>();
-  const navigate = useNavigate();
 
   const lastCardRef = (node: any) => {
     if (loading) return;
@@ -50,7 +49,6 @@ const AddressDetails = () => {
       observer.current.disconnect();
     }
     observer.current = new IntersectionObserver((entries) => {
-      console.log(addressData);
       if (
         entries[0].isIntersecting &&
         addressData &&

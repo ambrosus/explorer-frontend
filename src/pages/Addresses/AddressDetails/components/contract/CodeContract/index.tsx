@@ -1,41 +1,34 @@
 import ConstractSideBtn from 'components/ContractSideBtn';
 import Loader from 'components/Loader';
 import useDeviceSize from 'hooks/useDeviceSize';
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { memo, useEffect, useMemo, useRef, useState } from 'react';
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 import { getAccountData, getContractData } from 'services/contract.service';
 import { TParams } from 'types';
 
-const Code = () => {
+const Code = (props: any) => {
+  const { files, contractAbi } = props;
+
   const { address = '' }: TParams = useParams();
 
-  const [abiToRender, setAbiToRender] = useState<any>([]);
   const [showMore] = useState(false);
   const showMoreRef = useRef<HTMLInputElement>(null);
 
   const { FOR_TABLET } = useDeviceSize();
 
-  const { data: contractData, isLoading } = useQuery(
-    `code data ${address}`,
-    () => getContractData(address),
+  const filesToRender = files.filter(
+    (file: any) => file.name !== 'metadata.json',
   );
+  const abiToRender = JSON.stringify(contractAbi, null, ' ');
 
+  // todo get from props
   const { data: accountData } = useQuery(`account data ${address}`, () =>
     getAccountData(address),
   );
 
-  const files = useMemo(
-    () => contractData?.data?.files || [],
-    [contractData?.data?.files],
-  );
   const fileElement: any = document.getElementById(
     window.location.hash.replace('#', ''),
-  );
-
-  const filesToRender: [] = useMemo(
-    () => files.filter((file: any) => file.name !== 'metadata.json'),
-    [files],
   );
 
   useEffect(() => {
@@ -46,23 +39,10 @@ const Code = () => {
     }
   }, [fileElement, filesToRender.length]);
 
-  useEffect(() => {
-    const res = files
-      .filter((file: any) => file.name === 'metadata.json')
-      .map((file: any) => JSON.parse(file.content))
-      .map((file: any) => file.output.abi);
-
-    setAbiToRender(res[0]);
-  }, [isLoading]);
-
-  const JSONItem = useMemo(
-    () => JSON.stringify(abiToRender, null, ' '),
-    [abiToRender],
-  );
-
   return (
     <div>
       <h2 className="contract-tab-title">Contract Source Code</h2>
+
       <div className="files">
         {filesToRender.length ? (
           filesToRender.map((file: any, index: any) => (
@@ -105,13 +85,17 @@ const Code = () => {
               <h2 className="contract-tab-title">Contract Abi</h2>
             </div>
             <div className="code-section-header-actions">
-              <ConstractSideBtn content={JSONItem} fileOf={null} name={'Abi'} />
+              <ConstractSideBtn
+                content={abiToRender}
+                fileOf={null}
+                name={'Abi'}
+              />
             </div>
           </div>
           <div className="code-section-body">
             <pre className="no-counter">
               <ol style={{ paddingLeft: 40 }}>
-                {JSONItem?.split('\n').map((line: any, index: any) => (
+                {abiToRender?.split('\n').map((line: any, index: any) => (
                   <li key={index} className="universall_ibm_font">
                     {line}
                   </li>
@@ -161,4 +145,4 @@ const Code = () => {
   );
 };
 
-export default React.memo(Code);
+export default memo(Code);
