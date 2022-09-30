@@ -98,7 +98,6 @@ const ContractEvents = ({ abi }: any) => {
       return [];
     }
   }, [eventsToRender, findInputValue]);
-  console.log(filteredEvents);
 
   useEffect(() => {
     if (!filteredEvents.length && isLoad) {
