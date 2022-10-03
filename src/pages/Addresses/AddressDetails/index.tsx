@@ -1,5 +1,9 @@
 import API from '../../../API/api';
+import { transactionFilters } from '../../../utils/sidePages';
+import { Account } from '../../Atlas/atlas.interface';
+import TabsNew from '../../Transactions/components/TabsNew';
 import { TokenType, TransactionProps } from './address-details.interface';
+import AddressBlock from './components/AddressBlocks';
 import { Content } from 'components/Content';
 import CopyBtn from 'components/CopyBtn';
 import FilteredToken from 'components/FilteredToken';
@@ -8,13 +12,9 @@ import Token from 'components/Token';
 import { formatEther } from 'ethers/lib/utils';
 import useDeviceSize from 'hooks/useDeviceSize';
 import { useTypedSelector } from 'hooks/useTypedSelector';
+import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import moment from "moment";
-import AddressBlock from "./components/AddressBlocks";
-import {transactionFilters} from "../../../utils/sidePages";
-import {Account} from "../../Atlas/atlas.interface";
-import TabsNew from "../../Transactions/components/TabsNew";
 
 const AddressDetails = () => {
   const { address } = useParams();
@@ -26,14 +26,17 @@ const AddressDetails = () => {
   const [tokensTabActive, setTokensTabActive] = useState(null);
   const [selectedToken, setSelectedToken]: any = useState(null);
   const [addressData, setAddressData] = useState({
-    balance: '', tokens: []
+    balance: '',
+    tokens: [],
   });
 
   useEffect(() => {
-    API.getAccountTxs({ type: 'all', address })
-      .then((response: any) => {
-        setAddressData({ balance: response.account.balance.wei, tokens: response.tokens });
+    API.getAccountTxs({ type: 'all', address }).then((response: any) => {
+      setAddressData({
+        balance: response.account.balance.wei,
+        tokens: response.tokens,
       });
+    });
   }, []);
 
   // useEffect(() => {
@@ -115,7 +118,11 @@ const AddressDetails = () => {
         </Content.Header>
         <Content.Body>
           <TabsNew
-            tabs={selectedToken ? [{ title: 'Token', value: 'token' }] : transactionFilters}
+            tabs={
+              selectedToken
+                ? [{ title: 'Token', value: 'token' }]
+                : transactionFilters
+            }
             fetchData={API.getAccountTxs}
             initTab="all"
             fetchParams={{

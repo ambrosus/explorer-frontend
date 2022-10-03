@@ -88,8 +88,8 @@ export interface TokenProps {
   selectedToken: TokenType | null;
   onClick: Function;
   addressData: {
-    tokens: object[],
-    balance: string,
+    tokens: object[];
+    balance: string;
   };
 }
 

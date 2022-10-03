@@ -1,16 +1,19 @@
 import { getTokenIcon } from '../../utils/helpers';
 import Discard from 'assets/icons/Discard';
+import { formatEther } from 'ethers/lib/utils';
 import { useActions } from 'hooks/useActions';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import React, { FC } from 'react';
-import {formatEther} from "ethers/lib/utils";
 
 export type FilteredTokenProps = {
   setSelectedToken: any;
   selectedToken: any;
 };
 
-const FilteredToken: FC<FilteredTokenProps> = ({ setSelectedToken, selectedToken }) => {
+const FilteredToken: FC<FilteredTokenProps> = ({
+  setSelectedToken,
+  selectedToken,
+}) => {
   const { clearFilters } = useActions();
   const { filters } = useTypedSelector((state: any) => state.tokenFilters);
 
@@ -46,7 +49,9 @@ const FilteredToken: FC<FilteredTokenProps> = ({ setSelectedToken, selectedToken
         <div className="filtered_token_cell">
           <span className="filtered_token_cell_bold">Balance</span>
           <span className="filtered_token_cell_normal">
-            {selectedToken.balance ? Number(selectedToken.balance).toFixed(2) : '-'}
+            {selectedToken.balance
+              ? Number(selectedToken.balance).toFixed(2)
+              : '-'}
           </span>
         </div>
 

@@ -150,13 +150,16 @@ const getAddresses = (params = {}) => {
 };
 
 const getAccountTxs = (params: any = {}) => {
-  const {address, type, page, tokenAddress} = params;
+  const { address, type, page, tokenAddress } = params;
 
   return API().get(
-    `v2/addresses/${address}/${tokenAddress ? 'tokens' : type}${tokenAddress ? '/' + tokenAddress : ''}`,
+    `v2/addresses/${address}/${tokenAddress ? 'tokens' : type}${
+      tokenAddress ? '/' + tokenAddress : ''
+    }`,
     {
-    params: { page },
-  });
+      params: { page },
+    },
+  );
 };
 
 const getAtlases = (params = {}) => {
