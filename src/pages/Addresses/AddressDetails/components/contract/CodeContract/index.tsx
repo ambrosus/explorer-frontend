@@ -42,6 +42,7 @@ const Code = (props: any) => {
   return (
     <div>
       <h2 className="contract-tab-title">Contract Source Code</h2>
+
       <div className="files">
         {filesToRender.length ? (
           filesToRender.map((file: any, index: any) => (

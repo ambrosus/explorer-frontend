@@ -7,9 +7,7 @@ import { ethers } from 'ethers';
 import { memo } from 'react';
 import { useEffect, useMemo, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
-import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
-import { getContractData } from 'services/contract.service';
 import { sliceData5 } from 'utils/helpers';
 
 const ContractEvents = ({ abi }: any) => {
@@ -30,9 +28,10 @@ const ContractEvents = ({ abi }: any) => {
   const provider = new ethers.providers.JsonRpcProvider(
     process.env.REACT_APP_EXPLORER_NETWORK,
   );
-  const contract = new ethers.Contract(address, abi, provider);
 
   const getEventData = async () => {
+    const contract = new ethers.Contract(address, abi, provider);
+
     const eventsArr = await contract?.queryFilter('*' as any);
 
     const result = eventsArr
@@ -40,7 +39,6 @@ const ContractEvents = ({ abi }: any) => {
         (a: { blockNumber: number }, b: { blockNumber: number }) =>
           b.blockNumber - a.blockNumber,
       )
-      .slice(0, page)
       .map((item: any) => {
         const parseLog = contract.interface.parseLog(item);
         const inputs = parseLog?.eventFragment.inputs || [];
@@ -60,7 +58,7 @@ const ContractEvents = ({ abi }: any) => {
           blockNumber: item.blockNumber || null,
           event: item.event || null,
           topics: item.topics || [],
-          getBlock: item.getTransaction,
+          getBlock: item.getBlock,
           getTransaction: item.getTransaction,
           inputs,
           inputsData,
@@ -76,7 +74,6 @@ const ContractEvents = ({ abi }: any) => {
 
   useEffect(() => {
     getEventData();
-    console.log(1);
   }, [isLoad]);
 
   const filteredEvents = useMemo(() => {
@@ -86,20 +83,27 @@ const ContractEvents = ({ abi }: any) => {
     if (ethers.utils.isHexString(findInputValue)) {
       setIs404(false);
       setFilterBy('Topic');
+
       return eventsToRender.filter(
         (event: any) => event.topics[0] === findInputValue,
       );
     } else if (!isNaN(Number(findInputValue))) {
       setIs404(false);
       setFilterBy('Block');
+
       return eventsToRender.filter(
         (event: any) => event.blockNumber === +findInputValue,
       );
     } else {
-      setIs404(true);
       return [];
     }
   }, [eventsToRender, findInputValue]);
+
+  useEffect(() => {
+    if (!filteredEvents.length && isLoad) {
+      setIs404(true);
+    }
+  }, [filteredEvents]);
 
   const handleSearchChange = (e: any) => {
     e.preventDefault();
@@ -154,7 +158,10 @@ const ContractEvents = ({ abi }: any) => {
               </pre>
             )}
 
-            <form onSubmit={(e) => handleFindSubmit(e, searchValue)}>
+            <form
+              onSubmit={(e) => handleFindSubmit(e, searchValue)}
+              autoComplete="off"
+            >
               <label
                 className="contract_events-find-label"
                 htmlFor="find-block"
@@ -181,9 +188,9 @@ const ContractEvents = ({ abi }: any) => {
             <div className="contract_events-heading-cell">Logs</div>
           </div>
 
-          <div>{!filteredEvents.length && <Loader />}</div>
+          <div>{!isLoad && <Loader />}</div>
 
-          {filteredEvents.map((item: any, index: any) => (
+          {filteredEvents.slice(0, page).map((item: any, index: any) => (
             <EventDetails
               key={index}
               blockNumber={item.blockNumber}
@@ -196,6 +203,7 @@ const ContractEvents = ({ abi }: any) => {
               handleFindSubmit={handleFindSubmit}
               inputsData={item.inputsData}
               nonTopics={item.nonTopics}
+              i={index}
             />
           ))}
 
@@ -208,7 +216,7 @@ const ContractEvents = ({ abi }: any) => {
             </div>
           )}
 
-          {filteredEvents.length === 0 && <div ref={ref} />}
+          <div ref={ref} />
         </div>
       </div>
     </>
