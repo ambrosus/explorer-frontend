@@ -11,9 +11,9 @@
     font-weight: 700;
     font-size: 18px;
     line-height: 32px;
-    @include for_small_phone {
-      display: none;
-    }
+    // @include for_small_phone {
+    //   display: none;
+    // }
   }
 
   &_cells {

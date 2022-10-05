@@ -10,7 +10,7 @@ export const sliceData5 = (item: string | null | undefined) => {
   if (!item) {
     return '';
   }
-  return item.length > 5
+  return item.length > 10
     ? `${item.slice(0, 5)}...${item.slice(item.length - 5)}`
     : item;
 };
@@ -35,6 +35,18 @@ export const calcTime = (time: number | null | undefined) => {
    */
   return moment(time).isValid() ? moment(time * 1000).fromNow() : '';
 };
+
+export const calcTimeAgo = (time: number | null | undefined) => {
+  if (!time) {
+    return '';
+  }
+  /*
+   * @param {string} time
+   * @returns {string}
+   */
+  return moment(time).isValid() ? moment(time * 1000).fromNow() : '';
+};
+
 export const sliceDataString = (item: string | null | undefined) => {
   if (!item) {
     return [];

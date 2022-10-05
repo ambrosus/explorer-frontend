@@ -4,7 +4,11 @@
   display: flex;
   flex-direction: column;
   &_backgorund {
-    background-color: #f6f6f6;
+    background-color: rgb(238, 243, 254);
+
+    @include for_laptop {
+      padding-top: 60px;
+    }
 
     &_expanded {
       height: inherit;
@@ -17,7 +21,7 @@
     align-items: center;
     justify-content: center;
     min-height: 100px;
-    background-color: #f6f6f6;
+    background-color: rgb(238, 243, 254);
   }
 
   &_body {
