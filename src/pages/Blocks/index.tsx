@@ -7,9 +7,9 @@ import BlocksHeader from './components/BlocksHeader';
 import { Content } from 'components/Content';
 import HeadInfo from 'components/HeadInfo';
 import { useTypedSelector } from 'hooks/useTypedSelector';
-import React, { useEffect } from 'react';
+import React, { memo, useEffect } from 'react';
 
-export const Blocks = () => {
+export const Blocks = memo(() => {
   const { setAppDataAsync } = useActions();
 
   const { data: appData } = useTypedSelector((state: any) => state.app);
@@ -73,4 +73,4 @@ export const Blocks = () => {
       </Content.Body>
     </Content>
   );
-};
+});
