@@ -39,6 +39,14 @@
       text-overflow: ellipsis;
       overflow: hidden;
       white-space: nowrap;
+      &_block {
+        color: rgb(128, 138, 157);
+        word-break: break-all;
+        @include for_phone {
+          // word-break: normal;
+          white-space: normal;
+        }
+      }
     }
   }
 }
