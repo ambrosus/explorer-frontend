@@ -3,12 +3,23 @@ import { apollosSorting } from '../../utils/sidePages';
 import AtlasBlocksHeader from '../Atlas/components/AtlasBlocksHeader';
 import TabsNew from '../Transactions/components/TabsNew';
 import ApolloBlocksBody from './components/ApolloBlocksBody';
+import API2 from 'API/newApi';
 import { Content } from 'components/Content';
 import HeadInfo from 'components/HeadInfo';
 import { useTypedSelector } from 'hooks/useTypedSelector';
-import React, { memo } from 'react';
+import React, { memo, useEffect } from 'react';
 
 export const Apollo = memo(() => {
+  const func = async () => {
+    const data = await API2.getApollos();
+    console.log(data);
+  };
+
+  useEffect(() => {
+    func();
+
+    console.log(appData);
+  }, []);
   const { data: appData } = useTypedSelector((state: any) => state.app);
 
   const {
@@ -56,7 +67,7 @@ export const Apollo = memo(() => {
         <TabsNew
           tableHeader={() => <AtlasBlocksHeader pageTitle="blocks" />}
           sortOptions={apollosSorting}
-          fetchData={API.getApollos}
+          fetchData={API2.getApollos}
           initSortTerm={'totalBundles'}
           fetchParams={{ sort: '', next: '' }}
           label="Nodes"

@@ -1,4 +1,6 @@
 import { log } from '../utils/helpers';
+import { Apollo } from './../pages/Apollo/index';
+import { Home } from './../pages/Home/index';
 import axios from 'axios';
 import { ApiRequest } from 'types';
 
@@ -200,7 +202,6 @@ const getBundles = (params = {}) => {
     params,
   });
 };
-
 const getInfo = () => {
   return API().get(`info/`);
 };

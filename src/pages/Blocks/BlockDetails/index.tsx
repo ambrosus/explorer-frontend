@@ -11,13 +11,11 @@ import { TParams } from '../../../types';
 import DataTitle from '../components/DataTitle';
 import BlockBody from './components/BlockBody';
 import BlockHeader from './components/BlockHeader';
-import BlockHeaderInfo from './components/BlockHeaderInfo';
-import HeadingInfo from './components/HeadingInfo';
-import { MainInfoBlockTable } from './components/MainInfoBlockTable';
+import API2 from 'API/newApi';
 import HeadInfo from 'components/HeadInfo';
 import useDeviceSize from 'hooks/useDeviceSize';
 import moment from 'moment';
-import React, { useEffect, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { NavLink, useNavigate, useParams } from 'react-router-dom';
 import { sliceData10, sliceData5 } from 'utils/helpers';
@@ -41,9 +39,10 @@ interface IBlocksData<T> {
   isLoading: boolean;
 }
 
-export const BlockDetails = () => {
+export const BlockDetails = memo(() => {
   const { setAppDataAsync } = useActions();
-  const { address }: TParams = useParams();
+  const { address = '' }: TParams = useParams();
+
   const [block, setBlock] = useState<any>(null);
   const navigate = useNavigate();
   const { data: appData } = useTypedSelector((state: any) => state.app);
@@ -85,6 +84,19 @@ export const BlockDetails = () => {
     getBlockTransactionsData,
     address,
   );
+  const [data1, setData1] = useState<any>();
+
+  const func = async () => {
+    const data = await API2.getBlock(address).then();
+
+    setData1(data);
+  };
+
+  // console.log(data);
+
+  // useEffect(() => {
+  //   func();
+  // }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -207,4 +219,4 @@ export const BlockDetails = () => {
       )}
     </Content>
   );
-};
+});

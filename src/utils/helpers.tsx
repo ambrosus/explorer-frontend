@@ -326,9 +326,7 @@ export const statusMessage = (node: any = {}, nodeName: string) => {
         return (
           <>
             {timeSince(
-              node && node.statusHistory && node.statusHistory[0]
-                ? node.statusHistory[0].timestamp
-                : '',
+              node?.statusHistory[0] ? node.statusHistory[0].timestamp : '',
             )}
           </>
         );
@@ -344,9 +342,7 @@ export const statusMessage = (node: any = {}, nodeName: string) => {
           <>
             <div className="apollo_blocks_body_cell_online">Uptime</div>{' '}
             {timeSince(
-              node && node.statusHistory && node.statusHistory[0]
-                ? node.statusHistory[0].timestamp
-                : '',
+              node?.statusHistory[0] ? node.statusHistory[0].timestamp : '',
             )}
           </>
         );
