@@ -72,12 +72,13 @@ const getAddressesTokens = (address: string) =>
   API().get(`addresses${address}/tokens`);
 const getAddressesToken = (address: string) =>
   API().get(`addresses${address}/tokens/${address}`);
-const getBlocks = () => API().get('blocks');
+const getBlocks = (params = {}) => API().get('blocks', { params });
 const getBlock = (block: string) => API().get(`blocks/${block}`);
 const getBlockHash = (hash: string) => API().get(`blocks/${hash}`);
-const getApollos = () => API().get('apollos');
-const getTransactions = () => API().get('transactions');
-const getTransaction = (hash: string) => API().get(`transactions/${hash}`);
+const getApollos = (params = {}) => API().get('apollos', { params });
+const getTransactions = (params = {}) => API().get('transactions', { params });
+const getTransaction = (hash: string | undefined) =>
+  API().get(`transaction/${hash}`);
 
 const api = {
   SOURCIFYAPI: SOURCIFYAPI(),

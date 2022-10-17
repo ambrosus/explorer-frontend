@@ -49,6 +49,10 @@ export const Blocks = memo(() => {
     },
   ];
 
+  useEffect(() => {
+    API2.getBlocks().then((res) => console.log(res));
+  }, []);
+
   return (
     <Content>
       <Content.Header>

@@ -34,7 +34,8 @@ export interface IBlock {
 }
 
 interface IBlocksData<T> {
-  data: { data: T[] | undefined } | null;
+  // data: { data: T[] | undefined } | null;
+  data: { data: { block: T[] | undefined } } | null;
   isError: boolean;
   isLoading: boolean;
 }
@@ -68,15 +69,15 @@ export const BlockDetails = memo(() => {
 
   const { data, isError, isLoading } = useQuery(
     [`get data for ${address}`, address],
-    () => getBlockData(address as string),
+    () => API2.getBlock(address),
     {
       initialDataUpdatedAt: 0,
       refetchInterval: 4000,
-      onSuccess: (data: any) => {
-        if (!data) {
-          navigate(`/notfound`);
-        }
-      },
+      // onSuccess: (data: any) => {
+      //   if (!data) {
+      //     navigate(`/notfound`);
+      //   }
+      // },
     },
   ) as IBlocksData<IBlock>;
 
@@ -84,19 +85,6 @@ export const BlockDetails = memo(() => {
     getBlockTransactionsData,
     address,
   );
-  const [data1, setData1] = useState<any>();
-
-  const func = async () => {
-    const data = await API2.getBlock(address).then();
-
-    setData1(data);
-  };
-
-  // console.log(data);
-
-  // useEffect(() => {
-  //   func();
-  // }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -106,7 +94,9 @@ export const BlockDetails = memo(() => {
   }, []);
 
   useEffect(() => {
-    if (!isLoading) setBlock(data?.data);
+    console.log(data);
+
+    if (!isLoading) setBlock(data?.data.block);
   }, [isLoading]);
 
   if (isError) navigate(`/notfound`);
