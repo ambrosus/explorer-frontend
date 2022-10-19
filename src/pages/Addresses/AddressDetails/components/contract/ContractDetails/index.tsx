@@ -36,7 +36,7 @@ const ContractDetails = (props: any) => {
   // if wrong tab selected, redirect to /code or /verify tab
   if (!allowedTabs.includes(selectedTab)) {
     const redirectTab = isContractVerified ? 'code' : 'verify';
-    return <Navigate to={`/addresses/${address}/contract/${redirectTab}`} />;
+    return <Navigate to={`/address/${address}/contract/${redirectTab}`} />;
   }
 
   function getTab() {

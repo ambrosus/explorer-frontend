@@ -35,7 +35,7 @@ const FilteredToken: FC<FilteredTokenProps> = ({ setSelectedToken }) => {
   const backClick = () => {
     setSelectedToken(null);
     clearFilters();
-    navigate(`/addresses/${address}/ERC-20_Tx/`);
+    navigate(`/address/${address}/ERC-20_Tx/`);
   };
   const Icon = getTokenIcon(filters.symbol as string);
 

@@ -33,7 +33,7 @@ const LatestTransactions: React.FC<LatestTransactionsProps> = ({
           <div className="lastest_transactions_cell_content">
             <div className="lastest_transactions_font_small">From</div>
             <div className="lastest_transactions_font_big lastest_transactions_margin_left">
-              <NavLink className="" to={`/addresses/${from}`}>
+              <NavLink className="" to={`/address/${from}`}>
                 {sliceData5(from)}
               </NavLink>
             </div>
@@ -41,7 +41,7 @@ const LatestTransactions: React.FC<LatestTransactionsProps> = ({
           <div className="lastest_transactions_cell_content">
             <div className="lastest_transactions_font_small">To</div>
             <div className="lastest_transactions_font_big lastest_transactions_margin_left">
-              <NavLink className="" to={`/addresses/${to}`}>
+              <NavLink className="" to={`/address/${to}`}>
                 {sliceData5(to)}
               </NavLink>
             </div>

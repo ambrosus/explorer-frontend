@@ -31,7 +31,7 @@ const TokenFilter = ({
     addFilter(token);
     setIsShow(false);
     navigate(
-      `/addresses/${address}/ERC-20_Tx/${
+      `/address/${address}/ERC-20_Tx/${
         token.contract ? token.contract : token.address
       }/`,
     );

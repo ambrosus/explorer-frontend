@@ -28,7 +28,7 @@ const AddressesBody: FC<AddressesBodyProps> = ({
         <div className="addresses_body_cell">{rank}</div>
 
         <NavLink
-          to={`/addresses/${address}/`}
+          to={`/address/${address}/`}
           className="addresses_body_cell universall_light2"
         >
           <ReactTooltip
