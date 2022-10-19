@@ -39,10 +39,7 @@ const BundleDetailsMainTabs = ({ data }: any) => {
       _id: 1,
       name: 'BY',
       value: (
-        <NavLink
-          to={`/address/${data.uploader}`}
-          style={{ color: '#808A9D' }}
-        >
+        <NavLink to={`/address/${data.uploader}`} style={{ color: '#808A9D' }}>
           {sliceData5(data.uploader)}
         </NavLink>
       ),
