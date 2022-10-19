@@ -3,7 +3,7 @@
 
   &_heading {
     display: grid;
-    height: 56px;
+
     grid-template-columns: 1fr 1fr;
     grid-row-gap: 3vw;
     background-color: white;
@@ -35,6 +35,7 @@
       &_mobile {
         // margin-top: 50px;
         position: absolute;
+        top: 61px;
         z-index: 999;
         right: 0;
         @include for_tablet {
