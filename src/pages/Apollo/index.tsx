@@ -7,29 +7,21 @@ import API2 from 'API/newApi';
 import { Content } from 'components/Content';
 import HeadInfo from 'components/HeadInfo';
 import { useTypedSelector } from 'hooks/useTypedSelector';
-import React, { memo, useEffect } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 
 export const Apollo = memo(() => {
-  const func = async () => {
-    const data = await API2.getApollos();
-    console.log(data);
-  };
+  const [apolloData, setApolloData] = useState<any>(null);
 
   useEffect(() => {
-    func();
-
-    console.log(appData);
+    API2.getInfo().then((res) => setApolloData(res.data));
   }, []);
-  const { data: appData } = useTypedSelector((state: any) => state.app);
 
   const {
     total = 0,
     online = 0,
     offline = 0,
     connecting = 0,
-  } = appData?.netInfo?.apollos || 0;
-
-  const { avgBlockTime = 0 } = appData?.netInfo || 0;
+  } = apolloData?.apollos || 0;
 
   const itemFirst: any = [
     {
@@ -53,7 +45,7 @@ export const Apollo = memo(() => {
     },
     {
       name: 'Avg block / prop. time',
-      value: `${avgBlockTime} sec`,
+      value: `${apolloData?.avgBlockTime.toFixed(3)} sec`,
     },
   ];
 

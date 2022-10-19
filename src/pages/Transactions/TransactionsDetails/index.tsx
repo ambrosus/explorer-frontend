@@ -54,21 +54,9 @@ export const TransactionDetails = () => {
   });
 
   useEffect(() => {
-    console.log(hash);
     API2.getTransaction(hash).then((res) => setTxData(res.data[0]));
   }, [hash]);
 
-  // useEffect(() => {
-  //   api.getTransaction(hash).then((res: any) => {
-  //     console.log(res);
-
-  //     if (res.meta?.code === 200) {
-  //       setTxData(res.data);
-  //     }
-  //   });
-  // }, [hash]);
-
-  console.log(txData);
   useEffect(() => {
     if (checkOverflow(ref.current)) {
       setIsInputExpanded(false);

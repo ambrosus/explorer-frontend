@@ -1,5 +1,6 @@
 import { Account } from '../apollo.interface';
 import API from 'API/api';
+import API2 from 'API/newApi';
 import { Content } from 'components/Content';
 import CopyBtn from 'components/CopyBtn';
 import ExportCsv from 'components/ExportCsv';
@@ -22,7 +23,7 @@ import { apolloDetailsSorting } from 'utils/sidePages';
 
 export const ApolloDetails = memo(() => {
   const { getAddressData } = useActions();
-  const { address }: TParams = useParams();
+  const { address = '' }: TParams = useParams();
 
   const { data: addressData } = useTypedSelector((state) => state?.addressData);
 
@@ -30,6 +31,10 @@ export const ApolloDetails = memo(() => {
   useEffect(() => {
     getAddressData(address);
   }, []);
+
+  // useEffect(() => {
+  //   API2.getApollo(address).then((res) => console.log(res));
+  // }, []);
   const { balance, stake, version } = addressData?.apolloInfo?.data || 0;
   const apolloData = addressData?.apolloInfo?.data;
 

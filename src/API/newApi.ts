@@ -63,6 +63,8 @@ const SOURCIFYAPI = () => {
 const getContract = (address: any) =>
   SOURCIFYAPI().get(`files/any/${chainID}/${address}`);
 
+const getInfo = () => API().get('info');
+
 const getAddresses = () => API().get('addresses');
 const getAddressesAll = (address: string) =>
   API().get(`addresses${address}/all`);
@@ -76,12 +78,15 @@ const getBlocks = (params = {}) => API().get('blocks', { params });
 const getBlock = (block: string) => API().get(`blocks/${block}`);
 const getBlockHash = (hash: string) => API().get(`blocks/${hash}`);
 const getApollos = (params = {}) => API().get('apollos', { params });
+const getApollo = (params: any) =>
+  API().get(`apollos/${params.address}`, { params });
 const getTransactions = (params = {}) => API().get('transactions', { params });
 const getTransaction = (hash: string | undefined) =>
   API().get(`transaction/${hash}`);
 
 const api = {
   SOURCIFYAPI: SOURCIFYAPI(),
+  getInfo,
   getAddresses,
   getAddressesAll,
   getAddressesTransfers,
@@ -91,6 +96,7 @@ const api = {
   getBlock,
   getBlockHash,
   getApollos,
+  getApollo,
   getTransactions,
   getTransaction,
   getContract,
