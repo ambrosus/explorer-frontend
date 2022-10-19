@@ -10,7 +10,7 @@ export const sliceData5 = (item: string | null | undefined) => {
   if (!item) {
     return '';
   }
-  return item.length > 5
+  return item.length > 10
     ? `${item.slice(0, 5)}...${item.slice(item.length - 5)}`
     : item;
 };
@@ -35,6 +35,18 @@ export const calcTime = (time: number | null | undefined) => {
    */
   return moment(time).isValid() ? moment(time * 1000).fromNow() : '';
 };
+
+export const calcTimeAgo = (time: number | null | undefined) => {
+  if (!time) {
+    return '';
+  }
+  /*
+   * @param {string} time
+   * @returns {string}
+   */
+  return moment(time).isValid() ? moment(time * 1000).fromNow() : '';
+};
+
 export const sliceDataString = (item: string | null | undefined) => {
   if (!item) {
     return [];
@@ -314,9 +326,7 @@ export const statusMessage = (node: any = {}, nodeName: string) => {
         return (
           <>
             {timeSince(
-              node && node.statusHistory && node.statusHistory[0]
-                ? node.statusHistory[0].timestamp
-                : '',
+              node?.statusHistory[0] ? node.statusHistory[0].timestamp : '',
             )}
           </>
         );
@@ -332,9 +342,7 @@ export const statusMessage = (node: any = {}, nodeName: string) => {
           <>
             <div className="apollo_blocks_body_cell_online">Uptime</div>{' '}
             {timeSince(
-              node && node.statusHistory && node.statusHistory[0]
-                ? node.statusHistory[0].timestamp
-                : '',
+              node?.statusHistory[0] ? node.statusHistory[0].timestamp : '',
             )}
           </>
         );

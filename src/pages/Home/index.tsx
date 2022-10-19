@@ -2,6 +2,7 @@ import { useActions } from '../../hooks/useActions';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { LatestTransactionsProps, ResultHomePageData } from './home.interfaces';
 import API from 'API/api';
+import API2 from 'API/newApi';
 import BlocksContent from 'components/BlocksContent';
 import BlocksContentMobile from 'components/BlocksContentMobile';
 import { Content } from 'components/Content';
@@ -24,7 +25,12 @@ export const Home: React.FC = () => {
     }, 1000);
     return () => clearInterval(interval);
   }, []);
+  const getHomeData = async () => await API2.getAddresses();
 
+  useEffect(() => {
+    const data = getHomeData();
+    console.log(data);
+  }, []);
   const header = useMemo(
     () =>
       appData && [

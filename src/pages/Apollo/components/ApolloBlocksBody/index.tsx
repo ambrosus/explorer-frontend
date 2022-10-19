@@ -1,7 +1,7 @@
 import { Currency } from '../../../../components/UI/Currency';
 import Amb from 'assets/icons/Cryptos/Amb';
 import { ApolloBodyProps } from 'pages/Apollo/apollo.interface';
-import { FC } from 'react';
+import { FC, memo } from 'react';
 import { NavLink } from 'react-router-dom';
 import { statusMessage } from 'utils/helpers';
 
@@ -51,4 +51,4 @@ const ApolloBlocksBody: FC<ApolloBodyProps> = ({ index, item }) => {
   );
 };
 
-export default ApolloBlocksBody;
+export default memo(ApolloBlocksBody);

@@ -1,5 +1,6 @@
 import { Account } from '../apollo.interface';
 import API from 'API/api';
+import API2 from 'API/newApi';
 import { Content } from 'components/Content';
 import CopyBtn from 'components/CopyBtn';
 import ExportCsv from 'components/ExportCsv';
@@ -9,7 +10,7 @@ import { useTypedSelector } from 'hooks/useTypedSelector';
 import moment from 'moment';
 import AddressBlock from 'pages/Addresses/AddressDetails/components/AddressBlocks';
 import TabsNew from 'pages/Transactions/components/TabsNew';
-import React, { useEffect, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { TParams } from 'types';
 import {
@@ -20,9 +21,9 @@ import {
 } from 'utils/helpers';
 import { apolloDetailsSorting } from 'utils/sidePages';
 
-export const ApolloDetails = () => {
+export const ApolloDetails = memo(() => {
   const { getAddressData } = useActions();
-  const { address }: TParams = useParams();
+  const { address = '' }: TParams = useParams();
 
   const { data: addressData } = useTypedSelector((state) => state?.addressData);
 
@@ -30,6 +31,10 @@ export const ApolloDetails = () => {
   useEffect(() => {
     getAddressData(address);
   }, []);
+
+  // useEffect(() => {
+  //   API2.getApollo(address).then((res) => console.log(res));
+  // }, []);
   const { balance, stake, version } = addressData?.apolloInfo?.data || 0;
   const apolloData = addressData?.apolloInfo?.data;
 
@@ -119,20 +124,12 @@ export const ApolloDetails = () => {
     },
   ];
 
-  console.log(rewards.transactionsRewards);
-
   const itemSecond: any = [
     {
       name: 'MINING STATS',
       value: filterDate,
       calendarBtn: (
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            marginLeft: 6,
-          }}
-        >
+        <div className="calendar_style">
           <ExportCsv
             initRange={dateRange}
             miningStats={onSelect}
@@ -223,4 +220,4 @@ export const ApolloDetails = () => {
       </Content.Body>
     </Content>
   );
-};
+});

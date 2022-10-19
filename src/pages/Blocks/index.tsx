@@ -1,30 +1,25 @@
-import API from '../../API/api';
 import { useActions } from '../../hooks/useActions';
 import { numberWithCommas } from '../../utils/helpers';
 import TabsNew from '../Transactions/components/TabsNew';
 import BlocksBody from './components/BlocksBody';
 import BlocksHeader from './components/BlocksHeader';
+import API from 'API/api';
+import API2 from 'API/newApi';
 import { Content } from 'components/Content';
 import HeadInfo from 'components/HeadInfo';
 import { useTypedSelector } from 'hooks/useTypedSelector';
-import React, { useEffect } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 
-export const Blocks = () => {
-  const { setAppDataAsync } = useActions();
+export const Blocks = memo(() => {
+  const [blockData, setBlockData] = useState<any>(null);
 
-  const { data: appData } = useTypedSelector((state: any) => state.app);
-  const total = appData?.netInfo?.lastBlock?.number || 0;
-  const avgBlockTime = appData?.netInfo?.avgBlockTime || 0;
-  const avgBlockSize = appData?.netInfo?.avgBlockSize || 0;
-  const avgBlockGasUsed = appData?.netInfo?.avgBlockGasUsed || 0;
   const avgNectarPerc = `(${(
-    (appData?.netInfo?.avgBlockGasUsed / appData?.netInfo?.avgBlockGasLimit ||
-      0) * 100
+    (blockData?.avgBlockGasUsed / blockData?.avgBlockGasLimit || 0) * 100
   ).toFixed(2)}%)`;
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setAppDataAsync();
+      API2.getInfo().then((res) => setBlockData(res.data));
     }, 1000);
     return () => clearInterval(interval);
   }, []);
@@ -32,19 +27,21 @@ export const Blocks = () => {
   const itemFirst: any = [
     {
       name: 'TOTAL NODES',
-      value: numberWithCommas(total),
+      value: numberWithCommas(blockData?.lastBlock.number),
     },
     {
       name: 'AVG. BLOCK SIZE',
-      value: `${avgBlockSize.toFixed(1)} Bytes`,
+      value: `${blockData?.avgBlockSize.toFixed(1)} Bytes`,
     },
     {
       name: 'AVG. BLOCK TIME',
-      value: `${avgBlockTime.toFixed(1)} sec`,
+      value: `${blockData?.avgBlockTime.toFixed(1)} sec`,
     },
     {
       name: 'AVG. NECTAR USED',
-      value: `${numberWithCommas(avgBlockGasUsed.toFixed(1))} ${avgNectarPerc}`,
+      value: `${numberWithCommas(
+        blockData?.avgBlockGasUsed.toFixed(1),
+      )} ${avgNectarPerc}`,
     },
   ];
 
@@ -60,7 +57,7 @@ export const Blocks = () => {
         <div className="blocks_main">
           <TabsNew
             tableHeader={() => <BlocksHeader />}
-            fetchData={API.getBlocks}
+            fetchData={API2.getBlocks}
             fetchParams={{ page: '' }}
             label="Blocks"
             render={(list: any) =>
@@ -73,4 +70,4 @@ export const Blocks = () => {
       </Content.Body>
     </Content>
   );
-};
+});

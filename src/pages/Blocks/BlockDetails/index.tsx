@@ -11,13 +11,11 @@ import { TParams } from '../../../types';
 import DataTitle from '../components/DataTitle';
 import BlockBody from './components/BlockBody';
 import BlockHeader from './components/BlockHeader';
-import BlockHeaderInfo from './components/BlockHeaderInfo';
-import HeadingInfo from './components/HeadingInfo';
-import { MainInfoBlockTable } from './components/MainInfoBlockTable';
+import API2 from 'API/newApi';
 import HeadInfo from 'components/HeadInfo';
 import useDeviceSize from 'hooks/useDeviceSize';
 import moment from 'moment';
-import React, { useEffect, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { NavLink, useNavigate, useParams } from 'react-router-dom';
 import { sliceData10, sliceData5 } from 'utils/helpers';
@@ -36,14 +34,16 @@ export interface IBlock {
 }
 
 interface IBlocksData<T> {
-  data: { data: T[] | undefined } | null;
+  // data: { data: T[] | undefined } | null;
+  data: { data: { block: T[] | undefined } } | null;
   isError: boolean;
   isLoading: boolean;
 }
 
-export const BlockDetails = () => {
+export const BlockDetails = memo(() => {
   const { setAppDataAsync } = useActions();
-  const { address }: TParams = useParams();
+  const { address = '' }: TParams = useParams();
+
   const [block, setBlock] = useState<any>(null);
   const navigate = useNavigate();
   const { data: appData } = useTypedSelector((state: any) => state.app);
@@ -69,15 +69,15 @@ export const BlockDetails = () => {
 
   const { data, isError, isLoading } = useQuery(
     [`get data for ${address}`, address],
-    () => getBlockData(address as string),
+    () => API2.getBlock(address),
     {
       initialDataUpdatedAt: 0,
       refetchInterval: 4000,
-      onSuccess: (data: any) => {
-        if (!data) {
-          navigate(`/notfound`);
-        }
-      },
+      // onSuccess: (data: any) => {
+      //   if (!data) {
+      //     navigate(`/notfound`);
+      //   }
+      // },
     },
   ) as IBlocksData<IBlock>;
 
@@ -94,7 +94,9 @@ export const BlockDetails = () => {
   }, []);
 
   useEffect(() => {
-    if (!isLoading) setBlock(data?.data);
+    console.log(data);
+
+    if (!isLoading) setBlock(data?.data.block);
   }, [isLoading]);
 
   if (isError) navigate(`/notfound`);
@@ -207,4 +209,4 @@ export const BlockDetails = () => {
       )}
     </Content>
   );
-};
+});
