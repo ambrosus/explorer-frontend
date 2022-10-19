@@ -129,13 +129,7 @@ export const ApolloDetails = memo(() => {
       name: 'MINING STATS',
       value: filterDate,
       calendarBtn: (
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            marginLeft: 6,
-          }}
-        >
+        <div className="calendar_style">
           <ExportCsv
             initRange={dateRange}
             miningStats={onSelect}
