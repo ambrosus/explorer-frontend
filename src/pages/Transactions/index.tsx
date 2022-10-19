@@ -5,12 +5,17 @@ import { transactionsTabs } from '../../utils/sidePages';
 import AddressBlock from '../Addresses/AddressDetails/components/AddressBlocks';
 import { Account } from '../Atlas/atlas.interface';
 import TabsNew from './components/TabsNew';
+import API2 from 'API/newApi';
 import { Content } from 'components/Content';
 import moment from 'moment';
-import React, { memo } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 
 export const Transactions = memo(() => {
-  const { data: appData } = useTypedSelector((state: any) => state.app);
+  const [txData, setTxData] = useState<any>(null);
+
+  useEffect(() => {
+    API2.getInfo().then((res) => setTxData(res.data));
+  }, []);
 
   return (
     <Content>
@@ -20,7 +25,7 @@ export const Transactions = memo(() => {
           <span className="transactions_header_text">
             Total transactions
             <span className="transactions_header_num">
-              {numberWithCommas(appData?.netInfo?.transactions?.total)}
+              {numberWithCommas(txData?.transactions?.total)}
             </span>
           </span>
         </div>
@@ -29,7 +34,7 @@ export const Transactions = memo(() => {
         <TabsNew
           withoutCalendar
           tabs={transactionsTabs}
-          fetchData={API.getTransactions}
+          fetchData={API2.getTransactions}
           fetchParams={{ type: '', page: '' }}
           render={(txs: Account[]) =>
             txs.map((tx: any, i: number) => (

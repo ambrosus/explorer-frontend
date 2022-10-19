@@ -1,4 +1,5 @@
 import api from 'API/api';
+import API2 from 'API/newApi';
 import ContentCopy from 'assets/icons/CopyIcons/ContentCopy';
 import ContentCopyed from 'assets/icons/CopyIcons/ContentCopyed';
 import CopyPopUp from 'assets/icons/CopyIcons/CopyPopUp';
@@ -23,6 +24,7 @@ import {
 
 export const TransactionDetails = () => {
   const { hash } = useParams();
+
   const { isCopy, copyContent, isCopyPopup } = useCopyContent(hash);
   const { FOR_TABLET } = useDeviceSize();
   const ref = useRef(null);
@@ -52,11 +54,7 @@ export const TransactionDetails = () => {
   });
 
   useEffect(() => {
-    api.getTransaction(hash).then((res: any) => {
-      if (res.meta?.code === 200) {
-        setTxData(res.data);
-      }
-    });
+    API2.getTransaction(hash).then((res) => setTxData(res.data[0]));
   }, [hash]);
 
   useEffect(() => {

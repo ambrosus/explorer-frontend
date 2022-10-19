@@ -3,22 +3,25 @@ import { apollosSorting } from '../../utils/sidePages';
 import AtlasBlocksHeader from '../Atlas/components/AtlasBlocksHeader';
 import TabsNew from '../Transactions/components/TabsNew';
 import ApolloBlocksBody from './components/ApolloBlocksBody';
+import API2 from 'API/newApi';
 import { Content } from 'components/Content';
 import HeadInfo from 'components/HeadInfo';
 import { useTypedSelector } from 'hooks/useTypedSelector';
-import React, { memo } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 
 export const Apollo = memo(() => {
-  const { data: appData } = useTypedSelector((state: any) => state.app);
+  const [apolloData, setApolloData] = useState<any>(null);
+
+  useEffect(() => {
+    API2.getInfo().then((res) => setApolloData(res.data));
+  }, []);
 
   const {
     total = 0,
     online = 0,
     offline = 0,
     connecting = 0,
-  } = appData?.netInfo?.apollos || 0;
-
-  const { avgBlockTime = 0 } = appData?.netInfo || 0;
+  } = apolloData?.apollos || 0;
 
   const itemFirst: any = [
     {
@@ -42,7 +45,7 @@ export const Apollo = memo(() => {
     },
     {
       name: 'Avg block / prop. time',
-      value: `${avgBlockTime} sec`,
+      value: `${apolloData?.avgBlockTime.toFixed(3)} sec`,
     },
   ];
 
@@ -56,7 +59,7 @@ export const Apollo = memo(() => {
         <TabsNew
           tableHeader={() => <AtlasBlocksHeader pageTitle="blocks" />}
           sortOptions={apollosSorting}
-          fetchData={API.getApollos}
+          fetchData={API2.getApollos}
           initSortTerm={'totalBundles'}
           fetchParams={{ sort: '', next: '' }}
           label="Nodes"
