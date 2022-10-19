@@ -18,12 +18,12 @@ const BlockBody = ({ lastCardRef, item }: any) => {
       </div>
       <div className="block_body_cell">{type.split(':')[0]}</div>
       <div className="block_body_cell color-gray">
-        <NavLink className="universall_light2" to={`/addresses/${from}`}>
+        <NavLink className="universall_light2" to={`/address/${from}`}>
           {sliceData5(from)}
         </NavLink>
       </div>
       <div className="block_body_cell color-gray">
-        <NavLink className="universall_light2" to={`/addresses/${to}`}>
+        <NavLink className="universall_light2" to={`/address/${to}`}>
           {sliceData5(to)}
         </NavLink>
       </div>
