@@ -9,7 +9,7 @@ import SideMenu from 'assets/icons/SideMenu';
 import ExportCsv from 'components/ExportCsv';
 import useDeviceSize from 'hooks/useDeviceSize';
 import { AccountsData } from 'pages/Addresses/addresses.interface';
-import React, { FC, useEffect, useRef, useState } from 'react';
+import React, { FC, useEffect, useMemo, useRef, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 
 const TabItem: FC<TabsItemProps> = ({ tab, el, handleTab }) => {
@@ -46,6 +46,7 @@ const TabsNew: FC<TabsNewProps> = ({
   sortOptions,
   fetchData,
   fetchParams,
+  renderKey,
   render,
   withoutCalendar,
   initSortTerm = '',
@@ -85,21 +86,32 @@ const TabsNew: FC<TabsNewProps> = ({
     handleFetchData().then((response: any) => setTabData(response));
   }, [tab, sortTerm]);
 
-  useEffect(() => {
-    if (
-      inView &&
-      !loading &&
-      tabData.pagination &&
-      tabData.pagination.hasNext
-    ) {
-      handleFetchData(tabData.pagination.next).then((response: any) => {
-        setTabData((state: AccountsData) => ({
-          data: [...state.data, ...response.data],
-          pagination: response.pagination,
-        }));
-      });
+  const renderTabData = (renderKey: string | undefined) => {
+    switch (renderKey) {
+      case 'transactions':
+        return tabData?.data?.transactions;
+
+      default:
+        return tabData?.data;
     }
-  }, [inView]);
+  };
+  const result = useMemo(() => renderTabData(renderKey), [tabData]);
+
+  // useEffect(() => {
+  //   if (
+  //     inView &&
+  //     !loading &&
+  //     tabData.pagination &&
+  //     tabData.pagination.hasNext
+  //   ) {
+  //     handleFetchData(tabData.pagination.next).then((response: any) => {
+  //       setTabData((state: AccountsData) => ({
+  //         data: [...state.data, ...response.data],
+  //         pagination: response.pagination,
+  //       }));
+  //     });
+  //   }
+  // }, [inView]);
 
   const handleFetchData = (page?: number) => {
     setLoading(true);
@@ -129,8 +141,6 @@ const TabsNew: FC<TabsNewProps> = ({
   // useEffect(() => {
   //   API2.getApollo(fetchParams).then((res) => console.log(res));
   // }, []);
-
-  console.log(tabData);
 
   return (
     <>
@@ -197,7 +207,7 @@ const TabsNew: FC<TabsNewProps> = ({
               methodFilters={null}
               isTableColumn={'address_blocks_cells no_border'}
             />
-            {!!tabData?.data?.length && render(tabData.data)}
+            {!!result?.length && render(result)}
           </div>
         </>
       ) : (
@@ -213,7 +223,7 @@ const TabsNew: FC<TabsNewProps> = ({
             className="tabs_list"
           >
             {tableHeader()}
-            {!!tabData.data.length && render(tabData.data)}
+            {!!result.length && render(renderTabData(result))}
           </div>
         </>
       )}

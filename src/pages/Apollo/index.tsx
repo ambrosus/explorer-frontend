@@ -60,6 +60,7 @@ export const Apollo = memo(() => {
           tableHeader={() => <AtlasBlocksHeader pageTitle="blocks" />}
           sortOptions={apollosSorting}
           fetchData={API2.getApollos}
+          renderKey={'transactions'}
           initSortTerm={'totalBundles'}
           fetchParams={{ sort: '', next: '' }}
           label="Nodes"
