@@ -45,13 +45,14 @@ export const ApolloDetails = memo(() => {
     true,
     false,
   );
+  console.log(appData?.tokenInfo);
 
-  const { total_price_usd } = appData?.tokenInfo || 0;
+  const { price_usd } = appData?.tokenInfo || 0;
   const ambBalance = balance?.ether || 0;
   const ambStake = stake?.ether || 0;
 
-  const usdBalance = +ambToUSD(ambBalance, total_price_usd);
-  const usdStake = +ambToUSD(ambStake, total_price_usd);
+  const usdBalance = +ambToUSD(ambBalance, price_usd);
+  const usdStake = +ambToUSD(ambStake, price_usd);
 
   const isOffline = apolloData?.status === 'OFFLINE' ? '#bfc9e0' : undefined;
 
@@ -64,7 +65,6 @@ export const ApolloDetails = memo(() => {
 
   const [filterDate, setFilterDate] = useState<any>(() => initFilterData);
   const [dateRange, setDateRange] = useState<any>(null);
-  const { price_usd } = appData?.tokenInfo || 0;
 
   useEffect(() => {
     if (apolloData?.lastBlock) {
