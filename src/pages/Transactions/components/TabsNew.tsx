@@ -50,11 +50,12 @@ const TabsNew: FC<TabsNewProps> = ({
   render,
   withoutCalendar,
   initSortTerm = '',
+  initTab = '',
   tableHeader,
   label,
 }) => {
   const [loading, setLoading] = useState(true);
-  const [tab, setTab] = useState('');
+  const [tab, setTab] = useState(initTab);
   const [isShow, setIsShow] = useState(false);
   const [sortTerm, setSortTerm] = useState(initSortTerm);
 
@@ -110,6 +111,12 @@ const TabsNew: FC<TabsNewProps> = ({
   //   }
   // }, [inView]);
 
+  useEffect(() => {
+    if (tabs) {
+      setTab(tabs[0].value);
+    }
+  }, [tabs]);
+
   const handleFetchData = (page?: number) => {
     setLoading(true);
     const params: any = { ...fetchParams };
@@ -131,10 +138,6 @@ const TabsNew: FC<TabsNewProps> = ({
     });
   };
 
-  const handleTab = (type: string) => {
-    setTab(type);
-  };
-
   // useEffect(() => {
   //   API2.getApollo(fetchParams).then((res) => console.log(res));
   // }, []);
@@ -150,7 +153,7 @@ const TabsNew: FC<TabsNewProps> = ({
                   <TabItem
                     key={el.value}
                     tab={tab}
-                    handleTab={handleTab}
+                    handleTab={setTab}
                     el={el}
                   />
                 ))}

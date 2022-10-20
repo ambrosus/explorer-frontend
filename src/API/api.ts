@@ -147,6 +147,23 @@ const getApollos = (params = {}) => {
   });
 };
 
+const getAddresses = (params = {}) => {
+  return API().get('v2/addresses', { params });
+};
+
+const getAccountTxs = (params: any = {}) => {
+  const { address, type, page, tokenAddress } = params;
+
+  return API().get(
+    `v2/addresses/${address}/${tokenAddress ? 'tokens' : type}${
+      tokenAddress ? '/' + tokenAddress : ''
+    }`,
+    {
+      params: { page },
+    },
+  );
+};
+
 const getAtlases = (params = {}) => {
   return API().get(`atlases`, {
     params,
@@ -271,6 +288,8 @@ const api = {
   getTokenTotalSupply,
   getAtlasBundles,
   followTheLinkRange,
+  getAddresses,
+  getAccountTxs,
 };
 
 export default api;

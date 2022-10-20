@@ -84,28 +84,6 @@ export const addressesRoutes: IRoute[] = [
     component: () => <AddressDetails />,
     isClick: false,
   },
-  {
-    path: '/addresses/:address/:type',
-    key: 'Address Details2',
-    exact: true,
-    component: () => <AddressDetails />,
-    isClick: false,
-  },
-
-  {
-    path: '/addresses/:address/:type/:filtered',
-    key: 'Address Details3',
-    exact: true,
-    component: () => <AddressDetails />,
-    isClick: false,
-  },
-  {
-    path: '/addresses/:address/:type/:filtered/:tokenToSorted',
-    key: 'Address Details4',
-    exact: true,
-    isClick: false,
-    component: () => <AddressDetails />,
-  },
 ];
 
 export const apolloRoutes: IRoute[] = [
