@@ -94,7 +94,7 @@ export const BlockDetails = memo(() => {
   }, []);
 
   useEffect(() => {
-    console.log(data);
+    API2.getBlock(address).then((res) => console.log(res));
 
     if (!isLoading) setBlock(data?.data.block);
   }, [isLoading]);
