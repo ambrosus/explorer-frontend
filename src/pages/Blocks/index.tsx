@@ -57,7 +57,7 @@ export const Blocks = memo(() => {
         <div className="blocks_main">
           <TabsNew
             tableHeader={() => <BlocksHeader />}
-            fetchData={API2.getBlocks}
+            fetchData={API.getBlocks}
             fetchParams={{ page: '' }}
             label="Blocks"
             render={(list: any) =>
