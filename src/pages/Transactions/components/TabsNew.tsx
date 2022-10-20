@@ -46,7 +46,7 @@ const TabsNew: FC<TabsNewProps> = ({
   sortOptions,
   fetchData,
   fetchParams,
-  renderKey = '',
+  renderKey,
   render,
   withoutCalendar,
   initSortTerm = '',
@@ -60,13 +60,15 @@ const TabsNew: FC<TabsNewProps> = ({
   const [sortTerm, setSortTerm] = useState(initSortTerm);
 
   const { ref, inView } = useInView();
-  const [tabData, setTabData] = useState<AccountsData>({
+  const [tabData, setTabData] = useState<any>({
     data: [],
     pagination: {
       hasNext: false,
       next: null,
     },
   });
+
+  console.log(tabData);
 
   const mobileCalendarRef = useRef(null);
   const { FOR_TABLET } = useDeviceSize();
@@ -84,32 +86,36 @@ const TabsNew: FC<TabsNewProps> = ({
         next: null,
       },
     });
-    handleFetchData().then((response: any) => setTabData(response));
+    handleFetchData().then((response: any) => {
+      if (!!renderKey) {
+        setTabData({
+          data: response.data[renderKey],
+          pagination: response.pagination,
+        });
+      } else {
+        setTabData(response);
+      }
+    });
   }, [tab, sortTerm]);
 
-  const renderTabData = (renderKey: string | undefined) => {
-    if (!!renderKey) {
-      return tabData?.data[renderKey];
+  useEffect(() => {
+    if (
+      inView &&
+      !loading &&
+      tabData.pagination &&
+      tabData.pagination.hasNext
+    ) {
+      handleFetchData(tabData.pagination.next).then((response: any) => {
+        setTabData((state: AccountsData) => ({
+          data: [
+            ...state.data,
+            ...(renderKey ? response.data[renderKey] : response.data),
+          ],
+          pagination: response.pagination,
+        }));
+      });
     }
-    return tabData?.data;
-  };
-  const result = useMemo(() => renderTabData(renderKey), [tabData]);
-
-  // useEffect(() => {
-  //   if (
-  //     inView &&
-  //     !loading &&
-  //     tabData.pagination &&
-  //     tabData.pagination.hasNext
-  //   ) {
-  //     handleFetchData(tabData.pagination.next).then((response: any) => {
-  //       setTabData((state: AccountsData) => ({
-  //         data: [...state.data, ...response.data],
-  //         pagination: response.pagination,
-  //       }));
-  //     });
-  //   }
-  // }, [inView]);
+  }, [inView]);
 
   useEffect(() => {
     if (tabs) {
@@ -137,10 +143,6 @@ const TabsNew: FC<TabsNewProps> = ({
       setLoading(false);
     });
   };
-
-  // useEffect(() => {
-  //   API2.getApollo(fetchParams).then((res) => console.log(res));
-  // }, []);
 
   return (
     <>
@@ -207,7 +209,7 @@ const TabsNew: FC<TabsNewProps> = ({
               methodFilters={null}
               isTableColumn={'address_blocks_cells no_border'}
             />
-            {!!result?.length && render(result)}
+            {!!tabData?.data?.length && render(tabData.data)}
           </div>
         </>
       ) : (
@@ -223,7 +225,7 @@ const TabsNew: FC<TabsNewProps> = ({
             className="tabs_list"
           >
             {tableHeader()}
-            {!!result.length && render(result)}
+            {!!tabData?.data?.length && render(tabData.data)}
           </div>
         </>
       )}
