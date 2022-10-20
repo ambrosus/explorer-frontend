@@ -46,7 +46,7 @@ const TabsNew: FC<TabsNewProps> = ({
   sortOptions,
   fetchData,
   fetchParams,
-  renderKey,
+  renderKey = '',
   render,
   withoutCalendar,
   initSortTerm = '',
@@ -87,13 +87,10 @@ const TabsNew: FC<TabsNewProps> = ({
   }, [tab, sortTerm]);
 
   const renderTabData = (renderKey: string | undefined) => {
-    switch (renderKey) {
-      case 'transactions':
-        return tabData?.data?.transactions;
-
-      default:
-        return tabData?.data;
+    if (!!renderKey) {
+      return tabData?.data[renderKey];
     }
+    return tabData?.data;
   };
   const result = useMemo(() => renderTabData(renderKey), [tabData]);
 
@@ -223,7 +220,7 @@ const TabsNew: FC<TabsNewProps> = ({
             className="tabs_list"
           >
             {tableHeader()}
-            {!!result.length && render(renderTabData(result))}
+            {!!result.length && render(result)}
           </div>
         </>
       )}
