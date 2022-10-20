@@ -73,11 +73,11 @@ export const BlockDetails = memo(() => {
     {
       initialDataUpdatedAt: 0,
       refetchInterval: 4000,
-      // onSuccess: (data: any) => {
-      //   if (!data) {
-      //     navigate(`/notfound`);
-      //   }
-      // },
+      onSuccess: (data: any) => {
+        if (!data) {
+          navigate(`/notfound`);
+        }
+      },
     },
   ) as IBlocksData<IBlock>;
 
