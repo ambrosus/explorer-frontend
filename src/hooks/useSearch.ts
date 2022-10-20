@@ -14,6 +14,7 @@ const useSearch = (setIsShow: Function) => {
     () => (name?.length > 0 ? API.searchItem(name) : null),
     {
       onSuccess: (data: any) => {
+        console.log(data);
         if (!data) {
           setErr(true);
         } else {
@@ -35,7 +36,8 @@ const useSearch = (setIsShow: Function) => {
             searchTerm = data?.meta.search;
           }
           if (data.meta.search && !searchTerm.trim().includes(['hermes'])) {
-            setLink(`/${searchTerm.trim()}/`);
+            console.log(searchTerm);
+            setLink(`/${searchTerm.trim().replace('addresses', 'address')}/`);
           } else {
             setErr(true);
           }
