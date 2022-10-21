@@ -36,8 +36,8 @@ const useSearch = (setIsShow: Function) => {
             searchTerm = data?.meta.search;
           }
           if (data.meta.search && !searchTerm.trim().includes(['hermes'])) {
-            console.log(searchTerm);
-            setLink(`/${searchTerm.trim().replace('addresses', 'address')}/`);
+            const searchValue = searchTerm.trim().replace('addresses', 'address').replace('transactions', 'tx');
+            setLink(`/${searchValue}/`);
           } else {
             setErr(true);
           }
