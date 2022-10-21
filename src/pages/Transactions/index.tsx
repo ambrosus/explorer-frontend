@@ -34,7 +34,7 @@ export const Transactions = memo(() => {
         <TabsNew
           withoutCalendar
           tabs={transactionsTabs}
-          fetchData={API2.getTransactions}
+          fetchData={API.getTransactions}
           fetchParams={{ type: '', page: '' }}
           render={(txs: Account[]) =>
             txs.map((tx: any, i: number) => (

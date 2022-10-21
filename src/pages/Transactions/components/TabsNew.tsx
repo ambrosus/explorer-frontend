@@ -125,11 +125,6 @@ const TabsNew: FC<TabsNewProps> = ({
   const handleTab = (type: string) => {
     setTab(type);
   };
-  const baseApiUrl = process.env.REACT_APP_API_ENDPOINT_V2;
-
-  useEffect(() => {
-    API2.getApollo(fetchParams).then((res) => console.log(res));
-  }, []);
 
   return (
     <>
