@@ -68,6 +68,7 @@ export const contractTabs = [
 ];
 
 export const sidePages = {
+  transactionFilters,
   ERC20Filters,
   methodFilters,
   apolloDetailsSorting,

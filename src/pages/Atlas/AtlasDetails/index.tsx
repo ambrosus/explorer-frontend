@@ -96,6 +96,10 @@ export const AtlasDetails = () => {
     },
   ];
 
+  useEffect(() => {
+    API.getAtlases(address).then((res) => console.log(res));
+  }, []);
+
   return (
     <Content>
       <Content.Header>
@@ -122,7 +126,7 @@ export const AtlasDetails = () => {
       <Content.Body>
         <TabsNew
           tabs={atlasDetailsSorting}
-          fetchData={API.getAtlases}
+          fetchData={API.getAccountTx}
           fetchParams={{ address, page: '', type: '' }}
           render={(txs: any) =>
             txs.map((transaction: any) => (
@@ -136,8 +140,8 @@ export const AtlasDetails = () => {
                 to={transaction.to}
                 date={moment(transaction.timestamp * 1000).fromNow()}
                 block={transaction.blockNumber}
-                amount={transaction.value.ether}
-                txfee={transaction.gasCost.ether}
+                amount={transaction?.value?.ether}
+                txfee={transaction?.gasCost?.ether}
                 token={`${transaction?.token ? transaction?.token : 'AMB'}`}
                 symbol={`${transaction?.symbol ? transaction?.symbol : 'AMB'}`}
                 isTableColumn="address_blocks_cells"
