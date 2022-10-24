@@ -25,12 +25,11 @@ export const Home: React.FC = () => {
     }, 1000);
     return () => clearInterval(interval);
   }, []);
-  const getHomeData = async () => await API2.getAddresses();
 
   useEffect(() => {
-    const data = getHomeData();
-    console.log(data);
+    API2.getInfo().then((res) => console.log(res));
   }, []);
+
   const header = useMemo(
     () =>
       appData && [
@@ -75,15 +74,13 @@ export const Home: React.FC = () => {
             <FindWide />
             <div className="home_info">
               <div className="home_info_table">
-                {header
-                  ? header.map((item: any) => (
-                      <MainInfo
-                        key={item.name}
-                        name={item.name as string}
-                        value={item.value}
-                      />
-                    ))
-                  : null}
+                {header.map((item: any) => (
+                  <MainInfo
+                    key={item.name}
+                    name={item.name as string}
+                    value={item.value}
+                  />
+                ))}
               </div>
             </div>
           </Content.Header>
