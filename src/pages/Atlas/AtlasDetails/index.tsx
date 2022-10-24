@@ -96,10 +96,6 @@ export const AtlasDetails = () => {
     },
   ];
 
-  useEffect(() => {
-    API.getAtlases(address).then((res) => console.log(res));
-  }, []);
-
   return (
     <Content>
       <Content.Header>

@@ -68,8 +68,6 @@ const TabsNew: FC<TabsNewProps> = ({
     },
   });
 
-  console.log(tabData);
-
   const mobileCalendarRef = useRef(null);
   const { FOR_TABLET } = useDeviceSize();
 

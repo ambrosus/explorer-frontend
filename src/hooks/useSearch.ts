@@ -14,7 +14,6 @@ const useSearch = (setIsShow: Function) => {
     () => (name?.length > 0 ? API.searchItem(name) : null),
     {
       onSuccess: (data: any) => {
-        console.log(data);
         if (!data) {
           setErr(true);
         } else {

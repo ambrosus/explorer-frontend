@@ -64,6 +64,7 @@ const getContract = (address: any) =>
   SOURCIFYAPI().get(`files/any/${chainID}/${address}`);
 
 const getInfo = () => API().get('info');
+const getToken = () => axios.get(tokenApiUrl).then(({ data }) => data.data);
 
 const getAddresses = () => API().get('addresses');
 const getAddressesAll = (address: string) =>
@@ -99,6 +100,7 @@ const api = {
   getApollo,
   getTransactions,
   getTransaction,
+  getToken,
   getContract,
 };
 

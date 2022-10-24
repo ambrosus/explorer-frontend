@@ -32,10 +32,6 @@ export const ApolloDetails = memo(() => {
     getAddressData(address);
   }, []);
 
-  // useEffect(() => {
-  //   API2.getApollo({ address }).then((res) => console.log(res.data));
-  // }, []);
-
   const { balance, stake, version } = addressData?.apolloInfo?.data || 0;
   const apolloData = addressData?.apolloInfo?.data;
 
@@ -46,7 +42,6 @@ export const ApolloDetails = memo(() => {
     true,
     false,
   );
-  console.log(appData?.tokenInfo);
 
   const { price_usd } = appData?.tokenInfo || 0;
   const ambBalance = balance?.ether || 0;

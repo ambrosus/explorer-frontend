@@ -26,37 +26,30 @@ export const Home: React.FC = () => {
     return () => clearInterval(interval);
   }, []);
 
-  useEffect(() => {
-    API2.getInfo().then((res) => console.log(res));
-  }, []);
-
   const header = useMemo(
     () =>
       appData && [
-        { name: 'AMB PRICE', value: appData.tokenInfo.price_usd },
-        { name: 'TOTAL SUPPLY', value: appData.netInfo.totalSupply },
+        { name: 'AMB PRICE', value: appData.tokenInfo?.price_usd },
+        { name: 'TOTAL SUPPLY', value: appData.netInfo?.totalSupply },
         {
           name: 'TOTAL TRANSACTIONS',
-          value: appData.netInfo.transactions.total,
+          value: appData.netInfo?.transactions?.total,
         },
-        { name: 'MARKET CAP', value: appData.tokenInfo.market_cap_usd },
+        { name: 'MARKET CAP', value: appData.tokenInfo?.market_cap_usd },
         {
           name: 'NODES',
-          value:
-            appData.netInfo.apollos.online +
-            appData.netInfo.atlases.total +
-            appData.netInfo.hermeses.total,
+          value: appData.netInfo.apollos?.total,
         },
-        { name: 'HOLDERS', value: appData.netInfo.accounts.withBalance },
+        { name: 'HOLDERS', value: appData.netInfo.accounts?.withBalance },
       ],
     [appData],
   );
 
   const getHomePageData: () => Promise<ResultHomePageData> = async () => {
     const result: ResultHomePageData = {
-      latestBlocks: (await API.getBlocks({ limit: 8 })).data,
+      latestBlocks: (await API2.getBlocks({ limit: 8 })).data,
       latestTransactions: (
-        await API.getTransactions({ limit: 10, type: 'transactions' })
+        await API2.getTransactions({ limit: 10, type: 'transactions' })
       ).data
         .filter((item: LatestTransactionsProps) => item.type !== 'BlockReward')
         .slice(0, 8),
