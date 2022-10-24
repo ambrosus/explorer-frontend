@@ -69,7 +69,7 @@ export const BlockDetails = memo(() => {
 
   const { data, isError, isLoading } = useQuery(
     [`get data for ${address}`, address],
-    () => API2.getBlock(address),
+    () => getBlockData(address),
     {
       initialDataUpdatedAt: 0,
       refetchInterval: 4000,
@@ -96,7 +96,7 @@ export const BlockDetails = memo(() => {
   useEffect(() => {
     API2.getBlock(address).then((res) => console.log(res));
 
-    if (!isLoading) setBlock(data?.data.block);
+    if (!isLoading) setBlock(data?.data);
   }, [isLoading]);
 
   if (isError) navigate(`/notfound`);

@@ -21,7 +21,7 @@ const BundleBlocksBody = ({ item }: any) => {
 
   const isBy = (
     <NavLink
-      to={`/addresses/${item.uploader}`}
+      to={`/address/${item.uploader}`}
       className="bundle_blocks_body_cell"
       style={{ color: '#808A9D' }}
     >

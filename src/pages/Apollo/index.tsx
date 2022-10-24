@@ -10,18 +10,21 @@ import { useTypedSelector } from 'hooks/useTypedSelector';
 import React, { memo, useEffect, useState } from 'react';
 
 export const Apollo = memo(() => {
-  const [apolloData, setApolloData] = useState<any>(null);
+  // const [apolloData, setApolloData] = useState<any>(null);
+  const { data: appData } = useTypedSelector((state: any) => state.app);
 
-  useEffect(() => {
-    API2.getInfo().then((res) => setApolloData(res.data));
-  }, []);
+  // useEffect(() => {
+  //   API2.getInfo().then((res) => setApolloData(res.data));
+  // }, []);
 
   const {
     total = 0,
     online = 0,
     offline = 0,
     connecting = 0,
-  } = apolloData?.apollos || 0;
+  } = appData?.netInfo?.apollos || 0;
+
+  const { avgBlockTime = 0 } = appData?.netInfo || 0;
 
   const itemFirst: any = [
     {
@@ -45,7 +48,7 @@ export const Apollo = memo(() => {
     },
     {
       name: 'Avg block / prop. time',
-      value: `${apolloData?.avgBlockTime.toFixed(3)} sec`,
+      value: `${avgBlockTime.toFixed(3)} sec`,
     },
   ];
 
@@ -59,7 +62,7 @@ export const Apollo = memo(() => {
         <TabsNew
           tableHeader={() => <AtlasBlocksHeader pageTitle="blocks" />}
           sortOptions={apollosSorting}
-          fetchData={API2.getApollos}
+          fetchData={API.getApollos}
           initSortTerm={'totalBundles'}
           fetchParams={{ sort: '', next: '' }}
           label="Nodes"

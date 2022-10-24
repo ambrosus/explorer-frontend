@@ -53,8 +53,16 @@ export const TransactionDetails = () => {
     type: '',
   });
 
+  // useEffect(() => {
+  //   API2.getTransaction(hash).then((res) => setTxData(res.data[0]));
+  // }, [hash]);
+
   useEffect(() => {
-    API2.getTransaction(hash).then((res) => setTxData(res.data[0]));
+    api.getTransaction(hash).then((res: any) => {
+      if (res.meta?.code === 200) {
+        setTxData(res.data);
+      }
+    });
   }, [hash]);
 
   useEffect(() => {
@@ -93,7 +101,7 @@ export const TransactionDetails = () => {
       value: txData?.from ? (
         <NavLink
           style={{ fontSize: '14px', fontWeight: 600 }}
-          to={`/addresses/${txData?.from}`}
+          to={`/address/${txData?.from}`}
           className="universall_light1"
         >
           {sliceData10(txData.from as string, 7)}
@@ -107,7 +115,7 @@ export const TransactionDetails = () => {
       value: txData?.to ? (
         <NavLink
           style={{ fontSize: '14px', fontWeight: 600 }}
-          to={`/addresses/${txData?.to}`}
+          to={`/address/${txData?.to}`}
           className="universall_light1"
         >
           {sliceData10(txData.to as string, 7)}

@@ -7,6 +7,7 @@ import {
   TokenType,
 } from 'pages/Addresses/AddressDetails/address-details.interface';
 import React, { useRef, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const TokenFilter = ({
   loading,
@@ -17,12 +18,20 @@ const TokenFilter = ({
   const [isShow, setIsShow] = useState(false);
   const refTokensModal = useRef<HTMLDivElement>(null);
 
+  const navigate = useNavigate();
+  const { address } = useParams();
+
   useOnClickOutside(refTokensModal, () => setIsShow(false));
   const toggleMenu = () => (!loading ? setIsShow(!isShow) : null);
 
   const handleSelect = (token: TokenType): void => {
     onClick(token);
     setIsShow(false);
+    navigate(
+      `/address/${address}/ERC-20_Tx/${
+        token.contract ? token.contract : token.address
+      }/`,
+    );
   };
   return (
     <>

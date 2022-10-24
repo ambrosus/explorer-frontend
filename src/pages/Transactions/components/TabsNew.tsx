@@ -144,6 +144,10 @@ const TabsNew: FC<TabsNewProps> = ({
     });
   };
 
+  const handleTab = (type: string) => {
+    setTab(type);
+  };
+
   return (
     <>
       {tabs ? (
