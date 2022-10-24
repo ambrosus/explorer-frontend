@@ -240,7 +240,6 @@ const AddressDetails = () => {
               />
 
               <Token
-                loading={loading}
                 addressData={addressData}
                 selectedToken={selectedToken}
                 onClick={setSelectedToken}
@@ -248,7 +247,10 @@ const AddressDetails = () => {
             </div>
 
             {selectedToken && (
-              <FilteredToken setSelectedToken={setSelectedToken} />
+              <FilteredToken
+                setSelectedToken={setSelectedToken}
+                selectedToken={selectedToken}
+              />
             )}
           </div>
         </Content.Header>

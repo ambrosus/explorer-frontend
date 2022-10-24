@@ -90,7 +90,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
   const isMethod =
     method === null ? null : (
       <div className="address_blocks_cell" style={{ gap: 4 }}>
-        {isIcon && from && from === address ? (
+        {from && from === address ? (
           <OutgoingTransaction />
         ) : (
           <IncomeTrasaction />

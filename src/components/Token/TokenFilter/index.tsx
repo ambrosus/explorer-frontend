@@ -1,7 +1,6 @@
 import TokenModal from '../TokenModal';
 import ArrowDownBig from 'assets/icons/Arrows/ArrowDownBig';
 import ArrowUpBig from 'assets/icons/Arrows/ArrowUpBig';
-import { useActions } from 'hooks/useActions';
 import { useOnClickOutside } from 'hooks/useOnClickOutside';
 import {
   TokenFilterProps,
@@ -9,7 +8,6 @@ import {
 } from 'pages/Addresses/AddressDetails/address-details.interface';
 import React, { useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { TParams } from 'types';
 
 const TokenFilter = ({
   loading,
@@ -17,18 +15,17 @@ const TokenFilter = ({
   onClick,
   selectedToken,
 }: TokenFilterProps) => {
-  const { addFilter } = useActions();
   const [isShow, setIsShow] = useState(false);
-  const navigate = useNavigate();
-  const { address }: TParams = useParams();
   const refTokensModal = useRef<HTMLDivElement>(null);
+
+  const navigate = useNavigate();
+  const { address } = useParams();
 
   useOnClickOutside(refTokensModal, () => setIsShow(false));
   const toggleMenu = () => (!loading ? setIsShow(!isShow) : null);
 
   const handleSelect = (token: TokenType): void => {
     onClick(token);
-    addFilter(token);
     setIsShow(false);
     navigate(
       `/address/${address}/ERC-20_Tx/${

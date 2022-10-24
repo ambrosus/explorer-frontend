@@ -9,7 +9,7 @@ import SideMenu from 'assets/icons/SideMenu';
 import ExportCsv from 'components/ExportCsv';
 import useDeviceSize from 'hooks/useDeviceSize';
 import { AccountsData } from 'pages/Addresses/addresses.interface';
-import React, { FC, useEffect, useRef, useState } from 'react';
+import React, { FC, useEffect, useMemo, useRef, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 
 const TabItem: FC<TabsItemProps> = ({ tab, el, handleTab }) => {
@@ -46,19 +46,21 @@ const TabsNew: FC<TabsNewProps> = ({
   sortOptions,
   fetchData,
   fetchParams,
+  renderKey,
   render,
   withoutCalendar,
   initSortTerm = '',
+  initTab = '',
   tableHeader,
   label,
 }) => {
   const [loading, setLoading] = useState(true);
-  const [tab, setTab] = useState('');
+  const [tab, setTab] = useState(initTab);
   const [isShow, setIsShow] = useState(false);
   const [sortTerm, setSortTerm] = useState(initSortTerm);
 
   const { ref, inView } = useInView();
-  const [tabData, setTabData] = useState<AccountsData>({
+  const [tabData, setTabData] = useState<any>({
     data: [],
     pagination: {
       hasNext: false,
@@ -82,7 +84,16 @@ const TabsNew: FC<TabsNewProps> = ({
         next: null,
       },
     });
-    handleFetchData().then((response: any) => setTabData(response));
+    handleFetchData().then((response: any) => {
+      if (!!renderKey) {
+        setTabData({
+          data: response.data[renderKey],
+          pagination: response.pagination,
+        });
+      } else {
+        setTabData(response);
+      }
+    });
   }, [tab, sortTerm]);
 
   useEffect(() => {
@@ -94,12 +105,21 @@ const TabsNew: FC<TabsNewProps> = ({
     ) {
       handleFetchData(tabData.pagination.next).then((response: any) => {
         setTabData((state: AccountsData) => ({
-          data: [...state.data, ...response.data],
+          data: [
+            ...state.data,
+            ...(renderKey ? response.data[renderKey] : response.data),
+          ],
           pagination: response.pagination,
         }));
       });
     }
   }, [inView]);
+
+  useEffect(() => {
+    if (tabs) {
+      setTab(tabs[0].value);
+    }
+  }, [tabs]);
 
   const handleFetchData = (page?: number) => {
     setLoading(true);
@@ -125,11 +145,6 @@ const TabsNew: FC<TabsNewProps> = ({
   const handleTab = (type: string) => {
     setTab(type);
   };
-  const baseApiUrl = process.env.REACT_APP_API_ENDPOINT_V2;
-
-  useEffect(() => {
-    API2.getApollo(fetchParams).then((res) => console.log(res));
-  }, []);
 
   return (
     <>
@@ -142,7 +157,7 @@ const TabsNew: FC<TabsNewProps> = ({
                   <TabItem
                     key={el.value}
                     tab={tab}
-                    handleTab={handleTab}
+                    handleTab={setTab}
                     el={el}
                   />
                 ))}
@@ -212,7 +227,7 @@ const TabsNew: FC<TabsNewProps> = ({
             className="tabs_list"
           >
             {tableHeader()}
-            {!!tabData.data.length && render(tabData.data)}
+            {!!tabData?.data?.length && render(tabData.data)}
           </div>
         </>
       )}

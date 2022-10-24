@@ -444,3 +444,13 @@ export const diffStyleToCell = (
     </>
   );
 };
+
+const isRenderProps = (key: string | undefined) => {
+  let data: any = {};
+  if (!!key) {
+    return data[key];
+  } else {
+    data = [];
+  }
+  return data;
+};

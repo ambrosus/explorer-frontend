@@ -29,16 +29,16 @@ export const AtlasDetails = () => {
 
   const ambBalance = atlasData?.balance?.ether || 0;
   const ambStake = atlasData?.stake?.ether || 0;
-  const total_price_usd = appData?.tokenInfo?.total_price_usd || 0;
+  const price_usd = appData?.tokenInfo?.price_usd || 0;
 
-  const usdBalance = +ambToUSD(ambBalance, total_price_usd);
-  const usdStake = +ambToUSD(ambStake, total_price_usd);
+  const usdBalance = +ambToUSD(ambBalance, price_usd);
+  const usdStake = +ambToUSD(ambStake, price_usd);
 
   const available = atlasData?.payPeriods?.available || 0;
   const forecast = atlasData?.payPeriods?.current?.forecast || 0;
 
-  const usdForecast = +ambToUSD(forecast, total_price_usd);
-  const usdAvailable = +ambToUSD(available, total_price_usd);
+  const usdForecast = +ambToUSD(forecast, price_usd);
+  const usdAvailable = +ambToUSD(available, price_usd);
   const nextPayDay = (startDay: any): any => {
     let today = moment().format('YYYY-MM-DD');
     let delta = moment(startDay).diff(today);
@@ -136,8 +136,8 @@ export const AtlasDetails = () => {
                 to={transaction.to}
                 date={moment(transaction.timestamp * 1000).fromNow()}
                 block={transaction.blockNumber}
-                amount={transaction.value.ether}
-                txfee={transaction.gasCost.ether}
+                amount={transaction?.value?.ether}
+                txfee={transaction?.gasCost?.ether}
                 token={`${transaction?.token ? transaction?.token : 'AMB'}`}
                 symbol={`${transaction?.symbol ? transaction?.symbol : 'AMB'}`}
                 isTableColumn="address_blocks_cells"

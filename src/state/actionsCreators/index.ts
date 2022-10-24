@@ -8,6 +8,7 @@ import {
 } from '../actions';
 import API from 'API/api';
 import SOURCIFYAPI from 'API/api';
+import API2 from 'API/newApi';
 import { Dispatch } from 'redux';
 import { CLIENT_VERSION } from 'utils/constants';
 
@@ -17,8 +18,8 @@ export const setAppDataAsync =
       type: actionTypes.SET_APP_DATA__START,
     });
     try {
-      const netInfo = API.getInfo();
-      const tokenInfo = API.getToken();
+      const netInfo = API2.getInfo();
+      const tokenInfo = API2.getToken();
       const total_price_usd = API.getTokenMountPrice();
 
       Promise.allSettled([netInfo, tokenInfo, total_price_usd]).then(
@@ -28,7 +29,7 @@ export const setAppDataAsync =
             type: actionTypes.SET_APP_DATA__SUCCESS,
             payload: {
               gitTagVersion: CLIENT_VERSION,
-              netInfo: res[0].value,
+              netInfo: res[0].value.data,
               tokenInfo: {
                 ...res[1].value,
                 total_price_usd: res[2].value.total_price_usd,
