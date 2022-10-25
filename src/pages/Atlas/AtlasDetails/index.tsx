@@ -122,7 +122,7 @@ export const AtlasDetails = () => {
       <Content.Body>
         <TabsNew
           tabs={atlasDetailsSorting}
-          fetchData={API.getAtlases}
+          fetchData={API.getAccountTx}
           fetchParams={{ address, page: '', type: '' }}
           render={(txs: any) =>
             txs.map((transaction: any) => (

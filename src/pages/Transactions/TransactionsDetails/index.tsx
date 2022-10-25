@@ -53,8 +53,16 @@ export const TransactionDetails = () => {
     type: '',
   });
 
+  // useEffect(() => {
+  //   API2.getTransaction(hash).then((res) => setTxData(res.data[0]));
+  // }, [hash]);
+
   useEffect(() => {
-    API2.getTransaction(hash).then((res) => setTxData(res.data[0]));
+    api.getTransaction(hash).then((res: any) => {
+      if (res.meta?.code === 200) {
+        setTxData(res.data);
+      }
+    });
   }, [hash]);
 
   useEffect(() => {
