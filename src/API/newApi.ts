@@ -79,8 +79,10 @@ const getBlocks = (params = {}) => API().get('blocks', { params });
 const getBlock = (block: string) => API().get(`blocks/${block}`);
 const getBlockHash = (hash: string) => API().get(`blocks/${hash}`);
 const getApollos = (params = {}) => API().get('apollos', { params });
-const getApollo = (params: any) =>
-  API().get(`apollos/${params.address}`, { params });
+const getApollo = (params: any) => {
+  console.log(params);
+  return API().get(`apollos/${params.address || params}`, { params });
+}
 const getTransactions = (params = {}) => API().get('transactions', { params });
 const getTransaction = (hash: string | undefined) =>
   API().get(`transaction/${hash}`);

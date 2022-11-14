@@ -324,11 +324,7 @@ export const statusMessage = (node: any = {}, nodeName: string) => {
     switch (node.status) {
       case 'ONLINE':
         return (
-          <>
-            {timeSince(
-              node?.onboardingDate ? node.onboardingDate : '',
-            )}
-          </>
+          <>{timeSince(node?.onboardingDate ? node.onboardingDate : '')}</>
         );
       case 'CONNECTING':
         return 'Connecting...';
@@ -341,9 +337,7 @@ export const statusMessage = (node: any = {}, nodeName: string) => {
         return (
           <>
             <div className="apollo_blocks_body_cell_online">Uptime</div>{' '}
-            {timeSince(
-              node?.onboardingDate ? node.onboardingDate : '',
-            )}
+            {timeSince(node?.onboardingDate ? node.onboardingDate : '')}
           </>
         );
       case 'CONNECTING':

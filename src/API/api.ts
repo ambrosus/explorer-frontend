@@ -92,10 +92,6 @@ const getAtlasBundles = (address: any, params: any) => {
   });
 };
 
-const getApollo = (address: any) => {
-  return API().get(`apollos/${address}`);
-};
-
 const getApolloRewards = (address: any, params: any) => {
   const url = `apollos/${address}/rewards`;
   const parameterFrom = params?.from?.split('/') || null;
@@ -265,7 +261,6 @@ const api = {
   getSupTransaction,
   getAccounts,
   getApollos,
-  getApollo,
   getAtlas,
   getAtlases,
   getApolloRewards,

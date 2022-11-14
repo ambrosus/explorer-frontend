@@ -85,6 +85,7 @@ const TabsNew: FC<TabsNewProps> = ({
       },
     });
     handleFetchData().then((response: any) => {
+      console.log(response);
       if (!!renderKey) {
         setTabData({
           data: response.data[renderKey],
