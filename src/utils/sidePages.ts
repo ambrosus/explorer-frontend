@@ -4,7 +4,6 @@ export const transactionFilters = [
   { title: 'All', value: 'all' },
   { title: 'Transfers', value: 'transfers' },
   { title: 'ERC-20 Tx', value: 'tokens' },
-  { title: 'Contract', value: 'contract' },
   // { title: 'Events', value: 'events' },
 ];
 const ERC20Filters = [

@@ -10,6 +10,7 @@ export type TabsNewProps = {
   label?: string;
   initTab?: string;
   tableHeader?: any;
+  contractInfo?: any;
 };
 
 export type TabsItemProps = {

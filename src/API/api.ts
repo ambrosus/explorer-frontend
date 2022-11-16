@@ -1,8 +1,5 @@
 import { log } from '../utils/helpers';
-import { Apollo } from './../pages/Apollo/index';
-import { Home } from './../pages/Home/index';
 import axios from 'axios';
-import { ApiRequest } from 'types';
 
 const tokenApiUrl: any = process.env.REACT_APP_TOKEN_API_URL;
 

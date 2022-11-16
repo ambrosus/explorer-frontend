@@ -11,6 +11,8 @@ import useDeviceSize from 'hooks/useDeviceSize';
 import { AccountsData } from 'pages/Addresses/addresses.interface';
 import React, { FC, useEffect, useMemo, useRef, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
+import {ContractDetails} from "../../Addresses/AddressDetails/components/contract";
+import NotFoundIcon from "../../../assets/icons/Errors/NotFoundIcon";
 
 const TabItem: FC<TabsItemProps> = ({ tab, el, handleTab }) => {
   const ref = useRef(null);
@@ -41,6 +43,12 @@ const TabItem: FC<TabsItemProps> = ({ tab, el, handleTab }) => {
     </span>
   );
 };
+
+const contractTab = {
+  value: 'contract',
+  title: 'Contract',
+};
+
 const TabsNew: FC<TabsNewProps> = ({
   tabs,
   sortOptions,
@@ -53,6 +61,7 @@ const TabsNew: FC<TabsNewProps> = ({
   initTab = '',
   tableHeader,
   label,
+  contractInfo,
 }) => {
   const [loading, setLoading] = useState(true);
   const [tab, setTab] = useState(initTab);
@@ -76,6 +85,8 @@ const TabsNew: FC<TabsNewProps> = ({
   const handleShow = () => setIsShow(!isShow);
 
   useEffect(() => {
+    if (tab === 'contract') return;
+
     setLoading(true);
     setTabData({
       data: [],
@@ -85,7 +96,8 @@ const TabsNew: FC<TabsNewProps> = ({
       },
     });
     handleFetchData().then((response: any) => {
-      console.log(response);
+      if (!response) return;
+
       if (!!renderKey) {
         setTabData({
           data: response.data[renderKey],
@@ -143,10 +155,6 @@ const TabsNew: FC<TabsNewProps> = ({
     });
   };
 
-  const handleTab = (type: string) => {
-    setTab(type);
-  };
-
   return (
     <>
       {tabs ? (
@@ -154,7 +162,7 @@ const TabsNew: FC<TabsNewProps> = ({
           <div className="tabs">
             <div className="tabs_heading">
               <div className="tabs_heading_filters">
-                {tabs.map((el: any) => (
+                {(contractInfo ? [...tabs, contractTab] : tabs).map((el: any) => (
                   <TabItem
                     key={el.value}
                     tab={tab}
@@ -195,24 +203,42 @@ const TabsNew: FC<TabsNewProps> = ({
               <Calendar />
             </div>
           )}
+
           <div
             style={{ overflow: loading ? 'hidden' : 'auto' }}
             className="transactions_wrapper"
           >
-            <AddressBlocksHeader
-              txhash="txHash"
-              method="Method"
-              from="From"
-              to="To"
-              date="Date"
-              block="Block"
-              amount="Amount"
-              txfee="txFee"
-              token={null}
-              methodFilters={null}
-              isTableColumn={'address_blocks_cells no_border'}
-            />
-            {!!tabData?.data?.length && render(tabData.data)}
+            {tab === 'contract' ? (
+              <ContractDetails
+                address={contractInfo.address}
+                contractInfo={contractInfo}
+                selectedTab={'verify'}
+              />
+            ) : (!loading && !tabData?.data?.length) ? (
+              <div className="tabs_not_found">
+                <NotFoundIcon />
+                <span className="tabs_not_found_text">
+                No results were found for this query.
+                </span>
+              </div>
+            ) : (
+              <>
+                <AddressBlocksHeader
+                  txhash="txHash"
+                  method="Method"
+                  from="From"
+                  to="To"
+                  date="Date"
+                  block="Block"
+                  amount="Amount"
+                  txfee="txFee"
+                  token={null}
+                  methodFilters={null}
+                  isTableColumn={'address_blocks_cells no_border'}
+                />
+                {!!tabData?.data?.length && render(tabData.data)}
+              </>
+            )}
           </div>
         </>
       ) : (

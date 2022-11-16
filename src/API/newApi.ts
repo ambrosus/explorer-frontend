@@ -82,7 +82,7 @@ const getApollos = (params = {}) => API().get('apollos', { params });
 const getApollo = (params: any) => {
   console.log(params);
   return API().get(`apollos/${params.address || params}`, { params });
-}
+};
 const getTransactions = (params = {}) => API().get('transactions', { params });
 const getTransaction = (hash: string | undefined) =>
   API().get(`transaction/${hash}`);

@@ -61,12 +61,7 @@
       overflow-y: scroll;
     }
   }
-  .contract-link {
-    font-size: 12px;
-    font-weight: 700;
-    line-height: 32px;
-    margin-right: 12px;
-  }
+
   &_link {
     color: $main-light;
     text-decoration: none;
@@ -127,4 +122,11 @@
       color: #05060f;
     }
   }
+}
+
+.contract-link {
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 32px;
+  margin-right: 12px;
 }

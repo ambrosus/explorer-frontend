@@ -105,8 +105,8 @@ export const getAddressData =
               atlasInfo: res[2].value,
               accountInfo: res[3].value,
             },
-          })
-        }
+          });
+        },
       );
     } catch (error: any) {
       dispatch({
