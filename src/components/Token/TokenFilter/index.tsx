@@ -9,11 +9,11 @@ import {
 import React, { useRef, useState } from 'react';
 
 const TokenFilter = ({
-    loading,
-    addressData,
-    onClick,
-    selectedToken,
-  }: TokenFilterProps) => {
+  loading,
+  addressData,
+  onClick,
+  selectedToken,
+}: TokenFilterProps) => {
   const [isShow, setIsShow] = useState(false);
   const refTokensModal = useRef<HTMLDivElement>(null);
 
@@ -40,8 +40,8 @@ const TokenFilter = ({
                 : loading
                 ? !addressData?.tokens?.length
                 : !addressData?.tokens?.length
-                  ? 0
-                  : addressData.tokens.length
+                ? 0
+                : addressData.tokens.length
             }
           </span>
           <button

@@ -3,10 +3,10 @@ import { TokenProps } from 'pages/Addresses/AddressDetails/address-details.inter
 import React from 'react';
 
 const Token: React.FC<TokenProps> = ({
-    addressData,
-    onClick,
-    selectedToken,
-  }) => {
+  addressData,
+  onClick,
+  selectedToken,
+}) => {
   return (
     <div className="token">
       <div className="token_info">

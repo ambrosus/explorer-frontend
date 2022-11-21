@@ -141,7 +141,7 @@ const getApollos = (params = {}) => {
 };
 
 const getAddresses = (params = {}) => {
-  return API().get('v2/addresses', { params });
+  return API().get('addresses', { params });
 };
 
 const getAccountTxs = (params: any = {}) => {

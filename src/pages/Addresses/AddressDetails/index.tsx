@@ -1,4 +1,5 @@
 import API from '../../../API/api';
+import { useActions } from '../../../hooks/useActions';
 import { transactionFilters } from '../../../utils/sidePages';
 import { Account } from '../../Atlas/atlas.interface';
 import TabsNew from '../../Transactions/components/TabsNew';
@@ -14,7 +15,6 @@ import { useTypedSelector } from 'hooks/useTypedSelector';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import {useActions} from "../../../hooks/useActions";
 
 const AddressDetails = () => {
   const { address } = useParams();
@@ -37,7 +37,7 @@ const AddressDetails = () => {
 
   useEffect(() => {
     console.log(isContract);
-  }, [isContract])
+  }, [isContract]);
 
   useEffect(() => {
     API.getAccountTxs({ type: 'all', address }).then((response: any) => {
@@ -116,10 +116,14 @@ const AddressDetails = () => {
         </Content.Header>
         <Content.Body>
           <TabsNew
-            contractInfo={isContract ? {
-              data: contractInfo,
-              address,
-            } : null}
+            contractInfo={
+              isContract
+                ? {
+                    data: contractInfo,
+                    address,
+                  }
+                : null
+            }
             tabs={
               selectedToken
                 ? [{ title: 'Token', value: 'token' }]

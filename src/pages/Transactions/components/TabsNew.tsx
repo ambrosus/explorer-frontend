@@ -1,7 +1,9 @@
+import NotFoundIcon from '../../../assets/icons/Errors/NotFoundIcon';
 import Calendar from '../../../components/Calendar';
 import Loader from '../../../components/Loader';
 import { useOnClickOutside } from '../../../hooks/useOnClickOutside';
 import AddressBlocksHeader from '../../Addresses/AddressDetails/components/AddressBlocksHeader';
+import { ContractDetails } from '../../Addresses/AddressDetails/components/contract';
 import AtlasBlocksSort from '../../Atlas/components/AtlasBlocksSort';
 import { TabsItemProps, TabsNewProps } from '../transactions.interface';
 import API2 from 'API/newApi';
@@ -11,8 +13,6 @@ import useDeviceSize from 'hooks/useDeviceSize';
 import { AccountsData } from 'pages/Addresses/addresses.interface';
 import React, { FC, useEffect, useMemo, useRef, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
-import {ContractDetails} from "../../Addresses/AddressDetails/components/contract";
-import NotFoundIcon from "../../../assets/icons/Errors/NotFoundIcon";
 
 const TabItem: FC<TabsItemProps> = ({ tab, el, handleTab }) => {
   const ref = useRef(null);
@@ -162,14 +162,16 @@ const TabsNew: FC<TabsNewProps> = ({
           <div className="tabs">
             <div className="tabs_heading">
               <div className="tabs_heading_filters">
-                {(contractInfo ? [...tabs, contractTab] : tabs).map((el: any) => (
-                  <TabItem
-                    key={el.value}
-                    tab={tab}
-                    handleTab={setTab}
-                    el={el}
-                  />
-                ))}
+                {(contractInfo ? [...tabs, contractTab] : tabs).map(
+                  (el: any) => (
+                    <TabItem
+                      key={el.value}
+                      tab={tab}
+                      handleTab={setTab}
+                      el={el}
+                    />
+                  ),
+                )}
               </div>
 
               {!withoutCalendar && (
@@ -214,11 +216,11 @@ const TabsNew: FC<TabsNewProps> = ({
                 contractInfo={contractInfo}
                 selectedTab={'verify'}
               />
-            ) : (!loading && !tabData?.data?.length) ? (
+            ) : !loading && !tabData?.data?.length ? (
               <div className="tabs_not_found">
                 <NotFoundIcon />
                 <span className="tabs_not_found_text">
-                No results were found for this query.
+                  No results were found for this query.
                 </span>
               </div>
             ) : (
