@@ -11,7 +11,6 @@ import { TParams } from '../../../types';
 import DataTitle from '../components/DataTitle';
 import BlockBody from './components/BlockBody';
 import BlockHeader from './components/BlockHeader';
-import API2 from 'API/newApi';
 import HeadInfo from 'components/HeadInfo';
 import useDeviceSize from 'hooks/useDeviceSize';
 import moment from 'moment';
@@ -94,9 +93,7 @@ export const BlockDetails = memo(() => {
   }, []);
 
   useEffect(() => {
-    API2.getBlock(address).then((res) => console.log(res));
-
-    if (!isLoading) setBlock(data?.data);
+    if (!isLoading) setBlock(data?.data.block);
   }, [isLoading]);
 
   if (isError) navigate(`/notfound`);
@@ -182,14 +179,14 @@ export const BlockDetails = memo(() => {
           className="head_info"
         />
       </Content.Header>
-      {renderData?.data?.length && (
+      {renderData?.data?.block.length && (
         <Content.Body>
           <div className="blocks_main">
             <DataTitle title="Transactions" />
             <div className="blocks_main_table">
               <BlockHeader />
-              {renderData?.data?.length
-                ? renderData.data.map((item: any, index: number) => (
+              {renderData?.data?.block.length
+                ? renderData.data.block.map((item: any, index: number) => (
                     <BlockBody
                       lastCardRef={
                         renderData?.data?.length - 1 === index &&

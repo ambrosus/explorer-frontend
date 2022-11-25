@@ -70,7 +70,7 @@ const getBlock = (hashOrNumber: any) => {
 };
 
 const getBlockTransactions = (hashOrNumber: any, params = {}) => {
-  return API().get(`blocks/${hashOrNumber}/transactions`, {
+  return API().get(`v2/blocks/${hashOrNumber}/transactions`, {
     params,
   });
 };
