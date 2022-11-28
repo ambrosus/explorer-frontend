@@ -11,6 +11,7 @@ import {
 const BundleBlocksBody = ({ item }: any) => {
   const isBundle = (
     <a
+      rel="nofollow"
       href={`bundles/${item?.bundleId}`}
       className="bundle_blocks_body_cell"
       style={{ color: '#808A9D', fontWeight: 600 }}
