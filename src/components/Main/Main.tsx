@@ -3,7 +3,7 @@ import { RemoveTrailingSlash } from '../RemoveTrailingSlash';
 import { Layout } from '../layouts/Layout';
 import { RenderRoutes } from 'components/RenderRoutes/RenderRoutes';
 import React, { useEffect } from 'react';
-import { useLocation, Navigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import routes from 'routes';
 import 'styles/Main.scss';
 
@@ -21,7 +21,7 @@ const Main: React.FC = () => {
 
   return (
     <Layout>
-      {/*<RemoveTrailingSlash />*/}
+      <RemoveTrailingSlash />
       <RenderRoutes routes={routes} />
     </Layout>
   );
