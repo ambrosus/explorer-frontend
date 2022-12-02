@@ -78,7 +78,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
         </button>
       )}
       <NavLink
-        to={`/tx/${txhash}`}
+        to={`/tx/${txhash}/`}
         className="address_blocks_cell address_blocks_cell-hash universall_light2"
         style={{ fontWeight: '600' }}
       >
@@ -144,7 +144,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
           style={{
             fontWeight: 400,
           }}
-          to={`/blocks/${block}`}
+          to={`/blocks/${block}/`}
         >
           {block}
         </NavLink>

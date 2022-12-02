@@ -16,7 +16,7 @@ const ContractTabs = (props: any) => {
           filteredContractTabs.map((tab) => (
             <NavLink
               key={tab.title}
-              to={`/address/${address}/contract/${tab.value || ''}`}
+              to={`/address/${address}/contract/${tab.value || ''}/`}
               className={`contract-link tabs_link ${
                 tab.value === selectedTab ? 'tabs_link_active' : ''
               }`}

@@ -51,7 +51,7 @@ const BlocksBody: FC<IBlocksBody> = ({ index, item }) => {
   return (
     <div className="blocks_blocks_body">
       <NavLink
-        to={`/blocks/${number}`}
+        to={`/blocks/${number}/`}
         className="blocks_blocks_body_cell color-gray universall_link_underline"
         style={{
           fontWeight: 600,

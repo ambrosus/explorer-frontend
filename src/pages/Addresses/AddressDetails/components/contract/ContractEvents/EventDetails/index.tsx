@@ -68,7 +68,7 @@ const EventDetails = ({
             style={{ fontWeight: 600 }}
           >
             <NavLink
-              to={`/tx/${txHash}`}
+              to={`/tx/${txHash}/`}
               className="contract_events-body-navlink universall_light2"
             >
               {sliceData5(txHash)}
@@ -91,7 +91,7 @@ const EventDetails = ({
         <div className="contract_events-body-cells">
           <div className="contract_events-body-subcell ">
             <NavLink
-              to={`/blocks/${blockNumber}`}
+              to={`/blocks/${blockNumber}/`}
               className="contract_events-body-navlink universall_light2"
             >
               {blockNumber}
