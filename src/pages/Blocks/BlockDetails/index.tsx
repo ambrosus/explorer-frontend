@@ -136,7 +136,7 @@ export const BlockDetails = () => {
       value: (
         <NavLink
           className="address_blocks_icon head_info_cells_secondary"
-          to={`/blocks/${parentHash}`}
+          to={`/blocks/${parentHash}/`}
         >
           {sliceData10(parentHash, FOR_TABLET ? 20 : 10)}
         </NavLink>
@@ -165,7 +165,7 @@ export const BlockDetails = () => {
           <div className="block_main_title__in">
             <div className="block_main_title_validator">Validator </div>
             <NavLink
-              to={`/apollo/${block?.miner}`}
+              to={`/apollo/${block?.miner}/`}
               className="block_main_title_address"
             >
               {block?.miner ?? ''}

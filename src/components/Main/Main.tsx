@@ -1,4 +1,5 @@
 import { useActions } from '../../hooks/useActions';
+import { RemoveTrailingSlash } from '../RemoveTrailingSlash';
 import { Layout } from '../layouts/Layout';
 import { RenderRoutes } from 'components/RenderRoutes/RenderRoutes';
 import React, { useEffect } from 'react';

@@ -33,14 +33,14 @@ export const routes: IRoute[] = [
     isClick: true,
   },
   {
-    path: '/apollo',
+    path: '/apollo/',
     key: 'Apollo',
     exact: true,
     component: () => <Apollo />,
     isClick: true,
   },
   {
-    path: '/atlas',
+    path: '/atlas/',
     key: 'Atlas',
     exact: true,
     component: () => <Atlas />,
@@ -48,28 +48,28 @@ export const routes: IRoute[] = [
   },
 
   {
-    path: '/addresses',
+    path: '/addresses/',
     key: 'Addresses',
     exact: true,
     component: () => <Addresses />,
     isClick: true,
   },
   {
-    path: '/blocks',
+    path: '/blocks/',
     key: 'Blocks',
     exact: true,
     component: () => <Blocks />,
     isClick: true,
   },
   {
-    path: '/tx',
+    path: '/tx/',
     key: 'Transactions',
     exact: true,
     component: () => <Transactions />,
     isClick: true,
   },
   {
-    path: '/bundles',
+    path: '/bundles/',
     key: 'Bundles',
     exact: true,
     component: () => <Bundles />,
@@ -78,14 +78,14 @@ export const routes: IRoute[] = [
 ];
 export const addressesRoutes: IRoute[] = [
   {
-    path: '/addresses/:address',
+    path: '/addresses/:address/',
     key: 'Address Details',
     exact: true,
     component: () => <AddressDetails />,
     isClick: false,
   },
   {
-    path: '/addresses/:address/:type',
+    path: '/addresses/:address/:type/',
     key: 'Address Details2',
     exact: true,
     component: () => <AddressDetails />,
@@ -93,14 +93,14 @@ export const addressesRoutes: IRoute[] = [
   },
 
   {
-    path: '/addresses/:address/:type/:filtered',
+    path: '/addresses/:address/:type/:filtered/',
     key: 'Address Details3',
     exact: true,
     component: () => <AddressDetails />,
     isClick: false,
   },
   {
-    path: '/addresses/:address/:type/:filtered/:tokenToSorted',
+    path: '/addresses/:address/:type/:filtered/:tokenToSorted/',
     key: 'Address Details4',
     exact: true,
     isClick: false,
@@ -110,7 +110,7 @@ export const addressesRoutes: IRoute[] = [
 
 export const apolloRoutes: IRoute[] = [
   {
-    path: '/apollo/:address',
+    path: '/apollo/:address/',
     key: 'Apollo Details',
     exact: true,
     component: () => <ApolloDetails />,
@@ -119,7 +119,7 @@ export const apolloRoutes: IRoute[] = [
 ];
 export const blockRoutes: IRoute[] = [
   {
-    path: '/blocks/:address',
+    path: '/blocks/:address/',
     key: 'Block Details',
     exact: true,
     component: () => <BlockDetails />,
@@ -129,7 +129,7 @@ export const blockRoutes: IRoute[] = [
 
 export const atlasRoutes: IRoute[] = [
   {
-    path: '/atlas/:address',
+    path: '/atlas/:address/',
     key: 'Atlas Details',
     exact: true,
     component: () => <AtlasDetails />,
@@ -139,7 +139,7 @@ export const atlasRoutes: IRoute[] = [
 
 export const transactions: IRoute[] = [
   {
-    path: '/tx/:hash',
+    path: '/tx/:hash/',
     key: 'TransactionsDetails',
     exact: true,
     component: () => <TransactionDetails />,
@@ -149,14 +149,14 @@ export const transactions: IRoute[] = [
 
 export const bundleRoutes: IRoute[] = [
   {
-    path: '/bundles/:address',
+    path: '/bundles/:address/',
     key: 'Bundle Details',
     exact: false,
     component: () => <BundleDetails />,
     isClick: false,
   },
   {
-    path: '/bundles/:address/:type',
+    path: '/bundles/:address/:type/',
     key: 'Bundle Details type',
     exact: false,
     component: () => <BundleDetails />,
