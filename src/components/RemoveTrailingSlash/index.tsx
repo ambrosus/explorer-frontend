@@ -9,7 +9,7 @@ export const RemoveTrailingSlash = ({ ...rest }) => {
         replace
         {...rest}
         to={{
-          pathname: location.pathname.replace(/\/+$/, ''),
+          pathname: location.pathname.replace(/\/+$/, '/'),
           search: location.search,
         }}
       />
