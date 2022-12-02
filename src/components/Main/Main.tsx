@@ -21,7 +21,7 @@ const Main: React.FC = () => {
 
   return (
     <Layout>
-      <RemoveTrailingSlash />
+      {/*<RemoveTrailingSlash />*/}
       <RenderRoutes routes={routes} />
     </Layout>
   );
