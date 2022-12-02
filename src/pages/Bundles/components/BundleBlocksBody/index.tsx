@@ -11,7 +11,7 @@ import {
 const BundleBlocksBody = ({ item }: any) => {
   const isBundle = (
     <NavLink
-      to={`${item?.bundleId}`}
+      to={`${item?.bundleId}/`}
       className="bundle_blocks_body_cell"
       style={{ color: '#808A9D', fontWeight: 600 }}
     >
@@ -21,7 +21,7 @@ const BundleBlocksBody = ({ item }: any) => {
 
   const isBy = (
     <NavLink
-      to={`/addresses/${item.uploader}`}
+      to={`/addresses/${item.uploader}/`}
       className="bundle_blocks_body_cell"
       style={{ color: '#808A9D' }}
     >
@@ -57,7 +57,7 @@ const BundleBlocksBody = ({ item }: any) => {
         style={{
           fontWeight: 400,
         }}
-        to={`/blocks/${item.block.number}`}
+        to={`/blocks/${item.block.number}/`}
       >
         {item.block.number}
       </NavLink>

@@ -22,7 +22,7 @@ const LatestBlocks: React.FC<LatestBlocksProps> = ({
         <div className="latest_blocks_cell">
           <div className="latest_blocks_cell_content latest_blocks_font_big">
             <span style={{ marginRight: 8 }}>{online}</span>
-            <NavLink className="" to={`/blocks/${number}`}>
+            <NavLink className="" to={`/blocks/${number}/`}>
               {number}
             </NavLink>
           </div>
@@ -39,7 +39,7 @@ const LatestBlocks: React.FC<LatestBlocksProps> = ({
               Validator
             </div>
             <div className="latest_blocks_font_big latest_blocks_margin-left">
-              <NavLink className="" to={`/apollo/${validator}`}>
+              <NavLink className="" to={`/apollo/${validator}/`}>
                 {sliceData5(validator as string)}
               </NavLink>
             </div>
