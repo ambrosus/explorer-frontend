@@ -2,9 +2,12 @@ import { Navigate, useLocation } from 'react-router-dom';
 
 export const RemoveTrailingSlash = ({ ...rest }) => {
   const location = useLocation();
-  const {pathname} = location;
+  const { pathname } = location;
 
-  if (pathname[pathname.length - 2] === '/' && pathname[pathname.length - 1] === '/') {
+  if (
+    pathname[pathname.length - 2] === '/' &&
+    pathname[pathname.length - 1] === '/'
+  ) {
     return (
       <Navigate
         replace
