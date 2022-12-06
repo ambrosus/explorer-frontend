@@ -2,7 +2,7 @@ import * as React from 'react';
 import { memo, SVGProps } from 'react';
 
 const GreenCircle = (props: any) => {
-  let fill = '#1ACD8C';
+  let fill = '#16C784';
 
   if (props.status === 'FAIL') {
     fill = '#ff7474';

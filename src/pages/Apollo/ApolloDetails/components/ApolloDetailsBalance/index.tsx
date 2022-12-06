@@ -25,7 +25,7 @@ const ApolloDetailsHead = ({ apollo }: any) => {
         'ApolloDetails',
       ),
       style: {
-        color: '#1acd8c',
+        color: '#16C784',
       },
     },
     {

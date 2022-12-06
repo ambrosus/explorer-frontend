@@ -35,7 +35,7 @@ export const Apollo = memo(() => {
       name: 'ONLINE',
       value: online,
       style: {
-        color: '#1acd8c',
+        color: '#16C784',
       },
     },
     {

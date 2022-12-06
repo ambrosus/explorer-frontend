@@ -107,7 +107,7 @@ export const BlockDetails = memo(() => {
       name: 'STATUS',
       value: blockStatus(confirmations),
       style: {
-        color: '#1acd8c',
+        color: '#16C784',
       },
     },
     {
