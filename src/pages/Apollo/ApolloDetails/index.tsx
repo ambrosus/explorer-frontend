@@ -22,7 +22,7 @@ import { apolloDetailsSorting } from 'utils/sidePages';
 
 export const ApolloDetails = memo(() => {
   const { getAddressData } = useActions();
-  const { address }: TParams = useParams();
+  const { address = '' }: TParams = useParams();
 
   const { data: addressData } = useTypedSelector((state) => state?.addressData);
 
@@ -30,6 +30,10 @@ export const ApolloDetails = memo(() => {
   useEffect(() => {
     getAddressData(address);
   }, []);
+
+  // useEffect(() => {
+  //   API2.getApollo(address).then((res) => console.log(res));
+  // }, []);
   const { balance, stake, version } = addressData?.apolloInfo?.data || 0;
   const apolloData = addressData?.apolloInfo?.data;
 
@@ -41,12 +45,12 @@ export const ApolloDetails = memo(() => {
     false,
   );
 
-  const { total_price_usd } = appData?.tokenInfo || 0;
+  const { price_usd } = appData?.tokenInfo || 0;
   const ambBalance = balance?.ether || 0;
   const ambStake = stake?.ether || 0;
 
-  const usdBalance = +ambToUSD(ambBalance, total_price_usd);
-  const usdStake = +ambToUSD(ambStake, total_price_usd);
+  const usdBalance = +ambToUSD(ambBalance, price_usd);
+  const usdStake = +ambToUSD(ambStake, price_usd);
 
   const isOffline = apolloData?.status === 'OFFLINE' ? '#bfc9e0' : undefined;
 
@@ -59,7 +63,6 @@ export const ApolloDetails = memo(() => {
 
   const [filterDate, setFilterDate] = useState<any>(() => initFilterData);
   const [dateRange, setDateRange] = useState<any>(null);
-  const { price_usd } = appData?.tokenInfo || 0;
 
   useEffect(() => {
     if (apolloData?.lastBlock) {
@@ -106,7 +109,7 @@ export const ApolloDetails = memo(() => {
       name: 'UPTIME',
       value: statusMessage(apolloData, 'ApolloDetails'),
       style: {
-        color: '#1acd8c',
+        color: '#16C784',
       },
     },
     {
@@ -124,13 +127,7 @@ export const ApolloDetails = memo(() => {
       name: 'MINING STATS',
       value: filterDate,
       calendarBtn: (
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            marginLeft: 6,
-          }}
-        >
+        <div className="calendar_style">
           <ExportCsv
             initRange={dateRange}
             miningStats={onSelect}
