@@ -49,7 +49,7 @@ const BlocksBody: FC<IBlocksBody> = ({ index, item }) => {
   };
 
   function redirectHandler(): void {
-    navigate(`${item.number}` as string);
+    navigate(`${item.number}/` as string);
   }
 
   const navigate = useNavigate();
