@@ -42,7 +42,7 @@
       &_block {
         color: rgb(128, 138, 157);
         word-break: break-all;
-        @include for_phone {
+        @include for_tablet {
           // word-break: normal;
           white-space: normal;
         }
