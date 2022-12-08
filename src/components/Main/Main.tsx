@@ -3,10 +3,9 @@ import { RemoveTrailingSlash } from '../RemoveTrailingSlash';
 import { Layout } from '../layouts/Layout';
 import { RenderRoutes } from 'components/RenderRoutes/RenderRoutes';
 import React, { useEffect } from 'react';
-import { useLocation, Navigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import routes from 'routes';
 import 'styles/Main.scss';
-import {RemoveTrailingSlash} from "../RemoveTrailingSlash";
 
 const Main: React.FC = () => {
   const { pathname } = useLocation();
