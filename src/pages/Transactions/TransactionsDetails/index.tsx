@@ -130,8 +130,7 @@ export const TransactionDetails = () => {
       value: (
         <NavLink
           to={`/blocks/${txData.blockHash}/`}
-          className="atlas_details_balance_fonts_bold"
-          style={{ color: '#808A9D', wordBreak: 'break-all' }}
+          className="atlas_details_balance_fonts_bold head_info_cells_secondary_block"
         >
           {txData.blockHash}
         </NavLink>
@@ -175,7 +174,7 @@ export const TransactionDetails = () => {
                 )}
                 {FOR_TABLET && isCopyPopup && isCopy && (
                   <div className="address_details_copyed">
-                    <CopyPopUp x={3} y={20} values="Copyed" />
+                    <CopyPopUp x={3} y={20} values="Copied" />
                   </div>
                 )}
               </button>
