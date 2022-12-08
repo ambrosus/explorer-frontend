@@ -161,7 +161,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
       ) {
         onClick(item);
         addFilter(item);
-        navigate(`/addresses/${address}/ERC-20_Tx/${item.contract}`);
+        navigate(`/addresses/${address}/ERC-20_Tx/${item.contract}/`);
       } else {
         return '';
       }
