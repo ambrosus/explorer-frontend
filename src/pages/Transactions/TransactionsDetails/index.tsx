@@ -180,7 +180,7 @@ export const TransactionDetails = () => {
                 )}
                 {FOR_TABLET && isCopyPopup && isCopy && (
                   <div className="address_details_copyed">
-                    <CopyPopUp x={3} y={20} values="Copyed" />
+                    <CopyPopUp x={3} y={20} values="Copied" />
                   </div>
                 )}
               </button>
