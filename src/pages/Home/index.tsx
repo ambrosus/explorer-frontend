@@ -65,7 +65,7 @@ export const Home: React.FC = () => {
       {data && appData && (
         <div className="home">
           <Content.Header>
-            <h1 className="home_heading">Ambrosus Network Explorer</h1>
+            <h1 className="home_heading">Network Explorer</h1>
             <FindWide />
             <div className="home_info">
               <div className="home_info_table">
