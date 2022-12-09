@@ -1,5 +1,4 @@
 import { useActions } from '../../hooks/useActions';
-import { RemoveTrailingSlash } from '../RemoveTrailingSlash';
 import { Layout } from '../layouts/Layout';
 import { RenderRoutes } from 'components/RenderRoutes/RenderRoutes';
 import React, { useEffect } from 'react';
@@ -21,7 +20,6 @@ const Main: React.FC = () => {
 
   return (
     <Layout>
-      <RemoveTrailingSlash />
       <RenderRoutes routes={routes} />
     </Layout>
   );
