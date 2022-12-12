@@ -10,14 +10,12 @@ import {
 
 const BundleBlocksBody = ({ item }: any) => {
   const isBundle = (
-    <NavLink
-      rel="nofollow"
-      to={`bundles/${item?.bundleId}/`}
+    <span
       className="bundle_blocks_body_cell"
       style={{ color: '#808A9D', fontWeight: 600 }}
     >
       {sliceData10(item?.bundleId, 12)}
-    </NavLink>
+    </span>
   );
 
   const isBy = (
