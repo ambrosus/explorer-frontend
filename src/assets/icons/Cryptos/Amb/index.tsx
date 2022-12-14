@@ -2,33 +2,22 @@ import * as React from 'react';
 import { memo, SVGProps } from 'react';
 
 const SvgComponent = (props: SVGProps<SVGSVGElement>) => (
-  <svg
-    width="14"
-    height="30"
-    viewBox="0 0 24 30"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M1.14101 29.9075C0.946189 30.0263 0.692446 29.9712 0.564374 29.7824L0.0738214 29.0591C-0.0542504 28.8703 -0.011245 28.6145 0.16845 28.4739C1.78415 27.2097 3.11224 25.7847 4.15669 24.2585C8.04575 18.5757 8.04575 11.4244 4.15669 5.74158C3.11224 4.21538 1.78415 2.79042 0.168451 1.52618C-0.011244 1.38558 -0.0542495 1.12984 0.0738224 0.941003L0.564375 0.217718C0.692447 0.0288857 0.946191 -0.0261775 1.14101 0.0925851L22.9313 13.3758C24.1474 14.1172 24.1474 15.8829 22.9313 16.6243L1.14101 29.9075Z"
-      fill="url(#paint0_linear_2494_11262)"
-    />
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g clipPath="url(#clip0_1029_3723)">
+      <path d="M12 24C18.65 24 24 18.65 24 12C24 5.34996 18.65 0 12 0C5.34996 0 0 5.34996 0 12C0 18.65 5.34996 24 12 24Z" fill="#E3ECFF"/>
+      <path fillRule="evenodd" clipRule="evenodd" d="M7.57425 19.9666C7.4762 20.03 7.3485 20.0006 7.28404 19.8997L7.03715 19.5132C6.9727 19.4123 6.99434 19.2756 7.08478 19.2005C7.89793 18.5248 8.56634 17.7633 9.092 16.9477C11.0493 13.9108 11.0493 10.0892 9.092 7.05226C8.56634 6.23665 7.89793 5.47515 7.08478 4.79955C6.99434 4.72441 6.9727 4.58774 7.03715 4.48683L7.28404 4.1003C7.3485 3.99939 7.4762 3.96996 7.57425 4.03343L18.5409 11.132C19.153 11.5282 19.153 12.4718 18.541 12.868L7.57425 19.9666Z" fill="url(#paint0_linear_1029_3723)"/>
+    </g>
     <defs>
-      <linearGradient
-        id="paint0_linear_2494_11262"
-        x1="26.6263"
-        y1="15.2653"
-        x2="-8.76879"
-        y2="15.2653"
-        gradientUnits="userSpaceOnUse"
-      >
-        <stop stopColor="#3568DD" />
-        <stop offset="1" stopColor="#3568DD" stopOpacity="0.66" />
+      <linearGradient id="paint0_linear_1029_3723" x1="20.4006" y1="12.1417" x2="2.58681" y2="12.1417" gradientUnits="userSpaceOnUse">
+        <stop stopColor="#3568DD"/>
+        <stop offset="1" stopColor="#3568DD" stopOpacity="0.66"/>
       </linearGradient>
+      <clipPath id="clip0_1029_3723">
+        <rect width="24" height="24" fill="white"/>
+      </clipPath>
     </defs>
   </svg>
+
 );
 
 const Memo = memo(SvgComponent);
