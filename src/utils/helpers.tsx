@@ -2,6 +2,10 @@ import { TransactionProps } from '../pages/Addresses/AddressDetails/address-deta
 import { ENABLE_LOGS } from './constants';
 import Amb from 'assets/icons/Cryptos/Amb';
 import Eth from 'assets/icons/Cryptos/Eth';
+import Bnb from 'assets/icons/Cryptos/Bnb';
+import Busd from 'assets/icons/Cryptos/Busd';
+import Usdc from 'assets/icons/Cryptos/Usdc';
+import Usdt from 'assets/icons/Cryptos/Usdt';
 import GreenCircle from 'assets/icons/StatusAction/GreenCircle';
 import OrangeCircle from 'assets/icons/StatusAction/OrangeCircle';
 import moment from 'moment';
@@ -99,8 +103,18 @@ export const getTokenIcon = (symbol: string) => {
       return Amb;
     case 'WETH':
       return Eth;
+    case 'ETH':
+      return Eth;
     case 'AMB':
       return Amb;
+    case 'BNB':
+      return Bnb;
+    case 'USDT':
+      return Usdt;
+    case 'USDC':
+      return Usdc;
+    case 'BUSD':
+      return Busd;
     default:
       return Amb;
   }
