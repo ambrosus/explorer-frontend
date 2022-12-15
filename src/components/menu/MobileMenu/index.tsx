@@ -26,7 +26,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ menu, setIsShow, isShow }) => {
         </button>
         {isShow && (
           <div className="mobile_menu_modal">
-            <NavLink to="/" rel="canonical" className="mobile_menu_logo">
+            <NavLink to="/" className="mobile_menu_logo">
               <img src={logo} alt="logo" />
             </NavLink>
             <span>

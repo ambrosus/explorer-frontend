@@ -68,7 +68,6 @@ const EventDetails = ({
             style={{ fontWeight: 600 }}
           >
             <NavLink
-              rel="canonical"
               to={`/tx/${txHash}/`}
               className="contract_events-body-navlink universall_light2"
             >
@@ -92,7 +91,6 @@ const EventDetails = ({
         <div className="contract_events-body-cells">
           <div className="contract_events-body-subcell ">
             <NavLink
-              rel="canonical"
               to={`/blocks/${blockNumber}/`}
               className="contract_events-body-navlink universall_light2"
             >

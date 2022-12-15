@@ -137,7 +137,6 @@ export const BlockDetails = memo(() => {
       name: 'PARENT HASH',
       value: (
         <NavLink
-          rel="canonical"
           className="address_blocks_icon head_info_cells_secondary"
           to={`/blocks/${parentHash}/`}
         >
@@ -168,7 +167,6 @@ export const BlockDetails = memo(() => {
           <div className="block_main_title__in">
             <div className="block_main_title_validator">Validator </div>
             <NavLink
-              rel="canonical"
               to={`/apollo/${block?.miner}/`}
               className="block_main_title_address"
             >

@@ -78,7 +78,6 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
         </button>
       )}
       <NavLink
-        rel="canonical"
         to={`/tx/${txhash}/`}
         className="address_blocks_cell address_blocks_cell-hash universall_light2"
         style={{ fontWeight: '600' }}
@@ -107,7 +106,6 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
     ) : //TODO ?
     address !== from && String(from).trim().length ? (
       <NavLink
-        rel="canonical"
         to={`/address/${from}/`}
         className="address_blocks_cell universall_light2"
       >
@@ -125,7 +123,6 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
     ) : //TODO ?
     address !== to && String(to).trim().length ? (
       <NavLink
-        rel="canonical"
         to={`/address/${to}/`}
         style={{ display: 'content' }}
         className="address_blocks_cell universall_light2"
@@ -143,7 +140,6 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
     type === 'ERC-20_Tx' ? null : (
       <div className="address_blocks_cell">
         <NavLink
-          rel="canonical"
           className="address_blocks_icon"
           style={{
             fontWeight: 400,
@@ -254,7 +250,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
             className="address_blocks_cell_token  universall_light2"
             onClick={handleBlock}
           >
-            <NavLink rel="canonical" className="address_blocks_icon universall_light2" to={``}>
+            <NavLink className="address_blocks_icon universall_light2" to={``}>
               {token ? token : ''}{' '}
               {token.includes('token')
                 ? `(${getAmbTokenSymbol(token)})`

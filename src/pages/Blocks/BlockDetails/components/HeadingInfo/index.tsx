@@ -20,7 +20,6 @@ const HeadingInfo = ({ block = { miner: '', number: 0 } }: any) => {
         <div className="block_main_title__in">
           <div className="block_main_title_validator">Validator </div>
           <NavLink
-            rel="canonical"
             to={`/apollo/${block?.miner}/`}
             className="block_main_title_address"
           >
