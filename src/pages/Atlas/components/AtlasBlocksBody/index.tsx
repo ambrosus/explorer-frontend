@@ -10,6 +10,7 @@ const AtlasBlocksBody = ({ index, item }: any) => {
     <div className="atlas_blocks_body">
       <div className="atlas_blocks_body_cell">{index}</div>
       <NavLink
+        rel="canonical"
         style={{
           cursor: 'pointer',
           color: '#808A9D',

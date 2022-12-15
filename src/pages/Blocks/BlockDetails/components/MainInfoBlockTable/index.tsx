@@ -21,6 +21,7 @@ export const MainInfoBlockTable = ({ block }: any) => {
           <span className="main_info_block_table_cell_secondary gray">
             {' '}
             <NavLink
+              rel="canonical"
               className="address_blocks_icon universall_light2"
               to={`/blocks/${parentHash}/`}
             >

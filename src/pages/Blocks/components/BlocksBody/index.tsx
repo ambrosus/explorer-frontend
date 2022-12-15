@@ -51,6 +51,7 @@ const BlocksBody: FC<IBlocksBody> = ({ index, item }) => {
   return (
     <div className="blocks_blocks_body">
       <NavLink
+        rel="canonical"
         to={`/blocks/${number}/`}
         className="blocks_blocks_body_cell color-gray universall_link_underline"
         style={{
@@ -60,7 +61,7 @@ const BlocksBody: FC<IBlocksBody> = ({ index, item }) => {
         <span style={{ marginRight: 8 }}>{online(confirmations)}</span> {number}
       </NavLink>
 
-      <NavLink to={`/apollo/${miner}/`} className="universall_light2">
+      <NavLink rel="canonical" to={`/apollo/${miner}/`} className="universall_light2">
         <div
           className="blocks_blocks_body_cell color-gray"
           style={{

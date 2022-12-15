@@ -19,6 +19,7 @@ export const NewHeader = () => {
 
     return (
       <NavLink
+        rel="canonical"
         to={`${menuElement.path}/`}
         key={menuElement.key}
         className={({ isActive }) =>

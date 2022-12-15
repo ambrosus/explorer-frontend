@@ -154,6 +154,7 @@ const Tabs: FC<TabsProps> = ({
 
         return (
           <NavLink
+            rel="canonical"
             key={filter.title}
             to={`/address/${address}/${filter.value || ''}${contractUrl(
               filter.value,
@@ -171,6 +172,7 @@ const Tabs: FC<TabsProps> = ({
     if (ERC20Filters?.length)
       navLinks = ERC20Filters.map((filter) => (
         <NavLink
+          rel="canonical"
           key={filter.title}
           to={`/address/${address}/ERC-20_Tx/${filtered}/${filter.value}/ `}
           className={() => handleNavLinkClass(`${filter?.title}s`)}

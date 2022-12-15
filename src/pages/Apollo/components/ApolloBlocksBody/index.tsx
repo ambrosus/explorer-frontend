@@ -12,6 +12,7 @@ const ApolloBlocksBody: FC<ApolloBodyProps> = ({ index, item }) => {
         <div className="apollo_blocks_body_cell">{index}</div>
 
         <NavLink
+          rel="canonical"
           style={{
             cursor: 'pointer',
             color: '#808A9D',

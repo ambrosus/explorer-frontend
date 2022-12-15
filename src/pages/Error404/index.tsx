@@ -11,7 +11,7 @@ const Error404 = () => {
             The page you are looking for may have been moved, deleted, or
             possibly never existed
           </p>
-          <a className="not-found__home" href="/">
+          <a className="not-found__home" href="/" rel="canonical">
             Back to Home
           </a>
         </div>
