@@ -23,6 +23,7 @@ const BundleDetails = () => {
   return (
     <Content>
       <Helmet>
+        <meta name="robots" content="noindex" />
         <link rel="canonical" href="https://airdao.io/explorer/bundles/"/>
       </Helmet>
       <Content.Header>

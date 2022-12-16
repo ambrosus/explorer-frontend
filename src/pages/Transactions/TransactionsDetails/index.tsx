@@ -154,6 +154,7 @@ export const TransactionDetails = () => {
     <Content>
       <Helmet>
         <link rel="canonical" href="https://airdao.io/explorer/tx/"/>
+        <meta name="robots" content="noindex" />
       </Helmet>
       <section className="address_details transaction_details container">
         <Content.Header>

@@ -215,6 +215,7 @@ const AddressDetails = () => {
   return (
     <Content>
       <Helmet>
+        <meta name="robots" content="noindex" />
         <link rel="canonical" href="https://airdao.io/explorer/addresses/"/>
       </Helmet>
       <section className="address_details">

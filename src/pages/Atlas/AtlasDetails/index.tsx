@@ -101,6 +101,7 @@ export const AtlasDetails = () => {
     <Content>
       <Helmet>
         <link rel="canonical" href="https://airdao.io/explorer/atlas/"/>
+        <meta name="robots" content="noindex" />
       </Helmet>
       <Content.Header>
         <div className="atlas_details_main">

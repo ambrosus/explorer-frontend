@@ -158,6 +158,7 @@ export const BlockDetails = memo(() => {
   return (
     <Content isExpanded>
       <Helmet>
+        <meta name="robots" content="noindex" />
         <link rel="canonical" href="https://airdao.io/explorer/blocks/"/>
       </Helmet>
       <Content.Header>

@@ -20,6 +20,7 @@ import {
   diffStyleToCell,
 } from 'utils/helpers';
 import { apolloDetailsSorting } from 'utils/sidePages';
+import {Helmet} from "react-helmet";
 
 export const ApolloDetails = memo(() => {
   const { getAddressData } = useActions();
@@ -165,6 +166,10 @@ export const ApolloDetails = memo(() => {
 
   return (
     <Content>
+      <Helmet>
+        <link rel="canonical" href="https://airdao.io/explorer/apollo/"/>
+        <meta name="robots" content="noindex" />
+      </Helmet>
       <Content.Header>
         <div className="apollo_details_main">
           <div className="apollo_details_main_nd">
