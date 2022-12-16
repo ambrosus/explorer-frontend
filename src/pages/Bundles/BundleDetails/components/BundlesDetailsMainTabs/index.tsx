@@ -40,6 +40,7 @@ const BundleDetailsMainTabs = ({ data }: any) => {
       name: 'BY',
       value: (
         <NavLink
+          rel="nofollow"
           to={`/addresses/${data.uploader}/`}
           style={{ color: '#808A9D' }}
         >
@@ -54,7 +55,7 @@ const BundleDetailsMainTabs = ({ data }: any) => {
       _id: 2,
       name: 'TX HASH',
       value: (
-        <NavLink to={`/tx/${data?.txHash}/`} style={{ color: '#808A9D' }}>
+        <NavLink rel="nofollow" to={`/tx/${data?.txHash}/`} style={{ color: '#808A9D' }}>
           {sliceData10(data?.txHash, 12)}
         </NavLink>
       ),
@@ -67,6 +68,7 @@ const BundleDetailsMainTabs = ({ data }: any) => {
       name: 'BLOCK',
       value: (
         <NavLink
+          rel="nofollow"
           to={`/blocks/${data.block.number}/`}
           style={{ color: '#808A9D' }}
         >

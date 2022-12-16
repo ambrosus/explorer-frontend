@@ -78,6 +78,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
         </button>
       )}
       <NavLink
+        rel="nofollow"
         to={`/tx/${txhash}/`}
         className="address_blocks_cell address_blocks_cell-hash universall_light2"
         style={{ fontWeight: '600' }}
@@ -106,6 +107,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
     ) : //TODO ?
     address !== from && String(from).trim().length ? (
       <NavLink
+        rel="nofollow"
         to={`/addresses/${from}/`}
         className="address_blocks_cell universall_light2"
       >
@@ -123,6 +125,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
     ) : //TODO ?
     address !== to && String(to).trim().length ? (
       <NavLink
+        rel="nofollow"
         to={`/addresses/${to}/`}
         style={{ display: 'content' }}
         className="address_blocks_cell universall_light2"
@@ -145,6 +148,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
             fontWeight: 400,
           }}
           to={`/blocks/${block}/`}
+          rel="nofollow"
         >
           {block}
         </NavLink>
