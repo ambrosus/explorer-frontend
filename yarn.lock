@@ -3419,10 +3419,10 @@ aggregate-error@^3.0.0:
     clean-stack "^2.0.0"
     indent-string "^4.0.0"
 
-airdao-menu@^2.1.35:
-  version "2.1.35"
-  resolved "https://registry.yarnpkg.com/airdao-menu/-/airdao-menu-2.1.35.tgz#ef010ca56550f9b053817d8cb80eb6003b8f2ccf"
-  integrity sha512-NK2AEXvPqWaS91hDalomEWQSqatmi0fhCKYGoV/LWUu09ZvsJbIPbVIun85tnwKaFST1IiO4a/kgofIehiu4LA==
+airdao-menu@^2.2.4:
+  version "2.2.19"
+  resolved "https://registry.yarnpkg.com/airdao-menu/-/airdao-menu-2.2.19.tgz#7bafb1c953acd7b7091d59e5d7334a920e975e21"
+  integrity sha512-/0u2z6A3/+/50Z0Jz3a4OgSsi0TW4uX6MZ+MEJMcNe4RAf6Jw79TJeo+KmfRDBejrWQB9ZuN0uLyTNl20EC/xQ==
 
 ajv-formats@^2.1.1:
   version "2.1.1"

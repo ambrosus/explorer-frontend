@@ -64,7 +64,7 @@ export const Home: React.FC = () => {
   return (
     <Content isLoading={!!data && !!appData}>
       <Helmet>
-        <link rel="canonical" href="https://airdao.io/explorer/"/>
+        <link rel="canonical" href="https://airdao.io/explorer/" />
       </Helmet>
       {data && appData && (
         <div className="home">

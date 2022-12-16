@@ -13,6 +13,7 @@ import moment from 'moment';
 import AddressBlock from 'pages/Addresses/AddressDetails/components/AddressBlocks';
 import AddressBlocksHeader from 'pages/Addresses/AddressDetails/components/AddressBlocksHeader';
 import React, { useEffect, useRef, useState } from 'react';
+import { Helmet } from 'react-helmet';
 import { NavLink, useParams } from 'react-router-dom';
 import {
   displayAmount,
@@ -20,7 +21,6 @@ import {
   sliceData10,
   sliceData5,
 } from 'utils/helpers';
-import {Helmet} from "react-helmet";
 
 export const TransactionDetails = () => {
   const { hash } = useParams();
@@ -150,7 +150,7 @@ export const TransactionDetails = () => {
   return (
     <Content>
       <Helmet>
-        <link rel="canonical" href="https://airdao.io/explorer/tx/"/>
+        <link rel="canonical" href="https://airdao.io/explorer/tx/" />
         <meta name="robots" content="noindex" />
       </Helmet>
       <section className="address_details transaction_details container">

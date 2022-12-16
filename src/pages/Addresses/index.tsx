@@ -8,8 +8,8 @@ import Loader from 'components/Loader';
 import useSortData from 'hooks/useSortData';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import React from 'react';
+import { Helmet } from 'react-helmet';
 import { getAccountsData } from 'services/accounts.service';
-import {Helmet} from "react-helmet";
 
 export const Addresses = () => {
   const { ref, sortTerm, setSortTerm, renderData, loading, setRenderData } =
@@ -21,7 +21,7 @@ export const Addresses = () => {
   return (
     <Content>
       <Helmet>
-        <link rel="canonical" href="https://airdao.io/explorer/addresses/"/>
+        <link rel="canonical" href="https://airdao.io/explorer/addresses/" />
       </Helmet>
       <Content.Header>
         <MainInfoAddresses />
