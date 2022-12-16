@@ -9,6 +9,7 @@ import FindWide from 'components/Find/FindWide';
 import useDeviceSize from 'hooks/useDeviceSize';
 import MainInfo from 'pages/Home/components/MainInfo';
 import { useEffect, useMemo, useState } from 'react';
+import { Helmet } from 'react-helmet';
 
 export const Home: React.FC = () => {
   const [data, setData] = useState<ResultHomePageData>();
@@ -62,6 +63,9 @@ export const Home: React.FC = () => {
 
   return (
     <Content isLoading={!!data && !!appData}>
+      <Helmet>
+        <link rel="canonical" href="https://airdao.io/explorer/"/>
+      </Helmet>
       {data && appData && (
         <div className="home">
           <Content.Header>

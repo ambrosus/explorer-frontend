@@ -50,6 +50,9 @@ export const Blocks = memo(() => {
 
   return (
     <Content>
+      <Helmet>
+        <link rel="canonical" href="https://airdao.io/explorer/blocks/"/>
+      </Helmet>
       <Content.Header>
         <div className="block_main_title">
           <h1 className="main_info_blocks_heading">Blocks</h1>

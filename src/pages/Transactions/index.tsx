@@ -14,6 +14,9 @@ export const Transactions = memo(() => {
 
   return (
     <Content>
+      <Helmet>
+        <link rel="canonical" href="https://airdao.io/explorer/tx/"/>
+      </Helmet>
       <Content.Header>
         <div className="transactions_header">
           <h1>Transactions</h1>
