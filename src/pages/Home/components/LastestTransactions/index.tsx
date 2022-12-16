@@ -20,7 +20,7 @@ const LatestTransactions: React.FC<LatestTransactionsProps> = ({
         <div className="lastest_transactions_cell">
           <div className="lastest_transactions_cell_content lastest_transactions_font_big">
             <span style={{ marginRight: 8 }}>{isOnline(status)}</span>
-            <NavLink to={`tx/${hash}/`}>{sliceData5(hash)}</NavLink>
+            <NavLink rel="nofollow" to={`tx/${hash}/`}>{sliceData5(hash)}</NavLink>
           </div>
 
           <div className="lastest_transactions_p lastest_transactions_font_small">
@@ -33,7 +33,7 @@ const LatestTransactions: React.FC<LatestTransactionsProps> = ({
           <div className="lastest_transactions_cell_content">
             <div className="lastest_transactions_font_small">From</div>
             <div className="lastest_transactions_font_big lastest_transactions_margin_left">
-              <NavLink className="" to={`/address/${from}/`}>
+              <NavLink rel="nofollow" to={`/address/${from}/`}>
                 {sliceData5(from)}
               </NavLink>
             </div>
@@ -41,7 +41,7 @@ const LatestTransactions: React.FC<LatestTransactionsProps> = ({
           <div className="lastest_transactions_cell_content">
             <div className="lastest_transactions_font_small">To</div>
             <div className="lastest_transactions_font_big lastest_transactions_margin_left">
-              <NavLink className="" to={`/address/${to}`}>
+              <NavLink rel="nofollow" to={`/address/${to}`}>
                 {sliceData5(to)}
               </NavLink>
             </div>

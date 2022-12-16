@@ -101,6 +101,7 @@ export const TransactionDetails = () => {
       name: 'FROM',
       value: txData?.from ? (
         <NavLink
+          rel="nofollow"
           style={{ fontSize: '14px', fontWeight: 600 }}
           to={`/address/${txData?.from}/`}
           className="universall_light1"
@@ -115,6 +116,7 @@ export const TransactionDetails = () => {
       name: 'TO',
       value: txData?.to ? (
         <NavLink
+          rel="nofollow"
           style={{ fontSize: '14px', fontWeight: 600 }}
           to={`/address/${txData?.to}/`}
           className="universall_light1"
@@ -136,6 +138,7 @@ export const TransactionDetails = () => {
       name: 'BLOCK HASH',
       value: (
         <NavLink
+          rel="nofollow"
           to={`/blocks/${txData.blockHash}/`}
           className="atlas_details_balance_fonts_bold head_info_cells_secondary_block"
         >

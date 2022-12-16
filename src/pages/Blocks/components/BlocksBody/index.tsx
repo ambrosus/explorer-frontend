@@ -52,6 +52,7 @@ const BlocksBody: FC<IBlocksBody> = ({ index, item }) => {
     <div className="blocks_blocks_body">
       <NavLink
         to={`/blocks/${number}/`}
+        rel="nofollow"
         className="blocks_blocks_body_cell color-gray universall_link_underline"
         style={{
           fontWeight: 600,
@@ -60,7 +61,7 @@ const BlocksBody: FC<IBlocksBody> = ({ index, item }) => {
         <span style={{ marginRight: 8 }}>{online(confirmations)}</span> {number}
       </NavLink>
 
-      <NavLink to={`/apollo/${miner}/`} className="universall_light2">
+      <NavLink rel="nofollow" to={`/apollo/${miner}/`} className="universall_light2">
         <div
           className="blocks_blocks_body_cell color-gray"
           style={{

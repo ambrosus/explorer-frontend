@@ -15,6 +15,7 @@ const AtlasBlocksBody = ({ index, item }: any) => {
           color: '#808A9D',
           fontWeight: 600,
         }}
+        rel="nofollow"
         className="atlas_blocks_body_cell"
         to={`${item.address}/`}
       >

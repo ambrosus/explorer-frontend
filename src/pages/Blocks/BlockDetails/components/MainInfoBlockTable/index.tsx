@@ -23,6 +23,7 @@ export const MainInfoBlockTable = ({ block }: any) => {
             <NavLink
               className="address_blocks_icon universall_light2"
               to={`/blocks/${parentHash}/`}
+              rel="nofollow"
             >
               {parentHash ?? ''}
             </NavLink>

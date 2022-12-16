@@ -21,6 +21,7 @@ const BundleBlocksBody = ({ item }: any) => {
 
   const isBy = (
     <NavLink
+      rel="nofollow"
       to={`/address/${item.uploader}/`}
       className="bundle_blocks_body_cell"
       style={{ color: '#808A9D' }}
@@ -58,6 +59,7 @@ const BundleBlocksBody = ({ item }: any) => {
           fontWeight: 400,
         }}
         to={`/blocks/${item.block.number}/`}
+        rel="nofollow"
       >
         {item.block.number}
       </NavLink>
