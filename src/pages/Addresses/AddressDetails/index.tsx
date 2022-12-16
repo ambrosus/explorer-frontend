@@ -15,6 +15,7 @@ import { shallowEqual } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getDataForAddress } from 'services/address.service';
 import { TParams } from 'types';
+import {Helmet} from "react-helmet";
 
 const AddressDetails = () => {
   const { filters } = useTypedSelector(
@@ -213,6 +214,9 @@ const AddressDetails = () => {
 
   return (
     <Content>
+      <Helmet>
+        <link rel="canonical" href="https://airdao.io/explorer/addresses/"/>
+      </Helmet>
       <section className="address_details">
         <Content.Header>
           <h1 className="address_details_h1">

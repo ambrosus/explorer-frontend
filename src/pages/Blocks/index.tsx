@@ -9,6 +9,7 @@ import { Content } from 'components/Content';
 import HeadInfo from 'components/HeadInfo';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import React, { memo, useEffect, useState } from 'react';
+import {Helmet} from "react-helmet";
 
 export const Blocks = memo(() => {
   const [blockData, setBlockData] = useState<any>(null);
@@ -47,6 +48,9 @@ export const Blocks = memo(() => {
 
   return (
     <Content>
+      <Helmet>
+        <link rel="canonical" href="https://airdao.io/explorer/blocks/"/>
+      </Helmet>
       <Content.Header>
         <div className="block_main_title">
           <h1 className="main_info_blocks_heading">Blocks</h1>

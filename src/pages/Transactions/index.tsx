@@ -9,6 +9,7 @@ import API2 from 'API/newApi';
 import { Content } from 'components/Content';
 import moment from 'moment';
 import React, { memo, useEffect, useState } from 'react';
+import {Helmet} from "react-helmet";
 
 export const Transactions = memo(() => {
   const [txData, setTxData] = useState<any>(null);
@@ -19,6 +20,9 @@ export const Transactions = memo(() => {
 
   return (
     <Content>
+      <Helmet>
+        <link rel="canonical" href="https://airdao.io/explorer/tx/"/>
+      </Helmet>
       <Content.Header>
         <div className="transactions_header">
           <h1>Transactions</h1>

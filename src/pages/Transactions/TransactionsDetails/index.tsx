@@ -21,6 +21,7 @@ import {
   sliceData10,
   sliceData5,
 } from 'utils/helpers';
+import {Helmet} from "react-helmet";
 
 export const TransactionDetails = () => {
   const { hash } = useParams();
@@ -151,6 +152,9 @@ export const TransactionDetails = () => {
 
   return (
     <Content>
+      <Helmet>
+        <link rel="canonical" href="https://airdao.io/explorer/tx/"/>
+      </Helmet>
       <section className="address_details transaction_details container">
         <Content.Header>
           <div className="address_details_h1 address_details_h1-tx">

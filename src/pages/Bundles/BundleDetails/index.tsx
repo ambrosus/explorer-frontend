@@ -5,9 +5,10 @@ import NodeHeader from 'components/NodeHeader';
 import { useActions } from 'hooks/useActions';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import BundleDetailsMain from 'pages/Bundles/BundleDetails/components/BundleDetailsMain';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getBundleData } from 'services/bundle.service';
+import {Helmet} from "react-helmet";
 
 const BundleDetails = () => {
   const { setAppDataAsync } = useActions();
@@ -21,6 +22,9 @@ const BundleDetails = () => {
 
   return (
     <Content>
+      <Helmet>
+        <link rel="canonical" href="https://airdao.io/explorer/bundles/"/>
+      </Helmet>
       <Content.Header>
         <BundleDetailsMain />
         <NodeHeader getNodeData={getBundleData}>
