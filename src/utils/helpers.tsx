@@ -109,6 +109,8 @@ export const getTokenIcon = (symbol: string) => {
       return Amb;
     case 'BNB':
       return Bnb;
+    case 'WBNB':
+      return Bnb;
     case 'USDT':
       return Usdt;
     case 'USDC':

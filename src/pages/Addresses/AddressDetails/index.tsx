@@ -11,11 +11,11 @@ import { useActions } from 'hooks/useActions';
 import useDeviceSize from 'hooks/useDeviceSize';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { Helmet } from 'react-helmet';
 import { shallowEqual } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getDataForAddress } from 'services/address.service';
 import { TParams } from 'types';
-import {Helmet} from "react-helmet";
 
 const AddressDetails = () => {
   const { filters } = useTypedSelector(
@@ -216,7 +216,7 @@ const AddressDetails = () => {
     <Content>
       <Helmet>
         <meta name="robots" content="noindex" />
-        <link rel="canonical" href="https://airdao.io/explorer/addresses/"/>
+        <link rel="canonical" href="https://airdao.io/explorer/addresses/" />
       </Helmet>
       <section className="address_details">
         <Content.Header>

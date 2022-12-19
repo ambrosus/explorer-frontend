@@ -16,10 +16,10 @@ import HeadInfo from 'components/HeadInfo';
 import useDeviceSize from 'hooks/useDeviceSize';
 import moment from 'moment';
 import React, { memo, useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet';
 import { useQuery } from 'react-query';
 import { NavLink, useNavigate, useParams } from 'react-router-dom';
 import { sliceData10, sliceData5 } from 'utils/helpers';
-import {Helmet} from "react-helmet";
 
 export interface IBlock {
   miner: string;
@@ -160,7 +160,7 @@ export const BlockDetails = memo(() => {
     <Content isExpanded>
       <Helmet>
         <meta name="robots" content="noindex" />
-        <link rel="canonical" href="https://airdao.io/explorer/blocks/"/>
+        <link rel="canonical" href="https://airdao.io/explorer/blocks/" />
       </Helmet>
       <Content.Header>
         <div className="block_main_title">

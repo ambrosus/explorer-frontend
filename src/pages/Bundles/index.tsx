@@ -7,8 +7,8 @@ import { useTypedSelector } from 'hooks/useTypedSelector';
 import BundleBlocksBody from 'pages/Bundles/components/BundleBlocksBody';
 import BundleBlocksHeader from 'pages/Bundles/components/BundleBlocksHeader';
 import React from 'react';
+import { Helmet } from 'react-helmet';
 import { ambMonthUSD, numberWithCommas } from 'utils/helpers';
-import {Helmet} from "react-helmet";
 
 export const Bundles = () => {
   const { data } = useTypedSelector((state) => state.app);
@@ -63,7 +63,7 @@ export const Bundles = () => {
   return (
     <Content>
       <Helmet>
-        <link rel="canonical" href="https://airdao.io/explorer/bundles/"/>
+        <link rel="canonical" href="https://airdao.io/explorer/bundles/" />
       </Helmet>
       <Content.Header>
         <h1 style={{ margin: '32px 0' }}>Bundles</h1>

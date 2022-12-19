@@ -20,7 +20,9 @@ const LatestTransactions: React.FC<LatestTransactionsProps> = ({
         <div className="lastest_transactions_cell">
           <div className="lastest_transactions_cell_content lastest_transactions_font_big">
             <span style={{ marginRight: 8 }}>{isOnline(status)}</span>
-            <NavLink rel="nofollow" to={`tx/${hash}/`}>{sliceData5(hash)}</NavLink>
+            <NavLink rel="nofollow" to={`tx/${hash}/`}>
+              {sliceData5(hash)}
+            </NavLink>
           </div>
 
           <div className="lastest_transactions_p lastest_transactions_font_small">

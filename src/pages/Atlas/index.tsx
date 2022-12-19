@@ -7,7 +7,7 @@ import { Content } from 'components/Content';
 import HeadInfo from 'components/HeadInfo';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import React from 'react';
-import {Helmet} from "react-helmet";
+import { Helmet } from 'react-helmet';
 
 const sortOptions: TAtlasSortProps[] = [
   {
@@ -49,7 +49,7 @@ export const Atlas = () => {
   return (
     <Content>
       <Helmet>
-        <link rel="canonical" href="https://airdao.io/explorer/apollo/"/>
+        <link rel="canonical" href="https://airdao.io/explorer/apollo/" />
       </Helmet>
       <Content.Header>
         <h1 className="main_info_atlas_heading">Atlas Nodes</h1>

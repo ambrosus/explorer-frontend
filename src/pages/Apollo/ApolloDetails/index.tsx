@@ -11,6 +11,7 @@ import moment from 'moment';
 import AddressBlock from 'pages/Addresses/AddressDetails/components/AddressBlocks';
 import TabsNew from 'pages/Transactions/components/TabsNew';
 import React, { memo, useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet';
 import { useParams } from 'react-router-dom';
 import { TParams } from 'types';
 import {
@@ -20,7 +21,6 @@ import {
   diffStyleToCell,
 } from 'utils/helpers';
 import { apolloDetailsSorting } from 'utils/sidePages';
-import {Helmet} from "react-helmet";
 
 export const ApolloDetails = memo(() => {
   const { getAddressData } = useActions();
@@ -167,7 +167,7 @@ export const ApolloDetails = memo(() => {
   return (
     <Content>
       <Helmet>
-        <link rel="canonical" href="https://airdao.io/explorer/apollo/"/>
+        <link rel="canonical" href="https://airdao.io/explorer/apollo/" />
         <meta name="robots" content="noindex" />
       </Helmet>
       <Content.Header>
