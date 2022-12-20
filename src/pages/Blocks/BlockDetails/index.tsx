@@ -125,7 +125,7 @@ export const BlockDetails = memo(() => {
     },
     {
       name: 'CREATED',
-      value: moment(timestamp * 1000).fromNow(),
+      value: `${moment(timestamp * 1000).fromNow()} (${moment(timestamp * 1000).format('YYYY-MM-DD HH:mm:ss')})`,
     },
   ];
 
