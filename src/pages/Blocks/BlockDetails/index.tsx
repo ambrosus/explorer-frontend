@@ -123,7 +123,9 @@ export const BlockDetails = () => {
     },
     {
       name: 'CREATED',
-      value: `${moment(timestamp * 1000).fromNow()} (${moment(timestamp * 1000).format('YYYY-MM-DD HH:mm:ss')})`,
+      value: `${moment(timestamp * 1000).fromNow()} (${moment(
+        timestamp * 1000,
+      ).format('YYYY-MM-DD HH:mm:ss')})`,
     },
   ];
 
