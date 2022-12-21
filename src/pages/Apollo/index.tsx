@@ -7,6 +7,7 @@ import { Content } from 'components/Content';
 import HeadInfo from 'components/HeadInfo';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import React, { memo } from 'react';
+import {Helmet} from "react-helmet";
 
 export const Apollo = memo(() => {
   const { data: appData } = useTypedSelector((state: any) => state.app);
@@ -48,6 +49,10 @@ export const Apollo = memo(() => {
 
   return (
     <Content>
+      <Helmet>
+        <link rel="canonical" href="https://airdao.io/explorer/apollo/" />
+        <meta name="robots" content="noindex" />
+      </Helmet>
       <Content.Header>
         <h1 className="main_info_apollo_heading">Apollo Nodes</h1>
         <HeadInfo data={itemFirst} className="head_info" />
