@@ -1,9 +1,9 @@
 import { TransactionProps } from '../pages/Addresses/AddressDetails/address-details.interface';
 import { ENABLE_LOGS } from './constants';
 import Amb from 'assets/icons/Cryptos/Amb';
-import Eth from 'assets/icons/Cryptos/Eth';
 import Bnb from 'assets/icons/Cryptos/Bnb';
 import Busd from 'assets/icons/Cryptos/Busd';
+import Eth from 'assets/icons/Cryptos/Eth';
 import Usdc from 'assets/icons/Cryptos/Usdc';
 import Usdt from 'assets/icons/Cryptos/Usdt';
 import GreenCircle from 'assets/icons/StatusAction/GreenCircle';
@@ -108,6 +108,8 @@ export const getTokenIcon = (symbol: string) => {
     case 'AMB':
       return Amb;
     case 'BNB':
+      return Bnb;
+    case 'WBNB':
       return Bnb;
     case 'USDT':
       return Usdt;

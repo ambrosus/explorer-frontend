@@ -8,7 +8,7 @@ import TabsNew from './components/TabsNew';
 import { Content } from 'components/Content';
 import moment from 'moment';
 import React, { memo } from 'react';
-import {Helmet} from "react-helmet";
+import { Helmet } from 'react-helmet';
 
 export const Transactions = memo(() => {
   const { data: appData } = useTypedSelector((state: any) => state.app);

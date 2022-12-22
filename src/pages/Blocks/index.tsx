@@ -8,7 +8,7 @@ import { Content } from 'components/Content';
 import HeadInfo from 'components/HeadInfo';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import React, { memo, useEffect } from 'react';
-import {Helmet} from "react-helmet";
+import { Helmet } from 'react-helmet';
 
 export const Blocks = memo(() => {
   const { setAppDataAsync } = useActions();

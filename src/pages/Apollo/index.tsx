@@ -7,7 +7,7 @@ import { Content } from 'components/Content';
 import HeadInfo from 'components/HeadInfo';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import React, { memo } from 'react';
-import {Helmet} from "react-helmet";
+import { Helmet } from 'react-helmet';
 
 export const Apollo = memo(() => {
   const { data: appData } = useTypedSelector((state: any) => state.app);
