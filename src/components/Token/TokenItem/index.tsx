@@ -3,7 +3,8 @@ import React from 'react';
 import { getTokenIcon } from 'utils/helpers';
 
 const TokenItem = ({ token, selectedToken, setToken }: ITokenItemProps) => {
-  const Icon = getTokenIcon(token.symbol);
+  const Icon = getTokenIcon(token.symbol, token.name);
+
   return (
     <div
       className={

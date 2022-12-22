@@ -37,7 +37,7 @@ const FilteredToken: FC<FilteredTokenProps> = ({ setSelectedToken }) => {
     clearFilters();
     navigate(`/addresses/${address}/ERC-20_Tx/`);
   };
-  const Icon = getTokenIcon(filters.symbol as string);
+  const Icon = getTokenIcon(filters.symbol as string, filters.name);
 
   return (
     <div className="filtered_token">

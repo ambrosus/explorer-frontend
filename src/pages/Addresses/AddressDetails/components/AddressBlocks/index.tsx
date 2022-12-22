@@ -155,7 +155,8 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
       </div>
     );
 
-  const Icon = getTokenIcon(symbol as string);
+  const Icon = getTokenIcon(symbol as string, token);
+
   //TODO ?
   const handleBlock = () => {
     addressData?.tokens?.forEach((item: TokenType) => {
