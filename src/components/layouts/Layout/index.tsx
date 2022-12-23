@@ -17,7 +17,9 @@ export const Layout: FC<LayoutProps> = ({ children }) => {
 
   return (
     <div className="layout ">
-      <Menu web3ReactInstance={web3ReactInstance} initHidden />
+      <div className="container" style={{ position: 'relative' }}>
+        <Menu web3ReactInstance={web3ReactInstance} initHidden />
+      </div>
       <NewHeader />
       <div className="page">{children}</div>
     </div>
