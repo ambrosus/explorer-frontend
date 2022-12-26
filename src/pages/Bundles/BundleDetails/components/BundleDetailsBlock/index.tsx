@@ -14,7 +14,7 @@ const BundleDetailsBlock = ({ data, bundleRef, tab }: any) => {
       target="_blank"
       ref={bundleRef}
       className="bundle_details_blocks_cell"
-      rel="noreferrer"
+      rel="nofollow"
     >
       {tab === 'assets' ? data.assetId : data.eventId}
     </a>

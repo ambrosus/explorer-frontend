@@ -19,13 +19,13 @@ const NodeHeader = ({ children, getNodeData }: any) => {
         if (data?.data) {
           return data.data;
         } else {
-          navigate(`/notfound`);
+          navigate(`/notfound/`);
           return null;
         }
       });
   }, [isLoading]);
 
-  if (isError) navigate(`/notfound`);
+  if (isError) navigate(`/notfound/`);
 
   const res = node && children({ node });
   return res;

@@ -48,6 +48,12 @@ const BlocksBody: FC<IBlocksBody> = ({ index, item }) => {
     );
   };
 
+  function redirectHandler(): void {
+    navigate(`${item.number}/` as string);
+  }
+
+  const navigate = useNavigate();
+
   return (
     <div className="blocks_blocks_body">
       <NavLink

@@ -2184,44 +2184,6 @@
     schema-utils "^3.0.0"
     source-map "^0.7.3"
 
-"@prismicio/client@^6.7.1":
-  version "6.7.1"
-  resolved "https://registry.yarnpkg.com/@prismicio/client/-/client-6.7.1.tgz#2c4a514a6e3865008716e3d2cbabaa0cb919090b"
-  integrity sha512-XIFSZtLjxnpQavu2R7jIqmnFvUqRRzHwjXHt/fb0N550rFLQM4tnwDuSR3VY6k/TG+M5zvH+PHJuXGNnv73qUQ==
-  dependencies:
-    "@prismicio/helpers" "^2.3.3"
-    "@prismicio/types" "^0.2.3"
-
-"@prismicio/helpers@^2.3.1", "@prismicio/helpers@^2.3.3":
-  version "2.3.6"
-  resolved "https://registry.yarnpkg.com/@prismicio/helpers/-/helpers-2.3.6.tgz#77d063cc7843d826570bd5b914bd799495abf61f"
-  integrity sha512-pXTm4lPbi/9YWSj1jBen74oROBzwjEEJ6KXaIUMpdyepG7i005/IddsCEbs4dQJbZ1bzfCA5C+DBQANdWXTpxw==
-  dependencies:
-    "@prismicio/richtext" "^2.1.1"
-    "@prismicio/types" "^0.2.4"
-    escape-html "^1.0.3"
-    imgix-url-builder "^0.0.3"
-
-"@prismicio/react@^2.5.0":
-  version "2.5.0"
-  resolved "https://registry.yarnpkg.com/@prismicio/react/-/react-2.5.0.tgz#2fa27467e153db8d761b72eeec648ac4e7ed910b"
-  integrity sha512-1EYdvoU2bpVEkmVDDVyTUK22C580tTWR96HJ9PMUex0oGeJLBAMKiRinyachN42r1uCH5nRAH54A90ZtBjjZhw==
-  dependencies:
-    "@prismicio/helpers" "^2.3.1"
-    "@prismicio/richtext" "^2.0.1"
-
-"@prismicio/richtext@^2.0.1", "@prismicio/richtext@^2.1.1":
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/@prismicio/richtext/-/richtext-2.1.1.tgz#45b76b0bcfe40a5465c14d7d458e3354f6510068"
-  integrity sha512-/99JR2NUU2WV0025eAIqjd9OnF4ITaM57SVuhLc1XBUgnJe0HZrC9f24YKVW43jFR5HYTJtLgz01WjEddymqmA==
-  dependencies:
-    "@prismicio/types" "^0.2.0"
-
-"@prismicio/types@^0.2.0", "@prismicio/types@^0.2.3", "@prismicio/types@^0.2.4":
-  version "0.2.4"
-  resolved "https://registry.yarnpkg.com/@prismicio/types/-/types-0.2.4.tgz#f291ccf15881bf13453ffb96860de9b5dff44713"
-  integrity sha512-du2R+3xPgelqtprOhzVIj3wLJ25/Uz9vP6nLhyXslbg2Gaqh4mvunCzQRPL0ipv7GiK3YRGzA8KvJXu5FxThiw==
-
 "@reduxjs/toolkit@^1.8.1":
   version "1.8.2"
   resolved "https://registry.npmjs.org/@reduxjs/toolkit/-/toolkit-1.8.2.tgz"
@@ -3457,12 +3419,10 @@ aggregate-error@^3.0.0:
     clean-stack "^2.0.0"
     indent-string "^4.0.0"
 
-"airdao-components-and-tools@https://github.com/ambrosus/airdao-components-and-tools#dev":
-  version "0.0.10"
-  resolved "https://github.com/ambrosus/airdao-components-and-tools#5a686ab43636a3f5d6076f794df8a627010d7b85"
+"airdao-components-and-tools@https://github.com/ambrosus/airdao-components-and-tools":
+  version "0.0.1"
+  resolved "https://github.com/ambrosus/airdao-components-and-tools#8c1f070f5fa6c85f822c2dad479c30d402c212c3"
   dependencies:
-    "@prismicio/client" "^6.7.1"
-    "@prismicio/react" "^2.5.0"
     "@web3-react/injected-connector" "^6.0.7"
     "@web3-react/walletconnect-connector" "^6.2.13"
     buffer "^6.0.3"
@@ -5541,7 +5501,7 @@ escalade@^3.1.1:
   resolved "https://registry.npmjs.org/escalade/-/escalade-3.1.1.tgz"
   integrity sha512-k0er2gUkLf8O0zKJiAhmkTnJlTvINGv7ygDNPbeIsX/TJjGJZHuh9B2UxbsaEkmlEo9MfhrSzmhIlhRlI2GXnw==
 
-escape-html@^1.0.3, escape-html@~1.0.3:
+escape-html@~1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/escape-html/-/escape-html-1.0.3.tgz#0258eae4d3d0c0974de1c169188ef0051d1d1988"
   integrity sha512-NiSupZ4OeuGwr68lGIeym/ksIZMJodUGOSCZ/FSnTxcrekbvqrgdUxlJOMpijaKZVjAJrWrGs/6Jy8OMuyj9ow==
@@ -7078,11 +7038,6 @@ ignore@^5.1.4, ignore@^5.2.0:
   version "5.2.0"
   resolved "https://registry.npmjs.org/ignore/-/ignore-5.2.0.tgz"
   integrity sha512-CmxgYGiEPCLhfLnpPp1MoRmifwEIOgjcHXxOBjv7mY96c+eWScsOP9c112ZyLdWHi0FxHjI+4uVhKYp/gcdRmQ==
-
-imgix-url-builder@^0.0.3:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/imgix-url-builder/-/imgix-url-builder-0.0.3.tgz#9f386de64cdd1363d352a7f6313fd7dacd8fb282"
-  integrity sha512-8Oc2Cn4+jF06sEfJcVPlWYfD2F6RjrwIMbk1xEzux8unoB5LsvFc/GL1BQ47HPaeE12ReX2nMUcjUslGYWLxHA==
 
 immer@^9.0.7:
   version "9.0.15"

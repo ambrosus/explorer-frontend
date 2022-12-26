@@ -57,6 +57,7 @@ export const Apollo = memo(() => {
     <Content>
       <Helmet>
         <link rel="canonical" href="https://airdao.io/explorer/apollo/" />
+        <meta name="robots" content="noindex" />
       </Helmet>
       <Content.Header>
         <h1 className="main_info_apollo_heading">Apollo Nodes</h1>

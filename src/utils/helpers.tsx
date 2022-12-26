@@ -6,6 +6,9 @@ import Busd from 'assets/icons/Cryptos/Busd';
 import Eth from 'assets/icons/Cryptos/Eth';
 import Usdc from 'assets/icons/Cryptos/Usdc';
 import Usdt from 'assets/icons/Cryptos/Usdt';
+import Hpt from 'assets/icons/Cryptos/Hpt';
+import Ppt from 'assets/icons/Cryptos/Ppt';
+import Gpt from 'assets/icons/Cryptos/Gpt';
 import GreenCircle from 'assets/icons/StatusAction/GreenCircle';
 import OrangeCircle from 'assets/icons/StatusAction/OrangeCircle';
 import moment from 'moment';
@@ -93,11 +96,22 @@ export const toUniqueValueByBlock = (arr: any) => {
   }
 };
 
-export const getTokenIcon = (symbol: string) => {
+export const getTokenIcon = (symbol: string, name?:string) => {
   /*
    * @param {string} symbol
    * @returns {Component}
    */
+  if (name) {
+    switch (name) {
+      case 'Hera pool token':
+        return Hpt;
+      case 'Plutus pool token':
+        return Ppt;
+      case 'Ganymede pool token':
+        return Gpt;
+    }
+  }
+
   switch (symbol) {
     case 'SAMB':
       return Amb;

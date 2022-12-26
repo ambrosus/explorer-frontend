@@ -16,7 +16,7 @@ const FindWide: React.FC<FindWideProps> = ({
           role="search"
           className="find_wide_input"
           style={{
-            color: err ? 'red' : '#808A9D',
+            color: err ? '#ff4747' : '#808A9D',
           }}
           placeholder="Search by Node, Address, Tx, Block, Token, Bundle"
           type="text"
