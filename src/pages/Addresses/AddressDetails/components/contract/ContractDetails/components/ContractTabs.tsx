@@ -17,7 +17,7 @@ const ContractTabs = (props: any) => {
             <NavLink
               rel="nofollow"
               key={tab.title}
-              to={`/addresses/${address}/contract/${tab.value || ''}/`}
+              to={`/address/${address}/contract/${tab.value || ''}/`}
               className={`contract-link tabs_link ${
                 tab.value === selectedTab ? 'tabs_link_active' : ''
               }`}

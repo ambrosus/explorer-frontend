@@ -1,4 +1,5 @@
 import api from 'API/api';
+import API2 from 'API/newApi';
 import ContentCopy from 'assets/icons/CopyIcons/ContentCopy';
 import ContentCopyed from 'assets/icons/CopyIcons/ContentCopyed';
 import CopyPopUp from 'assets/icons/CopyIcons/CopyPopUp';
@@ -24,6 +25,7 @@ import {
 
 export const TransactionDetails = () => {
   const { hash } = useParams();
+
   const { isCopy, copyContent, isCopyPopup } = useCopyContent(hash);
   const { FOR_TABLET } = useDeviceSize();
   const ref = useRef(null);
@@ -51,6 +53,10 @@ export const TransactionDetails = () => {
     status: '',
     type: '',
   });
+
+  // useEffect(() => {
+  //   API2.getTransaction(hash).then((res) => setTxData(res.data[0]));
+  // }, [hash]);
 
   useEffect(() => {
     api.getTransaction(hash).then((res: any) => {
@@ -97,7 +103,7 @@ export const TransactionDetails = () => {
         <NavLink
           rel="nofollow"
           style={{ fontSize: '14px', fontWeight: 600 }}
-          to={`/addresses/${txData?.from}/`}
+          to={`/address/${txData?.from}/`}
           className="universall_light1"
         >
           {sliceData10(txData.from as string, 7)}
@@ -112,7 +118,7 @@ export const TransactionDetails = () => {
         <NavLink
           rel="nofollow"
           style={{ fontSize: '14px', fontWeight: 600 }}
-          to={`/addresses/${txData?.to}/`}
+          to={`/address/${txData?.to}/`}
           className="universall_light1"
         >
           {sliceData10(txData.to as string, 7)}

@@ -55,7 +55,7 @@ export const Bundles = () => {
     {
       name: 'APROX BUNDLE',
       value: `${ambMonthUSD(
-        appData?.tokenInfo.total_price_usd,
+        appData?.tokenInfo.price_usd,
       )} AMB / cost next month`,
     },
   ];

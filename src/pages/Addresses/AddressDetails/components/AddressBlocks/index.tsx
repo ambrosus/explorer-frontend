@@ -91,7 +91,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
   const isMethod =
     method === null ? null : (
       <div className="address_blocks_cell" style={{ gap: 4 }}>
-        {isIcon && from && from === address ? (
+        {from && from === address ? (
           <OutgoingTransaction />
         ) : (
           <IncomeTrasaction />
@@ -108,7 +108,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
     address !== from && String(from).trim().length ? (
       <NavLink
         rel="nofollow"
-        to={`/addresses/${from}/`}
+        to={`/address/${from}/`}
         className="address_blocks_cell universall_light2"
       >
         {sliceData5(from as string)}
@@ -126,7 +126,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
     address !== to && String(to).trim().length ? (
       <NavLink
         rel="nofollow"
-        to={`/addresses/${to}/`}
+        to={`/address/${to}/`}
         style={{ display: 'content' }}
         className="address_blocks_cell universall_light2"
       >
@@ -166,7 +166,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
       ) {
         onClick(item);
         addFilter(item);
-        navigate(`/addresses/${address}/ERC-20_Tx/${item.contract}/`);
+        navigate(`/address/${address}/ERC-20_Tx/${item.contract}`);
       } else {
         return '';
       }

@@ -29,7 +29,7 @@ const AddressesBody: FC<AddressesBodyProps> = ({
 
         <NavLink
           rel="nofollow"
-          to={`/addresses/${address}/`}
+          to={`/address/${address}/`}
           className="addresses_body_cell universall_light2"
         >
           <ReactTooltip

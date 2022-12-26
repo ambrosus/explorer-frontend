@@ -155,7 +155,7 @@ const Tabs: FC<TabsProps> = ({
         return (
           <NavLink
             key={filter.title}
-            to={`/addresses/${address}/${filter.value || ''}${contractUrl(
+            to={`/address/${address}/${filter.value || ''}${contractUrl(
               filter.value,
             )}/ `}
             rel="nofollow"
@@ -174,7 +174,7 @@ const Tabs: FC<TabsProps> = ({
         <NavLink
           rel="nofollow"
           key={filter.title}
-          to={`/addresses/${address}/ERC-20_Tx/${filtered}/${filter.value}/ `}
+          to={`/address/${address}/ERC-20_Tx/${filtered}/${filter.value}/ `}
           className={() => handleNavLinkClass(`${filter?.title}s`)}
           onClick={(e) => {
             setTransactionType(filter.value);

@@ -55,7 +55,7 @@ const VerifyContract = () => {
       })
       .then((res) => {
         if (res.status === 200) {
-          navigate(`/addresses/${address}/contract/code/`, { replace: true });
+          navigate(`/address/${address}/contract/code`, { replace: true });
         }
         setLoading(false);
       })
@@ -115,7 +115,7 @@ const VerifyContract = () => {
       })
       .then((res) => {
         if (res.status === 200) {
-          navigate(`/addresses/${address}/contract/code/`, { replace: true });
+          navigate(`/address/${address}/contract/code`, { replace: true });
         }
         setLoading(false);
       })

@@ -48,7 +48,7 @@ export const routes: IRoute[] = [
   },
 
   {
-    path: '/addresses/',
+    path: '/address/',
     key: 'Addresses',
     exact: true,
     component: () => <Addresses />,
@@ -78,14 +78,14 @@ export const routes: IRoute[] = [
 ];
 export const addressesRoutes: IRoute[] = [
   {
-    path: '/addresses/:address/',
+    path: '/address/:address/',
     key: 'Address Details',
     exact: true,
     component: () => <AddressDetails />,
     isClick: false,
   },
   {
-    path: '/addresses/:address/:type/',
+    path: '/address/:address/:type/',
     key: 'Address Details2',
     exact: true,
     component: () => <AddressDetails />,
@@ -93,14 +93,14 @@ export const addressesRoutes: IRoute[] = [
   },
 
   {
-    path: '/addresses/:address/:type/:filtered/',
+    path: '/address/:address/:type/:filtered/',
     key: 'Address Details3',
     exact: true,
     component: () => <AddressDetails />,
     isClick: false,
   },
   {
-    path: '/addresses/:address/:type/:filtered/:tokenToSorted/',
+    path: '/address/:address/:type/:filtered/:tokenToSorted/',
     key: 'Address Details4',
     exact: true,
     isClick: false,

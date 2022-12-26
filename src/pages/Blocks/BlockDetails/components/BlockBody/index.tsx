@@ -25,7 +25,7 @@ const BlockBody = ({ lastCardRef, item }: any) => {
         <NavLink
           rel="nofollow"
           className="universall_light2"
-          to={`/addresses/${from}/`}
+          to={`/address/${from}/`}
         >
           {sliceData5(from)}
         </NavLink>
@@ -34,7 +34,7 @@ const BlockBody = ({ lastCardRef, item }: any) => {
         <NavLink
           rel="nofollow"
           className="universall_light2"
-          to={`/addresses/${to}/`}
+          to={`/address/${to}/`}
         >
           {sliceData5(to)}
         </NavLink>

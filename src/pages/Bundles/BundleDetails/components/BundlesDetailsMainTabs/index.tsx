@@ -41,7 +41,7 @@ const BundleDetailsMainTabs = ({ data }: any) => {
       value: (
         <NavLink
           rel="nofollow"
-          to={`/addresses/${data.uploader}/`}
+          to={`/address/${data.uploader}/`}
           style={{ color: '#808A9D' }}
         >
           {sliceData5(data.uploader)}
@@ -73,7 +73,7 @@ const BundleDetailsMainTabs = ({ data }: any) => {
       value: (
         <NavLink
           rel="nofollow"
-          to={`/blocks/${data.block.number}/`}
+          to={`/blocks/${data.block.number}`}
           style={{ color: '#808A9D' }}
         >
           {data.block.number}

@@ -56,16 +56,17 @@ const BlocksBody: FC<IBlocksBody> = ({ index, item }) => {
 
   return (
     <div className="blocks_blocks_body">
-      <div
+      <NavLink
+        to={`/blocks/${number}/`}
+        rel="nofollow"
         className="blocks_blocks_body_cell color-gray universall_link_underline"
         style={{
           fontWeight: 600,
-          cursor: 'pointer',
         }}
-        onClick={redirectHandler}
       >
         <span style={{ marginRight: 8 }}>{online(confirmations)}</span> {number}
-      </div>
+      </NavLink>
+
       <NavLink
         rel="nofollow"
         to={`/apollo/${miner}/`}

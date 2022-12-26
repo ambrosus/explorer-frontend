@@ -1,5 +1,6 @@
 import { Account } from '../apollo.interface';
 import API from 'API/api';
+import API2 from 'API/newApi';
 import { Content } from 'components/Content';
 import CopyBtn from 'components/CopyBtn';
 import ExportCsv from 'components/ExportCsv';
@@ -45,6 +46,7 @@ export const ApolloDetails = memo(() => {
     true,
     false,
   );
+  console.log(appData?.tokenInfo);
 
   const { price_usd } = appData?.tokenInfo || 0;
   const ambBalance = balance?.ether || 0;

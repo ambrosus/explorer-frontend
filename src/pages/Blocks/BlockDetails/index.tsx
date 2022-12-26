@@ -11,13 +11,11 @@ import { TParams } from '../../../types';
 import DataTitle from '../components/DataTitle';
 import BlockBody from './components/BlockBody';
 import BlockHeader from './components/BlockHeader';
-import BlockHeaderInfo from './components/BlockHeaderInfo';
-import HeadingInfo from './components/HeadingInfo';
-import { MainInfoBlockTable } from './components/MainInfoBlockTable';
+import API2 from 'API/newApi';
 import HeadInfo from 'components/HeadInfo';
 import useDeviceSize from 'hooks/useDeviceSize';
 import moment from 'moment';
-import React, { useEffect, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { useQuery } from 'react-query';
 import { NavLink, useNavigate, useParams } from 'react-router-dom';
@@ -37,14 +35,16 @@ export interface IBlock {
 }
 
 interface IBlocksData<T> {
-  data: { data: T[] | undefined } | null;
+  // data: { data: T[] | undefined } | null;
+  data: { data: { block: T[] | undefined } } | null;
   isError: boolean;
   isLoading: boolean;
 }
 
-export const BlockDetails = () => {
+export const BlockDetails = memo(() => {
   const { setAppDataAsync } = useActions();
-  const { address }: TParams = useParams();
+  const { address = '' }: TParams = useParams();
+
   const [block, setBlock] = useState<any>(null);
   const navigate = useNavigate();
   const { data: appData } = useTypedSelector((state: any) => state.app);
@@ -70,7 +70,7 @@ export const BlockDetails = () => {
 
   const { data, isError, isLoading } = useQuery(
     [`get data for ${address}`, address],
-    () => getBlockData(address as string),
+    () => getBlockData(address),
     {
       initialDataUpdatedAt: 0,
       refetchInterval: 4000,
@@ -95,6 +95,8 @@ export const BlockDetails = () => {
   }, []);
 
   useEffect(() => {
+    console.log(data);
+
     if (!isLoading) setBlock(data?.data);
   }, [isLoading]);
 
@@ -216,4 +218,4 @@ export const BlockDetails = () => {
       )}
     </Content>
   );
-};
+});

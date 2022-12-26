@@ -4,6 +4,7 @@ import { useOnClickOutside } from '../../../hooks/useOnClickOutside';
 import AddressBlocksHeader from '../../Addresses/AddressDetails/components/AddressBlocksHeader';
 import AtlasBlocksSort from '../../Atlas/components/AtlasBlocksSort';
 import { TabsItemProps, TabsNewProps } from '../transactions.interface';
+import API2 from 'API/newApi';
 import SideMenu from 'assets/icons/SideMenu';
 import ExportCsv from 'components/ExportCsv';
 import useDeviceSize from 'hooks/useDeviceSize';
@@ -190,7 +191,7 @@ const TabsNew: FC<TabsNewProps> = ({
               methodFilters={null}
               isTableColumn={'address_blocks_cells no_border'}
             />
-            {!!tabData.data.length && render(tabData.data)}
+            {!!tabData?.data?.length && render(tabData.data)}
           </div>
         </>
       ) : (
