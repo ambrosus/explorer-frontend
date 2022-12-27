@@ -24,3 +24,17 @@
 .address-block button {
   background: transparent;
 }
+
+.side-menu-container {
+  transform: translateX(-340px);
+
+  @media (max-width: 1840px) {
+    transform: none;
+    left: 16px;
+  }
+
+  @media (max-width: 428px) {
+    left: 0;
+    top: 0;
+  }
+}
