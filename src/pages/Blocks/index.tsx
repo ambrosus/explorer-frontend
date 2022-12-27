@@ -17,7 +17,7 @@ export const Blocks = memo(() => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      API.getInfo().then((res) => setBlockData(res.data));
+      API.getInfo().then((res) => setBlockData(res));
     }, 1000);
     return () => clearInterval(interval);
   }, []);
