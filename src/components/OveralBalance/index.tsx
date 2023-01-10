@@ -61,7 +61,7 @@ const OverallBalance: React.FC<OverallBalanceProps> = ({
           /
         </span>
         <span className="address_details_info_text_span universall_light2">{`$ ${
-          amountInUsd === NaN ? 0.0 : numberWithCommas(amountInUsd.toFixed(2))
+          isNaN(amountInUsd) ? 0.0 : numberWithCommas(amountInUsd.toFixed(2))
         }`}</span>
       </div>
     </div>
