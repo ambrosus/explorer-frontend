@@ -4,11 +4,11 @@ import Amb from 'assets/icons/Cryptos/Amb';
 import Bnb from 'assets/icons/Cryptos/Bnb';
 import Busd from 'assets/icons/Cryptos/Busd';
 import Eth from 'assets/icons/Cryptos/Eth';
-import Usdc from 'assets/icons/Cryptos/Usdc';
-import Usdt from 'assets/icons/Cryptos/Usdt';
+import Gpt from 'assets/icons/Cryptos/Gpt';
 import Hpt from 'assets/icons/Cryptos/Hpt';
 import Ppt from 'assets/icons/Cryptos/Ppt';
-import Gpt from 'assets/icons/Cryptos/Gpt';
+import Usdc from 'assets/icons/Cryptos/Usdc';
+import Usdt from 'assets/icons/Cryptos/Usdt';
 import GreenCircle from 'assets/icons/StatusAction/GreenCircle';
 import OrangeCircle from 'assets/icons/StatusAction/OrangeCircle';
 import moment from 'moment';
@@ -96,7 +96,7 @@ export const toUniqueValueByBlock = (arr: any) => {
   }
 };
 
-export const getTokenIcon = (symbol: string, name?:string) => {
+export const getTokenIcon = (symbol: string, name?: string) => {
   /*
    * @param {string} symbol
    * @returns {Component}
