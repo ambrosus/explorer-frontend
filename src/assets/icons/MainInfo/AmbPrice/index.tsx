@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { SVGProps, memo } from 'react';
 
-const AmbPrice = (props: SVGProps<SVGSVGElement>) => (
+const AmbPrice = () => (
   <svg
     {...props}
     width={24}
