@@ -3,7 +3,7 @@ import BurgerMenuOpen from 'assets/icons/MobileMenu/BurgerMenuOpen';
 import logo from 'assets/svg/logo-air.svg';
 import FindWideMobile from 'components/Find/FindWideMobile';
 import { useOnClickOutside } from 'hooks/useOnClickOutside';
-import React, { useRef } from 'react';
+import React, {useEffect, useRef} from 'react';
 import { NavLink } from 'react-router-dom';
 
 interface MobileMenuProps {
@@ -16,6 +16,12 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ menu, setIsShow, isShow }) => {
   const menuRef = useRef(null);
 
   useOnClickOutside(menuRef, () => setIsShow(false));
+
+  useEffect(() => {
+    if (window.innerWidth <= 1200) {
+      document.body.style.overflow = isShow ? 'hidden' : 'auto';
+    }
+  }, [isShow]);
 
   return (
     <>
