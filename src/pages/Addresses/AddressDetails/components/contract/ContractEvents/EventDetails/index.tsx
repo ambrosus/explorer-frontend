@@ -93,7 +93,7 @@ const EventDetails = ({
           <div className="contract_events-body-subcell ">
             <NavLink
               rel="nofollow"
-              to={`/blocks/${blockNumber}/`}
+              to={`/block/${blockNumber}/`}
               className="contract_events-body-navlink universall_light2"
             >
               {blockNumber}

@@ -73,7 +73,7 @@ const BundleDetailsMainTabs = ({ data }: any) => {
       value: (
         <NavLink
           rel="nofollow"
-          to={`/blocks/${data.block.number}`}
+          to={`/block/${data.block.number}`}
           style={{ color: '#808A9D' }}
         >
           {data.block.number}

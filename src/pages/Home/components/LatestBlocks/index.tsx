@@ -22,7 +22,7 @@ const LatestBlocks: React.FC<LatestBlocksProps> = ({
         <div className="latest_blocks_cell">
           <div className="latest_blocks_cell_content latest_blocks_font_big">
             <span style={{ marginRight: 8 }}>{online}</span>
-            <NavLink rel="nofollow" to={`/blocks/${number}/`}>
+            <NavLink rel="nofollow" to={`/block/${number}/`}>
               {number}
             </NavLink>
           </div>

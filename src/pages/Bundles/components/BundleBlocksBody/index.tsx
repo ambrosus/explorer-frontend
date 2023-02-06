@@ -58,7 +58,7 @@ const BundleBlocksBody = ({ item }: any) => {
         style={{
           fontWeight: 400,
         }}
-        to={`/blocks/${item.block.number}/`}
+        to={`/block/${item.block.number}/`}
         rel="nofollow"
       >
         {item.block.number}

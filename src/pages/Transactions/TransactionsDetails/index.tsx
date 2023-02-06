@@ -139,7 +139,7 @@ export const TransactionDetails = () => {
       value: (
         <NavLink
           rel="nofollow"
-          to={`/blocks/${txData.blockHash}/`}
+          to={`/block/${txData.blockHash}/`}
           className="atlas_details_balance_fonts_bold head_info_cells_secondary_block"
         >
           {txData.blockHash}

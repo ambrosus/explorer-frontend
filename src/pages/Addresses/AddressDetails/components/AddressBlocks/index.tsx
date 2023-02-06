@@ -147,7 +147,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
           style={{
             fontWeight: 400,
           }}
-          to={`/blocks/${block}/`}
+          to={`/block/${block}/`}
           rel="nofollow"
         >
           {block}
