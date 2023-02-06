@@ -119,7 +119,7 @@ export const apolloRoutes: IRoute[] = [
 ];
 export const blockRoutes: IRoute[] = [
   {
-    path: '/blocks/:address/',
+    path: '/block/:address/',
     key: 'Block Details',
     exact: true,
     component: () => <BlockDetails />,
