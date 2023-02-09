@@ -3,7 +3,7 @@ import BurgerMenuOpen from 'assets/icons/MobileMenu/BurgerMenuOpen';
 import logo from 'assets/svg/logo-air.svg';
 import FindWideMobile from 'components/Find/FindWideMobile';
 import { useOnClickOutside } from 'hooks/useOnClickOutside';
-import React, {useEffect, useRef} from 'react';
+import React, { useEffect, useRef } from 'react';
 import { NavLink } from 'react-router-dom';
 
 interface MobileMenuProps {
