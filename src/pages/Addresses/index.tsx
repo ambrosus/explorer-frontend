@@ -20,6 +20,7 @@ const sortOptions = [
     value: 'totalTx',
   },
 ];
+
 export const Addresses = () => {
   return (
     <Content>
