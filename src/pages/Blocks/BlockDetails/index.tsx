@@ -141,7 +141,7 @@ export const BlockDetails = memo(() => {
       value: (
         <NavLink
           className="address_blocks_icon head_info_cells_secondary"
-          to={`/blocks/${parentHash}/`}
+          to={`/block/${parentHash}/`}
           rel="nofollow"
         >
           {sliceData10(parentHash, FOR_TABLET ? 20 : 10)}
@@ -162,7 +162,7 @@ export const BlockDetails = memo(() => {
     <Content isExpanded>
       <Helmet>
         <meta name="robots" content="noindex" />
-        <link rel="canonical" href="https://airdao.io/explorer/blocks/" />
+        <link rel="canonical" href="https://airdao.io/explorer/block/" />
       </Helmet>
       <Content.Header>
         <div className="block_main_title">

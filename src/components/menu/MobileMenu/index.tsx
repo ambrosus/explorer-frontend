@@ -32,9 +32,6 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ menu, setIsShow, isShow }) => {
         </button>
         {isShow && (
           <div className="mobile_menu_modal">
-            <NavLink to="/" className="mobile_menu_logo">
-              <img src={logo} alt="logo" />
-            </NavLink>
             <span>
               <FindWideMobile setIsShow={setIsShow} />
             </span>
