@@ -25,7 +25,7 @@ const FindWide: React.FC<FindWideProps> = ({
         />
 
         <button role="find" className="find_wide_btn" type="submit">
-          <Search fill={'#808A9D'} />
+          <Search />
         </button>
       </form>
     </>

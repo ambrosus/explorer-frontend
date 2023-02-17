@@ -86,7 +86,7 @@ export const Layout: FC<LayoutProps> = ({ children }) => {
       </div>
       <NewHeader />
       <div className="page">{children}</div>
-      <HelpMenu {...helpContent}/>
+      <HelpMenu {...helpContent} />
     </div>
   );
 };

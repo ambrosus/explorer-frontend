@@ -1,7 +1,7 @@
+import close from 'assets/svg/close.svg';
 import FindWideMobile from 'components/Find/FindWideMobile';
 import { useOnClickOutside } from 'hooks/useOnClickOutside';
 import React, { useEffect, useRef } from 'react';
-import close from 'assets/svg/close.svg';
 
 interface MobileMenuProps {
   menu: any;
@@ -31,8 +31,8 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ menu, setIsShow, isShow }) => {
         {isShow && (
           <div className="mobile_menu_modal">
             <h2 className="mobile_menu_modal__title">Explorer – Menu</h2>
-            <button onClick={handleClose} type='button' className='help__close'>
-              <img src={close} alt='close help' />
+            <button onClick={handleClose} type="button" className="help__close">
+              <img src={close} alt="close help" />
             </button>
             <span>
               <FindWideMobile setIsShow={setIsShow} />
