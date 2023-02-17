@@ -6,21 +6,16 @@
   width: 100px;
 
   &_btn {
-    z-index: 99999;
+    z-index: 9998;
     position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 10px 32px;
-    background: rgba(255, 255, 255, 0.5);
-    border: 1.5px solid #457eff;
-    backdrop-filter: blur(4px);
-    border-radius: 90px;
-    color: #457eff;
+    bottom: 0;
+    padding: 10px;
+    background: #FFFFFF;
+    box-shadow: 0 8px 49px rgba(162, 178, 216, 0.65);
+    border-radius: 8px 8px 0 0;
+    color: #3568DD;
+    width: 100%;
+    left: 0;
 
     svg {
       margin-right: 16px;
@@ -32,11 +27,11 @@
   }
 
   &_modal {
-    box-shadow: 0px 16px 32px 0px #698ee233;
+    z-index: 9999;
+    box-shadow: 0 16px 32px 0 #698ee233;
     background-color: #fff;
     padding: 20px;
-    right: 0px;
-    z-index: 100;
+    right: 0;
     width: 100%;
     height: 100vh;
     position: fixed;
@@ -59,5 +54,37 @@
     color: #4d4d4d;
 
     margin: 0 0 20px 20px;
+  }
+}
+
+.mobile_menu_modal__title {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+
+.help__close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+
+  img {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+
+@include for_laptop {
+  .help {
+    margin-bottom: 54px;
+
+    @media screen and (max-width: 600px) {
+      margin-bottom: 0;
+    }
+  }
+
+  .handle-help-btn {
+    bottom: 54px;
   }
 }

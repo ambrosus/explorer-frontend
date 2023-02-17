@@ -27,7 +27,7 @@ interface IAppRoutes {
 export const routes: IRoute[] = [
   {
     path: '/',
-    key: 'home',
+    key: 'Home',
     exact: true,
     component: () => <Home />,
     isClick: true,
