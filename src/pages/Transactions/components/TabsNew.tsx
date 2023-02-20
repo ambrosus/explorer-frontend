@@ -83,7 +83,7 @@ const TabsNew: FC<TabsNewProps> = ({
       },
     });
     handleFetchData().then((response: any) => setTabData(response));
-  }, [tab, sortTerm]);
+  }, [tab, sortTerm, fetchParams]);
 
   useEffect(() => {
     if (
