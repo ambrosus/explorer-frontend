@@ -77,14 +77,14 @@
 
 @include for_laptop {
   .help {
-    margin-bottom: 54px;
+    margin-bottom: 54px!important;
 
     @media screen and (max-width: 600px) {
-      margin-bottom: 0;
+      margin-bottom: 0!important;
     }
   }
 
   .handle-help-btn {
-    bottom: 54px;
+    bottom: 54px!important;
   }
 }
