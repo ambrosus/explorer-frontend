@@ -1,6 +1,5 @@
 import { Account } from '../apollo.interface';
 import API from 'API/api';
-import API2 from 'API/newApi';
 import { Content } from 'components/Content';
 import CopyBtn from 'components/CopyBtn';
 import ExportCsv from 'components/ExportCsv';
@@ -10,7 +9,7 @@ import { useTypedSelector } from 'hooks/useTypedSelector';
 import moment from 'moment';
 import AddressBlock from 'pages/Addresses/AddressDetails/components/AddressBlocks';
 import TabsNew from 'pages/Transactions/components/TabsNew';
-import React, { memo, useEffect, useState } from 'react';
+import React, {memo, useEffect, useMemo, useState} from 'react';
 import { Helmet } from 'react-helmet';
 import { useParams } from 'react-router-dom';
 import { TParams } from 'types';
@@ -31,7 +30,7 @@ export const ApolloDetails = memo(() => {
   const { data: appData } = useTypedSelector((state: any) => state?.app);
   useEffect(() => {
     getAddressData(address);
-  }, []);
+  }, [address]);
 
   // useEffect(() => {
   //   API2.getApollo(address).then((res) => console.log(res));
@@ -46,7 +45,6 @@ export const ApolloDetails = memo(() => {
     true,
     false,
   );
-  console.log(appData?.tokenInfo);
 
   const { price_usd } = appData?.tokenInfo || 0;
   const ambBalance = balance?.ether || 0;
@@ -164,6 +162,10 @@ export const ApolloDetails = memo(() => {
     },
   ];
 
+  const fetchParams = useMemo(() => {
+    return { address, type: '', page: '' }
+  }, [address]);
+
   return (
     <Content>
       <Helmet>
@@ -198,7 +200,7 @@ export const ApolloDetails = memo(() => {
         <TabsNew
           tabs={apolloDetailsSorting}
           fetchData={API.getAccountTx}
-          fetchParams={{ address, type: '', page: '' }}
+          fetchParams={fetchParams}
           render={(txs: Account[]) =>
             txs.map((transaction: any) => (
               <AddressBlock
