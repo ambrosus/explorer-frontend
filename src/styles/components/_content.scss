@@ -3,7 +3,6 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  padding-bottom: 120px;
 
   &_backgorund {
     background-color: rgb(238, 243, 254);
@@ -35,7 +34,7 @@
     background-color: $white;
     border-top-left-radius: 32px;
     border-top-right-radius: 32px;
-    padding-bottom: 90px;
+    padding-bottom: 120px;
 
     @include for_phone {
       padding-bottom: 60px;

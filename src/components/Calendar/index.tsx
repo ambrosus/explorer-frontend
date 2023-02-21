@@ -8,7 +8,7 @@ import { useParams } from 'react-router-dom';
 import { TParams } from 'types';
 
 const date = new Date();
-const today = date.setHours(0,0,0,0);
+const today = date.setHours(0, 0, 0, 0);
 const Calendar = ({ handleClose, miningStats, initRange }: any) => {
   const { address }: TParams = useParams();
 

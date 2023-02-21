@@ -9,7 +9,7 @@ import { useTypedSelector } from 'hooks/useTypedSelector';
 import moment from 'moment';
 import AddressBlock from 'pages/Addresses/AddressDetails/components/AddressBlocks';
 import TabsNew from 'pages/Transactions/components/TabsNew';
-import React, {memo, useEffect, useMemo, useState} from 'react';
+import React, { memo, useEffect, useMemo, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { useParams } from 'react-router-dom';
 import { TParams } from 'types';
@@ -163,7 +163,7 @@ export const ApolloDetails = memo(() => {
   ];
 
   const fetchParams = useMemo(() => {
-    return { address, type: '', page: '' }
+    return { address, type: '', page: '' };
   }, [address]);
 
   return (

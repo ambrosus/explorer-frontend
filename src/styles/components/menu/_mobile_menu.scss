@@ -75,6 +75,12 @@
 }
 
 
+@media screen and (max-height: 693px) and (min-width: 600px) {
+  .help {
+    height: calc(100vh - 16px - 111px);
+  }
+}
+
 @include for_laptop {
   .help {
     margin-bottom: 54px!important;
