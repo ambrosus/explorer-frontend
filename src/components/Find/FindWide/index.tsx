@@ -1,5 +1,5 @@
-import useSearch from '../../../hooks/useSearch';
 import React from 'react';
+import useSearch from '../../../hooks/useSearch';
 import Search from 'assets/icons/Search';
 import { FindWideProps } from 'pages/Home/home.interfaces';
 
