@@ -1,7 +1,7 @@
+import React from 'react';
 import useSearch from '../../../hooks/useSearch';
 import Search from 'assets/icons/Search';
 import { FindWideProps } from 'pages/Home/home.interfaces';
-import React from 'react';
 
 const FindWide: React.FC<FindWideProps> = ({
   setIsShow = () => {},
