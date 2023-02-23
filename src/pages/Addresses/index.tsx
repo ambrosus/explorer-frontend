@@ -21,7 +21,7 @@ export const Addresses = () => {
   return (
     <Content>
       <Helmet>
-        <link rel="canonical" href="https://airdao.io/explorer/addresses/" />
+        <link rel="canonical" href="https://airdao.io/explorer/address/" />
       </Helmet>
       <Content.Header>
         <MainInfoAddresses />
