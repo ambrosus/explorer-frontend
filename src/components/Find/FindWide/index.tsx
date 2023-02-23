@@ -22,7 +22,6 @@ const FindWide: React.FC<FindWideProps> = ({
         value={name}
         onChange={handleChange}
       />
-
       <button role="find" className="find_wide_btn" type="submit">
         <Search />
       </button>
