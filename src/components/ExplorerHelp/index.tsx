@@ -37,7 +37,7 @@ const ExplorerHelp = () => {
 };
 
 const helpContent = {
-  title: 'AirDao Explorer',
+  title: 'AirDAO Explorer - Help',
   description:
     'AirDAO Explorer is the gateway to all of the transactions andstatistics on the AirDAO blockchain.',
   video: {
