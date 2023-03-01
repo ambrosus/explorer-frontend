@@ -354,11 +354,7 @@ export const statusMessage = (node: any = {}, nodeName: string) => {
     switch (node.status) {
       case 'ONLINE':
         return (
-          <>
-            {timeSince(
-              node?.statusHistory[0] ? node.statusHistory[0].timestamp : '',
-            )}
-          </>
+          <>{timeSince(node?.onboardingDate ? node.onboardingDate : '')}</>
         );
       case 'CONNECTING':
         return 'Connecting...';
@@ -371,9 +367,7 @@ export const statusMessage = (node: any = {}, nodeName: string) => {
         return (
           <>
             <div className="apollo_blocks_body_cell_online">Uptime</div>{' '}
-            {timeSince(
-              node?.statusHistory[0] ? node.statusHistory[0].timestamp : '',
-            )}
+            {timeSince(node?.onboardingDate ? node.onboardingDate : '')}
           </>
         );
       case 'CONNECTING':
@@ -473,4 +467,14 @@ export const diffStyleToCell = (
       </span>
     </>
   );
+};
+
+const isRenderProps = (key: string | undefined) => {
+  let data: any = {};
+  if (!!key) {
+    return data[key];
+  } else {
+    data = [];
+  }
+  return data;
 };

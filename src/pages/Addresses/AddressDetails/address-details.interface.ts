@@ -87,8 +87,10 @@ export interface AddressBlockProps {
 export interface TokenProps {
   selectedToken: TokenType | null;
   onClick: Function;
-  loading: boolean;
-  addressData: object;
+  addressData: {
+    tokens: object[];
+    balance: string;
+  };
 }
 
 export interface TokenFilterProps {

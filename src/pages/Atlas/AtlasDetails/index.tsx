@@ -141,8 +141,8 @@ export const AtlasDetails = () => {
                 to={transaction.to}
                 date={moment(transaction.timestamp * 1000).fromNow()}
                 block={transaction.blockNumber}
-                amount={transaction.value.ether}
-                txfee={transaction.gasCost.ether}
+                amount={transaction?.value?.ether}
+                txfee={transaction?.gasCost?.ether}
                 token={`${transaction?.token ? transaction?.token : 'AMB'}`}
                 symbol={`${transaction?.symbol ? transaction?.symbol : 'AMB'}`}
                 isTableColumn="address_blocks_cells"

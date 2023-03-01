@@ -32,9 +32,6 @@ export const ApolloDetails = memo(() => {
     getAddressData(address);
   }, [address]);
 
-  // useEffect(() => {
-  //   API2.getApollo(address).then((res) => console.log(res));
-  // }, []);
   const { balance, stake, version } = addressData?.apolloInfo?.data || 0;
   const apolloData = addressData?.apolloInfo?.data;
 
@@ -199,7 +196,8 @@ export const ApolloDetails = memo(() => {
       <Content.Body>
         <TabsNew
           tabs={apolloDetailsSorting}
-          fetchData={API.getAccountTx}
+          fetchData={API2.getApollo}
+          renderKey="transactions"
           fetchParams={fetchParams}
           render={(txs: Account[]) =>
             txs.map((transaction: any) => (

@@ -3,11 +3,9 @@ import { numberWithCommas } from '../../utils/helpers';
 import TabsNew from '../Transactions/components/TabsNew';
 import BlocksBody from './components/BlocksBody';
 import BlocksHeader from './components/BlocksHeader';
-import API from 'API/api';
 import API2 from 'API/newApi';
 import { Content } from 'components/Content';
 import HeadInfo from 'components/HeadInfo';
-import { useTypedSelector } from 'hooks/useTypedSelector';
 import React, { memo, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 
@@ -61,7 +59,7 @@ export const Blocks = memo(() => {
         <div className="blocks_main">
           <TabsNew
             tableHeader={() => <BlocksHeader />}
-            fetchData={API.getBlocks}
+            fetchData={API2.getBlocks}
             fetchParams={{ page: '' }}
             label="Blocks"
             render={(list: any) =>
