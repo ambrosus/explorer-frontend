@@ -14,12 +14,8 @@ import useDeviceSize from 'hooks/useDeviceSize';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-import { shallowEqual } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
-import { getDataForAddress } from 'services/address.service';
-import { TParams } from 'types';
+import { useParams } from 'react-router-dom';
 
 const AddressDetails = () => {
   const { address } = useParams();
@@ -29,7 +25,6 @@ const AddressDetails = () => {
   const { accountInfo, contractInfo } = sourcifyData || {};
   const { isContract } = accountInfo?.data || false;
 
-  const [tokensTabActive, setTokensTabActive] = useState(null);
   const [selectedToken, setSelectedToken]: any = useState(null);
   const [addressData, setAddressData] = useState({
     balance: '',
@@ -39,10 +34,6 @@ const AddressDetails = () => {
   useEffect(() => {
     getContractAddressData(address);
   }, [address]);
-
-  useEffect(() => {
-    console.log(isContract);
-  }, [isContract]);
 
   useEffect(() => {
     API.getAccountTxs({ type: 'all', address }).then((response: any) => {

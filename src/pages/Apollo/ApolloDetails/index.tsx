@@ -1,5 +1,6 @@
 import { Account } from '../apollo.interface';
 import API from 'API/api';
+import API2 from 'API/newApi';
 import { Content } from 'components/Content';
 import CopyBtn from 'components/CopyBtn';
 import ExportCsv from 'components/ExportCsv';
