@@ -1,6 +1,5 @@
 import { log } from '../utils/helpers';
 import axios from 'axios';
-import { ApiRequest } from 'types';
 
 const tokenApiUrl: any = process.env.REACT_APP_TOKEN_API_URL;
 
@@ -83,6 +82,20 @@ const getApollo = (params: any) => {
   console.log(params);
   return API().get(`apollos/${params.address || params}`, { params });
 };
+
+const getAccountTxs = (params: any = {}) => {
+  const { address, type, page, tokenAddress } = params;
+
+  return API().get(
+    `addresses/${address}/${tokenAddress ? 'tokens' : type}${
+      tokenAddress ? '/' + tokenAddress : ''
+    }`,
+    {
+      params: { page },
+    },
+  );
+};
+
 const getTransactions = (params = {}) => API().get('transactions', { params });
 const getTransaction = (hash: string | undefined) =>
   API().get(`transaction/${hash}`);
@@ -104,6 +117,7 @@ const api = {
   getTransaction,
   getToken,
   getContract,
+  getAccountTxs
 };
 
 export default api;

@@ -1,4 +1,4 @@
-import API from '../../../API/api';
+import API2 from '../../../API/newApi';
 import { useActions } from '../../../hooks/useActions';
 import { transactionFilters } from '../../../utils/sidePages';
 import { Account } from '../../Atlas/atlas.interface';
@@ -36,7 +36,7 @@ const AddressDetails = () => {
   }, [address]);
 
   useEffect(() => {
-    API.getAccountTxs({ type: 'all', address }).then((response: any) => {
+    API2.getAccountTxs({ type: 'all', address }).then((response: any) => {
       if (response) {
         console.log(response.tokens);
         setAddressData({
@@ -129,7 +129,7 @@ const AddressDetails = () => {
                 ? [{ title: 'Token', value: 'token' }]
                 : transactionFilters
             }
-            fetchData={API.getAccountTxs}
+            fetchData={API2.getAccountTxs}
             initTab="all"
             fetchParams={{
               type: '',
