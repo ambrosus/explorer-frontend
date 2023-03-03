@@ -62,6 +62,7 @@ const TabsNew: FC<TabsNewProps> = ({
   tableHeader,
   label,
   contractInfo,
+  withoutLoader,
 }) => {
   const [loading, setLoading] = useState(true);
   const [tab, setTab] = useState(initTab);
@@ -87,7 +88,10 @@ const TabsNew: FC<TabsNewProps> = ({
   useEffect(() => {
     if (tab === 'contract') return;
 
-    setLoading(true);
+    if (!withoutLoader) {
+      setLoading(true);
+    }
+
     setTabData({
       data: [],
       pagination: {
@@ -107,7 +111,7 @@ const TabsNew: FC<TabsNewProps> = ({
         setTabData(response);
       }
     });
-  }, [tab, sortTerm]);
+  }, [tab, sortTerm, fetchParams]);
 
   useEffect(() => {
     if (
@@ -135,7 +139,9 @@ const TabsNew: FC<TabsNewProps> = ({
   }, [tabs]);
 
   const handleFetchData = (page?: number) => {
-    setLoading(true);
+    if (!withoutLoader) {
+      setLoading(true);
+    }
     const params: any = { ...fetchParams };
 
     if (fetchParams.hasOwnProperty('page')) {

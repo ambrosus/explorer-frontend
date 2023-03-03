@@ -1,4 +1,3 @@
-import { useActions } from '../../hooks/useActions';
 import { numberWithCommas } from '../../utils/helpers';
 import TabsNew from '../Transactions/components/TabsNew';
 import BlocksBody from './components/BlocksBody';
@@ -8,6 +7,8 @@ import { Content } from 'components/Content';
 import HeadInfo from 'components/HeadInfo';
 import React, { memo, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
+
+const fetchParams = { page: '' };
 
 export const Blocks = memo(() => {
   const [blockData, setBlockData] = useState<any>(null);
@@ -58,9 +59,10 @@ export const Blocks = memo(() => {
       <Content.Body>
         <div className="blocks_main">
           <TabsNew
+            withoutLoader
             tableHeader={() => <BlocksHeader />}
             fetchData={API2.getBlocks}
-            fetchParams={{ page: '' }}
+            fetchParams={fetchParams}
             label="Blocks"
             render={(list: any) =>
               list.map((el: any, index: any) => (

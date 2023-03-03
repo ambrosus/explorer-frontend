@@ -11,6 +11,7 @@ export type TabsNewProps = {
   initTab?: string;
   tableHeader?: any;
   contractInfo?: any;
+  withoutLoader?: boolean;
 };
 
 export type TabsItemProps = {
