@@ -1,4 +1,4 @@
-import API from '../../API/api';
+import API2 from '../../API/newApi';
 import TabsNew from '../Transactions/components/TabsNew';
 import AddressesBody from './components/AddressesBody';
 import AddressesHeader from './components/AddressesHeader';
@@ -37,7 +37,7 @@ export const Addresses = () => {
             <TabsNew
               tableHeader={() => <AddressesHeader />}
               sortOptions={sortOptions}
-              fetchData={API.getAddresses}
+              fetchData={API2.getAddresses}
               initSortTerm={'balance'}
               fetchParams={{ sort: '', page: '' }}
               label="Addresses"

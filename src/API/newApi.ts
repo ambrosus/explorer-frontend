@@ -66,7 +66,7 @@ const getContract = (address: any) =>
 const getInfo = () => API().get('info');
 const getToken = () => axios.get(tokenApiUrl).then(({ data }) => data.data);
 
-const getAddresses = () => API().get('addresses');
+const getAddresses = (params = {}) => API().get('addresses', { params });
 const getAddressesAll = (address: string) =>
   API().get(`addresses${address}/all`);
 const getAddressesTransfers = (address: string) =>
