@@ -25,7 +25,7 @@ export const Blocks = memo(() => {
 
   const itemFirst: any = [
     {
-      name: 'TOTAL NODES',
+      name: 'TOTAL BLOCKS',
       value: numberWithCommas(blockData?.lastBlock.number),
     },
     {
@@ -37,7 +37,7 @@ export const Blocks = memo(() => {
       value: `${blockData?.avgBlockTime.toFixed(1)} sec`,
     },
     {
-      name: 'AVG. NECTAR USED',
+      name: 'AVG. GAS USED',
       value: `${numberWithCommas(
         blockData?.avgBlockGasUsed.toFixed(1),
       )} ${avgNectarPerc}`,
