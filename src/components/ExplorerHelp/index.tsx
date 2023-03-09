@@ -63,10 +63,6 @@ const helpContent = {
       url: 'https://forms.gle/vRqhvT5pLAFic7Z77',
     },
     {
-      text: 'Governance',
-      url: 'https://community.airdao.io/',
-    },
-    {
       text: 'Github',
       url: 'https://github.com/ambrosus/',
     },
@@ -87,10 +83,6 @@ const helpContent = {
     {
       url: 'https://blog.airdao.io/',
       iconSrc: mediumIcon,
-    },
-    {
-      url: 'https://discord.com/invite/hnftmSjUr8',
-      iconSrc: discordIcon,
     },
   ],
 };
