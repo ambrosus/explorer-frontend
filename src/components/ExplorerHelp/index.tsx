@@ -1,5 +1,4 @@
 import packageJson from '../../../package.json';
-import discordIcon from '../../assets/svg/discord-icon.svg';
 import mediumIcon from '../../assets/svg/medium-icon.svg';
 import redditIcon from '../../assets/svg/reddit.svg';
 import telegramIcon from '../../assets/svg/telegram.svg';
