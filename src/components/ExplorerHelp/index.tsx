@@ -1,8 +1,4 @@
 import packageJson from '../../../package.json';
-import mediumIcon from '../../assets/svg/medium-icon.svg';
-import redditIcon from '../../assets/svg/reddit.svg';
-import telegramIcon from '../../assets/svg/telegram.svg';
-import twitterIcon from '../../assets/svg/twitter.svg';
 // @ts-ignore
 import { HelpMenu } from 'airdao-components-and-tools/components';
 // @ts-ignore
@@ -69,19 +65,23 @@ const helpContent = {
   socials: [
     {
       url: 'https://twitter.com/airdao_io',
-      iconSrc: twitterIcon,
+      iconSrc:
+        'https://airdao.cdn.prismic.io/airdao/9b942b92-80d6-4347-bb42-fc1d8c375f9e_twitter-light.svg',
     },
     {
       url: 'https://t.me/airDAO_official',
-      iconSrc: telegramIcon,
+      iconSrc:
+        'https://airdao.cdn.prismic.io/airdao/209e0999-3164-45dc-b785-35d267f96ec9_telegram-light.svg',
     },
     {
       url: 'https://www.reddit.com/r/AirDAO/',
-      iconSrc: redditIcon,
+      iconSrc:
+        'https://airdao.cdn.prismic.io/airdao/987f3697-2aab-44f5-bea9-02fdc276f743_reddit-light.svg',
     },
     {
       url: 'https://blog.airdao.io/',
-      iconSrc: mediumIcon,
+      iconSrc:
+        'https://airdao.cdn.prismic.io/airdao/218af5ae-653f-4be8-a2f3-5a6492be1457_medium-light.svg',
     },
   ],
 };
