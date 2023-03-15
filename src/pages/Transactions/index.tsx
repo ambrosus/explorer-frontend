@@ -1,5 +1,4 @@
 import API from '../../API/api';
-import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { numberWithCommas } from '../../utils/helpers';
 import { transactionsTabs } from '../../utils/sidePages';
 import AddressBlock from '../Addresses/AddressDetails/components/AddressBlocks';
@@ -22,6 +21,11 @@ export const Transactions = memo(() => {
     <Content>
       <Helmet>
         <link rel="canonical" href="https://airdao.io/explorer/tx/" />
+        <title>Transactions. Ambrosus Network Explorer</title>
+        <meta
+          name="description"
+          content="Explore Ambrosus Network Transactions: transfers, contacts, fees, validador proxy, block rewards, KYCs, challenges, payouts, roles, heads"
+        />
       </Helmet>
       <Content.Header>
         <div className="transactions_header">

@@ -95,8 +95,6 @@ export const BlockDetails = memo(() => {
   }, []);
 
   useEffect(() => {
-    console.log(data);
-
     if (!isLoading) setBlock(data?.data);
   }, [isLoading]);
 
@@ -163,6 +161,11 @@ export const BlockDetails = memo(() => {
       <Helmet>
         <meta name="robots" content="noindex" />
         <link rel="canonical" href="https://airdao.io/explorer/block/" />
+        <title>Blocks. Ambrosus Network Explorer</title>
+        <meta
+          name="description"
+          content="Explore Ambrosus Network Blocks: total blocks, avg. block size, avg. block time, avg. gas used etc."
+        />
       </Helmet>
       <Content.Header>
         <div className="block_main_title">

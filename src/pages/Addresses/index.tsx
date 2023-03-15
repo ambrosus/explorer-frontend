@@ -16,12 +16,15 @@ export const Addresses = () => {
     useSortData(getAccountsData, 'balance');
   const isQueryContracts = sortTerm === 'contracts';
 
-  const { data } = useTypedSelector((state) => state.app);
-
   return (
     <Content>
       <Helmet>
         <link rel="canonical" href="https://airdao.io/explorer/address/" />
+        <title>Addresses. Ambrosus Network Explorer</title>
+        <meta
+          name="description"
+          content="Explore Ambrosus Network Addresses: Total addresses, Holders, Tx Count, Balance etc."
+        />
       </Helmet>
       <Content.Header>
         <MainInfoAddresses />
