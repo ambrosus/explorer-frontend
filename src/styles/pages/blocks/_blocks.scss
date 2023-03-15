@@ -58,7 +58,7 @@
     white-space: nowrap;
 
     &_block {
-      font-family: 'Proxima Nova';
+      font-family: Inter, sans-serif;
       font-style: normal;
       font-weight: 300;
       font-size: 32px;
@@ -74,7 +74,7 @@
     flex-direction: row;
     gap: 6px;
     white-space: nowrap;
-    font-family: 'Proxima Nova';
+    font-family: Inter, sans-serif;
     font-style: normal;
     font-weight: 700;
     font-size: 18px;
@@ -89,7 +89,7 @@
   }
 
   &_address {
-    font-family: 'Proxima Nova';
+    font-family: Inter, sans-serif;
     font-style: normal;
     font-weight: 400;
     height: 20px;

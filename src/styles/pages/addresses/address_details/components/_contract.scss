@@ -29,7 +29,7 @@
         gap: 12px;
 
         &-title {
-          font-family: 'Proxima Nova', sans-serif;
+          font-family: Inter, sans-serif;
           font-style: normal;
           font-weight: 700;
           font-size: 14px;
@@ -62,7 +62,7 @@
           p {
             width: max-content;
             white-space: nowrap;
-            font-family: 'Proxima Nova';
+            font-family: Inter, sans-serif;
             font-style: normal;
             font-weight: 600;
             font-size: 14px;
@@ -115,7 +115,7 @@
               padding: 0;
 
               &-title {
-                font-family: 'Proxima Nova';
+                font-family: Inter, sans-serif;
                 font-style: normal;
                 font-weight: 400;
                 font-size: 14px;
@@ -225,7 +225,7 @@
             }
 
             &-result {
-              font-family: 'Proxima Nova';
+              font-family: Inter, sans-serif;
               font-style: normal;
               font-weight: 600;
               font-size: 12px;
@@ -237,7 +237,7 @@
             }
 
             &-name {
-              font-family: 'Proxima Nova', serif;
+              font-family: Inter, sans-serif;
               font-style: normal;
               font-weight: 600;
               font-size: 14px;
@@ -262,7 +262,7 @@
                 gap: 12px;
 
                 &-name {
-                  font-family: 'Proxima Nova';
+                  font-family: Inter, sans-serif;
                   font-style: normal;
                   font-weight: 600;
                   font-size: 12px;
@@ -273,7 +273,7 @@
                 }
 
                 input {
-                  font-family: 'Proxima Nova';
+                  font-family: Inter, sans-serif;
                   font-style: normal;
                   font-weight: 400;
                   font-size: 14px;
@@ -469,7 +469,7 @@
 }
 
 .remaining {
-  font-family: 'Proxima Nova';
+  font-family: Inter, sans-serif;
   font-style: normal;
   font-weight: 600;
   font-size: 14px;
