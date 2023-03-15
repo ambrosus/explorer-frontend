@@ -3,7 +3,7 @@
   margin: 0;
   padding: 0;
   outline: none;
-  font-family: Proxima Nova, sans-serif;
+  font-family: Inter, sans-serif;
   font-size: 14px;
   line-height: 18px;
   color: $main;
@@ -54,7 +54,7 @@ hr {
 }
 
 pre {
-  font-family: Proxima Nova, monospace;
+  font-family: Inter, monospace;
   font-size: 1em;
 }
 
@@ -77,7 +77,7 @@ strong {
 code,
 kbd,
 samp {
-  font-family: Proxima Nova, monospace;
+  font-family: Inter, monospace;
   font-size: 1em;
 }
 
@@ -109,7 +109,7 @@ input,
 optgroup,
 select,
 textarea {
-  font-family: Proxima Nova, sans-serif;
+  font-family: Inter, sans-serif;
   font-size: 100%;
   line-height: 1.15;
   margin: 0;
