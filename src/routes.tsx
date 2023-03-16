@@ -68,13 +68,6 @@ export const routes: IRoute[] = [
     component: () => <Transactions />,
     isClick: true,
   },
-  {
-    path: '/bundles/',
-    key: 'Bundles',
-    exact: true,
-    component: () => <Bundles />,
-    isClick: true,
-  },
 ];
 export const addressesRoutes: IRoute[] = [
   {

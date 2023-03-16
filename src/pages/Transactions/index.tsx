@@ -1,5 +1,4 @@
 import API from '../../API/api';
-import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { numberWithCommas } from '../../utils/helpers';
 import { transactionsTabs } from '../../utils/sidePages';
 import AddressBlock from '../Addresses/AddressDetails/components/AddressBlocks';
