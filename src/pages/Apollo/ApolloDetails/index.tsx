@@ -80,7 +80,7 @@ export const ApolloDetails = memo(() => {
     const date = filterDate.split('-');
     const fromDate = date[0];
     const toDate = date[1];
-    const { data } = await API.getApolloRewards(apolloData?.address, {
+    const { data } = await API.getApolloRewards(address, {
       from: fromDate,
       to: toDate !== undefined ? toDate : null,
     });
@@ -98,7 +98,7 @@ export const ApolloDetails = memo(() => {
         clearTimeout(timer);
       };
     }
-  }, [filterDate, isLoad]);
+  }, [filterDate, isLoad, address]);
   const itemFirst: any = [
     {
       name: 'BALANCE',
