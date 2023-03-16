@@ -100,6 +100,10 @@ const getTransactions = (params = {}) => API().get('transactions', { params });
 const getTransaction = (hash: string | undefined) =>
   API().get(`transaction/${hash}`);
 
+const searchItem = (term: any) => {
+  return API().get(`search/${term}`);
+};
+
 const api = {
   SOURCIFYAPI: SOURCIFYAPI(),
   getInfo,
@@ -117,7 +121,8 @@ const api = {
   getTransaction,
   getToken,
   getContract,
-  getAccountTxs
+  getAccountTxs,
+  searchItem,
 };
 
 export default api;
@@ -251,10 +256,6 @@ export default api;
 //         };
 //       }),
 //     );
-// };
-
-// const searchItem = (term: any) => {
-//   return API().get(`search/${term}`);
 // };
 
 // const getBundles = (params = {}) => {

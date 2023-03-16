@@ -1,4 +1,4 @@
-import API from '../API/api';
+import API2 from '../API/newApi';
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
@@ -11,7 +11,7 @@ const useSearch = (setIsShow: Function) => {
 
   const { isLoading } = useQuery(
     ['search', name],
-    () => (name?.length > 0 ? API.searchItem(name) : null),
+    () => (name?.length > 0 ? API2.searchItem(name) : null),
     {
       onSuccess: (data: any) => {
         if (!data) {
