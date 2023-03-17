@@ -71,6 +71,7 @@ export const Home: React.FC = () => {
     <Content isLoading={!!data && !!appData}>
       <Helmet>
         <link rel="canonical" href="https://airdao.io/explorer/" />
+        <title>AirDAO | Network Explorer</title>
       </Helmet>
       {data && appData && (
         <div className="home">
