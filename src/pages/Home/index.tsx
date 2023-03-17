@@ -71,7 +71,7 @@ export const Home: React.FC = () => {
     <Content isLoading={!!data && !!appData}>
       <Helmet>
         <link rel="canonical" href="https://airdao.io/explorer/" />
-        <title>Ambrosus Network Explorer</title>
+        <title>AirDAO | Network Explorer</title>
         <meta
           name="description"
           content="Explore Ambrosus Network: amb price, total supply, total transactions, market cap, nodes, holders etc."
