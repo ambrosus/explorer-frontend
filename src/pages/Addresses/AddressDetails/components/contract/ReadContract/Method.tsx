@@ -1,9 +1,10 @@
+import { useWeb3React } from '@web3-react/core';
 import CheckCircle from 'assets/icons/CheckCircle';
 import Minus from 'assets/icons/Minus';
 import Plus from 'assets/icons/Plus';
 import WarningError from 'assets/icons/WarningError';
 import Spinner from 'components/Spinner';
-import { ethers, providers } from 'ethers';
+import { ethers } from 'ethers';
 import React, { memo, useEffect, useMemo, useState } from 'react';
 
 const Method = (props: any) => {
@@ -18,7 +19,7 @@ const Method = (props: any) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const { address, isRead, index, method, buttonName } = props;
-  const { ethereum }: any = window;
+  const { library } = useWeb3React();
 
   const readProvider = new ethers.providers.JsonRpcProvider(
     process.env.REACT_APP_EXPLORER_NETWORK,
@@ -31,9 +32,7 @@ const Method = (props: any) => {
     try {
       setIsLoading(true);
 
-      const providerOrSigner = isRead
-        ? readProvider
-        : new providers.Web3Provider(ethereum).getSigner();
+      const providerOrSigner = isRead ? readProvider : library.getSigner();
 
       const contract = new ethers.Contract(address, [method], providerOrSigner);
 

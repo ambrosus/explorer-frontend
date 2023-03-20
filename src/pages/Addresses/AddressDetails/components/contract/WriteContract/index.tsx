@@ -1,13 +1,14 @@
 import Method from '../ReadContract/Method';
-import { utils } from 'ethers';
-import { useState } from 'react';
-import switchChainId from 'utils/switchChainId';
+import { useWeb3React } from '@web3-react/core';
+// @ts-ignore
+import { useAuthorization } from 'airdao-components-and-tools/hooks';
 
 const WriteContract = (props: any) => {
   const { contractAbi, contractAddress } = props;
 
-  const { ethereum }: any = window;
-  const [isConnected, setIsConnected] = useState<boolean>(false);
+  const web3ReactInstance = useWeb3React();
+  const { loginMetamask } = useAuthorization(web3ReactInstance);
+  const { account } = web3ReactInstance;
 
   if (!contractAbi) return <></>;
 
@@ -17,36 +18,11 @@ const WriteContract = (props: any) => {
       !(method.stateMutability === 'view' || method.stateMutability === 'pure'),
   );
 
-  const connectHandler = () => {
-    if (!ethereum) {
-      window.open('https://metamask.io/', '_blank');
-      return;
-    }
-
-    ethereum.request({ method: 'eth_requestAccounts' }).then(async () => {
-      const chainId = await ethereum.request({ method: 'eth_chainId' });
-      const appChainId = utils.hexValue(
-        +(process.env.REACT_APP_CHAIN_ID ?? 16718),
-      );
-
-      if (chainId !== appChainId) await switchChainId(ethereum);
-
-      // todo ????
-      ethereum.on('chainChanged', (newChainId: any) => {
-        if (newChainId !== appChainId) {
-          window.location.reload();
-        }
-      });
-
-      setIsConnected(true);
-    });
-  };
-
   return (
     <>
       <h2 className="contract-tab-title">
         {'Write Contract'}&nbsp;
-        <ConnectBtn onClick={connectHandler} isConnected={isConnected} />
+        <ConnectBtn onClick={loginMetamask} isConnected={!!account} />
       </h2>
 
       <br />
@@ -77,7 +53,7 @@ const ConnectBtn = ({ isConnected, onClick }: any) => {
       ) : (
         <span className="redCircle" />
       )}
-      &nbsp; Connect to Web3
+      &nbsp;{isConnected ? ' Connected to Web3' : ' Connect to Web3'}
     </button>
   );
 };
