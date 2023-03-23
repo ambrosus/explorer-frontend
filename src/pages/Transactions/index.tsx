@@ -4,7 +4,6 @@ import { transactionsTabs } from '../../utils/sidePages';
 import AddressBlock from '../Addresses/AddressDetails/components/AddressBlocks';
 import { Account } from '../Atlas/atlas.interface';
 import TabsNew from './components/TabsNew';
-import API2 from 'API/newApi';
 import { Content } from 'components/Content';
 import moment from 'moment';
 import React, { memo, useEffect, useState } from 'react';
@@ -14,7 +13,7 @@ export const Transactions = memo(() => {
   const [txData, setTxData] = useState<any>(null);
 
   useEffect(() => {
-    API2.getInfo().then((res) => setTxData(res.data));
+    API.getInfo().then((res) => setTxData(res));
   }, []);
 
   return (
