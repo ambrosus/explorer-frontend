@@ -98,6 +98,7 @@ export const AtlasDetails = () => {
   ];
 
   const fetchParams = useMemo(() => {
+    console.log(1);
     return { address, type: '', page: '' };
   }, [address]);
 
