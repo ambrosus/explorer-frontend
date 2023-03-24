@@ -8,7 +8,7 @@ import { useTypedSelector } from 'hooks/useTypedSelector';
 import moment from 'moment';
 import AddressBlock from 'pages/Addresses/AddressDetails/components/AddressBlocks';
 import TabsNew from 'pages/Transactions/components/TabsNew';
-import React, { useEffect } from 'react';
+import React, {useEffect, useMemo} from 'react';
 import { Helmet } from 'react-helmet';
 import { useParams } from 'react-router-dom';
 import { TParams } from 'types';
@@ -21,7 +21,7 @@ export const AtlasDetails = () => {
 
   useEffect(() => {
     getAddressData(address);
-  }, []);
+  }, [address]);
 
   const { data: appData } = useTypedSelector((state: any) => state.app);
   const { data: addressData } = useTypedSelector((state) => state.addressData);
@@ -97,6 +97,10 @@ export const AtlasDetails = () => {
     },
   ];
 
+  const fetchParams = useMemo(() => {
+    return { address, type: '', page: '' };
+  }, [address]);
+
   return (
     <Content>
       <Helmet>
@@ -133,7 +137,7 @@ export const AtlasDetails = () => {
         <TabsNew
           tabs={atlasDetailsSorting}
           fetchData={API.getAccountTx}
-          fetchParams={{ address, page: '', type: '' }}
+          fetchParams={fetchParams}
           render={(txs: any) =>
             txs.map((transaction: any) => (
               <AddressBlock

@@ -14,6 +14,7 @@ const useSearch = (setIsShow: Function) => {
     () => (name?.length > 0 ? API.searchItem(name) : null),
     {
       onSuccess: (data: any) => {
+        console.log(data);
         if (!data) {
           setErr(true);
         } else {
@@ -38,7 +39,9 @@ const useSearch = (setIsShow: Function) => {
             const searchValue = searchTerm
               .trim()
               .replace('addresses', 'address')
-              .replace('transactions', 'tx');
+              .replace('transactions', 'tx')
+              .replace('blocks', 'block');
+            console.log(searchValue);
             setLink(`/${searchValue}/`);
           } else {
             setErr(true);
