@@ -46,7 +46,6 @@ export const ApolloDetails = memo(() => {
     true,
     false,
   );
-  console.log(appData?.tokenInfo);
 
   const { price_usd } = appData?.tokenInfo || 0;
   const ambBalance = balance?.ether || 0;
@@ -101,12 +100,11 @@ export const ApolloDetails = memo(() => {
       };
     }
   }, [filterDate, isLoad]);
+
   const itemFirst: any = [
     {
       name: 'BALANCE',
       value: diffStyleToCell(ambBalance, usdBalance),
-
-      // `${ambBalance.toFixed(2)} AMB / $ ${usdBalance.toFixed(2)}`,
     },
     {
       name: 'UPTIME',
