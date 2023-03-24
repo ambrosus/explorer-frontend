@@ -17,7 +17,7 @@ const FindWide: React.FC<FindWideProps> = ({
         style={{
           color: err ? '#ff4747' : '#808A9D',
         }}
-        placeholder="Search by Node, Address, Tx, Block, Token, Bundle"
+        placeholder="Search by Node, Address, Tx, Block, Token"
         type="text"
         value={name}
         onChange={handleChange}
