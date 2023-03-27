@@ -217,10 +217,10 @@ const AddressDetails = () => {
       <Helmet>
         <meta name="robots" content="noindex" />
         <link rel="canonical" href="https://airdao.io/explorer/addresses/" />
-        <title>Addresses. Ambrosus Network Explorer</title>
+        <title>Addresses. AirDAO Network Explorer</title>
         <meta
           name="description"
-          content="Explore Ambrosus Network Addresses: Total addresses, Holders, Tx Count, Balance etc."
+          content="Explore AirDAO Network Addresses: Total addresses, Holders, Tx Count, Balance etc."
         />
       </Helmet>
       <section className="address_details">

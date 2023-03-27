@@ -107,10 +107,10 @@ export const AtlasDetails = () => {
       <Helmet>
         <link rel="canonical" href="https://airdao.io/explorer/atlas/" />
         <meta name="robots" content="noindex" />
-        <title>Atlas Nodes. Ambrosus Network Explorer</title>
+        <title>Atlas Nodes. AirDAO Network Explorer</title>
         <meta
           name="description"
-          content="Explore Ambrosus Network Atlas Nodes: total nodes, avg block / prop. time"
+          content="Explore AirDAO Network Atlas Nodes: total nodes, avg block / prop. time"
         />
       </Helmet>
       <Content.Header>
