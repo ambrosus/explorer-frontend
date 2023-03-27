@@ -8,6 +8,8 @@ import HeadInfo from 'components/HeadInfo';
 import React, { memo, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 
+const fetchParams = { page: '' };
+
 export const Blocks = memo(() => {
   const [blockData, setBlockData] = useState<any>(null);
 
@@ -59,7 +61,7 @@ export const Blocks = memo(() => {
           <TabsNew
             tableHeader={() => <BlocksHeader />}
             fetchData={API.getBlocks}
-            fetchParams={{ page: '' }}
+            fetchParams={fetchParams}
             label="Blocks"
             render={(list: any) =>
               list.map((el: any, index: any) => (
