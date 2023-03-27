@@ -1,3 +1,4 @@
+import React, { memo, useEffect, useState } from 'react';
 import { numberWithCommas } from '../../utils/helpers';
 import TabsNew from '../Transactions/components/TabsNew';
 import BlocksBody from './components/BlocksBody';
@@ -5,7 +6,6 @@ import BlocksHeader from './components/BlocksHeader';
 import API from 'API/api';
 import { Content } from 'components/Content';
 import HeadInfo from 'components/HeadInfo';
-import React, { memo, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 
 const fetchParams = { page: '' };
