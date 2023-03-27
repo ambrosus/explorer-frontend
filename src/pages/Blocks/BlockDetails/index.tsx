@@ -161,7 +161,7 @@ export const BlockDetails = memo(() => {
       <Helmet>
         <meta name="robots" content="noindex" />
         <link rel="canonical" href="https://airdao.io/explorer/block/" />
-        <title>Blocks. AirDAO Network Explorer</title>
+        <title>Blocks | AirDAO Network Explorer</title>
         <meta
           name="description"
           content="Explore AirDAO Network Blocks: total blocks, avg. block size, avg. block time, avg. gas used etc."

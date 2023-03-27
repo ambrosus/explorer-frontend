@@ -52,7 +52,7 @@ export const Apollo = memo(() => {
       <Helmet>
         <link rel="canonical" href="https://airdao.io/explorer/apollo/" />
         <meta name="robots" content="noindex" />
-        <title>Apollo Nodes. AirDAO Network Explorer</title>
+        <title>Apollo Nodes | AirDAO Network Explorer</title>
         <meta
           name="description"
           content="Explore AirDAO Network Apollo Nodes: total nodes, online, offline, connecting, avg block / prop. time"

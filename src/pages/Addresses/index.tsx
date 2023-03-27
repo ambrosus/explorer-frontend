@@ -20,7 +20,7 @@ export const Addresses = () => {
     <Content>
       <Helmet>
         <link rel="canonical" href="https://airdao.io/explorer/address/" />
-        <title>Addresses. AirDAO Network Explorer</title>
+        <title>Addresses | AirDAO Network Explorer</title>
         <meta
           name="description"
           content="Explore AirDAO Network Addresses: Total addresses, Holders, Tx Count, Balance etc."

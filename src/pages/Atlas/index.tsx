@@ -50,7 +50,7 @@ export const Atlas = () => {
     <Content>
       <Helmet>
         <link rel="canonical" href="https://airdao.io/explorer/atlas/" />
-        <title>Atlas Nodes. AirDAO Network Explorer</title>
+        <title>Atlas Nodes | AirDAO Network Explorer</title>
         <meta
           name="description"
           content="Explore AirDAO Network Atlas Nodes: total nodes, avg block / prop. time"
