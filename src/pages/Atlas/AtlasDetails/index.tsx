@@ -1,4 +1,3 @@
-import AtlasDetailsHead from './components/AtlasDetailsHead';
 import API from 'API/api';
 import { Content } from 'components/Content';
 import CopyBtn from 'components/CopyBtn';

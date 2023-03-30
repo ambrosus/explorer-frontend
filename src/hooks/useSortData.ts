@@ -68,16 +68,12 @@ const useSortData = (getData: any, firstSortTerm: any = '') => {
   const concatData = useCallback(() => {
     if (sortTerm === 'contracts') return;
 
-    if (inView) {
+    if (inView && renderData.pagination.hasNext) {
       setLoading(true);
       const next: string = renderData?.pagination?.next;
+      console.log(next);
       if (next) {
         getData(sortTerm, next, address).then((res: AccountsData) => {
-          if (res?.meta?.message?.includes('No results')) {
-            setLoading(false);
-            setRenderData(null);
-            return;
-          }
           setRenderData((prev: AccountsData) => {
             setLoading(false);
             return {
