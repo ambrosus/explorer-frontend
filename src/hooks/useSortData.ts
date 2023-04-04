@@ -71,7 +71,7 @@ const useSortData = (getData: any, firstSortTerm: any = '') => {
     if (inView && renderData.pagination.hasNext) {
       setLoading(true);
       const next: string = renderData?.pagination?.next;
-      console.log(next);
+
       if (next) {
         getData(sortTerm, next, address).then((res: AccountsData) => {
           setRenderData((prev: AccountsData) => {
