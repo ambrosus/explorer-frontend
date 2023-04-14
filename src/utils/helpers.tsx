@@ -2,6 +2,7 @@ import { TransactionProps } from '../pages/Addresses/AddressDetails/address-deta
 import { ENABLE_LOGS } from './constants';
 import Amb from 'assets/icons/Cryptos/Amb';
 import Bnb from 'assets/icons/Cryptos/Bnb';
+import Bond from 'assets/icons/Cryptos/Bond';
 import Busd from 'assets/icons/Cryptos/Busd';
 import Eth from 'assets/icons/Cryptos/Eth';
 import Gpt from 'assets/icons/Cryptos/Gpt';
@@ -9,7 +10,6 @@ import Hpt from 'assets/icons/Cryptos/Hpt';
 import Ppt from 'assets/icons/Cryptos/Ppt';
 import Usdc from 'assets/icons/Cryptos/Usdc';
 import Usdt from 'assets/icons/Cryptos/Usdt';
-import Bond from 'assets/icons/Cryptos/Bond';
 import GreenCircle from 'assets/icons/StatusAction/GreenCircle';
 import OrangeCircle from 'assets/icons/StatusAction/OrangeCircle';
 import moment from 'moment';
@@ -112,7 +112,7 @@ export const getTokenIcon = (symbol: string, name?: string) => {
         return Gpt;
     }
   }
-  console.log(symbol);
+
   switch (symbol) {
     case 'SAMB':
       return Amb;
@@ -133,7 +133,7 @@ export const getTokenIcon = (symbol: string, name?: string) => {
     case 'BUSD':
       return Busd;
     case 'AmbB':
-      return Bond
+      return Bond;
     default:
       return Amb;
   }
