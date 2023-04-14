@@ -9,6 +9,7 @@ import Hpt from 'assets/icons/Cryptos/Hpt';
 import Ppt from 'assets/icons/Cryptos/Ppt';
 import Usdc from 'assets/icons/Cryptos/Usdc';
 import Usdt from 'assets/icons/Cryptos/Usdt';
+import Bond from 'assets/icons/Cryptos/Bond';
 import GreenCircle from 'assets/icons/StatusAction/GreenCircle';
 import OrangeCircle from 'assets/icons/StatusAction/OrangeCircle';
 import moment from 'moment';
@@ -111,7 +112,7 @@ export const getTokenIcon = (symbol: string, name?: string) => {
         return Gpt;
     }
   }
-
+  console.log(symbol);
   switch (symbol) {
     case 'SAMB':
       return Amb;
@@ -131,6 +132,8 @@ export const getTokenIcon = (symbol: string, name?: string) => {
       return Usdc;
     case 'BUSD':
       return Busd;
+    case 'AmbB':
+      return Bond
     default:
       return Amb;
   }
