@@ -8,7 +8,7 @@ const transactionFilters = [
   // { title: 'Events', value: 'events' },
 ];
 const ERC20Filters = [
-  { title: 'All', value: ' ' },
+  { title: 'All', value: '' },
   { title: 'Transfers', value: 'transfers' },
 ];
 

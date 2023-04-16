@@ -25,10 +25,10 @@ const BundleDetails = () => {
       <Helmet>
         <meta name="robots" content="noindex" />
         <link rel="canonical" href="https://airdao.io/explorer/bundles/" />
-        <title>Bundles. Ambrosus Network Explorer</title>
+        <title>Bundles | AirDAO Network Explorer</title>
         <meta
           name="description"
-          content="Explore Ambrosus Network Bundles: average bundle load, aprox bundle, bundle cost, entries total etc."
+          content="Explore AirDAO Network Bundles: average bundle load, aprox bundle, bundle cost, entries total etc."
         />
       </Helmet>
       <Content.Header>

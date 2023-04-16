@@ -8,6 +8,8 @@ import HeadInfo from 'components/HeadInfo';
 import React, { memo, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 
+const fetchParams = { page: '' };
+
 export const Blocks = memo(() => {
   const [blockData, setBlockData] = useState<any>(null);
 
@@ -47,10 +49,10 @@ export const Blocks = memo(() => {
     <Content>
       <Helmet>
         <link rel="canonical" href="https://airdao.io/explorer/blocks/" />
-        <title>Blocks. Ambrosus Network Explorer</title>
+        <title>Blocks | AirDAO Network Explorer</title>
         <meta
           name="description"
-          content="Explore Ambrosus Network Blocks: total blocks, avg. block size, avg. block time, avg. gas used etc."
+          content="Explore AirDAO Network Blocks: total blocks, avg. block size, avg. block time, avg. gas used etc."
         />
       </Helmet>
       <Content.Header>
@@ -64,7 +66,7 @@ export const Blocks = memo(() => {
           <TabsNew
             tableHeader={() => <BlocksHeader />}
             fetchData={API.getBlocks}
-            fetchParams={{ page: '' }}
+            fetchParams={fetchParams}
             label="Blocks"
             render={(list: any) =>
               list.map((el: any, index: any) => (

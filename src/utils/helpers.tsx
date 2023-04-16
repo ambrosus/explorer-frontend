@@ -134,6 +134,8 @@ export const getTokenIcon = (symbol: string, name?: string) => {
       return Busd;
     case 'BOND':
       return Bond;
+    case 'AmbB':
+      return Bond;
     default:
       return Amb;
   }

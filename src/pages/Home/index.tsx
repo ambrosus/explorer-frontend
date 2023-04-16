@@ -74,7 +74,7 @@ export const Home: React.FC = () => {
         <title>AirDAO | Network Explorer</title>
         <meta
           name="description"
-          content="Explore Ambrosus Network: amb price, total supply, total transactions, market cap, nodes, holders etc."
+          content="Explore AirDAO Network: amb price, total supply, total transactions, market cap, nodes, holders etc."
         />
       </Helmet>
       {data && appData && (
