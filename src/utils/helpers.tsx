@@ -2,6 +2,7 @@ import { TransactionProps } from '../pages/Addresses/AddressDetails/address-deta
 import { ENABLE_LOGS } from './constants';
 import Amb from 'assets/icons/Cryptos/Amb';
 import Bnb from 'assets/icons/Cryptos/Bnb';
+import Bond from 'assets/icons/Cryptos/Bond';
 import Busd from 'assets/icons/Cryptos/Busd';
 import Eth from 'assets/icons/Cryptos/Eth';
 import Gpt from 'assets/icons/Cryptos/Gpt';
@@ -131,6 +132,8 @@ export const getTokenIcon = (symbol: string, name?: string) => {
       return Usdc;
     case 'BUSD':
       return Busd;
+    case 'BOND':
+      return Bond;
     default:
       return Amb;
   }
