@@ -98,7 +98,7 @@ const getAccountTxs = (params: any = {}) => {
 
 const getTransactions = (params = {}) => API().get('transactions', { params });
 const getTransaction = (hash: string | undefined) =>
-  API().get(`transaction/${hash}`);
+  API().get(`transactions/${hash}`);
 
 const searchItem = (term: any) => {
   return API().get(`search/${term}`);
