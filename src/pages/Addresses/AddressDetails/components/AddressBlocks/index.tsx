@@ -57,9 +57,10 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
   isIcon,
   inners,
   status,
+  type,
 }) => {
   const { addFilter } = useActions();
-  const { address, type }: TParams = useParams();
+  const { address }: TParams = useParams();
 
   const navigate = useNavigate();
 

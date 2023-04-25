@@ -4,7 +4,6 @@ import { formatEther } from 'ethers/lib/utils';
 import { useActions } from 'hooks/useActions';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import React, { FC } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
 
 export type FilteredTokenProps = {
   setSelectedToken: any;
@@ -17,13 +16,10 @@ const FilteredToken: FC<FilteredTokenProps> = ({
 }) => {
   const { clearFilters } = useActions();
   const { filters } = useTypedSelector((state: any) => state.tokenFilters);
-  const navigate = useNavigate();
-  const { address } = useParams();
 
   const backClick = () => {
     setSelectedToken(null);
     clearFilters();
-    navigate(`/address/${address}/ERC-20_Tx/`);
   };
   const Icon = getTokenIcon(filters.symbol as string, filters.name);
 

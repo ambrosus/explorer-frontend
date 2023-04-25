@@ -137,9 +137,10 @@ const AddressDetails = () => {
               address,
               tokenAddress: selectedToken ? selectedToken.address : '',
             }}
-            render={(txs: Account[]) =>
+            render={(txs: Account[], isTokens: boolean) =>
               txs.map((tx: any, i: number) => (
                 <AddressBlock
+                  type={isTokens ? 'ERC-20_Tx' : ''}
                   key={i}
                   txhash={tx.hash}
                   method={tx.type.split(':')[0]}
@@ -149,9 +150,11 @@ const AddressDetails = () => {
                   block={tx.blockNumber}
                   amount={tx.value.ether}
                   txfee={tx.gasCost.ether}
-                  token={`${tx?.token ? tx?.token : 'AMB'}`}
-                  symbol={`${tx?.symbol ? tx?.symbol : 'AMB'}`}
-                  isTableColumn="address_blocks_cells"
+                  token={`${tx.token ? tx.token.name : 'AMB'}`}
+                  symbol={`${tx.token ? tx.token.symbol : 'AMB'}`}
+                  isTableColumn={
+                    isTokens ? 'address_blocks_erc20' : 'address_blocks_cells'
+                  }
                   isIcon={true}
                   inners={tx.inners}
                   status={tx.status}

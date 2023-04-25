@@ -237,14 +237,19 @@ const TabsNew: FC<TabsNewProps> = ({
                   from="From"
                   to="To"
                   date="Date"
-                  block="Block"
+                  block={tab === 'tokens' ? null : 'Block'}
                   amount="Amount"
-                  txfee="txFee"
-                  token={null}
+                  txfee={tab === 'tokens' ? null : 'txFee'}
+                  token={tab === 'tokens' ? 'Token' : null}
                   methodFilters={null}
-                  isTableColumn={'address_blocks_cells no_border'}
+                  isTableColumn={`${
+                    tab === 'tokens'
+                      ? 'address_blocks_erc20'
+                      : 'address_blocks_cells'
+                  } no_border`}
                 />
-                {!!tabData?.data?.length && render(tabData.data)}
+                {!!tabData?.data?.length &&
+                  render(tabData.data, tab === 'tokens')}
               </>
             )}
           </div>
