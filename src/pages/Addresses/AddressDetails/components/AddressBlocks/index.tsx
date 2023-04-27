@@ -58,6 +58,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
   inners,
   status,
   type,
+  tokenData,
 }) => {
   const { addFilter } = useActions();
   const { address }: TParams = useParams();
@@ -160,18 +161,9 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 
   //TODO ?
   const handleBlock = () => {
-    addressData?.tokens?.forEach((item: TokenType) => {
-      if (
-        (item.name === token && symbol !== 'AMB') ||
-        (token.includes('token') && item.name === token)
-      ) {
-        onClick(item);
-        addFilter(item);
-        navigate(`/address/${address}/ERC-20_Tx/${item.contract}`);
-      } else {
-        return '';
-      }
-    });
+    if (tokenData) {
+      onClick(tokenData)
+    }
   };
 
   const isSymbolERC =

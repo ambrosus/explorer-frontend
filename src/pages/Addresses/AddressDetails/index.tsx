@@ -47,25 +47,31 @@ const AddressDetails = () => {
     });
   }, []);
 
-  // useEffect(() => {
-  // if (address?.trim() === '0x0000000000000000000000000000000000000000') {
-  //   window.location.replace(`/explorer/notfound`);
-  // }
-  //
-  // if (address) {
-  //   API.searchItem(address)
-  //     .then((data: any) => {
-  //       !data.meta.search && window.location.replace(`/explorer/notfound`);
-  //     })
-  //     .catch(() => {
-  //       if (addressData.balance === '') {
-  //         window.location.replace(`/explorer/notfound`);
-  //       }
-  //     });
-  // }
-  // }, [addressData]);
-
   const { FOR_TABLET } = useDeviceSize();
+
+  const renderAddressBlock = (tx: any, isTokens: boolean) => (
+    <AddressBlock
+      type={isTokens ? 'ERC-20_Tx' : ''}
+      txhash={tx.hash}
+      method={tx.type.split(':')[0]}
+      from={tx.from}
+      to={tx.to}
+      date={moment(tx.timestamp * 1000).fromNow()}
+      block={tx.blockNumber}
+      amount={tx.value.ether}
+      txfee={tx.gasCost.ether}
+      token={`${tx.token ? tx.token.name : 'AMB'}`}
+      symbol={`${tx.token ? tx.token.symbol : 'AMB'}`}
+      isTableColumn={
+        isTokens ? 'address_blocks_erc20' : 'address_blocks_cells'
+      }
+      isIcon={true}
+      inners={tx.inners}
+      status={tx.status}
+      onClick={setSelectedToken}
+      tokenData={tx.token}
+    />
+  )
 
   return (
     <Content>
@@ -115,53 +121,43 @@ const AddressDetails = () => {
           </div>
         </Content.Header>
         <Content.Body>
-          <TabsNew
-            contractInfo={
-              isContract
-                ? {
+          {selectedToken ? (
+            <TabsNew
+              tabs={[{ title: 'Token', value: 'tokens' }]}
+              fetchData={API2.getTokenTxs}
+              initTab="tokens"
+              fetchParams={{
+                page: '',
+                userAddress: address,
+                tokenAddress: selectedToken.address,
+              }}
+              render={(txs: Account[], isTokens: boolean) =>
+                txs.map((tx: any) => renderAddressBlock(tx, isTokens))
+              }
+            />
+          ) : (
+            <TabsNew
+              contractInfo={
+                isContract
+                  ? {
                     data: contractInfo,
                     address,
                   }
-                : null
-            }
-            tabs={
-              selectedToken
-                ? [{ title: 'Token', value: 'token' }]
-                : transactionFilters
-            }
-            fetchData={API2.getAccountTxs}
-            initTab="all"
-            fetchParams={{
-              type: '',
-              page: '',
-              address,
-              tokenAddress: selectedToken ? selectedToken.address : '',
-            }}
-            render={(txs: Account[], isTokens: boolean) =>
-              txs.map((tx: any, i: number) => (
-                <AddressBlock
-                  type={isTokens ? 'ERC-20_Tx' : ''}
-                  key={i}
-                  txhash={tx.hash}
-                  method={tx.type.split(':')[0]}
-                  from={tx.from}
-                  to={tx.to}
-                  date={moment(tx.timestamp * 1000).fromNow()}
-                  block={tx.blockNumber}
-                  amount={tx.value.ether}
-                  txfee={tx.gasCost.ether}
-                  token={`${tx.token ? tx.token.name : 'AMB'}`}
-                  symbol={`${tx.token ? tx.token.symbol : 'AMB'}`}
-                  isTableColumn={
-                    isTokens ? 'address_blocks_erc20' : 'address_blocks_cells'
-                  }
-                  isIcon={true}
-                  inners={tx.inners}
-                  status={tx.status}
-                />
-              ))
-            }
-          />
+                  : null
+              }
+              tabs={transactionFilters}
+              fetchData={API2.getAccountTxs}
+              initTab="all"
+              fetchParams={{
+                type: '',
+                page: '',
+                address,
+              }}
+              render={(txs: Account[], isTokens: boolean) =>
+                txs.map((tx: any, i: number) => renderAddressBlock(tx, isTokens))
+              }
+            />
+          )}
         </Content.Body>
       </section>
     </Content>

@@ -27,7 +27,7 @@ const TokenItem = ({ token, selectedToken, setToken }: ITokenItemProps) => {
             : token?.name}
         </div>
         <div className="universall_light2">
-          {token?.balance} {token?.symbol}
+          {token?.balance.ether} {token?.symbol}
         </div>
       </div>
       <div className="token_item_amount" />
