@@ -101,7 +101,7 @@ const getTransaction = (hash: string | undefined) =>
   API().get(`transactions/${hash}`);
 
 const searchItem = (term: any) => {
-  return API().get(`search/${term}`);
+  return API().get(`search/${term}`)
 };
 
 const api = {

@@ -17,32 +17,8 @@ const useSearch = (setIsShow: Function) => {
         if (!data) {
           setErr(true);
         } else {
-          if (
-            name.trim() === '0x0000000000000000000000000000000000000000' ||
-            Number(name.trim()) === 0 ||
-            !name.length
-          ) {
-            setErr(true);
-            return;
-          }
-          let searchTerm = data.data;
           setErr(false);
-          if (searchTerm && searchTerm.term !== undefined) {
-            const urlParts = data?.meta.search.trim().split('/');
-            urlParts[urlParts.length - 1] = searchTerm.term;
-            searchTerm = urlParts.join('/');
-          } else {
-            searchTerm = data?.meta.search;
-          }
-          if (data.meta.search && !searchTerm.trim().includes(['hermes'])) {
-            const searchValue = searchTerm
-              .trim()
-              .replace('addresses', 'address')
-              .replace('transactions', 'tx');
-            setLink(`/${searchValue}/`);
-          } else {
-            setErr(true);
-          }
+          setLink(data.redirect)
         }
       },
       onError: () => {
@@ -53,19 +29,19 @@ const useSearch = (setIsShow: Function) => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (
-      name.trim() === '0x0000000000000000000000000000000000000000' ||
-      Number(name.trim()) === 0 ||
-      !name.length
-    ) {
-      setErr(true);
-      return;
-    }
-    if (!name) {
-      return;
-    }
+    // if (
+    //   name.trim() === '0x0000000000000000000000000000000000000000' ||
+    //   Number(name.trim()) === 0 ||
+    //   !name.length
+    // ) {
+    //   setErr(true);
+    //   return;
+    // }
+    // if (!name) {
+    //   return;
+    // }
     if (!isLoading && !err) {
-      navigate(link);
+      navigate(link.replace('transactions', 'tx'));
       if (!!setIsShow) {
         setIsShow((prev: any) => !prev);
       }
