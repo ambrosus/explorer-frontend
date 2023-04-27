@@ -84,6 +84,7 @@ export interface AddressBlockProps {
   status?: string;
   type?: string;
   tokenData?: any;
+  tokens?: any;
 }
 
 export interface TokenProps {

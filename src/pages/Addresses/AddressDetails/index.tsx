@@ -70,6 +70,7 @@ const AddressDetails = () => {
       status={tx.status}
       onClick={setSelectedToken}
       tokenData={tx.token}
+      tokens={addressData.tokens}
     />
   )
 
