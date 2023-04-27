@@ -41,7 +41,7 @@ const useSearch = (setIsShow: Function) => {
     //   return;
     // }
     if (!isLoading && !err) {
-      navigate(link.replace('transactions', 'tx'));
+      navigate(link);
       if (!!setIsShow) {
         setIsShow((prev: any) => !prev);
       }
