@@ -12,9 +12,7 @@ const TokenItem = ({ token, selectedToken, setToken }: ITokenItemProps) => {
           ? 'token_item token_item_active'
           : 'token_item'
       }
-      onClick={() => {
-        setToken(token);
-      }}
+      onClick={() => setToken(token)}
     >
       <div className="token_item_icon">
         <Icon />

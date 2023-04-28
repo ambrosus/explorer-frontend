@@ -50,7 +50,7 @@ const FilteredToken: FC<FilteredTokenProps> = ({
           <span className="filtered_token_cell_bold">Balance</span>
           <span className="filtered_token_cell_normal">
             {selectedToken.balance.ether
-              ? Number(selectedToken.balance.ether).toFixed(2)
+              ? Number(Math.round(selectedToken.balance.ether)).toFixed(2)
               : '-'}
           </span>
         </div>
@@ -58,7 +58,7 @@ const FilteredToken: FC<FilteredTokenProps> = ({
         <div className="filtered_token_cell">
           <span className="filtered_token_cell_bold">Total supply</span>
           <span className="filtered_token_cell_normal">
-            {Number(formatEther(selectedToken.totalSupply.ether)).toFixed(2)}
+            {Number(formatEther(Math.round(selectedToken.totalSupply.ether))).toFixed(2)}
           </span>
         </div>
       </div>

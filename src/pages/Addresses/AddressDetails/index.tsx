@@ -62,9 +62,7 @@ const AddressDetails = () => {
       txfee={tx.gasCost.ether}
       token={`${tx.token ? tx.token.name : 'AMB'}`}
       symbol={`${tx.token ? tx.token.symbol : 'AMB'}`}
-      isTableColumn={
-        isTokens ? 'address_blocks_erc20' : 'address_blocks_cells'
-      }
+      isTableColumn={isTokens ? 'address_blocks_erc20' : 'address_blocks_cells'}
       isIcon={true}
       inners={tx.inners}
       status={tx.status}
@@ -72,7 +70,7 @@ const AddressDetails = () => {
       tokenData={tx.token}
       tokens={addressData.tokens}
     />
-  )
+  );
 
   return (
     <Content>
@@ -141,9 +139,9 @@ const AddressDetails = () => {
               contractInfo={
                 isContract
                   ? {
-                    data: contractInfo,
-                    address,
-                  }
+                      data: contractInfo,
+                      address,
+                    }
                   : null
               }
               tabs={transactionFilters}
@@ -155,7 +153,9 @@ const AddressDetails = () => {
                 address,
               }}
               render={(txs: Account[], isTokens: boolean) =>
-                txs.map((tx: any, i: number) => renderAddressBlock(tx, isTokens))
+                txs.map((tx: any, i: number) =>
+                  renderAddressBlock(tx, isTokens),
+                )
               }
             />
           )}

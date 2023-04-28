@@ -18,7 +18,7 @@ const useSearch = (setIsShow: Function) => {
           setErr(true);
         } else {
           setErr(false);
-          setLink(data.redirect)
+          setLink(data.redirect);
         }
       },
       onError: () => {

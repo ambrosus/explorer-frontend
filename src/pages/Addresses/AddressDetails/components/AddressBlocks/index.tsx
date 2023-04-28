@@ -59,7 +59,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
   status,
   type,
   tokenData,
-  tokens
+  tokens,
 }) => {
   const { addFilter } = useActions();
   const { address }: TParams = useParams();
@@ -163,7 +163,9 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
   //TODO ?
   const handleBlock = () => {
     if (tokenData) {
-      const currentToken = tokens.find((el: any) => el.address === tokenData.address)
+      const currentToken = tokens.find(
+        (el: any) => el.address === tokenData.address,
+      );
       onClick(currentToken);
     }
   };
