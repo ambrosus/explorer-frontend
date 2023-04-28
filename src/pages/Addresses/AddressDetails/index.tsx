@@ -22,13 +22,13 @@ const AddressDetails = () => {
   const { getContractAddressData } = useActions();
 
   const { data: sourcifyData } = useTypedSelector((state) => state?.sourcify);
-  const { accountInfo, contractInfo } = sourcifyData || {};
-  const { isContract } = accountInfo?.data || false;
+  const { contractInfo } = sourcifyData || {};
 
   const [selectedToken, setSelectedToken]: any = useState(null);
   const [addressData, setAddressData] = useState({
     balance: '',
     tokens: [],
+    isContract: false,
   });
 
   useEffect(() => {
@@ -42,6 +42,7 @@ const AddressDetails = () => {
         setAddressData({
           balance: response.account.balance.wei,
           tokens: response.tokens,
+          isContract: response.account.isContract
         });
       }
     });
@@ -81,12 +82,12 @@ const AddressDetails = () => {
       <section className="address_details">
         <Content.Header>
           <h1 className="address_details_h1">
-            {isContract ? 'Smart Contract Details' : 'Address Details'}
+            {addressData.isContract ? 'Smart Contract Details' : 'Address Details'}
             <div
               className="address_details_copy"
-              style={{ fontSize: isContract ? 18 : '2.3rem' }}
+              style={{ fontSize: addressData.isContract ? 18 : '2.3rem' }}
             >
-              {isContract && (
+              {addressData.isContract && (
                 <span> {FOR_TABLET ? <span>Address:&nbsp;</span> : null} </span>
               )}
               {address}
@@ -137,7 +138,7 @@ const AddressDetails = () => {
           ) : (
             <TabsNew
               contractInfo={
-                isContract
+                addressData.isContract
                   ? {
                       data: contractInfo,
                       address,
