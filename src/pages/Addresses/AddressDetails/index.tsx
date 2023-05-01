@@ -42,7 +42,7 @@ const AddressDetails = () => {
         setAddressData({
           balance: response.account.balance.wei,
           tokens: response.tokens,
-          isContract: response.account.isContract
+          isContract: response.account.isContract,
         });
       }
     });
@@ -82,7 +82,9 @@ const AddressDetails = () => {
       <section className="address_details">
         <Content.Header>
           <h1 className="address_details_h1">
-            {addressData.isContract ? 'Smart Contract Details' : 'Address Details'}
+            {addressData.isContract
+              ? 'Smart Contract Details'
+              : 'Address Details'}
             <div
               className="address_details_copy"
               style={{ fontSize: addressData.isContract ? 18 : '2.3rem' }}

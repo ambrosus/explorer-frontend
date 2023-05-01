@@ -111,10 +111,11 @@ const TabsNew: FC<TabsNewProps> = ({
         setTabData(response);
       }
     });
-  }, [tab, sortTerm, fetchParams]);
+  }, [tab, sortTerm]);
 
   useEffect(() => {
     if (
+      tab !== 'contract' &&
       inView &&
       !loading &&
       tabData.pagination &&
