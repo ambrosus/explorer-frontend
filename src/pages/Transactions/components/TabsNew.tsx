@@ -111,7 +111,7 @@ const TabsNew: FC<TabsNewProps> = ({
         setTabData(response);
       }
     });
-  }, [tab, sortTerm]);
+  }, [tab, sortTerm, fetchParams]);
 
   useEffect(() => {
     if (

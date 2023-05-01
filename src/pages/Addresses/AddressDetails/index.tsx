@@ -13,7 +13,7 @@ import { formatEther } from 'ethers/lib/utils';
 import useDeviceSize from 'hooks/useDeviceSize';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import moment from 'moment';
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import { Helmet } from 'react-helmet';
 import { useParams } from 'react-router-dom';
 
@@ -72,6 +72,12 @@ const AddressDetails = () => {
       tokens={addressData.tokens}
     />
   );
+
+  const fetchParams = useMemo(() => ({
+    type: '',
+    page: '',
+    address,
+  }), [address]);
 
   return (
     <Content>
@@ -150,11 +156,7 @@ const AddressDetails = () => {
               tabs={transactionFilters}
               fetchData={API2.getAccountTxs}
               initTab="all"
-              fetchParams={{
-                type: '',
-                page: '',
-                address,
-              }}
+              fetchParams={fetchParams}
               render={(txs: Account[], isTokens: boolean) =>
                 txs.map((tx: any, i: number) =>
                   renderAddressBlock(tx, isTokens),
