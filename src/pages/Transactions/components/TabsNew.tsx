@@ -13,6 +13,7 @@ import useDeviceSize from 'hooks/useDeviceSize';
 import { AccountsData } from 'pages/Addresses/addresses.interface';
 import React, { FC, useEffect, useMemo, useRef, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
+import {getContractData} from "../../../services/contract.service";
 
 const TabItem: FC<TabsItemProps> = ({ tab, el, handleTab }) => {
   const ref = useRef(null);
@@ -61,15 +62,14 @@ const TabsNew: FC<TabsNewProps> = ({
   initTab = '',
   tableHeader,
   label,
-  contractInfo,
   withoutLoader,
+  isContract,
 }) => {
   const [loading, setLoading] = useState(true);
   const [tab, setTab] = useState(initTab);
   const [isShow, setIsShow] = useState(false);
   const [sortTerm, setSortTerm] = useState(initSortTerm);
-
-  const { ref, inView } = useInView();
+  const [contractInfo, setContractInfo] = useState<any>(null);
   const [tabData, setTabData] = useState<any>({
     data: [],
     pagination: {
@@ -78,12 +78,24 @@ const TabsNew: FC<TabsNewProps> = ({
     },
   });
 
+  const { ref, inView } = useInView();
+
   const mobileCalendarRef = useRef(null);
   const { FOR_TABLET } = useDeviceSize();
 
   useOnClickOutside(mobileCalendarRef, () => setIsShow(false));
 
   const handleShow = () => setIsShow(!isShow);
+
+  useEffect(() => {
+    if (tab === 'contract') {
+      getContractData(fetchParams.address)
+        .then((res) => {
+          console.log(res.data);
+          setContractInfo(res.data)
+        })
+    }
+  }, [tab])
 
   useEffect(() => {
     if (tab === 'contract') return;
@@ -169,7 +181,7 @@ const TabsNew: FC<TabsNewProps> = ({
           <div className="tabs">
             <div className="tabs_heading">
               <div className="tabs_heading_filters">
-                {(contractInfo ? [...tabs, contractTab] : tabs).map(
+                {(isContract ? [...tabs, contractTab] : tabs).map(
                   (el: any) => (
                     <TabItem
                       key={el.value}
@@ -218,11 +230,13 @@ const TabsNew: FC<TabsNewProps> = ({
             className="transactions_wrapper"
           >
             {tab === 'contract' ? (
-              <ContractDetails
-                address={contractInfo.address}
-                contractInfo={contractInfo}
-                selectedTab={'verify'}
-              />
+              contractInfo && (
+                <ContractDetails
+                  address={fetchParams.address}
+                  contractInfo={contractInfo}
+                  selectedTab={'verify'}
+                />
+              )
             ) : !loading && !tabData?.data?.length ? (
               <div className="tabs_not_found">
                 <NotFoundIcon />

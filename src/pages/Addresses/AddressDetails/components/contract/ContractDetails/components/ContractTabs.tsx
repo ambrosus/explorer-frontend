@@ -3,7 +3,7 @@ import React, { memo } from 'react';
 import { NavLink } from 'react-router-dom';
 
 const ContractTabs = (props: any) => {
-  const { address, allowedTabs, selectedTab } = props;
+  const { address, allowedTabs, selectedTab, selectTab } = props;
 
   const filteredContractTabs = contractTabs.filter((tab) =>
     allowedTabs.includes(tab.value),
@@ -14,16 +14,15 @@ const ContractTabs = (props: any) => {
       <div className="tabs_heading_filters" tabIndex={-1}>
         {contractTabs?.length &&
           filteredContractTabs.map((tab) => (
-            <NavLink
-              rel="nofollow"
+            <button
               key={tab.title}
-              to={`/address/${address}/contract/${tab.value || ''}/`}
+              onClick={() => selectTab(tab.value)}
               className={`contract-link tabs_link ${
                 tab.value === selectedTab ? 'tabs_link_active' : ''
               }`}
             >
               {tab.title}
-            </NavLink>
+            </button>
           ))}
       </div>
     </div>

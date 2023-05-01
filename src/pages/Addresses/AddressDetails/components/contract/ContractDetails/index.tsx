@@ -8,15 +8,17 @@ import ContractTabs from './components/ContractTabs';
 import api from 'API/api';
 import Loader from 'components/Loader';
 import { ethers } from 'ethers';
-import React, { memo } from 'react';
+import React, {memo, useState} from 'react';
 import { useQuery } from 'react-query';
 import { Navigate } from 'react-router-dom';
 
 const ContractDetails = (props: any) => {
-  const { contractInfo, address, selectedTab } = props;
+  const { contractInfo, address } = props;
+
+  const [selectedTab, selectTab] = useState('code');
 
   const { sourcifyFiles, sourcifyMetadata, contractAbi } = parseSourcifyOutput(
-    contractInfo?.data,
+    contractInfo,
   );
   const { data: proxyImplAbi, isLoading } = useQuery(
     `implAddress ${address}`,
@@ -32,12 +34,6 @@ const ContractDetails = (props: any) => {
   if (isContractVerified) allowedTabs.push('code', 'read', 'write', 'events');
   if (!isContractVerified) allowedTabs.push('verify');
   if (proxyImplAbi?.length) allowedTabs.push('readAsProxy', 'writeAsProxy');
-
-  // if wrong tab selected, redirect to /code or /verify tab
-  if (!allowedTabs.includes(selectedTab)) {
-    const redirectTab = isContractVerified ? 'code' : 'verify';
-    return <Navigate to={`/address/${address}/contract/${redirectTab}`} />;
-  }
 
   function getTab() {
     switch (selectedTab) {
@@ -97,6 +93,7 @@ const ContractDetails = (props: any) => {
         address={address}
         allowedTabs={allowedTabs}
         selectedTab={selectedTab}
+        selectTab={selectTab}
       />
 
       <div className="contract-details">

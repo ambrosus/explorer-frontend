@@ -145,14 +145,7 @@ const AddressDetails = () => {
             />
           ) : (
             <TabsNew
-              contractInfo={
-                addressData.isContract
-                  ? {
-                      data: contractInfo,
-                      address,
-                    }
-                  : null
-              }
+              isContract={addressData.isContract}
               tabs={transactionFilters}
               fetchData={API2.getAccountTxs}
               initTab="all"
