@@ -20,9 +20,7 @@ const TokenItem = ({ token, selectedToken, setToken }: ITokenItemProps) => {
 
       <div className="token_item_tokens">
         <div>
-          {token?.name?.length > 40
-            ? `${token?.name.slice(0, 40)}...`
-            : token?.name}
+          {token?.name || `${token.address.substring(0, 4)}...${token.address.substring(token.address.length - 4, token.address.length)}`}
         </div>
         <div className="universall_light2">
           {token?.balance.ether} {token?.symbol}

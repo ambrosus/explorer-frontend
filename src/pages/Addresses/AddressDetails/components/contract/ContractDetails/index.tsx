@@ -8,7 +8,7 @@ import ContractTabs from './components/ContractTabs';
 import api from 'API/api';
 import Loader from 'components/Loader';
 import { ethers } from 'ethers';
-import React, {memo, useState} from 'react';
+import React, { memo, useState } from 'react';
 import { useQuery } from 'react-query';
 import { Navigate } from 'react-router-dom';
 
@@ -17,9 +17,8 @@ const ContractDetails = (props: any) => {
 
   const [selectedTab, selectTab] = useState('code');
 
-  const { sourcifyFiles, sourcifyMetadata, contractAbi } = parseSourcifyOutput(
-    contractInfo,
-  );
+  const { sourcifyFiles, sourcifyMetadata, contractAbi } =
+    parseSourcifyOutput(contractInfo);
   const { data: proxyImplAbi, isLoading } = useQuery(
     `implAddress ${address}`,
     () => getProxyImplAbi(contractAbi, address),

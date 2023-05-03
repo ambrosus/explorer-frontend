@@ -77,7 +77,6 @@ const getBlock = (block: string) => API().get(`blocks/${block}`);
 const getBlockHash = (hash: string) => API().get(`blocks/${hash}`);
 const getApollos = (params = {}) => API().get('apollos', { params });
 const getApollo = (params: any) => {
-  console.log(params);
   return API().get(`apollos/${params.address || params}`, { params });
 };
 
@@ -102,8 +101,17 @@ const searchItem = (term: any) => {
   return API().get(`search/${term}`);
 };
 
-const getTokenTxs = ({ userAddress, tokenAddress }: any) =>
-  API().get(`addresses/${userAddress}/tokens/${tokenAddress}`);
+const getTokenTxs = ({ userAddress, tokenAddress, page }: any) => {
+  return API().get(`addresses/${userAddress}/tokens/${tokenAddress}`, {
+    params: { page }
+  });
+}
+
+const getBlockTransactions = (hashOrNumber: any, params = {}) => {
+  return API().get(`blocks/${hashOrNumber}/transactions`, {
+    params,
+  });
+};
 
 const api = {
   SOURCIFYAPI: SOURCIFYAPI(),
@@ -124,6 +132,7 @@ const api = {
   getAccountTxs,
   searchItem,
   getTokenTxs,
+  getBlockTransactions,
 };
 
 export default api;

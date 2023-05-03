@@ -2,6 +2,7 @@ import NotFoundIcon from '../../../assets/icons/Errors/NotFoundIcon';
 import Calendar from '../../../components/Calendar';
 import Loader from '../../../components/Loader';
 import { useOnClickOutside } from '../../../hooks/useOnClickOutside';
+import { getContractData } from '../../../services/contract.service';
 import AddressBlocksHeader from '../../Addresses/AddressDetails/components/AddressBlocksHeader';
 import { ContractDetails } from '../../Addresses/AddressDetails/components/contract';
 import AtlasBlocksSort from '../../Atlas/components/AtlasBlocksSort';
@@ -13,7 +14,6 @@ import useDeviceSize from 'hooks/useDeviceSize';
 import { AccountsData } from 'pages/Addresses/addresses.interface';
 import React, { FC, useEffect, useMemo, useRef, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
-import {getContractData} from "../../../services/contract.service";
 
 const TabItem: FC<TabsItemProps> = ({ tab, el, handleTab }) => {
   const ref = useRef(null);
@@ -89,13 +89,11 @@ const TabsNew: FC<TabsNewProps> = ({
 
   useEffect(() => {
     if (tab === 'contract') {
-      getContractData(fetchParams.address)
-        .then((res) => {
-          console.log(res.data);
-          setContractInfo(res.data)
-        })
+      getContractData(fetchParams.address).then((res) => {
+        setContractInfo(res.data);
+      });
     }
-  }, [tab])
+  }, [tab]);
 
   useEffect(() => {
     if (tab === 'contract') return;
@@ -111,6 +109,7 @@ const TabsNew: FC<TabsNewProps> = ({
         next: null,
       },
     });
+    console.log(1);
     handleFetchData().then((response: any) => {
       if (!response) return;
 
@@ -145,11 +144,12 @@ const TabsNew: FC<TabsNewProps> = ({
     }
   }, [inView]);
 
-  useEffect(() => {
-    if (tabs) {
-      setTab(tabs[0].value);
-    }
-  }, [tabs]);
+  // useEffect(() => {
+  //   if (tabs) {
+  //     setTab(tabs[0].value);
+  //   }
+  //   console.log(2);
+  // }, [tabs]);
 
   const handleFetchData = (page?: number) => {
     if (!withoutLoader) {
@@ -181,16 +181,14 @@ const TabsNew: FC<TabsNewProps> = ({
           <div className="tabs">
             <div className="tabs_heading">
               <div className="tabs_heading_filters">
-                {(isContract ? [...tabs, contractTab] : tabs).map(
-                  (el: any) => (
-                    <TabItem
-                      key={el.value}
-                      tab={tab}
-                      handleTab={setTab}
-                      el={el}
-                    />
-                  ),
-                )}
+                {(isContract ? [...tabs, contractTab] : tabs).map((el: any) => (
+                  <TabItem
+                    key={el.value}
+                    tab={tab}
+                    handleTab={setTab}
+                    el={el}
+                  />
+                ))}
               </div>
 
               {!withoutCalendar && (

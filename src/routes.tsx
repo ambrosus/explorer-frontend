@@ -106,6 +106,14 @@ export const addressesRoutes: IRoute[] = [
     isClick: false,
     component: () => <AddressDetails />,
   },
+
+  {
+    path: '/token/:tokenAddress/',
+    key: 'Token Address',
+    exact: true,
+    isClick: false,
+    component: () => <AddressDetails />,
+  },
 ];
 
 export const apolloRoutes: IRoute[] = [

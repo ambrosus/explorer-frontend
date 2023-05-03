@@ -1,5 +1,4 @@
 import API2 from '../../../API/newApi';
-import { useActions } from '../../../hooks/useActions';
 import { transactionFilters } from '../../../utils/sidePages';
 import { Account } from '../../Atlas/atlas.interface';
 import TabsNew from '../../Transactions/components/TabsNew';
@@ -11,18 +10,13 @@ import OverallBalance from 'components/OveralBalance';
 import Token from 'components/Token';
 import { formatEther } from 'ethers/lib/utils';
 import useDeviceSize from 'hooks/useDeviceSize';
-import { useTypedSelector } from 'hooks/useTypedSelector';
 import moment from 'moment';
-import React, {useEffect, useMemo, useState} from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Helmet } from 'react-helmet';
-import { useParams } from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 
 const AddressDetails = () => {
   const { address } = useParams();
-  const { getContractAddressData } = useActions();
-
-  const { data: sourcifyData } = useTypedSelector((state) => state?.sourcify);
-  const { contractInfo } = sourcifyData || {};
 
   const [selectedToken, setSelectedToken]: any = useState(null);
   const [addressData, setAddressData] = useState({
@@ -32,13 +26,8 @@ const AddressDetails = () => {
   });
 
   useEffect(() => {
-    getContractAddressData(address);
-  }, [address]);
-
-  useEffect(() => {
     API2.getAccountTxs({ type: 'all', address }).then((response: any) => {
       if (response) {
-        console.log(response.tokens);
         setAddressData({
           balance: response.account.balance.wei,
           tokens: response.tokens,
@@ -73,11 +62,14 @@ const AddressDetails = () => {
     />
   );
 
-  const fetchParams = useMemo(() => ({
-    type: '',
-    page: '',
-    address,
-  }), [address]);
+  const fetchParams = useMemo(
+    () => ({
+      type: '',
+      page: '',
+      address,
+    }),
+    [address],
+  );
 
   return (
     <Content>
@@ -151,7 +143,7 @@ const AddressDetails = () => {
               initTab="all"
               fetchParams={fetchParams}
               render={(txs: Account[], isTokens: boolean) =>
-                txs.map((tx: any, i: number) =>
+                txs.map((tx: any) =>
                   renderAddressBlock(tx, isTokens),
                 )
               }
