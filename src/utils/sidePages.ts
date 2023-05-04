@@ -3,6 +3,7 @@ import { TApolloSortProps } from '../pages/Apollo/apolloBlocks.interface';
 export const transactionFilters = [
   { title: 'All', value: 'all' },
   { title: 'Transfers', value: 'transfers' },
+  { title: 'Contract call', value: 'contracts' },
   { title: 'ERC-20 Tx', value: 'tokens' },
   // { title: 'Events', value: 'events' },
 ];
