@@ -90,7 +90,9 @@ export const TransactionDetails = () => {
   const itemFirst: any = [
     {
       name: 'AMOUNT',
-      value: `${displayAmount(txData.value.ether)} ${txData.token ? txData.token.symbol : 'AMB'}`,
+      value: `${displayAmount(txData.value.ether)} ${
+        txData.token ? txData.token.symbol : 'AMB'
+      }`,
     },
     {
       name: 'FROM',

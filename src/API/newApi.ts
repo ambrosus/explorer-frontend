@@ -103,9 +103,9 @@ const searchItem = (term: any) => {
 
 const getTokenTxs = ({ userAddress, tokenAddress, page }: any) => {
   return API().get(`addresses/${userAddress}/tokens/${tokenAddress}`, {
-    params: { page }
+    params: { page },
   });
-}
+};
 
 const getBlockTransactions = (hashOrNumber: any, params = {}) => {
   return API().get(`blocks/${hashOrNumber}/transactions`, {

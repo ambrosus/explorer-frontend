@@ -6,9 +6,7 @@ import IncomeTrasaction from 'assets/icons/StatusAction/IncomeTrasaction';
 import OutgoingTransaction from 'assets/icons/StatusAction/OutgoingTransaction';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import moment from 'moment';
-import {
-  AddressBlockProps,
-} from 'pages/Addresses/AddressDetails/address-details.interface';
+import { AddressBlockProps } from 'pages/Addresses/AddressDetails/address-details.interface';
 import React, { useState } from 'react';
 import { NavLink, useParams } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
@@ -235,7 +233,15 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
           onClick={handleBlock}
         >
           <NavLink className="address_blocks_icon universall_light2" to={``}>
-            {token ? token : `${tokenData.address.substring(0, 4)}...${tokenData.address.substring(tokenData.address.length - 4, tokenData.address.length)}`}{' '}
+            {token
+              ? token
+              : `${tokenData.address.substring(
+                  0,
+                  4,
+                )}...${tokenData.address.substring(
+                  tokenData.address.length - 4,
+                  tokenData.address.length,
+                )}`}{' '}
             {token.includes('token')
               ? `(${getAmbTokenSymbol(token)})`
               : !symbol || symbol.trim() === 'null'

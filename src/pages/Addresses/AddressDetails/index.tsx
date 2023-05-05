@@ -13,7 +13,7 @@ import useDeviceSize from 'hooks/useDeviceSize';
 import moment from 'moment';
 import React, { useEffect, useMemo, useState } from 'react';
 import { Helmet } from 'react-helmet';
-import {useParams} from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 const AddressDetails = () => {
   const { address } = useParams();
@@ -74,9 +74,7 @@ const AddressDetails = () => {
   const filters = useMemo(() => {
     const arr = [...transactionFilters];
     if (addressData.tokens.length) {
-      arr.push(
-        { title: 'ERC-20 Tx', value: 'tokens' },
-      )
+      arr.push({ title: 'ERC-20 Tx', value: 'tokens' });
     }
     return arr;
   }, [addressData]);
@@ -153,9 +151,7 @@ const AddressDetails = () => {
               initTab="all"
               fetchParams={fetchParams}
               render={(txs: Account[], isTokens: boolean) =>
-                txs.map((tx: any) =>
-                  renderAddressBlock(tx, isTokens),
-                )
+                txs.map((tx: any) => renderAddressBlock(tx, isTokens))
               }
             />
           )}

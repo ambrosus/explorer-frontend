@@ -57,7 +57,7 @@ export const BlockDetails = memo(() => {
     hash = 0,
     stateRoot = 0,
     extraData,
-  } = block || {};
+  } = block?.block || {};
 
   const txCount = blockRewards?.length + totalTransactions || 0;
   const { lastBlock } = appData?.netInfo || 0;
@@ -94,7 +94,7 @@ export const BlockDetails = memo(() => {
   }, []);
 
   useEffect(() => {
-    if (!isLoading) setBlock(data?.data.block);
+    if (!isLoading) setBlock(data?.data);
   }, [isLoading]);
 
   if (isError) navigate(`/notfound`);
@@ -188,18 +188,18 @@ export const BlockDetails = memo(() => {
           className="head_info"
         />
       </Content.Header>
-      {renderData?.data?.block.length && (
+      {block?.transactions.length && (
         <Content.Body>
           <div className="blocks_main">
             <DataTitle title="Transactions" />
             <div className="blocks_main_table">
               <BlockHeader />
-              {renderData?.data?.block.length
-                ? renderData.data.block.map((item: any, index: number) => (
+              {block.transactions.length
+                ? block.transactions.map((item: any, index: number) => (
                     <BlockBody
                       lastCardRef={
-                        renderData?.data?.length - 1 === index &&
-                        renderData?.pagination?.hasNext
+                        block.transactions?.length - 1 === index &&
+                        block.pagination?.hasNext
                           ? ref
                           : undefined
                       }
@@ -209,7 +209,7 @@ export const BlockDetails = memo(() => {
                   ))
                 : null}
             </div>
-            {!loading && renderData?.pagination?.hasNext && <Loader />}
+            {!loading && block?.pagination?.hasNext && <Loader />}
           </div>
         </Content.Body>
       )}

@@ -56,9 +56,7 @@ const FilteredToken: FC<FilteredTokenProps> = ({
         <div className="filtered_token_cell">
           <span className="filtered_token_cell_bold">Total supply</span>
           <span className="filtered_token_cell_normal">
-            {
-              formatEther(selectedToken.totalSupply.wei)
-            }
+            {formatEther(selectedToken.totalSupply.wei)}
           </span>
         </div>
       </div>
