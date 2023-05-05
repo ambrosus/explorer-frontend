@@ -71,6 +71,16 @@ const AddressDetails = () => {
     [address],
   );
 
+  const filters = useMemo(() => {
+    const arr = [...transactionFilters];
+    if (addressData.tokens.length) {
+      arr.push(
+        { title: 'ERC-20 Tx', value: 'tokens' },
+      )
+    }
+    return arr;
+  }, [addressData]);
+
   return (
     <Content>
       <Helmet>
@@ -138,7 +148,7 @@ const AddressDetails = () => {
           ) : (
             <TabsNew
               isContract={addressData.isContract}
-              tabs={transactionFilters}
+              tabs={filters}
               fetchData={API2.getAccountTxs}
               initTab="all"
               fetchParams={fetchParams}
