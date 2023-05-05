@@ -81,11 +81,6 @@ export const BlockDetails = memo(() => {
     },
   ) as IBlocksData<IBlock>;
 
-  const { ref, renderData, loading } = useSortData(
-    getBlockTransactionsData,
-    address,
-  );
-
   useEffect(() => {
     const interval = setInterval(() => {
       setAppDataAsync();
@@ -197,19 +192,12 @@ export const BlockDetails = memo(() => {
               {block.transactions.length
                 ? block.transactions.map((item: any, index: number) => (
                     <BlockBody
-                      lastCardRef={
-                        block.transactions?.length - 1 === index &&
-                        block.pagination?.hasNext
-                          ? ref
-                          : undefined
-                      }
                       key={index}
                       item={item}
                     />
                   ))
                 : null}
             </div>
-            {!loading && block?.pagination?.hasNext && <Loader />}
           </div>
         </Content.Body>
       )}
