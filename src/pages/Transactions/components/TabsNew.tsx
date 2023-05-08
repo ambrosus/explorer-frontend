@@ -144,13 +144,6 @@ const TabsNew: FC<TabsNewProps> = ({
     }
   }, [inView]);
 
-  // useEffect(() => {
-  //   if (tabs) {
-  //     setTab(tabs[0].value);
-  //   }
-  //   console.log(2);
-  // }, [tabs]);
-
   const handleFetchData = (page?: number) => {
     if (!withoutLoader) {
       setLoading(true);

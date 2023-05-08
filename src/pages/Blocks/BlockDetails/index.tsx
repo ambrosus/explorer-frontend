@@ -161,17 +161,17 @@ export const BlockDetails = memo(() => {
           <div className="block_main_title__in">
             <h1 className="block_main_title_heading">Block details</h1>
             <span className="block_main_title_heading_block">
-              {block?.number ?? 0}
+              {block?.block.number ?? 0}
             </span>
           </div>
           <div className="block_main_title__in">
             <div className="block_main_title_validator">Validator </div>
             <NavLink
               rel="nofollow"
-              to={`/apollo/${block?.miner}/`}
+              to={`/apollo/${block?.block.miner}/`}
               className="block_main_title_address"
             >
-              {block?.miner ?? ''}
+              {block?.block.miner ?? ''}
             </NavLink>
           </div>
         </div>

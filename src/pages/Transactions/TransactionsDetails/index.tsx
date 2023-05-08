@@ -160,11 +160,7 @@ export const TransactionDetails = () => {
         <Content.Header>
           <div className="address_details_h1 address_details_h1-tx">
             <div>
-              <h1>
-                {txData.determinedType === 'Undetermined'
-                  ? txData.type
-                  : txData.determinedType}
-              </h1>
+              <h1>{txData.type}</h1>
               <span className="address_details_h1_status">{txData.status}</span>
             </div>
             <div className="address_details_copy" style={{ fontSize: '18px' }}>

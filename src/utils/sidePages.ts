@@ -3,7 +3,9 @@ import { TApolloSortProps } from '../pages/Apollo/apolloBlocks.interface';
 export const transactionFilters = [
   { title: 'All', value: 'all' },
   { title: 'Transfers', value: 'transfers' },
+  { title: 'Inners', value: 'inners' },
   { title: 'Contract call', value: 'contracts' },
+  { title: 'ERC-20 Tx', value: 'tokens' },
   // { title: 'Events', value: 'events' },
 ];
 const ERC20Filters = [
@@ -27,7 +29,7 @@ export const apollosSorting: TApolloSortProps[] = [
   { title: 'Stake', value: 'stake' },
 ];
 export const apolloDetailsSorting: TApolloSortProps[] = [
-  { title: 'All', value: '' },
+  { title: 'All', value: 'all' },
   { title: 'Transfers', value: 'transfers' },
   { title: 'Block Rewards', value: 'block_rewards' },
 ];
