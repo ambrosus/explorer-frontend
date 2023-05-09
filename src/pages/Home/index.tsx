@@ -50,7 +50,7 @@ export const Home: React.FC = () => {
     const result: ResultHomePageData = {
       latestBlocks: (await API2.getBlocks({ limit: 8 })).data,
       latestTransactions: (
-        await API2.getTransactions({ limit: 10, type: 'transactions' })
+        await API2.getTransactions({ limit: 10, type: 'latest' })
       ).data
         .filter((item: LatestTransactionsProps) => item.type !== 'BlockReward')
         .slice(0, 8),
