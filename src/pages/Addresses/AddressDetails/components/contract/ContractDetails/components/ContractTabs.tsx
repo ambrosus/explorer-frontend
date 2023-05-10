@@ -1,9 +1,8 @@
 import { contractTabs } from '../../../../../../../utils/sidePages';
 import React, { memo } from 'react';
-import { NavLink } from 'react-router-dom';
 
 const ContractTabs = (props: any) => {
-  const { address, allowedTabs, selectedTab, selectTab } = props;
+  const { allowedTabs, selectedTab, selectTab } = props;
 
   const filteredContractTabs = contractTabs.filter((tab) =>
     allowedTabs.includes(tab.value),
