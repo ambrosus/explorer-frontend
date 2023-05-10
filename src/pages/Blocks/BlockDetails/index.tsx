@@ -191,10 +191,7 @@ export const BlockDetails = memo(() => {
               <BlockHeader />
               {block.transactions.length
                 ? block.transactions.map((item: any, index: number) => (
-                    <BlockBody
-                      key={index}
-                      item={item}
-                    />
+                    <BlockBody key={index} item={item} />
                   ))
                 : null}
             </div>

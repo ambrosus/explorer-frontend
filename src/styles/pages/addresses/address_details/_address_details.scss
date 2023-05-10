@@ -26,6 +26,10 @@
       font-weight: 600;
       margin-top: 5px;
       display: block;
+
+      &_error {
+        color: #ff4747;
+      }
     }
   }
 

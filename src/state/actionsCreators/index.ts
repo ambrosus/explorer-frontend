@@ -93,17 +93,15 @@ export const getAddressData =
       const apolloInfo = API2.getApollo(address);
       const accountInfo = API.getAccount(address);
 
-      Promise.allSettled([apolloInfo, accountInfo]).then(
-        (res: any) => {
-          dispatch({
-            type: actionTypes.GET_ADDRESS_DATA__SUCCESS,
-            payload: {
-              apolloInfo: { data: res[0].value.data.validator },
-              accountInfo: res[1].value,
-            },
-          });
-        },
-      );
+      Promise.allSettled([apolloInfo, accountInfo]).then((res: any) => {
+        dispatch({
+          type: actionTypes.GET_ADDRESS_DATA__SUCCESS,
+          payload: {
+            apolloInfo: { data: res[0].value.data.validator },
+            accountInfo: res[1].value,
+          },
+        });
+      });
     } catch (error: any) {
       dispatch({
         type: actionTypes.GET_ADDRESS_DATA__FAIL,

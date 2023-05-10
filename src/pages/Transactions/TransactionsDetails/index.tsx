@@ -161,7 +161,15 @@ export const TransactionDetails = () => {
           <div className="address_details_h1 address_details_h1-tx">
             <div>
               <h1>{txData.type}</h1>
-              <span className="address_details_h1_status">{txData.status}</span>
+              <span
+                className={`address_details_h1_status ${
+                  txData.status === 'FAIL'
+                    ? 'address_details_h1_status_error'
+                    : ''
+                }`}
+              >
+                {txData.status}
+              </span>
             </div>
             <div className="address_details_copy" style={{ fontSize: '18px' }}>
               <span className="transaction_details_hash">Hash</span>
@@ -270,7 +278,7 @@ export const TransactionDetails = () => {
                   isLatest={true}
                   key={i}
                   txhash={tx.hash}
-                  method={tx.type.split(':')[0]}
+                  method={tx.type}
                   from={tx.from}
                   to={tx.to}
                   date={moment(tx.timestamp * 1000).fromNow()}

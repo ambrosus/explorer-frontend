@@ -271,11 +271,7 @@ export const nameCurrency = (name: string) => {
 };
 
 export const wrapString = (string: string) => {
-  return string.split('::').map((item, index) => (
-    <span key={index + 1} style={{ fontSize: 'inherit' }}>
-      {item}
-    </span>
-  ));
+  return <span style={{ fontSize: 'inherit' }}>{string}</span>;
 };
 const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 const months = [

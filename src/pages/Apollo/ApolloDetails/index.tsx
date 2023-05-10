@@ -196,7 +196,7 @@ export const ApolloDetails = memo(() => {
       </Content.Header>
       <Content.Body>
         <TabsNew
-          initTab='all'
+          initTab="all"
           tabs={apolloDetailsSorting}
           fetchData={API2.getAccountTxs}
           fetchParams={fetchParams}

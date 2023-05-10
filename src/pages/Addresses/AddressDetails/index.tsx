@@ -43,7 +43,7 @@ const AddressDetails = () => {
     <AddressBlock
       type={isTokens ? 'ERC-20_Tx' : ''}
       txhash={tx.hash}
-      method={tx.type.split(':')[0]}
+      method={tx.type}
       from={tx.from}
       to={tx.to}
       date={moment(tx.timestamp * 1000).fromNow()}
