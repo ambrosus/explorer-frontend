@@ -44,7 +44,7 @@ export const transactionsTabs = [
   { title: 'Transfers', value: 'transfers' },
   { title: 'Contracts', value: 'contracts' },
   { title: 'Block Rewards', value: 'block_rewards' },
-  { title: 'Internals', value: 'internals' },
+  { title: 'Internal', value: 'internal' },
 ];
 
 export const bundleTabs = [
