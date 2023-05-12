@@ -10,12 +10,11 @@ import Loader from 'components/Loader';
 import { ethers } from 'ethers';
 import React, { memo, useState } from 'react';
 import { useQuery } from 'react-query';
-import { Navigate } from 'react-router-dom';
 
 const ContractDetails = (props: any) => {
   const { contractInfo, address } = props;
-
-  const [selectedTab, selectTab] = useState('code');
+  console.log(contractInfo);
+  const [selectedTab, selectTab] = useState(contractInfo.error === 'Files have not been found!' ? 'verify' : 'code');
 
   const { sourcifyFiles, sourcifyMetadata, contractAbi } =
     parseSourcifyOutput(contractInfo);
