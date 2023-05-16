@@ -7,7 +7,7 @@ import Spinner from 'components/Spinner';
 import { useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-const VerifyContract = () => {
+const VerifyContract = ({ updateContract }: any) => {
   const chainID: string = process.env.REACT_APP_CHAIN_ID || '';
 
   const sourcifyUrl = 'https://sourcify.ambrosus.io';
@@ -55,7 +55,7 @@ const VerifyContract = () => {
       })
       .then((res) => {
         if (res.status === 200) {
-          navigate(`/address/${address}/contract/code`, { replace: true });
+          updateContract();
         }
         setLoading(false);
       })
@@ -115,7 +115,7 @@ const VerifyContract = () => {
       })
       .then((res) => {
         if (res.status === 200) {
-          navigate(`/address/${address}/contract/code`, { replace: true });
+          updateContract();
         }
         setLoading(false);
       })

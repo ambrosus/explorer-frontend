@@ -8,13 +8,17 @@ import ContractTabs from './components/ContractTabs';
 import api from 'API/api';
 import Loader from 'components/Loader';
 import { ethers } from 'ethers';
-import React, { memo, useState } from 'react';
+import React, {memo, useEffect, useState} from 'react';
 import { useQuery } from 'react-query';
 
 const ContractDetails = (props: any) => {
-  const { contractInfo, address } = props;
+  const { contractInfo, address, updateContract } = props;
   console.log(contractInfo);
-  const [selectedTab, selectTab] = useState(contractInfo.error === 'Files have not been found!' ? 'verify' : 'code');
+  const [selectedTab, selectTab] = useState('verify');
+
+  useEffect(() => {
+    selectTab(contractInfo.error === 'Files have not been found!' ? 'verify' : 'code');
+  }, [contractInfo]);
 
   const { sourcifyFiles, sourcifyMetadata, contractAbi } =
     parseSourcifyOutput(contractInfo);
@@ -77,7 +81,7 @@ const ContractDetails = (props: any) => {
       case 'verify':
         return (
           <div className="verify_contract">
-            <VerifyContract />
+            <VerifyContract updateContract={updateContract} />
           </div>
         );
       case 'events':

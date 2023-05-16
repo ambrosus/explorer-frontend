@@ -89,11 +89,15 @@ const TabsNew: FC<TabsNewProps> = ({
 
   useEffect(() => {
     if (tab === 'contract') {
-      getContractData(fetchParams.address).then((res) => {
-        setContractInfo(res.data);
-      });
+      updateContract();
     }
   }, [tab]);
+
+  const updateContract = () => {
+    getContractData(fetchParams.address).then((res) => {
+      setContractInfo(res.data);
+    });
+  };
 
   useEffect(() => {
     if (tab === 'contract') return;
@@ -109,7 +113,6 @@ const TabsNew: FC<TabsNewProps> = ({
         next: null,
       },
     });
-    console.log(1);
     handleFetchData().then((response: any) => {
       if (!response) return;
 
@@ -225,7 +228,7 @@ const TabsNew: FC<TabsNewProps> = ({
                 <ContractDetails
                   address={fetchParams.address}
                   contractInfo={contractInfo}
-                  selectedTab={'verify'}
+                  updateContract={updateContract}
                 />
               )
             ) : !loading && !tabData?.data?.length ? (
