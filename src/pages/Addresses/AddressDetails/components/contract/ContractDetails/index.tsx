@@ -8,7 +8,7 @@ import ContractTabs from './components/ContractTabs';
 import api from 'API/api';
 import Loader from 'components/Loader';
 import { ethers } from 'ethers';
-import React, {memo, useEffect, useState} from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 
 const ContractDetails = (props: any) => {
@@ -17,7 +17,9 @@ const ContractDetails = (props: any) => {
   const [selectedTab, selectTab] = useState('verify');
 
   useEffect(() => {
-    selectTab(contractInfo.error === 'Files have not been found!' ? 'verify' : 'code');
+    selectTab(
+      contractInfo.error === 'Files have not been found!' ? 'verify' : 'code',
+    );
   }, [contractInfo]);
 
   const { sourcifyFiles, sourcifyMetadata, contractAbi } =

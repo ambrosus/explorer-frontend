@@ -59,7 +59,7 @@ export const BlockDetails = memo(() => {
     extraData,
   } = block?.block || {};
 
-  const txCount = blockRewards?.length + totalTransactions || 0;
+  const txCount = totalTransactions || 0;
   const { lastBlock } = appData?.netInfo || 0;
   const confirmations = lastBlock?.number - number;
 
