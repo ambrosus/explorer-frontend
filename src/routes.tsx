@@ -4,12 +4,9 @@ import { Addresses } from 'pages/Addresses';
 import AddressDetails from 'pages/Addresses/AddressDetails';
 import { Apollo } from 'pages/Apollo';
 import { ApolloDetails } from 'pages/Apollo/ApolloDetails';
-import { Atlas } from 'pages/Atlas';
 import { AtlasDetails } from 'pages/Atlas/AtlasDetails';
 import { Blocks } from 'pages/Blocks';
-import { Bundles } from 'pages/Bundles';
 import BundleDetails from 'pages/Bundles/BundleDetails';
-import { Hermes } from 'pages/Hermes';
 import { Home } from 'pages/Home';
 import { Transactions } from 'pages/Transactions';
 import { TransactionDetails } from 'pages/Transactions/TransactionsDetails';
@@ -39,14 +36,6 @@ export const routes: IRoute[] = [
     component: () => <Apollo />,
     isClick: true,
   },
-  {
-    path: '/atlas/',
-    key: 'Atlas',
-    exact: true,
-    component: () => <Atlas />,
-    isClick: true,
-  },
-
   {
     path: '/address/',
     key: 'Addresses',
@@ -95,6 +84,14 @@ export const addressesRoutes: IRoute[] = [
   {
     path: '/address/:address/:type/:filtered/:tokenToSorted/',
     key: 'Address Details4',
+    exact: true,
+    isClick: false,
+    component: () => <AddressDetails />,
+  },
+
+  {
+    path: '/token/:tokenAddress/',
+    key: 'Token Address',
     exact: true,
     isClick: false,
     component: () => <AddressDetails />,

@@ -2,7 +2,7 @@ import { numberWithCommas } from '../../utils/helpers';
 import TabsNew from '../Transactions/components/TabsNew';
 import BlocksBody from './components/BlocksBody';
 import BlocksHeader from './components/BlocksHeader';
-import API from 'API/api';
+import API2 from 'API/newApi';
 import { Content } from 'components/Content';
 import HeadInfo from 'components/HeadInfo';
 import React, { memo, useEffect, useState } from 'react';
@@ -19,14 +19,14 @@ export const Blocks = memo(() => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      API.getInfo().then((res) => setBlockData(res));
+      API2.getInfo().then((res) => setBlockData(res.data));
     }, 1000);
     return () => clearInterval(interval);
   }, []);
 
   const itemFirst: any = [
     {
-      name: 'TOTAL NODES',
+      name: 'TOTAL BLOCKS',
       value: numberWithCommas(blockData?.lastBlock.number),
     },
     {
@@ -38,7 +38,7 @@ export const Blocks = memo(() => {
       value: `${blockData?.avgBlockTime.toFixed(1)} sec`,
     },
     {
-      name: 'AVG. NECTAR USED',
+      name: 'AVG. GAS USED',
       value: `${numberWithCommas(
         blockData?.avgBlockGasUsed.toFixed(1),
       )} ${avgNectarPerc}`,
@@ -59,8 +59,9 @@ export const Blocks = memo(() => {
       <Content.Body>
         <div className="blocks_main">
           <TabsNew
+            withoutLoader
             tableHeader={() => <BlocksHeader />}
-            fetchData={API.getBlocks}
+            fetchData={API2.getBlocks}
             fetchParams={fetchParams}
             label="Blocks"
             render={(list: any) =>

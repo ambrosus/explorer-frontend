@@ -8,13 +8,11 @@ const TokenItem = ({ token, selectedToken, setToken }: ITokenItemProps) => {
   return (
     <div
       className={
-        selectedToken?.contract === token?.contract
+        selectedToken?.address === token?.address
           ? 'token_item token_item_active'
           : 'token_item'
       }
-      onClick={() => {
-        setToken(token);
-      }}
+      onClick={() => setToken(token)}
     >
       <div className="token_item_icon">
         <Icon />
@@ -22,12 +20,14 @@ const TokenItem = ({ token, selectedToken, setToken }: ITokenItemProps) => {
 
       <div className="token_item_tokens">
         <div>
-          {token?.name?.length > 40
-            ? `${token?.name.slice(0, 40)}...`
-            : token?.name}
+          {token?.name ||
+            `${token.address.substring(0, 4)}...${token.address.substring(
+              token.address.length - 4,
+              token.address.length,
+            )}`}
         </div>
         <div className="universall_light2">
-          {token?.balance} {token?.symbol}
+          {token?.balance.ether} {token?.symbol}
         </div>
       </div>
       <div className="token_item_amount" />

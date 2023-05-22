@@ -1,8 +1,5 @@
 import { log } from '../utils/helpers';
-import { Apollo } from './../pages/Apollo/index';
-import { Home } from './../pages/Home/index';
 import axios from 'axios';
-import { ApiRequest } from 'types';
 
 const tokenApiUrl: any = process.env.REACT_APP_TOKEN_API_URL;
 
@@ -73,7 +70,7 @@ const getBlock = (hashOrNumber: any) => {
 };
 
 const getBlockTransactions = (hashOrNumber: any, params = {}) => {
-  return API().get(`blocks/${hashOrNumber}/transactions`, {
+  return API().get(`v2/blocks/${hashOrNumber}/transactions`, {
     params,
   });
 };
@@ -90,10 +87,6 @@ const getAtlasBundles = (address: any, params: any) => {
   return API().get(`atlases/${address}/bundles`, {
     params,
   });
-};
-
-const getApollo = (address: any) => {
-  return API().get(`apollos/${address}`);
 };
 
 const getApolloRewards = (address: any, params: any) => {
@@ -145,6 +138,23 @@ const getApollos = (params = {}) => {
   return API().get(`apollos`, {
     params,
   });
+};
+
+const getAddresses = (params = {}) => {
+  return API().get('v2/addresses', { params });
+};
+
+const getAccountTxs = (params: any = {}) => {
+  const { address, type, page, tokenAddress } = params;
+
+  return API().get(
+    `addresses/${address}/${tokenAddress ? 'tokens' : type}${
+      tokenAddress ? '/' + tokenAddress : ''
+    }`,
+    {
+      params: { page },
+    },
+  );
 };
 
 const getAtlases = (params = {}) => {
@@ -248,7 +258,6 @@ const api = {
   getSupTransaction,
   getAccounts,
   getApollos,
-  getApollo,
   getAtlas,
   getAtlases,
   getApolloRewards,
@@ -271,6 +280,8 @@ const api = {
   getTokenTotalSupply,
   getAtlasBundles,
   followTheLinkRange,
+  getAddresses,
+  getAccountTxs,
 };
 
 export default api;

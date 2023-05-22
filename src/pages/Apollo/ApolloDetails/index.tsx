@@ -1,5 +1,6 @@
 import { Account } from '../apollo.interface';
 import API from 'API/api';
+import API2 from 'API/newApi';
 import { Content } from 'components/Content';
 import CopyBtn from 'components/CopyBtn';
 import ExportCsv from 'components/ExportCsv';
@@ -32,9 +33,6 @@ export const ApolloDetails = memo(() => {
     getAddressData(address);
   }, [address]);
 
-  // useEffect(() => {
-  //   API2.getApollo(address).then((res) => console.log(res));
-  // }, []);
   const { balance, stake, version } = addressData?.apolloInfo?.data || 0;
   const apolloData = addressData?.apolloInfo?.data;
 
@@ -198,8 +196,9 @@ export const ApolloDetails = memo(() => {
       </Content.Header>
       <Content.Body>
         <TabsNew
+          initTab="all"
           tabs={apolloDetailsSorting}
-          fetchData={API.getAccountTx}
+          fetchData={API2.getAccountTxs}
           fetchParams={fetchParams}
           render={(txs: Account[]) =>
             txs.map((transaction: any) => (

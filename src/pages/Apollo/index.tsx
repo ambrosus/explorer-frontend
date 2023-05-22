@@ -61,7 +61,7 @@ export const Apollo = memo(() => {
         <TabsNew
           tableHeader={() => <AtlasBlocksHeader pageTitle="blocks" />}
           sortOptions={apollosSorting}
-          fetchData={API.getApollos}
+          fetchData={API2.getApollos}
           initSortTerm={'totalBundles'}
           fetchParams={{ sort: '', next: '' }}
           label="Nodes"

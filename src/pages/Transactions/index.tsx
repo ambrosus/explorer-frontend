@@ -1,9 +1,9 @@
-import API from '../../API/api';
 import { numberWithCommas } from '../../utils/helpers';
 import { transactionsTabs } from '../../utils/sidePages';
 import AddressBlock from '../Addresses/AddressDetails/components/AddressBlocks';
 import { Account } from '../Atlas/atlas.interface';
 import TabsNew from './components/TabsNew';
+import API2 from 'API/newApi';
 import { Content } from 'components/Content';
 import moment from 'moment';
 import React, { memo, useEffect, useState } from 'react';
@@ -13,7 +13,7 @@ export const Transactions = memo(() => {
   const [txData, setTxData] = useState<any>(null);
 
   useEffect(() => {
-    API.getInfo().then((res) => setTxData(res));
+    API2.getInfo().then((res) => setTxData(res));
   }, []);
 
   return (
@@ -36,7 +36,7 @@ export const Transactions = memo(() => {
         <TabsNew
           withoutCalendar
           tabs={transactionsTabs}
-          fetchData={API.getTransactions}
+          fetchData={API2.getTransactions}
           fetchParams={{ type: '', page: '' }}
           render={(txs: Account[]) =>
             txs.map((tx: any, i: number) => (
@@ -44,7 +44,7 @@ export const Transactions = memo(() => {
                 isLatest={true}
                 key={i}
                 txhash={tx.hash}
-                method={tx.type.split(':')[0]}
+                method={tx.type}
                 from={tx.from}
                 to={tx.to}
                 date={moment(tx.timestamp * 1000).fromNow()}

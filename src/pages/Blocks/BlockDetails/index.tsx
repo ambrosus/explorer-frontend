@@ -11,7 +11,6 @@ import { TParams } from '../../../types';
 import DataTitle from '../components/DataTitle';
 import BlockBody from './components/BlockBody';
 import BlockHeader from './components/BlockHeader';
-import API2 from 'API/newApi';
 import HeadInfo from 'components/HeadInfo';
 import useDeviceSize from 'hooks/useDeviceSize';
 import moment from 'moment';
@@ -58,9 +57,9 @@ export const BlockDetails = memo(() => {
     hash = 0,
     stateRoot = 0,
     extraData,
-  } = block || {};
+  } = block?.block || {};
 
-  const txCount = blockRewards?.length + totalTransactions || 0;
+  const txCount = totalTransactions || 0;
   const { lastBlock } = appData?.netInfo || 0;
   const confirmations = lastBlock?.number - number;
 
@@ -81,11 +80,6 @@ export const BlockDetails = memo(() => {
       },
     },
   ) as IBlocksData<IBlock>;
-
-  const { ref, renderData, loading } = useSortData(
-    getBlockTransactionsData,
-    address,
-  );
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -168,17 +162,17 @@ export const BlockDetails = memo(() => {
           <div className="block_main_title__in">
             <h1 className="block_main_title_heading">Block details</h1>
             <span className="block_main_title_heading_block">
-              {block?.number ?? 0}
+              {block?.block.number ?? 0}
             </span>
           </div>
           <div className="block_main_title__in">
             <div className="block_main_title_validator">Validator </div>
             <NavLink
               rel="nofollow"
-              to={`/apollo/${block?.miner}/`}
+              to={`/apollo/${block?.block.miner}/`}
               className="block_main_title_address"
             >
-              {block?.miner ?? ''}
+              {block?.block.miner ?? ''}
             </NavLink>
           </div>
         </div>
@@ -190,28 +184,18 @@ export const BlockDetails = memo(() => {
           className="head_info"
         />
       </Content.Header>
-      {renderData?.data?.length && (
+      {block?.transactions.length && (
         <Content.Body>
           <div className="blocks_main">
             <DataTitle title="Transactions" />
             <div className="blocks_main_table">
               <BlockHeader />
-              {renderData?.data?.length
-                ? renderData.data.map((item: any, index: number) => (
-                    <BlockBody
-                      lastCardRef={
-                        renderData?.data?.length - 1 === index &&
-                        renderData?.pagination?.hasNext
-                          ? ref
-                          : undefined
-                      }
-                      key={index}
-                      item={item}
-                    />
+              {block.transactions.length
+                ? block.transactions.map((item: any, index: number) => (
+                    <BlockBody key={index} item={item} />
                   ))
                 : null}
             </div>
-            {!loading && renderData?.pagination?.hasNext && <Loader />}
           </div>
         </Content.Body>
       )}

@@ -3,11 +3,15 @@ export type TabsNewProps = {
   sortOptions?: any;
   fetchData: (args: any) => any;
   fetchParams: any;
+  renderKey?: string | undefined;
   render: any;
   withoutCalendar?: boolean;
   initSortTerm?: string;
   label?: string;
+  initTab?: string;
   tableHeader?: any;
+  isContract?: any;
+  withoutLoader?: boolean;
 };
 
 export type TabsItemProps = {

@@ -274,11 +274,7 @@ export const nameCurrency = (name: string) => {
 };
 
 export const wrapString = (string: string) => {
-  return string.split('::').map((item, index) => (
-    <span key={index + 1} style={{ fontSize: 'inherit' }}>
-      {item}
-    </span>
-  ));
+  return <span style={{ fontSize: 'inherit' }}>{string}</span>;
 };
 const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 const months = [
@@ -357,11 +353,7 @@ export const statusMessage = (node: any = {}, nodeName: string) => {
     switch (node.status) {
       case 'ONLINE':
         return (
-          <>
-            {timeSince(
-              node?.statusHistory[0] ? node.statusHistory[0].timestamp : '',
-            )}
-          </>
+          <>{timeSince(node?.onboardingDate ? node.onboardingDate : '')}</>
         );
       case 'CONNECTING':
         return 'Connecting...';
@@ -374,9 +366,7 @@ export const statusMessage = (node: any = {}, nodeName: string) => {
         return (
           <>
             <div className="apollo_blocks_body_cell_online">Uptime</div>{' '}
-            {timeSince(
-              node?.statusHistory[0] ? node.statusHistory[0].timestamp : '',
-            )}
+            {timeSince(node?.onboardingDate ? node.onboardingDate : '')}
           </>
         );
       case 'CONNECTING':
@@ -476,4 +466,14 @@ export const diffStyleToCell = (
       </span>
     </>
   );
+};
+
+const isRenderProps = (key: string | undefined) => {
+  let data: any = {};
+  if (!!key) {
+    return data[key];
+  } else {
+    data = [];
+  }
+  return data;
 };

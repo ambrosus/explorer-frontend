@@ -4,15 +4,11 @@ import Plus from 'assets/icons/Plus';
 import GreenCircle from 'assets/icons/StatusAction/GreenCircle';
 import IncomeTrasaction from 'assets/icons/StatusAction/IncomeTrasaction';
 import OutgoingTransaction from 'assets/icons/StatusAction/OutgoingTransaction';
-import { useActions } from 'hooks/useActions';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import moment from 'moment';
-import {
-  AddressBlockProps,
-  TokenType,
-} from 'pages/Addresses/AddressDetails/address-details.interface';
+import { AddressBlockProps } from 'pages/Addresses/AddressDetails/address-details.interface';
 import React, { useState } from 'react';
-import { NavLink, useNavigate, useParams } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
 import { TParams } from 'types';
 import {
@@ -54,14 +50,13 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
   token,
   symbol,
   isTableColumn,
-  isIcon,
   inners,
   status,
+  type,
+  tokenData,
+  tokens,
 }) => {
-  const { addFilter } = useActions();
-  const { address, type }: TParams = useParams();
-
-  const navigate = useNavigate();
+  const { address }: TParams = useParams();
 
   const [isExpanded, setIsExpanded] = useState(false);
   const handleExpand = () => setIsExpanded((state: boolean) => !state);
@@ -159,18 +154,12 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 
   //TODO ?
   const handleBlock = () => {
-    addressData?.tokens?.forEach((item: TokenType) => {
-      if (
-        (item.name === token && symbol !== 'AMB') ||
-        (token.includes('token') && item.name === token)
-      ) {
-        onClick(item);
-        addFilter(item);
-        navigate(`/address/${address}/ERC-20_Tx/${item.contract}`);
-      } else {
-        return '';
-      }
-    });
+    if (tokenData) {
+      const currentToken = tokens.find(
+        (el: any) => el.address === tokenData.address,
+      );
+      onClick(currentToken);
+    }
   };
 
   const isSymbolERC =
@@ -232,39 +221,34 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
     type === 'ERC-20_Tx' ? (
       <div
         className="address_blocks_cell_last universall_light2"
-        style={{ fontWeight: '600', cursor: isLatest ? 'pointer' : 'default' }}
+        style={{ fontWeight: '600', cursor: 'pointer' }}
       >
         {type === 'ERC-20_Tx' && (
           <span className="universall_indent_icon">
             <Icon />
           </span>
         )}
-        {!isLatest ? (
-          <>
-            <div className="address_blocks_icon universall_light2">
-              {token ? token : ''}{' '}
-              {token.includes('token')
-                ? `(${getAmbTokenSymbol(token)})`
-                : !symbol || symbol.trim() === 'null'
-                ? '(AMB)'
-                : `(${symbol})`}
-            </div>
-          </>
-        ) : (
-          <span
-            className="address_blocks_cell_token  universall_light2"
-            onClick={handleBlock}
-          >
-            <NavLink className="address_blocks_icon universall_light2" to={``}>
-              {token ? token : ''}{' '}
-              {token.includes('token')
-                ? `(${getAmbTokenSymbol(token)})`
-                : !symbol || symbol.trim() === 'null'
-                ? '(AMB)'
-                : `(${symbol})`}
-            </NavLink>
-          </span>
-        )}
+        <span
+          className="address_blocks_cell_token  universall_light2"
+          onClick={handleBlock}
+        >
+          <NavLink className="address_blocks_icon universall_light2" to={``}>
+            {token
+              ? token
+              : `${tokenData.address.substring(
+                  0,
+                  4,
+                )}...${tokenData.address.substring(
+                  tokenData.address.length - 4,
+                  tokenData.address.length,
+                )}`}{' '}
+            {token.includes('token')
+              ? `(${getAmbTokenSymbol(token)})`
+              : !symbol || symbol.trim() === 'null'
+              ? '(AMB)'
+              : `(${symbol})`}
+          </NavLink>
+        </span>
       </div>
     ) : (
       <></>

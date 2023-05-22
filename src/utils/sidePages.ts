@@ -1,10 +1,11 @@
 import { TApolloSortProps } from '../pages/Apollo/apolloBlocks.interface';
 
-const transactionFilters = [
-  { title: 'All', value: '' },
+export const transactionFilters = [
+  { title: 'All', value: 'all' },
   { title: 'Transfers', value: 'transfers' },
-  { title: 'ERC-20 Tx', value: 'ERC-20_Tx' },
-  { title: 'Contract', value: 'contract' },
+  { title: 'Inners', value: 'inners' },
+  { title: 'Contract call', value: 'contracts' },
+  { title: 'ERC-20 Tx', value: 'tokens' },
   // { title: 'Events', value: 'events' },
 ];
 const ERC20Filters = [
@@ -28,7 +29,7 @@ export const apollosSorting: TApolloSortProps[] = [
   { title: 'Stake', value: 'stake' },
 ];
 export const apolloDetailsSorting: TApolloSortProps[] = [
-  { title: 'All', value: '' },
+  { title: 'All', value: 'all' },
   { title: 'Transfers', value: 'transfers' },
   { title: 'Block Rewards', value: 'block_rewards' },
 ];
@@ -40,17 +41,10 @@ export const atlasDetailsSorting: TApolloSortProps[] = [
 
 export const transactionsTabs = [
   { title: 'All', value: '' },
-  { title: 'Transactions', value: 'transactions' },
   { title: 'Transfers', value: 'transfers' },
   { title: 'Contracts', value: 'contracts' },
-  { title: 'Fees', value: 'fees' },
-  { title: 'Validator Proxy', value: 'validator_proxies' },
   { title: 'Block Rewards', value: 'block_rewards' },
-  { title: 'KYCs', value: 'kycs' },
-  { title: 'Challenges', value: 'challenges' },
-  { title: 'Payouts', value: 'payouts' },
-  { title: 'Roles', value: 'roles' },
-  { title: 'Heads', value: 'heads' },
+  { title: 'Internal', value: 'internal' },
 ];
 
 export const bundleTabs = [
