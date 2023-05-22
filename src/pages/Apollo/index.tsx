@@ -1,4 +1,4 @@
-import API from '../../API/api';
+import API2 from '../../API/newApi';
 import { apollosSorting } from '../../utils/sidePages';
 import AtlasBlocksHeader from '../Atlas/components/AtlasBlocksHeader';
 import TabsNew from '../Transactions/components/TabsNew';
