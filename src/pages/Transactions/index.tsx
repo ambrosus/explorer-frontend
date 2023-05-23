@@ -27,7 +27,7 @@ export const Transactions = memo(() => {
           <span className="transactions_header_text">
             Total transactions
             <span className="transactions_header_num">
-              {numberWithCommas(txData?.transactions?.total)}
+              {numberWithCommas(txData?.data.transactions?.total)}
             </span>
           </span>
         </div>

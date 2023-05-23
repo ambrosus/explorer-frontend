@@ -63,7 +63,7 @@ export const Apollo = memo(() => {
           sortOptions={apollosSorting}
           fetchData={API2.getApollos}
           initSortTerm={'totalBundles'}
-          fetchParams={{ sort: '', next: '' }}
+          fetchParams={{ sort: '', page: '' }}
           label="Nodes"
           render={(list: any) =>
             list.map((el: any, index: any) => (
