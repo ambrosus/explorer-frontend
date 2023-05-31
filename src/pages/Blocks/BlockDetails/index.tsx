@@ -1,12 +1,8 @@
 import { Content } from '../../../components/Content';
 import Loader from '../../../components/Loader';
 import { useActions } from '../../../hooks/useActions';
-import useSortData from '../../../hooks/useSortData';
 import { useTypedSelector } from '../../../hooks/useTypedSelector';
-import {
-  getBlockData,
-  getBlockTransactionsData,
-} from '../../../services/block.service';
+import { getBlockData } from '../../../services/block.service';
 import { TParams } from '../../../types';
 import DataTitle from '../components/DataTitle';
 import BlockBody from './components/BlockBody';

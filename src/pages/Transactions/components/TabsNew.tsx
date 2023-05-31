@@ -1,11 +1,11 @@
 import NotFoundIcon from '../../../assets/icons/Errors/NotFoundIcon';
+import BlockSort from '../../../components/BlockSort';
 import Calendar from '../../../components/Calendar';
 import Loader from '../../../components/Loader';
 import { useOnClickOutside } from '../../../hooks/useOnClickOutside';
 import { getContractData } from '../../../services/contract.service';
 import AddressBlocksHeader from '../../Addresses/AddressDetails/components/AddressBlocksHeader';
 import { ContractDetails } from '../../Addresses/AddressDetails/components/contract';
-import AtlasBlocksSort from '../../Atlas/components/AtlasBlocksSort';
 import { TabsItemProps, TabsNewProps } from '../transactions.interface';
 import API2 from 'API/newApi';
 import SideMenu from 'assets/icons/SideMenu';
@@ -16,24 +16,8 @@ import React, { FC, useEffect, useMemo, useRef, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 
 const TabItem: FC<TabsItemProps> = ({ tab, el, handleTab }) => {
-  const ref = useRef(null);
-
-  const isOverflown = (el: any) => {
-    const curOverflow = el.style.overflow;
-
-    if (!curOverflow || curOverflow === 'visible') el.style.overflow = 'hidden';
-
-    const isOverflowing =
-      el.clientWidth < el.scrollWidth || el.clientHeight < el.scrollHeight;
-
-    el.style.overflow = curOverflow;
-
-    return isOverflowing;
-  };
-
   return (
     <span
-      ref={ref}
       className={`tabs_link tabs_link_new ${
         tab === el.value ? 'tabs_link_active' : ''
       }`}
@@ -265,7 +249,7 @@ const TabsNew: FC<TabsNewProps> = ({
         </>
       ) : (
         <>
-          <AtlasBlocksSort
+          <BlockSort
             sortOptions={sortOptions}
             sortTerm={sortTerm}
             setSortTerm={setSortTerm}

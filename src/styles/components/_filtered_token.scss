@@ -86,6 +86,11 @@
     &_normal {
       line-height: 2.22em;
     }
+
+    svg {
+      width: 24px;
+      height: 24px;
+    }
   }
 
   &_cell:nth-child(2) {

@@ -1,7 +1,6 @@
 import { numberWithCommas } from '../../utils/helpers';
 import { transactionsTabs } from '../../utils/sidePages';
 import AddressBlock from '../Addresses/AddressDetails/components/AddressBlocks';
-import { Account } from '../Atlas/atlas.interface';
 import TabsNew from './components/TabsNew';
 import API2 from 'API/newApi';
 import { Content } from 'components/Content';
@@ -38,7 +37,7 @@ export const Transactions = memo(() => {
           tabs={transactionsTabs}
           fetchData={API2.getTransactions}
           fetchParams={{ type: '', page: '' }}
-          render={(txs: Account[]) =>
+          render={(txs: any) =>
             txs.map((tx: any, i: number) => (
               <AddressBlock
                 isLatest={true}

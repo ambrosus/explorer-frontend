@@ -1,10 +1,10 @@
 import ConstractSideBtn from 'components/ContractSideBtn';
 import Loader from 'components/Loader';
 import useDeviceSize from 'hooks/useDeviceSize';
-import React, { memo, useEffect, useMemo, useRef, useState } from 'react';
+import React, { memo, useEffect, useRef, useState } from 'react';
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
-import { getAccountData, getContractData } from 'services/contract.service';
+import { getAccountData } from 'services/contract.service';
 import { TParams } from 'types';
 
 const Code = (props: any) => {
