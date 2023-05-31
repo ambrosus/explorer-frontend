@@ -38,13 +38,13 @@ export const routes: IRoute[] = [
     component: () => <Apollo />,
     isClick: true,
   },
-  {
-    path: '/atlas/',
-    key: 'Atlas',
-    exact: true,
-    component: () => <Atlas />,
-    isClick: true,
-  },
+  // {
+  //   path: '/atlas/',
+  //   key: 'Atlas',
+  //   exact: true,
+  //   component: () => <Atlas />,
+  //   isClick: true,
+  // },
 
   {
     path: '/address/',
@@ -67,13 +67,13 @@ export const routes: IRoute[] = [
     component: () => <Transactions />,
     isClick: true,
   },
-  {
-    path: '/bundles/',
-    key: 'Bundles',
-    exact: true,
-    component: () => <Bundles />,
-    isClick: true,
-  },
+  // {
+  //   path: '/bundles/',
+  //   key: 'Bundles',
+  //   exact: true,
+  //   component: () => <Bundles />,
+  //   isClick: true,
+  // },
 ];
 export const addressesRoutes: IRoute[] = [
   {
