@@ -32,30 +32,26 @@ export const Addresses = () => {
         <MainInfoAddresses />
       </Content.Header>
       <Content.Body>
-        <div className="addresses_main_table">
-          <div className="addresses_table">
-            <TabsNew
-              tableHeader={() => <AddressesHeader />}
-              sortOptions={sortOptions}
-              fetchData={API2.getAddresses}
-              initSortTerm={'balance'}
-              fetchParams={{ sort: '', page: '' }}
-              label="Addresses"
-              render={(accounts: any) =>
-                accounts.map((account: any, index: any) => (
-                  <AddressesBody
-                    key={account._id}
-                    isContract={account.isContract}
-                    address={account.address}
-                    balance={account.balance}
-                    rank={index + 1}
-                    txCount={account.totalTx}
-                  />
-                ))
-              }
-            />
-          </div>
-        </div>
+        <TabsNew
+          tableHeader={() => <AddressesHeader />}
+          sortOptions={sortOptions}
+          fetchData={API2.getAddresses}
+          initSortTerm={'balance'}
+          fetchParams={{ sort: '', page: '' }}
+          label="Addresses"
+          render={(accounts: any) =>
+            accounts.map((account: any, index: any) => (
+              <AddressesBody
+                key={account._id}
+                isContract={account.isContract}
+                address={account.address}
+                balance={account.balance}
+                rank={index + 1}
+                txCount={account.totalTx}
+              />
+            ))
+          }
+        />
       </Content.Body>
     </Content>
   );
