@@ -7,7 +7,7 @@ import OutgoingTransaction from 'assets/icons/StatusAction/OutgoingTransaction';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import moment from 'moment';
 import { AddressBlockProps } from 'pages/Addresses/AddressDetails/address-details.interface';
-import React, { useState } from 'react';
+import React, {useMemo, useState} from 'react';
 import { NavLink, useParams } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
 import { TParams } from 'types';
@@ -38,7 +38,6 @@ export const Tooltip = React.memo(({ val }: any) => {
 const AddressBlock: React.FC<AddressBlockProps> = ({
   onClick,
   lastCardRef,
-  isLatest,
   txhash,
   method,
   from,
@@ -60,10 +59,6 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 
   const [isExpanded, setIsExpanded] = useState(false);
   const handleExpand = () => setIsExpanded((state: boolean) => !state);
-
-  const { data: addressData } = useTypedSelector(
-    (state: any) => state.position,
-  );
 
   const isTxHash: JSX.Element | null = (
     <>
@@ -150,7 +145,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
       </div>
     );
 
-  const Icon = getTokenIcon(symbol as string, token);
+  const Icon = getTokenIcon(symbol as string, token, tokenData?.address);
 
   //TODO ?
   const handleBlock = () => {
@@ -165,6 +160,12 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
   const isSymbolERC =
     (symbol !== ('AMB' || 'null' || null) && type !== 'ERC-20_Tx') ||
     token.includes('token');
+
+  const _symbol = useMemo(() => {
+    if (tokenData?.address === '0x322269e52800e5094c008f3b01A3FD97BB3C8f5D') {
+      return 'HPT';
+    } else return symbol;
+  }, [tokenData])
 
   const isAmount =
     amount === null ? (
@@ -188,9 +189,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
             }}
             onClick={handleBlock}
           >
-            {type !== 'ERC-20_Tx' && token.includes('token')
-              ? getAmbTokenSymbol(token)
-              : symbol}
+            {_symbol}
           </span>
         )}
         <span className="flex_row">

@@ -53,6 +53,11 @@
       position: relative;
       align-items: center;
       height: 48px;
+
+      svg {
+        width: 24px;
+        height: 24px;
+      }
     }
     &_icon {
       display: flex;

@@ -2,7 +2,7 @@ import { getTokenIcon } from '../../utils/helpers';
 import Discard from 'assets/icons/Discard';
 import { formatEther } from 'ethers/lib/utils';
 import { useActions } from 'hooks/useActions';
-import React, { FC } from 'react';
+import React, {FC, useMemo} from 'react';
 
 export type FilteredTokenProps = {
   setSelectedToken: any;
@@ -19,7 +19,15 @@ const FilteredToken: FC<FilteredTokenProps> = ({
     setSelectedToken(null);
     clearFilters();
   };
-  const Icon = getTokenIcon(selectedToken.symbol as string, selectedToken.name);
+  const Icon = getTokenIcon(selectedToken.symbol as string, selectedToken.name, selectedToken.address);
+
+  const _name = useMemo(() => {
+    if (selectedToken.address === '0x322269e52800e5094c008f3b01A3FD97BB3C8f5D') {
+      return 'Hera Pool Token';
+    } else {
+      return selectedToken.name;
+    }
+  }, [selectedToken])
 
   return (
     <div className="filtered_token">
@@ -30,7 +38,7 @@ const FilteredToken: FC<FilteredTokenProps> = ({
           </div>
           <div className="filtered_token_cell">
             <Icon />
-            {selectedToken && selectedToken.name}
+            {selectedToken && _name}
           </div>
         </div>
         <div className="filtered_token_cells">

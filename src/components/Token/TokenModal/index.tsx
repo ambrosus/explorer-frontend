@@ -46,9 +46,9 @@ const TokenModal: FC<TokenModalProps> = ({
             //TODO double code
             !filteredTokensList.length
               ? addressData?.tokens.map(
-                  (token: { name: string; idx: number }) => (
+                  (token: { name: string; }, idx: number) => (
                     <TokenItem
-                      key={token.name + token.idx}
+                      key={token.name + idx}
                       selectedToken={selectedToken}
                       token={token}
                       setToken={setToken}
@@ -56,9 +56,9 @@ const TokenModal: FC<TokenModalProps> = ({
                   ),
                 )
               : filteredTokensList.map(
-                  (token: { name: string; idx: number }) => (
+                  (token: { name: string; }, idx: number) => (
                     <TokenItem
-                      key={token.name + token.idx}
+                      key={token.name + idx}
                       selectedToken={selectedToken}
                       token={token}
                       setToken={setToken}

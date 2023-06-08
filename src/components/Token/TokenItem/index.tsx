@@ -1,9 +1,28 @@
 import { ITokenItemProps } from 'pages/Addresses/AddressDetails/address-details.interface';
-import React from 'react';
+import React, {useMemo} from 'react';
 import { getTokenIcon } from 'utils/helpers';
 
 const TokenItem = ({ token, selectedToken, setToken }: ITokenItemProps) => {
-  const Icon = getTokenIcon(token.symbol, token.name);
+  const Icon = getTokenIcon(token.symbol, token.name, token.address);
+
+  const tokenData = useMemo(() => {
+    console.log(1);
+    if (token.address === '0x322269e52800e5094c008f3b01A3FD97BB3C8f5D') {
+      return {
+        symbol: 'HPT',
+        name: 'Hera Pool Token'
+      }
+    } else {
+      return {
+        symbol: token.symbol,
+        name: token.name ||
+          `${token.address.substring(0, 4)}...${token.address.substring(
+            token.address.length - 4,
+            token.address.length,
+          )}`
+      }
+    }
+  }, [token])
 
   return (
     <div
@@ -20,14 +39,10 @@ const TokenItem = ({ token, selectedToken, setToken }: ITokenItemProps) => {
 
       <div className="token_item_tokens">
         <div>
-          {token?.name ||
-            `${token.address.substring(0, 4)}...${token.address.substring(
-              token.address.length - 4,
-              token.address.length,
-            )}`}
+          {tokenData.name}
         </div>
         <div className="universall_light2">
-          {token?.balance.ether} {token?.symbol}
+          {token?.balance.ether} {tokenData.symbol}
         </div>
       </div>
       <div className="token_item_amount" />

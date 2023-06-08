@@ -97,11 +97,11 @@ export const toUniqueValueByBlock = (arr: any) => {
   }
 };
 
-export const getTokenIcon = (symbol: string, name?: string) => {
-  /*
-   * @param {string} symbol
-   * @returns {Component}
-   */
+export const getTokenIcon = (symbol: string, name?: string, address?: string) => {
+  if (address === '0x322269e52800e5094c008f3b01A3FD97BB3C8f5D') {
+    return Hpt
+  }
+
   if (name) {
     switch (name) {
       case 'Hera pool token':
@@ -133,6 +133,8 @@ export const getTokenIcon = (symbol: string, name?: string) => {
     case 'BUSD':
       return Busd;
     case 'AmbB':
+      return Bond;
+    case 'BOND':
       return Bond;
     default:
       return Amb;
