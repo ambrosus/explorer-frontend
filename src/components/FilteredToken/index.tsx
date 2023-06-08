@@ -2,7 +2,7 @@ import { getTokenIcon } from '../../utils/helpers';
 import Discard from 'assets/icons/Discard';
 import { formatEther } from 'ethers/lib/utils';
 import { useActions } from 'hooks/useActions';
-import React, {FC, useMemo} from 'react';
+import React, { FC, useMemo } from 'react';
 
 export type FilteredTokenProps = {
   setSelectedToken: any;
@@ -19,15 +19,25 @@ const FilteredToken: FC<FilteredTokenProps> = ({
     setSelectedToken(null);
     clearFilters();
   };
-  const Icon = getTokenIcon(selectedToken.symbol as string, selectedToken.name, selectedToken.address);
+  const Icon = getTokenIcon(
+    selectedToken.symbol as string,
+    selectedToken.name,
+    selectedToken.address,
+  );
 
   const _name = useMemo(() => {
-    if (selectedToken.address === '0x322269e52800e5094c008f3b01A3FD97BB3C8f5D') {
+    if (
+      selectedToken.address === '0x322269e52800e5094c008f3b01A3FD97BB3C8f5D'
+    ) {
       return 'Hera Pool Token';
+    } else if (
+      selectedToken.address === '0x7240d2444151d9A8c72F77306Fa10f19FE7C9182'
+    ) {
+      return 'Test1 pool token';
     } else {
       return selectedToken.name;
     }
-  }, [selectedToken])
+  }, [selectedToken]);
 
   return (
     <div className="filtered_token">

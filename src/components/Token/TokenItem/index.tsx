@@ -1,5 +1,5 @@
 import { ITokenItemProps } from 'pages/Addresses/AddressDetails/address-details.interface';
-import React, {useMemo} from 'react';
+import React, { useMemo } from 'react';
 import { getTokenIcon } from 'utils/helpers';
 
 const TokenItem = ({ token, selectedToken, setToken }: ITokenItemProps) => {
@@ -10,19 +10,20 @@ const TokenItem = ({ token, selectedToken, setToken }: ITokenItemProps) => {
     if (token.address === '0x322269e52800e5094c008f3b01A3FD97BB3C8f5D') {
       return {
         symbol: 'HPT',
-        name: 'Hera Pool Token'
-      }
+        name: 'Hera Pool Token',
+      };
     } else {
       return {
         symbol: token.symbol,
-        name: token.name ||
+        name:
+          token.name ||
           `${token.address.substring(0, 4)}...${token.address.substring(
             token.address.length - 4,
             token.address.length,
-          )}`
-      }
+          )}`,
+      };
     }
-  }, [token])
+  }, [token]);
 
   return (
     <div
@@ -38,9 +39,7 @@ const TokenItem = ({ token, selectedToken, setToken }: ITokenItemProps) => {
       </div>
 
       <div className="token_item_tokens">
-        <div>
-          {tokenData.name}
-        </div>
+        <div>{tokenData.name}</div>
         <div className="universall_light2">
           {token?.balance.ether} {tokenData.symbol}
         </div>

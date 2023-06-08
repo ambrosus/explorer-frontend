@@ -97,9 +97,13 @@ export const toUniqueValueByBlock = (arr: any) => {
   }
 };
 
-export const getTokenIcon = (symbol: string, name?: string, address?: string) => {
+export const getTokenIcon = (
+  symbol: string,
+  name?: string,
+  address?: string,
+) => {
   if (address === '0x322269e52800e5094c008f3b01A3FD97BB3C8f5D') {
-    return Hpt
+    return Hpt;
   }
 
   if (name) {

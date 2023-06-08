@@ -4,10 +4,9 @@ import Plus from 'assets/icons/Plus';
 import GreenCircle from 'assets/icons/StatusAction/GreenCircle';
 import IncomeTrasaction from 'assets/icons/StatusAction/IncomeTrasaction';
 import OutgoingTransaction from 'assets/icons/StatusAction/OutgoingTransaction';
-import { useTypedSelector } from 'hooks/useTypedSelector';
 import moment from 'moment';
 import { AddressBlockProps } from 'pages/Addresses/AddressDetails/address-details.interface';
-import React, {useMemo, useState} from 'react';
+import React, { useMemo, useState } from 'react';
 import { NavLink, useParams } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
 import { TParams } from 'types';
@@ -165,7 +164,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
     if (tokenData?.address === '0x322269e52800e5094c008f3b01A3FD97BB3C8f5D') {
       return 'HPT';
     } else return symbol;
-  }, [tokenData])
+  }, [tokenData]);
 
   const isAmount =
     amount === null ? (
