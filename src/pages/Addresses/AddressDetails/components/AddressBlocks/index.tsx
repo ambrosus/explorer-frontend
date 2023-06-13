@@ -222,7 +222,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
         style={{ fontWeight: '600', cursor: 'pointer' }}
       >
         {type === 'ERC-20_Tx' && (
-          <span className="universall_indent_icon">
+          <span className="universall_indent_icon token_icon">
             <Icon />
           </span>
         )}

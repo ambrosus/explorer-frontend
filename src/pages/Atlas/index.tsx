@@ -6,8 +6,9 @@ import AtlasBlocksHeader from './components/AtlasBlocksHeader';
 import { Content } from 'components/Content';
 import HeadInfo from 'components/HeadInfo';
 import { useTypedSelector } from 'hooks/useTypedSelector';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { Helmet } from 'react-helmet';
+import axios from "axios";
 
 const sortOptions: TAtlasSortProps[] = [
   {
@@ -30,14 +31,19 @@ const sortOptions: TAtlasSortProps[] = [
 
 export const Atlas = () => {
   const { data: appData } = useTypedSelector((state: any) => state.app);
+  const [totalAtlases, setTotalAtlases] = useState(0);
 
-  const total = appData?.netInfo?.atlases?.total || 0;
+  useEffect(() => {
+    axios.get(`${process.env.REACT_APP_API_ENDPOINT}/info/`)
+      .then((res: any)  => setTotalAtlases(res.data.atlases.total));
+  }, []);
+
   const avgBlockTime = appData?.netInfo?.avgBlockTime || 0;
 
   const itemFirst: any = [
     {
       name: 'TOTAL NODES',
-      value: total,
+      value: totalAtlases,
     },
 
     {

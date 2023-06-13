@@ -24,6 +24,7 @@
     }
   }
   &_erc20 {
+    width: fit-content;
     display: grid;
     grid-template-columns:
       minmax(100px, 1.5fr) minmax(170px, 2fr) minmax(115px, 2fr)
@@ -53,11 +54,6 @@
       position: relative;
       align-items: center;
       height: 48px;
-
-      svg {
-        width: 24px;
-        height: 24px;
-      }
     }
     &_icon {
       display: flex;
@@ -93,4 +89,9 @@
       bottom: 12px;
     }
   }
+}
+
+.token_icon  svg {
+  width: 24px;
+  height: 24px;
 }

@@ -11,6 +11,7 @@ import useDeviceSize from 'hooks/useDeviceSize';
 import MainInfo from 'pages/Home/components/MainInfo';
 import { useEffect, useMemo, useState } from 'react';
 import { Helmet } from 'react-helmet';
+import axios from "axios";
 
 export const Home: React.FC = () => {
   const [data, setData] = useState<ResultHomePageData>();
@@ -18,8 +19,12 @@ export const Home: React.FC = () => {
 
   const { FOR_BIG_TABLET } = useDeviceSize();
   const { data: appData } = useTypedSelector((state: any) => state.app);
+  const [totalAtlases, setTotalAtlases] = useState(0);
 
   useEffect(() => {
+    axios.get(`${process.env.REACT_APP_API_ENDPOINT}/info/`)
+      .then((res: any)  => setTotalAtlases(res.data.atlases.total));
+
     const interval = setInterval(() => {
       setAppDataAsync();
       getHomePageData().then((result: ResultHomePageData) => setData(result));
@@ -39,7 +44,7 @@ export const Home: React.FC = () => {
         { name: 'MARKET CAP', value: appData.tokenInfo?.market_cap_usd },
         {
           name: 'NODES',
-          value: appData.netInfo.apollos?.total,
+          value: appData.netInfo.apollos?.total + totalAtlases,
         },
         { name: 'HOLDERS', value: appData.netInfo.accounts?.withBalance },
       ],
