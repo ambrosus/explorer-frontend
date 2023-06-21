@@ -20,10 +20,13 @@ export const Home: React.FC = () => {
   const { data: appData } = useTypedSelector((state: any) => state.app);
 
   useEffect(() => {
+    setAppDataAsync();
+    getHomePageData().then((result: ResultHomePageData) => setData(result));
+
     const interval = setInterval(() => {
       setAppDataAsync();
       getHomePageData().then((result: ResultHomePageData) => setData(result));
-    }, 1000);
+    }, 60000);
     return () => clearInterval(interval);
   }, []);
   const getHomeData = async () => await API2.getAddresses();

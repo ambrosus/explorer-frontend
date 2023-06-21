@@ -18,9 +18,11 @@ export const Blocks = memo(() => {
   ).toFixed(2)}%)`;
 
   useEffect(() => {
+    API.getInfo().then((res) => setBlockData(res));
+
     const interval = setInterval(() => {
       API.getInfo().then((res) => setBlockData(res));
-    }, 1000);
+    }, 60000);
     return () => clearInterval(interval);
   }, []);
 
