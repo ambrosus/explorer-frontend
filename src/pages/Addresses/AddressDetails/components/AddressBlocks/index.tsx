@@ -163,6 +163,8 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
   const _symbol = useMemo(() => {
     if (tokenData?.address === '0x322269e52800e5094c008f3b01A3FD97BB3C8f5D') {
       return 'HPT';
+    } else if (tokenData?.address === '0x7240d2444151d9A8c72F77306Fa10f19FE7C9182') {
+      return 'TPT'
     } else return symbol;
   }, [tokenData]);
 

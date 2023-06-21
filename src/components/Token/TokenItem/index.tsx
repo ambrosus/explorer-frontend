@@ -12,6 +12,11 @@ const TokenItem = ({ token, selectedToken, setToken }: ITokenItemProps) => {
         symbol: 'HPT',
         name: 'Hera Pool Token',
       };
+    } else if (token.address === '0x7240d2444151d9A8c72F77306Fa10f19FE7C9182') {
+      return {
+        symbol: 'TPT',
+        name: 'Test1 pool token'
+      }
     } else {
       return {
         symbol: token.symbol,

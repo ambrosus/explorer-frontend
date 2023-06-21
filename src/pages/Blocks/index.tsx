@@ -57,20 +57,17 @@ export const Blocks = memo(() => {
         <HeadInfo data={itemFirst} className="head_info" />
       </Content.Header>
       <Content.Body>
-        <div className="blocks_main">
-          <TabsNew
-            withoutLoader
-            tableHeader={() => <BlocksHeader />}
-            fetchData={API2.getBlocks}
-            fetchParams={fetchParams}
-            label="Blocks"
-            render={(list: any) =>
-              list.map((el: any, index: any) => (
-                <BlocksBody key={index} index={index + 1} item={el} />
-              ))
-            }
-          />
-        </div>
+        <TabsNew
+          tableHeader={() => <BlocksHeader />}
+          fetchData={API2.getBlocks}
+          fetchParams={fetchParams}
+          label="Blocks"
+          render={(list: any) =>
+            list.map((el: any, index: any) => (
+              <BlocksBody key={index} index={index + 1} item={el} />
+            ))
+          }
+        />
       </Content.Body>
     </Content>
   );
