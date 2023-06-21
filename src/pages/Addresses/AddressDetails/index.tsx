@@ -35,7 +35,7 @@ const AddressDetails = () => {
         });
       }
     });
-  }, []);
+  }, [address]);
 
   const { FOR_TABLET } = useDeviceSize();
 
