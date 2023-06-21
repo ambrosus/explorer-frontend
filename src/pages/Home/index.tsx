@@ -3,6 +3,7 @@ import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { LatestTransactionsProps, ResultHomePageData } from './home.interfaces';
 import API from 'API/api';
 import API2 from 'API/newApi';
+import axios from 'axios';
 import BlocksContent from 'components/BlocksContent';
 import BlocksContentMobile from 'components/BlocksContentMobile';
 import { Content } from 'components/Content';
@@ -11,7 +12,6 @@ import useDeviceSize from 'hooks/useDeviceSize';
 import MainInfo from 'pages/Home/components/MainInfo';
 import { useEffect, useMemo, useState } from 'react';
 import { Helmet } from 'react-helmet';
-import axios from "axios";
 
 export const Home: React.FC = () => {
   const [data, setData] = useState<ResultHomePageData>();
@@ -22,8 +22,9 @@ export const Home: React.FC = () => {
   const [totalAtlases, setTotalAtlases] = useState(0);
 
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_API_ENDPOINT}/info/`)
-      .then((res: any)  => setTotalAtlases(res.data.atlases.total));
+    axios
+      .get(`${process.env.REACT_APP_API_ENDPOINT}/info/`)
+      .then((res: any) => setTotalAtlases(res.data.atlases.total));
 
     const interval = setInterval(() => {
       setAppDataAsync();

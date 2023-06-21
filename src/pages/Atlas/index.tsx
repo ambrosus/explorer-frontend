@@ -3,12 +3,12 @@ import TabsNew from '../Transactions/components/TabsNew';
 import { TAtlasSortProps } from './atlasBlocks.interface';
 import AtlasBlocksBody from './components/AtlasBlocksBody';
 import AtlasBlocksHeader from './components/AtlasBlocksHeader';
+import axios from 'axios';
 import { Content } from 'components/Content';
 import HeadInfo from 'components/HeadInfo';
 import { useTypedSelector } from 'hooks/useTypedSelector';
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
-import axios from "axios";
 
 const sortOptions: TAtlasSortProps[] = [
   {
@@ -34,8 +34,9 @@ export const Atlas = () => {
   const [totalAtlases, setTotalAtlases] = useState(0);
 
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_API_ENDPOINT}/info/`)
-      .then((res: any)  => setTotalAtlases(res.data.atlases.total));
+    axios
+      .get(`${process.env.REACT_APP_API_ENDPOINT}/info/`)
+      .then((res: any) => setTotalAtlases(res.data.atlases.total));
   }, []);
 
   const avgBlockTime = appData?.netInfo?.avgBlockTime || 0;
