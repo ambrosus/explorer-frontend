@@ -75,7 +75,7 @@ const TabsNew: FC<TabsNewProps> = ({
     if (tab === 'contract') {
       updateContract();
     }
-  }, [tab]);
+  }, [tab, fetchParams]);
 
   const updateContract = () => {
     getContractData(fetchParams.address).then((res) => {
