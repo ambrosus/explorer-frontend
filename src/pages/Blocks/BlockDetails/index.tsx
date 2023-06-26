@@ -88,11 +88,9 @@ export const BlockDetails = memo(() => {
   );
 
   useEffect(() => {
-    setAppDataAsync();
-
     const interval = setInterval(() => {
       setAppDataAsync();
-    }, 60000);
+    }, 1000);
     return () => clearInterval(interval);
   }, []);
 
