@@ -26,7 +26,7 @@ export const Home: React.FC = () => {
     const interval = setInterval(() => {
       setAppDataAsync();
       getHomePageData().then((result: ResultHomePageData) => setData(result));
-    }, 60000);
+    }, 10000);
     return () => clearInterval(interval);
   }, []);
   const getHomeData = async () => await API2.getAddresses();
