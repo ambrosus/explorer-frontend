@@ -8,6 +8,8 @@ import moment from 'moment';
 import React, { memo, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 
+const fetchParams = { type: '', page: '' };
+
 export const Transactions = memo(() => {
   const [txData, setTxData] = useState<any>(null);
 
@@ -36,7 +38,7 @@ export const Transactions = memo(() => {
           withoutCalendar
           tabs={transactionsTabs}
           fetchData={API2.getTransactions}
-          fetchParams={{ type: '', page: '' }}
+          fetchParams={fetchParams}
           render={(txs: any) =>
             txs.map((tx: any, i: number) => (
               <AddressBlock
