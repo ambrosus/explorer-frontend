@@ -19,7 +19,7 @@ const Method = (props: any) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const { address, isRead, index, method, buttonName } = props;
-  const { library } = useWeb3React();
+  const { provider } = useWeb3React();
 
   const readProvider = new ethers.providers.JsonRpcProvider(
     process.env.REACT_APP_EXPLORER_NETWORK,
@@ -32,7 +32,7 @@ const Method = (props: any) => {
     try {
       setIsLoading(true);
 
-      const providerOrSigner = isRead ? readProvider : library.getSigner();
+      const providerOrSigner = isRead ? readProvider : provider?.getSigner();
 
       const contract = new ethers.Contract(address, [method], providerOrSigner);
 

@@ -1,9 +1,10 @@
 import { useActions } from '../../hooks/useActions';
 import { RemoveTrailingSlash } from '../RemoveTrailingSlash';
 import { Layout } from '../layouts/Layout';
-import { useWeb3React } from '@web3-react/core';
 // @ts-ignore
 import { useAutoLogin } from 'airdao-components-and-tools/hooks';
+// @ts-ignore
+import { metamaskConnector } from 'airdao-components-and-tools/utils';
 import { RenderRoutes } from 'components/RenderRoutes/RenderRoutes';
 import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
@@ -14,8 +15,7 @@ const Main: React.FC = () => {
   const { pathname } = useLocation();
   const { setAppDataAsync } = useActions();
 
-  const web3ReactInstance = useWeb3React();
-  useAutoLogin(web3ReactInstance);
+  useAutoLogin(metamaskConnector);
 
   useEffect(() => {
     setAppDataAsync();
