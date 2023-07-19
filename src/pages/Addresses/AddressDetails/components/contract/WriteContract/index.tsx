@@ -2,12 +2,14 @@ import Method from '../ReadContract/Method';
 import { useWeb3React } from '@web3-react/core';
 // @ts-ignore
 import { useAuthorization } from 'airdao-components-and-tools/hooks';
+// @ts-ignore
+import { metamaskConnector } from 'airdao-components-and-tools/utils';
 
 const WriteContract = (props: any) => {
   const { contractAbi, contractAddress } = props;
 
   const web3ReactInstance = useWeb3React();
-  const { loginMetamask } = useAuthorization(web3ReactInstance);
+  const { loginMetamask } = useAuthorization(metamaskConnector);
   const { account } = web3ReactInstance;
 
   if (!contractAbi) return <></>;
