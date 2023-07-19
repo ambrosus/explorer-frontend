@@ -19,7 +19,7 @@ const Method = (props: any) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const { address, isRead, index, method, buttonName } = props;
-  const { provider } = useWeb3React();
+  const { provider }: any = useWeb3React();
 
   const readProvider = new ethers.providers.JsonRpcProvider(
     process.env.REACT_APP_EXPLORER_NETWORK,
