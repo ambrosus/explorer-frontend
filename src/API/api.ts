@@ -140,11 +140,11 @@ const getTokenMountPrice = () => {
 };
 
 const followTheLinkRange = async (fromDate: any, toDate: any, address: any) => {
-  const link = `${baseApiUrl}/transactions/csv/address/${address}`;
+  const link = `${process.env.REACT_APP_API_ENDPOINT_V2}/addresses/${address}/export/csv`;
   const from = fromDate / 1000;
   const to = toDate / 1000;
-  window.open(`${link}/dateFrom/${from}/dateTo/${to}`, '_self');
-  return await fetch(`${link}/dateFrom/${from}/dateTo/${to}`);
+  window.open(`${link}?from=${from}&to=${to}`, '_self');
+  return await fetch(`${link}?from=${from}&to=${to}`);
 };
 
 const api = {
