@@ -10,7 +10,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 const VerifyContract = ({ updateContract }: any) => {
   const chainID: string = process.env.REACT_APP_CHAIN_ID || '';
 
-  const sourcifyUrl = 'https://sourcify.ambrosus.io';
+  const sourcifyUrl = process.env.REACT_APP_SOURCIFY_API_ENDPOINT;
 
   const fileInput = useRef<any>();
 
