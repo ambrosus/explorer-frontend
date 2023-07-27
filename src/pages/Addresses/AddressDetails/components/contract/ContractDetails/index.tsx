@@ -126,10 +126,11 @@ const getImplementation = async (address: string) => {
     // https://eips.ethereum.org/EIPS/eip-1967#logic-contract-address
     const implStorageSlot =
       '0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc';
-    const implAddress = await readProvider.getStorageAt(
+    const implAddressBytes32 = await readProvider.getStorageAt(
       address,
       implStorageSlot,
     );
+    const implAddress = '0x' + implAddressBytes32.slice(-40);
 
     const sourcifyData = await api.getContract(implAddress);
     const { contractAbi: implAbi } = parseSourcifyOutput(sourcifyData?.data);
@@ -149,7 +150,7 @@ const parseSourcifyOutput = (sourcifyData: any) => {
     sourcifyFiles: files,
     sourcifyMetadata: metadata,
     contractAbi,
-    status: sourcifyData.status,
+    status: sourcifyData?.status,
   };
 };
 
