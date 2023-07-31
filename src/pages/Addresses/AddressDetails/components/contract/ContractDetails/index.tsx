@@ -32,7 +32,7 @@ const ContractDetails = (props: any) => {
   const allowedTabs = [];
   if (isContractVerified) allowedTabs.push('code', 'read', 'write', 'events');
   if (!isContractVerified) allowedTabs.push('verify');
-  if (implementation) allowedTabs.push('readAsProxy', 'writeAsProxy');
+  if (proxyImplAbi.length) allowedTabs.push('readAsProxy', 'writeAsProxy');
 
   // if wrong tab selected, redirect to /code or /verify tab
   if (!allowedTabs.includes(selectedTab)) {
