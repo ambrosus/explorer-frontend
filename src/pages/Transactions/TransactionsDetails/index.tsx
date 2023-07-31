@@ -215,7 +215,7 @@ export const TransactionDetails = () => {
               </p>
               <p className="atlas_details_balance_fonts_bold">
                 {numberWithCommas(txData.nonce)} (
-                {txData.transactionIndex || '-'})
+                {txData.transactionIndex})
               </p>
             </div>
             <div
