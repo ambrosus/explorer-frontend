@@ -1,5 +1,4 @@
 import { BlockDetails } from './pages/Blocks/BlockDetails';
-import { Bundles } from './pages/Bundles';
 import NodeSetup from './pages/NodeSetup';
 import { IRoute } from './types';
 import { Addresses } from 'pages/Addresses';

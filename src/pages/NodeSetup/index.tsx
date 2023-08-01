@@ -68,7 +68,9 @@ const NodeSetup: React.FC = () => {
     const minStake = await serverNodesManager.minStakeAmount();
     console.log(formData);
 
-    serverNodesManager.newStake(formData.nodeAddress, formData.receiveAddress, { value: minStake });
+    serverNodesManager.newStake(formData.nodeAddress, formData.receiveAddress, {
+      value: minStake,
+    });
   };
 
   return (
