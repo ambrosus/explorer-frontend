@@ -1,4 +1,6 @@
 import { BlockDetails } from './pages/Blocks/BlockDetails';
+import { Bundles } from './pages/Bundles';
+import NodeSetup from './pages/NodeSetup';
 import { IRoute } from './types';
 import { Addresses } from 'pages/Addresses';
 import AddressDetails from 'pages/Addresses/AddressDetails';
@@ -66,6 +68,13 @@ export const routes: IRoute[] = [
     key: 'Transactions',
     exact: true,
     component: () => <Transactions />,
+    isClick: true,
+  },
+  {
+    path: '/node-setup/',
+    key: 'Node Setup',
+    exact: true,
+    component: () => <NodeSetup />,
     isClick: true,
   },
 ];
@@ -141,13 +150,6 @@ export const transactions: IRoute[] = [
 ];
 
 export const bundleRoutes: IRoute[] = [
-  {
-    path: '/bundles/',
-    key: 'Bundles',
-    exact: true,
-    component: () => <Bundles />,
-    isClick: true,
-  },
   {
     path: '/bundles/:address/',
     key: 'Bundle Details',

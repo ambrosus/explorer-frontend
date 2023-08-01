@@ -1,9 +1,9 @@
 import Amb from '../../../../../assets/icons/Cryptos/Amb';
 import { Number } from 'components/Number';
 import moment from 'moment';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { NavLink } from 'react-router-dom';
-import { sliceData5 } from 'utils/helpers';
+import { getTokenIcon, sliceData5 } from 'utils/helpers';
 
 const BlockBody = ({ lastCardRef, item }: any) => {
   const { type, hash, from, to, timestamp, value } = item;
