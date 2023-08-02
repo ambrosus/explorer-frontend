@@ -1,0 +1,104 @@
+.node-setup {
+  width: 100%;
+  padding-left: 268px;
+  box-sizing: border-box;
+
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.node-setup__page {
+  width: 100%;
+}
+
+.node-setup__common-heading {
+  color: #1D1D1D;
+  font-family: Inter, sans-serif;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 40px; /* 125% */
+
+  margin-bottom: 16px;
+}
+
+.node-setup__common-subheading {
+  color: var(--neutral-700, #222426);
+  font-family: Inter, sans-serif;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 26px; /* 144.444% */
+  letter-spacing: -0.216px;
+
+  margin-bottom: 32px;
+}
+
+.white-container {
+  display: flex;
+  width: 100%;
+  padding: 32px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 16px;
+
+  border-radius: 16px;
+  background: #FFF;
+  box-shadow: 0px 16px 32px 0px rgba(105, 142, 226, 0.20);
+
+  margin-bottom: 16px;
+}
+
+.white-container__heading {
+  color: var(--neutral-900, #0E0E0E);
+  font-family: Inter, sans-serif;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.white-container__text {
+  color: var(--neutral-400, #676B73);
+  font-family: Inter, sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+
+  max-width: 480px;
+}
+
+.white-container__text_warn {
+  color: rgba(255, 172, 35, 1);
+}
+
+.white-container__button {
+  display: flex;
+  width: 108px;
+  padding: 6px 12px;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+
+  color: white;
+
+  border-radius: 1000px;
+  background: var(--gradients-simple-blue-vertical, linear-gradient(180deg, #457EFF 0%, #3568DD 100%));
+
+  /* Shadows/1 */
+  box-shadow: 0px 1px 3px 0px rgba(47, 43, 67, 0.10), 0px -1px 0px 0px rgba(47, 43, 67, 0.10) inset;
+}
+
+.white-container__address-button {
+  cursor: pointer;
+}
+
+.white-container__address-button_active {
+  &::after {
+    content: ' ✔';
+    color: green;
+  }
+}
