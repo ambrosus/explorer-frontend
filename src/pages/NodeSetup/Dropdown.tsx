@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
 import arrow from '../../assets/svg/arrow.svg';
+import React, { useState } from 'react';
 
 function onlyUnique(value: any, index: any, array: any) {
   return array.indexOf(value) === index;
@@ -7,11 +7,15 @@ function onlyUnique(value: any, index: any, array: any) {
 
 interface InputWithDropdownProps {
   options: any[];
-  selectedOption: string |  undefined;
-  setSelectedOption: (option:string) => void;
+  selectedOption: string | undefined;
+  setSelectedOption: (option: string) => void;
 }
 
-const InputWithDropdown: React.FC<InputWithDropdownProps> = ({ options, selectedOption, setSelectedOption }) => {
+const InputWithDropdown: React.FC<InputWithDropdownProps> = ({
+  options,
+  selectedOption,
+  setSelectedOption,
+}) => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
 
   const toggleDropdown = () => {
@@ -31,16 +35,19 @@ const InputWithDropdown: React.FC<InputWithDropdownProps> = ({ options, selected
         className="input-with-dropdown"
         type="text"
         value={selectedOption}
-        placeholder="Select an option"
         onChange={handleChange}
       />
       <button className="dropdown-button" onClick={toggleDropdown}>
-        <img src={arrow} alt="arrow"/>
+        <img src={arrow} alt="arrow" />
       </button>
       {isDropdownOpen && (
         <ul className="dropdown-list">
           {options.filter(onlyUnique).map((option) => (
-            <li key={option} className="dropdown-list__item" onClick={() => handleOptionSelect(option)}>
+            <li
+              key={option}
+              className="dropdown-list__item"
+              onClick={() => handleOptionSelect(option)}
+            >
               {option}
             </li>
           ))}
