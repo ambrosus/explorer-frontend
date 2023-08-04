@@ -83,7 +83,7 @@ const NodeSetup: React.FC = () => {
   };
 
   const handleStake = () => {
-    if (!formData.stake || (formData.stake && +formData.stake < 188)) {
+    if (!formData.stake || (formData.stake && +formData.stake < 1000000)) {
       setStakeError(true);
       return;
     }
