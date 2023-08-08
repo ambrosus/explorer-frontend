@@ -226,3 +226,23 @@
   flex-direction: column;
   gap: 16px;
 }
+
+.node-setup-warning {
+  display: flex;
+  align-items: center;
+  border-radius: 13px;
+  border: 1px solid var(--yellow-200-warning, #FFE773);
+  background: var(--yellow-100-warning, #FFFBB5);
+  padding: 12px 16px;
+  width: 100%;
+}
+
+.node-setup-warning__img {
+  margin-right: 14px;
+}
+
+.node-setup-warning__close {
+  margin-left: auto;
+  background: transparent;
+  height: 20px;
+}

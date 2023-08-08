@@ -1,4 +1,7 @@
 // @ts-ignore
+import questionMark from '../../assets/svg/question.svg';
+import warning from '../../assets/svg/warning.svg';
+import { isValidEthereumAddress } from '../../utils/helpers';
 import InputWithDropdown from './Dropdown';
 // @ts-ignore
 import { AmbErrorProviderWeb3, Contracts } from '@airdao/airdao-node-contracts';
@@ -9,11 +12,9 @@ import { MetamaskConnectButton } from 'airdao-components-and-tools/components';
 import { useAuthorization } from 'airdao-components-and-tools/hooks';
 // @ts-ignore
 import { metamaskConnector } from 'airdao-components-and-tools/utils';
-import {ethers, utils} from 'ethers';
+import { ethers, utils } from 'ethers';
 import React, { useEffect, useState } from 'react';
-import {isValidEthereumAddress} from "../../utils/helpers";
-import questionMark from '../../assets/svg/question.svg';
-import warning from '../../assets/svg/warning.svg';
+import Warning from "./Warning";
 
 const { ethereum }: any = window;
 
@@ -42,7 +43,8 @@ const NodeSetup: React.FC = () => {
     }
 
     if (account) {
-      provider.getBalance(account)
+      provider
+        .getBalance(account)
         .then((res: any) => setBalance(Math.floor(+utils.formatEther(res))));
     }
   }, [account]);
@@ -67,19 +69,22 @@ const NodeSetup: React.FC = () => {
   };
 
   const handleRewardAddress = () => {
-    if (!formData.receiveAddress || !isValidEthereumAddress(formData.receiveAddress)) {
+    if (
+      !formData.receiveAddress ||
+      !isValidEthereumAddress(formData.receiveAddress)
+    ) {
       setSelectRewardError(true);
     } else {
       handleNextClick();
     }
-  }
+  };
 
   const setRewardAddress = (address: string) => {
     setSelectRewardError(false);
     setFormData((state) => ({
       ...state,
       receiveAddress: address,
-    }))
+    }));
   };
 
   const handleStake = () => {
@@ -106,6 +111,9 @@ const NodeSetup: React.FC = () => {
       value: ethers.utils.parseUnits(formData.stake || '', 18),
     });
   };
+
+  const closeStakeError = () => setStakeError(false);
+  const closeRewardError = () => setSelectRewardError(false);
 
   return (
     <section className="node-setup container">
@@ -135,7 +143,9 @@ const NodeSetup: React.FC = () => {
             transactions necessary for managing the node. So you don’t need to
             store any founds on the node address.{' '}
             {isActive && (
-              <span className="white-container__text-semi-bold">Do you want to continue with this address?</span>
+              <span className="white-container__text-semi-bold">
+                Do you want to continue with this address?
+              </span>
             )}
           </p>
           {!isActive ? (
@@ -178,10 +188,9 @@ const NodeSetup: React.FC = () => {
             <p className="white-container__text">
               Node address: {formData.nodeAddress}
             </p>
-            <p className="white-container__text">Current address:{' '}
-              <span className="white-container__text-bold">
-                {account}
-              </span>
+            <p className="white-container__text">
+              Current address:{' '}
+              <span className="white-container__text-bold">{account}</span>
             </p>
           </div>
           <button
@@ -202,11 +211,7 @@ const NodeSetup: React.FC = () => {
             Select the address, that will receive your node rewards. You will be
             able to change address later on the node dashboard page.
           </p>
-          {selectRewardError && (
-            <p className="white-container__text white-container__text_warn">
-              Select reward address
-            </p>
-          )}
+
           <div className="white-container__dropdown-wrapper">
             <InputWithDropdown
               options={[formData.nodeAddress, formData.nodeOwner]}
@@ -220,6 +225,11 @@ const NodeSetup: React.FC = () => {
               Confirm
             </button>
           </div>
+          {selectRewardError && (
+            <Warning onClose={closeRewardError}>
+              Select reward address
+            </Warning>
+          )}
         </div>
       )}
       {step === 4 && (
@@ -238,17 +248,10 @@ const NodeSetup: React.FC = () => {
           </p>
           <p className="white-container__text">
             Balance:{' '}
-            <span className="white-container__text-bold">{balance.toLocaleString()} AMB</span>
+            <span className="white-container__text-bold">
+              {balance.toLocaleString()} AMB
+            </span>
           </p>
-          {stakeError && (
-            <p className="white-container__text white-container__text_warn">
-              The minimum stake amount is 1 000 000 AMB. Enter a larger amount
-              to continue.
-            </p>
-          )}
-          {connectOwnerError && (
-            <p>Choose node owner address in metamask to proceed</p>
-          )}
           <div className="white-container__dropdown-wrapper">
             <input
               className="white-container__input"
@@ -266,6 +269,12 @@ const NodeSetup: React.FC = () => {
               Confirm
             </button>
           </div>
+          {stakeError && (
+            <Warning onClose={closeStakeError}>
+              The minimum stake amount is 1 000 000 AMB. Enter a larger amount
+              to continue.
+            </Warning>
+          )}
         </div>
       )}
       {step === 5 && (
@@ -275,9 +284,8 @@ const NodeSetup: React.FC = () => {
             <span className="white-container__text-semi-bold">
               Please double check all selected parameters.
             </span>{' '}
-            Connect the wallet you
-            want to use to set up a node. Read how to set up a node with our
-            GitHub Wiki. Need help? Go to support@airdao.io
+            Connect the wallet you want to use to set up a node. Read how to set
+            up a node with our GitHub Wiki. Need help? Go to support@airdao.io
           </p>
           <p className="white-container__text">
             You will be able to change the stake size or node owner address
@@ -287,24 +295,44 @@ const NodeSetup: React.FC = () => {
             <div className="node-check__item">
               <p className="node-check__label">Node address</p>
               <p className="node-check__value">{formData.nodeAddress}</p>
-              <img className="node-check__question" src={questionMark} alt="question mark"/>
+              <img
+                className="node-check__question"
+                src={questionMark}
+                alt="question mark"
+              />
             </div>
-            <div className={`node-check__item ${connectOwnerError ? 'node-check__item_error' : ''}`}>
+            <div
+              className={`node-check__item ${
+                connectOwnerError ? 'node-check__item_error' : ''
+              }`}
+            >
               <p className="node-check__label">Node owner address</p>
               <p className="node-check__value">{formData.nodeOwner}</p>
-              <img className="node-check__question" src={questionMark} alt="question mark"/>
+              <img
+                className="node-check__question"
+                src={questionMark}
+                alt="question mark"
+              />
             </div>
             <div className="node-check__item">
               <p className="node-check__label">Node rewards recipient</p>
               <p className="node-check__value">{formData.receiveAddress}</p>
-              <img className="node-check__question" src={questionMark} alt="question mark"/>
+              <img
+                className="node-check__question"
+                src={questionMark}
+                alt="question mark"
+              />
             </div>
             <div className="node-check__item">
               <p className="node-check__label">Stake amount</p>
               <p className="node-check__value">
                 {formData.stake && (+formData.stake).toLocaleString()} AMB
               </p>
-              <img className="node-check__question" src={questionMark} alt="question mark"/>
+              <img
+                className="node-check__question"
+                src={questionMark}
+                alt="question mark"
+              />
             </div>
           </div>
           {connectOwnerError ? (
@@ -312,9 +340,9 @@ const NodeSetup: React.FC = () => {
               <img src={warning} alt="warning" />
               <div className="owner-warning-wrapper">
                 <p className="white-container__text">
-                  Wrong address. Connect with address that you selected as a node
-                  owner to continue. Make sure you have enough founds on this
-                  address for stake.
+                  Wrong address. Connect with address that you selected as a
+                  node owner to continue. Make sure you have enough founds on
+                  this address for stake.
                 </p>
                 <p className="white-container__text">
                   Connected address:{' '}
