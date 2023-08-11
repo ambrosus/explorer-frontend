@@ -1,6 +1,7 @@
 import { Atlas } from './pages/Atlas';
 import { BlockDetails } from './pages/Blocks/BlockDetails';
 import { Bundles } from './pages/Bundles';
+import NodeSetup from './pages/NodeSetup';
 import { IRoute } from './types';
 import { Addresses } from 'pages/Addresses';
 import AddressDetails from 'pages/Addresses/AddressDetails';
@@ -64,6 +65,13 @@ export const routes: IRoute[] = [
     key: 'Transactions',
     exact: true,
     component: () => <Transactions />,
+    isClick: true,
+  },
+  {
+    path: '/node-setup/',
+    key: 'Node Setup',
+    exact: true,
+    component: () => <NodeSetup />,
     isClick: true,
   },
 ];

@@ -49,6 +49,11 @@ export const Blocks = memo(() => {
     <Content>
       <Helmet>
         <link rel="canonical" href="https://airdao.io/explorer/blocks/" />
+        <title>Blocks | AirDAO Network Explorer</title>
+        <meta
+          name="description"
+          content="Explore AirDAO Network Blocks: total blocks, avg. block size, avg. block time, avg. gas used etc."
+        />
       </Helmet>
       <Content.Header>
         <div className="block_main_title">

@@ -78,9 +78,11 @@ export const BlockDetails = memo(() => {
   ) as IBlocksData<IBlock>;
 
   useEffect(() => {
+    setAppDataAsync();
+
     const interval = setInterval(() => {
       setAppDataAsync();
-    }, 1000);
+    }, 10000);
     return () => clearInterval(interval);
   }, []);
 
@@ -152,6 +154,11 @@ export const BlockDetails = memo(() => {
       <Helmet>
         <meta name="robots" content="noindex" />
         <link rel="canonical" href="https://airdao.io/explorer/block/" />
+        <title>Blocks | AirDAO Network Explorer</title>
+        <meta
+          name="description"
+          content="Explore AirDAO Network Blocks: total blocks, avg. block size, avg. block time, avg. gas used etc."
+        />
       </Helmet>
       <Content.Header>
         <div className="block_main_title">

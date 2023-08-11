@@ -12,6 +12,7 @@ import Usdc from 'assets/icons/Cryptos/Usdc';
 import Usdt from 'assets/icons/Cryptos/Usdt';
 import GreenCircle from 'assets/icons/StatusAction/GreenCircle';
 import OrangeCircle from 'assets/icons/StatusAction/OrangeCircle';
+import { ethers } from 'ethers';
 import moment from 'moment';
 
 export const sliceData5 = (item: string | null | undefined) => {
@@ -474,6 +475,17 @@ export const diffStyleToCell = (
       </span>
     </>
   );
+};
+
+export const isValidEthereumAddress = (address: any) => {
+  try {
+    // This function throws an error if the address is not valid
+    ethers.utils.getAddress(address);
+    return true;
+  } catch (error) {
+    // If an error is caught, the address is not valid
+    return false;
+  }
 };
 
 const isRenderProps = (key: string | undefined) => {

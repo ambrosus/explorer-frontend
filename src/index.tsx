@@ -14,7 +14,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 
-const connectors = [
+const connectors: any = [
   [metamaskConnector, metamaskHooks],
   [walletconnectConnector, walletconnectHooks],
 ];

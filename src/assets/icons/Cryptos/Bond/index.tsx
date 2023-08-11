@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { memo, SVGProps } from 'react';
+import { memo } from 'react';
 
 const SvgComponent = () => (
   <svg
-    width="800"
-    height="800"
+    width="24"
+    height="24"
     viewBox="0 0 800 800"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
