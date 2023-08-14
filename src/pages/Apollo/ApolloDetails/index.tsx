@@ -1,4 +1,6 @@
 import { Account } from '../apollo.interface';
+import ChangeAddress from './components/ChangeAddress';
+import StakeSize from './components/StakeSize';
 import API from 'API/api';
 import API2 from 'API/newApi';
 import { Content } from 'components/Content';
@@ -196,6 +198,10 @@ export const ApolloDetails = memo(() => {
         </div>
         <HeadInfo data={itemFirst} className="head_info" />
         <HeadInfo data={itemSecond} className="head_info" />
+        <div className="apollo_details__owner-info">
+          <StakeSize />
+          <ChangeAddress />
+        </div>
       </Content.Header>
       <Content.Body>
         <TabsNew

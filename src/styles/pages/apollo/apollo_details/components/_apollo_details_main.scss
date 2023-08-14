@@ -37,3 +37,11 @@
     color: #16C784;
   }
 }
+
+.apollo_details__owner-info {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: flex-start;
+  column-gap: 16px;
+  margin-bottom: 24px;
+}

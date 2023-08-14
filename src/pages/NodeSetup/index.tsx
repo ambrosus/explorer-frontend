@@ -3,6 +3,7 @@ import questionMark from '../../assets/svg/question.svg';
 import warning from '../../assets/svg/warning.svg';
 import { isValidEthereumAddress } from '../../utils/helpers';
 import InputWithDropdown from './Dropdown';
+import Warning from './Warning';
 // @ts-ignore
 import { AmbErrorProviderWeb3, Contracts } from '@airdao/airdao-node-contracts';
 import { useWeb3React } from '@web3-react/core';
@@ -14,7 +15,6 @@ import { useAuthorization } from 'airdao-components-and-tools/hooks';
 import { metamaskConnector } from 'airdao-components-and-tools/utils';
 import { ethers, utils } from 'ethers';
 import React, { useEffect, useState } from 'react';
-import Warning from "./Warning";
 
 const { ethereum }: any = window;
 
@@ -226,9 +226,7 @@ const NodeSetup: React.FC = () => {
             </button>
           </div>
           {selectRewardError && (
-            <Warning onClose={closeRewardError}>
-              Select reward address
-            </Warning>
+            <Warning onClose={closeRewardError}>Select reward address</Warning>
           )}
         </div>
       )}

@@ -1,0 +1,84 @@
+.ui-button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
+  text-align: center;
+  font-size: 16px;
+  font-family: var(--font-inter);
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: -0.16px;
+
+  border-radius: 1000px;
+}
+
+.ui-button__large {
+  padding: 12px 16px;
+  gap: 8px;
+}
+
+.ui-button__medium {
+  padding: 8px 16px;
+  gap: 8px;
+}
+
+.ui-button__small {
+  padding: 6px 12px;
+  gap: 4px;
+
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.ui-button__primary {
+  background: var(--blue-600-primary, #3568DD);
+  color: var(--neutral-0, #FFF);
+
+  .arrow path {
+    fill: var(--neutral-0, #FFF);
+  }
+
+  &:hover {
+    background: var(--blue-700, #1A3D8D);
+  }
+}
+
+.ui-button__secondary {
+  background: var(--yellow-600-accent, #FF5E0D);
+  color: var(--neutral-0, #FFF);
+
+  .arrow path {
+    fill: var(--neutral-0, #FFF);
+  }
+
+  &:hover {
+    background: var(--yellow-700, #732C17);
+  }
+}
+
+.ui-button__tetiary {
+  background: var(--alpha-black-5, rgba(14, 14, 14, 0.05));
+  color: var(--neutral-900, #0E0E0E);
+
+  .arrow path {
+    fill: var(--neutral-900, #0E0E0E);
+  }
+
+  &:hover {
+    background: var(--alpha-black-10, rgba(14, 14, 14, 0.10));
+  }
+}
+
+.ui-button__plain {
+  background: transparent;
+  color: var(--alpha-black-60, rgba(14, 14, 14, 0.60));
+
+  .arrow path {
+    fill: var(--alpha-black-60, rgba(14, 14, 14, 0.60));
+  }
+
+  &:hover {
+    background: var(--alpha-black-5, rgba(14, 14, 14, 0.05));
+  }
+}
