@@ -152,6 +152,11 @@
   }
 }
 
+.white-container__input-wrapper {
+  width: 85%;
+  position: relative;
+}
+
 .white-container__input {
   height: 40px;
   border-radius: 162px;
@@ -159,7 +164,7 @@
   background: var(--base-white, #FFF);
   box-shadow: 0px 1px 3px 0px rgba(47, 43, 67, 0.10), 0px -1px 0px 0px rgba(47, 43, 67, 0.10) inset;
   padding: 8px 16px;
-  width: 85%;
+  width: 100%;
 
   &::-webkit-outer-spin-button,
   &::-webkit-inner-spin-button {
@@ -170,6 +175,17 @@
   &[type=number] {
     -moz-appearance: textfield;
   }
+}
+
+.white-container__input-wrapper-label {
+  position: absolute;
+  right: 16px;
+  top: 8px;
+  color: var(--neutral-700, #222426);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px; /* 150% */
+  letter-spacing: -0.16px;
 }
 
 .node-check {
