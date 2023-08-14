@@ -302,19 +302,25 @@ const NodeSetup: React.FC = () => {
             </span>
           </p>
           <div className="white-container__dropdown-wrapper">
-            <input
-              className="white-container__input"
-              onChange={(e) =>
-                setFormData((state) => ({
-                  ...state,
-                  stake: e.target.value,
-                }))
-              }
-              type="number"
-              min={1000000}
-              placeholder="MIN 1 000 000"
-            />
-            <button className="white-container__button" onClick={handleStake}>
+            <div className="white-container__input-wrapper">
+              <input
+                className="white-container__input"
+                onChange={(e) =>
+                  setFormData((state) => ({
+                    ...state,
+                    stake: e.target.value,
+                  }))
+                }
+                type="number"
+                min={1000000}
+                placeholder="MIN 1 000 000"
+              />
+              <span className="white-container__input-wrapper-label">AMB</span>
+            </div>
+            <button
+              className="white-container__button white-container__button_white"
+              onClick={handleStake}
+            >
               Confirm
             </button>
           </div>
