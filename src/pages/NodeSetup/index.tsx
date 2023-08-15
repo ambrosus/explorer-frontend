@@ -1,17 +1,16 @@
-// @ts-ignore
+// @ts-nocheck
 import questionMark from '../../assets/svg/question.svg';
 import warning from '../../assets/svg/warning.svg';
 import { isValidEthereumAddress } from '../../utils/helpers';
 import InputWithDropdown from './Dropdown';
 import Warning from './Warning';
-// @ts-ignore
-import { AmbErrorProviderWeb3, Contracts } from '@airdao/airdao-node-contracts';
+import {
+  AmbErrorProviderWeb3,
+  Methods,
+  Contracts,
+} from '@airdao/airdao-node-contracts';
 import { useWeb3React } from '@web3-react/core';
-// @ts-ignore
-import { MetamaskConnectButton } from 'airdao-components-and-tools/components';
-// @ts-ignore
 import { useAuthorization } from 'airdao-components-and-tools/hooks';
-// @ts-ignore
 import { metamaskConnector } from 'airdao-components-and-tools/utils';
 import { ethers, utils } from 'ethers';
 import React, { useEffect, useState } from 'react';
@@ -35,28 +34,64 @@ const NodeSetup: React.FC = () => {
   const [connectOwnerError, setConnectOwnerError] = useState(false);
   const [selectRewardError, setSelectRewardError] = useState(false);
   const [stakeError, setStakeError] = useState(false);
+  const [addressIsNodeError, setAddressIsNodeError] = useState(false);
   const [balance, setBalance] = useState(0);
+  const [skipToConfirm, setSkipToConfirm] = useState(false);
 
   useEffect(() => {
+    setAddressIsNodeError(false);
+
     if (step === 5) {
       setConnectOwnerError(account !== formData.nodeOwner);
     }
 
     if (account) {
+      const dataFromStorage = localStorage.getItem('nodeSetup');
+
+      if (dataFromStorage) {
+        const parsedData = JSON.parse(dataFromStorage);
+        setFormData(parsedData.formData);
+        setStep(parsedData.step);
+      }
       provider
         .getBalance(account)
         .then((res: any) => setBalance(Math.floor(+utils.formatEther(res))));
     }
   }, [account]);
 
-  const handleNextClick = () => setStep((state) => state + 1);
+  useEffect(() => {
+    if (step) {
+      const data = JSON.stringify({ step, formData });
+      localStorage.setItem('nodeSetup', data);
+    }
+  }, [formData, step]);
 
-  const handleNodeAddress = () => {
-    setFormData((state) => ({
-      ...state,
-      nodeAddress: account,
-    }));
-    handleNextClick();
+  const handleNextClick = () => {
+    if (skipToConfirm) {
+      setStep(5);
+    } else {
+      setStep((state) => state + 1);
+    }
+  };
+
+  const handleNodeAddress = async () => {
+    const chainId = (await provider.getNetwork()).chainId;
+    const contracts = new Contracts(provider, chainId);
+
+    const isAlreadyNode = !(
+      await Methods.serverNodesGetStake(contracts, account)
+    ).stake.isZero();
+
+    if (isAlreadyNode) {
+      setAddressIsNodeError(true);
+    } else {
+      setAddressIsNodeError(false);
+      setFormData((state) => ({
+        ...state,
+        nodeAddress: account,
+      }));
+      handleNextClick();
+    }
   };
 
   const handleOwnerAddress = () => {
@@ -99,21 +134,32 @@ const NodeSetup: React.FC = () => {
   };
 
   const handleConfirmClick = async () => {
-    // добавить проверку что адрес кошелька совпадает с nodeOwner
     const signer = provider.getSigner();
     const chainId = (await provider.getNetwork()).chainId;
+    const contracts = new Contracts(signer, chainId);
 
-    const { contracts } = new Contracts(signer, chainId);
+    try {
+      await (await Methods.serverNodesNewStake(
+        contracts,
+        formData.nodeAddress,
+        formData.receiveAddress,
+        ethers.utils.parseUnits(formData.stake || '', 18),
+      )).wait();
+    } catch (e) {
+      console.log(e);
+    }
 
-    const serverNodesManager = contracts.ServerNodesManager;
-
-    serverNodesManager.newStake(formData.nodeAddress, formData.receiveAddress, {
-      value: ethers.utils.parseUnits(formData.stake || '', 18),
-    });
+    localStorage.removeItem('nodeSetup');
   };
 
   const closeStakeError = () => setStakeError(false);
   const closeRewardError = () => setSelectRewardError(false);
+  const closeAddressIsNodeError = () => setAddressIsNodeError(false);
+
+  const backToStep = (step: number) => {
+    setStep(step);
+    setSkipToConfirm(true);
+  };
 
   return (
     <section className="node-setup container">
@@ -167,6 +213,11 @@ const NodeSetup: React.FC = () => {
               >
                 Continue with connected address
               </button>
+              {addressIsNodeError && (
+                <Warning onClose={closeAddressIsNodeError}>
+                  Address is already a node
+                </Warning>
+              )}
             </>
           )}
         </div>
@@ -219,7 +270,7 @@ const NodeSetup: React.FC = () => {
               setSelectedOption={setRewardAddress}
             />
             <button
-              className={'white-container__button'}
+              className="white-container__button white-container__button_white"
               onClick={handleRewardAddress}
             >
               Confirm
@@ -251,19 +302,25 @@ const NodeSetup: React.FC = () => {
             </span>
           </p>
           <div className="white-container__dropdown-wrapper">
-            <input
-              className="white-container__input"
-              onChange={(e) =>
-                setFormData((state) => ({
-                  ...state,
-                  stake: e.target.value,
-                }))
-              }
-              type="number"
-              min={1000000}
-              placeholder="MIN 1 000 000"
-            />
-            <button className="white-container__button" onClick={handleStake}>
+            <div className="white-container__input-wrapper">
+              <input
+                className="white-container__input"
+                onChange={(e) =>
+                  setFormData((state) => ({
+                    ...state,
+                    stake: e.target.value,
+                  }))
+                }
+                type="number"
+                min={1000000}
+                placeholder="MIN 1 000 000"
+              />
+              <span className="white-container__input-wrapper-label">AMB</span>
+            </div>
+            <button
+              className="white-container__button white-container__button_white"
+              onClick={handleStake}
+            >
               Confirm
             </button>
           </div>
@@ -293,6 +350,12 @@ const NodeSetup: React.FC = () => {
             <div className="node-check__item">
               <p className="node-check__label">Node address</p>
               <p className="node-check__value">{formData.nodeAddress}</p>
+              <button
+                className="node-check__change"
+                onClick={() => backToStep(1)}
+              >
+                Change
+              </button>
               <img
                 className="node-check__question"
                 src={questionMark}
@@ -306,6 +369,12 @@ const NodeSetup: React.FC = () => {
             >
               <p className="node-check__label">Node owner address</p>
               <p className="node-check__value">{formData.nodeOwner}</p>
+              <button
+                className="node-check__change"
+                onClick={() => backToStep(2)}
+              >
+                Change
+              </button>
               <img
                 className="node-check__question"
                 src={questionMark}
@@ -315,6 +384,12 @@ const NodeSetup: React.FC = () => {
             <div className="node-check__item">
               <p className="node-check__label">Node rewards recipient</p>
               <p className="node-check__value">{formData.receiveAddress}</p>
+              <button
+                className="node-check__change"
+                onClick={() => backToStep(3)}
+              >
+                Change
+              </button>
               <img
                 className="node-check__question"
                 src={questionMark}
@@ -326,6 +401,12 @@ const NodeSetup: React.FC = () => {
               <p className="node-check__value">
                 {formData.stake && (+formData.stake).toLocaleString()} AMB
               </p>
+              <button
+                className="node-check__change"
+                onClick={() => backToStep(4)}
+              >
+                Change
+              </button>
               <img
                 className="node-check__question"
                 src={questionMark}
@@ -338,9 +419,9 @@ const NodeSetup: React.FC = () => {
               <img src={warning} alt="warning" />
               <div className="owner-warning-wrapper">
                 <p className="white-container__text">
-                  Wrong address. Connect with address that you selected as a
-                  node owner to continue. Make sure you have enough founds on
-                  this address for stake.
+                  You’ve connected the wrong wallet address. Connect the address
+                  that you specified as a node owner to continue. You must have
+                  a minimum of 1,000,000 AMB in this address to start staking.
                 </p>
                 <p className="white-container__text">
                   Connected address:{' '}

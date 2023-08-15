@@ -152,6 +152,11 @@
   }
 }
 
+.white-container__input-wrapper {
+  width: 85%;
+  position: relative;
+}
+
 .white-container__input {
   height: 40px;
   border-radius: 162px;
@@ -159,7 +164,7 @@
   background: var(--base-white, #FFF);
   box-shadow: 0px 1px 3px 0px rgba(47, 43, 67, 0.10), 0px -1px 0px 0px rgba(47, 43, 67, 0.10) inset;
   padding: 8px 16px;
-  width: 85%;
+  width: 100%;
 
   &::-webkit-outer-spin-button,
   &::-webkit-inner-spin-button {
@@ -170,6 +175,17 @@
   &[type=number] {
     -moz-appearance: textfield;
   }
+}
+
+.white-container__input-wrapper-label {
+  position: absolute;
+  right: 16px;
+  top: 8px;
+  color: var(--neutral-700, #222426);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px; /* 150% */
+  letter-spacing: -0.16px;
 }
 
 .node-check {
@@ -183,8 +199,8 @@
 .node-check__item {
   position: relative;
   display: flex;
+  align-items: center;
   padding: 13px 54px 13px 24px;
-  justify-content: space-between;
 
   &_error {
     background: #FFD9CD;
@@ -199,12 +215,13 @@
 .node-check__value {
   font-size: 16px;
   font-weight: 500;
+  margin-left: auto;
 }
 
 .node-check__question {
   position: absolute;
   right: 24px;
-  bottom: 13px;
+  bottom: 17px;
 }
 
 .node-setup__confirm {
@@ -245,4 +262,12 @@
   margin-left: auto;
   background: transparent;
   height: 20px;
+}
+
+.node-check__change {
+  border-radius: 1000px;
+  background: var(--alpha-black-5, rgba(14, 14, 14, 0.05));
+  padding: 6px 0;
+  width: 108px;
+  margin: 0 18px;
 }
