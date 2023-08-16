@@ -22,7 +22,7 @@ const ContractDetails = (props: any) => {
   }, [contractInfo]);
 
   const { sourcifyFiles, sourcifyMetadata, contractAbi } = parseSourcifyOutput(
-    contractInfo?.data,
+    contractInfo,
   );
   const { data: implementation, isLoading } = useQuery(
     `implAddress ${address}`,
