@@ -13,7 +13,7 @@ import { useQuery } from 'react-query';
 
 const ContractDetails = (props: any) => {
   const { contractInfo, address, updateContract } = props;
-
+  console.log(address);
   const [selectedTab, selectTab] = useState('verify');
 
   useEffect(() => {
@@ -22,24 +22,22 @@ const ContractDetails = (props: any) => {
     );
   }, [contractInfo]);
 
-  const { sourcifyFiles, sourcifyMetadata, contractAbi } = parseSourcifyOutput(
-    contractInfo?.data,
-  );
-  const { data: implementation, isLoading } = useQuery(
+  const { sourcifyFiles, sourcifyMetadata, contractAbi } =
+    parseSourcifyOutput(contractInfo);
+  const { data: proxyImplAbi, isLoading } = useQuery(
     `implAddress ${address}`,
-    () => getImplementation(address),
+    () => getProxyImplAbi(contractAbi, address),
   );
 
   // don't show anything before we get the proxy impl abi
   if (isLoading) return <Loader />;
 
   const isContractVerified = !!contractAbi;
-  const proxyImplAbi = implementation?.abi || [];
 
   const allowedTabs = [];
   if (isContractVerified) allowedTabs.push('code', 'read', 'write', 'events');
   if (!isContractVerified) allowedTabs.push('verify');
-  if (proxyImplAbi.length) allowedTabs.push('readAsProxy', 'writeAsProxy');
+  if (proxyImplAbi?.length) allowedTabs.push('readAsProxy', 'writeAsProxy');
 
   function getTab() {
     switch (selectedTab) {
@@ -118,29 +116,45 @@ const ContractDetails = (props: any) => {
   );
 };
 
-const getImplementation = async (address: string) => {
+const getProxyImplAbi = async (proxyAbi: any, address: string) => {
   // if contract is proxy, fetch implementation address and abi for that address
+  if (!checkIsContractProxy(proxyAbi)) return [];
+
   const readProvider = new ethers.providers.JsonRpcProvider(
     process.env.REACT_APP_EXPLORER_NETWORK,
   );
 
   try {
-    // https://eips.ethereum.org/EIPS/eip-1967#logic-contract-address
-    const implStorageSlot =
-      '0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc';
-    const implAddressBytes32 = await readProvider.getStorageAt(
-      address,
-      implStorageSlot,
-    );
-    const implAddress = '0x' + implAddressBytes32.slice(-40);
+    const contract = new ethers.Contract(address, proxyAbi, readProvider);
+    const implAddress = await contract.implementation();
 
     const sourcifyData = await api.getContract(implAddress);
     const { contractAbi: implAbi } = parseSourcifyOutput(sourcifyData?.data);
 
-    return { address: implAddress, abi: implAbi };
+    return implAbi;
   } catch (e) {
-    return undefined;
+    return [];
   }
+};
+
+const checkIsContractProxy = (abi: any): boolean => {
+  if (!abi) return false;
+
+  const fallback = abi.find((item: any) => item.type === 'fallback');
+  if (!fallback) return false;
+
+  const implementation = abi.find(
+    (item: any) => item.name === 'implementation',
+  );
+  if (
+    !implementation ||
+    implementation.type !== 'function' ||
+    implementation.stateMutability !== 'view' ||
+    implementation.outputs[0]?.type !== 'address'
+  )
+    return false;
+
+  return true;
 };
 
 const parseSourcifyOutput = (sourcifyData: any) => {
@@ -152,7 +166,7 @@ const parseSourcifyOutput = (sourcifyData: any) => {
     sourcifyFiles: files,
     sourcifyMetadata: metadata,
     contractAbi,
-    status: sourcifyData?.status,
+    status: sourcifyData.status,
   };
 };
 

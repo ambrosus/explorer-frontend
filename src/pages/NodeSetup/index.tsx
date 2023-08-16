@@ -59,7 +59,7 @@ const NodeSetup: React.FC = () => {
     if (step === 5) {
       setConnectOwnerError(account !== formData.nodeOwner);
     }
-  }, [step, account])
+  }, [step, account]);
 
   useEffect(() => {
     if (step) {
