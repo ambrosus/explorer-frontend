@@ -41,10 +41,6 @@ const NodeSetup: React.FC = () => {
   useEffect(() => {
     setAddressIsNodeError(false);
 
-    if (step === 5) {
-      setConnectOwnerError(account !== formData.nodeOwner);
-    }
-
     if (account) {
       const dataFromStorage = localStorage.getItem('nodeSetup');
 
@@ -58,6 +54,12 @@ const NodeSetup: React.FC = () => {
         .then((res: any) => setBalance(Math.floor(+utils.formatEther(res))));
     }
   }, [account]);
+
+  useEffect(() => {
+    if (step === 5) {
+      setConnectOwnerError(account !== formData.nodeOwner);
+    }
+  }, [step, account]);
 
   useEffect(() => {
     if (step) {
@@ -139,12 +141,14 @@ const NodeSetup: React.FC = () => {
     const contracts = new Contracts(signer, chainId);
 
     try {
-      await (await Methods.serverNodesNewStake(
-        contracts,
-        formData.nodeAddress,
-        formData.receiveAddress,
-        ethers.utils.parseUnits(formData.stake || '', 18),
-      )).wait();
+      await (
+        await Methods.serverNodesNewStake(
+          contracts,
+          formData.nodeAddress,
+          formData.receiveAddress,
+          ethers.utils.parseUnits(formData.stake || '', 18),
+        )
+      ).wait();
     } catch (e) {
       console.log(e);
     }
