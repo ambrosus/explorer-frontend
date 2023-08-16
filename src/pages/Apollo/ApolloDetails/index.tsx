@@ -1,6 +1,11 @@
+import Button from '../../../components/Button';
+import useApolloActions from '../../../hooks/useApolloActions';
+import useApolloInfo from '../../../hooks/useApolloInfo';
 import { Account } from '../apollo.interface';
-import ChangeAddress from './components/ChangeAddress';
-import StakeSize from './components/StakeSize';
+import OwnerDashboard from './components/OwnerDasboard';
+import ChangeAddress from './components/OwnerDasboard/ChangeAddress';
+import StakeSize from './components/OwnerDasboard/StakeSize';
+import TelegramWidget from './components/OwnerDasboard/TelegramWidget';
 import API from 'API/api';
 import API2 from 'API/newApi';
 import { Content } from 'components/Content';
@@ -198,10 +203,7 @@ export const ApolloDetails = memo(() => {
         </div>
         <HeadInfo data={itemFirst} className="head_info" />
         <HeadInfo data={itemSecond} className="head_info" />
-        <div className="apollo_details__owner-info">
-          <StakeSize />
-          <ChangeAddress />
-        </div>
+        <OwnerDashboard address={address} />
       </Content.Header>
       <Content.Body>
         <TabsNew

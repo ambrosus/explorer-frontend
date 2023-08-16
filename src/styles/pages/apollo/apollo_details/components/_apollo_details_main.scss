@@ -38,10 +38,59 @@
   }
 }
 
+.apollo_details__owner-info-container {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: flex-end;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
 .apollo_details__owner-info {
   display: flex;
   flex-flow: row nowrap;
   align-items: flex-start;
   column-gap: 16px;
-  margin-bottom: 24px;
+  width: 100%;
+}
+
+.telegram-widget {
+  position: relative;
+  display: flex;
+  flex-flow: row nowrap;
+  width: 100%;
+  padding: 16px 24px;
+  align-items: center;
+
+  gap: 16px;
+
+  border-radius: 16px;
+  border: 1.5px solid var(--blue-200, #C9D9FF);
+  background: var(--blue-100-secondary, #EDF3FF);
+
+  &:visited, &:link, &:active {
+    color: var(--neutral-400, #676B73);
+    text-decoration: none;
+  }
+}
+
+.telegram-widget__text {
+  color: var(--neutral-400, #676B73);
+  font-family: Inter, sans-serif;
+  height: 24px;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px; /* 150% */
+  letter-spacing: -0.16px;
+}
+
+.telegram-widget__arrow {
+  margin-left: auto;
+}
+
+.owner-dashboard__button {
+  border: 1.5px solid var(--neutral-800, #191919);
+  box-shadow: 0px 1px 3px 0px rgba(47, 43, 67, 0.10), 0px -1px 0px 0px rgba(47, 43, 67, 0.10) inset;
+  color: var(--neutral-800, #191919) !important;
 }

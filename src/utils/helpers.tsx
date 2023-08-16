@@ -12,7 +12,7 @@ import Usdc from 'assets/icons/Cryptos/Usdc';
 import Usdt from 'assets/icons/Cryptos/Usdt';
 import GreenCircle from 'assets/icons/StatusAction/GreenCircle';
 import OrangeCircle from 'assets/icons/StatusAction/OrangeCircle';
-import { ethers } from 'ethers';
+import { BigNumber, ethers } from 'ethers';
 import moment from 'moment';
 
 export const sliceData5 = (item: string | null | undefined) => {
@@ -401,6 +401,12 @@ export const statusMessage = (node: any = {}, nodeName: string) => {
 export const ambToUSD = (amb: any = 0, usd_price: any = 0) => {
   let result = amb * parseFloat(usd_price);
 
+  return result.toFixed(2);
+};
+
+export const BnWeiToUsd = (bnWei: BigNumber, usd_price: any = 0) => {
+  const ambAmount = parseInt(ethers.utils.formatEther(bnWei));
+  let result = ambAmount * parseFloat(usd_price);
   return result.toFixed(2);
 };
 

@@ -5,7 +5,7 @@ const useToggle = (initialState: boolean = false) => {
 
   return {
     toggled,
-    setToggle: (e: any) => {
+    setToggle: (e?: any) => {
       //   e.stopPropagation();
       setToggled((state) => !state);
     },

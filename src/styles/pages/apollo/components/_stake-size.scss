@@ -67,11 +67,12 @@
   max-height: 0;
   overflow: hidden;
 
-  transition: max-height 0.25s ease-in-out;
+  transition: max-height 0.3s ease-in-out;
 }
 
 .stake-size__additional-info_open {
-  max-height: 150px;
+  //TODO: pass from js (unimportant)
+  max-height: 500px;
 }
 
 .stake-size__text {
@@ -117,10 +118,20 @@
   border: 1px solid rgba(47, 43, 67, 0.10);
 
   align-self: stretch;
+  width: 100%;
+}
+
+.slim-input_error {
+  border: 1px solid var(--red-100, #FFD9CD);
+
+  & > .slim-input__input {
+    color: var(--red-400-error, #FF4747);
+  }
 }
 
 .slim-input__input {
   height: 100%;
+  width: 100%;
   align-self: stretch;
   border: none;
   box-shadow: none;
@@ -156,18 +167,35 @@
 }
 
 .stake-size__pending-text {
-  color: var(--gray-800, #222);
-  font-family: Inter, sans-serif;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 24px; /* 150% */
-  letter-spacing: -0.16px;
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 16px;
+
+  & p, & span {
+    color: var(--gray-800, #222);
+    font-family: Inter, sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px; /* 150% */
+    letter-spacing: -0.16px;
+  }
+}
+
+.stake-size__pending-date-time {
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 24px;
+}
+
+.stake-size__pending-cancel {
+  align-self: flex-end;
 }
 
 .stake-size__spinner {
   margin-left: 0 !important;
   background: conic-gradient( rgba(26, 61, 141, 0), rgba(69, 126, 255, 1)) !important;
+  flex-shrink: 0;
 }
 
 .stake-size__spinner:before {

@@ -24,5 +24,5 @@ interface ButtonProps {
   className?: string;
   size: 'small' | 'medium' | 'large';
   type: 'primary' | 'secondary' | 'tertiary' | 'plain';
-  onClick?: () => void;
+  onClick?: (e?: any) => void;
 }
