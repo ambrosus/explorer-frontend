@@ -13,7 +13,6 @@ import { useQuery } from 'react-query';
 
 const ContractDetails = (props: any) => {
   const { contractInfo, address, updateContract } = props;
-  console.log(address);
   const [selectedTab, selectTab] = useState('verify');
 
   useEffect(() => {
