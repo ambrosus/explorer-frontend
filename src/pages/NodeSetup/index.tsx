@@ -1,5 +1,4 @@
 // @ts-nocheck
-import React, { useEffect, useMemo, useState } from 'react';
 import questionMark from '../../assets/svg/question.svg';
 import warning from '../../assets/svg/warning.svg';
 import { isValidEthereumAddress } from '../../utils/helpers';
@@ -13,8 +12,9 @@ import {
 import { useWeb3React } from '@web3-react/core';
 import { useAuthorization } from 'airdao-components-and-tools/hooks';
 import { metamaskConnector } from 'airdao-components-and-tools/utils';
-import { ethers, utils } from 'ethers';
 import { getCurrentAmbNetwork } from 'airdao-components-and-tools/utils';
+import { ethers, utils } from 'ethers';
+import React, { useEffect, useMemo, useState } from 'react';
 
 const { ethereum }: any = window;
 
@@ -43,7 +43,7 @@ const NodeSetup: React.FC = () => {
 
   const minStakeAmount = useMemo(() => {
     if (contracts) {
-      return 1000000
+      return 1000000;
       // return await Methods.serverNodesGetMinStake(contracts);
     } else {
       return 0;
@@ -188,7 +188,7 @@ const NodeSetup: React.FC = () => {
       setFormData((state) => ({
         ...state,
         stake: value,
-      }))
+      }));
     }
   };
 

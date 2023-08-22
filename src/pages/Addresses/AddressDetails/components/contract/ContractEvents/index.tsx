@@ -73,7 +73,11 @@ const ContractEvents = ({ abi }: any) => {
   };
 
   useEffect(() => {
-    getEventData();
+    try {
+      getEventData();
+    } catch (e) {
+      console.log(e);
+    }
   }, [isLoad]);
 
   const filteredEvents = useMemo(() => {
