@@ -69,7 +69,7 @@ export const routes: IRoute[] = [
   },
   {
     path: '/node-setup/',
-    key: 'Node Setup',
+    key: 'Launch a node',
     exact: true,
     component: () => <NodeSetup />,
     isClick: true,

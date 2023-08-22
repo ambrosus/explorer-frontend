@@ -1,4 +1,5 @@
 // @ts-nocheck
+import React, { useEffect, useMemo, useState } from 'react';
 import questionMark from '../../assets/svg/question.svg';
 import warning from '../../assets/svg/warning.svg';
 import { isValidEthereumAddress } from '../../utils/helpers';
@@ -13,11 +14,13 @@ import { useWeb3React } from '@web3-react/core';
 import { useAuthorization } from 'airdao-components-and-tools/hooks';
 import { metamaskConnector } from 'airdao-components-and-tools/utils';
 import { ethers, utils } from 'ethers';
-import React, { useEffect, useState } from 'react';
+import { getCurrentAmbNetwork } from 'airdao-components-and-tools/utils';
 
 const { ethereum }: any = window;
 
 const provider = new AmbErrorProviderWeb3(ethereum);
+const network = getCurrentAmbNetwork();
+const contracts = new Contracts(provider, network.chainId);
 
 const NodeSetup: React.FC = () => {
   const { account, isActive } = useWeb3React();
@@ -37,6 +40,15 @@ const NodeSetup: React.FC = () => {
   const [addressIsNodeError, setAddressIsNodeError] = useState(false);
   const [balance, setBalance] = useState(0);
   const [skipToConfirm, setSkipToConfirm] = useState(false);
+
+  const minStakeAmount = useMemo(() => {
+    if (contracts) {
+      return 1000000
+      // return await Methods.serverNodesGetMinStake(contracts);
+    } else {
+      return 0;
+    }
+  }, [contracts]);
 
   useEffect(() => {
     setAddressIsNodeError(false);
@@ -125,7 +137,10 @@ const NodeSetup: React.FC = () => {
   };
 
   const handleStake = () => {
-    if (!formData.stake || (formData.stake && +formData.stake < 1000000)) {
+    if (
+      !formData.stake ||
+      (formData.stake && +formData.stake < minStakeAmount)
+    ) {
       setStakeError(true);
       return;
     }
@@ -163,6 +178,18 @@ const NodeSetup: React.FC = () => {
   const backToStep = (step: number) => {
     setStep(step);
     setSkipToConfirm(true);
+  };
+
+  const handleAmount = (value) => {
+    if (value > minStakeAmount) {
+      setStakeError(false);
+    }
+    if (/^[0-9]+$/.test(value)) {
+      setFormData((state) => ({
+        ...state,
+        stake: value,
+      }))
+    }
   };
 
   return (
@@ -309,14 +336,8 @@ const NodeSetup: React.FC = () => {
             <div className="white-container__input-wrapper">
               <input
                 className="white-container__input"
-                onChange={(e) =>
-                  setFormData((state) => ({
-                    ...state,
-                    stake: e.target.value,
-                  }))
-                }
-                type="number"
-                min={1000000}
+                value={formData.stake}
+                onChange={(e) => handleAmount(e.target.value)}
                 placeholder="MIN 1 000 000"
               />
               <span className="white-container__input-wrapper-label">AMB</span>

@@ -5,7 +5,6 @@ import {
   Methods,
 } from '@airdao/airdao-node-contracts';
 import { getCurrentAmbNetwork } from 'airdao-components-and-tools/utils';
-import { formatEther } from 'ethers/lib/utils';
 
 const network = getCurrentAmbNetwork();
 const provider = new AmbErrorProvider(network.rpcUrl, network.chainId);
