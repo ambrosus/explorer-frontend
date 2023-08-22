@@ -265,7 +265,7 @@ function LockedFundsMessage({
   withdrawLock,
   updateInfo,
 }: LockedFundsMessageProps) {
-  const { stakeAfterWithdraw, unlockTime } = withdrawLock;
+  const { amount, unlockTime } = withdrawLock;
   const unlockDate = new Date(unlockTime.toNumber() * 1000);
 
   const localDate = unlockDate.toLocaleDateString('uk-UA', { timeZone: 'UTC' });
@@ -278,14 +278,14 @@ function LockedFundsMessage({
       })
       .finally(updateInfo);
   };
-
+  console.log(amount);
   return (
     <div className="stake-size__pending">
       <Spinner className="stake-size__spinner" />
       <div className="stake-size__pending-text">
         <p>
-          Transaction of changing the stake size is pending. You reduce the
-          stake size to <b>{formatEther(stakeAfterWithdraw)} AMB.</b> You funds
+          Transaction of changing the stake size is pending. You decrease the
+          stake size by <b>{formatEther(amount)} AMB.</b> You funds
           will be deposited into the wallet after 15 days from the date the
           transaction confirmed.
         </p>

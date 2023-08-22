@@ -21,9 +21,10 @@ export async function getApolloInfo(address) {
     timestampStake: data.apollo.timestampStake,
     isOnboarded: data.isOnboarded,
     withdrawLock: data.withdrawLock && {
-      stakeAfterWithdraw: data.apollo.stake.sub(data.withdrawLock.amount),
+      stakeAfterWithdraw: data.apollo.stake,
       receiver: data.withdrawLock.receiver,
       unlockTime: data.withdrawLock.unlockTime,
+      amount: data.withdrawLock.amount,
     },
   };
 }
