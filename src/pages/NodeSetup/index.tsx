@@ -184,7 +184,7 @@ const NodeSetup: React.FC = () => {
     if (value > minStakeAmount) {
       setStakeError(false);
     }
-    if (/^[0-9]+$/.test(value)) {
+    if (/^[0-9]+$/.test(value) || !value) {
       setFormData((state) => ({
         ...state,
         stake: value,
