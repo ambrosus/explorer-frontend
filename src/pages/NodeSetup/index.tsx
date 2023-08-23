@@ -181,7 +181,7 @@ const NodeSetup: React.FC = () => {
   };
 
   const handleAmount = (value) => {
-    if (value > minStakeAmount) {
+    if (value >= minStakeAmount) {
       setStakeError(false);
     }
     if (/^[0-9]+$/.test(value) || !value) {

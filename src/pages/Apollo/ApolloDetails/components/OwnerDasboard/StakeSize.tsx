@@ -285,9 +285,9 @@ function LockedFundsMessage({
       <div className="stake-size__pending-text">
         <p>
           Transaction of changing the stake size is pending. You decrease the
-          stake size by <b>{formatEther(amount)} AMB.</b> You funds
-          will be deposited into the wallet after 15 days from the date the
-          transaction confirmed.
+          stake size by <b>{formatEther(amount)} AMB.</b> You funds will be
+          deposited into the wallet after 15 days from the date the transaction
+          confirmed.
         </p>
         <p className="stake-size__pending-date-time">
           <span className="stake-size__date">Date: {localDate}</span>
