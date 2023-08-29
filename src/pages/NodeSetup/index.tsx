@@ -376,7 +376,7 @@ const NodeSetup: React.FC = () => {
               Please double check all selected parameters.
             </span>{' '}
             Connect the wallet you want to use to set up a node. Read how to set
-            up a node with our GitHub Wiki. Need help? Go to support@airdao.io
+            up a node with our GitHub Wiki. Need help? Go to <a href="mailto:support@airdao.io">support@airdao.io</a>
           </p>
           <p className="white-container__text">
             You will be able to change the stake size or node owner address
