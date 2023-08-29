@@ -353,6 +353,30 @@ export function timeSince(date: any) {
   return Math.floor(seconds) + ' second' + (seconds !== 1 ? 's' : '');
 }
 
+export function convertSecondsToTime(seconds: number) {
+  const days = Math.floor(seconds / 86400); // 86400 seconds in a day
+  const hours = Math.floor((seconds % 86400) / 3600); // 3600 seconds in an hour
+
+  let result = '';
+
+  if (days > 0) {
+    result += `${days} day${days > 1 ? 's' : ''}`;
+  }
+
+  if (hours > 0) {
+    if (result !== '') {
+      result += 'and ';
+    }
+    result += `${hours} hour${hours > 1 ? 's' : ''}`;
+  }
+
+  if (result === '') {
+    result = '0 hours'; // If there are no days or hours
+  }
+
+  return result;
+}
+
 export const statusMessage = (node: any = {}, nodeName: string) => {
   if (node.state === 'RETIRED') {
     return 'Retired';

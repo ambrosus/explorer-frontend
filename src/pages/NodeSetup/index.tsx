@@ -58,10 +58,9 @@ const NodeSetup: React.FC = () => {
         .then((res: any) => setBalance(Math.floor(+utils.formatEther(res))));
     }
 
-    Methods.serverNodesGetMinStake(contracts)
-      .then((res) => setMinStakeAmount(+utils.formatEther(res)))
-    ;
-
+    Methods.serverNodesGetMinStake(contracts).then((res) =>
+      setMinStakeAmount(+utils.formatEther(res)),
+    );
   }, [account]);
 
   useEffect(() => {
@@ -348,8 +347,8 @@ const NodeSetup: React.FC = () => {
           </div>
           {stakeError && (
             <Warning onClose={closeStakeError}>
-              The minimum stake amount is {minStakeAmount.toLocaleString()} AMB. Enter a larger amount
-              to continue.
+              The minimum stake amount is {minStakeAmount.toLocaleString()} AMB.
+              Enter a larger amount to continue.
             </Warning>
           )}
         </div>
