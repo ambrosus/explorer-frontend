@@ -74,6 +74,11 @@ export default function useApolloActions(nodeAddress: string) {
     [contracts, nodeAddress],
   );
 
+  const getUnlockTime = useCallback(() => {
+    if (!contracts) return null;
+    return Methods.serverNodesGetUnstakeLockTime(contracts);
+  }, [contracts]);
+
   return {
     addStake,
     unstake,
@@ -81,5 +86,6 @@ export default function useApolloActions(nodeAddress: string) {
     changeOwner,
     changeRewardsReceiver,
     retire,
+    getUnlockTime,
   };
 }

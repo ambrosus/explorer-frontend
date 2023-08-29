@@ -16,6 +16,7 @@ export default function OwnerDashboard({ address }: OwnerDashboardProps) {
     unstake,
     cancelUnstake,
     retire,
+    getUnlockTime,
   } = useApolloActions(address);
 
   function handleRetire() {
@@ -42,6 +43,7 @@ export default function OwnerDashboard({ address }: OwnerDashboardProps) {
           cancelUnstake={cancelUnstake}
           withdrawLock={apolloInfo?.withdrawLock}
           updateInfo={updateInfo}
+          getUnlockTime={getUnlockTime}
         />
         <ChangeAddress
           ownerAddress={apolloInfo?.ownerAddress}
