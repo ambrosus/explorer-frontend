@@ -38,6 +38,7 @@ const NodeSetup: React.FC = () => {
   const [selectRewardError, setSelectRewardError] = useState(false);
   const [stakeError, setStakeError] = useState(false);
   const [addressIsNodeError, setAddressIsNodeError] = useState(false);
+  const [insufficientBalanceError, setInsufficientBalanceError] = useState('');
   const [balance, setBalance] = useState(0);
   const [skipToConfirm, setSkipToConfirm] = useState(false);
   const [minStakeAmount, setMinStakeAmount] = useState(0);
@@ -133,6 +134,11 @@ const NodeSetup: React.FC = () => {
   };
 
   const handleStake = () => {
+    if (+formData.stake > balance) {
+      setInsufficientBalanceError(true);
+      return;
+    }
+
     if (
       !formData.stake ||
       (formData.stake && +formData.stake < minStakeAmount)
@@ -140,6 +146,7 @@ const NodeSetup: React.FC = () => {
       setStakeError(true);
       return;
     }
+
     if (account !== formData.nodeOwner) {
       setConnectOwnerError(true);
     }
@@ -170,6 +177,7 @@ const NodeSetup: React.FC = () => {
   const closeStakeError = () => setStakeError(false);
   const closeRewardError = () => setSelectRewardError(false);
   const closeAddressIsNodeError = () => setAddressIsNodeError(false);
+  const closeInsufficientBalanceError = () => setInsufficientBalanceError(false);
 
   const backToStep = (step: number) => {
     setStep(step);
@@ -177,6 +185,8 @@ const NodeSetup: React.FC = () => {
   };
 
   const handleAmount = (value) => {
+    setInsufficientBalanceError(false);
+
     if (value >= minStakeAmount) {
       setStakeError(false);
     }
@@ -351,6 +361,11 @@ const NodeSetup: React.FC = () => {
               Enter a larger amount to continue.
             </Warning>
           )}
+          {insufficientBalanceError && (
+            <Warning onClose={closeInsufficientBalanceError}>
+              Insufficient balance.
+            </Warning>
+          )}
         </div>
       )}
       {step === 5 && (
@@ -361,7 +376,7 @@ const NodeSetup: React.FC = () => {
               Please double check all selected parameters.
             </span>{' '}
             Connect the wallet you want to use to set up a node. Read how to set
-            up a node with our GitHub Wiki. Need help? Go to support@airdao.io
+            up a node with our GitHub Wiki. Need help? Go to <a href="mailto:support@airdao.io">support@airdao.io</a>
           </p>
           <p className="white-container__text">
             You will be able to change the stake size or node owner address
