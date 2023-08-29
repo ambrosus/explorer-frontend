@@ -348,7 +348,7 @@ const NodeSetup: React.FC = () => {
           </div>
           {stakeError && (
             <Warning onClose={closeStakeError}>
-              The minimum stake amount is 1 000 000 AMB. Enter a larger amount
+              The minimum stake amount is {minStakeAmount.toLocaleString()} AMB. Enter a larger amount
               to continue.
             </Warning>
           )}
