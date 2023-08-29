@@ -2,10 +2,11 @@ import ArrowDownBig from '../../../../../assets/icons/Arrows/ArrowDownBig';
 import Button from '../../../../../components/Button';
 import Spinner from '../../../../../components/Spinner';
 import useToggle from '../../../../../hooks/useToggle';
+import { convertSecondsToTime } from '../../../../../utils/helpers';
 import PendingTxMessage from './PendingTxMessage';
 import { BigNumber } from 'ethers';
 import { formatEther } from 'ethers/lib/utils';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function StakeSize({
   stakeAmount,
@@ -15,6 +16,7 @@ export default function StakeSize({
   cancelUnstake,
   withdrawLock,
   updateInfo,
+  getUnlockTime,
 }: StakeSizeProps) {
   const { toggled: isShowMore, setToggle: toggleShowMore } = useToggle();
   const [layoutState, setLayoutState] = useState('initial');
@@ -50,6 +52,8 @@ export default function StakeSize({
             cancelUnstake={cancelUnstake}
             withdrawLock={withdrawLock}
             updateInfo={updateInfo}
+            setLayoutState={setLayoutState}
+            getUnlockTime={getUnlockTime}
           />
         )}
         {layoutState === 'initial' && (
@@ -86,6 +90,7 @@ interface StakeSizeProps {
   cancelUnstake: () => void;
   withdrawLock: any;
   updateInfo: () => void;
+  getUnlockTime: () => any;
 }
 
 function AdditionalInfo({ onStake, onUnstake }: AdditionalInfoProps) {
@@ -264,6 +269,8 @@ function LockedFundsMessage({
   cancelUnstake,
   withdrawLock,
   updateInfo,
+  setLayoutState,
+  getUnlockTime,
 }: LockedFundsMessageProps) {
   const { amount, unlockTime } = withdrawLock;
   const unlockDate = new Date(unlockTime.toNumber() * 1000);
@@ -271,14 +278,32 @@ function LockedFundsMessage({
   const localDate = unlockDate.toLocaleDateString('uk-UA', { timeZone: 'UTC' });
   const localTime = unlockDate.toLocaleTimeString('uk-UA', { timeZone: 'UTC' });
 
+  const [defaultUnlockTime, setUnlockTime] = useState('');
+
+  useEffect(() => {
+    getUnlockTime().then((res: any) =>
+      setUnlockTime(convertSecondsToTime(res.toNumber())),
+    );
+  }, []);
+
   const handleCancel = () => {
+    setLayoutState('pending');
     cancelUnstake()
       .then((tx: any) => {
+        console.log('cancel unstake started');
         return tx.wait();
+      })
+      .then(() => {
+        console.log('cancel unstake finished');
+        setLayoutState('initial');
+      })
+      .catch((e: any) => {
+        console.log('cancel unstake error', e);
+        setLayoutState('initial');
       })
       .finally(updateInfo);
   };
-  console.log(amount);
+
   return (
     <div className="stake-size__pending">
       <Spinner className="stake-size__spinner" />
@@ -286,8 +311,8 @@ function LockedFundsMessage({
         <p>
           Transaction of changing the stake size is pending. You decrease the
           stake size by <b>{formatEther(amount)} AMB.</b> You funds will be
-          deposited into the wallet after 15 days from the date the transaction
-          confirmed.
+          deposited into the wallet after {defaultUnlockTime} from the date the
+          transaction confirmed.
         </p>
         <p className="stake-size__pending-date-time">
           <span className="stake-size__date">Date: {localDate}</span>
@@ -310,4 +335,6 @@ interface LockedFundsMessageProps {
   cancelUnstake: any;
   withdrawLock: any;
   updateInfo: () => void;
+  setLayoutState: any;
+  getUnlockTime: () => any;
 }
