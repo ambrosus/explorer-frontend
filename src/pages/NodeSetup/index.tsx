@@ -40,15 +40,7 @@ const NodeSetup: React.FC = () => {
   const [addressIsNodeError, setAddressIsNodeError] = useState(false);
   const [balance, setBalance] = useState(0);
   const [skipToConfirm, setSkipToConfirm] = useState(false);
-
-  const minStakeAmount = useMemo(() => {
-    if (contracts) {
-      return 1000000;
-      // return await Methods.serverNodesGetMinStake(contracts);
-    } else {
-      return 0;
-    }
-  }, [contracts]);
+  const [minStakeAmount, setMinStakeAmount] = useState(0);
 
   useEffect(() => {
     setAddressIsNodeError(false);
@@ -65,6 +57,11 @@ const NodeSetup: React.FC = () => {
         .getBalance(account)
         .then((res: any) => setBalance(Math.floor(+utils.formatEther(res))));
     }
+
+    Methods.serverNodesGetMinStake(contracts)
+      .then((res) => setMinStakeAmount(+utils.formatEther(res)))
+    ;
+
   }, [account]);
 
   useEffect(() => {
@@ -338,7 +335,7 @@ const NodeSetup: React.FC = () => {
                 className="white-container__input"
                 value={formData.stake}
                 onChange={(e) => handleAmount(e.target.value)}
-                placeholder="MIN 1 000 000"
+                placeholder={`MIN ${minStakeAmount.toLocaleString()}`}
               />
               <span className="white-container__input-wrapper-label">AMB</span>
             </div>
