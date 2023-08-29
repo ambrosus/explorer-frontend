@@ -38,6 +38,7 @@ const NodeSetup: React.FC = () => {
   const [selectRewardError, setSelectRewardError] = useState(false);
   const [stakeError, setStakeError] = useState(false);
   const [addressIsNodeError, setAddressIsNodeError] = useState(false);
+  const [insufficientBalanceError, setInsufficientBalanceError] = useState('');
   const [balance, setBalance] = useState(0);
   const [skipToConfirm, setSkipToConfirm] = useState(false);
   const [minStakeAmount, setMinStakeAmount] = useState(0);
@@ -58,10 +59,9 @@ const NodeSetup: React.FC = () => {
         .then((res: any) => setBalance(Math.floor(+utils.formatEther(res))));
     }
 
-    Methods.serverNodesGetMinStake(contracts)
-      .then((res) => setMinStakeAmount(+utils.formatEther(res)))
-    ;
-
+    Methods.serverNodesGetMinStake(contracts).then((res) =>
+      setMinStakeAmount(+utils.formatEther(res)),
+    );
   }, [account]);
 
   useEffect(() => {
@@ -134,6 +134,11 @@ const NodeSetup: React.FC = () => {
   };
 
   const handleStake = () => {
+    if (+formData.stake > balance) {
+      setInsufficientBalanceError(true);
+      return;
+    }
+
     if (
       !formData.stake ||
       (formData.stake && +formData.stake < minStakeAmount)
@@ -141,6 +146,7 @@ const NodeSetup: React.FC = () => {
       setStakeError(true);
       return;
     }
+
     if (account !== formData.nodeOwner) {
       setConnectOwnerError(true);
     }
@@ -171,6 +177,7 @@ const NodeSetup: React.FC = () => {
   const closeStakeError = () => setStakeError(false);
   const closeRewardError = () => setSelectRewardError(false);
   const closeAddressIsNodeError = () => setAddressIsNodeError(false);
+  const closeInsufficientBalanceError = () => setInsufficientBalanceError(false);
 
   const backToStep = (step: number) => {
     setStep(step);
@@ -178,6 +185,8 @@ const NodeSetup: React.FC = () => {
   };
 
   const handleAmount = (value) => {
+    setInsufficientBalanceError(false);
+
     if (value >= minStakeAmount) {
       setStakeError(false);
     }
@@ -348,8 +357,13 @@ const NodeSetup: React.FC = () => {
           </div>
           {stakeError && (
             <Warning onClose={closeStakeError}>
-              The minimum stake amount is {minStakeAmount.toLocaleString()} AMB. Enter a larger amount
-              to continue.
+              The minimum stake amount is {minStakeAmount.toLocaleString()} AMB.
+              Enter a larger amount to continue.
+            </Warning>
+          )}
+          {insufficientBalanceError && (
+            <Warning onClose={closeInsufficientBalanceError}>
+              Insufficient balance.
             </Warning>
           )}
         </div>
