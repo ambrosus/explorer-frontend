@@ -21,6 +21,14 @@ export default function StakeSize({
   const { toggled: isShowMore, setToggle: toggleShowMore } = useToggle();
   const [layoutState, setLayoutState] = useState('initial');
 
+  const [defaultUnlockTime, setUnlockTime] = useState('');
+
+  useEffect(() => {
+    getUnlockTime().then((res: any) =>
+      setUnlockTime(convertSecondsToTime(res.toNumber())),
+    );
+  }, []);
+
   return (
     <div className="stake-size">
       <div className="stake-size__head">
@@ -53,13 +61,14 @@ export default function StakeSize({
             withdrawLock={withdrawLock}
             updateInfo={updateInfo}
             setLayoutState={setLayoutState}
-            getUnlockTime={getUnlockTime}
+            defaultUnlockTime={defaultUnlockTime}
           />
         )}
         {layoutState === 'initial' && (
           <AdditionalInfo
             onStake={() => setLayoutState('stake')}
             onUnstake={() => setLayoutState('unstake')}
+            defaultUnlockTime={defaultUnlockTime}
           />
         )}
         {layoutState === 'stake' && (
@@ -74,6 +83,7 @@ export default function StakeSize({
             setLayoutState={setLayoutState}
             unstake={unstake}
             updateInfo={updateInfo}
+            defaultUnlockTime={defaultUnlockTime}
           />
         )}
         {layoutState === 'pending' && <PendingTxMessage />}
@@ -93,12 +103,16 @@ interface StakeSizeProps {
   getUnlockTime: () => any;
 }
 
-function AdditionalInfo({ onStake, onUnstake }: AdditionalInfoProps) {
+function AdditionalInfo({
+  onStake,
+  onUnstake,
+  defaultUnlockTime,
+}: AdditionalInfoProps) {
   return (
     <>
       <p className="stake-size__text">
         You can change stake size. To decrease the stake size, the funds will be{' '}
-        <b>locked for 15 days.</b>
+        <b>locked for {defaultUnlockTime}.</b>
       </p>
       <div className="stake-size__button-container">
         <Button type="primary" size="small" onClick={onStake}>
@@ -120,6 +134,7 @@ function AdditionalInfo({ onStake, onUnstake }: AdditionalInfoProps) {
 interface AdditionalInfoProps {
   onStake: () => void;
   onUnstake: () => void;
+  defaultUnlockTime: string;
 }
 
 function Stake({ setLayoutState, addStake, updateInfo }: StakeProps) {
@@ -193,7 +208,12 @@ interface StakeProps {
   updateInfo: () => void;
 }
 
-function Unstake({ setLayoutState, unstake, updateInfo }: UnstakeProps) {
+function Unstake({
+  setLayoutState,
+  unstake,
+  updateInfo,
+  defaultUnlockTime,
+}: UnstakeProps) {
   const [amount, setAmount] = useState('');
 
   const handleKeyPress = (e: any) => {
@@ -229,8 +249,8 @@ function Unstake({ setLayoutState, unstake, updateInfo }: UnstakeProps) {
   return (
     <>
       <p className="stake-size__text">
-        You can unstake full amount or part of it. The funds will be locked for
-        15 days.
+        You can unstake full amount or part of it. The funds will be locked for{' '}
+        {defaultUnlockTime}.
       </p>
       <div className="stake-size__button-container">
         <div className="slim-input">
@@ -263,6 +283,7 @@ interface UnstakeProps {
   setLayoutState: any;
   unstake: any;
   updateInfo: () => void;
+  defaultUnlockTime: string;
 }
 
 function LockedFundsMessage({
@@ -270,21 +291,13 @@ function LockedFundsMessage({
   withdrawLock,
   updateInfo,
   setLayoutState,
-  getUnlockTime,
+  defaultUnlockTime,
 }: LockedFundsMessageProps) {
   const { amount, unlockTime } = withdrawLock;
   const unlockDate = new Date(unlockTime.toNumber() * 1000);
 
   const localDate = unlockDate.toLocaleDateString('uk-UA', { timeZone: 'UTC' });
   const localTime = unlockDate.toLocaleTimeString('uk-UA', { timeZone: 'UTC' });
-
-  const [defaultUnlockTime, setUnlockTime] = useState('');
-
-  useEffect(() => {
-    getUnlockTime().then((res: any) =>
-      setUnlockTime(convertSecondsToTime(res.toNumber())),
-    );
-  }, []);
 
   const handleCancel = () => {
     setLayoutState('pending');
@@ -336,5 +349,5 @@ interface LockedFundsMessageProps {
   withdrawLock: any;
   updateInfo: () => void;
   setLayoutState: any;
-  getUnlockTime: () => any;
+  defaultUnlockTime: string;
 }
