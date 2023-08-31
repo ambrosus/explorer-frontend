@@ -1,7 +1,7 @@
-import InputWithDropdown from "../Dropdown";
-import Warning from "../Warning";
-import React, {useState} from "react";
-import {isValidEthereumAddress} from "../../../utils/helpers";
+import { isValidEthereumAddress } from '../../../utils/helpers';
+import InputWithDropdown from '../Dropdown';
+import Warning from '../Warning';
+import React, { useState } from 'react';
 
 interface NodeOwnerProps {
   formData: any;
@@ -9,7 +9,11 @@ interface NodeOwnerProps {
   setFormData: (state: any) => {};
 }
 
-const RewardReceiver = ({ formData, handleNextClick, setFormData }: NodeOwnerProps) => {
+const RewardReceiver = ({
+  formData,
+  handleNextClick,
+  setFormData,
+}: NodeOwnerProps) => {
   const [selectRewardError, setSelectRewardError] = useState(false);
 
   const setRewardAddress = (address: string) => {

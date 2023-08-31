@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react';
 
 interface InitStepProps {
-  handleNextClick: () => {}
+  handleNextClick: () => {};
 }
 
 const InitStep = ({ handleNextClick }: InitStepProps) => {

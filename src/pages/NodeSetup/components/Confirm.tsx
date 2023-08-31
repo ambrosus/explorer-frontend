@@ -1,8 +1,8 @@
-import questionMark from "../../../assets/svg/question.svg";
-import warning from "../../../assets/svg/warning.svg";
-import React, {useEffect, useState} from "react";
-import {Contracts, Methods} from "@airdao/airdao-node-contracts";
-import {ethers} from "ethers";
+import questionMark from '../../../assets/svg/question.svg';
+import warning from '../../../assets/svg/warning.svg';
+import { Contracts, Methods } from '@airdao/airdao-node-contracts';
+import { ethers } from 'ethers';
+import React, { useEffect, useState } from 'react';
 
 interface ConfirmProps {
   formData: any;
@@ -16,7 +16,7 @@ const Confirm = ({ formData, backToStep, provider, account }: ConfirmProps) => {
 
   useEffect(() => {
     setConnectOwnerError(account !== formData.nodeOwner);
-  }, [account])
+  }, [account]);
 
   const handleConfirmClick = async () => {
     const signer = provider.getSigner();
@@ -46,22 +46,19 @@ const Confirm = ({ formData, backToStep, provider, account }: ConfirmProps) => {
         <span className="white-container__text-semi-bold">
           Please double check all selected parameters.
         </span>{' '}
-        Connect the wallet you want to use to set up a node. Read how to set
-        up a node with our GitHub Wiki. Need help? Go to{' '}
+        Connect the wallet you want to use to set up a node. Read how to set up
+        a node with our GitHub Wiki. Need help? Go to{' '}
         <a href="mailto:support@airdao.io">support@airdao.io</a>
       </p>
       <p className="white-container__text">
-        You will be able to change the stake size or node owner address
-        later on the node dashboard page.
+        You will be able to change the stake size or node owner address later on
+        the node dashboard page.
       </p>
       <div className="node-check">
         <div className="node-check__item">
           <p className="node-check__label">Node address</p>
           <p className="node-check__value">{formData.nodeAddress}</p>
-          <button
-            className="node-check__change"
-            onClick={() => backToStep(1)}
-          >
+          <button className="node-check__change" onClick={() => backToStep(1)}>
             Change
           </button>
           <img
@@ -77,10 +74,7 @@ const Confirm = ({ formData, backToStep, provider, account }: ConfirmProps) => {
         >
           <p className="node-check__label">Node owner address</p>
           <p className="node-check__value">{formData.nodeOwner}</p>
-          <button
-            className="node-check__change"
-            onClick={() => backToStep(2)}
-          >
+          <button className="node-check__change" onClick={() => backToStep(2)}>
             Change
           </button>
           <img
@@ -92,10 +86,7 @@ const Confirm = ({ formData, backToStep, provider, account }: ConfirmProps) => {
         <div className="node-check__item">
           <p className="node-check__label">Node rewards recipient</p>
           <p className="node-check__value">{formData.receiveAddress}</p>
-          <button
-            className="node-check__change"
-            onClick={() => backToStep(3)}
-          >
+          <button className="node-check__change" onClick={() => backToStep(3)}>
             Change
           </button>
           <img
@@ -109,10 +100,7 @@ const Confirm = ({ formData, backToStep, provider, account }: ConfirmProps) => {
           <p className="node-check__value">
             {formData.stake && (+formData.stake).toLocaleString()} AMB
           </p>
-          <button
-            className="node-check__change"
-            onClick={() => backToStep(4)}
-          >
+          <button className="node-check__change" onClick={() => backToStep(4)}>
             Change
           </button>
           <img
@@ -128,8 +116,8 @@ const Confirm = ({ formData, backToStep, provider, account }: ConfirmProps) => {
           <div className="owner-warning-wrapper">
             <p className="white-container__text">
               You’ve connected the wrong wallet address. Connect the address
-              that you specified as a node owner to continue. You must have
-              a minimum of 1,000,000 AMB in this address to start staking.
+              that you specified as a node owner to continue. You must have a
+              minimum of 1,000,000 AMB in this address to start staking.
             </p>
             <p className="white-container__text">
               Connected address:{' '}
@@ -138,10 +126,7 @@ const Confirm = ({ formData, backToStep, provider, account }: ConfirmProps) => {
           </div>
         </div>
       ) : (
-        <button
-          className="node-setup__confirm"
-          onClick={handleConfirmClick}
-        >
+        <button className="node-setup__confirm" onClick={handleConfirmClick}>
           Confirm
         </button>
       )}

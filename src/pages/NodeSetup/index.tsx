@@ -1,13 +1,13 @@
 // @ts-nocheck
-import {AmbErrorProviderWeb3} from '@airdao/airdao-node-contracts';
+import Confirm from './components/Confirm';
+import InitStep from './components/InitStep';
+import NodeAddress from './components/NodeAddress';
+import NodeOwner from './components/NodeOwner';
+import RewardReceiver from './components/RewardReceiver';
+import StakeSizeSelect from './components/StakeSizeSelect';
+import { AmbErrorProviderWeb3 } from '@airdao/airdao-node-contracts';
 import { useWeb3React } from '@web3-react/core';
 import React, { useEffect, useState } from 'react';
-import InitStep from "./components/InitStep";
-import NodeAddress from "./components/NodeAddress";
-import NodeOwner from "./components/NodeOwner";
-import RewardReceiver from "./components/RewardReceiver";
-import StakeSizeSelect from "./components/StakeSizeSelect";
-import Confirm from "./components/Confirm";
 
 const { ethereum }: any = window;
 
@@ -69,9 +69,7 @@ const NodeSetup: React.FC = () => {
 
   return (
     <section className="node-setup container">
-      {step === 0 && (
-        <InitStep handleNextClick={handleNextClick}/>
-      )}
+      {step === 0 && <InitStep handleNextClick={handleNextClick} />}
       {step === 1 && (
         <NodeAddress
           account={account}

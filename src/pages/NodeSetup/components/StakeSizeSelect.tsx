@@ -1,9 +1,9 @@
-import Warning from "../Warning";
-import React, {useEffect, useState} from "react";
-import {utils} from "ethers";
-import {Contracts, Methods} from "@airdao/airdao-node-contracts";
+import Warning from '../Warning';
+import { Contracts, Methods } from '@airdao/airdao-node-contracts';
 // @ts-ignore
 import { getCurrentAmbNetwork } from 'airdao-components-and-tools/utils';
+import { utils } from 'ethers';
+import React, { useEffect, useState } from 'react';
 
 interface StakeSizeSelectProps {
   formData: any;
@@ -13,10 +13,17 @@ interface StakeSizeSelectProps {
   account: string;
 }
 
-const StakeSizeSelect = ({ formData, handleNextClick, provider, account, setFormData }: StakeSizeSelectProps) => {
+const StakeSizeSelect = ({
+  formData,
+  handleNextClick,
+  provider,
+  account,
+  setFormData,
+}: StakeSizeSelectProps) => {
   const [balance, setBalance] = useState(0);
   const [stakeError, setStakeError] = useState(false);
-  const [insufficientBalanceError, setInsufficientBalanceError] = useState(false);
+  const [insufficientBalanceError, setInsufficientBalanceError] =
+    useState(false);
   const [minStakeAmount, setMinStakeAmount] = useState(0);
 
   useEffect(() => {
@@ -75,14 +82,14 @@ const StakeSizeSelect = ({ formData, handleNextClick, provider, account, setForm
       <p className="white-container__step">Step 4</p>
       <h3 className="white-container__heading">Stake size for the node</h3>
       <p className="white-container__text">
-        Enter the amount of AMB you want to stake. Node rewards are dynamic
-        and depend on the amount of AMB you stake.
+        Enter the amount of AMB you want to stake. Node rewards are dynamic and
+        depend on the amount of AMB you stake.
       </p>
       <p className="white-container__text">
-        You will be able to change the stake size later on the node
-        dashboard page. If the you reduce the stake size or decide to close
-        it, the funds will be deposited into the wallet after 15 days from
-        the date of transaction confirmation.
+        You will be able to change the stake size later on the node dashboard
+        page. If the you reduce the stake size or decide to close it, the funds
+        will be deposited into the wallet after 15 days from the date of
+        transaction confirmation.
       </p>
       <p className="white-container__text">
         Balance:{' '}
