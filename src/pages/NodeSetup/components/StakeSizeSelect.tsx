@@ -27,7 +27,12 @@ const StakeSizeSelect = ({
   const [minStakeAmount, setMinStakeAmount] = useState(0);
 
   useEffect(() => {
-    provider.on('block', getBalance);
+    provider.on('block', async () => {
+      const signer = await provider.getSigner();
+      const address = await signer.getAddress();
+
+      getBalance(address);
+    });
 
     const network = getCurrentAmbNetwork();
     const contracts = new Contracts(provider, network.chainId);
@@ -35,6 +40,10 @@ const StakeSizeSelect = ({
       setMinStakeAmount(+utils.formatEther(res)),
     );
   }, []);
+
+  useEffect(() => {
+    getBalance(account)
+  }, [account]);
 
   const handleStake = () => {
     if (+formData.stake > balance) {
@@ -52,9 +61,9 @@ const StakeSizeSelect = ({
     handleNextClick();
   };
 
-  const getBalance = () => {
+  const getBalance = (address: string) => {
     provider
-      .getBalance(account)
+      .getBalance(address)
       .then((res: any) => setBalance(Math.floor(+utils.formatEther(res))));
   };
 
