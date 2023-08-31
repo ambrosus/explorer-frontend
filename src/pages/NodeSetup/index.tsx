@@ -48,6 +48,7 @@ const NodeSetup: React.FC = () => {
   const handleNextClick = () => {
     if (skipToConfirm) {
       setStep(5);
+      setSkipToConfirm(false);
     } else {
       setStep((state) => state + 1);
     }
