@@ -42,7 +42,7 @@ const StakeSizeSelect = ({
   }, []);
 
   useEffect(() => {
-    getBalance(account)
+    getBalance(account);
   }, [account]);
 
   const handleStake = () => {

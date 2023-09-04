@@ -1,9 +1,7 @@
 import { useActions } from '../../hooks/useActions';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { LatestTransactionsProps, ResultHomePageData } from './home.interfaces';
-import API from 'API/api';
 import API2 from 'API/newApi';
-import axios from 'axios';
 import BlocksContent from 'components/BlocksContent';
 import BlocksContentMobile from 'components/BlocksContentMobile';
 import { Content } from 'components/Content';
@@ -19,13 +17,8 @@ export const Home: React.FC = () => {
 
   const { FOR_BIG_TABLET } = useDeviceSize();
   const { data: appData } = useTypedSelector((state: any) => state.app);
-  const [totalAtlases, setTotalAtlases] = useState(0);
 
   useEffect(() => {
-    axios
-      .get(`${process.env.REACT_APP_API_ENDPOINT}/info/`)
-      .then((res: any) => setTotalAtlases(res.data.atlases.total));
-
     setAppDataAsync();
     getHomePageData().then((result: ResultHomePageData) => setData(result));
 
@@ -48,7 +41,7 @@ export const Home: React.FC = () => {
         { name: 'MARKET CAP', value: appData.tokenInfo?.market_cap_usd },
         {
           name: 'NODES',
-          value: appData.netInfo.apollos?.total + totalAtlases,
+          value: appData.netInfo.apollos?.total,
         },
         { name: 'HOLDERS', value: appData.netInfo.accounts?.withBalance },
       ],
