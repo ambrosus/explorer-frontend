@@ -26,10 +26,13 @@ export const Home: React.FC = () => {
       .get(`${process.env.REACT_APP_API_ENDPOINT}/info/`)
       .then((res: any) => setTotalAtlases(res.data.atlases.total));
 
+    setAppDataAsync();
+    getHomePageData().then((result: ResultHomePageData) => setData(result));
+
     const interval = setInterval(() => {
       setAppDataAsync();
       getHomePageData().then((result: ResultHomePageData) => setData(result));
-    }, 1000);
+    }, 10000);
     return () => clearInterval(interval);
   }, []);
 
@@ -70,6 +73,10 @@ export const Home: React.FC = () => {
       <Helmet>
         <link rel="canonical" href="https://airdao.io/explorer/" />
         <title>AirDAO | Network Explorer</title>
+        <meta
+          name="description"
+          content="Explore AirDAO Network: amb price, total supply, total transactions, market cap, nodes, holders etc."
+        />
       </Helmet>
       {data && appData && (
         <div className="home">

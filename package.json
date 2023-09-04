@@ -30,6 +30,7 @@
     ]
   },
   "dependencies": {
+    "@airdao/airdao-node-contracts": "^1.0.29",
     "@babel/plugin-transform-react-jsx": "^7.17.12",
     "@babel/plugin-transform-react-jsx-self": "^7.17.12",
     "@testing-library/jest-dom": "^5.16.4",
@@ -38,6 +39,7 @@
     "airdao-components-and-tools": "https://github.com/ambrosus/airdao-components-and-tools#dev",
     "autoprefixer": "^10.4.5",
     "axios": "^0.26.1",
+    "decimal.js-light": "^2.5.1",
     "eslint": "^8.14.0",
     "ethers": "^5.0.0",
     "jest": "^26.0.1",

@@ -1,16 +1,20 @@
 import Amb from '../../../../../assets/icons/Cryptos/Amb';
 import { Number } from 'components/Number';
 import moment from 'moment';
-import React, {useMemo} from 'react';
+import React, { useMemo } from 'react';
 import { NavLink } from 'react-router-dom';
-import {getTokenIcon, sliceData5} from 'utils/helpers';
+import { getTokenIcon, sliceData5 } from 'utils/helpers';
 
 const BlockBody = ({ lastCardRef, item }: any) => {
   const { type, hash, from, to, timestamp, value } = item;
 
   const amount = value?.ether || 0;
 
-  const Icon = getTokenIcon(item.token?.symbol as string, item.token?.name, item.token?.address);
+  const Icon = getTokenIcon(
+    item.token?.symbol as string,
+    item.token?.name,
+    item.token?.address,
+  );
 
   const _symbol = useMemo(() => {
     if (item.token?.address === '0x322269e52800e5094c008f3b01A3FD97BB3C8f5D') {

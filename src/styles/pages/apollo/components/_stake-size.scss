@@ -1,0 +1,210 @@
+.stake-size {
+  position: relative;
+
+  padding: 24px 24px 24px 32px;
+  flex-direction: column;
+  align-items: flex-start;
+
+  border-radius: 16px;
+  background: #FFF;
+
+  box-shadow: 0px 16px 32px 0px rgba(105, 142, 226, 0.20);
+
+  width: 100%;
+}
+
+.stake-size__head {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.stake-size__amount {
+  font-family: Inter, sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  line-height: 24px; /* 150% */
+  color: var(--neutral-900, #0E0E0E);
+}
+
+.stake-size__amount_amb {
+  font-weight: 600;
+  margin-right: 8px;
+  font-size: inherit;
+}
+
+.stake-size__amount_usd {
+  font-weight: 400;
+  font-size: inherit;
+}
+
+.stake-size__title {
+  color: var(--neutral-400, #676B73);
+  font-family: Inter, sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 16px; /* 114.286% */
+  text-transform: uppercase;
+
+  margin-bottom: 10px;
+}
+
+.stake-size__show-more {
+  width: 32px;
+  height: 32px;
+}
+
+.stake-size__arrow {
+  width: 100%;
+  height: 100%;
+}
+
+.stake-size__show-more_active .stake-size__arrow {
+  transform: rotate(0.5turn);
+}
+
+.stake-size__additional-info {
+  max-height: 0;
+  overflow: hidden;
+
+  transition: max-height 0.3s ease-in-out;
+}
+
+.stake-size__additional-info_open {
+  //TODO: pass from js (unimportant)
+  max-height: 500px;
+}
+
+.stake-size__text {
+  color: var(--neutral-400, #676B73);
+  font-family: Inter, sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px; /* 150% */
+
+  margin-bottom: 24px;
+  margin-top: 24px;
+}
+
+.stake-size__text > b {
+  font-weight: 600;
+  color: var(--neutral-400, #676B73);
+  font-size: inherit;
+}
+
+.stake-size__button-container {
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 8px;
+}
+
+.stake-size__white-button {
+  border: 1.5px solid var(--neutral-800, #191919);
+  color: var(--neutral-900, #0E0E0E) !important;
+}
+
+
+//TODO: make slim-input standalone
+
+.slim-input {
+  display: flex;
+  flex-flow: row nowrap;
+  column-gap: 8px;
+  height: 35px;
+  padding: 0 16px;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 162px;
+  border: 1px solid rgba(47, 43, 67, 0.10);
+
+  align-self: stretch;
+  width: 100%;
+}
+
+.slim-input_error {
+  border: 1px solid var(--red-100, #FFD9CD);
+
+  & > .slim-input__input {
+    color: var(--red-400-error, #FF4747);
+  }
+}
+
+.slim-input__input {
+  height: 100%;
+  width: 100%;
+  align-self: stretch;
+  border: none;
+  box-shadow: none;
+
+  color: var(--neutral-700, #222426);
+  font-family: Inter, sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px; /* 150% */
+  letter-spacing: -0.16px;
+}
+
+.slim-input__label {
+  color: var(--neutral-700, #222426);
+  font-family: Inter, sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px; /* 150% */
+  letter-spacing: -0.16px;
+}
+
+.stake-size__pending {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  padding: 16px;
+  gap: 16px;
+  border-radius: 16px;
+  background: var(--blue-100-secondary, #EDF3FF);
+  margin-top: 24px;
+}
+
+.stake-size__pending-text {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 16px;
+
+  & p, & span {
+    color: var(--gray-800, #222);
+    font-family: Inter, sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px; /* 150% */
+    letter-spacing: -0.16px;
+  }
+}
+
+.stake-size__pending-date-time {
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 24px;
+}
+
+.stake-size__pending-cancel {
+  align-self: flex-end;
+}
+
+.stake-size__spinner {
+  margin-left: 0 !important;
+  background: conic-gradient( rgba(26, 61, 141, 0), rgba(69, 126, 255, 1)) !important;
+  flex-shrink: 0;
+}
+
+.stake-size__spinner:before {
+  background: var(--blue-100-secondary, #EDF3FF) !important;
+  height: 18px !important;
+  width: 18px !important;
+  top: 1px !important;
+  left: 1px !important;
+}

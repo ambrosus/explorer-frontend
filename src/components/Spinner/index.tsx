@@ -1,11 +1,7 @@
 import { memo } from 'react';
 
-const Spinner = () => {
-  return (
-    <>
-      <div className="spinner"></div>
-    </>
-  );
+const Spinner = ({ className = '' }) => {
+  return <div className={`spinner ${className}`}></div>;
 };
 
 export default memo(Spinner);

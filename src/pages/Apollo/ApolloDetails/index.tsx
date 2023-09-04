@@ -1,4 +1,11 @@
+import Button from '../../../components/Button';
+import useApolloActions from '../../../hooks/useApolloActions';
+import useApolloInfo from '../../../hooks/useApolloInfo';
 import { Account } from '../apollo.interface';
+import OwnerDashboard from './components/OwnerDasboard';
+import ChangeAddress from './components/OwnerDasboard/ChangeAddress';
+import StakeSize from './components/OwnerDasboard/StakeSize';
+import TelegramWidget from './components/OwnerDasboard/TelegramWidget';
 import API from 'API/api';
 import API2 from 'API/newApi';
 import { Content } from 'components/Content';
@@ -101,8 +108,6 @@ export const ApolloDetails = memo(() => {
     {
       name: 'BALANCE',
       value: diffStyleToCell(ambBalance, usdBalance),
-
-      // `${ambBalance.toFixed(2)} AMB / $ ${usdBalance.toFixed(2)}`,
     },
     {
       name: 'UPTIME',
@@ -169,6 +174,11 @@ export const ApolloDetails = memo(() => {
       <Helmet>
         <link rel="canonical" href="https://airdao.io/explorer/apollo/" />
         <meta name="robots" content="noindex" />
+        <title>Apollo Nodes | AirDAO Network Explorer</title>
+        <meta
+          name="description"
+          content="Explore AirDAO Network Apollo Nodes: total nodes, online, offline, connecting, avg block / prop. time"
+        />
       </Helmet>
       <Content.Header>
         <div className="apollo_details_main">
@@ -193,6 +203,7 @@ export const ApolloDetails = memo(() => {
         </div>
         <HeadInfo data={itemFirst} className="head_info" />
         <HeadInfo data={itemSecond} className="head_info" />
+        <OwnerDashboard address={address} />
       </Content.Header>
       <Content.Body>
         <TabsNew
