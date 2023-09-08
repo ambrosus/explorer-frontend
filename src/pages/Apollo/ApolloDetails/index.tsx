@@ -85,7 +85,7 @@ export const ApolloDetails = memo(() => {
     const date = filterDate.split('-');
     const fromDate = date[0];
     const toDate = date[1];
-    const { data } = await API.getApolloRewards(address, {
+    const { data } = await API2.getApolloRewards(address, {
       from: fromDate,
       to: toDate !== undefined ? toDate : null,
     });

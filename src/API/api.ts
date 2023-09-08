@@ -63,21 +63,6 @@ const getAccount = (address: any) => {
   return API().get(`accounts/${address}`);
 };
 
-const getApolloRewards = (address: any, params: any) => {
-  const url = `apollos/${address}/rewards`;
-  const parameterFrom = params?.from?.split('/') || null;
-  const parameterTo = params?.to?.split('/') || null;
-  const newParams =
-    parameterTo !== null
-      ? {
-          from: `${parameterFrom[1]}/${parameterFrom[0]}/${parameterFrom[2]}`,
-          to: `${parameterTo[1]}/${parameterTo[0]}/${parameterTo[2]}`,
-        }
-      : {
-          from: `${parameterFrom[1]}/${parameterFrom[0]}/${parameterFrom[2]}`,
-        };
-  return API().get(url, { params: newParams });
-};
 //TODO remove atlases
 const getAtlases = (params = {}) => {
   return API().get(`atlases`, {
@@ -151,7 +136,6 @@ const api = {
   API: API(),
   SOURCIFYAPI: SOURCIFYAPI(),
   getAtlases,
-  getApolloRewards,
   getContract,
   getAccountTx,
   getAccount,
