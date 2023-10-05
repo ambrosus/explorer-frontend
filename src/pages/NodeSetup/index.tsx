@@ -11,7 +11,7 @@ import React, { useEffect, useState } from 'react';
 
 const { ethereum }: any = window;
 
-const provider = new AmbErrorProviderWeb3(ethereum);
+const provider = ethereum ? new AmbErrorProviderWeb3(ethereum) : null;
 
 const NodeSetup: React.FC = () => {
   const { account } = useWeb3React();
