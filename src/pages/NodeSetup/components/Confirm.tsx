@@ -14,7 +14,7 @@ interface ConfirmProps {
 
 const Confirm = ({ formData, backToStep, provider, account }: ConfirmProps) => {
   const [connectOwnerError, setConnectOwnerError] = useState(false);
-  const [isFinished, setIsFinished] = useState(true);
+  const [isFinished, setIsFinished] = useState(false);
 
   useEffect(() => {
     setConnectOwnerError(account !== formData.nodeOwner);
@@ -51,7 +51,7 @@ const Confirm = ({ formData, backToStep, provider, account }: ConfirmProps) => {
             Your node isn't live yet.
           </span>{' '}
           Run the command in your server console to finish launching your node.
-          Our step-by-step guide helps you through the required actions.
+          Our <a className="blue-link" href="/">step-by-step guide</a> helps you through the required actions.
         </p>
       ) : (
         <p className="white-container__text">
