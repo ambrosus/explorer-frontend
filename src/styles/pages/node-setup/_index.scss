@@ -222,6 +222,7 @@
   font-size: 16px;
   font-weight: 500;
   margin-left: auto;
+  line-height: 30px;
 }
 
 .node-check__question {
@@ -278,4 +279,52 @@
   padding: 6px 0;
   width: 108px;
   margin: 0 18px;
+}
+
+.command-text {
+  border-radius: 16px;
+  background: var(--alpha-black-5, rgba(14, 14, 14, 0.05));
+  padding: 16px;
+  width: 100%;
+  position: relative;
+}
+
+.command-text__title {
+  color: var(--neutral-900, #0E0E0E);
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.command-text__btn {
+  background: transparent;
+  position: absolute;
+  right: 16px;
+  top: 8px;
+
+  &_open {
+    transform: rotate(180deg);
+  }
+}
+
+.command-text__info {
+  margin-top: 16px;
+  max-width: calc(100% - 80px);
+
+  p {
+    color: var(--neutral-400, #676B73);
+    font-family: Inter, sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px; /* 150% */
+    letter-spacing: -0.16px;
+  }
+
+  .code-tab {
+    margin-left: 15px;
+  }
+}
+
+.command-text__code {
+  margin-top: 16px;
 }

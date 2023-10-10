@@ -1,5 +1,6 @@
 import questionMark from '../../../assets/svg/question.svg';
 import warning from '../../../assets/svg/warning.svg';
+import CommandText from './CommandText';
 import { Contracts, Methods } from '@airdao/airdao-node-contracts';
 import { ethers } from 'ethers';
 import React, { useEffect, useState } from 'react';
@@ -13,6 +14,7 @@ interface ConfirmProps {
 
 const Confirm = ({ formData, backToStep, provider, account }: ConfirmProps) => {
   const [connectOwnerError, setConnectOwnerError] = useState(false);
+  const [isFinished, setIsFinished] = useState(true);
 
   useEffect(() => {
     setConnectOwnerError(account !== formData.nodeOwner);
@@ -32,6 +34,7 @@ const Confirm = ({ formData, backToStep, provider, account }: ConfirmProps) => {
           ethers.utils.parseUnits(formData.stake || '', 18),
         )
       ).wait();
+      setIsFinished(true);
     } catch (e) {
       console.log(e);
     }
@@ -42,25 +45,41 @@ const Confirm = ({ formData, backToStep, provider, account }: ConfirmProps) => {
   return (
     <div className="white-container white-container_transparent">
       <h3 className="white-container__heading">Launch a validator node</h3>
-      <p className="white-container__text">
-        <span className="white-container__text-semi-bold">
-          Please double check all selected parameters.
-        </span>{' '}
-        Connect the wallet you want to use to set up a node. Read how to set up
-        a node with our GitHub Wiki. Need help? Go to{' '}
-        <a href="mailto:support@airdao.io">support@airdao.io</a>
-      </p>
+      {isFinished ? (
+        <p className="white-container__text">
+          <span className="white-container__text-semi-bold">
+            Your node isn't live yet.
+          </span>{' '}
+          Run the command in your server console to finish launching your node.
+          Our step-by-step guide helps you through the required actions.
+        </p>
+      ) : (
+        <p className="white-container__text">
+          <span className="white-container__text-semi-bold">
+            Please double check all selected parameters.
+          </span>{' '}
+          Connect the wallet you want to use to set up a node. Read how to set
+          up a node with our GitHub Wiki. Need help? Go to{' '}
+          <a href="mailto:support@airdao.io">support@airdao.io</a>
+        </p>
+      )}
       <p className="white-container__text">
         You will be able to change the stake size or node owner address later on
         the node dashboard page.
       </p>
+      {isFinished && <CommandText />}
       <div className="node-check">
         <div className="node-check__item">
           <p className="node-check__label">Node address</p>
           <p className="node-check__value">{formData.nodeAddress}</p>
-          <button className="node-check__change" onClick={() => backToStep(1)}>
-            Change
-          </button>
+          {!isFinished && (
+            <button
+              className="node-check__change"
+              onClick={() => backToStep(1)}
+            >
+              Change
+            </button>
+          )}
           <img
             className="node-check__question"
             src={questionMark}
@@ -74,9 +93,14 @@ const Confirm = ({ formData, backToStep, provider, account }: ConfirmProps) => {
         >
           <p className="node-check__label">Node owner address</p>
           <p className="node-check__value">{formData.nodeOwner}</p>
-          <button className="node-check__change" onClick={() => backToStep(2)}>
-            Change
-          </button>
+          {!isFinished && (
+            <button
+              className="node-check__change"
+              onClick={() => backToStep(2)}
+            >
+              Change
+            </button>
+          )}
           <img
             className="node-check__question"
             src={questionMark}
@@ -86,9 +110,14 @@ const Confirm = ({ formData, backToStep, provider, account }: ConfirmProps) => {
         <div className="node-check__item">
           <p className="node-check__label">Node rewards recipient</p>
           <p className="node-check__value">{formData.receiveAddress}</p>
-          <button className="node-check__change" onClick={() => backToStep(3)}>
-            Change
-          </button>
+          {!isFinished && (
+            <button
+              className="node-check__change"
+              onClick={() => backToStep(3)}
+            >
+              Change
+            </button>
+          )}
           <img
             className="node-check__question"
             src={questionMark}
@@ -100,9 +129,14 @@ const Confirm = ({ formData, backToStep, provider, account }: ConfirmProps) => {
           <p className="node-check__value">
             {formData.stake && (+formData.stake).toLocaleString()} AMB
           </p>
-          <button className="node-check__change" onClick={() => backToStep(4)}>
-            Change
-          </button>
+          {!isFinished && (
+            <button
+              className="node-check__change"
+              onClick={() => backToStep(4)}
+            >
+              Change
+            </button>
+          )}
           <img
             className="node-check__question"
             src={questionMark}
