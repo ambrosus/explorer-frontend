@@ -2,13 +2,16 @@
 import { NewHeader } from '../NewHeader';
 import { Header } from '@airdao/ui-library';
 import { useWeb3React } from '@web3-react/core';
-import { useAuthorization, useAutoLogin } from 'airdao-components-and-tools/hooks';
+import {
+  useAuthorization,
+  useAutoLogin,
+} from 'airdao-components-and-tools/hooks';
 import {
   metamaskConnector,
   walletconnectConnector,
 } from 'airdao-components-and-tools/utils';
+import { ethers } from 'ethers';
 import React, { FC, useEffect, useState } from 'react';
-import {ethers} from "ethers";
 
 export interface LayoutProps {
   children: React.ReactNode;
@@ -31,7 +34,7 @@ export const Layout: FC<LayoutProps> = ({ children }) => {
 
   useEffect(() => {
     getBalance();
-  }, [account]);
+  }, [account, isLoaded]);
 
   const getBalance = async () => {
     if (!provider) return;
