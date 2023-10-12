@@ -30,14 +30,15 @@
     ]
   },
   "dependencies": {
+    "@airdao/ui-library": "latest",
     "@babel/plugin-transform-react-jsx": "^7.17.12",
     "@babel/plugin-transform-react-jsx-self": "^7.17.12",
     "@testing-library/jest-dom": "^5.16.4",
     "@types/react-helmet": "^6.1.6",
-    "@web3-react/core": "^6.1.9",
+    "@web3-react/core": "^8.2.2",
     "@web3-react/injected-connector": "^6.0.7",
     "@web3-react/walletconnect-connector": "^6.2.13",
-    "airdao-components-and-tools": "https://github.com/ambrosus/airdao-components-and-tools",
+    "airdao-components-and-tools": "https://github.com/ambrosus/airdao-components-and-tools#dev",
     "autoprefixer": "^10.4.5",
     "axios": "^0.26.1",
     "eslint": "^8.14.0",
