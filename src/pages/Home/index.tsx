@@ -29,12 +29,7 @@ export const Home: React.FC = () => {
     }, 10000);
     return () => clearInterval(interval);
   }, []);
-  const getHomeData = async () => await API2.getAddresses();
 
-  useEffect(() => {
-    const data = getHomeData();
-    console.log(data);
-  }, []);
   const header = useMemo(
     () =>
       appData && [
