@@ -32,6 +32,7 @@ const StakeSizeSelect = ({
       const address = await signer.getAddress();
 
       getBalance(address);
+      console.log(1);
     });
 
     const network = getCurrentAmbNetwork();
@@ -39,6 +40,10 @@ const StakeSizeSelect = ({
     Methods.serverNodesGetMinStake(contracts).then((res) =>
       setMinStakeAmount(+utils.formatEther(res)),
     );
+    return () => {
+      if (!provider) return;
+      provider.removeAllListeners();
+    };
   }, []);
 
   useEffect(() => {
@@ -91,14 +96,13 @@ const StakeSizeSelect = ({
       <p className="white-container__step">Step 4</p>
       <h3 className="white-container__heading">Stake size for the node</h3>
       <p className="white-container__text">
-        Enter the amount of AMB you want to stake. Node rewards are dynamic and
-        depend on the amount of AMB you stake.
+        Enter the amount of AMB you want to stake. Node rewards are dynamic and depend on
+        the amount of AMB you stake.
       </p>
       <p className="white-container__text">
-        You will be able to change the stake size later on the node dashboard
-        page. If the you reduce the stake size or decide to close it, the funds
-        will be deposited into the wallet after 15 days from the date of
-        transaction confirmation.
+        You can change the stake size later on the node dashboard page. If you
+        reduce the stake size or shut down your node, your funds will be deposited
+        into your wallet 15 days after the date of transaction confirmation.
       </p>
       <p className="white-container__text">
         Balance:{' '}

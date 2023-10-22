@@ -1,24 +1,29 @@
 import React from 'react';
+import FAQ from "./FAQ";
 
-interface InitStepProps {
-  handleNextClick: () => {};
-}
+const faqs = [
+  {
+    title: 'What’s node address?',
+    text: 'Wallet you  to use to set up a node. We recommend using a new wallet address. You can use a separate address for all the transactions required when managing the node, so you don’t need to store any funds in the node address.'
+  },
+  {
+    title: 'What’s node address?',
+    text: 'Wallet you  to use to set up a node. We recommend using a new wallet address. You can use a separate address for all the transactions required when managing the node, so you don’t need to store any funds in the node address.'
+  },
+  {
+    title: 'What’s node address?',
+    text: 'Wallet you  to use to set up a node. We recommend using a new wallet address. You can use a separate address for all the transactions required when managing the node, so you don’t need to store any funds in the node address.'
+  },
+  {
+    title: 'What’s node address?',
+    text: 'Wallet you  to use to set up a node. We recommend using a new wallet address. You can use a separate address for all the transactions required when managing the node, so you don’t need to store any funds in the node address.'
+  },
+]
 
-const InitStep = ({ handleNextClick }: InitStepProps) => {
+const InitStep = () => {
   return (
-    <div className="white-container">
-      <p className="white-container__step">Step 0</p>
-      <h3 className="white-container__heading">
-        Welcome to the launch a validator node
-      </h3>
-      <p className="white-container__text">What’s node address</p>
-      <p className="white-container__text">What’s node owner address</p>
-      <button
-        className="white-container__button white-container__button_white"
-        onClick={handleNextClick}
-      >
-        Start
-      </button>
+    <div>
+      <FAQ list={faqs} />
     </div>
   );
 };

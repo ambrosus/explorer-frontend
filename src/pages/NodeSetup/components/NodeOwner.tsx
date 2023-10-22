@@ -16,12 +16,12 @@ const NodeOwner = ({
       <p className="white-container__step">Step 2</p>
       <h3 className="white-container__heading">Specify the node owner</h3>
       <p className="white-container__text">
-        We recommend to select a different address for managing a node carries.
-        It will increase the safety level of your ‘project’.{' '}
+        We recommend specifying a different wallet address for managing your
+        node. This will increase the security of your node.{' '}
       </p>
       <p className="white-container__text">
-        Select different address in your Metamask browser extension or continue
-        with the connected address. You will be able to change node owner
+        Select a different address in your MetaMask browser extension or
+        continue with the connected address. You can change the node owner
         address later on the node dashboard page.
       </p>
       <div>

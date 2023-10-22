@@ -70,7 +70,31 @@ const NodeSetup: React.FC = () => {
 
   return (
     <section className="node-setup container">
-      {step === 0 && <InitStep handleNextClick={handleNextClick} />}
+      {step !== 5 && (
+        <div className="node-setup__heading">
+          <h1 className="node-setup__title">Launch a validator node</h1>
+          {(step === 0) ? (
+            <>
+              <p className="node-setup__text">
+                Launch a validator node page allows users to do all settings needed
+                before the. We highly recommend to go through step by step guide for lunching validator node.
+              </p>
+              <button
+                className="node-setup__confirm node-setup__confirm_start"
+                onClick={handleNextClick}
+              >
+                Start
+              </button>
+            </>
+          ) : (
+            <p className="node-setup__text">
+              Launch a validator node page allows users to do all settings needed before the. We highly
+              recommend to go through step by step guide for lunching validator node.
+            </p>
+          )}
+        </div>
+      )}
+      {step === 0 && <InitStep />}
       {step === 1 && (
         <NodeAddress
           account={account}

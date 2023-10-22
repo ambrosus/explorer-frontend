@@ -25,7 +25,7 @@ const NodeAddress = ({
 
   useEffect(() => {
     setAddressIsNodeError(false);
-  }, []);
+  }, [account]);
 
   const handleNodeAddress = async () => {
     const chainId = (await provider.getNetwork()).chainId;
@@ -54,10 +54,10 @@ const NodeAddress = ({
       <p className="white-container__step">Step 1</p>
       <h3 className="white-container__heading">Specify node address</h3>
       <p className="white-container__text">
-        Connect the wallet you want to use to set up a node. We recommend to
-        create a new address. You can use separate wallet for all transactions
-        necessary for managing the node. So you don’t need to store any founds
-        on the node address.{' '}
+        Connect the wallet you want to use to set up a node. This dashboard only
+        works with MetaMask. We recommend using a new wallet address; you can use
+        a separate address for all the transactions required when managing the node.
+        You don’t need to store any funds in the node address.{' '}
         {isActive && (
           <span className="white-container__text-semi-bold">
             Do you want to continue with this address?
