@@ -1,7 +1,5 @@
 import Warning from '../Warning';
-import { Contracts, Methods } from '@airdao/airdao-node-contracts';
 // @ts-ignore
-import { getCurrentAmbNetwork } from 'airdao-components-and-tools/utils';
 import { utils } from 'ethers';
 import React, { useEffect, useState } from 'react';
 
@@ -11,6 +9,7 @@ interface StakeSizeSelectProps {
   setFormData: (state: any) => {};
   provider: any;
   account: string;
+  minStakeAmount: number;
 }
 
 const StakeSizeSelect = ({
@@ -19,12 +18,12 @@ const StakeSizeSelect = ({
   provider,
   account,
   setFormData,
+  minStakeAmount,
 }: StakeSizeSelectProps) => {
   const [balance, setBalance] = useState(0);
   const [stakeError, setStakeError] = useState(false);
   const [insufficientBalanceError, setInsufficientBalanceError] =
     useState(false);
-  const [minStakeAmount, setMinStakeAmount] = useState(0);
 
   useEffect(() => {
     provider.on('block', async () => {
@@ -34,11 +33,6 @@ const StakeSizeSelect = ({
       getBalance(address);
     });
 
-    const network = getCurrentAmbNetwork();
-    const contracts = new Contracts(provider, network.chainId);
-    Methods.serverNodesGetMinStake(contracts).then((res) =>
-      setMinStakeAmount(+utils.formatEther(res)),
-    );
     return () => {
       if (!provider) return;
       provider.removeAllListeners();
@@ -55,10 +49,7 @@ const StakeSizeSelect = ({
       return;
     }
 
-    if (
-      !formData.stake ||
-      (formData.stake && +formData.stake < minStakeAmount)
-    ) {
+    if (!formData.stake || (formData.stake && +formData.stake < 1)) {
       setStakeError(true);
       return;
     }
@@ -66,9 +57,13 @@ const StakeSizeSelect = ({
   };
 
   const getBalance = (address: string) => {
-    provider
-      .getBalance(address)
-      .then((res: any) => setBalance(Math.floor(+utils.formatEther(res))));
+    provider.getBalance(address).then((res: any) => {
+      const bal = Math.floor(+utils.formatEther(res));
+      setBalance(bal);
+      if (+formData.stake < bal && insufficientBalanceError) {
+        setInsufficientBalanceError(false);
+      }
+    });
   };
 
   const closeStakeError = () => setStakeError(false);

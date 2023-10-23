@@ -34,6 +34,10 @@
     .faq-node__item-title {
       padding: 16px 0;
     }
+
+    .faq-node__btn svg {
+      transform: rotate(180deg);
+    }
   }
 }
 
@@ -57,4 +61,23 @@
   transform: translateY(-50%);
   background: transparent;
   height: 32px;
+}
+
+.faq-node__footer {
+  color: var(--neutral-700, #222426);
+  text-align: right;
+
+  /* Caption 1/400 - Regular */
+  font-family: Inter, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px; /* 142.857% */
+  letter-spacing: -0.14px;
+  margin-left: auto;
+  margin-top: 8px;
+
+  a {
+    color: var(--blue-500, #457EFF);
+    text-decoration: none;
+  }
 }

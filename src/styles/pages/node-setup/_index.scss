@@ -2,7 +2,7 @@
   width: 100%;
   padding-left: 268px;
   box-sizing: border-box;
-
+  margin-bottom: 50px;
   display: flex;
   flex-flow: column nowrap;
 }
@@ -229,7 +229,7 @@
   position: relative;
   display: flex;
   align-items: center;
-  padding: 13px 8px 13px 24px;
+  padding: 13px 24px;
 
   &_error {
     background: #FFD9CD;
@@ -313,7 +313,7 @@
   background: var(--alpha-black-5, rgba(14, 14, 14, 0.05));
   padding: 6px 0;
   width: 108px;
-  margin: 0 18px;
+  margin-left: 18px;
   color: var(--neutral-900, #0E0E0E);
   font-family: Inter, sans-serif;
   font-size: 14px;
@@ -393,9 +393,15 @@
   color: var(--neutral-700, #222426);
   font-family: Inter, sans-serif;
   font-size: 18px;
+  line-height: normal;
 
   b {
     font-size: 18px;
+  }
+
+  a {
+    text-decoration: none;
+    color: #457EFF;
   }
 
   &_height {

@@ -45,6 +45,10 @@ const FAQ = ({ list }: FAQProps) => {
           </div>
         ))}
       </div>
+      <p className="faq-node__footer">
+        Need help? Go to{' '}
+        <a href="mailto:support@airdao.io">support@airdao.io</a>
+      </p>
     </div>
   );
 };

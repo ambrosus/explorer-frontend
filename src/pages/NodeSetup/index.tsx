@@ -5,16 +5,21 @@ import NodeAddress from './components/NodeAddress';
 import NodeOwner from './components/NodeOwner';
 import RewardReceiver from './components/RewardReceiver';
 import StakeSizeSelect from './components/StakeSizeSelect';
-import { AmbErrorProviderWeb3 } from '@airdao/airdao-node-contracts';
+import {
+  AmbErrorProviderWeb3,
+  Contracts,
+  Methods,
+} from '@airdao/airdao-node-contracts';
 import { useWeb3React } from '@web3-react/core';
+import { getCurrentAmbNetwork } from 'airdao-components-and-tools/utils';
+import { utils } from 'ethers';
 import React, { useEffect, useState } from 'react';
 
 const { ethereum }: any = window;
 
-const provider = ethereum ? new AmbErrorProviderWeb3(ethereum) : null;
-
 const NodeSetup: React.FC = () => {
   const { account } = useWeb3React();
+  const provider = ethereum ? new AmbErrorProviderWeb3(ethereum) : null;
 
   const [formData, setFormData] = useState<{
     nodeAddress?: string;
@@ -25,6 +30,16 @@ const NodeSetup: React.FC = () => {
 
   const [step, setStep] = useState(0);
   const [skipToConfirm, setSkipToConfirm] = useState(false);
+  const [minStakeAmount, setMinStakeAmount] = useState(0);
+
+  useEffect(() => {
+    const network = getCurrentAmbNetwork();
+    const contracts = new Contracts(provider, network.chainId);
+
+    Methods.serverNodesGetMinStake(contracts).then((res) =>
+      setMinStakeAmount(+utils.formatEther(res)),
+    );
+  }, []);
 
   useEffect(() => {
     if (account) {
@@ -76,9 +91,12 @@ const NodeSetup: React.FC = () => {
           {step === 0 ? (
             <>
               <p className="node-setup__text">
-                Launch a validator node page allows users to do all settings
-                needed before the. We highly recommend to go through step by
-                step guide for lunching validator node.
+                This page helps you through the process of launching a validator
+                node. We highly recommend you read our{' '}
+                <a href="/" target="_blank">
+                  step by step guide
+                </a>{' '}
+                for launching a validator node before you start.
               </p>
               <button
                 className="node-setup__confirm node-setup__confirm_start"
@@ -90,8 +108,11 @@ const NodeSetup: React.FC = () => {
           ) : (
             <p className="node-setup__text">
               Launch a validator node page allows users to do all settings
-              needed before the. We highly recommend to go through step by step
-              guide for lunching validator node.
+              needed before the. We highly recommend to go through{' '}
+              <a href="/" target="_blank">
+                step by step guide
+              </a>{' '}
+              for lunching validator node.
             </p>
           )}
         </div>
@@ -126,6 +147,7 @@ const NodeSetup: React.FC = () => {
           setFormData={setFormData}
           provider={provider}
           account={account}
+          minStakeAmount={minStakeAmount}
         />
       )}
       {step === 5 && (
@@ -134,6 +156,7 @@ const NodeSetup: React.FC = () => {
           formData={formData}
           account={account}
           provider={provider}
+          minStakeAmount={minStakeAmount}
         />
       )}
     </section>
