@@ -39,7 +39,11 @@ const CommandText: React.FC = () => {
             </Warning>
           )}
           <div className="command-text__code">
-            <p>{'source <(curl -s https://raw.githubusercontent.com/ambrosus/airdao-nop/master/setup.sh)'}</p>
+            <p>
+              {
+                'source <(curl -s https://raw.githubusercontent.com/ambrosus/airdao-nop/master/setup.sh)'
+              }
+            </p>
           </div>
         </div>
       )}

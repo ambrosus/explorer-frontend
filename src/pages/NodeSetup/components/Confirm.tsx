@@ -1,10 +1,10 @@
 import questionMark from '../../../assets/svg/question.svg';
 import warning from '../../../assets/svg/warning.svg';
+import Loader from '../../../components/Loader';
 import CommandText from './CommandText';
 import { Contracts, Methods } from '@airdao/airdao-node-contracts';
 import { ethers } from 'ethers';
 import React, { useEffect, useState } from 'react';
-import Loader from "../../../components/Loader";
 
 interface ConfirmProps {
   formData: any;
@@ -50,11 +50,8 @@ const Confirm = ({ formData, backToStep, provider, account }: ConfirmProps) => {
       <h3 className="node-setup__title">Launch a validator node</h3>
       {isFinished ? (
         <p className="node-setup__text node-setup__text_height">
-          <b>
-            Your node isn't live yet.
-          </b>{' '}
-          Run the command in your server console to finish launching your node.
-          Our{' '}
+          <b>Your node isn't live yet.</b> Run the command in your server
+          console to finish launching your node. Our{' '}
           <a className="blue-link" href="/">
             step-by-step guide
           </a>{' '}
@@ -62,11 +59,9 @@ const Confirm = ({ formData, backToStep, provider, account }: ConfirmProps) => {
         </p>
       ) : (
         <p className="node-setup__text node-setup__text_height">
-          <b>
-            Please double check all selected parameters.
-          </b>{' '}
-          Connect the wallet you want to use to set up a node. Read how to set
-          up a node with our GitHub Wiki. Need help? Go to{' '}
+          <b>Please double check all selected parameters.</b> Connect the wallet
+          you want to use to set up a node. Read how to set up a node with our
+          GitHub Wiki. Need help? Go to{' '}
           <a href="mailto:support@airdao.io">support@airdao.io</a>
         </p>
       )}
@@ -131,27 +126,33 @@ const Confirm = ({ formData, backToStep, provider, account }: ConfirmProps) => {
           )}
         </div>
       </div>
-      {!isFinished && (
-        connectOwnerError ? (
+      {!isFinished &&
+        (connectOwnerError ? (
           <div className="white-container white-container_warning">
             <img src={warning} alt="warning" />
             <div>
-              <p className="warning-title">You’ve connected the wrong wallet address.</p>
+              <p className="warning-title">
+                You’ve connected the wrong wallet address.
+              </p>
               <p className="warning-text">
-                Connect the address that you specified as a node owner to continue.
-                You must have a minimum of 1,000,000 AMB in this address to start staking.
-                <br/>
+                Connect the address that you specified as a node owner to
+                continue. You must have a minimum of 1,000,000 AMB in this
+                address to start staking.
+                <br />
                 Connected address: <b>{account}</b>
               </p>
             </div>
           </div>
         ) : (
-          <button className="node-setup__confirm" onClick={handleConfirmClick} disabled={loading}>
+          <button
+            className="node-setup__confirm"
+            onClick={handleConfirmClick}
+            disabled={loading}
+          >
             {loading && <div className="node-setup-loader" />}
             Confirm
           </button>
-        )
-      )}
+        ))}
     </div>
   );
 };

@@ -55,9 +55,9 @@ const NodeAddress = ({
       <h3 className="white-container__heading">Specify node address</h3>
       <p className="white-container__text">
         Connect the wallet you want to use to set up a node. This dashboard only
-        works with MetaMask. We recommend using a new wallet address; you can use
-        a separate address for all the transactions required when managing the node.
-        You don’t need to store any funds in the node address.{' '}
+        works with MetaMask. We recommend using a new wallet address; you can
+        use a separate address for all the transactions required when managing
+        the node. You don’t need to store any funds in the node address.{' '}
         {isActive && (
           <span className="white-container__text-semi-bold">
             Do you want to continue with this address?

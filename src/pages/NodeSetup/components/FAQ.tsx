@@ -1,28 +1,31 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 
 interface FAQProps {
-  list: any[],
+  list: any[];
 }
 
 const FAQ = ({ list }: FAQProps) => {
   const [activeItem, setActiveItem] = useState<number | null>(null);
 
   const handleActive = (i: number) => {
-    setActiveItem((state) => state === i ? null : i)
-  }
+    setActiveItem((state) => (state === i ? null : i));
+  };
 
   return (
     <div className="faq-node">
       <h3 className="faq-node__title">FAQs</h3>
       <div className="faq-node__list">
         {list.map(({ title, text }, i) => (
-          <div key={title} className={`faq-node__item ${activeItem === i ? 'faq-node__item_active' : ''}`}>
+          <div
+            key={title}
+            className={`faq-node__item ${
+              activeItem === i ? 'faq-node__item_active' : ''
+            }`}
+          >
             <p className="faq-node__item-title" onClick={() => handleActive(i)}>
               {title}
             </p>
-            <p className="faq-node__item-text">
-              {text}
-            </p>
+            <p className="faq-node__item-text">{text}</p>
             <button className="faq-node__btn" onClick={() => handleActive(i)}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -43,7 +46,7 @@ const FAQ = ({ list }: FAQProps) => {
         ))}
       </div>
     </div>
-  )
+  );
 };
 
 export default FAQ;
