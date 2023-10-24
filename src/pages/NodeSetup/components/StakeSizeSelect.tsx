@@ -49,7 +49,7 @@ const StakeSizeSelect = ({
       return;
     }
 
-    if (!formData.stake || (formData.stake && +formData.stake < 1)) {
+    if (!formData.stake || (formData.stake && +formData.stake < minStakeAmount)) {
       setStakeError(true);
       return;
     }
