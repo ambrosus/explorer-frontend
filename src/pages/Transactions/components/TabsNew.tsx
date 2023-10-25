@@ -97,18 +97,35 @@ const TabsNew: FC<TabsNewProps> = ({
         next: null,
       },
     });
-    handleFetchData().then((response: any) => {
-      if (!response) return;
 
-      if (!!renderKey) {
-        setTabData({
-          data: response.data[renderKey],
-          pagination: response.pagination,
-        });
-      } else {
-        setTabData(response);
-      }
-    });
+    const listData = sortOptions?.find((el: any) => el.value === sortTerm).listData
+
+    if (listData) {
+      setLoading(true);
+      listData()
+        .then((res:any) => {
+          setTabData({
+            data: res,
+            pagination: {
+              hasNext: false,
+              next: null,
+            },
+          });})
+        .finally(() => setLoading(false))
+    } else {
+      handleFetchData().then((response: any) => {
+        if (!response) return;
+
+        if (!!renderKey) {
+          setTabData({
+            data: response.data[renderKey],
+            pagination: response.pagination,
+          });
+        } else {
+          setTabData(response);
+        }
+      });
+    }
   }, [tab, sortTerm, fetchParams]);
 
   useEffect(() => {
@@ -153,6 +170,10 @@ const TabsNew: FC<TabsNewProps> = ({
       setLoading(false);
     });
   };
+
+  const sortTableHeading = () => {
+    return sortOptions?.find((el: any) => el.value === sortTerm).heading || tableHeader();
+  }
 
   return (
     <>
@@ -259,7 +280,7 @@ const TabsNew: FC<TabsNewProps> = ({
             style={{ overflow: loading ? 'hidden' : 'auto' }}
             className="tabs_list"
           >
-            {tableHeader()}
+            {sortTableHeading()}
             {!!tabData?.data?.length && render(tabData.data)}
           </div>
         </>

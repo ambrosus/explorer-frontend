@@ -8,6 +8,15 @@
     minmax(80px, 2fr)
     minmax(190px, 3fr)
     minmax(150px, 3fr);
+
+  &_retired {
+    width: 100%;
+    grid-template-columns:
+    minmax(360px, 6fr)
+    minmax(150px, 3fr)
+    minmax(190px, 3fr)
+    minmax(150px, 3fr);
+  }
   border-bottom: 1px solid #eff2f5;
 
   grid-gap: 32px;
@@ -45,6 +54,9 @@
     }
     &_offline {
       color: #bfc9e0;
+    }
+    &_yellow {
+      color: #FFAC23;
     }
   }
 }

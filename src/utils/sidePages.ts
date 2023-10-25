@@ -1,5 +1,4 @@
 import { TApolloSortProps } from '../pages/Apollo/apolloBlocks.interface';
-
 export const transactionFilters = [
   { title: 'All', value: 'all' },
   { title: 'Transfers', value: 'transfers' },
@@ -22,12 +21,6 @@ const methodFilters = [
   { title: 'Payouts', value: 'payouts' },
 ];
 
-export const apollosSorting: TApolloSortProps[] = [
-  { title: 'Address', value: 'address' },
-  { title: 'Total blocks', value: 'totalBundles' },
-  { title: 'Balance', value: 'balance' },
-  { title: 'Stake', value: 'stake' },
-];
 export const apolloDetailsSorting: TApolloSortProps[] = [
   { title: 'All', value: 'all' },
   { title: 'Transfers', value: 'transfers' },
