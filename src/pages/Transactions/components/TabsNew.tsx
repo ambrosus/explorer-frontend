@@ -39,7 +39,6 @@ const TabsNew: FC<TabsNewProps> = ({
   sortOptions,
   fetchData,
   fetchParams,
-  renderKey,
   render,
   withoutCalendar,
   initSortTerm = '',
@@ -114,14 +113,7 @@ const TabsNew: FC<TabsNewProps> = ({
         .finally(() => setLoading(false))
     } else {
       handleFetchData().then((response: any) => {
-        if (!response) return;
-
-        if (!!renderKey) {
-          setTabData({
-            data: response.data[renderKey],
-            pagination: response.pagination,
-          });
-        } else {
+        if (response) {
           setTabData(response);
         }
       });
@@ -140,7 +132,7 @@ const TabsNew: FC<TabsNewProps> = ({
         setTabData((state: AccountsData) => ({
           data: [
             ...state.data,
-            ...(renderKey ? response.data[renderKey] : response.data),
+            ...response.data,
           ],
           pagination: response.pagination,
         }));
