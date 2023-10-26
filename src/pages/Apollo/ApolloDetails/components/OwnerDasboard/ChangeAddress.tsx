@@ -11,6 +11,7 @@ export default function ChangeAddress({
   changeOwner,
   changeRewardsReceiver,
   updateInfo,
+  disabled,
 }: ChangeAddressProps) {
   return (
     <div className="change-address">
@@ -19,6 +20,7 @@ export default function ChangeAddress({
         address={ownerAddress}
         changeAddress={changeOwner}
         updateInfo={updateInfo}
+        disabled={disabled}
       />
       <hr className="change-address__divider" />
       <AddressBody
@@ -26,6 +28,7 @@ export default function ChangeAddress({
         address={rewardsAddress}
         changeAddress={changeRewardsReceiver}
         updateInfo={updateInfo}
+        disabled={disabled}
       />
     </div>
   );
@@ -37,6 +40,7 @@ interface ChangeAddressProps {
   rewardsAddress: string;
   changeRewardsReceiver: (address: string) => any;
   updateInfo: () => any;
+  disabled: undefined | boolean;
 }
 
 function AddressBody({
@@ -44,6 +48,7 @@ function AddressBody({
   address,
   changeAddress,
   updateInfo,
+  disabled,
 }: AddressBodyProps) {
   const { toggled, setToggle } = useToggle();
   const [newAddress, setNewAddress] = useState('');
@@ -83,14 +88,16 @@ function AddressBody({
           <h4 className="change-address__title">{title}</h4>
           <div className="change-address__address">{address}</div>
         </div>
-        <button
-          className={`stake-size__show-more ${
-            toggled ? 'stake-size__show-more_active' : ''
-          }`}
-          onClick={setToggle}
-        >
-          <ArrowDownBig className="stake-size__arrow" />
-        </button>
+        {!disabled && (
+          <button
+            className={`stake-size__show-more ${
+              toggled ? 'stake-size__show-more_active' : ''
+            }`}
+            onClick={setToggle}
+          >
+            <ArrowDownBig className="stake-size__arrow" />
+          </button>
+        )}
       </div>
       <div
         className={`change-address__additional-info ${
@@ -143,4 +150,5 @@ interface AddressBodyProps {
   address: string;
   changeAddress: (address: string) => Promise<any>;
   updateInfo: () => any;
+  disabled?: boolean;
 }
