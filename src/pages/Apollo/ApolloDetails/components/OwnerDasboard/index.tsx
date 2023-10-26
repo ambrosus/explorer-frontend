@@ -23,14 +23,14 @@ export default function OwnerDashboard({ address }: OwnerDashboardProps) {
     // @ts-ignore
     retire(apolloInfo.stakeAmount)
       .then((tx) => {
-        console.log('retire started');
         return tx.wait();
       })
       .then(() => {
-        console.log('retire finished');
         updateInfo();
       });
   }
+
+  const stakeIsZero = apolloInfo?.stakeAmount.isZero();
 
   return isOwner ? (
     <div className="apollo_details__owner-info-container">
@@ -51,17 +51,22 @@ export default function OwnerDashboard({ address }: OwnerDashboardProps) {
           rewardsAddress={apolloInfo?.rewardsAddress}
           changeRewardsReceiver={changeRewardsReceiver}
           updateInfo={updateInfo}
+          disabled={stakeIsZero}
         />
       </div>
-      <Button
-        size="medium"
-        type="plain"
-        className="owner-dashboard__button"
-        onClick={handleRetire}
-      >
-        Node retirement
-      </Button>
-      <TelegramWidget />
+      {!stakeIsZero && (
+        <>
+          <Button
+            size="medium"
+            type="plain"
+            className="owner-dashboard__button"
+            onClick={handleRetire}
+          >
+            Node retirement
+          </Button>
+          <TelegramWidget />
+        </>
+      )}
     </div>
   ) : null;
 }

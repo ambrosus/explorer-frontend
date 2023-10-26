@@ -41,14 +41,16 @@ export default function StakeSize({
             <span className="stake-size__amount_usd">${stakeUsd}</span>
           </div>
         </div>
-        <button
-          className={`stake-size__show-more ${
-            isShowMore ? 'stake-size__show-more_active' : ''
-          }`}
-          onClick={toggleShowMore}
-        >
-          <ArrowDownBig className="stake-size__arrow" />
-        </button>
+        {!stakeAmount.isZero() && (
+          <button
+            className={`stake-size__show-more ${
+              isShowMore ? 'stake-size__show-more_active' : ''
+            }`}
+            onClick={toggleShowMore}
+          >
+            <ArrowDownBig className="stake-size__arrow" />
+          </button>
+        )}
       </div>
       <div
         className={`stake-size__additional-info ${
