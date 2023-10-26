@@ -2,15 +2,19 @@ import API2 from '../../API/newApi';
 import AtlasBlocksHeader from '../Atlas/components/AtlasBlocksHeader';
 import TabsNew from '../Transactions/components/TabsNew';
 import ApolloBlocksBody from './components/ApolloBlocksBody';
-import { Content } from 'components/Content';
-import HeadInfo from 'components/HeadInfo';
-import { useTypedSelector } from 'hooks/useTypedSelector';
-import React, {memo, useEffect} from 'react';
-import { Helmet } from 'react-helmet';
-import {AmbErrorProvider, Contracts, ContractNames} from "@airdao/airdao-node-contracts";
+import {
+  AmbErrorProvider,
+  Contracts,
+  ContractNames,
+} from '@airdao/airdao-node-contracts';
 // @ts-ignore
 import { getCurrentAmbNetwork } from 'airdao-components-and-tools/utils';
-import {utils} from "ethers";
+import { Content } from 'components/Content';
+import HeadInfo from 'components/HeadInfo';
+import { utils } from 'ethers';
+import { useTypedSelector } from 'hooks/useTypedSelector';
+import React, { memo, useEffect } from 'react';
+import { Helmet } from 'react-helmet';
 
 export const Apollo = memo(() => {
   const { data: appData } = useTypedSelector((state: any) => state.app);
@@ -64,7 +68,7 @@ export const Apollo = memo(() => {
     const minutes = String(date.getUTCMinutes()).padStart(2, '0');
 
     return `${day}.${month}.${year} ${hours}:${minutes} UTC`;
-  }
+  };
 
   const getRetiredApollos = async () => {
     const network = getCurrentAmbNetwork();
@@ -72,27 +76,31 @@ export const Apollo = memo(() => {
     // @ts-ignore
     const contracts = new Contracts(provider, network.chainId);
 
-    const lockKeeper =  contracts.getContractByName(ContractNames.LockKeeper);
-    const serverNodes = contracts.getContractByName(ContractNames.ServerNodesManager);
+    const lockKeeper = contracts.getContractByName(ContractNames.LockKeeper);
+    const serverNodes = contracts.getContractByName(
+      ContractNames.ServerNodesManager,
+    );
     const arr = [];
 
     const locks = await lockKeeper.getAllLocks();
     for (const lock of locks) {
       if (lock.locker !== serverNodes.address) continue;
-      if (!lock.description.startsWith("ServerNodes unstake: ")) continue;
+      if (!lock.description.startsWith('ServerNodes unstake: ')) continue;
 
-      const address = lock.description.slice("ServerNodes unstake: ".length);
+      const address = lock.description.slice('ServerNodes unstake: '.length);
       const nodeInfo = await serverNodes.stakes(address);
       if (!nodeInfo.stake.isZero()) continue;
       arr.push({
         address: lock.receiver,
         isRetired: true,
-        unlockTime: timestampToFormattedDate(+utils.formatUnits(lock.firstUnlockTime, 0)),
+        unlockTime: timestampToFormattedDate(
+          +utils.formatUnits(lock.firstUnlockTime, 0),
+        ),
         amount: utils.formatEther(lock.intervalAmount),
       });
     }
     return arr;
-  }
+  };
 
   return (
     <Content>
@@ -120,7 +128,7 @@ export const Apollo = memo(() => {
             {
               title: 'Retired',
               value: 'retired',
-              heading: <AtlasBlocksHeader pageTitle="blocks" isRetired/>,
+              heading: <AtlasBlocksHeader pageTitle="blocks" isRetired />,
               listData: getRetiredApollos,
             },
           ]}

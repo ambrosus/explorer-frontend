@@ -97,20 +97,23 @@ const TabsNew: FC<TabsNewProps> = ({
       },
     });
 
-    const listData = sortOptions?.find((el: any) => el.value === sortTerm).listData
+    const listData = sortOptions?.find(
+      (el: any) => el.value === sortTerm,
+    ).listData;
 
     if (listData) {
       setLoading(true);
       listData()
-        .then((res:any) => {
+        .then((res: any) => {
           setTabData({
             data: res,
             pagination: {
               hasNext: false,
               next: null,
             },
-          });})
-        .finally(() => setLoading(false))
+          });
+        })
+        .finally(() => setLoading(false));
     } else {
       handleFetchData().then((response: any) => {
         if (response) {
@@ -130,10 +133,7 @@ const TabsNew: FC<TabsNewProps> = ({
     ) {
       handleFetchData(tabData.pagination.next).then((response: any) => {
         setTabData((state: AccountsData) => ({
-          data: [
-            ...state.data,
-            ...response.data,
-          ],
+          data: [...state.data, ...response.data],
           pagination: response.pagination,
         }));
       });
@@ -164,8 +164,11 @@ const TabsNew: FC<TabsNewProps> = ({
   };
 
   const sortTableHeading = () => {
-    return sortOptions?.find((el: any) => el.value === sortTerm).heading || tableHeader();
-  }
+    return (
+      sortOptions?.find((el: any) => el.value === sortTerm).heading ||
+      tableHeader()
+    );
+  };
 
   return (
     <>

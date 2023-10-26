@@ -47,15 +47,24 @@ const NodeSetup: React.FC = () => {
 
       if (dataFromStorage) {
         const parsedData = JSON.parse(dataFromStorage);
-        setFormData(parsedData.formData);
-        setStep(parsedData.step);
+
+        if (parsedData[account] && !parsedData[account].finish) {
+          setFormData(parsedData[account].formData);
+          setStep(parsedData[account].step);
+        }
       }
     }
   }, [account]);
 
   useEffect(() => {
-    if (step) {
-      const data = JSON.stringify({ step, formData });
+    if (step && formData.nodeAddress) {
+      const dataFromStorage = localStorage.getItem('nodeSetup') || '{}';
+      const parsedData = JSON.parse(dataFromStorage);
+
+      const data = JSON.stringify({
+        ...parsedData,
+        [formData.nodeAddress]: { step, formData },
+      });
       localStorage.setItem('nodeSetup', data);
     }
   }, [formData, step]);

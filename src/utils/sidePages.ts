@@ -1,4 +1,5 @@
 import { TApolloSortProps } from '../pages/Apollo/apolloBlocks.interface';
+
 export const transactionFilters = [
   { title: 'All', value: 'all' },
   { title: 'Transfers', value: 'transfers' },

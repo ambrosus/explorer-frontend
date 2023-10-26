@@ -2,6 +2,7 @@ import { Atlas } from './pages/Atlas';
 import { BlockDetails } from './pages/Blocks/BlockDetails';
 import { Bundles } from './pages/Bundles';
 import NodeSetup from './pages/NodeSetup';
+import Finish from './pages/NodeSetup/components/Finish';
 import { IRoute } from './types';
 import { Addresses } from 'pages/Addresses';
 import AddressDetails from 'pages/Addresses/AddressDetails';
@@ -121,6 +122,13 @@ export const apolloRoutes: IRoute[] = [
     key: 'Apollo Details',
     exact: true,
     component: () => <ApolloDetails />,
+    isClick: false,
+  },
+  {
+    path: '/node-setup/finish/:nodeAddress',
+    key: 'Node finish',
+    exact: true,
+    component: () => <Finish />,
     isClick: false,
   },
 ];

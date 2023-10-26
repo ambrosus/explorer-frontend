@@ -1,9 +1,17 @@
+import ContentCopy from '../../../assets/icons/CopyIcons/ContentCopy';
+import ContentCopyed from '../../../assets/icons/CopyIcons/ContentCopyed';
+import CopyPopUp from '../../../assets/icons/CopyIcons/CopyPopUp';
+import useCopyContent from '../../../hooks/useCopyContent';
 import Warning from '../Warning';
 import React, { useState } from 'react';
+
+const command =
+  'source <(curl -s https://raw.githubusercontent.com/ambrosus/airdao-nop/master/setup.sh)';
 
 const CommandText: React.FC = () => {
   const [isOpen, setIsOpen] = useState(true);
   const [isWarningOpen, setIsWarningOpen] = useState(true);
+  const { isCopy, copyContent, isCopyPopup } = useCopyContent(command);
 
   return (
     <div className="command-text">
@@ -32,19 +40,24 @@ const CommandText: React.FC = () => {
       </button>
       {isOpen && (
         <div className="command-text__info">
+          <div className="command-text__code">
+            <p>{command}</p>
+            <button className="command-text__copy" onClick={copyContent}>
+              {isCopy ? (
+                <>
+                  <ContentCopyed />
+                </>
+              ) : (
+                <ContentCopy />
+              )}
+            </button>
+          </div>
           {isWarningOpen && (
             <Warning onClose={() => setIsWarningOpen(false)}>
-              You need to use the private key from the address when starting the
-              server.
+              You need to use the private key from the node address when
+              starting the server.
             </Warning>
           )}
-          <div className="command-text__code">
-            <p>
-              {
-                'source <(curl -s https://raw.githubusercontent.com/ambrosus/airdao-nop/master/setup.sh)'
-              }
-            </p>
-          </div>
         </div>
       )}
     </div>

@@ -1,4 +1,6 @@
+import warning from '../../../assets/svg/warning.svg';
 import Warning from '../Warning';
+import nodeOwner from './NodeOwner';
 // @ts-ignore
 import { utils } from 'ethers';
 import React, { useEffect, useState } from 'react';
@@ -24,6 +26,7 @@ const StakeSizeSelect = ({
   const [stakeError, setStakeError] = useState(false);
   const [insufficientBalanceError, setInsufficientBalanceError] =
     useState(false);
+  const [ownerError, setOwnerError] = useState(false);
 
   useEffect(() => {
     provider.on('block', async () => {
@@ -41,9 +44,15 @@ const StakeSizeSelect = ({
 
   useEffect(() => {
     getBalance(account);
+    setOwnerError(account !== formData.nodeOwner);
   }, [account]);
 
   const handleStake = () => {
+    if (account !== formData.nodeOwner) {
+      setOwnerError(true);
+      return;
+    }
+
     if (+formData.stake > balance) {
       setInsufficientBalanceError(true);
       return;
@@ -70,7 +79,6 @@ const StakeSizeSelect = ({
   };
 
   const closeStakeError = () => setStakeError(false);
-
   const closeInsufficientBalanceError = () =>
     setInsufficientBalanceError(false);
 
@@ -135,6 +143,24 @@ const StakeSizeSelect = ({
         <Warning onClose={closeInsufficientBalanceError}>
           Insufficient balance.
         </Warning>
+      )}
+      {ownerError && (
+        <div className="white-container white-container_warning">
+          <img src={warning} alt="warning" />
+          <div>
+            <p className="warning-title">
+              You’ve connected the wrong wallet address.
+            </p>
+            <p className="warning-text">
+              Connect the address that you specified as a node owner to
+              continue. You must have a minimum of{' '}
+              {minStakeAmount.toLocaleString()} AMB in this address to start
+              staking.
+              <br />
+              Connected address: <b>{account}</b>
+            </p>
+          </div>
+        </div>
       )}
     </div>
   );

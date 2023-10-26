@@ -367,7 +367,14 @@
 }
 
 .command-text__code {
-  margin-top: 16px;
+  margin: 16px 0;
+  position: relative;
+}
+
+.command-text__copy {
+  position: absolute;
+  background: transparent;
+  right: 0;
 }
 
 .blue-link {

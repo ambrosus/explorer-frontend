@@ -6,8 +6,9 @@ import { NavLink } from 'react-router-dom';
 import { statusMessage } from 'utils/helpers';
 
 const ApolloBlocksBody: FC<ApolloBodyProps> = ({ index, item }) => {
-  return item && (
-    item.isRetired ? (
+  return (
+    item &&
+    (item.isRetired ? (
       <div className="apollo_blocks_body apollo_blocks_body_retired">
         <NavLink
           style={{
@@ -20,19 +21,21 @@ const ApolloBlocksBody: FC<ApolloBodyProps> = ({ index, item }) => {
         >
           {item.address}
         </NavLink>
-        <div className="apollo_blocks_body_cell apollo_blocks_body_cell_yellow">Blocked</div>
+        <div className="apollo_blocks_body_cell apollo_blocks_body_cell_yellow">
+          Blocked
+        </div>
         <div className="apollo_blocks_body_cell">
           <span className="address_blocks_cell_icon">
             <Amb />
           </span>
           <span className="apollo_blocks_body_cell_token">AMB</span>
           <span className="apollo_blocks_body_cell_value">
-          <Currency
-            value={item ? `${item.amount}` : '0'}
-            symbol=" "
-            fixed={8}
-          />
-        </span>
+            <Currency
+              value={item ? `${item.amount}` : '0'}
+              symbol=" "
+              fixed={8}
+            />
+          </span>
         </div>
         <div className="apollo_blocks_body_cell">{item.unlockTime}</div>
       </div>
@@ -56,17 +59,17 @@ const ApolloBlocksBody: FC<ApolloBodyProps> = ({ index, item }) => {
         </div>
         <div className="apollo_blocks_body_cell">{item.totalBlocks}</div>
         <div className="apollo_blocks_body_cell">
-        <span className="address_blocks_cell_icon">
-          <Amb />
-        </span>
+          <span className="address_blocks_cell_icon">
+            <Amb />
+          </span>
           <span className="apollo_blocks_body_cell_token">AMB</span>
           <span className="apollo_blocks_body_cell_value">
-          <Currency
-            value={item ? `${item.balance?.ether}` : '0'}
-            symbol=" "
-            fixed={8}
-          />
-        </span>
+            <Currency
+              value={item ? `${item.balance?.ether}` : '0'}
+              symbol=" "
+              fixed={8}
+            />
+          </span>
         </div>
         <div className="apollo_blocks_body_cell">
           <Currency
@@ -76,7 +79,7 @@ const ApolloBlocksBody: FC<ApolloBodyProps> = ({ index, item }) => {
           />
         </div>
       </div>
-    )
+    ))
   );
 };
 
