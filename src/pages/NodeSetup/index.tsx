@@ -11,14 +11,16 @@ import {
   Methods,
 } from '@airdao/airdao-node-contracts';
 import { useWeb3React } from '@web3-react/core';
-import { getCurrentAmbNetwork } from 'airdao-components-and-tools/utils';
 import { utils } from 'ethers';
 import React, { useEffect, useState } from 'react';
+import {useNavigate} from "react-router-dom";
 
 const { ethereum }: any = window;
+const ambChainId = process.env.REACT_APP_CHAIN_ID || '';
 
 const NodeSetup: React.FC = () => {
-  const { account } = useWeb3React();
+  const navigate = useNavigate();
+  const { account, chainId } = useWeb3React();
   const provider = ethereum ? new AmbErrorProviderWeb3(ethereum) : null;
 
   const [formData, setFormData] = useState<{
@@ -33,13 +35,14 @@ const NodeSetup: React.FC = () => {
   const [minStakeAmount, setMinStakeAmount] = useState(0);
 
   useEffect(() => {
-    const network = getCurrentAmbNetwork();
-    const contracts = new Contracts(provider, network.chainId);
+    if (chainId !== +ambChainId) return ;
+
+    const contracts = new Contracts(provider, chainId);
 
     Methods.serverNodesGetMinStake(contracts).then((res) =>
       setMinStakeAmount(+utils.formatEther(res)),
     );
-  }, []);
+  }, [chainId]);
 
   useEffect(() => {
     if (account) {
@@ -70,6 +73,15 @@ const NodeSetup: React.FC = () => {
   }, [formData, step]);
 
   const handleNextClick = () => {
+    if (account && step > 1) {
+      const dataFromStorage = localStorage.getItem('nodeSetup') || '{}';
+      const parsedData = JSON.parse(dataFromStorage);
+
+      if (parsedData[account]?.finish) {
+        navigate('/node-setup/finish/' + formData.nodeAddress);
+      }
+    }
+
     if (skipToConfirm) {
       setStep(5);
       setSkipToConfirm(false);

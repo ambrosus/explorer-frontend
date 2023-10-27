@@ -178,6 +178,7 @@
 .white-container__input-wrapper {
   width: 85%;
   position: relative;
+  margin-right: 10px;
 }
 
 .white-container__input {
@@ -369,6 +370,7 @@
 .command-text__code {
   margin: 16px 0;
   position: relative;
+  display: flex;
 }
 
 .command-text__copy {

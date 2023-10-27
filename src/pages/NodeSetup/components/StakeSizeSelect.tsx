@@ -1,9 +1,10 @@
 import warning from '../../../assets/svg/warning.svg';
 import Warning from '../Warning';
-import nodeOwner from './NodeOwner';
-// @ts-ignore
 import { utils } from 'ethers';
 import React, { useEffect, useState } from 'react';
+// @ts-ignore
+import { switchToAmb } from 'airdao-components-and-tools/utils';
+import {useWeb3React} from "@web3-react/core";
 
 interface StakeSizeSelectProps {
   formData: any;
@@ -14,6 +15,8 @@ interface StakeSizeSelectProps {
   minStakeAmount: number;
 }
 
+const ambChainId = process.env.REACT_APP_CHAIN_ID || '';
+
 const StakeSizeSelect = ({
   formData,
   handleNextClick,
@@ -22,6 +25,8 @@ const StakeSizeSelect = ({
   setFormData,
   minStakeAmount,
 }: StakeSizeSelectProps) => {
+  const { chainId } = useWeb3React();
+
   const [balance, setBalance] = useState(0);
   const [stakeError, setStakeError] = useState(false);
   const [insufficientBalanceError, setInsufficientBalanceError] =
@@ -40,7 +45,7 @@ const StakeSizeSelect = ({
       if (!provider) return;
       provider.removeAllListeners();
     };
-  }, []);
+  }, [chainId]);
 
   useEffect(() => {
     getBalance(account);
@@ -48,6 +53,10 @@ const StakeSizeSelect = ({
   }, [account]);
 
   const handleStake = () => {
+    if (chainId !== +ambChainId) {
+      switchToAmb(provider.provider);
+      return;
+    }
     if (account !== formData.nodeOwner) {
       setOwnerError(true);
       return;
@@ -130,7 +139,7 @@ const StakeSizeSelect = ({
           className="white-container__button white-container__button_white"
           onClick={handleStake}
         >
-          Confirm
+          {chainId !== +ambChainId ? 'Switch to AirDAO Network' : 'Confirm'}
         </button>
       </div>
       {stakeError && (
@@ -158,6 +167,8 @@ const StakeSizeSelect = ({
               staking.
               <br />
               Connected address: <b>{account}</b>
+              <br/>
+              Node owner address: <b>{formData.nodeOwner}</b>
             </p>
           </div>
         </div>
