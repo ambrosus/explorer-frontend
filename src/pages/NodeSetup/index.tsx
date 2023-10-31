@@ -13,7 +13,7 @@ import {
 import { useWeb3React } from '@web3-react/core';
 import { utils } from 'ethers';
 import React, { useEffect, useState } from 'react';
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 const { ethereum }: any = window;
 const ambChainId = process.env.REACT_APP_CHAIN_ID || '';
@@ -35,7 +35,7 @@ const NodeSetup: React.FC = () => {
   const [minStakeAmount, setMinStakeAmount] = useState(0);
 
   useEffect(() => {
-    if (chainId !== +ambChainId) return ;
+    if (chainId !== +ambChainId) return;
 
     const contracts = new Contracts(provider, chainId);
 

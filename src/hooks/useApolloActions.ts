@@ -3,6 +3,8 @@ import {
   Contracts,
   Methods,
 } from '@airdao/airdao-node-contracts';
+// @ts-ignore
+import { Notify } from '@airdao/ui-library';
 import { useWeb3React } from '@web3-react/core';
 import { BigNumber } from 'ethers';
 import { parseEther } from 'ethers/lib/utils';
@@ -23,7 +25,25 @@ export default function useApolloActions(nodeAddress: string) {
     (amount: string) => {
       if (!contracts) return null;
       const bnAmount = parseEther(amount);
-      return Methods.serverNodesAddStake(contracts, nodeAddress, bnAmount);
+
+      return Methods.serverNodesAddStake(
+        contracts,
+        nodeAddress,
+        bnAmount,
+      ).catch((e) => {
+        if (e.message === 'resulting stake < minStakeAmount') {
+          return Notify.error(
+            'Please stake a bigger amount.',
+            'Your node stake will be below the minimum stake amount after this stake.',
+          );
+        }
+
+        if (e.message === 'msg.value must be > 0') {
+          return Notify.error('Amount must be greater than 0');
+        }
+
+        return Notify.error('Something went wrong', 'Please try again later');
+      });
     },
     [contracts, nodeAddress],
   );
@@ -32,7 +52,26 @@ export default function useApolloActions(nodeAddress: string) {
     (amount: string) => {
       if (!contracts) return null;
       const bnAmount = parseEther(amount);
-      return Methods.serverNodesUnstake(contracts, nodeAddress, bnAmount);
+      return Methods.serverNodesUnstake(contracts, nodeAddress, bnAmount).catch(
+        (e) => {
+          if (e.message === 'resulting stake < minStakeAmount') {
+            return Notify.error(
+              'Please unstake a smaller amount.',
+              'Your node stake will be below the minimum stake amount after this unstake.',
+            );
+          }
+
+          if (e.message === 'amount must be > 0') {
+            return Notify.error('Amount must be greater than 0');
+          }
+
+          if (e.message === 'stake < amount') {
+            return Notify.error('Amount must be less than current stake');
+          }
+
+          return Notify.error('Something went wrong', 'Please try again later');
+        },
+      );
     },
     [nodeAddress, contracts],
   );
@@ -40,14 +79,20 @@ export default function useApolloActions(nodeAddress: string) {
   const retire = useCallback(
     (stake: BigNumber) => {
       if (!contracts) return null;
-      return Methods.serverNodesUnstake(contracts, nodeAddress, stake);
+      return Methods.serverNodesUnstake(contracts, nodeAddress, stake).catch(
+        (e) => {
+          Notify.error('Something went wrong', 'Please try again later');
+        },
+      );
     },
     [nodeAddress, contracts],
   );
 
   const cancelUnstake = useCallback(() => {
     if (!contracts) return null;
-    return Methods.serverNodesRestake(contracts, nodeAddress);
+    return Methods.serverNodesRestake(contracts, nodeAddress).catch((e) => {
+      Notify.error('Something went wrong', 'Please try again later');
+    });
   }, [nodeAddress, contracts]);
 
   const changeOwner = useCallback(

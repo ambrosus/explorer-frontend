@@ -41,7 +41,7 @@ export default function StakeSize({
             <span className="stake-size__amount_usd">${stakeUsd}</span>
           </div>
         </div>
-        {!stakeAmount.isZero() && (
+        {!stakeAmount.isZero() ? (
           <button
             className={`stake-size__show-more ${
               isShowMore ? 'stake-size__show-more_active' : ''
@@ -50,7 +50,16 @@ export default function StakeSize({
           >
             <ArrowDownBig className="stake-size__arrow" />
           </button>
-        )}
+        ) : withdrawLock ? (
+          <button
+            className={`stake-size__show-more ${
+              isShowMore ? 'stake-size__show-more_active' : ''
+            }`}
+            onClick={toggleShowMore}
+          >
+            <ArrowDownBig className="stake-size__arrow" />
+          </button>
+        ) : null}
       </div>
       <div
         className={`stake-size__additional-info ${
@@ -66,21 +75,21 @@ export default function StakeSize({
             defaultUnlockTime={defaultUnlockTime}
           />
         )}
-        {layoutState === 'initial' && (
+        {layoutState === 'initial' && !stakeAmount.isZero() && (
           <AdditionalInfo
             onStake={() => setLayoutState('stake')}
             onUnstake={() => setLayoutState('unstake')}
             defaultUnlockTime={defaultUnlockTime}
           />
         )}
-        {layoutState === 'stake' && (
+        {layoutState === 'stake' && !stakeAmount.isZero() && (
           <Stake
             setLayoutState={setLayoutState}
             addStake={addStake}
             updateInfo={updateInfo}
           />
         )}
-        {layoutState === 'unstake' && (
+        {layoutState === 'unstake' && !stakeAmount.isZero() && (
           <Unstake
             setLayoutState={setLayoutState}
             unstake={unstake}

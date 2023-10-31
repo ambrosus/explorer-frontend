@@ -1,12 +1,5 @@
-import Button from '../../../components/Button';
-import useApolloActions from '../../../hooks/useApolloActions';
-import useApolloInfo from '../../../hooks/useApolloInfo';
 import { Account } from '../apollo.interface';
 import OwnerDashboard from './components/OwnerDasboard';
-import ChangeAddress from './components/OwnerDasboard/ChangeAddress';
-import StakeSize from './components/OwnerDasboard/StakeSize';
-import TelegramWidget from './components/OwnerDasboard/TelegramWidget';
-import API from 'API/api';
 import API2 from 'API/newApi';
 import { Content } from 'components/Content';
 import CopyBtn from 'components/CopyBtn';

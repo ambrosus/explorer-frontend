@@ -1,10 +1,10 @@
 import warning from '../../../assets/svg/warning.svg';
 import Warning from '../Warning';
-import { utils } from 'ethers';
-import React, { useEffect, useState } from 'react';
+import { useWeb3React } from '@web3-react/core';
 // @ts-ignore
 import { switchToAmb } from 'airdao-components-and-tools/utils';
-import {useWeb3React} from "@web3-react/core";
+import { utils } from 'ethers';
+import React, { useEffect, useState } from 'react';
 
 interface StakeSizeSelectProps {
   formData: any;
@@ -167,7 +167,7 @@ const StakeSizeSelect = ({
               staking.
               <br />
               Connected address: <b>{account}</b>
-              <br/>
+              <br />
               Node owner address: <b>{formData.nodeOwner}</b>
             </p>
           </div>
