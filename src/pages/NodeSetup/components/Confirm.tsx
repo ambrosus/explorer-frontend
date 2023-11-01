@@ -1,11 +1,11 @@
 import warning from '../../../assets/svg/warning.svg';
 import { Contracts, Methods } from '@airdao/airdao-node-contracts';
+import { useWeb3React } from '@web3-react/core';
+// @ts-ignore
+import { switchToAmb } from 'airdao-components-and-tools/utils';
 import { ethers } from 'ethers';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {useWeb3React} from "@web3-react/core";
-// @ts-ignore
-import { switchToAmb } from 'airdao-components-and-tools/utils';
 
 const ambChainId = process.env.REACT_APP_CHAIN_ID || '';
 
@@ -91,7 +91,11 @@ const Confirm = ({
         <div className="node-check__item">
           <p className="node-check__label">Node address</p>
           <p className="node-check__value">{formData.nodeAddress}</p>
-          <button className="node-check__change" onClick={() => backToStep(1)} disabled={loading}>
+          <button
+            className="node-check__change"
+            onClick={() => backToStep(1)}
+            disabled={loading}
+          >
             Change
           </button>
         </div>
@@ -102,14 +106,22 @@ const Confirm = ({
         >
           <p className="node-check__label">Node owner address</p>
           <p className="node-check__value">{formData.nodeOwner}</p>
-          <button className="node-check__change" onClick={() => backToStep(2)} disabled={loading}>
+          <button
+            className="node-check__change"
+            onClick={() => backToStep(2)}
+            disabled={loading}
+          >
             Change
           </button>
         </div>
         <div className="node-check__item">
           <p className="node-check__label">Node rewards recipient</p>
           <p className="node-check__value">{formData.receiveAddress}</p>
-          <button className="node-check__change" onClick={() => backToStep(3)} disabled={loading}>
+          <button
+            className="node-check__change"
+            onClick={() => backToStep(3)}
+            disabled={loading}
+          >
             Change
           </button>
         </div>
@@ -118,7 +130,11 @@ const Confirm = ({
           <p className="node-check__value">
             {formData.stake && (+formData.stake).toLocaleString()} AMB
           </p>
-          <button className="node-check__change" onClick={() => backToStep(4)} disabled={loading}>
+          <button
+            className="node-check__change"
+            onClick={() => backToStep(4)}
+            disabled={loading}
+          >
             Change
           </button>
         </div>
