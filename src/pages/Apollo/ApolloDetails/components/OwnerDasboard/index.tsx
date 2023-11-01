@@ -20,10 +20,10 @@ export default function OwnerDashboard({ address }: OwnerDashboardProps) {
   } = useApolloActions(address);
 
   function handleRetire() {
-    // @ts-ignore
+    //@ts-ignore
     retire(apolloInfo.stakeAmount)
       .then((tx) => {
-        return tx.wait();
+        return tx?.wait();
       })
       .then(() => {
         updateInfo();
