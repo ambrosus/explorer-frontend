@@ -1,6 +1,5 @@
 import ContentCopy from '../../../assets/icons/CopyIcons/ContentCopy';
 import ContentCopyed from '../../../assets/icons/CopyIcons/ContentCopyed';
-import CopyPopUp from '../../../assets/icons/CopyIcons/CopyPopUp';
 import useCopyContent from '../../../hooks/useCopyContent';
 import Warning from '../Warning';
 import React, { useState } from 'react';
