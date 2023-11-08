@@ -29,6 +29,12 @@ export default function StakeSize({
     );
   }, []);
 
+  useEffect(() => {
+    if (stakeAmount.isZero()) {
+      toggleShowMore(true);
+    }
+  }, [stakeAmount]);
+
   return (
     <div className="stake-size">
       <div className="stake-size__head">

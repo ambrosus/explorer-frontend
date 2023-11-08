@@ -193,6 +193,10 @@
 
 .stake-size__pending-cancel {
   align-self: flex-end;
+
+  &:hover {
+    background: var(--alpha-black-5, rgba(14, 14, 14, 0.05));
+  }
 }
 
 .stake-size__spinner {

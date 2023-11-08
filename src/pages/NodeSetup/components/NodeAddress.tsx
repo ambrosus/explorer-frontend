@@ -5,6 +5,7 @@ import { useWeb3React } from '@web3-react/core';
 import { useAuthorization } from 'airdao-components-and-tools/hooks';
 import { metamaskConnector } from 'airdao-components-and-tools/utils';
 import React, { useEffect, useState } from 'react';
+import { switchToAmb } from 'airdao-components-and-tools/utils';
 
 interface NodeAddressProps {
   handleNextClick: () => {};
@@ -28,6 +29,7 @@ const NodeAddress = ({
   }, [account]);
 
   const handleNodeAddress = async () => {
+    switchToAmb(provider.provider);
     const chainId = (await provider.getNetwork()).chainId;
     const contracts = new Contracts(provider, chainId);
 

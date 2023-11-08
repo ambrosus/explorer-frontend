@@ -17,6 +17,12 @@ export default function useApolloInfo(address = ''): ApolloInfo {
 
   const updateInfo = () => {
     if (!address) return;
+
+    setApolloInfo((state) => ({
+      ...state,
+      withdrawLock: undefined,
+    }));
+
     getApolloInfo(address).then((data) => {
       if (!data) return;
       setApolloInfo(data);

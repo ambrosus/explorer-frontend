@@ -25,4 +25,5 @@ interface ButtonProps {
   size: 'small' | 'medium' | 'large';
   type: 'primary' | 'secondary' | 'tertiary' | 'plain';
   onClick?: (e?: any) => void;
+  disabled?: boolean;
 }

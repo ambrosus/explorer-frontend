@@ -4,9 +4,10 @@ import useApolloInfo from '../../../../../hooks/useApolloInfo';
 import ChangeAddress from './ChangeAddress';
 import StakeSize from './StakeSize';
 import TelegramWidget from './TelegramWidget';
-import React from 'react';
+import React, { useState } from 'react';
 
 export default function OwnerDashboard({ address }: OwnerDashboardProps) {
+  const [retireLoading, setRetireLoading] = useState(false);
   const { isOwner, apolloInfo, stakeUsd, updateInfo } = useApolloInfo(address);
 
   const {
@@ -19,15 +20,17 @@ export default function OwnerDashboard({ address }: OwnerDashboardProps) {
     getUnlockTime,
   } = useApolloActions(address);
 
-  function handleRetire() {
+  async function handleRetire() {
+    setRetireLoading(true);
     //@ts-ignore
-    retire(apolloInfo.stakeAmount)
+    await retire(apolloInfo.stakeAmount)
       .then((tx) => {
         return tx?.wait();
       })
       .then(() => {
         updateInfo();
       });
+    setRetireLoading(false);
   }
 
   const stakeIsZero = apolloInfo?.stakeAmount.isZero();
@@ -61,7 +64,9 @@ export default function OwnerDashboard({ address }: OwnerDashboardProps) {
             type="plain"
             className="owner-dashboard__button"
             onClick={handleRetire}
+            disabled={retireLoading}
           >
+            {retireLoading && <div className="node-setup-loader" />}
             Node retirement
           </Button>
           <TelegramWidget />

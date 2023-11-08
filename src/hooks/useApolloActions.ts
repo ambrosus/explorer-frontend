@@ -6,6 +6,8 @@ import {
 // @ts-ignore
 import { Notify } from '@airdao/ui-library';
 import { useWeb3React } from '@web3-react/core';
+// @ts-ignore
+import { switchToAmb } from 'airdao-components-and-tools/utils';
 import { BigNumber } from 'ethers';
 import { parseEther } from 'ethers/lib/utils';
 import { useCallback, useMemo } from 'react';
@@ -24,6 +26,10 @@ export default function useApolloActions(nodeAddress: string) {
   const addStake = useCallback(
     (amount: string) => {
       if (!contracts) return null;
+      if (provider) {
+        switchToAmb(provider.provider);
+      }
+
       const bnAmount = parseEther(amount);
 
       return Methods.serverNodesAddStake(
@@ -51,6 +57,9 @@ export default function useApolloActions(nodeAddress: string) {
   const unstake = useCallback(
     (amount: string) => {
       if (!contracts) return null;
+      if (provider) {
+        switchToAmb(provider.provider);
+      }
       const bnAmount = parseEther(amount);
       return Methods.serverNodesUnstake(contracts, nodeAddress, bnAmount).catch(
         (e) => {
@@ -79,6 +88,9 @@ export default function useApolloActions(nodeAddress: string) {
   const retire = useCallback(
     (stake: BigNumber) => {
       if (!contracts) return null;
+      if (provider) {
+        switchToAmb(provider.provider);
+      }
       return Methods.serverNodesUnstake(contracts, nodeAddress, stake).catch(
         (e) => {
           Notify.error('Something went wrong', 'Please try again later');
@@ -90,6 +102,9 @@ export default function useApolloActions(nodeAddress: string) {
 
   const cancelUnstake = useCallback(() => {
     if (!contracts) return null;
+    if (provider) {
+      switchToAmb(provider.provider);
+    }
     return Methods.serverNodesRestake(contracts, nodeAddress).catch((e) => {
       Notify.error('Something went wrong', 'Please try again later');
     });
@@ -98,6 +113,9 @@ export default function useApolloActions(nodeAddress: string) {
   const changeOwner = useCallback(
     (newOwner: string) => {
       if (!contracts) return null;
+      if (provider) {
+        switchToAmb(provider.provider);
+      }
       return Methods.serverNodesChangeNodeOwner(
         contracts,
         nodeAddress,
@@ -110,6 +128,9 @@ export default function useApolloActions(nodeAddress: string) {
   const changeRewardsReceiver = useCallback(
     (newReceiver: string) => {
       if (!contracts) return null;
+      if (provider) {
+        switchToAmb(provider.provider);
+      }
       return Methods.serverNodesSetRewardsAddress(
         contracts,
         nodeAddress,
@@ -121,6 +142,7 @@ export default function useApolloActions(nodeAddress: string) {
 
   const getUnlockTime = useCallback(() => {
     if (!contracts) return null;
+
     return Methods.serverNodesGetUnstakeLockTime(contracts);
   }, [contracts]);
 

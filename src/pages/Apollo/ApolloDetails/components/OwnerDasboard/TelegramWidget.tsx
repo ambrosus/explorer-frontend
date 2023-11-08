@@ -1,11 +1,38 @@
+// @ts-ignore
+import { Notify } from '@airdao/ui-library';
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
+
+const notifyServiceUrls: any = {
+  '16718': 'https://notification-service-api.ambrosus.io',
+  '22040': 'https://notification-service-api.ambrosus-dev.io',
+  '30746': 'https://notification-service-api.ambrosus-dev.io',
+}
+
+const chainId = process.env.REACT_APP_CHAIN_ID;
+
 export default function TelegramWidget() {
+  const { address } = useParams();
+
+  const handleRedirect = () => {
+    console.log(address);
+    if (!chainId) return null;
+    axios
+      .get(
+        `${notifyServiceUrls[chainId]}/generateLink?ownerAddress=${address}`,
+      )
+      .then((res) => {
+        if (!res.data) {
+          Notify.error('You have already connected to bot');
+        } else {
+          // @ts-ignore
+          window.open(`https://${res.data}`, '_blank').focus();
+        }
+      });
+  };
+
   return (
-    <a
-      className="telegram-widget"
-      target="_blank"
-      href="https://t.me/"
-      rel="noreferrer"
-    >
+    <button className="telegram-widget" onClick={handleRedirect}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="32"
@@ -49,6 +76,6 @@ export default function TelegramWidget() {
           strokeLinejoin="round"
         />
       </svg>
-    </a>
+    </button>
   );
 }
