@@ -28,6 +28,8 @@ const ContractDetails = (props: any) => {
     () => getImplementation(address),
   );
 
+  console.log(implementation);
+
   // don't show anything before we get the proxy impl abi
   if (isLoading) return <Loader />;
 
@@ -106,6 +108,7 @@ const ContractDetails = (props: any) => {
             <ContractHeader
               sourcifyStatus={contractInfo?.data?.status}
               metadata={sourcifyMetadata}
+              implementationAddress={implementation?.address}
             />
           )}
 

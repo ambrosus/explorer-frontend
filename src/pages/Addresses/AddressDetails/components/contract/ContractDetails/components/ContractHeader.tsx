@@ -31,6 +31,10 @@ const ContractHeader = (props: any) => {
           <span>{metadata?.compiler?.version}</span>
         </p>
         <p>
+          {'Implementation address: '}
+          <span>{props.implementationAddress}</span>
+        </p>
+        <p>
           {'Optimization Enabled: '}
           <span>
             {`${

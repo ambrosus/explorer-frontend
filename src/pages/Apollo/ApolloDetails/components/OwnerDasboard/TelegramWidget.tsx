@@ -7,7 +7,7 @@ const notifyServiceUrls: any = {
   '16718': 'https://notification-service-api.ambrosus.io',
   '22040': 'https://notification-service-api.ambrosus-test.io',
   '30746': 'https://notification-service-api.ambrosus-dev.io',
-}
+};
 
 const chainId = process.env.REACT_APP_CHAIN_ID;
 
@@ -18,9 +18,7 @@ export default function TelegramWidget() {
     console.log(address);
     if (!chainId) return null;
     axios
-      .get(
-        `${notifyServiceUrls[chainId]}/generateLink?ownerAddress=${address}`,
-      )
+      .get(`${notifyServiceUrls[chainId]}/generateLink?ownerAddress=${address}`)
       .then((res) => {
         if (!res.data) {
           Notify.error('You have already connected to bot');

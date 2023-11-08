@@ -4,8 +4,8 @@ import { Contracts, Methods } from '@airdao/airdao-node-contracts';
 import { useWeb3React } from '@web3-react/core';
 import { useAuthorization } from 'airdao-components-and-tools/hooks';
 import { metamaskConnector } from 'airdao-components-and-tools/utils';
-import React, { useEffect, useState } from 'react';
 import { switchToAmb } from 'airdao-components-and-tools/utils';
+import React, { useEffect, useState } from 'react';
 
 interface NodeAddressProps {
   handleNextClick: () => {};
