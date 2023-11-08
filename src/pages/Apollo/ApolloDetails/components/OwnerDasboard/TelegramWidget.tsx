@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 
 const notifyServiceUrls: any = {
   '16718': 'https://notification-service-api.ambrosus.io',
-  '22040': 'https://notification-service-api.ambrosus-dev.io',
+  '22040': 'https://notification-service-api.ambrosus-test.io',
   '30746': 'https://notification-service-api.ambrosus-dev.io',
 }
 
