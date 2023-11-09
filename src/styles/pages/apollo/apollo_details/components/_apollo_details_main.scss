@@ -93,4 +93,12 @@
   border: 1.5px solid var(--neutral-800, #191919);
   box-shadow: 0px 1px 3px 0px rgba(47, 43, 67, 0.10), 0px -1px 0px 0px rgba(47, 43, 67, 0.10) inset;
   color: var(--neutral-800, #191919) !important;
+
+  .node-setup-loader {
+    margin-right: 0;
+    width: 20px;
+    height: 20px;
+    border-color: #a5a5a5;
+    border-left-color: #fff;
+  }
 }
