@@ -1,5 +1,6 @@
 import React, { memo } from 'react';
 import { firstLetterUp } from 'utils/helpers';
+import {NavLink} from "react-router-dom";
 
 const ContractHeader = (props: any) => {
   const { status, metadata } = props;
@@ -32,7 +33,7 @@ const ContractHeader = (props: any) => {
         </p>
         <p>
           {'Implementation address: '}
-          <span>{props.implementationAddress}</span>
+          <NavLink to={`/address/${props.implementationAddress}`}>{props.implementationAddress}</NavLink>
         </p>
         <p>
           {'Optimization Enabled: '}

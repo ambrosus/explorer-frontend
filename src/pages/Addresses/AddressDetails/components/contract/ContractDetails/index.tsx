@@ -28,8 +28,6 @@ const ContractDetails = (props: any) => {
     () => getImplementation(address),
   );
 
-  console.log(implementation);
-
   // don't show anything before we get the proxy impl abi
   if (isLoading) return <Loader />;
 
