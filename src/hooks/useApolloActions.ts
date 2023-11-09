@@ -37,6 +37,9 @@ export default function useApolloActions(nodeAddress: string) {
         nodeAddress,
         bnAmount,
       ).catch((e) => {
+        if (e.message.includes('user rejected transaction')) {
+          return null;
+        }
         if (e.message === 'resulting stake < minStakeAmount') {
           return Notify.error(
             'Please stake a bigger amount.',
@@ -63,6 +66,9 @@ export default function useApolloActions(nodeAddress: string) {
       const bnAmount = parseEther(amount);
       return Methods.serverNodesUnstake(contracts, nodeAddress, bnAmount).catch(
         (e) => {
+          if (e.message.includes('user rejected transaction')) {
+            return null;
+          }
           if (e.message === 'resulting stake < minStakeAmount') {
             return Notify.error(
               'Please unstake a smaller amount.',
@@ -93,6 +99,9 @@ export default function useApolloActions(nodeAddress: string) {
       }
       return Methods.serverNodesUnstake(contracts, nodeAddress, stake).catch(
         (e) => {
+          if (e.message.includes('user rejected transaction')) {
+            return null;
+          }
           Notify.error('Something went wrong', 'Please try again later');
         },
       );
@@ -106,6 +115,9 @@ export default function useApolloActions(nodeAddress: string) {
       await switchToAmb(provider.provider);
     }
     return Methods.serverNodesRestake(contracts, nodeAddress).catch((e) => {
+      if (e.message.includes('user rejected transaction')) {
+        return null;
+      }
       Notify.error('Something went wrong', 'Please try again later');
     });
   }, [nodeAddress, contracts]);
