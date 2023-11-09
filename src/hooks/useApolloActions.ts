@@ -15,7 +15,7 @@ import { useCallback, useMemo } from 'react';
 const { REACT_APP_CHAIN_ID: chainId } = process.env;
 
 export default function useApolloActions(nodeAddress: string) {
-  const { provider } = useWeb3React();
+  const { provider, chainId: selectedChainId } = useWeb3React();
 
   const contracts = useMemo(() => {
     if (!provider || !chainId) return null;
@@ -24,9 +24,9 @@ export default function useApolloActions(nodeAddress: string) {
   }, [provider, chainId]);
 
   const addStake = useCallback(
-    (amount: string) => {
+    async (amount: string) => {
       if (!contracts) return null;
-      if (provider) {
+      if (provider && selectedChainId !== chainId) {
         switchToAmb(provider.provider);
       }
 
@@ -55,10 +55,10 @@ export default function useApolloActions(nodeAddress: string) {
   );
 
   const unstake = useCallback(
-    (amount: string) => {
+    async (amount: string) => {
       if (!contracts) return null;
-      if (provider) {
-        switchToAmb(provider.provider);
+      if (provider && selectedChainId !== chainId) {
+        await switchToAmb(provider.provider);
       }
       const bnAmount = parseEther(amount);
       return Methods.serverNodesUnstake(contracts, nodeAddress, bnAmount).catch(
@@ -86,10 +86,10 @@ export default function useApolloActions(nodeAddress: string) {
   );
 
   const retire = useCallback(
-    (stake: BigNumber) => {
+    async (stake: BigNumber) => {
       if (!contracts) return null;
-      if (provider) {
-        switchToAmb(provider.provider);
+      if (provider && selectedChainId !== chainId) {
+        await switchToAmb(provider.provider);
       }
       return Methods.serverNodesUnstake(contracts, nodeAddress, stake).catch(
         (e) => {
@@ -100,10 +100,10 @@ export default function useApolloActions(nodeAddress: string) {
     [nodeAddress, contracts],
   );
 
-  const cancelUnstake = useCallback(() => {
+  const cancelUnstake = useCallback(async () => {
     if (!contracts) return null;
-    if (provider) {
-      switchToAmb(provider.provider);
+    if (provider && selectedChainId !== chainId) {
+      await switchToAmb(provider.provider);
     }
     return Methods.serverNodesRestake(contracts, nodeAddress).catch((e) => {
       Notify.error('Something went wrong', 'Please try again later');
@@ -111,10 +111,10 @@ export default function useApolloActions(nodeAddress: string) {
   }, [nodeAddress, contracts]);
 
   const changeOwner = useCallback(
-    (newOwner: string) => {
+    async (newOwner: string) => {
       if (!contracts) return null;
-      if (provider) {
-        switchToAmb(provider.provider);
+      if (provider && selectedChainId !== chainId) {
+        await switchToAmb(provider.provider);
       }
       return Methods.serverNodesChangeNodeOwner(
         contracts,
@@ -126,10 +126,10 @@ export default function useApolloActions(nodeAddress: string) {
   );
 
   const changeRewardsReceiver = useCallback(
-    (newReceiver: string) => {
+    async (newReceiver: string) => {
       if (!contracts) return null;
-      if (provider) {
-        switchToAmb(provider.provider);
+      if (provider && selectedChainId !== chainId) {
+        await switchToAmb(provider.provider);
       }
       return Methods.serverNodesSetRewardsAddress(
         contracts,

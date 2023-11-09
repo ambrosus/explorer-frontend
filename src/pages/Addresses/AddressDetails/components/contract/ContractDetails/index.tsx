@@ -33,7 +33,7 @@ const ContractDetails = (props: any) => {
 
   const isContractVerified = !!contractAbi;
   const proxyImplAbi = implementation?.abi || [];
-
+  console.log(implementation);
   const allowedTabs = [];
   if (isContractVerified) allowedTabs.push('code', 'read', 'write', 'events');
   if (!isContractVerified) allowedTabs.push('verify');
