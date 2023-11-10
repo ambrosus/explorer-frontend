@@ -66,7 +66,11 @@ const NodeSetup: React.FC = () => {
 
       const data = JSON.stringify({
         ...parsedData,
-        [formData.nodeAddress]: { step, formData },
+        [formData.nodeAddress]: {
+          ...parsedData[formData.nodeAddress],
+          step,
+          formData,
+        },
       });
       localStorage.setItem('nodeSetup', data);
     }
