@@ -78,14 +78,14 @@ const Confirm = ({
     <div className="white-container white-container_transparent">
       <h3 className="node-setup__title">Launch a validator node</h3>
       <p className="node-setup__text node-setup__text_height">
-        <b>Please double check all selected parameters.</b> Connect the wallet
-        you want to use to set up a node. Read how to set up a node with our
-        GitHub Wiki. Need help? Go to{' '}
-        <a href="mailto:support@airdao.io">support@airdao.io</a>
+        <b>Please double check all selected parameters.</b>Connect the wallet
+        you want to use to set up a node. We highly recommend you read{' '}
+        <a href="/">our step-by-step guide</a> for launching a validator node
+        before you start. Need help? Go to support@airdao.io
       </p>
       <p className="node-setup__text node-setup__text_height">
-        You will be able to change the stake size or node owner address later on
-        the node dashboard page.
+        You can change the stake size or node owner address later on the node
+        dashboard page.
       </p>
       <div className="node-check">
         <div className="node-check__item">
