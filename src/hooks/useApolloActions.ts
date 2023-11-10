@@ -12,7 +12,7 @@ import { BigNumber } from 'ethers';
 import { parseEther } from 'ethers/lib/utils';
 import { useCallback, useMemo } from 'react';
 
-const { REACT_APP_CHAIN_ID: chainId } = process.env;
+const { REACT_APP_CHAIN_ID: chainId = ''  } = process.env;
 
 export default function useApolloActions(nodeAddress: string) {
   const { provider, chainId: selectedChainId } = useWeb3React();
@@ -26,7 +26,7 @@ export default function useApolloActions(nodeAddress: string) {
   const addStake = useCallback(
     (amount: string) => {
       if (!contracts) return null;
-      if (provider && selectedChainId !== chainId) {
+      if (provider && selectedChainId !== +chainId) {
         switchToAmb(provider.provider);
         return null;
       }
@@ -61,7 +61,8 @@ export default function useApolloActions(nodeAddress: string) {
   const unstake = useCallback(
     (amount: string) => {
       if (!contracts) return null;
-      if (provider && selectedChainId !== chainId) {
+      console.log(selectedChainId, chainId);
+      if (provider && selectedChainId !== +chainId) {
         switchToAmb(provider.provider);
         return null;
       }
@@ -96,7 +97,7 @@ export default function useApolloActions(nodeAddress: string) {
   const retire = useCallback(
     (stake: BigNumber) => {
       if (!contracts) return null;
-      if (provider && selectedChainId !== chainId) {
+      if (provider && selectedChainId !== +chainId) {
         switchToAmb(provider.provider);
         return null;
       }
@@ -114,7 +115,7 @@ export default function useApolloActions(nodeAddress: string) {
 
   const cancelUnstake = useCallback(() => {
     if (!contracts) return null;
-    if (provider && selectedChainId !== chainId) {
+    if (provider && selectedChainId !== +chainId) {
       switchToAmb(provider.provider);
       return null;
     }
@@ -129,7 +130,7 @@ export default function useApolloActions(nodeAddress: string) {
   const changeOwner = useCallback(
     (newOwner: string) => {
       if (!contracts) return null;
-      if (provider && selectedChainId !== chainId) {
+      if (provider && selectedChainId !== +chainId) {
         switchToAmb(provider.provider);
         return null;
       }
@@ -145,7 +146,7 @@ export default function useApolloActions(nodeAddress: string) {
   const changeRewardsReceiver = useCallback(
     (newReceiver: string) => {
       if (!contracts) return null;
-      if (provider && selectedChainId !== chainId) {
+      if (provider && selectedChainId !== +chainId) {
         switchToAmb(provider.provider);
         return;
       }
