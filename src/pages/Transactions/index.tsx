@@ -1,19 +1,20 @@
-import API from '../../API/api';
 import { numberWithCommas } from '../../utils/helpers';
 import { transactionsTabs } from '../../utils/sidePages';
 import AddressBlock from '../Addresses/AddressDetails/components/AddressBlocks';
-import { Account } from '../Atlas/atlas.interface';
 import TabsNew from './components/TabsNew';
+import API2 from 'API/newApi';
 import { Content } from 'components/Content';
 import moment from 'moment';
 import React, { memo, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 
+const fetchParams = { type: '', page: '' };
+
 export const Transactions = memo(() => {
   const [txData, setTxData] = useState<any>(null);
 
   useEffect(() => {
-    API.getInfo().then((res) => setTxData(res));
+    API2.getInfo().then((res) => setTxData(res));
   }, []);
 
   return (
@@ -32,7 +33,7 @@ export const Transactions = memo(() => {
           <span className="transactions_header_text">
             Total transactions
             <span className="transactions_header_num">
-              {numberWithCommas(txData?.transactions?.total)}
+              {numberWithCommas(txData?.data.transactions?.total)}
             </span>
           </span>
         </div>
@@ -41,15 +42,15 @@ export const Transactions = memo(() => {
         <TabsNew
           withoutCalendar
           tabs={transactionsTabs}
-          fetchData={API.getTransactions}
-          fetchParams={{ type: '', page: '' }}
-          render={(txs: Account[]) =>
+          fetchData={API2.getTransactions}
+          fetchParams={fetchParams}
+          render={(txs: any) =>
             txs.map((tx: any, i: number) => (
               <AddressBlock
                 isLatest={true}
                 key={i}
                 txhash={tx.hash}
-                method={tx.type.split(':')[0]}
+                method={tx.type}
                 from={tx.from}
                 to={tx.to}
                 date={moment(tx.timestamp * 1000).fromNow()}

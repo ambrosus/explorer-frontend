@@ -13,7 +13,7 @@ const Find: React.FC<FindProps> = ({ setIsShow }) => {
   return (
     <>
       <button className="find" onClick={toggleShow}>
-        <Search fill={'#fff'} />
+        <Search />
       </button>
     </>
   );

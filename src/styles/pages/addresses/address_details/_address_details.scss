@@ -1,9 +1,5 @@
 .address_details {
-  .address_blocks_cells {
-    margin-left: 0;
-  }
-
-  &_h1 {
+   &_h1 {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -30,6 +26,10 @@
       font-weight: 600;
       margin-top: 5px;
       display: block;
+
+      &_error {
+        color: #ff4747;
+      }
     }
   }
 
@@ -38,7 +38,7 @@
       font-family: Inter, sans-serif;
       font-style: normal;
       font-weight: 700;
-      font-size: 18px;
+      font-size: 18px!important;
       line-height: 40px;
       display: flex;
       align-items: center;

@@ -1,43 +1,43 @@
-import { TParams } from '../../types';
 import { getTokenIcon } from '../../utils/helpers';
 import Discard from 'assets/icons/Discard';
+import { formatEther } from 'ethers/lib/utils';
 import { useActions } from 'hooks/useActions';
-import { useTypedSelector } from 'hooks/useTypedSelector';
-import { TokenType } from 'pages/Addresses/AddressDetails/address-details.interface';
-import React, { FC, useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import React, { FC, useMemo } from 'react';
 
 export type FilteredTokenProps = {
-  setSelectedToken: (token: TokenType | null) => void;
+  setSelectedToken: any;
+  selectedToken: any;
 };
 
-let filtersBuffer: any = {
-  name: '',
-  balance: 0,
-  totalSupply: 0,
-};
-
-const FilteredToken: FC<FilteredTokenProps> = ({ setSelectedToken }) => {
+const FilteredToken: FC<FilteredTokenProps> = ({
+  setSelectedToken,
+  selectedToken,
+}) => {
   const { clearFilters } = useActions();
-  const [filter, setFilter] = useState(filtersBuffer);
-  const { address }: TParams = useParams();
-  const navigate = useNavigate();
-  const { filters } = useTypedSelector((state: any) => state.tokenFilters);
 
-  useEffect(() => {
-    //TODO !filtersBuffer
-    if (filtersBuffer !== undefined && filtersBuffer !== null) {
-      filtersBuffer = filters;
-      setFilter(filters);
-    }
-    filtersBuffer = filters;
-  }, [filters]);
   const backClick = () => {
     setSelectedToken(null);
     clearFilters();
-    navigate(`/address/${address}/ERC-20_Tx/`);
   };
-  const Icon = getTokenIcon(filters.symbol as string, filters.name);
+  const Icon = getTokenIcon(
+    selectedToken.symbol as string,
+    selectedToken.name,
+    selectedToken.address,
+  );
+
+  const _name = useMemo(() => {
+    if (
+      selectedToken.address === '0x322269e52800e5094c008f3b01A3FD97BB3C8f5D'
+    ) {
+      return 'Hera Pool Token';
+    } else if (
+      selectedToken.address === '0x7240d2444151d9A8c72F77306Fa10f19FE7C9182'
+    ) {
+      return 'Test1 pool token';
+    } else {
+      return selectedToken.name;
+    }
+  }, [selectedToken]);
 
   return (
     <div className="filtered_token">
@@ -48,7 +48,7 @@ const FilteredToken: FC<FilteredTokenProps> = ({ setSelectedToken }) => {
           </div>
           <div className="filtered_token_cell">
             <Icon />
-            {filter && filter.name}
+            {selectedToken && _name}
           </div>
         </div>
         <div className="filtered_token_cells">
@@ -61,23 +61,23 @@ const FilteredToken: FC<FilteredTokenProps> = ({ setSelectedToken }) => {
           </button>
         </div>
       </div>
-      {filter?.balance && (
-        <div className="filtered_token_body">
-          <div className="filtered_token_cell">
-            <span className="filtered_token_cell_bold">Balance</span>
-            <span className="filtered_token_cell_normal">
-              {filter.balance ? Number(filter.balance).toFixed(2) : '-'}
-            </span>
-          </div>
-
-          <div className="filtered_token_cell">
-            <span className="filtered_token_cell_bold">Total supply</span>
-            <span className="filtered_token_cell_normal">
-              {filter.totalSupply ? Number(filter.totalSupply).toFixed(2) : '-'}
-            </span>
-          </div>
+      <div className="filtered_token_body">
+        <div className="filtered_token_cell">
+          <span className="filtered_token_cell_bold">Balance</span>
+          <span className="filtered_token_cell_normal">
+            {selectedToken.balance.ether
+              ? Number(Math.round(selectedToken.balance.ether)).toFixed(2)
+              : '-'}
+          </span>
         </div>
-      )}
+
+        <div className="filtered_token_cell">
+          <span className="filtered_token_cell_bold">Total supply</span>
+          <span className="filtered_token_cell_normal">
+            {formatEther(selectedToken.totalSupply.wei)}
+          </span>
+        </div>
+      </div>
     </div>
   );
 };

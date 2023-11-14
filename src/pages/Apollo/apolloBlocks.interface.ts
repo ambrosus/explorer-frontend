@@ -37,6 +37,7 @@ export type TApolloSortProps = {
   title?: string;
   label?: string;
   value: string;
+  heading?: any;
 };
 
 export type AddressesBodyProps = {

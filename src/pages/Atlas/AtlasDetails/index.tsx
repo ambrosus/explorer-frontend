@@ -1,4 +1,3 @@
-import AtlasDetailsHead from './components/AtlasDetailsHead';
 import API from 'API/api';
 import { Content } from 'components/Content';
 import CopyBtn from 'components/CopyBtn';
@@ -98,7 +97,6 @@ export const AtlasDetails = () => {
   ];
 
   const fetchParams = useMemo(() => {
-    console.log(1);
     return { address, type: '', page: '' };
   }, [address]);
 
@@ -151,8 +149,8 @@ export const AtlasDetails = () => {
                 to={transaction.to}
                 date={moment(transaction.timestamp * 1000).fromNow()}
                 block={transaction.blockNumber}
-                amount={transaction.value.ether}
-                txfee={transaction.gasCost.ether}
+                amount={transaction?.value?.ether}
+                txfee={transaction?.gasCost?.ether}
                 token={`${transaction?.token ? transaction?.token : 'AMB'}`}
                 symbol={`${transaction?.symbol ? transaction?.symbol : 'AMB'}`}
                 isTableColumn="address_blocks_cells"

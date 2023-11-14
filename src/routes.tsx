@@ -1,15 +1,16 @@
+import { Atlas } from './pages/Atlas';
 import { BlockDetails } from './pages/Blocks/BlockDetails';
+import { Bundles } from './pages/Bundles';
+import NodeSetup from './pages/NodeSetup';
+import Finish from './pages/NodeSetup/components/Finish';
 import { IRoute } from './types';
 import { Addresses } from 'pages/Addresses';
 import AddressDetails from 'pages/Addresses/AddressDetails';
 import { Apollo } from 'pages/Apollo';
 import { ApolloDetails } from 'pages/Apollo/ApolloDetails';
-import { Atlas } from 'pages/Atlas';
 import { AtlasDetails } from 'pages/Atlas/AtlasDetails';
 import { Blocks } from 'pages/Blocks';
-import { Bundles } from 'pages/Bundles';
 import BundleDetails from 'pages/Bundles/BundleDetails';
-import { Hermes } from 'pages/Hermes';
 import { Home } from 'pages/Home';
 import { Transactions } from 'pages/Transactions';
 import { TransactionDetails } from 'pages/Transactions/TransactionsDetails';
@@ -27,7 +28,7 @@ interface IAppRoutes {
 export const routes: IRoute[] = [
   {
     path: '/',
-    key: 'home',
+    key: 'Home',
     exact: true,
     component: () => <Home />,
     isClick: true,
@@ -46,7 +47,6 @@ export const routes: IRoute[] = [
     component: () => <Atlas />,
     isClick: true,
   },
-
   {
     path: '/address/',
     key: 'Addresses',
@@ -66,6 +66,13 @@ export const routes: IRoute[] = [
     key: 'Transactions',
     exact: true,
     component: () => <Transactions />,
+    isClick: true,
+  },
+  {
+    path: '/node-setup/',
+    key: 'Launch a node',
+    exact: true,
+    component: () => <NodeSetup />,
     isClick: true,
   },
 ];
@@ -99,6 +106,14 @@ export const addressesRoutes: IRoute[] = [
     isClick: false,
     component: () => <AddressDetails />,
   },
+
+  {
+    path: '/token/:tokenAddress/',
+    key: 'Token Address',
+    exact: true,
+    isClick: false,
+    component: () => <AddressDetails />,
+  },
 ];
 
 export const apolloRoutes: IRoute[] = [
@@ -107,6 +122,13 @@ export const apolloRoutes: IRoute[] = [
     key: 'Apollo Details',
     exact: true,
     component: () => <ApolloDetails />,
+    isClick: false,
+  },
+  {
+    path: '/node-setup/finish/:nodeAddress',
+    key: 'Node finish',
+    exact: true,
+    component: () => <Finish />,
     isClick: false,
   },
 ];
@@ -141,13 +163,6 @@ export const transactions: IRoute[] = [
 ];
 
 export const bundleRoutes: IRoute[] = [
-  {
-    path: '/bundles/',
-    key: 'Bundles',
-    exact: true,
-    component: () => <Bundles />,
-    isClick: true,
-  },
   {
     path: '/bundles/:address/',
     key: 'Bundle Details',

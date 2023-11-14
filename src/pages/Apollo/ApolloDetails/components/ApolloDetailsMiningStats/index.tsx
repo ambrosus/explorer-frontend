@@ -1,6 +1,5 @@
-import API from 'API/api';
+import API2 from 'API/newApi';
 import ExportCsv from 'components/ExportCsv';
-import HeadInfo from 'components/HeadInfo';
 import { Number } from 'components/Number';
 import { Currency } from 'components/UI/Currency';
 import { useTypedSelector } from 'hooks/useTypedSelector';
@@ -51,7 +50,7 @@ const ApolloDetailsMiningStats = ({ apollo }: any) => {
     const date = filterDate.split('-');
     const fromDate = date[0];
     const toDate = date[1];
-    const { data } = await API.getApolloRewards(apollo?.address, {
+    const { data } = await API2.getApolloRewards(apollo?.address, {
       from: fromDate,
       to: toDate !== undefined ? toDate : null,
     });

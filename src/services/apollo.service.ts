@@ -1,49 +1,30 @@
-import API from '../API/api';
+// @ts-nocheck
+import {
+  AmbErrorProvider,
+  Contracts,
+  Methods,
+} from '@airdao/airdao-node-contracts';
+import { getCurrentAmbNetwork } from 'airdao-components-and-tools/utils';
 
-export const getApollosData = async (sortTerm: any, next: any) => {
-  const data: any = await API.getApollos({
-    limit: 20,
-    sort: sortTerm,
-    next: next,
-  });
-  return data;
-};
+const network = getCurrentAmbNetwork();
+const provider = new AmbErrorProvider(network.rpcUrl, network.chainId);
+const contracts = new Contracts(provider, network.chainId);
 
-export const getApolloData = async (address: string) => {
-  const data: any = await API.getApollo(address);
-  return data;
-};
+export async function getApolloInfo(address) {
+  const data = await Methods.getApolloInfo(contracts, address);
+  if (!data) return null;
 
-export const getApolloRewardsData = async (
-  sortTerm: any,
-  next: any,
-  address: string,
-) => {
-  const data: any = await API.getApolloRewards(address, {
-    limit: 20,
-    sort: sortTerm,
-    next: next,
-  });
-  return data;
-};
-
-export const getAccountTxData = async (
-  sortTerm: any,
-  next: any,
-  address: any,
-) => {
-  const params = !next
-    ? {
-        limit: 20,
-        type: sortTerm,
-      }
-    : {
-        limit: 20,
-        type: sortTerm,
-        page: next,
-      };
-  const data: any = await API.getAccountTx(address).catch(
-    () => (window.location.href = '/notfound'),
-  );
-  return data;
-};
+  return {
+    ownerAddress: data.apollo.ownerAddress,
+    rewardsAddress: data.apollo.rewardsAddress,
+    stakeAmount: data.apollo.stake,
+    timestampStake: data.apollo.timestampStake,
+    isOnboarded: data.isOnboarded,
+    withdrawLock: data.withdrawLock && {
+      stakeAfterWithdraw: data.apollo.stake,
+      receiver: data.withdrawLock.receiver,
+      unlockTime: data.withdrawLock.unlockTime,
+      amount: data.withdrawLock.amount,
+    },
+  };
+}

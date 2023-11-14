@@ -1,21 +1,28 @@
-import { Account } from './addresses.interface';
+import API2 from '../../API/newApi';
+import TabsNew from '../Transactions/components/TabsNew';
 import AddressesBody from './components/AddressesBody';
 import AddressesHeader from './components/AddressesHeader';
-import AddressesSort from './components/AddressesSort';
 import MainInfoAddresses from './components/MainInfoAddresses';
 import { Content } from 'components/Content';
-import Loader from 'components/Loader';
-import useSortData from 'hooks/useSortData';
-import { useTypedSelector } from 'hooks/useTypedSelector';
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import { getAccountsData } from 'services/accounts.service';
+
+const sortOptions = [
+  {
+    label: 'Address',
+    value: 'address',
+  },
+  {
+    label: 'Balance',
+    value: 'balance',
+  },
+  {
+    label: 'Total Tx',
+    value: 'totalTx',
+  },
+];
 
 export const Addresses = () => {
-  const { ref, sortTerm, setSortTerm, renderData, loading, setRenderData } =
-    useSortData(getAccountsData, 'balance');
-  const isQueryContracts = sortTerm === 'contracts';
-
   return (
     <Content>
       <Helmet>
@@ -30,61 +37,26 @@ export const Addresses = () => {
         <MainInfoAddresses />
       </Content.Header>
       <Content.Body>
-        <div className="addresses_main_table">
-          <AddressesSort sortTerm={sortTerm} setSortTerm={setSortTerm} />
-          <div className="addresses_table">
-            <AddressesHeader />
-            {renderData && renderData.data && renderData.data.length
-              ? !isQueryContracts
-                ? renderData.data.map((account: Account, index: number) => {
-                    return (
-                      <AddressesBody
-                        key={account._id}
-                        lastCardRef={
-                          account && renderData.data.length - 1 === index
-                            ? ref
-                            : null
-                        }
-                        isContract={account.isContract}
-                        address={account.address}
-                        balance={account.balance}
-                        rank={index + 1}
-                        txCount={account.totalTx}
-                      />
-                    );
-                  })
-                : renderData.data
-                    .filter((acc: any) => acc.isContract === true)
-                    .map((account: Account, index: number) => {
-                      return (
-                        <AddressesBody
-                          key={account._id}
-                          lastCardRef={
-                            account &&
-                            renderData.data.filter(
-                              (acc: any) => acc.isContract === true,
-                            ).length -
-                              1 ===
-                              index
-                              ? ref
-                              : null
-                          }
-                          isContract={account.isContract}
-                          address={account.address}
-                          balance={account.balance}
-                          rank={index + 1}
-                          txCount={account.totalTx}
-                        />
-                      );
-                    })
-              : null}
-          </div>
-          {loading && (
-            <div style={{ top: '-20px', position: 'relative' }}>
-              <Loader />
-            </div>
-          )}
-        </div>
+        <TabsNew
+          tableHeader={() => <AddressesHeader />}
+          sortOptions={sortOptions}
+          fetchData={API2.getAddresses}
+          initSortTerm={'balance'}
+          fetchParams={{ sort: '', page: '' }}
+          label="Addresses"
+          render={(accounts: any) =>
+            accounts.map((account: any, index: any) => (
+              <AddressesBody
+                key={account._id}
+                isContract={account.isContract}
+                address={account.address}
+                balance={account.balance}
+                rank={index + 1}
+                txCount={account.totalTx}
+              />
+            ))
+          }
+        />
       </Content.Body>
     </Content>
   );

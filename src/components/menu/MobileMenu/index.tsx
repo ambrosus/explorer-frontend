@@ -1,10 +1,7 @@
-import BurgerMenuClose from 'assets/icons/MobileMenu/BurgerMenuClose';
-import BurgerMenuOpen from 'assets/icons/MobileMenu/BurgerMenuOpen';
-import logo from 'assets/svg/logo-air.svg';
+import close from 'assets/svg/close.svg';
 import FindWideMobile from 'components/Find/FindWideMobile';
 import { useOnClickOutside } from 'hooks/useOnClickOutside';
 import React, { useEffect, useRef } from 'react';
-import { NavLink } from 'react-router-dom';
 
 interface MobileMenuProps {
   menu: any;
@@ -23,15 +20,20 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ menu, setIsShow, isShow }) => {
     }
   }, [isShow]);
 
+  const handleClose = () => setIsShow(!isShow);
+
   return (
     <>
       <div ref={menuRef} className="mobile_menu">
-        <button onClick={() => setIsShow(!isShow)} className="mobile_menu_btn">
-          {isShow ? <BurgerMenuClose /> : <BurgerMenuOpen />}{' '}
-          {isShow ? 'Close' : 'Explorer'}
+        <button onClick={handleClose} className="mobile_menu_btn">
+          Explorer Menu
         </button>
         {isShow && (
           <div className="mobile_menu_modal">
+            <h2 className="mobile_menu_modal__title">Explorer – Menu</h2>
+            <button onClick={handleClose} type="button" className="help__close">
+              <img src={close} alt="close help" />
+            </button>
             <span>
               <FindWideMobile setIsShow={setIsShow} />
             </span>

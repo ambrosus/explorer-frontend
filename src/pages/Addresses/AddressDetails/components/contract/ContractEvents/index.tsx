@@ -40,7 +40,12 @@ const ContractEvents = ({ abi }: any) => {
           b.blockNumber - a.blockNumber,
       )
       .map((item: any) => {
-        const parseLog = contract.interface.parseLog(item);
+        let parseLog: any;
+        try {
+          parseLog = contract.interface.parseLog(item);
+        } catch (e) {
+          console.log(e);
+        }
         const inputs = parseLog?.eventFragment.inputs || [];
         const inputsData = inputs.map((input: any) => {
           return {

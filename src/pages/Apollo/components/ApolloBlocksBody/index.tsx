@@ -7,7 +7,39 @@ import { statusMessage } from 'utils/helpers';
 
 const ApolloBlocksBody: FC<ApolloBodyProps> = ({ index, item }) => {
   return (
-    item && (
+    item &&
+    (item.isRetired ? (
+      <div className="apollo_blocks_body apollo_blocks_body_retired">
+        <NavLink
+          style={{
+            cursor: 'pointer',
+            color: '#808A9D',
+            fontWeight: 600,
+          }}
+          className="apollo_blocks_body_cell"
+          to={`${item.address}/`}
+        >
+          {item.address}
+        </NavLink>
+        <div className="apollo_blocks_body_cell apollo_blocks_body_cell_yellow">
+          Blocked
+        </div>
+        <div className="apollo_blocks_body_cell">
+          <span className="address_blocks_cell_icon">
+            <Amb />
+          </span>
+          <span className="apollo_blocks_body_cell_token">AMB</span>
+          <span className="apollo_blocks_body_cell_value">
+            <Currency
+              value={item ? `${item.amount}` : '0'}
+              symbol=" "
+              fixed={8}
+            />
+          </span>
+        </div>
+        <div className="apollo_blocks_body_cell">{item.unlockTime}</div>
+      </div>
+    ) : (
       <div className="apollo_blocks_body">
         <div className="apollo_blocks_body_cell">{index}</div>
 
@@ -47,7 +79,7 @@ const ApolloBlocksBody: FC<ApolloBodyProps> = ({ index, item }) => {
           />
         </div>
       </div>
-    )
+    ))
   );
 };
 

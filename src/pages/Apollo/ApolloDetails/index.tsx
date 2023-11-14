@@ -1,5 +1,6 @@
 import { Account } from '../apollo.interface';
-import API from 'API/api';
+import OwnerDashboard from './components/OwnerDasboard';
+import API2 from 'API/newApi';
 import { Content } from 'components/Content';
 import CopyBtn from 'components/CopyBtn';
 import ExportCsv from 'components/ExportCsv';
@@ -32,9 +33,6 @@ export const ApolloDetails = memo(() => {
     getAddressData(address);
   }, [address]);
 
-  // useEffect(() => {
-  //   API2.getApollo(address).then((res) => console.log(res));
-  // }, []);
   const { balance, stake, version } = addressData?.apolloInfo?.data || 0;
   const apolloData = addressData?.apolloInfo?.data;
 
@@ -80,7 +78,7 @@ export const ApolloDetails = memo(() => {
     const date = filterDate.split('-');
     const fromDate = date[0];
     const toDate = date[1];
-    const { data } = await API.getApolloRewards(address, {
+    const { data } = await API2.getApolloRewards(address, {
       from: fromDate,
       to: toDate !== undefined ? toDate : null,
     });
@@ -198,11 +196,13 @@ export const ApolloDetails = memo(() => {
         </div>
         <HeadInfo data={itemFirst} className="head_info" />
         <HeadInfo data={itemSecond} className="head_info" />
+        <OwnerDashboard address={address} />
       </Content.Header>
       <Content.Body>
         <TabsNew
+          initTab="all"
           tabs={apolloDetailsSorting}
-          fetchData={API.getAccountTx}
+          fetchData={API2.getAccountTxs}
           fetchParams={fetchParams}
           render={(txs: Account[]) =>
             txs.map((transaction: any) => (

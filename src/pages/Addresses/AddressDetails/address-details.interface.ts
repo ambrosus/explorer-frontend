@@ -82,13 +82,18 @@ export interface AddressBlockProps {
   inners?: any[];
   innerLevel?: number;
   status?: string;
+  type?: string;
+  tokenData?: any;
+  tokens?: any;
 }
 
 export interface TokenProps {
   selectedToken: TokenType | null;
   onClick: Function;
-  loading: boolean;
-  addressData: object;
+  addressData: {
+    tokens: object[];
+    balance: string;
+  };
 }
 
 export interface TokenFilterProps {
