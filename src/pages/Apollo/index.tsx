@@ -90,7 +90,7 @@ export const Apollo = memo(() => {
       const address = lock.description.slice('ServerNodes unstake: '.length);
       const nodeInfo = await serverNodes.stakes(address);
       if (!nodeInfo.stake.isZero()) continue;
-      console.log(lock);
+
       arr.push({
         address: lock.description.replace('ServerNodes unstake: ', '0x'),
         isRetired: true,
