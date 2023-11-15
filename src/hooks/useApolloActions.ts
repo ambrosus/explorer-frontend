@@ -12,7 +12,7 @@ import { BigNumber } from 'ethers';
 import { parseEther } from 'ethers/lib/utils';
 import { useCallback, useMemo } from 'react';
 
-const { REACT_APP_CHAIN_ID: chainId = ''  } = process.env;
+const { REACT_APP_CHAIN_ID: chainId = '' } = process.env;
 
 export default function useApolloActions(nodeAddress: string) {
   const { provider, chainId: selectedChainId } = useWeb3React();
