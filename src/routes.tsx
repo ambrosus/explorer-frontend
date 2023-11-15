@@ -69,6 +69,7 @@ export const routes: IRoute[] = [
     isClick: true,
   },
 ];
+
 export const addressesRoutes: IRoute[] = [
   {
     path: '/address/:address/',
