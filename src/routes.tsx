@@ -41,6 +41,13 @@ export const routes: IRoute[] = [
     isClick: true,
   },
   {
+    path: '/atlas/',
+    key: 'Atlas',
+    exact: true,
+    component: () => <Atlas />,
+    isClick: true,
+  },
+  {
     path: '/address/',
     key: 'Addresses',
     exact: true,
@@ -61,13 +68,13 @@ export const routes: IRoute[] = [
     component: () => <Transactions />,
     isClick: true,
   },
-  // {
-  //   path: '/node-setup/',
-  //   key: 'Launch a node',
-  //   exact: true,
-  //   component: () => <NodeSetup />,
-  //   isClick: true,
-  // },
+  {
+    path: '/node-setup/',
+    key: 'Launch a node',
+    exact: true,
+    component: () => <NodeSetup />,
+    isClick: true,
+  },
 ];
 export const addressesRoutes: IRoute[] = [
   {
