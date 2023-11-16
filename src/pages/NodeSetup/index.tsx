@@ -30,7 +30,7 @@ const NodeSetup: React.FC = () => {
     stake?: string;
   }>({});
 
-  const [step, setStep] = useState(5);
+  const [step, setStep] = useState(0);
   const [skipToConfirm, setSkipToConfirm] = useState(false);
   const [minStakeAmount, setMinStakeAmount] = useState(0);
 
