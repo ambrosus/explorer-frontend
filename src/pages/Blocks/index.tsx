@@ -2,7 +2,7 @@ import { numberWithCommas } from '../../utils/helpers';
 import TabsNew from '../Transactions/components/TabsNew';
 import BlocksBody from './components/BlocksBody';
 import BlocksHeader from './components/BlocksHeader';
-import API from 'API/api';
+import API2 from 'API/newApi';
 import { Content } from 'components/Content';
 import HeadInfo from 'components/HeadInfo';
 import React, { memo, useEffect, useState } from 'react';
@@ -18,11 +18,9 @@ export const Blocks = memo(() => {
   ).toFixed(2)}%)`;
 
   useEffect(() => {
-    API.getInfo().then((res) => setBlockData(res));
-
     const interval = setInterval(() => {
-      API.getInfo().then((res) => setBlockData(res));
-    }, 10000);
+      API2.getInfo().then((res) => setBlockData(res.data));
+    }, 1000);
     return () => clearInterval(interval);
   }, []);
 
@@ -64,19 +62,17 @@ export const Blocks = memo(() => {
         <HeadInfo data={itemFirst} className="head_info" />
       </Content.Header>
       <Content.Body>
-        <div className="blocks_main">
-          <TabsNew
-            tableHeader={() => <BlocksHeader />}
-            fetchData={API.getBlocks}
-            fetchParams={fetchParams}
-            label="Blocks"
-            render={(list: any) =>
-              list.map((el: any, index: any) => (
-                <BlocksBody key={index} index={index + 1} item={el} />
-              ))
-            }
-          />
-        </div>
+        <TabsNew
+          tableHeader={() => <BlocksHeader />}
+          fetchData={API2.getBlocks}
+          fetchParams={fetchParams}
+          label="Blocks"
+          render={(list: any) =>
+            list.map((el: any, index: any) => (
+              <BlocksBody key={index} index={index + 1} item={el} />
+            ))
+          }
+        />
       </Content.Body>
     </Content>
   );

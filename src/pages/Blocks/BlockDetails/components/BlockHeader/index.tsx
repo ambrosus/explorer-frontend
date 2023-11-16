@@ -1,7 +1,7 @@
 const BlockHeader = () => {
   return (
     <div className="blocks_block_header">
-      <div className="blocks_block_header_cell">Block hash</div>
+      <div className="blocks_block_header_cell">Transaction hash</div>
       <div className="blocks_block_header_cell">Method</div>
       <div className="blocks_block_header_cell">From</div>
       <div className="blocks_block_header_cell">To</div>

@@ -1,4 +1,4 @@
-import API from '../API/api';
+import API2 from '../API/newApi';
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
@@ -11,41 +11,14 @@ const useSearch = (setIsShow: Function) => {
 
   const { isLoading } = useQuery(
     ['search', name],
-    () => (name?.length > 0 ? API.searchItem(name) : null),
+    () => (name?.length > 0 ? API2.searchItem(name) : null),
     {
       onSuccess: (data: any) => {
-        console.log(data);
         if (!data) {
           setErr(true);
         } else {
-          if (
-            name.trim() === '0x0000000000000000000000000000000000000000' ||
-            Number(name.trim()) === 0 ||
-            !name.length
-          ) {
-            setErr(true);
-            return;
-          }
-          let searchTerm = data.data;
           setErr(false);
-          if (searchTerm && searchTerm.term !== undefined) {
-            const urlParts = data?.meta.search.trim().split('/');
-            urlParts[urlParts.length - 1] = searchTerm.term;
-            searchTerm = urlParts.join('/');
-          } else {
-            searchTerm = data?.meta.search;
-          }
-          if (data.meta.search && !searchTerm.trim().includes(['hermes'])) {
-            const searchValue = searchTerm
-              .trim()
-              .replace('addresses', 'address')
-              .replace('transactions', 'tx')
-              .replace('blocks', 'block');
-            console.log(searchValue);
-            setLink(`/${searchValue}/`);
-          } else {
-            setErr(true);
-          }
+          setLink(data.redirect);
         }
       },
       onError: () => {
@@ -56,17 +29,17 @@ const useSearch = (setIsShow: Function) => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (
-      name.trim() === '0x0000000000000000000000000000000000000000' ||
-      Number(name.trim()) === 0 ||
-      !name.length
-    ) {
-      setErr(true);
-      return;
-    }
-    if (!name) {
-      return;
-    }
+    // if (
+    //   name.trim() === '0x0000000000000000000000000000000000000000' ||
+    //   Number(name.trim()) === 0 ||
+    //   !name.length
+    // ) {
+    //   setErr(true);
+    //   return;
+    // }
+    // if (!name) {
+    //   return;
+    // }
     if (!isLoading && !err) {
       navigate(link);
       if (!!setIsShow) {

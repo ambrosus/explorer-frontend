@@ -1,36 +1,23 @@
+import NotFoundIcon from '../../../assets/icons/Errors/NotFoundIcon';
+import BlockSort from '../../../components/BlockSort';
 import Calendar from '../../../components/Calendar';
 import Loader from '../../../components/Loader';
 import { useOnClickOutside } from '../../../hooks/useOnClickOutside';
+import { getContractData } from '../../../services/contract.service';
 import AddressBlocksHeader from '../../Addresses/AddressDetails/components/AddressBlocksHeader';
-import AtlasBlocksSort from '../../Atlas/components/AtlasBlocksSort';
+import { ContractDetails } from '../../Addresses/AddressDetails/components/contract';
 import { TabsItemProps, TabsNewProps } from '../transactions.interface';
 import API2 from 'API/newApi';
 import SideMenu from 'assets/icons/SideMenu';
 import ExportCsv from 'components/ExportCsv';
 import useDeviceSize from 'hooks/useDeviceSize';
 import { AccountsData } from 'pages/Addresses/addresses.interface';
-import React, { FC, useEffect, useRef, useState } from 'react';
+import React, { FC, useEffect, useMemo, useRef, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 
 const TabItem: FC<TabsItemProps> = ({ tab, el, handleTab }) => {
-  const ref = useRef(null);
-
-  const isOverflown = (el: any) => {
-    const curOverflow = el.style.overflow;
-
-    if (!curOverflow || curOverflow === 'visible') el.style.overflow = 'hidden';
-
-    const isOverflowing =
-      el.clientWidth < el.scrollWidth || el.clientHeight < el.scrollHeight;
-
-    el.style.overflow = curOverflow;
-
-    return isOverflowing;
-  };
-
   return (
     <span
-      ref={ref}
       className={`tabs_link tabs_link_new ${
         tab === el.value ? 'tabs_link_active' : ''
       }`}
@@ -41,6 +28,12 @@ const TabItem: FC<TabsItemProps> = ({ tab, el, handleTab }) => {
     </span>
   );
 };
+
+const contractTab = {
+  value: 'contract',
+  title: 'Contract',
+};
+
 const TabsNew: FC<TabsNewProps> = ({
   tabs,
   sortOptions,
@@ -49,22 +42,26 @@ const TabsNew: FC<TabsNewProps> = ({
   render,
   withoutCalendar,
   initSortTerm = '',
+  initTab = '',
   tableHeader,
   label,
+  withoutLoader,
+  isContract,
 }) => {
   const [loading, setLoading] = useState(true);
-  const [tab, setTab] = useState('');
+  const [tab, setTab] = useState(initTab);
   const [isShow, setIsShow] = useState(false);
   const [sortTerm, setSortTerm] = useState(initSortTerm);
-
-  const { ref, inView } = useInView();
-  const [tabData, setTabData] = useState<AccountsData>({
+  const [contractInfo, setContractInfo] = useState<any>(null);
+  const [tabData, setTabData] = useState<any>({
     data: [],
     pagination: {
       hasNext: false,
       next: null,
     },
   });
+
+  const { ref, inView } = useInView();
 
   const mobileCalendarRef = useRef(null);
   const { FOR_TABLET } = useDeviceSize();
@@ -74,7 +71,24 @@ const TabsNew: FC<TabsNewProps> = ({
   const handleShow = () => setIsShow(!isShow);
 
   useEffect(() => {
-    setLoading(true);
+    if (tab === 'contract') {
+      updateContract();
+    }
+  }, [tab, fetchParams]);
+
+  const updateContract = () => {
+    getContractData(fetchParams.address).then((res) => {
+      setContractInfo(res.data);
+    });
+  };
+
+  useEffect(() => {
+    if (tab === 'contract') return;
+
+    if (!withoutLoader) {
+      setLoading(true);
+    }
+
     setTabData({
       data: [],
       pagination: {
@@ -82,11 +96,36 @@ const TabsNew: FC<TabsNewProps> = ({
         next: null,
       },
     });
-    handleFetchData().then((response: any) => setTabData(response));
+
+    const listData = sortOptions?.find(
+      (el: any) => el.value === sortTerm,
+    ).listData;
+
+    if (listData) {
+      setLoading(true);
+      listData()
+        .then((res: any) => {
+          setTabData({
+            data: res,
+            pagination: {
+              hasNext: false,
+              next: null,
+            },
+          });
+        })
+        .finally(() => setLoading(false));
+    } else {
+      handleFetchData().then((response: any) => {
+        if (response) {
+          setTabData(response);
+        }
+      });
+    }
   }, [tab, sortTerm, fetchParams]);
 
   useEffect(() => {
     if (
+      tab !== 'contract' &&
       inView &&
       !loading &&
       tabData.pagination &&
@@ -102,7 +141,9 @@ const TabsNew: FC<TabsNewProps> = ({
   }, [inView]);
 
   const handleFetchData = (page?: number) => {
-    setLoading(true);
+    if (!withoutLoader) {
+      setLoading(true);
+    }
     const params: any = { ...fetchParams };
 
     if (fetchParams.hasOwnProperty('page')) {
@@ -122,8 +163,11 @@ const TabsNew: FC<TabsNewProps> = ({
     });
   };
 
-  const handleTab = (type: string) => {
-    setTab(type);
+  const sortTableHeading = () => {
+    return (
+      sortOptions?.find((el: any) => el.value === sortTerm).heading ||
+      tableHeader()
+    );
   };
 
   return (
@@ -133,11 +177,11 @@ const TabsNew: FC<TabsNewProps> = ({
           <div className="tabs">
             <div className="tabs_heading">
               <div className="tabs_heading_filters">
-                {tabs.map((el: any) => (
+                {(isContract ? [...tabs, contractTab] : tabs).map((el: any) => (
                   <TabItem
                     key={el.value}
                     tab={tab}
-                    handleTab={handleTab}
+                    handleTab={setTab}
                     el={el}
                   />
                 ))}
@@ -174,29 +218,54 @@ const TabsNew: FC<TabsNewProps> = ({
               <Calendar />
             </div>
           )}
+
           <div
             style={{ overflow: loading ? 'hidden' : 'auto' }}
             className="transactions_wrapper"
           >
-            <AddressBlocksHeader
-              txhash="txHash"
-              method="Method"
-              from="From"
-              to="To"
-              date="Date"
-              block="Block"
-              amount="Amount"
-              txfee="txFee"
-              token={null}
-              methodFilters={null}
-              isTableColumn={'address_blocks_cells no_border'}
-            />
-            {!!tabData?.data?.length && render(tabData.data)}
+            {tab === 'contract' ? (
+              contractInfo && (
+                <ContractDetails
+                  address={fetchParams.address}
+                  contractInfo={contractInfo}
+                  updateContract={updateContract}
+                />
+              )
+            ) : !loading && !tabData?.data?.length ? (
+              <div className="tabs_not_found">
+                <NotFoundIcon />
+                <span className="tabs_not_found_text">
+                  No results were found for this query.
+                </span>
+              </div>
+            ) : (
+              <>
+                <AddressBlocksHeader
+                  txhash="txHash"
+                  method="Method"
+                  from="From"
+                  to="To"
+                  date="Date"
+                  block={tab === 'tokens' ? null : 'Block'}
+                  amount="Amount"
+                  txfee={tab === 'tokens' ? null : 'txFee'}
+                  token={tab === 'tokens' ? 'Token' : null}
+                  methodFilters={null}
+                  isTableColumn={`${
+                    tab === 'tokens'
+                      ? 'address_blocks_erc20'
+                      : 'address_blocks_cells'
+                  } no_border`}
+                />
+                {!!tabData?.data?.length &&
+                  render(tabData.data, tab === 'tokens')}
+              </>
+            )}
           </div>
         </>
       ) : (
         <>
-          <AtlasBlocksSort
+          <BlockSort
             sortOptions={sortOptions}
             sortTerm={sortTerm}
             setSortTerm={setSortTerm}
@@ -206,8 +275,8 @@ const TabsNew: FC<TabsNewProps> = ({
             style={{ overflow: loading ? 'hidden' : 'auto' }}
             className="tabs_list"
           >
-            {tableHeader()}
-            {!!tabData.data.length && render(tabData.data)}
+            {sortTableHeading()}
+            {!!tabData?.data?.length && render(tabData.data)}
           </div>
         </>
       )}

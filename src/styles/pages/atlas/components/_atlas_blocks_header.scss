@@ -10,6 +10,14 @@
   height: 36px;
   grid-gap: 32px;
 
+  &_retired {
+    grid-template-columns:
+    minmax(360px, 6fr)
+    minmax(150px, 3fr)
+    minmax(190px, 3fr)
+    minmax(150px, 3fr);
+  }
+
   &_cell {
     display: flex;
     align-items: center;

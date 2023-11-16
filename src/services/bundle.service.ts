@@ -38,8 +38,3 @@ export const getBundleEventsData = async (
   });
   return data;
 };
-
-export const getBundleInfo = async () => {
-  const data: any = await API.getInfo();
-  return data;
-};

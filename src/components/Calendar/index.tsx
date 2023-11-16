@@ -7,14 +7,16 @@ import 'react-date-range/dist/theme/default.css';
 import { useParams } from 'react-router-dom';
 import { TParams } from 'types';
 
+const date = new Date();
+const today = date.setHours(0, 0, 0, 0);
 const Calendar = ({ handleClose, miningStats, initRange }: any) => {
   const { address }: TParams = useParams();
 
   const [dataRange, setDataRange] = useState(
     initRange || [
       {
-        startDate: new Date(),
-        endDate: addDays(new Date(), 0),
+        startDate: new Date(today),
+        endDate: addDays(new Date(today), 0),
         color: '#05060F',
         key: 'selection',
       },

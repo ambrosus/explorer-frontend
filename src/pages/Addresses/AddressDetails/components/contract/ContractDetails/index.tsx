@@ -8,36 +8,36 @@ import ContractTabs from './components/ContractTabs';
 import api from 'API/api';
 import Loader from 'components/Loader';
 import { ethers } from 'ethers';
-import React, { memo } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
-import { Navigate } from 'react-router-dom';
 
 const ContractDetails = (props: any) => {
-  const { contractInfo, address, selectedTab } = props;
+  const { contractInfo, address, updateContract } = props;
+  const [selectedTab, selectTab] = useState('verify');
 
-  const { sourcifyFiles, sourcifyMetadata, contractAbi } = parseSourcifyOutput(
-    contractInfo?.data,
-  );
-  const { data: proxyImplAbi, isLoading } = useQuery(
+  useEffect(() => {
+    selectTab(
+      contractInfo.error === 'Files have not been found!' ? 'verify' : 'code',
+    );
+  }, [contractInfo]);
+
+  const { sourcifyFiles, sourcifyMetadata, contractAbi } =
+    parseSourcifyOutput(contractInfo);
+  const { data: implementation, isLoading } = useQuery(
     `implAddress ${address}`,
-    () => getProxyImplAbi(contractAbi, address),
+    () => getImplementation(address),
   );
 
   // don't show anything before we get the proxy impl abi
   if (isLoading) return <Loader />;
 
   const isContractVerified = !!contractAbi;
-
+  const proxyImplAbi = implementation?.abi || [];
+  console.log(implementation);
   const allowedTabs = [];
   if (isContractVerified) allowedTabs.push('code', 'read', 'write', 'events');
   if (!isContractVerified) allowedTabs.push('verify');
-  if (proxyImplAbi?.length) allowedTabs.push('readAsProxy', 'writeAsProxy');
-
-  // if wrong tab selected, redirect to /code or /verify tab
-  if (!allowedTabs.includes(selectedTab)) {
-    const redirectTab = isContractVerified ? 'code' : 'verify';
-    return <Navigate to={`/address/${address}/contract/${redirectTab}`} />;
-  }
+  if (proxyImplAbi.length) allowedTabs.push('readAsProxy', 'writeAsProxy');
 
   function getTab() {
     switch (selectedTab) {
@@ -83,7 +83,7 @@ const ContractDetails = (props: any) => {
       case 'verify':
         return (
           <div className="verify_contract">
-            <VerifyContract />
+            <VerifyContract updateContract={updateContract} />
           </div>
         );
       case 'events':
@@ -97,6 +97,7 @@ const ContractDetails = (props: any) => {
         address={address}
         allowedTabs={allowedTabs}
         selectedTab={selectedTab}
+        selectTab={selectTab}
       />
 
       <div className="contract-details">
@@ -105,6 +106,7 @@ const ContractDetails = (props: any) => {
             <ContractHeader
               sourcifyStatus={contractInfo?.data?.status}
               metadata={sourcifyMetadata}
+              implementationAddress={implementation?.address}
             />
           )}
 
@@ -115,45 +117,29 @@ const ContractDetails = (props: any) => {
   );
 };
 
-const getProxyImplAbi = async (proxyAbi: any, address: string) => {
+const getImplementation = async (address: string) => {
   // if contract is proxy, fetch implementation address and abi for that address
-  if (!checkIsContractProxy(proxyAbi)) return [];
-
   const readProvider = new ethers.providers.JsonRpcProvider(
     process.env.REACT_APP_EXPLORER_NETWORK,
   );
 
   try {
-    const contract = new ethers.Contract(address, proxyAbi, readProvider);
-    const implAddress = await contract.implementation();
+    // https://eips.ethereum.org/EIPS/eip-1967#logic-contract-address
+    const implStorageSlot =
+      '0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc';
+    const implAddressBytes32 = await readProvider.getStorageAt(
+      address,
+      implStorageSlot,
+    );
+    const implAddress = '0x' + implAddressBytes32.slice(-40);
 
     const sourcifyData = await api.getContract(implAddress);
     const { contractAbi: implAbi } = parseSourcifyOutput(sourcifyData?.data);
 
-    return implAbi;
+    return { address: implAddress, abi: implAbi };
   } catch (e) {
-    return [];
+    return undefined;
   }
-};
-
-const checkIsContractProxy = (abi: any): boolean => {
-  if (!abi) return false;
-
-  const fallback = abi.find((item: any) => item.type === 'fallback');
-  if (!fallback) return false;
-
-  const implementation = abi.find(
-    (item: any) => item.name === 'implementation',
-  );
-  if (
-    !implementation ||
-    implementation.type !== 'function' ||
-    implementation.stateMutability !== 'view' ||
-    implementation.outputs[0]?.type !== 'address'
-  )
-    return false;
-
-  return true;
 };
 
 const parseSourcifyOutput = (sourcifyData: any) => {
@@ -165,7 +151,7 @@ const parseSourcifyOutput = (sourcifyData: any) => {
     sourcifyFiles: files,
     sourcifyMetadata: metadata,
     contractAbi,
-    status: sourcifyData.status,
+    status: sourcifyData?.status,
   };
 };
 

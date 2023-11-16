@@ -14,11 +14,16 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 
-const connectors = [
+const connectors: any = [
   [metamaskConnector, metamaskHooks],
   [walletconnectConnector, walletconnectHooks],
 ];
 
+/*
+ * @param {Provider} store - redux store
+ * @param {BrowserRouter} BrowserRouter - react router
+ * @param {Main} Main - main component
+ */
 const queryClient = new QueryClient();
 
 export const App = (): JSX.Element => (

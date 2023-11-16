@@ -12,6 +12,7 @@ import Usdc from 'assets/icons/Cryptos/Usdc';
 import Usdt from 'assets/icons/Cryptos/Usdt';
 import GreenCircle from 'assets/icons/StatusAction/GreenCircle';
 import OrangeCircle from 'assets/icons/StatusAction/OrangeCircle';
+import { BigNumber, ethers } from 'ethers';
 import moment from 'moment';
 
 export const sliceData5 = (item: string | null | undefined) => {
@@ -97,11 +98,17 @@ export const toUniqueValueByBlock = (arr: any) => {
   }
 };
 
-export const getTokenIcon = (symbol: string, name?: string) => {
-  /*
-   * @param {string} symbol
-   * @returns {Component}
-   */
+export const getTokenIcon = (
+  symbol: string,
+  name?: string,
+  address?: string,
+) => {
+  if (address === '0x322269e52800e5094c008f3b01A3FD97BB3C8f5D') {
+    return Hpt;
+  } else if (address === '0x7240d2444151d9A8c72F77306Fa10f19FE7C9182') {
+    return Ppt;
+  }
+
   if (name) {
     switch (name) {
       case 'Hera pool token':
@@ -132,9 +139,9 @@ export const getTokenIcon = (symbol: string, name?: string) => {
       return Usdc;
     case 'BUSD':
       return Busd;
-    case 'BOND':
-      return Bond;
     case 'AmbB':
+      return Bond;
+    case 'BOND':
       return Bond;
     default:
       return Amb;
@@ -276,11 +283,7 @@ export const nameCurrency = (name: string) => {
 };
 
 export const wrapString = (string: string) => {
-  return string.split('::').map((item, index) => (
-    <span key={index + 1} style={{ fontSize: 'inherit' }}>
-      {item}
-    </span>
-  ));
+  return <span style={{ fontSize: 'inherit' }}>{string}</span>;
 };
 const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 const months = [
@@ -350,6 +353,30 @@ export function timeSince(date: any) {
   return Math.floor(seconds) + ' second' + (seconds !== 1 ? 's' : '');
 }
 
+export function convertSecondsToTime(seconds: number) {
+  const days = Math.floor(seconds / 86400); // 86400 seconds in a day
+  const hours = Math.floor((seconds % 86400) / 3600); // 3600 seconds in an hour
+
+  let result = '';
+
+  if (days > 0) {
+    result += `${days} day${days > 1 ? 's' : ''}`;
+  }
+
+  if (hours > 0) {
+    if (result !== '') {
+      result += 'and ';
+    }
+    result += `${hours} hour${hours > 1 ? 's' : ''}`;
+  }
+
+  if (result === '') {
+    result = '0 hours'; // If there are no days or hours
+  }
+
+  return result;
+}
+
 export const statusMessage = (node: any = {}, nodeName: string) => {
   if (node.state === 'RETIRED') {
     return 'Retired';
@@ -359,11 +386,7 @@ export const statusMessage = (node: any = {}, nodeName: string) => {
     switch (node.status) {
       case 'ONLINE':
         return (
-          <>
-            {timeSince(
-              node?.statusHistory[0] ? node.statusHistory[0].timestamp : '',
-            )}
-          </>
+          <>{timeSince(node?.onboardingDate ? node.onboardingDate : '')}</>
         );
       case 'CONNECTING':
         return 'Connecting...';
@@ -376,9 +399,7 @@ export const statusMessage = (node: any = {}, nodeName: string) => {
         return (
           <>
             <div className="apollo_blocks_body_cell_online">Uptime</div>{' '}
-            {timeSince(
-              node?.statusHistory[0] ? node.statusHistory[0].timestamp : '',
-            )}
+            {timeSince(node?.onboardingDate ? node.onboardingDate : '')}
           </>
         );
       case 'CONNECTING':
@@ -404,6 +425,12 @@ export const statusMessage = (node: any = {}, nodeName: string) => {
 export const ambToUSD = (amb: any = 0, usd_price: any = 0) => {
   let result = amb * parseFloat(usd_price);
 
+  return result.toFixed(2);
+};
+
+export const BnWeiToUsd = (bnWei: BigNumber, usd_price: any = 0) => {
+  const ambAmount = parseInt(ethers.utils.formatEther(bnWei));
+  let result = ambAmount * parseFloat(usd_price);
   return result.toFixed(2);
 };
 
@@ -478,4 +505,25 @@ export const diffStyleToCell = (
       </span>
     </>
   );
+};
+
+export const isValidEthereumAddress = (address: any) => {
+  try {
+    // This function throws an error if the address is not valid
+    ethers.utils.getAddress(address);
+    return true;
+  } catch (error) {
+    // If an error is caught, the address is not valid
+    return false;
+  }
+};
+
+const isRenderProps = (key: string | undefined) => {
+  let data: any = {};
+  if (!!key) {
+    return data[key];
+  } else {
+    data = [];
+  }
+  return data;
 };

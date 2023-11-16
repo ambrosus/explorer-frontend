@@ -22,9 +22,13 @@ export interface LayoutProps {
 @return {React.FC<LayoutProps>}
  */
 
+const readProvider = new ethers.providers.JsonRpcProvider(
+  process.env.REACT_APP_EXPLORER_NETWORK,
+);
+
 export const Layout: FC<LayoutProps> = ({ children }) => {
   const [balance, setBalance] = useState('0');
-  const { account, provider } = useWeb3React();
+  const { account } = useWeb3React();
 
   const { loginMetamask, loginWalletConnect, logout } = useAuthorization(
     metamaskConnector,
@@ -34,12 +38,18 @@ export const Layout: FC<LayoutProps> = ({ children }) => {
 
   useEffect(() => {
     getBalance();
+    readProvider.on('block', () => {
+      getBalance();
+    });
+    return () => {
+      readProvider.removeAllListeners('block');
+    };
   }, [account, isLoaded]);
 
   const getBalance = async () => {
-    if (!provider) return;
+    if (!account) return;
 
-    const bnBalance = await provider.getBalance(account);
+    const bnBalance = await readProvider.getBalance(account);
     const numBalance = ethers.utils.formatEther(bnBalance);
     setBalance((+numBalance).toFixed(2));
   };
