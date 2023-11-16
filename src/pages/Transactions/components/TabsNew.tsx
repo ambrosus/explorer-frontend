@@ -125,9 +125,9 @@ const TabsNew: FC<TabsNewProps> = ({
 
   useEffect(() => {
     if (tabs) {
-      setTab(tabs[0].value)
+      setTab(tabs[0].value);
     }
-  }, [tabs])
+  }, [tabs]);
 
   useEffect(() => {
     if (
