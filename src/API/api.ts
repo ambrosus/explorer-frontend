@@ -69,6 +69,10 @@ const getAtlases = (params = {}) => {
     params,
   });
 };
+
+const getAtlas = (address: string) => {
+  return API().get(`atlases/${address}`)
+};
 //TODO remove atlases
 export const getAccountTx = (params: any = {}) => {
   return API().get(`accounts/${params.address}/transactions`, {
@@ -136,6 +140,7 @@ const api = {
   API: API(),
   SOURCIFYAPI: SOURCIFYAPI(),
   getAtlases,
+  getAtlas,
   getContract,
   getAccountTx,
   getAccount,

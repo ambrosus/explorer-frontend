@@ -92,13 +92,14 @@ export const getAddressData =
     try {
       const apolloInfo = API2.getApollo(address);
       const accountInfo = API.getAccount(address);
-
-      Promise.allSettled([apolloInfo, accountInfo]).then((res: any) => {
+      const atlasInfo = API.getAtlas(address);
+      Promise.allSettled([apolloInfo, accountInfo, atlasInfo]).then((res: any) => {
         dispatch({
           type: actionTypes.GET_ADDRESS_DATA__SUCCESS,
           payload: {
-            apolloInfo: { data: res[0].value.data.validator },
+            apolloInfo: { data: res[0].value ? res[0].value.data.validator : {}},
             accountInfo: res[1].value,
+            atlasInfo: res[2].value
           },
         });
       });

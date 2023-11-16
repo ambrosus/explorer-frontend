@@ -13,6 +13,7 @@ import { useParams } from 'react-router-dom';
 import { TParams } from 'types';
 import { ambToUSD, diffStyleToCell } from 'utils/helpers';
 import { atlasDetailsSorting } from 'utils/sidePages';
+import axios from "axios";
 
 export const AtlasDetails = () => {
   const { getAddressData } = useActions();
@@ -26,7 +27,7 @@ export const AtlasDetails = () => {
   const { data: addressData } = useTypedSelector((state) => state.addressData);
 
   const atlasData = addressData?.atlasInfo?.data || 0;
-
+  console.log(addressData);
   const ambBalance = atlasData?.balance?.ether || 0;
   const ambStake = atlasData?.stake?.ether || 0;
   const price_usd = appData?.tokenInfo?.price_usd || 0;
