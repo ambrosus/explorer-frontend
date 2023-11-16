@@ -80,8 +80,9 @@ const Confirm = ({
       <p className="node-setup__text node-setup__text_height">
         <b>Please double check all selected parameters.</b>Connect the wallet
         you want to use to set up a node. We highly recommend you read our{' '}
-        <a href="/">step-by-step guide</a> for launching a validator node
-        before you start. Need help? Go to <a href="mailto:support@airdao.io">support@airdao.io</a>
+        <a href="/">step-by-step guide</a> for launching a validator node before
+        you start. Need help? Go to{' '}
+        <a href="mailto:support@airdao.io">support@airdao.io</a>
       </p>
       <p className="node-setup__text node-setup__text_height">
         You can change the stake size or node owner address later on the node

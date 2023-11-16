@@ -236,7 +236,12 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
           className="address_blocks_cell_token  universall_light2"
           onClick={handleBlock}
         >
-          <NavLink className={`address_blocks_icon universall_light2 ${type === 'ERC-20_Tx' ? 'no-underline' : ''}`} to={``}>
+          <NavLink
+            className={`address_blocks_icon universall_light2 ${
+              type === 'ERC-20_Tx' ? 'no-underline' : ''
+            }`}
+            to={``}
+          >
             {token
               ? token
               : `${tokenData.address.substring(
