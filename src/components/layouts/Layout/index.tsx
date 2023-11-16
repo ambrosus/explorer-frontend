@@ -1,12 +1,17 @@
 // @ts-nocheck
-import ExplorerHelp from '../../ExplorerHelp';
 import { NewHeader } from '../NewHeader';
-import { Menu } from 'airdao-components-and-tools/components';
+import { Header } from '@airdao/ui-library';
+import { useWeb3React } from '@web3-react/core';
+import {
+  useAuthorization,
+  useAutoLogin,
+} from 'airdao-components-and-tools/hooks';
 import {
   metamaskConnector,
   walletconnectConnector,
 } from 'airdao-components-and-tools/utils';
-import React, { FC } from 'react';
+import { ethers } from 'ethers';
+import React, { FC, useEffect, useState } from 'react';
 
 export interface LayoutProps {
   children: React.ReactNode;
@@ -17,14 +22,50 @@ export interface LayoutProps {
 @return {React.FC<LayoutProps>}
  */
 
+const readProvider = new ethers.providers.JsonRpcProvider(
+  process.env.REACT_APP_EXPLORER_NETWORK,
+);
+
 export const Layout: FC<LayoutProps> = ({ children }) => {
+  const [balance, setBalance] = useState('0');
+  const { account } = useWeb3React();
+
+  const { loginMetamask, loginWalletConnect, logout } = useAuthorization(
+    metamaskConnector,
+    walletconnectConnector,
+  );
+  const isLoaded = useAutoLogin(metamaskConnector);
+
+  useEffect(() => {
+    getBalance();
+    readProvider.on('block', () => {
+      getBalance();
+    });
+    return () => {
+      readProvider.removeAllListeners('block');
+    };
+  }, [account, isLoaded]);
+
+  const getBalance = async () => {
+    if (!account) return;
+
+    const bnBalance = await readProvider.getBalance(account);
+    const numBalance = ethers.utils.formatEther(bnBalance);
+    setBalance((+numBalance).toFixed(2));
+  };
+
   return (
     <div className="layout ">
       <div className="container" style={{ position: 'relative' }}>
-        <Menu {...{ metamaskConnector, walletconnectConnector }} initHidden />
+        <Header
+          loginMetamask={loginMetamask}
+          loginWalletConnect={loginWalletConnect}
+          account={account}
+          disconnect={logout}
+          balance={balance}
+        />
       </div>
       <NewHeader />
-      <ExplorerHelp />
       <div className="page">{children}</div>
     </div>
   );

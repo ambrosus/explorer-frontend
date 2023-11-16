@@ -124,6 +124,12 @@ const TabsNew: FC<TabsNewProps> = ({
   }, [tab, sortTerm, fetchParams]);
 
   useEffect(() => {
+    if (tabs) {
+      setTab(tabs[0].value)
+    }
+  }, [tabs])
+
+  useEffect(() => {
     if (
       tab !== 'contract' &&
       inView &&

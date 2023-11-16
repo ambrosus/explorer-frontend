@@ -126,12 +126,12 @@ export const Apollo = memo(() => {
             { title: 'Total blocks', value: 'totalBundles' },
             { title: 'Balance', value: 'balance' },
             { title: 'Stake', value: 'stake' },
-            {
-              title: 'Retired',
-              value: 'retired',
-              heading: <AtlasBlocksHeader pageTitle="blocks" isRetired />,
-              listData: getRetiredApollos,
-            },
+            // {
+            //   title: 'Retired',
+            //   value: 'retired',
+            //   heading: <AtlasBlocksHeader pageTitle="blocks" isRetired />,
+            //   listData: getRetiredApollos,
+            // },
           ]}
           fetchData={API2.getApollos}
           initSortTerm={'totalBundles'}

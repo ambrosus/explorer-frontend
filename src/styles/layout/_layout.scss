@@ -2,6 +2,11 @@
   margin: auto;
   flex-direction: column;
   min-height: 450px;
+  padding-top: 110px;
+
+  @media (max-width: 1200px) {
+    padding-top: 50px;
+  }
 }
 
 .page {
