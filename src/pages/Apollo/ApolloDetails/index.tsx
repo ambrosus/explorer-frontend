@@ -196,7 +196,7 @@ export const ApolloDetails = memo(() => {
         </div>
         <HeadInfo data={itemFirst} className="head_info" />
         <HeadInfo data={itemSecond} className="head_info" />
-        {/*<OwnerDashboard address={address} />*/}
+        <OwnerDashboard address={address} />
       </Content.Header>
       <Content.Body>
         <TabsNew

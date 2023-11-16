@@ -68,13 +68,13 @@ export const routes: IRoute[] = [
     component: () => <Transactions />,
     isClick: true,
   },
-  // {
-  //   path: '/node-setup/',
-  //   key: 'Launch a node',
-  //   exact: true,
-  //   component: () => <NodeSetup />,
-  //   isClick: true,
-  // },
+  {
+    path: '/node-setup/',
+    key: 'Launch a node',
+    exact: true,
+    component: () => <NodeSetup />,
+    isClick: true,
+  },
 ];
 
 export const addressesRoutes: IRoute[] = [
