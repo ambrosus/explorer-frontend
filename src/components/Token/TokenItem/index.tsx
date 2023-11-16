@@ -46,7 +46,7 @@ const TokenItem = ({ token, selectedToken, setToken }: ITokenItemProps) => {
       <div className="token_item_tokens">
         <div>{tokenData.name}</div>
         <div className="universall_light2">
-          {token?.balance.ether} {tokenData.symbol}
+          {(+token?.balance.ether).toFixed(2)} {tokenData.symbol}
         </div>
       </div>
       <div className="token_item_amount" />
