@@ -93,16 +93,20 @@ export const getAddressData =
       const apolloInfo = API2.getApollo(address);
       const accountInfo = API.getAccount(address);
       const atlasInfo = API.getAtlas(address);
-      Promise.allSettled([apolloInfo, accountInfo, atlasInfo]).then((res: any) => {
-        dispatch({
-          type: actionTypes.GET_ADDRESS_DATA__SUCCESS,
-          payload: {
-            apolloInfo: { data: res[0].value ? res[0].value.data.validator : {}},
-            accountInfo: res[1].value,
-            atlasInfo: res[2].value
-          },
-        });
-      });
+      Promise.allSettled([apolloInfo, accountInfo, atlasInfo]).then(
+        (res: any) => {
+          dispatch({
+            type: actionTypes.GET_ADDRESS_DATA__SUCCESS,
+            payload: {
+              apolloInfo: {
+                data: res[0].value ? res[0].value.data.validator : {},
+              },
+              accountInfo: res[1].value,
+              atlasInfo: res[2].value,
+            },
+          });
+        },
+      );
     } catch (error: any) {
       dispatch({
         type: actionTypes.GET_ADDRESS_DATA__FAIL,

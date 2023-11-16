@@ -71,7 +71,7 @@ const getAtlases = (params = {}) => {
 };
 
 const getAtlas = (address: string) => {
-  return API().get(`atlases/${address}`)
+  return API().get(`atlases/${address}`);
 };
 //TODO remove atlases
 export const getAccountTx = (params: any = {}) => {

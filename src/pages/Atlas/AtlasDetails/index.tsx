@@ -1,4 +1,5 @@
 import API from 'API/api';
+import axios from 'axios';
 import { Content } from 'components/Content';
 import CopyBtn from 'components/CopyBtn';
 import HeadInfo from 'components/HeadInfo';
@@ -13,7 +14,6 @@ import { useParams } from 'react-router-dom';
 import { TParams } from 'types';
 import { ambToUSD, diffStyleToCell } from 'utils/helpers';
 import { atlasDetailsSorting } from 'utils/sidePages';
-import axios from "axios";
 
 export const AtlasDetails = () => {
   const { getAddressData } = useActions();
