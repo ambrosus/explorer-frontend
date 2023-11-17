@@ -1,4 +1,3 @@
-import warning from '../../../assets/svg/warning.svg';
 import CommandText from './CommandText';
 import FAQ from './FAQ';
 import React, { useEffect, useState } from 'react';
@@ -28,7 +27,6 @@ const Finish = () => {
   const [formData, setFormData] = useState<any>({});
 
   useEffect(() => {
-    console.log(nodeAddress);
     const dataFromStorage = localStorage.getItem('nodeSetup');
 
     if (dataFromStorage) {

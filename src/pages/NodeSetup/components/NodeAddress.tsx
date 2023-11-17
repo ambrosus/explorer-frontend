@@ -1,4 +1,5 @@
 // @ts-nocheck
+import { getRetiredApollos } from '../../Apollo/utils';
 import Warning from '../Warning';
 import { Contracts, Methods } from '@airdao/airdao-node-contracts';
 import { useWeb3React } from '@web3-react/core';
@@ -22,10 +23,10 @@ const NodeAddress = ({
 }: NodeAddressProps) => {
   const { isActive } = useWeb3React();
   const { loginMetamask } = useAuthorization(metamaskConnector);
-  const [addressIsNodeError, setAddressIsNodeError] = useState(false);
+  const [error, setError] = useState('');
 
   useEffect(() => {
-    setAddressIsNodeError(false);
+    setError('');
   }, [account]);
 
   const handleNodeAddress = async () => {
@@ -37,10 +38,14 @@ const NodeAddress = ({
       await Methods.serverNodesGetStake(contracts, account)
     ).stake.isZero();
 
+    const retiredApollos = await getRetiredApollos();
+
     if (isAlreadyNode) {
-      setAddressIsNodeError(true);
+      setError('Address is already a node');
+    } else if (retiredApollos.some(({ address }) => address.toLowerCase() === account.toLowerCase())) {
+      setError('Node have been retired, wait 15 days and try again');
     } else {
-      setAddressIsNodeError(false);
+      setError('');
       setFormData((state) => ({
         ...state,
         nodeAddress: account,
@@ -49,7 +54,7 @@ const NodeAddress = ({
     }
   };
 
-  const closeAddressIsNodeError = () => setAddressIsNodeError(false);
+  const closeAddressIsNodeError = () => setError('');
 
   return (
     <div className="white-container">
@@ -82,10 +87,8 @@ const NodeAddress = ({
           >
             Continue with connected address
           </button>
-          {addressIsNodeError && (
-            <Warning onClose={closeAddressIsNodeError}>
-              Address is already a node
-            </Warning>
+          {!!error && (
+            <Warning onClose={closeAddressIsNodeError}>{error}</Warning>
           )}
         </>
       )}
