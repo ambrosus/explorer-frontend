@@ -7,6 +7,7 @@ import { useAuthorization } from 'airdao-components-and-tools/hooks';
 import { metamaskConnector } from 'airdao-components-and-tools/utils';
 import { switchToAmb } from 'airdao-components-and-tools/utils';
 import React, { useEffect, useState } from 'react';
+import {convertSecondsToTime} from "../../../utils/helpers";
 
 interface NodeAddressProps {
   handleNextClick: () => {};
@@ -40,10 +41,13 @@ const NodeAddress = ({
 
     const retiredApollos = await getRetiredApollos();
 
+    const unlockTime = await Methods.serverNodesGetUnstakeLockTime(contracts);
+    const parsedUnlockTime = convertSecondsToTime(unlockTime.toNumber());
+
     if (isAlreadyNode) {
       setError('Address is already a node');
     } else if (retiredApollos.some(({ address }) => address.toLowerCase() === account.toLowerCase())) {
-      setError('Node have been retired, wait 15 days and try again');
+      setError(`The node has been retired. In ${parsedUnlockTime} you will be able to launch a node with this address.`);
     } else {
       setError('');
       setFormData((state) => ({
