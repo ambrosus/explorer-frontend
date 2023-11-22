@@ -1,5 +1,4 @@
 // @ts-nocheck
-import { convertSecondsToTime } from '../../../utils/helpers';
 import { getRetiredApollos } from '../../Apollo/utils';
 import Warning from '../Warning';
 import { Contracts, Methods } from '@airdao/airdao-node-contracts';
