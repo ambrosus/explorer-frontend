@@ -41,7 +41,7 @@ const NodeAddress = ({
 
     const retiredApollos = await getRetiredApollos();
 
-    const unlockTime = retiredApollos.find(
+    const unlockDateTimeString = retiredApollos.find(
       ({ address }) => address.toLowerCase() === account.toLowerCase(),
     )?.unlockTime;
 
@@ -52,8 +52,10 @@ const NodeAddress = ({
         ({ address }) => address.toLowerCase() === account.toLowerCase(),
       )
     ) {
+      const [date, time, timezone] = unlockDateTimeString.split(' ');
+
       setError(
-        `The node has been retired. At ${unlockTime} you will be able to launch a node with this address.`,
+        `The node has been retired. On ${date} at ${time} ${timezone} you will be able to launch a node with this address.`,
       );
     } else {
       setError('');
