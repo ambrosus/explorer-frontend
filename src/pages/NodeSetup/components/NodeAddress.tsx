@@ -1,4 +1,5 @@
 // @ts-nocheck
+import { convertSecondsToTime } from '../../../utils/helpers';
 import { getRetiredApollos } from '../../Apollo/utils';
 import Warning from '../Warning';
 import { Contracts, Methods } from '@airdao/airdao-node-contracts';
@@ -7,7 +8,6 @@ import { useAuthorization } from 'airdao-components-and-tools/hooks';
 import { metamaskConnector } from 'airdao-components-and-tools/utils';
 import { switchToAmb } from 'airdao-components-and-tools/utils';
 import React, { useEffect, useState } from 'react';
-import {convertSecondsToTime} from "../../../utils/helpers";
 
 interface NodeAddressProps {
   handleNextClick: () => {};
@@ -41,13 +41,20 @@ const NodeAddress = ({
 
     const retiredApollos = await getRetiredApollos();
 
-    const unlockTime = await Methods.serverNodesGetUnstakeLockTime(contracts);
-    const parsedUnlockTime = convertSecondsToTime(unlockTime.toNumber());
+    const unlockTime = retiredApollos.find(
+      ({ address }) => address.toLowerCase() === account.toLowerCase(),
+    )?.unlockTime;
 
     if (isAlreadyNode) {
       setError('Address is already a node');
-    } else if (retiredApollos.some(({ address }) => address.toLowerCase() === account.toLowerCase())) {
-      setError(`The node has been retired. In ${parsedUnlockTime} you will be able to launch a node with this address.`);
+    } else if (
+      retiredApollos.some(
+        ({ address }) => address.toLowerCase() === account.toLowerCase(),
+      )
+    ) {
+      setError(
+        `The node has been retired. At ${unlockTime} you will be able to launch a node with this address.`,
+      );
     } else {
       setError('');
       setFormData((state) => ({
