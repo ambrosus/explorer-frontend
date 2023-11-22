@@ -148,8 +148,6 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 
   //TODO ?
   const handleBlock = () => {
-    if (type === 'ERC-20_Tx') return null;
-
     if (tokenData) {
       const currentToken = tokens.find(
         (el: any) => el.address === tokenData.address,
@@ -224,7 +222,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
   const isToken =
     type === 'ERC-20_Tx' ? (
       <div
-        className="address_blocks_cell_last universall_light2"
+        className="address_blocks_cell_last universall_light2 address_blocks_cell_token"
         style={{ fontWeight: '600', cursor: 'pointer' }}
       >
         {type === 'ERC-20_Tx' && (
@@ -236,17 +234,22 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
           className="address_blocks_cell_token  universall_light2"
           onClick={handleBlock}
         >
-          <span
-            className={`address_blocks_icon universall_light2 ${
-              type === 'ERC-20_Tx' ? 'no-underline' : ''
-            }`}
-          >
+          <NavLink className={`address_blocks_icon universall_light2`} to={``}>
+            {token
+              ? token
+              : `${tokenData.address.substring(
+                  0,
+                  4,
+                )}...${tokenData.address.substring(
+                  tokenData.address.length - 4,
+                  tokenData.address.length,
+                )}`}{' '}
             {token.includes('token')
-              ? `${getAmbTokenSymbol(token)})`
-              : !_symbol || _symbol.trim() === 'null'
-              ? 'AMB'
-              : `${_symbol}`}
-          </span>
+              ? `(${getAmbTokenSymbol(token)})`
+              : !symbol || symbol.trim() === 'null'
+              ? '(AMB)'
+              : `(${symbol})`}
+          </NavLink>
         </span>
       </div>
     ) : (

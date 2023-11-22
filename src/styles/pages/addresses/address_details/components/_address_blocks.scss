@@ -100,7 +100,11 @@ a.address_blocks_icon {
   height: 24px;
 }
 
-.no-underline {
-  text-decoration: none!important;
-  cursor: initial;
+.address_details_sorted-by-token .address_blocks_cell_token {
+  pointer-events: none;
+  cursor: initial !important;
+}
+
+.address_details_sorted-by-token .address_blocks_cell_token a {
+  text-decoration: none !important;
 }
