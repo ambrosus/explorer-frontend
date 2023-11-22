@@ -82,7 +82,11 @@ const AddressDetails = () => {
           content="Explore AirDAO Network Addresses: Total addresses, Holders, Tx Count, Balance etc."
         />
       </Helmet>
-      <section className="address_details">
+      <section
+        className={`address_details ${
+          !!selectedToken ? 'address_details_sorted-by-token' : ''
+        }`}
+      >
         <Content.Header>
           <h1 className="address_details_h1">
             {addressData.isContract

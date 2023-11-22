@@ -99,3 +99,12 @@ a.address_blocks_icon {
   width: 24px;
   height: 24px;
 }
+
+.address_details_sorted-by-token .address_blocks_cell_token {
+  pointer-events: none;
+  cursor: initial !important;
+}
+
+.address_details_sorted-by-token .address_blocks_cell_token a {
+  text-decoration: none !important;
+}

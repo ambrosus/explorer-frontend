@@ -77,7 +77,7 @@ const NodeSetup: React.FC = () => {
   }, [formData, step]);
 
   const handleNextClick = () => {
-    if (account && step > 1) {
+    if (account && step > 0) {
       const dataFromStorage = localStorage.getItem('nodeSetup') || '{}';
       const parsedData = JSON.parse(dataFromStorage);
 

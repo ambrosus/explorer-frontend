@@ -191,7 +191,7 @@ export const displayAmount = (n: number | string) => {
    * @param {number | string} n - Number to check
    * @returns {string}
    */
-  return isFloat(n) ? Number(n).toFixed(2) : Number(n).toFixed(2);
+  return isFloat(n) ? Number(n).toFixed(6) : Number(n).toFixed(2);
 };
 
 export const calckBlocks = (blockReward: any) =>

@@ -148,8 +148,6 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
 
   //TODO ?
   const handleBlock = () => {
-    if (type === 'ERC-20_Tx') return null;
-
     if (tokenData) {
       const currentToken = tokens.find(
         (el: any) => el.address === tokenData.address,
@@ -170,6 +168,16 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
     ) {
       return 'TPT';
     } else return symbol;
+  }, [tokenData]);
+
+  const tokenName = useMemo(() => {
+    if (tokenData?.address === '0x322269e52800e5094c008f3b01A3FD97BB3C8f5D') {
+      return 'Hera Pool Token';
+    } else if (
+      tokenData?.address === '0x7240d2444151d9A8c72F77306Fa10f19FE7C9182'
+    ) {
+      return 'Test1 Pool Token';
+    } else return token;
   }, [tokenData]);
 
   const isAmount =
@@ -224,7 +232,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
   const isToken =
     type === 'ERC-20_Tx' ? (
       <div
-        className="address_blocks_cell_last universall_light2"
+        className="address_blocks_cell_last universall_light2 address_blocks_cell_token"
         style={{ fontWeight: '600', cursor: 'pointer' }}
       >
         {type === 'ERC-20_Tx' && (
@@ -236,14 +244,9 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
           className="address_blocks_cell_token  universall_light2"
           onClick={handleBlock}
         >
-          <NavLink
-            className={`address_blocks_icon universall_light2 ${
-              type === 'ERC-20_Tx' ? 'no-underline' : ''
-            }`}
-            to={``}
-          >
-            {token
-              ? token
+          <NavLink className={`address_blocks_icon universall_light2`} to={``}>
+            {tokenName
+              ? tokenName
               : `${tokenData.address.substring(
                   0,
                   4,
@@ -253,9 +256,9 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
                 )}`}{' '}
             {token.includes('token')
               ? `(${getAmbTokenSymbol(token)})`
-              : !symbol || symbol.trim() === 'null'
+              : !_symbol || _symbol.trim() === 'null'
               ? '(AMB)'
-              : `(${symbol})`}
+              : `(${_symbol})`}
           </NavLink>
         </span>
       </div>
