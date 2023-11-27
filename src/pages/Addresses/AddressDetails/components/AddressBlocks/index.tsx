@@ -192,7 +192,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
     } else if (
       tokenData?.address === '0xE984ACe36F2B6f10Fec8dd6fc1bB19c7b1D2F2c6'
     ) {
-      return 'Plutus Pool Token';
+      return 'Ganymede Pool Token';
     } else return token;
   }, [tokenData]);
 
