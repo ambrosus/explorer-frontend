@@ -46,13 +46,7 @@ const AddressDetails = () => {
     }
   }, [tokenAddress, addressData]);
 
-  useEffect(() => {
-    if (selectedToken) {
-    }
-  }, [selectedToken]);
-
   const handleToken = (token: any) => {
-    setSelectedToken(token);
     if (token) {
       navigate(`/address/${address}/token/${token.address}`);
     } else {
