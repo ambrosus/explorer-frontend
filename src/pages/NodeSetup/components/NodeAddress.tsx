@@ -1,5 +1,4 @@
 // @ts-nocheck
-import { convertSecondsToTime } from '../../../utils/helpers';
 import { getRetiredApollos } from '../../Apollo/utils';
 import Warning from '../Warning';
 import { Contracts, Methods } from '@airdao/airdao-node-contracts';
@@ -41,8 +40,9 @@ const NodeAddress = ({
 
     const retiredApollos = await getRetiredApollos();
 
-    const unlockTime = await Methods.serverNodesGetUnstakeLockTime(contracts);
-    const parsedUnlockTime = convertSecondsToTime(unlockTime.toNumber());
+    const unlockDateTimeString = retiredApollos.find(
+      ({ address }) => address.toLowerCase() === account.toLowerCase(),
+    )?.unlockTime;
 
     if (isAlreadyNode) {
       setError('Address is already a node');
@@ -51,8 +51,10 @@ const NodeAddress = ({
         ({ address }) => address.toLowerCase() === account.toLowerCase(),
       )
     ) {
+      const [date, time, timezone] = unlockDateTimeString.split(' ');
+
       setError(
-        `The node has been retired. In ${parsedUnlockTime} you will be able to launch a node with this address.`,
+        `The node has been retired. On ${date} at ${time} ${timezone} you will be able to launch a node with this address.`,
       );
     } else {
       setError('');
