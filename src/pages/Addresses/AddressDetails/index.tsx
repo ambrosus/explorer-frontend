@@ -52,6 +52,7 @@ const AddressDetails = () => {
     } else {
       navigate(`/address/${address}`);
     }
+    setSelectedToken(token);
   };
 
   const { FOR_TABLET } = useDeviceSize();
