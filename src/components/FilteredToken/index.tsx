@@ -34,6 +34,14 @@ const FilteredToken: FC<FilteredTokenProps> = ({
       selectedToken.address === '0x7240d2444151d9A8c72F77306Fa10f19FE7C9182'
     ) {
       return 'Test1 pool token';
+    } else if (
+      selectedToken.address === '0xEB8386a50Edd613cc43f061E9C5A915b0443C5d4'
+    ) {
+      return 'Plutus pool token';
+    } else if (
+      selectedToken.address === '0xE984ACe36F2B6f10Fec8dd6fc1bB19c7b1D2F2c6'
+    ) {
+      return 'Ganymede pool token';
     } else {
       return selectedToken.name;
     }
@@ -77,7 +85,9 @@ const FilteredToken: FC<FilteredTokenProps> = ({
           </span>
         </div>
         <div className="filtered_token_cell">
-          <span className="filtered_token_cell_bold">Token contract address</span>
+          <span className="filtered_token_cell_bold">
+            Token contract address
+          </span>
           <span className="filtered_token_cell_normal">
             {selectedToken.address}
           </span>

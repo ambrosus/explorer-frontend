@@ -167,6 +167,14 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
       tokenData?.address === '0x7240d2444151d9A8c72F77306Fa10f19FE7C9182'
     ) {
       return 'TPT';
+    } else if (
+      tokenData?.address === '0xEB8386a50Edd613cc43f061E9C5A915b0443C5d4'
+    ) {
+      return 'PPT';
+    } else if (
+      tokenData?.address === '0xE984ACe36F2B6f10Fec8dd6fc1bB19c7b1D2F2c6'
+    ) {
+      return 'GPT';
     } else return symbol;
   }, [tokenData]);
 
@@ -177,6 +185,14 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
       tokenData?.address === '0x7240d2444151d9A8c72F77306Fa10f19FE7C9182'
     ) {
       return 'Test1 Pool Token';
+    } else if (
+      tokenData?.address === '0xEB8386a50Edd613cc43f061E9C5A915b0443C5d4'
+    ) {
+      return 'Plutus Pool Token';
+    } else if (
+      tokenData?.address === '0xE984ACe36F2B6f10Fec8dd6fc1bB19c7b1D2F2c6'
+    ) {
+      return 'Plutus Pool Token';
     } else return token;
   }, [tokenData]);
 
