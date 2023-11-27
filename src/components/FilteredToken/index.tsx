@@ -70,11 +70,16 @@ const FilteredToken: FC<FilteredTokenProps> = ({
               : '-'}
           </span>
         </div>
-
         <div className="filtered_token_cell">
           <span className="filtered_token_cell_bold">Total supply</span>
           <span className="filtered_token_cell_normal">
             {(+formatEther(selectedToken.totalSupply.wei)).toFixed(2)}
+          </span>
+        </div>
+        <div className="filtered_token_cell">
+          <span className="filtered_token_cell_bold">Token contract address</span>
+          <span className="filtered_token_cell_normal">
+            {selectedToken.address}
           </span>
         </div>
       </div>
