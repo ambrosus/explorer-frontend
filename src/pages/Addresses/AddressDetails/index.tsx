@@ -13,11 +13,11 @@ import useDeviceSize from 'hooks/useDeviceSize';
 import moment from 'moment';
 import React, { useEffect, useMemo, useState } from 'react';
 import { Helmet } from 'react-helmet';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const AddressDetails = () => {
-  const { address } = useParams();
-
+  const { address, tokenAddress } = useParams();
+  const navigate = useNavigate();
   const [selectedToken, setSelectedToken]: any = useState(null);
   const [addressData, setAddressData] = useState({
     balance: '',
@@ -36,6 +36,24 @@ const AddressDetails = () => {
       }
     });
   }, [address]);
+
+  useEffect(() => {
+    if (addressData.tokens.length && tokenAddress) {
+      const token = addressData.tokens.find(
+        (el: any) => el.address === tokenAddress,
+      );
+      setSelectedToken(token);
+    }
+  }, [tokenAddress, addressData]);
+
+  const handleToken = (token: any) => {
+    if (token) {
+      navigate(`/address/${address}/token/${token.address}`);
+    } else {
+      navigate(`/address/${address}`);
+    }
+    setSelectedToken(token);
+  };
 
   const { FOR_TABLET } = useDeviceSize();
 
@@ -56,7 +74,7 @@ const AddressDetails = () => {
       isIcon={true}
       inners={tx.inners}
       status={tx.status}
-      onClick={setSelectedToken}
+      onClick={handleToken}
       tokenData={tx.token}
       tokens={addressData.tokens}
     />
@@ -117,14 +135,14 @@ const AddressDetails = () => {
               <Token
                 addressData={addressData}
                 selectedToken={selectedToken}
-                onClick={setSelectedToken}
+                onClick={handleToken}
               />
             </div>
 
             {selectedToken && (
               <FilteredToken
                 selectedToken={selectedToken}
-                setSelectedToken={setSelectedToken}
+                setSelectedToken={handleToken}
               />
             )}
           </div>
