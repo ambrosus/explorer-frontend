@@ -63,7 +63,6 @@ const FilteredToken: FC<FilteredTokenProps> = ({
           <div className="filtered_token_cell">
             <button onClick={backClick}>Back to all tokens</button>
           </div>
-
           <button className="filtered_token_cell" onClick={backClick}>
             <Discard />
           </button>
