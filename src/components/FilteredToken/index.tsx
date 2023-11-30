@@ -1,5 +1,10 @@
+import Gpt from '../../assets/icons/Cryptos/Gpt';
+import Hpt from '../../assets/icons/Cryptos/Hpt';
+import Ppt from '../../assets/icons/Cryptos/Ppt';
+import { ReactComponent as WalletIcon } from '../../assets/icons/wallet.svg';
 import { poolsTokens } from '../../utils/constants';
 import { getTokenIcon } from '../../utils/helpers';
+import { useWeb3React } from '@web3-react/core';
 import Discard from 'assets/icons/Discard';
 import { formatEther } from 'ethers/lib/utils';
 import { useActions } from 'hooks/useActions';
@@ -15,11 +20,13 @@ const FilteredToken: FC<FilteredTokenProps> = ({
   selectedToken,
 }) => {
   const { clearFilters } = useActions();
+  const { provider, isActive } = useWeb3React();
 
   const backClick = () => {
     setSelectedToken(null);
     clearFilters();
   };
+
   const Icon = getTokenIcon(
     selectedToken.symbol as string,
     selectedToken.name,
@@ -34,6 +41,24 @@ const FilteredToken: FC<FilteredTokenProps> = ({
     }
   }, [selectedToken]);
 
+  const addToWallet = async () => {
+    if (provider && provider.provider) {
+      provider.provider.request?.({
+        method: 'wallet_watchAsset',
+        params: {
+          // @ts-ignore
+          type: 'ERC20',
+          options: {
+            address: selectedToken.address, // The address of the token.
+            symbol: selectedToken.symbol, // A ticker symbol or shorthand, up to 5 characters.
+            decimals: selectedToken.decimals, // The number of decimals in the token.
+            image: `${window.location.origin}/explorer/token-icons/${selectedToken.symbol}.svg`, // A string URL of the token logo.
+          },
+        },
+      });
+    }
+  };
+
   return (
     <div className="filtered_token">
       <div className="filtered_token_head">
@@ -44,6 +69,12 @@ const FilteredToken: FC<FilteredTokenProps> = ({
           <div className="filtered_token_cell">
             <Icon />
             {selectedToken && _name}
+            {isActive && selectedToken.symbol && (
+              <WalletIcon
+                onClick={addToWallet}
+                className={'filtered_token__add-to-wallet'}
+              />
+            )}
           </div>
         </div>
         <div className="filtered_token_cells">

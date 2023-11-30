@@ -1,10 +1,10 @@
 import ArrowDownBig from '../../../../../assets/icons/Arrows/ArrowDownBig';
 import Button from '../../../../../components/Button';
 import useToggle from '../../../../../hooks/useToggle';
+import { ZERO_ADDRESS } from '../../../../../utils/constants';
 import PendingTxMessage from './PendingTxMessage';
 import { isAddress } from 'ethers/lib/utils';
 import { useState } from 'react';
-import {ZERO_ADDRESS} from "../../../../../utils/constants";
 
 export default function ChangeAddress({
   ownerAddress,
@@ -60,7 +60,7 @@ function AddressBody({
   const [layoutState, setLayoutState] = useState('initial');
 
   function changeHandler(address: string = '') {
-    if ((!isAddress(newAddress) && !address)) {
+    if (!isAddress(newAddress) && !address) {
       setIsError(true);
       return;
     }
@@ -86,13 +86,17 @@ function AddressBody({
 
   const setZeroRewardAddress = () => {
     changeHandler(ZERO_ADDRESS);
-  }
+  };
 
   return (
     <div className="change-address__body">
       <div className="change-address__container">
         <div className="change-address__content">
-          <h4 className="change-address__title">{address === ZERO_ADDRESS ? 'Rewards sands to the stake node' : title}</h4>
+          <h4 className="change-address__title">
+            {address === ZERO_ADDRESS
+              ? 'Rewards sands to the stake node'
+              : title}
+          </h4>
           {address !== ZERO_ADDRESS && (
             <div className="change-address__address">{address}</div>
           )}
@@ -114,8 +118,9 @@ function AddressBody({
         }`}
       >
         {address === ZERO_ADDRESS && layoutState !== 'changing' && (
-          <p className='change-address__zero'>
-            Rewards sends directly to the stake node, in this case. You get more rewards every time the stake size grows.
+          <p className="change-address__zero">
+            Rewards sends directly to the stake node, in this case. You get more
+            rewards every time the stake size grows.
           </p>
         )}
         <div className="change-address__btns">
@@ -126,7 +131,9 @@ function AddressBody({
               className="stake-size__white-button change-address__top-offset"
               onClick={() => setLayoutState('changing')}
             >
-              {address === ZERO_ADDRESS ? 'Withdraw rewards to the address' : 'Change address'}
+              {address === ZERO_ADDRESS
+                ? 'Withdraw rewards to the address'
+                : 'Change address'}
             </Button>
           )}
 
