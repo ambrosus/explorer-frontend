@@ -64,3 +64,16 @@
   border: none;
   border-top: 1px solid #c9d9ff;
 }
+
+.change-address__btns {
+  display: flex;
+  justify-content: space-between;
+}
+
+.change-address__zero {
+  color: var(--neutral-400, #676B73);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px; /* 150% */
+}

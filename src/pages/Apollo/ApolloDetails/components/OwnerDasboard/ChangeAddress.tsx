@@ -4,6 +4,7 @@ import useToggle from '../../../../../hooks/useToggle';
 import PendingTxMessage from './PendingTxMessage';
 import { isAddress } from 'ethers/lib/utils';
 import { useState } from 'react';
+import {ZERO_ADDRESS} from "../../../../../utils/constants";
 
 export default function ChangeAddress({
   ownerAddress,
@@ -29,6 +30,7 @@ export default function ChangeAddress({
         changeAddress={changeRewardsReceiver}
         updateInfo={updateInfo}
         disabled={disabled}
+        isRewards={true}
       />
     </div>
   );
@@ -49,6 +51,7 @@ function AddressBody({
   changeAddress,
   updateInfo,
   disabled,
+  isRewards,
 }: AddressBodyProps) {
   const { toggled, setToggle } = useToggle();
   const [newAddress, setNewAddress] = useState('');
@@ -56,15 +59,15 @@ function AddressBody({
 
   const [layoutState, setLayoutState] = useState('initial');
 
-  function changeHandler() {
-    if (!isAddress(newAddress)) {
+  function changeHandler(address: string = '') {
+    if ((!isAddress(newAddress) && !address)) {
       setIsError(true);
       return;
     }
 
     setLayoutState('pending');
 
-    changeAddress(newAddress)
+    changeAddress(newAddress || address)
       .then((tx) => {
         console.log('change address started');
         return tx.wait();
@@ -81,12 +84,18 @@ function AddressBody({
       .finally(updateInfo);
   }
 
+  const setZeroRewardAddress = () => {
+    changeHandler(ZERO_ADDRESS);
+  }
+
   return (
     <div className="change-address__body">
       <div className="change-address__container">
         <div className="change-address__content">
-          <h4 className="change-address__title">{title}</h4>
-          <div className="change-address__address">{address}</div>
+          <h4 className="change-address__title">{address === ZERO_ADDRESS ? 'Rewards sands to the stake node' : title}</h4>
+          {address !== ZERO_ADDRESS && (
+            <div className="change-address__address">{address}</div>
+          )}
         </div>
         {!disabled && (
           <button
@@ -104,16 +113,34 @@ function AddressBody({
           toggled ? 'change-address__additional-info_open' : ''
         }`}
       >
-        {layoutState === 'initial' && (
-          <Button
-            size="small"
-            type="plain"
-            className="stake-size__white-button change-address__top-offset"
-            onClick={() => setLayoutState('changing')}
-          >
-            Change address
-          </Button>
+        {address === ZERO_ADDRESS && layoutState !== 'changing' && (
+          <p className='change-address__zero'>
+            Rewards sends directly to the stake node, in this case. You get more rewards every time the stake size grows.
+          </p>
         )}
+        <div className="change-address__btns">
+          {layoutState === 'initial' && (
+            <Button
+              size="small"
+              type="plain"
+              className="stake-size__white-button change-address__top-offset"
+              onClick={() => setLayoutState('changing')}
+            >
+              {address === ZERO_ADDRESS ? 'Withdraw rewards to the address' : 'Change address'}
+            </Button>
+          )}
+
+          {layoutState === 'initial' && isRewards && address !== ZERO_ADDRESS && (
+            <Button
+              size="small"
+              type="plain"
+              className="stake-size__white-button change-address__top-offset"
+              onClick={setZeroRewardAddress}
+            >
+              Send new rewards to the stake node
+            </Button>
+          )}
+        </div>
 
         {layoutState === 'changing' && (
           <>
@@ -151,4 +178,5 @@ interface AddressBodyProps {
   changeAddress: (address: string) => Promise<any>;
   updateInfo: () => any;
   disabled?: boolean;
+  isRewards?: boolean;
 }
