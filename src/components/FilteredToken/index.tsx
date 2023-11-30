@@ -1,9 +1,9 @@
+import { poolsTokens } from '../../utils/constants';
 import { getTokenIcon } from '../../utils/helpers';
 import Discard from 'assets/icons/Discard';
 import { formatEther } from 'ethers/lib/utils';
 import { useActions } from 'hooks/useActions';
 import React, { FC, useMemo } from 'react';
-import {poolsTokens} from "../../utils/constants";
 
 export type FilteredTokenProps = {
   setSelectedToken: any;
@@ -28,7 +28,7 @@ const FilteredToken: FC<FilteredTokenProps> = ({
 
   const _name = useMemo(() => {
     if (poolsTokens[selectedToken.address]) {
-      return poolsTokens[selectedToken.address].name
+      return poolsTokens[selectedToken.address].name;
     } else {
       return selectedToken.name;
     }

@@ -1,7 +1,7 @@
+import { poolsTokens } from '../../../utils/constants';
 import { ITokenItemProps } from 'pages/Addresses/AddressDetails/address-details.interface';
 import React, { useMemo } from 'react';
 import { getTokenIcon } from 'utils/helpers';
-import {poolsTokens} from "../../../utils/constants";
 
 const TokenItem = ({ token, selectedToken, setToken }: ITokenItemProps) => {
   const Icon = getTokenIcon(token.symbol, token.name, token.address);

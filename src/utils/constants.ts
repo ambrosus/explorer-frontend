@@ -1,7 +1,7 @@
+import Amb from 'assets/icons/Cryptos/Amb';
 import Gpt from 'assets/icons/Cryptos/Gpt';
 import Hpt from 'assets/icons/Cryptos/Hpt';
 import Ppt from 'assets/icons/Cryptos/Ppt';
-import Amb from 'assets/icons/Cryptos/Amb';
 
 export const WEI2ETH = 1000000000;
 export const BUNDLE_MAX_LOAD = 16834;
@@ -13,12 +13,12 @@ export const poolsTokens: any = {
   '0x322269e52800e5094c008f3b01A3FD97BB3C8f5D': {
     symbol: 'HPT',
     name: 'Hera Pool Token',
-    icon: Hpt
+    icon: Hpt,
   },
   '0x7240d2444151d9A8c72F77306Fa10f19FE7C9182': {
     symbol: 'TPT',
     name: 'Test1 pool token',
-    icon: Amb
+    icon: Amb,
   },
   '0xEB8386a50Edd613cc43f061E9C5A915b0443C5d4': {
     symbol: 'PPT',
@@ -29,8 +29,8 @@ export const poolsTokens: any = {
     symbol: 'GPT',
     name: 'Ganymede pool token',
     icon: Gpt,
-  }
-}
+  },
+};
 // testnet
 export const chainID = '22040';
 

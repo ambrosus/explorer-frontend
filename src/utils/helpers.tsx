@@ -1,5 +1,5 @@
 import { TransactionProps } from '../pages/Addresses/AddressDetails/address-details.interface';
-import {ENABLE_LOGS, poolsTokens} from './constants';
+import { ENABLE_LOGS, poolsTokens } from './constants';
 import Amb from 'assets/icons/Cryptos/Amb';
 import Bnb from 'assets/icons/Cryptos/Bnb';
 import Bond from 'assets/icons/Cryptos/Bond';
