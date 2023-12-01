@@ -1,4 +1,5 @@
 // @ts-nocheck
+import { convertSecondsToTime } from '../../utils/helpers';
 import Confirm from './components/Confirm';
 import InitStep from './components/InitStep';
 import NodeAddress from './components/NodeAddress';
@@ -13,7 +14,6 @@ import {
 import { useWeb3React } from '@web3-react/core';
 import { utils } from 'ethers';
 import React, { useEffect, useState } from 'react';
-import {convertSecondsToTime} from "../../utils/helpers";
 
 const { ethereum }: any = window;
 const ambChainId = process.env.REACT_APP_CHAIN_ID || '';
@@ -42,9 +42,9 @@ const NodeSetup: React.FC = () => {
     Methods.serverNodesGetMinStake(contracts).then((res) =>
       setMinStakeAmount(+utils.formatEther(res)),
     );
-    Methods.serverNodesGetUnstakeLockTime(contracts).then((res: any) =>
-      setUnlockTime(convertSecondsToTime(res.toNumber())),
-    );
+    Methods.serverNodesGetUnstakeLockTime(contracts).then((res: any) => {
+      setUnlockTime(convertSecondsToTime(res.toNumber()));
+    });
   }, [chainId]);
 
   useEffect(() => {

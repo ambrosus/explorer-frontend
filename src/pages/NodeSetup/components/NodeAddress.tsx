@@ -24,12 +24,15 @@ const NodeAddress = ({
   const { isActive } = useWeb3React();
   const { loginMetamask } = useAuthorization(metamaskConnector);
   const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     setError('');
   }, [account]);
 
   const handleNodeAddress = async () => {
+    setIsLoading(true);
+
     switchToAmb(provider.provider);
     const chainId = (await provider.getNetwork()).chainId;
     const contracts = new Contracts(provider, chainId);
@@ -64,6 +67,7 @@ const NodeAddress = ({
       }));
       handleNextClick();
     }
+    setIsLoading(false);
   };
 
   const closeAddressIsNodeError = () => setError('');
@@ -96,6 +100,7 @@ const NodeAddress = ({
           <button
             className="white-container__button white-container__button_white"
             onClick={handleNodeAddress}
+            disabled={isLoading}
           >
             Continue with connected address
           </button>
