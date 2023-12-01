@@ -13,6 +13,7 @@ import {
 import { useWeb3React } from '@web3-react/core';
 import { utils } from 'ethers';
 import React, { useEffect, useState } from 'react';
+import {convertSecondsToTime} from "../../utils/helpers";
 
 const { ethereum }: any = window;
 const ambChainId = process.env.REACT_APP_CHAIN_ID || '';
@@ -31,6 +32,7 @@ const NodeSetup: React.FC = () => {
   const [step, setStep] = useState(0);
   const [skipToConfirm, setSkipToConfirm] = useState(false);
   const [minStakeAmount, setMinStakeAmount] = useState(0);
+  const [unlockTime, setUnlockTime] = useState(null);
 
   useEffect(() => {
     if (chainId !== +ambChainId) return;
@@ -39,6 +41,9 @@ const NodeSetup: React.FC = () => {
 
     Methods.serverNodesGetMinStake(contracts).then((res) =>
       setMinStakeAmount(+utils.formatEther(res)),
+    );
+    Methods.serverNodesGetUnstakeLockTime(contracts).then((res: any) =>
+      setUnlockTime(convertSecondsToTime(res.toNumber())),
     );
   }, [chainId]);
 
@@ -168,6 +173,7 @@ const NodeSetup: React.FC = () => {
           provider={provider}
           account={account}
           minStakeAmount={minStakeAmount}
+          unlockTime={unlockTime}
         />
       )}
       {step === 5 && (
