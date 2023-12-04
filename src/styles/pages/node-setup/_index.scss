@@ -460,3 +460,30 @@
     transform: rotate(360deg);
   }
 }
+
+.node-breadcrumbs {
+  display: flex;
+}
+
+.node-breadcrumbs__item {
+  color: #1A1A1A;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px; /* 150% */
+  background: transparent;
+  display: flex;
+  align-items: center;
+
+  img {
+    margin: 0 10px 0 6px;
+  }
+
+  &:disabled {
+    color: grey;
+    cursor: initial;
+  }
+
+  &_active {
+    color: rgba(69, 126, 255, 1);
+  }
+}

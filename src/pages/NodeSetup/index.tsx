@@ -1,5 +1,6 @@
 // @ts-nocheck
 import { convertSecondsToTime } from '../../utils/helpers';
+import Breadcrumbs from './components/Breadcrumbs';
 import Confirm from './components/Confirm';
 import InitStep from './components/InitStep';
 import NodeAddress from './components/NodeAddress';
@@ -30,6 +31,7 @@ const NodeSetup: React.FC = () => {
   }>({});
 
   const [step, setStep] = useState(0);
+  const [lastAvailableStep, setLastAvailableStep] = useState(0);
   const [skipToConfirm, setSkipToConfirm] = useState(false);
   const [minStakeAmount, setMinStakeAmount] = useState(0);
   const [unlockTime, setUnlockTime] = useState(null);
@@ -79,6 +81,12 @@ const NodeSetup: React.FC = () => {
     }
   }, [formData, step]);
 
+  useEffect(() => {
+    if (step > lastAvailableStep) {
+      setLastAvailableStep(step);
+    }
+  }, [step]);
+
   const handleNextClick = () => {
     if (skipToConfirm) {
       setStep(5);
@@ -105,42 +113,49 @@ const NodeSetup: React.FC = () => {
   return (
     <section className="node-setup container">
       {step !== 5 && (
-        <div className="node-setup__heading">
-          <h1 className="node-setup__title">Launch a validator node</h1>
-          {step === 0 ? (
-            <>
+        <>
+          <Breadcrumbs
+            lastAvailableStep={lastAvailableStep}
+            setStep={setStep}
+            step={step}
+          />
+          <div className="node-setup__heading">
+            <h1 className="node-setup__title">Launch a validator node</h1>
+            {step === 0 ? (
+              <>
+                <p className="node-setup__text">
+                  This page helps you through the process of launching a
+                  validator node. We highly recommend you read our{' '}
+                  <a
+                    href="https://blog.airdao.io/airdao-node-setup-guide-f83df0bf4273"
+                    target="_blank"
+                  >
+                    step by step guide
+                  </a>{' '}
+                  for launching a validator node before you start.
+                </p>
+                <button
+                  className="node-setup__confirm node-setup__confirm_start"
+                  onClick={handleNextClick}
+                >
+                  Start
+                </button>
+              </>
+            ) : (
               <p className="node-setup__text">
-                This page helps you through the process of launching a validator
-                node. We highly recommend you read our{' '}
+                Launch a validator node page allows users to do all settings
+                needed before the. We highly recommend to go through{' '}
                 <a
                   href="https://blog.airdao.io/airdao-node-setup-guide-f83df0bf4273"
                   target="_blank"
                 >
                   step by step guide
                 </a>{' '}
-                for launching a validator node before you start.
+                for lunching validator node.
               </p>
-              <button
-                className="node-setup__confirm node-setup__confirm_start"
-                onClick={handleNextClick}
-              >
-                Start
-              </button>
-            </>
-          ) : (
-            <p className="node-setup__text">
-              Launch a validator node page allows users to do all settings
-              needed before the. We highly recommend to go through{' '}
-              <a
-                href="https://blog.airdao.io/airdao-node-setup-guide-f83df0bf4273"
-                target="_blank"
-              >
-                step by step guide
-              </a>{' '}
-              for lunching validator node.
-            </p>
-          )}
-        </div>
+            )}
+          </div>
+        </>
       )}
       {step === 0 && <InitStep />}
       {step === 1 && (
