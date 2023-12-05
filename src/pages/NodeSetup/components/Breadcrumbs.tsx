@@ -1,6 +1,6 @@
 import chevron from 'assets/svg/chevron.svg';
 
-const steps = [1, 2, 3, 4];
+const steps = [1, 2, 3, 4, 5];
 interface BreadcrumbsProps {
   setStep: (value: number) => {};
   lastAvailableStep: number;
@@ -24,8 +24,8 @@ const Breadcrumbs = ({
           onClick={() => setStep(el)}
           disabled={el > lastAvailableStep}
         >
-          Step {el}
-          {el !== 4 && <img src={chevron} alt="chevron" />}
+          {el !== 5 ? `Step ${el}` : 'Review'}
+          {el !== 5 && <img src={chevron} alt="chevron" />}
         </button>
       ))}
     </div>

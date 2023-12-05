@@ -75,7 +75,7 @@ const Confirm = ({
   };
 
   return (
-    <div className="white-container white-container_transparent">
+    <div className="white-container white-container_transparent white-container_confirm">
       <h3 className="node-setup__title">Launch a validator node</h3>
       <p className="node-setup__text node-setup__text_height">
         <b>Please double check all selected parameters.</b>Connect the wallet
