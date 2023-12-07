@@ -1,6 +1,7 @@
 import chevron from 'assets/svg/chevron.svg';
 
 const steps = [1, 2, 3, 4, 5];
+
 interface BreadcrumbsProps {
   setStep: (value: number) => {};
   lastAvailableStep: number;
@@ -12,7 +13,6 @@ const Breadcrumbs = ({
   lastAvailableStep,
   step,
 }: BreadcrumbsProps) => {
-  console.log(step);
   return (
     <div className="node-breadcrumbs">
       {steps.map((el: number) => (

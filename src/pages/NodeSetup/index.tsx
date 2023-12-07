@@ -123,8 +123,8 @@ const NodeSetup: React.FC = () => {
           {step === 0 ? (
             <>
               <p className="node-setup__text">
-                This page helps you through the process of launching a
-                validator node. We highly recommend you read our{' '}
+                This page helps you through the process of launching a validator
+                node. We highly recommend you read our{' '}
                 <a
                   href="https://blog.airdao.io/airdao-node-setup-guide-f83df0bf4273"
                   target="_blank"
