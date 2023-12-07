@@ -1,11 +1,9 @@
-import Gpt from '../../assets/icons/Cryptos/Gpt';
-import Hpt from '../../assets/icons/Cryptos/Hpt';
-import Ppt from '../../assets/icons/Cryptos/Ppt';
-import { ReactComponent as WalletIcon } from '../../assets/icons/wallet.svg';
+import { ReactComponent as AddIcon } from '../../assets/svg/add.svg';
 import { poolsTokens } from '../../utils/constants';
 import { getTokenIcon } from '../../utils/helpers';
+// @ts-ignore
+import { Button } from '@airdao/ui-library';
 import { useWeb3React } from '@web3-react/core';
-import Discard from 'assets/icons/Discard';
 import { formatEther } from 'ethers/lib/utils';
 import { useActions } from 'hooks/useActions';
 import React, { FC, useMemo } from 'react';
@@ -69,22 +67,21 @@ const FilteredToken: FC<FilteredTokenProps> = ({
           <div className="filtered_token_cell">
             <Icon />
             {selectedToken && _name}
-            {isActive && selectedToken.symbol && (
-              <WalletIcon
-                onClick={addToWallet}
-                className={'filtered_token__add-to-wallet'}
-              />
-            )}
           </div>
         </div>
         <div className="filtered_token_cells">
           <div className="filtered_token_cell">
-            <button onClick={backClick}>Back to all tokens</button>
+            {isActive && selectedToken.symbol && (
+              <Button
+                onClick={addToWallet}
+                type={'tetiary'}
+                size={'small'}
+                tailIcon={<AddIcon />}
+              >
+                Add in Metamask
+              </Button>
+            )}
           </div>
-
-          <button className="filtered_token_cell" onClick={backClick}>
-            <Discard />
-          </button>
         </div>
       </div>
       <div className="filtered_token_body">
