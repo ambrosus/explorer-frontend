@@ -1,4 +1,6 @@
 // @ts-nocheck
+import { convertSecondsToTime } from '../../utils/helpers';
+import Breadcrumbs from './components/Breadcrumbs';
 import Confirm from './components/Confirm';
 import InitStep from './components/InitStep';
 import NodeAddress from './components/NodeAddress';
@@ -29,8 +31,10 @@ const NodeSetup: React.FC = () => {
   }>({});
 
   const [step, setStep] = useState(0);
+  const [lastAvailableStep, setLastAvailableStep] = useState(0);
   const [skipToConfirm, setSkipToConfirm] = useState(false);
   const [minStakeAmount, setMinStakeAmount] = useState(0);
+  const [unlockTime, setUnlockTime] = useState(null);
 
   useEffect(() => {
     if (chainId !== +ambChainId) return;
@@ -40,6 +44,9 @@ const NodeSetup: React.FC = () => {
     Methods.serverNodesGetMinStake(contracts).then((res) =>
       setMinStakeAmount(+utils.formatEther(res)),
     );
+    Methods.serverNodesGetUnstakeLockTime(contracts).then((res: any) => {
+      setUnlockTime(convertSecondsToTime(res.toNumber()));
+    });
   }, [chainId]);
 
   useEffect(() => {
@@ -74,6 +81,12 @@ const NodeSetup: React.FC = () => {
     }
   }, [formData, step]);
 
+  useEffect(() => {
+    if (step > lastAvailableStep) {
+      setLastAvailableStep(step);
+    }
+  }, [step]);
+
   const handleNextClick = () => {
     if (skipToConfirm) {
       setStep(5);
@@ -99,6 +112,11 @@ const NodeSetup: React.FC = () => {
 
   return (
     <section className="node-setup container">
+      <Breadcrumbs
+        lastAvailableStep={lastAvailableStep}
+        setStep={setStep}
+        step={step}
+      />
       {step !== 5 && (
         <div className="node-setup__heading">
           <h1 className="node-setup__title">Launch a validator node</h1>
@@ -168,6 +186,7 @@ const NodeSetup: React.FC = () => {
           provider={provider}
           account={account}
           minStakeAmount={minStakeAmount}
+          unlockTime={unlockTime}
         />
       )}
       {step === 5 && (
