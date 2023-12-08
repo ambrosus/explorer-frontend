@@ -97,4 +97,10 @@
   &_cell:nth-child(2) {
     min-width: 0px;
   }
+
+  &__add-to-wallet {
+    height: 20px !important;
+    width: 20px !important;
+    cursor: pointer;
+  }
 }

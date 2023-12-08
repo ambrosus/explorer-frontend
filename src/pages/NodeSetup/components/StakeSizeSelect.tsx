@@ -13,6 +13,7 @@ interface StakeSizeSelectProps {
   provider: any;
   account: string;
   minStakeAmount: number;
+  unlockTime: number;
 }
 
 const ambChainId = process.env.REACT_APP_CHAIN_ID || '';
@@ -24,6 +25,7 @@ const StakeSizeSelect = ({
   account,
   setFormData,
   minStakeAmount,
+  unlockTime,
 }: StakeSizeSelectProps) => {
   const { chainId } = useWeb3React();
 
@@ -116,7 +118,7 @@ const StakeSizeSelect = ({
       <p className="white-container__text">
         You can change the stake size later on the node dashboard page. If you
         reduce the stake size or shut down your node, your funds will be
-        deposited into your wallet 15 days after the date of transaction
+        deposited into your wallet {unlockTime} after the date of transaction
         confirmation.
       </p>
       <p className="white-container__text">

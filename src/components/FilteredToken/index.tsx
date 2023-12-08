@@ -1,5 +1,9 @@
+import { ReactComponent as AddIcon } from '../../assets/svg/add.svg';
+import { poolsTokens } from '../../utils/constants';
 import { getTokenIcon } from '../../utils/helpers';
-import Discard from 'assets/icons/Discard';
+// @ts-ignore
+import { Button } from '@airdao/ui-library';
+import { useWeb3React } from '@web3-react/core';
 import { formatEther } from 'ethers/lib/utils';
 import { useActions } from 'hooks/useActions';
 import React, { FC, useMemo } from 'react';
@@ -14,11 +18,13 @@ const FilteredToken: FC<FilteredTokenProps> = ({
   selectedToken,
 }) => {
   const { clearFilters } = useActions();
+  const { provider, isActive } = useWeb3React();
 
   const backClick = () => {
     setSelectedToken(null);
     clearFilters();
   };
+
   const Icon = getTokenIcon(
     selectedToken.symbol as string,
     selectedToken.name,
@@ -26,26 +32,30 @@ const FilteredToken: FC<FilteredTokenProps> = ({
   );
 
   const _name = useMemo(() => {
-    if (
-      selectedToken.address === '0x322269e52800e5094c008f3b01A3FD97BB3C8f5D'
-    ) {
-      return 'Hera Pool Token';
-    } else if (
-      selectedToken.address === '0x7240d2444151d9A8c72F77306Fa10f19FE7C9182'
-    ) {
-      return 'Test1 pool token';
-    } else if (
-      selectedToken.address === '0xEB8386a50Edd613cc43f061E9C5A915b0443C5d4'
-    ) {
-      return 'Plutus pool token';
-    } else if (
-      selectedToken.address === '0xE984ACe36F2B6f10Fec8dd6fc1bB19c7b1D2F2c6'
-    ) {
-      return 'Ganymede pool token';
+    if (poolsTokens[selectedToken.address]) {
+      return poolsTokens[selectedToken.address].name;
     } else {
       return selectedToken.name;
     }
   }, [selectedToken]);
+
+  const addToWallet = async () => {
+    if (provider && provider.provider) {
+      provider.provider.request?.({
+        method: 'wallet_watchAsset',
+        params: {
+          // @ts-ignore
+          type: 'ERC20',
+          options: {
+            address: selectedToken.address, // The address of the token.
+            symbol: selectedToken.symbol, // A ticker symbol or shorthand, up to 5 characters.
+            decimals: selectedToken.decimals, // The number of decimals in the token.
+            image: `${window.location.origin}/explorer/token-icons/${selectedToken.symbol}.svg`, // A string URL of the token logo.
+          },
+        },
+      });
+    }
+  };
 
   return (
     <div className="filtered_token">
@@ -61,11 +71,17 @@ const FilteredToken: FC<FilteredTokenProps> = ({
         </div>
         <div className="filtered_token_cells">
           <div className="filtered_token_cell">
-            <button onClick={backClick}>Back to all tokens</button>
+            {isActive && selectedToken.symbol && (
+              <Button
+                onClick={addToWallet}
+                type={'tetiary'}
+                size={'small'}
+                tailIcon={<AddIcon />}
+              >
+                Add in Metamask
+              </Button>
+            )}
           </div>
-          <button className="filtered_token_cell" onClick={backClick}>
-            <Discard />
-          </button>
         </div>
       </div>
       <div className="filtered_token_body">

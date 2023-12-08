@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 
 interface NodeOwnerProps {
   formData: any;
@@ -11,6 +11,16 @@ const NodeOwner = ({
   formData,
   handleOwnerAddress,
 }: NodeOwnerProps) => {
+  const btnText = useMemo(() => {
+    if (formData.nodeOwner && formData.nodeOwner !== account) {
+      return 'Change address';
+    } else if (formData.nodeAddress === account) {
+      return 'Continue with the same address';
+    } else {
+      return 'Continue';
+    }
+  }, [account, formData]);
+
   return (
     <div className="white-container">
       <p className="white-container__step">Step 2</p>
@@ -37,9 +47,7 @@ const NodeOwner = ({
         className="white-container__button white-container__button_white"
         onClick={handleOwnerAddress}
       >
-        {formData.nodeAddress === account
-          ? 'Continue with the same address'
-          : 'Continue'}
+        {btnText}
       </button>
     </div>
   );

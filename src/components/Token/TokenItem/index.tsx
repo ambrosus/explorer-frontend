@@ -1,3 +1,4 @@
+import { poolsTokens } from '../../../utils/constants';
 import { ITokenItemProps } from 'pages/Addresses/AddressDetails/address-details.interface';
 import React, { useMemo } from 'react';
 import { getTokenIcon } from 'utils/helpers';
@@ -6,26 +7,8 @@ const TokenItem = ({ token, selectedToken, setToken }: ITokenItemProps) => {
   const Icon = getTokenIcon(token.symbol, token.name, token.address);
 
   const tokenData = useMemo(() => {
-    if (token.address === '0x322269e52800e5094c008f3b01A3FD97BB3C8f5D') {
-      return {
-        symbol: 'HPT',
-        name: 'Hera Pool Token',
-      };
-    } else if (token.address === '0x7240d2444151d9A8c72F77306Fa10f19FE7C9182') {
-      return {
-        symbol: 'TPT',
-        name: 'Test1 pool token',
-      };
-    } else if (token.address === '0xE984ACe36F2B6f10Fec8dd6fc1bB19c7b1D2F2c6') {
-      return {
-        symbol: 'GPT',
-        name: 'Ganymede pool token',
-      };
-    } else if (token.address === '0xEB8386a50Edd613cc43f061E9C5A915b0443C5d4') {
-      return {
-        symbol: 'PPT',
-        name: 'Plutus pool token',
-      };
+    if (poolsTokens[token.address]) {
+      return poolsTokens[token.address];
     } else {
       return {
         symbol: token.symbol,
