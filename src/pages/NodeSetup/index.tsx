@@ -65,14 +65,15 @@ const NodeSetup: React.FC = () => {
   }, [account]);
 
   useEffect(() => {
-    if (step && formData.nodeAddress) {
+    if (step > 2 && formData.nodeOwner) {
+      console.log(step);
       const dataFromStorage = localStorage.getItem('nodeSetup') || '{}';
       const parsedData = JSON.parse(dataFromStorage);
 
       const data = JSON.stringify({
         ...parsedData,
-        [formData.nodeAddress]: {
-          ...parsedData[formData.nodeAddress],
+        [formData.nodeOwner]: {
+          ...parsedData[formData.nodeOwner],
           step,
           formData,
         },
