@@ -132,8 +132,8 @@ const followTheLinkRange = async (fromDate: any, toDate: any, address: any) => {
   const link = `${process.env.REACT_APP_API_ENDPOINT_V2}/addresses/${address}/export/csv`;
   const from = fromDate / 1000;
   const to = toDate / 1000;
-  window.open(`${link}?from=${from}&to=${to}`, '_self');
-  return await fetch(`${link}?from=${from}&to=${to}`);
+  window.open(`${link}?from=${from - (from === to ? 86400 : 0)}&to=${to}`, '_self');
+  return await fetch(`${link}?from=${from - (from === to ? 86400 : 0)}&to=${to}`);
 };
 
 const api = {
