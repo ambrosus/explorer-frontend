@@ -23,7 +23,7 @@ export default function TelegramWidget() {
           Notify.error('You have already connected to bot');
         } else {
           // @ts-ignore
-          window.open(`https://${res.data}`, '_blank').focus();
+          window.open(res.data, '_blank').focus();
         }
       });
   };
