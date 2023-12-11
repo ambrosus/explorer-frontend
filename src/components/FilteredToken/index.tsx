@@ -4,6 +4,7 @@ import { getTokenIcon } from '../../utils/helpers';
 // @ts-ignore
 import { Button } from '@airdao/ui-library';
 import { useWeb3React } from '@web3-react/core';
+import Discard from 'assets/icons/Discard';
 import { formatEther } from 'ethers/lib/utils';
 import { useActions } from 'hooks/useActions';
 import React, { FC, useMemo } from 'react';
@@ -82,6 +83,9 @@ const FilteredToken: FC<FilteredTokenProps> = ({
               </Button>
             )}
           </div>
+          <button className="filtered_token_cell" onClick={backClick}>
+            <Discard />
+          </button>
         </div>
       </div>
       <div className="filtered_token_body">
