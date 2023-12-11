@@ -15,7 +15,6 @@ export default function TelegramWidget() {
   const { address } = useParams();
 
   const handleRedirect = () => {
-    console.log(address);
     if (!chainId) return null;
     axios
       .get(`${notifyServiceUrls[chainId]}/generateLink?ownerAddress=${address}`)
