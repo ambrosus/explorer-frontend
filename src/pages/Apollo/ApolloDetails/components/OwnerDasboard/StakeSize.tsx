@@ -42,7 +42,7 @@ export default function StakeSize({
           <h4 className="stake-size__title">Stake size</h4>
           <div className="stake-size__amount">
             <span className="stake-size__amount_amb">
-              {formatEther(stakeAmount)} AMB
+              {(+formatEther(stakeAmount)).toFixed(2)} AMB
             </span>
             <span className="stake-size__amount_usd">${stakeUsd}</span>
           </div>
