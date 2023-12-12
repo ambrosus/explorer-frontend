@@ -55,7 +55,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
   tokens,
 }) => {
   const { address }: TParams = useParams();
-
+  console.log(tokens, tokenData);
   const [isExpanded, setIsExpanded] = useState(false);
   const handleExpand = () => setIsExpanded((state: boolean) => !state);
 

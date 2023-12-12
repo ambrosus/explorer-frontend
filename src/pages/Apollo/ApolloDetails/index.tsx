@@ -12,7 +12,7 @@ import AddressBlock from 'pages/Addresses/AddressDetails/components/AddressBlock
 import TabsNew from 'pages/Transactions/components/TabsNew';
 import React, { memo, useEffect, useMemo, useState } from 'react';
 import { Helmet } from 'react-helmet';
-import { useParams } from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 import { TParams } from 'types';
 import {
   ambToUSD,
@@ -25,11 +25,18 @@ import { apolloDetailsSorting } from 'utils/sidePages';
 export const ApolloDetails = memo(() => {
   const { getAddressData } = useActions();
   const { address = '' }: TParams = useParams();
+  const navigate = useNavigate();
 
   const { data: addressData } = useTypedSelector((state) => state?.addressData);
 
   const { data: appData } = useTypedSelector((state: any) => state?.app);
+  const [tokensData, setTokensData] = useState([]);
+
   useEffect(() => {
+    API2.getAccountTxs({ address, type: 'all' })
+      .then((res: any) => {
+        setTokensData(res.tokens);
+      })
     getAddressData(address);
   }, [address]);
 
@@ -158,6 +165,14 @@ export const ApolloDetails = memo(() => {
     },
   ];
 
+  const handleToken = (token: any) => {
+    if (token) {
+      navigate(`/address/${address}/token/${token.address}`);
+    } else {
+      navigate(`/address/${address}`);
+    }
+  };
+
   const fetchParams = useMemo(() => {
     return { address, type: '', page: '' };
   }, [address]);
@@ -218,11 +233,14 @@ export const ApolloDetails = memo(() => {
                 block={transaction.blockNumber}
                 amount={transaction.value.ether}
                 txfee={transaction.gasCost.ether}
-                token={`${transaction?.token ? transaction?.token : 'AMB'}`}
-                symbol={`${transaction?.symbol ? transaction?.symbol : 'AMB'}`}
+                token={`${transaction.token ? transaction.token.name : 'AMB'}`}
+                symbol={`${transaction.token ? transaction.token.symbol : 'AMB'}`}
                 isTableColumn="address_blocks_cells"
                 isIcon={true}
+                onClick={handleToken}
                 status={transaction.status}
+                tokenData={transaction.token}
+                tokens={tokensData}
               />
             ))
           }
