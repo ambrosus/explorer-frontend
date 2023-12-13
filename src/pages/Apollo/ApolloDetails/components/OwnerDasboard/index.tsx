@@ -67,7 +67,7 @@ export default function OwnerDashboard({ address }: OwnerDashboardProps) {
             disabled={retireLoading}
           >
             {retireLoading && <div className="node-setup-loader" />}
-            Node retirement
+            Retire node
           </Button>
           <TelegramWidget />
         </>
