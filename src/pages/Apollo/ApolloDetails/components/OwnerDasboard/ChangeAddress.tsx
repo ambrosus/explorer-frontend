@@ -88,6 +88,12 @@ function AddressBody({
     changeHandler(ZERO_ADDRESS);
   };
 
+  let btnText = ZERO_ADDRESS ? 'Withdraw' : 'Confirm';
+
+  if (!isRewards) {
+    btnText = 'Change address';
+  }
+
   return (
     <div className="change-address__body">
       <div className="change-address__container">
@@ -129,7 +135,8 @@ function AddressBody({
               className="stake-size__white-button change-address__top-offset"
               onClick={() => setLayoutState('changing')}
             >
-              {address === ZERO_ADDRESS ? 'Withdraw' : 'Confirm'}
+
+              {btnText}
             </Button>
           )}
 
