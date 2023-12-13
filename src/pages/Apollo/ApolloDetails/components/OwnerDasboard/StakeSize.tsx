@@ -2,7 +2,7 @@ import ArrowDownBig from '../../../../../assets/icons/Arrows/ArrowDownBig';
 import Button from '../../../../../components/Button';
 import Spinner from '../../../../../components/Spinner';
 import useToggle from '../../../../../hooks/useToggle';
-import { convertSecondsToTime } from '../../../../../utils/helpers';
+import {convertSecondsToTime, numberWithCommas} from '../../../../../utils/helpers';
 import PendingTxMessage from './PendingTxMessage';
 import { BigNumber } from 'ethers';
 import { formatEther } from 'ethers/lib/utils';
@@ -42,7 +42,7 @@ export default function StakeSize({
           <h4 className="stake-size__title">Stake size</h4>
           <div className="stake-size__amount">
             <span className="stake-size__amount_amb">
-              {(+formatEther(stakeAmount)).toFixed(2)} AMB
+              {numberWithCommas((+formatEther(stakeAmount)).toFixed(2))} AMB
             </span>
             <span className="stake-size__amount_usd">${stakeUsd}</span>
           </div>
@@ -339,7 +339,7 @@ function LockedFundsMessage({
       <div className="stake-size__pending-text">
         <p>
           Your transaction is pending. You reduced your stake size to{' '}
-          <b>{formatEther(amount)} AMB</b>. Your funds will be deposited into
+          <b>{numberWithCommas(formatEther(amount))} AMB</b>. Your funds will be deposited into
           your wallet {defaultUnlockTime.replace('-', ' ')} after the
           transaction confirms.
         </p>
