@@ -94,7 +94,7 @@ function AddressBody({
         <div className="change-address__content">
           <h4 className="change-address__title">
             {address === ZERO_ADDRESS
-              ? 'Rewards sands to the stake node'
+              ? 'Rewards sends to the stake node'
               : title}
           </h4>
           {address !== ZERO_ADDRESS && (
