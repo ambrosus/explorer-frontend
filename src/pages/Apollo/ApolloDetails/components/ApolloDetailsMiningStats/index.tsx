@@ -103,7 +103,7 @@ const ApolloDetailsMiningStats = ({ apollo }: any) => {
       )}`,
     },
     {
-      name: 'TRANSACTIONS REWARDS',
+      name: 'TRANSACTION REWARDS',
       value: `${(rewards.transactionsRewards || 0).toFixed(
         2,
       )} AMB / $ ${ambToUSD(rewards.transactionsRewards, price_usd)}`,

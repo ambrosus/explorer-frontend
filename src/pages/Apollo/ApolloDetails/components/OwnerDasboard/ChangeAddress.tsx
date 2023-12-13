@@ -140,7 +140,7 @@ function AddressBody({
               className="stake-size__white-button change-address__top-offset"
               onClick={setZeroRewardAddress}
             >
-              Send new rewards to the stake node
+              Send rewards to node address
             </Button>
           )}
         </div>
