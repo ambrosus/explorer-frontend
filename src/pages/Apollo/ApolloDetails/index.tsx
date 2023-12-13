@@ -12,7 +12,7 @@ import AddressBlock from 'pages/Addresses/AddressDetails/components/AddressBlock
 import TabsNew from 'pages/Transactions/components/TabsNew';
 import React, { memo, useEffect, useMemo, useState } from 'react';
 import { Helmet } from 'react-helmet';
-import {useNavigate, useParams} from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { TParams } from 'types';
 import {
   ambToUSD,
@@ -33,10 +33,9 @@ export const ApolloDetails = memo(() => {
   const [tokensData, setTokensData] = useState([]);
 
   useEffect(() => {
-    API2.getAccountTxs({ address, type: 'all' })
-      .then((res: any) => {
-        setTokensData(res.tokens);
-      })
+    API2.getAccountTxs({ address, type: 'all' }).then((res: any) => {
+      setTokensData(res.tokens);
+    });
     getAddressData(address);
   }, [address]);
 
@@ -234,7 +233,9 @@ export const ApolloDetails = memo(() => {
                 amount={transaction.value.ether}
                 txfee={transaction.gasCost.ether}
                 token={`${transaction.token ? transaction.token.name : 'AMB'}`}
-                symbol={`${transaction.token ? transaction.token.symbol : 'AMB'}`}
+                symbol={`${
+                  transaction.token ? transaction.token.symbol : 'AMB'
+                }`}
                 isTableColumn="address_blocks_cells"
                 isIcon={true}
                 onClick={handleToken}

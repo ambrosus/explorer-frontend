@@ -358,14 +358,14 @@ export function convertSecondsToTime(seconds: number) {
   let result = '';
 
   if (days > 0) {
-    result += `${days} day${days > 1 ? 's' : ''}`;
+    result += `${days}-day${days > 1 ? 's' : ''}`;
   }
 
   if (hours > 0) {
     if (result !== '') {
       result += 'and ';
     }
-    result += `${hours} hour${hours > 1 ? 's' : ''}`;
+    result += `${hours}-hour${hours > 1 ? 's' : ''}`;
   }
 
   if (result === '') {
