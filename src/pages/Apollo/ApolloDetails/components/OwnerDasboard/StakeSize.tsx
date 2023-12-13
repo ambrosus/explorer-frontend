@@ -338,7 +338,7 @@ function LockedFundsMessage({
       <Spinner className="stake-size__spinner" />
       <div className="stake-size__pending-text">
         <p>
-          Your transaction is pending. You reduced your stake size to{' '}
+          Your stake size change transaction is pending. You reduced your stake size to{' '}
           <b>{numberWithCommas(formatEther(amount))} AMB</b>. Your funds will be deposited into
           your wallet {defaultUnlockTime.replace('-', ' ')} after the
           transaction confirms.

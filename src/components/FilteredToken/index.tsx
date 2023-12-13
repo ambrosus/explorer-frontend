@@ -79,7 +79,7 @@ const FilteredToken: FC<FilteredTokenProps> = ({
                 size={'small'}
                 tailIcon={<AddIcon />}
               >
-                Add in Metamask
+                Add to Metamask
               </Button>
             )}
           </div>
