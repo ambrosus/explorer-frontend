@@ -88,12 +88,6 @@ function AddressBody({
     changeHandler(ZERO_ADDRESS);
   };
 
-  let btnText = ZERO_ADDRESS ? 'Withdraw' : 'Confirm';
-
-  if (!isRewards) {
-    btnText = 'Change address';
-  }
-
   return (
     <div className="change-address__body">
       <div className="change-address__container">
@@ -121,7 +115,7 @@ function AddressBody({
           toggled ? 'change-address__additional-info_open' : ''
         }`}
       >
-        {address === ZERO_ADDRESS && layoutState !== 'changing' && (
+        {address === ZERO_ADDRESS && layoutState === 'initial' && (
           <p className="change-address__zero">
             Staking rewards will be sent to your node address. Your stake will
             increase with every reward you receive.
@@ -136,7 +130,7 @@ function AddressBody({
               onClick={() => setLayoutState('changing')}
             >
 
-              {btnText}
+              {isRewards ? 'Change rewards address' : 'Change address'}
             </Button>
           )}
 
