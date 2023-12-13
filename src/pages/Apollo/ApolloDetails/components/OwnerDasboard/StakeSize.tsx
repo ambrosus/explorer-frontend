@@ -86,6 +86,7 @@ export default function StakeSize({
             onStake={() => setLayoutState('stake')}
             onUnstake={() => setLayoutState('unstake')}
             defaultUnlockTime={defaultUnlockTime}
+            withdrawLock={withdrawLock}
           />
         )}
         {layoutState === 'stake' && !stakeAmount.isZero() && (
@@ -124,13 +125,17 @@ function AdditionalInfo({
   onStake,
   onUnstake,
   defaultUnlockTime,
+  withdrawLock
 }: AdditionalInfoProps) {
   return (
     <>
-      <p className="stake-size__text">
-        Stake withdrawals have a <b>{defaultUnlockTime} delay</b>.
-      </p>
-      <div className="stake-size__button-container">
+      {!withdrawLock && (
+        <p className="stake-size__text">
+          You can change the size of your stake. Withdrawals have a{' '}
+          <b>{defaultUnlockTime} delay</b>.
+        </p>
+      )}
+      <div className="stake-size__button-container" style={withdrawLock ? { marginTop: 24 } : {}}>
         <Button type="primary" size="small" onClick={onStake}>
           Stake
         </Button>
@@ -151,6 +156,7 @@ interface AdditionalInfoProps {
   onStake: () => void;
   onUnstake: () => void;
   defaultUnlockTime: string;
+  withdrawLock: any;
 }
 
 function Stake({ setLayoutState, addStake, updateInfo }: StakeProps) {
