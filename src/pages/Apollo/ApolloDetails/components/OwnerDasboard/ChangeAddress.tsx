@@ -25,7 +25,7 @@ export default function ChangeAddress({
       />
       <hr className="change-address__divider" />
       <AddressBody
-        title="REWARD RECEIVER ADDRESS"
+        title="block rewards receiver address"
         address={rewardsAddress}
         changeAddress={changeRewardsReceiver}
         updateInfo={updateInfo}
@@ -93,7 +93,9 @@ function AddressBody({
       <div className="change-address__container">
         <div className="change-address__content">
           <h4 className="change-address__title">
-            {address === ZERO_ADDRESS ? 'Send rewards to node address' : title}
+            {address === ZERO_ADDRESS
+              ? 'Rewards sends to the stake node'
+              : title}
           </h4>
           {address !== ZERO_ADDRESS && (
             <div className="change-address__address">{address}</div>
@@ -117,8 +119,8 @@ function AddressBody({
       >
         {address === ZERO_ADDRESS && layoutState !== 'changing' && (
           <p className="change-address__zero">
-            Staking rewards will be sent to your node address. Your stake will
-            increase with every reward you receive.
+            Rewards sends directly to the stake node, in this case. You get more
+            rewards every time the stake size grows.
           </p>
         )}
         <div className="change-address__btns">
@@ -129,7 +131,9 @@ function AddressBody({
               className="stake-size__white-button change-address__top-offset"
               onClick={() => setLayoutState('changing')}
             >
-              {address === ZERO_ADDRESS ? 'Withdraw' : 'Confirm'}
+              {address === ZERO_ADDRESS
+                ? 'Withdraw rewards to the address'
+                : 'Change address'}
             </Button>
           )}
 
@@ -164,7 +168,7 @@ function AddressBody({
               />
             </div>
             <Button type="primary" size="small" onClick={changeHandler}>
-              Confirm
+              Confirm change address
             </Button>
           </>
         )}

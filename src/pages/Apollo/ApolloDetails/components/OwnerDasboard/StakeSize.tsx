@@ -128,7 +128,8 @@ function AdditionalInfo({
   return (
     <>
       <p className="stake-size__text">
-        Stake withdrawals have a <b>{defaultUnlockTime} delay</b>.
+        You can change stake size. To decrease the stake size, the funds will be{' '}
+        <b>locked for {defaultUnlockTime}.</b>
       </p>
       <div className="stake-size__button-container">
         <Button type="primary" size="small" onClick={onStake}>
@@ -189,7 +190,7 @@ function Stake({ setLayoutState, addStake, updateInfo }: StakeProps) {
   return (
     <>
       <p className="stake-size__text">
-        Stake more AMB to increase your rewards!
+        You can stake extra funds to increase your reward.
       </p>
       <div className="stake-size__button-container">
         <div className="slim-input">
@@ -265,8 +266,8 @@ function Unstake({
   return (
     <>
       <p className="stake-size__text">
-        You can unstake all or part of your stake. Withdrawals have a{' '}
-        <b style={{ whiteSpace: 'nowrap' }}>{defaultUnlockTime} delay</b>.
+        You can unstake full amount or part of it. The funds will be locked for{' '}
+        {defaultUnlockTime}.
       </p>
       <div className="stake-size__button-container">
         <div className="slim-input">
@@ -338,10 +339,10 @@ function LockedFundsMessage({
       <Spinner className="stake-size__spinner" />
       <div className="stake-size__pending-text">
         <p>
-          Your transaction is pending. You reduced your stake size to{' '}
-          <b>{formatEther(amount)} AMB</b>. Your funds will be deposited into
-          your wallet {defaultUnlockTime.replace('-', ' ')} after the
-          transaction confirms.
+          Transaction of changing the stake size is pending. You decrease the
+          stake size by <b>{formatEther(amount)} AMB.</b> You funds will be
+          deposited into the wallet after {defaultUnlockTime} from the date the
+          transaction confirmed.
         </p>
         <p className="stake-size__pending-date-time">
           <span className="stake-size__date">Date: {localDate}</span>
@@ -353,7 +354,7 @@ function LockedFundsMessage({
           onClick={handleCancel}
           className="stake-size__pending-cancel"
         >
-          Cancel
+          Cancel withdraw
         </Button>
       </div>
     </div>
