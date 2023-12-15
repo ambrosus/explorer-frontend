@@ -4,7 +4,7 @@ import useToggle from '../../../../../hooks/useToggle';
 import { ZERO_ADDRESS } from '../../../../../utils/constants';
 import PendingTxMessage from './PendingTxMessage';
 import { isAddress } from 'ethers/lib/utils';
-import {useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
 
 export default function ChangeAddress({
   ownerAddress,
@@ -129,7 +129,6 @@ function AddressBody({
               className="stake-size__white-button change-address__top-offset"
               onClick={() => setLayoutState('changing')}
             >
-
               {isRewards ? 'Change rewards address' : 'Change address'}
             </Button>
           )}

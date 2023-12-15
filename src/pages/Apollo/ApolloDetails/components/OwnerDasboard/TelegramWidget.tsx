@@ -20,7 +20,7 @@ export default function TelegramWidget() {
       .get(`${notifyServiceUrls[chainId]}/generateLink?ownerAddress=${address}`)
       .then((res) => {
         if (!res.data) {
-          Notify.error('You have already connected to bot');
+          Notify.error('You have already connected to bot', null, {});
         } else {
           // @ts-ignore
           window.open(res.data, '_blank').focus();

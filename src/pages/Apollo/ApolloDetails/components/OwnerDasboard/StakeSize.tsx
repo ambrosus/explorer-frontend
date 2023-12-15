@@ -2,7 +2,10 @@ import ArrowDownBig from '../../../../../assets/icons/Arrows/ArrowDownBig';
 import Button from '../../../../../components/Button';
 import Spinner from '../../../../../components/Spinner';
 import useToggle from '../../../../../hooks/useToggle';
-import {convertSecondsToTime, numberWithCommas} from '../../../../../utils/helpers';
+import {
+  convertSecondsToTime,
+  numberWithCommas,
+} from '../../../../../utils/helpers';
 import PendingTxMessage from './PendingTxMessage';
 import { BigNumber } from 'ethers';
 import { formatEther } from 'ethers/lib/utils';
@@ -125,7 +128,7 @@ function AdditionalInfo({
   onStake,
   onUnstake,
   defaultUnlockTime,
-  withdrawLock
+  withdrawLock,
 }: AdditionalInfoProps) {
   return (
     <>
@@ -135,7 +138,10 @@ function AdditionalInfo({
           <b>{defaultUnlockTime} delay</b>.
         </p>
       )}
-      <div className="stake-size__button-container" style={withdrawLock ? { marginTop: 24 } : {}}>
+      <div
+        className="stake-size__button-container"
+        style={withdrawLock ? { marginTop: 24 } : {}}
+      >
         <Button type="primary" size="small" onClick={onStake}>
           Stake
         </Button>
@@ -344,10 +350,10 @@ function LockedFundsMessage({
       <Spinner className="stake-size__spinner" />
       <div className="stake-size__pending-text">
         <p>
-          Your stake size change transaction is pending. You reduced your stake size to{' '}
-          <b>{numberWithCommas(formatEther(amount))} AMB</b>. Your funds will be deposited into
-          your wallet {defaultUnlockTime.replace('-', ' ')} after the
-          transaction confirms.
+          Your stake size change transaction is pending. You reduced your stake
+          size to <b>{numberWithCommas(formatEther(amount))} AMB</b>. Your funds
+          will be deposited into your wallet{' '}
+          {defaultUnlockTime.replace('-', ' ')} after the transaction confirms.
         </p>
         <p className="stake-size__pending-date-time">
           <span className="stake-size__date">Date: {localDate}</span>

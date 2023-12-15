@@ -45,14 +45,19 @@ export default function useApolloActions(nodeAddress: string) {
           return Notify.error(
             'Please stake a bigger amount.',
             'Your node stake will be below the minimum stake amount after this stake.',
+            {},
           );
         }
 
         if (e.message === 'msg.value must be > 0') {
-          return Notify.error('Amount must be greater than 0');
+          return Notify.error('Amount must be greater than 0', null, {});
         }
 
-        return Notify.error('Something went wrong', 'Please try again later');
+        return Notify.error(
+          'Something went wrong',
+          'Please try again later',
+          {},
+        );
       });
     },
     [contracts, nodeAddress],
@@ -76,18 +81,27 @@ export default function useApolloActions(nodeAddress: string) {
             return Notify.error(
               'Please unstake a smaller amount.',
               'Your node stake will be below the minimum stake amount after this unstake.',
+              {},
             );
           }
 
           if (e.message === 'amount must be > 0') {
-            return Notify.error('Amount must be greater than 0');
+            return Notify.error('Amount must be greater than 0', null, {});
           }
 
           if (e.message === 'stake < amount') {
-            return Notify.error('Amount must be less than current stake');
+            return Notify.error(
+              'Amount must be less than current stake',
+              null,
+              {},
+            );
           }
 
-          return Notify.error('Something went wrong', 'Please try again later');
+          return Notify.error(
+            'Something went wrong',
+            'Please try again later',
+            {},
+          );
         },
       );
     },
@@ -106,7 +120,7 @@ export default function useApolloActions(nodeAddress: string) {
           if (e.message.includes('user rejected transaction')) {
             return null;
           }
-          Notify.error('Something went wrong', 'Please try again later');
+          Notify.error('Something went wrong', 'Please try again later', {});
         },
       );
     },
@@ -123,7 +137,7 @@ export default function useApolloActions(nodeAddress: string) {
       if (e.message.includes('user rejected transaction')) {
         return null;
       }
-      Notify.error('Something went wrong', 'Please try again later');
+      Notify.error('Something went wrong', 'Please try again later', {});
     });
   }, [nodeAddress, contracts]);
 
