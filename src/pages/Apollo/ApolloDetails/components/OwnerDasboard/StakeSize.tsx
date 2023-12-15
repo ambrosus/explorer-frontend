@@ -32,7 +32,9 @@ export default function StakeSize({
   }, []);
 
   useEffect(() => {
-    toggleShowMore(true);
+    if (withdrawLock) {
+      toggleShowMore(true);
+    }
   }, [withdrawLock]);
 
   return (
