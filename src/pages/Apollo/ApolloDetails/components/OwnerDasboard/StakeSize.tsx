@@ -20,10 +20,10 @@ export default function StakeSize({
 }: StakeSizeProps) {
   const { toggled: isShowMore, setToggle: toggleShowMore } = useToggle();
   const [layoutState, setLayoutState] = useState('initial');
-
   const [defaultUnlockTime, setUnlockTime] = useState('');
 
   useEffect(() => {
+    console.log(1);
     getUnlockTime().then((res: any) =>
       setUnlockTime(convertSecondsToTime(res.toNumber())),
     );

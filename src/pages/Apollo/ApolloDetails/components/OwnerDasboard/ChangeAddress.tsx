@@ -4,7 +4,7 @@ import useToggle from '../../../../../hooks/useToggle';
 import { ZERO_ADDRESS } from '../../../../../utils/constants';
 import PendingTxMessage from './PendingTxMessage';
 import { isAddress } from 'ethers/lib/utils';
-import { useState } from 'react';
+import {useEffect, useState} from 'react';
 
 export default function ChangeAddress({
   ownerAddress,
