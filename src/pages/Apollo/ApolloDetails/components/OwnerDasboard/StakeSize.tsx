@@ -26,17 +26,14 @@ export default function StakeSize({
   const [defaultUnlockTime, setUnlockTime] = useState('');
 
   useEffect(() => {
-    console.log(1);
     getUnlockTime().then((res: any) =>
       setUnlockTime(convertSecondsToTime(res.toNumber())),
     );
   }, []);
 
   useEffect(() => {
-    if (stakeAmount.isZero()) {
-      toggleShowMore(true);
-    }
-  }, [stakeAmount]);
+    toggleShowMore(true);
+  }, [withdrawLock]);
 
   return (
     <div className="stake-size">

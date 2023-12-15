@@ -58,6 +58,13 @@ function AddressBody({
   const [isError, setIsError] = useState(false);
 
   const [layoutState, setLayoutState] = useState('initial');
+  console.log(disabled);
+
+  useEffect(() => {
+    if (disabled) {
+      setToggle(false);
+    }
+  }, [disabled]);
 
   function changeHandler(address: string = '') {
     if (!isAddress(newAddress) && !address) {
