@@ -14,6 +14,11 @@
     justify-content: space-between;
     padding: 7px 16px;
     border-bottom: 1px solid $secondary;
+
+    @include for_phone {
+      flex-direction: column-reverse;
+      align-items: flex-start;
+    }
   }
 
   &_body {
@@ -105,12 +110,10 @@
   }
 }
 
-.add-to-wallet {
+.filtered_token_cells_left {
   @include for_phone {
-    font-size: 12px;
-
-    svg {
-      display: none;
-    }
+    width: 100%;
+    justify-content: flex-end;
+    gap: 5px!important;
   }
 }
