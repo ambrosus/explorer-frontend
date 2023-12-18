@@ -72,7 +72,7 @@ const FilteredToken: FC<FilteredTokenProps> = ({
         </div>
         <div className="filtered_token_cells filtered_token_cells_left">
           <div className="filtered_token_cell">
-            {true && (
+            {isActive && selectedToken.symbol && (
               <Button
                 onClick={addToWallet}
                 type={'tetiary'}
