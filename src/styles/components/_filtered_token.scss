@@ -14,6 +14,11 @@
     justify-content: space-between;
     padding: 7px 16px;
     border-bottom: 1px solid $secondary;
+
+    @include for_phone {
+      flex-direction: column-reverse;
+      align-items: flex-start;
+    }
   }
 
   &_body {
@@ -102,5 +107,14 @@
     height: 20px !important;
     width: 20px !important;
     cursor: pointer;
+  }
+}
+
+.filtered_token_cells_left {
+  @include for_phone {
+    width: 100%;
+    justify-content: flex-end;
+    gap: 5px!important;
+    padding-bottom: 12px!important;
   }
 }
