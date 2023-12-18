@@ -42,17 +42,18 @@ const InputWithDropdown: React.FC<InputWithDropdownProps> = ({
       </button>
       {isDropdownOpen && (
         <ul className="dropdown-list">
-          {options.filter(onlyUnique).map((option) => (
-            option && (
-              <li
-                key={option}
-                className="dropdown-list__item"
-                onClick={() => handleOptionSelect(option)}
-              >
-                {option}
-              </li>
-            )
-          ))}
+          {options.filter(onlyUnique).map(
+            (option) =>
+              option && (
+                <li
+                  key={option}
+                  className="dropdown-list__item"
+                  onClick={() => handleOptionSelect(option)}
+                >
+                  {option}
+                </li>
+              ),
+          )}
         </ul>
       )}
     </div>

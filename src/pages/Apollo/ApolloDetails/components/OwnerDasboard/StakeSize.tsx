@@ -350,8 +350,9 @@ function LockedFundsMessage({
       <div className="stake-size__pending-text">
         <p>
           Your stake size change transaction is pending. You reduced your stake
-          size to <b>{numberWithCommas((+formatEther(amount)).toFixed(2))} AMB</b>. Your funds
-          will be deposited into your wallet{' '}
+          size to{' '}
+          <b>{numberWithCommas((+formatEther(amount)).toFixed(2))} AMB</b>. Your
+          funds will be deposited into your wallet{' '}
           {defaultUnlockTime.replace('-', ' ')} after the transaction confirms.
         </p>
         <p className="stake-size__pending-date-time">
