@@ -2,7 +2,10 @@ import ArrowDownBig from '../../../../../assets/icons/Arrows/ArrowDownBig';
 import Button from '../../../../../components/Button';
 import Spinner from '../../../../../components/Spinner';
 import useToggle from '../../../../../hooks/useToggle';
-import { convertSecondsToTime } from '../../../../../utils/helpers';
+import {
+  convertSecondsToTime,
+  numberWithCommas,
+} from '../../../../../utils/helpers';
 import PendingTxMessage from './PendingTxMessage';
 import { BigNumber } from 'ethers';
 import { formatEther } from 'ethers/lib/utils';
@@ -20,7 +23,6 @@ export default function StakeSize({
 }: StakeSizeProps) {
   const { toggled: isShowMore, setToggle: toggleShowMore } = useToggle();
   const [layoutState, setLayoutState] = useState('initial');
-
   const [defaultUnlockTime, setUnlockTime] = useState('');
 
   useEffect(() => {
@@ -30,10 +32,10 @@ export default function StakeSize({
   }, []);
 
   useEffect(() => {
-    if (stakeAmount.isZero()) {
+    if (withdrawLock) {
       toggleShowMore(true);
     }
-  }, [stakeAmount]);
+  }, [withdrawLock]);
 
   return (
     <div className="stake-size">
@@ -42,7 +44,7 @@ export default function StakeSize({
           <h4 className="stake-size__title">Stake size</h4>
           <div className="stake-size__amount">
             <span className="stake-size__amount_amb">
-              {formatEther(stakeAmount)} AMB
+              {numberWithCommas((+formatEther(stakeAmount)).toFixed(2))} AMB
             </span>
             <span className="stake-size__amount_usd">${stakeUsd}</span>
           </div>
@@ -86,6 +88,7 @@ export default function StakeSize({
             onStake={() => setLayoutState('stake')}
             onUnstake={() => setLayoutState('unstake')}
             defaultUnlockTime={defaultUnlockTime}
+            withdrawLock={withdrawLock}
           />
         )}
         {layoutState === 'stake' && !stakeAmount.isZero() && (
@@ -124,14 +127,20 @@ function AdditionalInfo({
   onStake,
   onUnstake,
   defaultUnlockTime,
+  withdrawLock,
 }: AdditionalInfoProps) {
   return (
     <>
-      <p className="stake-size__text">
-        You can change stake size. To decrease the stake size, the funds will be{' '}
-        <b>locked for {defaultUnlockTime}.</b>
-      </p>
-      <div className="stake-size__button-container">
+      {!withdrawLock && (
+        <p className="stake-size__text">
+          You can change the size of your stake. Withdrawals have a{' '}
+          <b>{defaultUnlockTime} delay</b>.
+        </p>
+      )}
+      <div
+        className="stake-size__button-container"
+        style={withdrawLock ? { marginTop: 24 } : {}}
+      >
         <Button type="primary" size="small" onClick={onStake}>
           Stake
         </Button>
@@ -152,6 +161,7 @@ interface AdditionalInfoProps {
   onStake: () => void;
   onUnstake: () => void;
   defaultUnlockTime: string;
+  withdrawLock: any;
 }
 
 function Stake({ setLayoutState, addStake, updateInfo }: StakeProps) {
@@ -190,7 +200,7 @@ function Stake({ setLayoutState, addStake, updateInfo }: StakeProps) {
   return (
     <>
       <p className="stake-size__text">
-        You can stake extra funds to increase your reward.
+        Stake more AMB to increase your rewards!
       </p>
       <div className="stake-size__button-container">
         <div className="slim-input">
@@ -266,8 +276,8 @@ function Unstake({
   return (
     <>
       <p className="stake-size__text">
-        You can unstake full amount or part of it. The funds will be locked for{' '}
-        {defaultUnlockTime}.
+        You can unstake all or part of your stake. Withdrawals have a{' '}
+        <b style={{ whiteSpace: 'nowrap' }}>{defaultUnlockTime} delay</b>.
       </p>
       <div className="stake-size__button-container">
         <div className="slim-input">
@@ -339,10 +349,10 @@ function LockedFundsMessage({
       <Spinner className="stake-size__spinner" />
       <div className="stake-size__pending-text">
         <p>
-          Transaction of changing the stake size is pending. You decrease the
-          stake size by <b>{formatEther(amount)} AMB.</b> You funds will be
-          deposited into the wallet after {defaultUnlockTime} from the date the
-          transaction confirmed.
+          Your stake size change transaction is pending. You reduced your stake
+          size to <b>{numberWithCommas((+formatEther(amount)).toFixed(2))} AMB</b>. Your funds
+          will be deposited into your wallet{' '}
+          {defaultUnlockTime.replace('-', ' ')} after the transaction confirms.
         </p>
         <p className="stake-size__pending-date-time">
           <span className="stake-size__date">Date: {localDate}</span>
@@ -354,7 +364,7 @@ function LockedFundsMessage({
           onClick={handleCancel}
           className="stake-size__pending-cancel"
         >
-          Cancel withdraw
+          Cancel
         </Button>
       </div>
     </div>

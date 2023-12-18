@@ -15,13 +15,12 @@ export default function TelegramWidget() {
   const { address } = useParams();
 
   const handleRedirect = () => {
-    console.log(address);
     if (!chainId) return null;
     axios
       .get(`${notifyServiceUrls[chainId]}/generateLink?ownerAddress=${address}`)
       .then((res) => {
         if (!res.data) {
-          Notify.error('You have already connected to bot');
+          Notify.error('You have already connected to bot', null, {});
         } else {
           // @ts-ignore
           window.open(res.data, '_blank').focus();

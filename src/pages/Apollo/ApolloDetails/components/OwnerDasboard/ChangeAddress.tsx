@@ -4,7 +4,7 @@ import useToggle from '../../../../../hooks/useToggle';
 import { ZERO_ADDRESS } from '../../../../../utils/constants';
 import PendingTxMessage from './PendingTxMessage';
 import { isAddress } from 'ethers/lib/utils';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function ChangeAddress({
   ownerAddress,
@@ -25,7 +25,7 @@ export default function ChangeAddress({
       />
       <hr className="change-address__divider" />
       <AddressBody
-        title="block rewards receiver address"
+        title="REWARD RECEIVER ADDRESS"
         address={rewardsAddress}
         changeAddress={changeRewardsReceiver}
         updateInfo={updateInfo}
@@ -58,6 +58,13 @@ function AddressBody({
   const [isError, setIsError] = useState(false);
 
   const [layoutState, setLayoutState] = useState('initial');
+  console.log(disabled);
+
+  useEffect(() => {
+    if (disabled) {
+      setToggle(false);
+    }
+  }, [disabled]);
 
   function changeHandler(address: string = '') {
     if (!isAddress(newAddress) && !address) {
@@ -93,9 +100,7 @@ function AddressBody({
       <div className="change-address__container">
         <div className="change-address__content">
           <h4 className="change-address__title">
-            {address === ZERO_ADDRESS
-              ? 'Rewards sands to the stake node'
-              : title}
+            {address === ZERO_ADDRESS ? 'Send rewards to node address' : title}
           </h4>
           {address !== ZERO_ADDRESS && (
             <div className="change-address__address">{address}</div>
@@ -117,10 +122,10 @@ function AddressBody({
           toggled ? 'change-address__additional-info_open' : ''
         }`}
       >
-        {address === ZERO_ADDRESS && layoutState !== 'changing' && (
+        {address === ZERO_ADDRESS && layoutState === 'initial' && (
           <p className="change-address__zero">
-            Rewards sends directly to the stake node, in this case. You get more
-            rewards every time the stake size grows.
+            Staking rewards will be sent to your node address. Your stake will
+            increase with every reward you receive.
           </p>
         )}
         <div className="change-address__btns">
@@ -131,9 +136,7 @@ function AddressBody({
               className="stake-size__white-button change-address__top-offset"
               onClick={() => setLayoutState('changing')}
             >
-              {address === ZERO_ADDRESS
-                ? 'Withdraw rewards to the address'
-                : 'Change address'}
+              {isRewards ? 'Change rewards address' : 'Change address'}
             </Button>
           )}
 
@@ -144,7 +147,7 @@ function AddressBody({
               className="stake-size__white-button change-address__top-offset"
               onClick={setZeroRewardAddress}
             >
-              Send new rewards to the stake node
+              Send rewards to node address
             </Button>
           )}
         </div>
@@ -168,7 +171,7 @@ function AddressBody({
               />
             </div>
             <Button type="primary" size="small" onClick={changeHandler}>
-              Confirm change address
+              Confirm
             </Button>
           </>
         )}

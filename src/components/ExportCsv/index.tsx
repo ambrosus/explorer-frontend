@@ -60,7 +60,7 @@ const ExportCsv = ({ miningStats, showText = true, initRange }: any) => {
           {!isLoading ? (
             <span>
               {showText ? (
-                <span className="export_csv_text">ExportCsv</span>
+                <span className="export_csv_text">Export CSV</span>
               ) : null}
             </span>
           ) : (

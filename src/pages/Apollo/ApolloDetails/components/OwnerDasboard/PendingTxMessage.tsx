@@ -5,7 +5,7 @@ export default function PendingTxMessage() {
     <div className="stake-size__pending">
       <Spinner className="stake-size__spinner" />
       <div className="stake-size__pending-text">
-        Transaction of changing the stake size is pending...
+        Your transaction is pending.
       </div>
     </div>
   );
