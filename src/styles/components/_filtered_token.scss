@@ -104,3 +104,13 @@
     cursor: pointer;
   }
 }
+
+.add-to-wallet {
+  @include for_phone {
+    font-size: 12px;
+
+    svg {
+      display: none;
+    }
+  }
+}

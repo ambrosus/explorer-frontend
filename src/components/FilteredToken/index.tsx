@@ -72,12 +72,13 @@ const FilteredToken: FC<FilteredTokenProps> = ({
         </div>
         <div className="filtered_token_cells">
           <div className="filtered_token_cell">
-            {isActive && selectedToken.symbol && (
+            {true && (
               <Button
                 onClick={addToWallet}
                 type={'tetiary'}
                 size={'small'}
                 tailIcon={<AddIcon />}
+                className="add-to-wallet"
               >
                 Add to Metamask
               </Button>
