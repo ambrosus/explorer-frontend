@@ -51,6 +51,7 @@ const StakeSizeSelect = ({
 
   useEffect(() => {
     getBalance(account);
+    console.log(account, formData.nodeOwner);
     setOwnerError(account !== formData.nodeOwner);
   }, [account]);
 

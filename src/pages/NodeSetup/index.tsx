@@ -100,7 +100,7 @@ const NodeSetup: React.FC = () => {
   const handleOwnerAddress = () => {
     setFormData((state) => ({
       ...state,
-      nodeAddress: account,
+      nodeOwner: account,
     }));
 
     handleNextClick();
