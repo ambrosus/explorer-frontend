@@ -2,14 +2,28 @@ import API2 from '../../API/newApi';
 import AtlasBlocksHeader from '../Atlas/components/AtlasBlocksHeader';
 import TabsNew from '../Transactions/components/TabsNew';
 import ApolloBlocksBody from './components/ApolloBlocksBody';
-import { getRetiredApollos } from './utils';
+import {
+  getOnboardingApollos,
+  getQueuedApollos,
+  getRetiredApollos,
+} from './utils';
+import { AmbErrorProviderWeb3, Contracts } from '@airdao/airdao-node-contracts';
+import { useWeb3React } from '@web3-react/core';
 import { Content } from 'components/Content';
 import HeadInfo from 'components/HeadInfo';
 import { useTypedSelector } from 'hooks/useTypedSelector';
-import React, { memo, useEffect } from 'react';
+import React, { memo, useEffect, useMemo } from 'react';
 import { Helmet } from 'react-helmet';
 
 export const Apollo = memo(() => {
+  const { provider, chainId } = useWeb3React();
+
+  const contracts = useMemo(() => {
+    if (!provider || !chainId) return null;
+    const ambErrorProvider = new AmbErrorProviderWeb3(provider.provider);
+    return new Contracts(ambErrorProvider.getSigner(), +chainId);
+  }, [provider, chainId]);
+
   const { data: appData } = useTypedSelector((state: any) => state.app);
 
   const {
@@ -79,6 +93,16 @@ export const Apollo = memo(() => {
               value: 'retired',
               heading: <AtlasBlocksHeader pageTitle="blocks" isRetired />,
               listData: getRetiredApollos,
+            },
+            {
+              title: 'In queue',
+              value: 'queue',
+              listData: getQueuedApollos,
+            },
+            {
+              title: 'Onboarding',
+              value: 'onboarding',
+              listData: getOnboardingApollos,
             },
           ]}
           fetchData={API2.getApollos}

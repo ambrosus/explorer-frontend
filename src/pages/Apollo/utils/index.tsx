@@ -1,9 +1,12 @@
 // @ts-ignore
+import Api from '../../../API/api';
 import {
   AmbErrorProvider,
   ContractNames,
   Contracts,
+  Multisig,
 } from '@airdao/airdao-node-contracts';
+import API2 from 'API/newApi';
 // @ts-ignore
 import { getCurrentAmbNetwork } from 'airdao-components-and-tools/utils';
 import { utils } from 'ethers';
@@ -67,4 +70,45 @@ export const getRetiredApollos = async () => {
     });
   }
   return arr;
+};
+
+export const getQueuedApollos = async () => {
+  const network = getCurrentAmbNetwork();
+  const provider = new AmbErrorProvider(network.rpcUrl, network.chainId);
+  // @ts-ignore
+  const contracts = new Contracts(provider, network.chainId);
+  const list = await Multisig.validatorSetGetQueuedStakes(contracts);
+
+  const apollosInfo = await Promise.all(
+    list.map((address) => API2.getApollo(address)),
+  );
+
+  return apollosInfo.map((el: any) => ({
+    address: el.data.validator.address,
+    balance: el.data.validator.balance,
+    stake: el.data.validator.stake,
+    totalBlocks: el.data.validator.totalBlocks,
+    status: 'QUEUE',
+  }));
+};
+
+export const getOnboardingApollos = async () => {
+  const network = getCurrentAmbNetwork();
+  const provider = new AmbErrorProvider(network.rpcUrl, network.chainId);
+  // @ts-ignore
+  const contracts = new Contracts(provider, network.chainId);
+  const list = await Multisig.serverNodesManagerGetNodesList(contracts);
+  const apollosInfo = await Promise.all(
+    list.map((address) => API2.getApollo(address)),
+  );
+
+  return apollosInfo
+    .filter((el) => !el.data.validator.stake.ether)
+    .map((el: any) => ({
+      address: el.data.validator.address,
+      balance: el.data.validator.balance,
+      stake: el.data.validator.stake,
+      totalBlocks: el.data.validator.totalBlocks,
+      status: 'ONBOARDING',
+    }));
 };
