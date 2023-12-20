@@ -279,7 +279,7 @@ const TabsNew: FC<TabsNewProps> = ({
           />
           <div
             style={{ overflow: loading ? 'hidden' : 'auto' }}
-            className="tabs_list"
+            className={`tabs_list ${!tabData?.data?.length ? 'tabs_list_empty' : ''}`}
           >
             {sortTableHeading()}
             {!!tabData?.data?.length && render(tabData.data)}
