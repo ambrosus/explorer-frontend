@@ -16,14 +16,6 @@ import React, { memo, useEffect, useMemo } from 'react';
 import { Helmet } from 'react-helmet';
 
 export const Apollo = memo(() => {
-  const { provider, chainId } = useWeb3React();
-
-  const contracts = useMemo(() => {
-    if (!provider || !chainId) return null;
-    const ambErrorProvider = new AmbErrorProviderWeb3(provider.provider);
-    return new Contracts(ambErrorProvider.getSigner(), +chainId);
-  }, [provider, chainId]);
-
   const { data: appData } = useTypedSelector((state: any) => state.app);
 
   const {
