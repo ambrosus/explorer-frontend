@@ -9,8 +9,12 @@ import {
 import API2 from 'API/newApi';
 // @ts-ignore
 import { getCurrentAmbNetwork } from 'airdao-components-and-tools/utils';
-import { utils } from 'ethers';
+import { ethers, utils } from 'ethers';
 import React from 'react';
+
+const readProvider = new ethers.providers.JsonRpcProvider(
+  process.env.REACT_APP_EXPLORER_NETWORK,
+);
 
 export const getApollosNetworkInfo = (data: any) => {
   let total = 0,
@@ -98,17 +102,26 @@ export const getOnboardingApollos = async () => {
   // @ts-ignore
   const contracts = new Contracts(provider, network.chainId);
   const list = await Multisig.serverNodesManagerGetNodesList(contracts);
-  const apollosInfo = await Promise.all(
-    list.map((address) => API2.getApollo(address)),
+  const arr = await Promise.all(
+    list.map(async (address) => {
+      const stakeData = await Multisig.validatorSetGetNodeStakeData(
+        contracts,
+        address,
+      );
+      if (stakeData.amount.isZero()) {
+        const { stake } = await contracts
+          .getContractByName(ContractNames.ServerNodesManager)
+          .stakes(address);
+        const balance = await readProvider.getBalance(address);
+        return {
+          address,
+          balance: { ether: +ethers.utils.formatEther(balance) },
+          stake: { ether: +ethers.utils.formatEther(stake) },
+          totalBlocks: 0,
+          status: 'ONBOARDING',
+        };
+      }
+    }),
   );
-
-  return apollosInfo
-    .filter((el) => !el.data.validator.stake.ether)
-    .map((el: any) => ({
-      address: el.data.validator.address,
-      balance: el.data.validator.balance,
-      stake: el.data.validator.stake,
-      totalBlocks: el.data.validator.totalBlocks,
-      status: 'ONBOARDING',
-    }));
+  return arr.filter((el) => el);
 };

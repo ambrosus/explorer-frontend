@@ -57,6 +57,32 @@ export const Apollo = memo(() => {
     getRetiredApollos();
   }, []);
 
+  const tableData = useMemo(
+    () => [
+      { title: 'Address', value: 'address' },
+      { title: 'Total blocks', value: 'totalBundles' },
+      { title: 'Balance', value: 'balance' },
+      { title: 'Stake', value: 'stake' },
+      {
+        title: 'Retired',
+        value: 'retired',
+        heading: <AtlasBlocksHeader pageTitle="blocks" isRetired />,
+        listData: getRetiredApollos,
+      },
+      {
+        title: 'In queue',
+        value: 'queue',
+        listData: getQueuedApollos,
+      },
+      {
+        title: 'Onboarding',
+        value: 'onboarding',
+        listData: getOnboardingApollos,
+      },
+    ],
+    [],
+  );
+
   return (
     <Content>
       <Helmet>
@@ -75,28 +101,7 @@ export const Apollo = memo(() => {
       <Content.Body>
         <TabsNew
           tableHeader={() => <AtlasBlocksHeader pageTitle="blocks" />}
-          sortOptions={[
-            { title: 'Address', value: 'address' },
-            { title: 'Total blocks', value: 'totalBundles' },
-            { title: 'Balance', value: 'balance' },
-            { title: 'Stake', value: 'stake' },
-            {
-              title: 'Retired',
-              value: 'retired',
-              heading: <AtlasBlocksHeader pageTitle="blocks" isRetired />,
-              listData: getRetiredApollos,
-            },
-            {
-              title: 'In queue',
-              value: 'queue',
-              listData: getQueuedApollos,
-            },
-            {
-              title: 'Onboarding',
-              value: 'onboarding',
-              listData: getOnboardingApollos,
-            },
-          ]}
+          sortOptions={tableData}
           fetchData={API2.getApollos}
           initSortTerm={'totalBundles'}
           fetchParams={{ sort: '', page: '' }}
