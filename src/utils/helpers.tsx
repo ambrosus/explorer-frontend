@@ -403,9 +403,7 @@ export const statusMessage = (node: any = {}, nodeName: string) => {
       case 'QUEUE':
         return <div className="apollo_blocks_body_cell_yellow">In queue</div>;
       case 'ONBOARDING':
-        return (
-          <div className="apollo_blocks_body_cell_yellow">Onboarding</div>
-        );
+        return <div className="apollo_blocks_body_cell_yellow">Onboarding</div>;
       case 'CONNECTING':
         return 'Connecting...';
       default:
