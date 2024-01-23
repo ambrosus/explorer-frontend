@@ -10,10 +10,10 @@
     position: fixed;
     bottom: 0;
     padding: 10px;
-    background: #FFFFFF;
+    background: #ffffff;
     box-shadow: 0 8px 49px rgba(162, 178, 216, 0.65);
     border-radius: 8px 8px 0 0;
-    color: #3568DD;
+    color: #3568dd;
     width: 100%;
     left: 0;
 
@@ -41,6 +41,27 @@
     @include for_phone {
       width: 100%;
     }
+
+    .menu_item {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .list__item {
+      .menu_item.with_arrow {
+        justify-content: space-between;
+        display: flex;
+        width: 100%;
+      }
+
+      .sub-menu {
+        position: relative;
+        width: 100%;
+        left: 0;
+        top: 0;
+        box-shadow: none;
+      }
+    }
   }
 
   &_item {
@@ -62,7 +83,6 @@
   font-weight: 500;
 }
 
-
 .help__close {
   position: absolute;
   top: 20px;
@@ -74,7 +94,6 @@
   }
 }
 
-
 @media screen and (max-height: 693px) and (min-width: 600px) {
   .help {
     height: calc(100vh - 16px - 111px);
@@ -83,14 +102,14 @@
 
 @include for_laptop {
   .help {
-    margin-bottom: 54px!important;
+    margin-bottom: 54px !important;
 
     @media screen and (max-width: 600px) {
-      margin-bottom: 0!important;
+      margin-bottom: 0 !important;
     }
   }
 
   .handle-help-btn {
-    bottom: 54px!important;
+    bottom: 54px !important;
   }
 }

@@ -12,7 +12,6 @@ import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import routes from 'routes';
-import 'styles/Main.scss';
 
 const Main: React.FC = () => {
   const { pathname } = useLocation();

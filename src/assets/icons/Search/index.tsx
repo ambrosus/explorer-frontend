@@ -6,20 +6,22 @@ const SvgComponent = (
   return (
     <>
       <svg
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
+        width="20"
+        height="20"
+        viewBox="0 0 20 20"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
-          d="M10.875 18.75C15.2242 18.75 18.75 15.2242 18.75 10.875C18.75 6.52576 15.2242 3 10.875 3C6.52576 3 3 6.52576 3 10.875C3 15.2242 6.52576 18.75 10.875 18.75Z"
+          d="M9.0625 15.625C12.6869 15.625 15.625 12.6869 15.625 9.0625C15.625 5.43813 12.6869 2.5 9.0625 2.5C5.43813 2.5 2.5 5.43813 2.5 9.0625C2.5 12.6869 5.43813 15.625 9.0625 15.625Z"
+          stroke="#29292D"
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
         />
         <path
-          d="M16.4434 16.4438L20.9997 21.0002"
+          d="M13.7026 13.7032L17.4996 17.5001"
+          stroke="#29292D"
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
