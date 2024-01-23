@@ -1,94 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
 
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-Z4QJE54Z4R"
-    ></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag('js', new Date());
+<head>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z4QJE54Z4R"></script>
+  <script async src="https://code.highcharts.com/maps/highmaps.js"></script>
+  <script async src="https://code.highcharts.com/mapdata/index.js"></script>
+  <script async src="https://code.highcharts.com/modules/marker-clusters.js"></script>
+  <script async src="https://code.highcharts.com/modules/coloraxis.js"></script>
+  <script async src="https://code.highcharts.com/maps/modules/accessibility.js"></script>
 
-      gtag('config', 'G-Z4QJE54Z4R');
-    </script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
 
-    <!-- Google Tag Manager -->
-    <script>
-      (function (w, d, s, l, i) {
-        w[l] = w[l] || [];
-        w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
-        var f = d.getElementsByTagName(s)[0],
-          j = d.createElement(s),
-          dl = l != 'dataLayer' ? '&l=' + l : '';
-        j.async = true;
-        j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-        f.parentNode.insertBefore(j, f);
-      })(window, document, 'script', 'dataLayer', 'GTM-NB9VBWH');
-    </script>
-    <!-- End Google Tag Manager -->
+    gtag('config', 'G-Z4QJE54Z4R');
+  </script>
 
-    <meta charset="utf-8" />
-    <link href="%PUBLIC_URL%/favicon.png" rel="icon" />
-    <meta content="width=device-width, initial-scale=1" name="viewport" />
-    <meta content="#3568DD" name="theme-color" />
-    <meta
-      content="Web site created using create-react-app"
-      name="description"
-    />
-    <base href="%PUBLIC_URL%/" />
+  <!-- Google Tag Manager -->
+  <script>
+    (function (w, d, s, l, i) {
+      w[l] = w[l] || [];
+      w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+      var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s),
+        dl = l != 'dataLayer' ? '&l=' + l : '';
+      j.async = true;
+      j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+      f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-NB9VBWH');
+  </script>
+  <!-- End Google Tag Manager -->
 
-    <!-- Apple -->
-    <meta content="yes" name="apple-mobile-web-app-capable" />
-    <meta content="yes" name="apple-touch-fullscreen" />
-    <meta content="#3568DD" name="apple-mobile-web-app-status-bar-style" />
-    <!-- Favicon -->
-    <link
-      href="%PUBLIC_URL%/favicon.png"
-      rel="shortcut icon"
-      type="image/png"
-    />
-    <link href="%PUBLIC_URL%/manifest.json" rel="manifest" />
-    <meta property="og:title" content="AirDAO | AirDAO Network Explorer" />
-    <meta name="twitter:title" content="AirDAO | AirDAO Network Explorer" />
+  <meta charset="utf-8" />
+  <link href="%PUBLIC_URL%/favicon.png" rel="icon" />
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <meta content="#3568DD" name="theme-color" />
+  <meta content="Web site created using create-react-app" name="description" />
+  <base href="%PUBLIC_URL%/" />
 
-    <meta property="og:image" content="https://airdao.io/explorer/og.png" />
-    <meta name="twitter:image" content="https://airdao.io/explorer/og.png" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="600" />
-    <meta name="twitter:card" content="summary_large_image" />
+  <!-- Apple -->
+  <meta content="yes" name="apple-mobile-web-app-capable" />
+  <meta content="yes" name="apple-touch-fullscreen" />
+  <meta content="#3568DD" name="apple-mobile-web-app-status-bar-style" />
+  <!-- Favicon -->
+  <link href="%PUBLIC_URL%/favicon.png" rel="shortcut icon" type="image/png" />
+  <link href="%PUBLIC_URL%/manifest.json" rel="manifest" />
+  <meta property="og:title" content="AirDAO | AirDAO Network Explorer" />
+  <meta name="twitter:title" content="AirDAO | AirDAO Network Explorer" />
 
-    <meta
-      name="description"
-      content="Explore AirDAO Network: amb price, total supply, total transactions, market cap, nodes, holders etc."
-    />
-    <meta
-      property="og:description"
-      content="The AirDAO explorer allows you to analyze the Ambrosus blockchain for transactions, addresses, tokens, prices, and other activities on AMB-NET."
-    />
-    <meta
-      name="twitter:description"
-      content="The AirDAO explorer allows you to analyze the Ambrosus blockchain for transactions, addresses, tokens, prices, and other activities on AMB-NET."
-    />
-  </head>
-  <body>
+  <meta property="og:image" content="https://airdao.io/explorer/og.png" />
+  <meta name="twitter:image" content="https://airdao.io/explorer/og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="600" />
+  <meta name="twitter:card" content="summary_large_image" />
 
-    <!-- Google Tag Manager (noscript) -->
-    <noscript
-    ><iframe
-      src="https://www.googletagmanager.com/ns.html?id=GTM-NB9VBWH"
-      height="0"
-      width="0"
-      style="display: none; visibility: hidden"
-    ></iframe
-    ></noscript>
-    <!-- End Google Tag Manager (noscript) -->
+  <meta name="description"
+    content="Explore AirDAO Network: amb price, total supply, total transactions, market cap, nodes, holders etc." />
+  <meta property="og:description"
+    content="The AirDAO explorer allows you to analyze the Ambrosus blockchain for transactions, addresses, tokens, prices, and other activities on AMB-NET." />
+  <meta name="twitter:description"
+    content="The AirDAO explorer allows you to analyze the Ambrosus blockchain for transactions, addresses, tokens, prices, and other activities on AMB-NET." />
+</head>
 
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <div id="portal"></div>
-  </body>
+<body>
+
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NB9VBWH" height="0" width="0"
+      style="display: none; visibility: hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+  <div id="root"></div>
+  <div id="portal"></div>
+</body>
+
 </html>

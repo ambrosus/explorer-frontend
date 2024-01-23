@@ -13,6 +13,8 @@ import { createRoot } from 'react-dom/client';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
+import 'styles/Main.scss';
+import 'styles/index.css';
 
 const connectors: any = [
   [metamaskConnector, metamaskHooks],
