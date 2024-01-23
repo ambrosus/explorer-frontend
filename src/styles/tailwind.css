@@ -22,22 +22,11 @@
     --color-info: 16 160 222;
     --color-gray: 119 119 119;
 
-    --font-inter: Inter, sans-serif;
-
     --container-width: 1340px;
   }
 
   main {
     @apply antialiased text-black-700 text-base h-full;
-  }
-
-  span,
-  a,
-  b,
-  div,
-  p,
-  i {
-    @apply text-base font-inter;
   }
 
   main h1,
@@ -46,7 +35,7 @@
   main h4,
   main h5,
   main h6 {
-    @apply text-black-500 font-bold font-inter;
+    @apply text-black-500 font-bold;
   }
 
   main h4 {
@@ -57,7 +46,8 @@
     @apply text-xs lg:text-sm;
   }
 
-  main p {
+  main p,
+  main p a {
     @apply text-lg font-normal leading-6.5;
   }
 
@@ -81,9 +71,13 @@
 }
 
 .multi-line {
-  @apply block whitespace-nowrap text-center;
+  @apply block whitespace-nowrap text-center text-sm font-medium text-[#51545a];
 }
 
 .highcharts-tooltip {
-  @apply font-inter font-medium;
+  @apply font-medium;
+}
+
+.highcharts-text-outline {
+  font-size: inherit;
 }

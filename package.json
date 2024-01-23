@@ -6,7 +6,6 @@
   "scripts": {
     "dev:tailwind": "tailwindcss -i src/styles/tailwind.css -o src/styles/index.css -w",
     "tailwind:build": "NODE_ENV=production tailwindcss -i src/styles/tailwind.css -o src/styles/index.css --minify",
-    "prebuild": " npm run tailwind:build",
     "start": "yarn format && react-scripts start",
     "build": "yarn configure && react-scripts build",
     "build:dev": "react-scripts build",

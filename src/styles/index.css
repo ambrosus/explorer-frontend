@@ -452,30 +452,16 @@ video {
   --color-danger: 247 75 75;
   --color-info: 16 160 222;
   --color-gray: 119 119 119;
-  --font-inter: Inter, sans-serif;
   --container-width: 1340px;
 }
 
 main {
   height: 100%;
-  font-size: 1rem;
-  line-height: 1.5rem;
+  font-size: 16px;
   --tw-text-opacity: 1;
   color: rgb(var(--color-black-700) / var(--tw-text-opacity));
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-span,
-  a,
-  b,
-  div,
-  main *,
-  p,
-  i {
-  font-family: var(--font-inter);
-  font-size: 1rem;
-  line-height: 1.5rem;
 }
 
 main h1,
@@ -484,33 +470,30 @@ main h1,
   main h4,
   main h5,
   main h6 {
-  font-family: var(--font-inter);
   font-weight: 700;
   --tw-text-opacity: 1;
   color: rgb(var(--color-black-500) / var(--tw-text-opacity));
 }
 
 main h4 {
-  font-size: 1.5rem;
-  line-height: 2rem;
+  font-size: 24px;
 }
 
 main h6 {
-  font-size: 0.75rem;
-  line-height: 1rem;
+  font-size: 12px;
 }
 
 @media (min-width: 1024px) {
   main h6 {
-    font-size: 0.875rem;
-    line-height: 1.25rem;
+    font-size: 14px;
   }
 }
 
-main p {
-  font-size: 1.125rem;
+main p,
+  main p a {
+  font-size: 18px;
   font-weight: 400;
-  line-height: 1.625rem;
+  line-height: 26px;
 }
 
 main a {
@@ -654,16 +637,16 @@ main a {
 }
 
 .inset-y-0 {
-  top: 0px;
-  bottom: 0px;
+  top: 0;
+  bottom: 0;
 }
 
 .left-0 {
-  left: 0px;
+  left: 0;
 }
 
 .right-0 {
-  right: 0px;
+  right: 0;
 }
 
 .z-10 {
@@ -688,56 +671,56 @@ main a {
 }
 
 .my-10 {
-  margin-top: 2.5rem;
-  margin-bottom: 2.5rem;
+  margin-top: 40px;
+  margin-bottom: 40px;
 }
 
 .mb-16 {
-  margin-bottom: 4rem;
+  margin-bottom: 64px;
 }
 
 .mb-2 {
-  margin-bottom: 0.5rem;
+  margin-bottom: 8px;
 }
 
 .mb-4 {
-  margin-bottom: 1rem;
+  margin-bottom: 16px;
 }
 
 .mb-5 {
-  margin-bottom: 1.25rem;
+  margin-bottom: 20px;
 }
 
 .mb-6 {
-  margin-bottom: 1.5rem;
+  margin-bottom: 24px;
 }
 
 .mb-8 {
-  margin-bottom: 2rem;
+  margin-bottom: 32px;
 }
 
 .ml-2 {
-  margin-left: 0.5rem;
+  margin-left: 8px;
 }
 
 .ml-4 {
-  margin-left: 1rem;
+  margin-left: 16px;
 }
 
 .mr-1 {
-  margin-right: 0.25rem;
+  margin-right: 4px;
 }
 
 .mr-2 {
-  margin-right: 0.5rem;
+  margin-right: 8px;
 }
 
 .mr-4 {
-  margin-right: 1rem;
+  margin-right: 16px;
 }
 
 .mt-2 {
-  margin-top: 0.5rem;
+  margin-top: 8px;
 }
 
 .block {
@@ -773,31 +756,31 @@ main a {
 }
 
 .h-1 {
-  height: 0.25rem;
+  height: 4px;
 }
 
 .h-1\.5 {
-  height: 0.375rem;
+  height: 6px;
 }
 
 .h-2 {
-  height: 0.5rem;
+  height: 8px;
 }
 
 .h-2\.5 {
-  height: 0.625rem;
+  height: 10px;
 }
 
 .h-3 {
-  height: 0.75rem;
+  height: 12px;
 }
 
 .h-7 {
-  height: 1.75rem;
+  height: 28px;
 }
 
 .h-9 {
-  height: 2.25rem;
+  height: 36px;
 }
 
 .h-\[6px\] {
@@ -809,31 +792,31 @@ main a {
 }
 
 .w-1 {
-  width: 0.25rem;
+  width: 4px;
 }
 
 .w-1\.5 {
-  width: 0.375rem;
+  width: 6px;
 }
 
 .w-2 {
-  width: 0.5rem;
+  width: 8px;
 }
 
 .w-2\.5 {
-  width: 0.625rem;
+  width: 10px;
 }
 
 .w-3 {
-  width: 0.75rem;
+  width: 12px;
 }
 
 .w-7 {
-  width: 1.75rem;
+  width: 28px;
 }
 
 .w-9 {
-  width: 2.25rem;
+  width: 36px;
 }
 
 .w-\[6px\] {
@@ -878,7 +861,7 @@ main a {
 }
 
 .animate-blink {
-  animation: blink 1.4s infinite both;;
+  animation: blink 1.4s infinite both;
 }
 
 @keyframes scaleUp {
@@ -952,19 +935,19 @@ main a {
 }
 
 .gap-1 {
-  gap: 0.25rem;
+  gap: 4px;
 }
 
 .gap-2 {
-  gap: 0.5rem;
+  gap: 8px;
 }
 
 .gap-4 {
-  gap: 1rem;
+  gap: 16px;
 }
 
 .gap-7 {
-  gap: 1.75rem;
+  gap: 28px;
 }
 
 .gap-y-\[20px\] {
@@ -984,7 +967,7 @@ main a {
 }
 
 .rounded-2 {
-  border-radius: 0.5rem;
+  border-radius: 8px;
 }
 
 .rounded-4xl {
@@ -1004,7 +987,7 @@ main a {
 }
 
 .rounded-xl {
-  border-radius: 0.75rem;
+  border-radius: 12px;
 }
 
 .border {
@@ -2969,32 +2952,32 @@ main a {
 }
 
 .\!p-8 {
-  padding: 2rem !important;
+  padding: 32px !important;
 }
 
 .\!px-3 {
-  padding-left: 0.75rem !important;
-  padding-right: 0.75rem !important;
+  padding-left: 12px !important;
+  padding-right: 12px !important;
 }
 
 .\!py-5 {
-  padding-top: 1.25rem !important;
-  padding-bottom: 1.25rem !important;
+  padding-top: 20px !important;
+  padding-bottom: 20px !important;
 }
 
 .px-4 {
-  padding-left: 1rem;
-  padding-right: 1rem;
+  padding-left: 16px;
+  padding-right: 16px;
 }
 
 .px-5 {
-  padding-left: 1.25rem;
-  padding-right: 1.25rem;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .py-2 {
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+  padding-top: 8px;
+  padding-bottom: 8px;
 }
 
 .py-2\.7 {
@@ -3003,36 +2986,36 @@ main a {
 }
 
 .py-3 {
-  padding-top: 0.75rem;
-  padding-bottom: 0.75rem;
+  padding-top: 12px;
+  padding-bottom: 12px;
 }
 
 .pb-14 {
-  padding-bottom: 3.5rem;
+  padding-bottom: 56px;
 }
 
 .pb-2 {
-  padding-bottom: 0.5rem;
+  padding-bottom: 8px;
 }
 
 .pl-12 {
-  padding-left: 3rem;
+  padding-left: 48px;
 }
 
 .pl-4 {
-  padding-left: 1rem;
+  padding-left: 16px;
 }
 
 .pr-11 {
-  padding-right: 2.75rem;
+  padding-right: 44px;
 }
 
 .pr-4 {
-  padding-right: 1rem;
+  padding-right: 16px;
 }
 
 .pt-2 {
-  padding-top: 0.5rem;
+  padding-top: 8px;
 }
 
 .text-left {
@@ -3043,31 +3026,20 @@ main a {
   text-align: center;
 }
 
-.text-3 {
-  font-size: 0.75rem;
-}
-
-.text-4 {
-  font-size: 1rem;
-}
-
 .text-\[13px\] {
   font-size: 13px;
 }
 
 .text-base {
-  font-size: 1rem;
-  line-height: 1.5rem;
+  font-size: 16px;
 }
 
 .text-sm {
-  font-size: 0.875rem;
-  line-height: 1.25rem;
+  font-size: 14px;
 }
 
 .text-xs {
-  font-size: 0.75rem;
-  line-height: 1rem;
+  font-size: 12px;
 }
 
 .font-medium {
@@ -3083,11 +3055,15 @@ main a {
 }
 
 .leading-5 {
-  line-height: 1.25rem;
+  line-height: 20px;
 }
 
 .leading-7 {
-  line-height: 1.75rem;
+  line-height: 28px;
+}
+
+.-tracking-tightest {
+  letter-spacing: -0.216px;
 }
 
 .text-black-400 {
@@ -3777,16 +3753,16 @@ main a {
   border-color: rgb(var(--color-black-200) / var(--tw-border-opacity));
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
-  padding-top: 1.5rem;
-  padding-bottom: 1.5rem;
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
+  padding-top: 24px;
+  padding-bottom: 24px;
+  padding-left: 24px;
+  padding-right: 24px;
 }
 
 @media (min-width: 768px) {
   .panel {
-    padding-left: 2.5rem;
-    padding-right: 2.5rem;
+    padding-left: 40px;
+    padding-right: 40px;
   }
 }
 
@@ -3809,11 +3785,18 @@ main a {
   display: block;
   white-space: nowrap;
   text-align: center;
+  font-size: 14px;
+  font-weight: 500;
+  --tw-text-opacity: 1;
+  color: rgb(81 84 90 / var(--tw-text-opacity));
 }
 
 .highcharts-tooltip {
-  font-family: var(--font-inter);
   font-weight: 500;
+}
+
+.highcharts-text-outline {
+  font-size: inherit;
 }
 
 .placeholder\:text-black-600\/60::placeholder {
@@ -3821,7 +3804,7 @@ main a {
 }
 
 .first\:pt-0:first-child {
-  padding-top: 0px;
+  padding-top: 0;
 }
 
 .last\:border-b-0:last-child {
@@ -3829,7 +3812,7 @@ main a {
 }
 
 .last\:pb-0:last-child {
-  padding-bottom: 0px;
+  padding-bottom: 0;
 }
 
 .hover\:bg-black-600\/10:hover {
@@ -3847,7 +3830,7 @@ main a {
 
 @media (min-width: 640px) {
   .sm\:mb-0 {
-    margin-bottom: 0px;
+    margin-bottom: 0;
   }
 
   .sm\:grid-cols-1 {
@@ -3859,7 +3842,7 @@ main a {
   }
 
   .sm\:gap-2 {
-    gap: 0.5rem;
+    gap: 8px;
   }
 }
 
@@ -3883,11 +3866,11 @@ main a {
   }
 
   .lg\:gap-14 {
-    gap: 3.5rem;
+    gap: 56px;
   }
 
   .lg\:gap-5 {
-    gap: 1.25rem;
+    gap: 20px;
   }
 }
 
@@ -3896,19 +3879,15 @@ main a {
     display: flex;
   }
 
-  .xl\:text-5 {
-    font-size: 1.25rem;
-  }
-
   .xl\:text-5\.5 {
-    font-size: 1.375rem;
+    font-size: 22px;
   }
 }
 
 .ltr\:ml-1:where([dir="ltr"], [dir="ltr"] *) {
-  margin-left: 0.25rem;
+  margin-left: 4px;
 }
 
 .rtl\:mr-1:where([dir="rtl"], [dir="rtl"] *) {
-  margin-right: 0.25rem;
+  margin-right: 4px;
 }

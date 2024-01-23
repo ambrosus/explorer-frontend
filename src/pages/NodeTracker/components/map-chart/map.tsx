@@ -9,7 +9,6 @@ import {
   getGeos,
   groupedByCountry,
 } from '../../utils';
-import _ from 'lodash';
 import { useState, useEffect } from 'react';
 
 const baseMapPath =

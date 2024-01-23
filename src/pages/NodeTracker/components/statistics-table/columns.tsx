@@ -24,7 +24,7 @@ const columns = [
   columnHelper.accessor('info.name', {
     header: () => (
       <div className="flex items-center">
-        <span className="mr-1">Node Hash</span>
+        <span className="mr-1 text-neutral-100 text-xs">Node Hash</span>
         <Tooltip
           isMultiline
           message="Node hashes are unique identifiers <br/> for individual AirDAO network nodes"
@@ -35,7 +35,7 @@ const columns = [
     ),
     cell: (info) => {
       return (
-        <span className="text-blue-100">
+        <span className="text-blue-100 text-sm">
           {info.getValue()?.replace('apollo', '')}
         </span>
       );
@@ -44,7 +44,7 @@ const columns = [
   columnHelper.accessor('geo.country', {
     header: () => (
       <div className="flex items-center">
-        <span className="mr-1">Country</span>
+        <span className="mr-1 text-neutral-100 text-xs">Country</span>
         <Tooltip
           isMultiline
           message="The geographical location <br/> of an AirDAO network node"
@@ -53,7 +53,9 @@ const columns = [
         </Tooltip>
       </div>
     ),
-    cell: (info) => info.getValue() || '--',
+    cell: (info) => {
+      return <span className="text-sm">{info.getValue() || '--'}</span>;
+    },
   }),
   columnHelper.accessor('readable.latency', {
     header: () => (
@@ -63,7 +65,9 @@ const columns = [
         </Tooltip>
       </div>
     ),
-    cell: (info) => <div className="text-center">{info.getValue()}</div>,
+    cell: (info) => (
+      <div className="text-center text-sm">{info.getValue()}</div>
+    ),
   }),
   columnHelper.accessor('stats.peers', {
     header: () => (
@@ -73,7 +77,9 @@ const columns = [
         </Tooltip>
       </div>
     ),
-    cell: (info) => <div className="text-center">{info.getValue()}</div>,
+    cell: (info) => (
+      <div className="text-center text-sm">{info.getValue()}</div>
+    ),
   }),
   columnHelper.accessor('stats.pending', {
     header: () => (
@@ -83,12 +89,14 @@ const columns = [
         </Tooltip>
       </div>
     ),
-    cell: (info) => <div className="text-center">{info.getValue()}</div>,
+    cell: (info) => (
+      <div className="text-center text-sm">{info.getValue()}</div>
+    ),
   }),
   columnHelper.accessor('stats.block.number', {
     header: () => (
       <div className="flex items-center">
-        <span className="mr-1">Last Block</span>
+        <span className="mr-1 text-neutral-100 text-xs">Last Block</span>
         <Tooltip
           isMultiline
           message="The last block contains the latest <br/> transactions and links to the previous block"
@@ -97,12 +105,14 @@ const columns = [
         </Tooltip>
       </div>
     ),
-    cell: (info) => `#${info.getValue()}`,
+    cell: (info) => {
+      return <span className="text-sm">{`#${info.getValue()}`}</span>;
+    },
   }),
   columnHelper.accessor('stats.block', {
     header: () => (
       <div className="flex items-center">
-        <span className="mr-1">Tx Hash</span>
+        <span className="mr-1 text-neutral-100 text-xs">Tx Hash</span>
         <Tooltip
           isMultiline
           message="A TX hash is a unique identifier <br/> of an individual blockchain transaction"
@@ -112,7 +122,7 @@ const columns = [
       </div>
     ),
     cell: (info) => (
-      <span className="text-blue-100">
+      <span className="text-blue-100 text-sm">
         {info.getValue() && shortenAddress(info.getValue().hash)}
       </span>
     ),
@@ -126,7 +136,9 @@ const columns = [
       </div>
     ),
     cell: (info) => (
-      <div className="text-center">{lastBlockTime(info.getValue())}</div>
+      <div className="text-center text-sm">
+        {lastBlockTime(info.getValue())}
+      </div>
     ),
   }),
   columnHelper.accessor('stats', {
@@ -152,7 +164,9 @@ const columns = [
               `bg-${propClass}-100`,
             )}
           ></span>
-          <span>{blockPropagationFilter(stats.block.propagation)}</span>
+          <span className="text-sm">
+            {blockPropagationFilter(stats.block.propagation)}
+          </span>
         </div>
       );
     },
@@ -172,7 +186,7 @@ const columns = [
       return (
         <div
           className={cn(
-            'text-center',
+            'text-center text-sm',
             `text-${propagationNodeAvgTimeClass(info.getValue())}-100`,
           )}
         >

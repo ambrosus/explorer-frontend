@@ -6,7 +6,7 @@ const Notify = () => {
       <span className="mr-4">
         <InfoIcon />
       </span>
-      <p>
+      <p className="-tracking-tightest">
         Node Tracker shows statistics of active AirDAO network nodes. The
         statistics include total AMB staked per continent and a map of global
         node distribution. Learn more about network decentralization with{' '}
