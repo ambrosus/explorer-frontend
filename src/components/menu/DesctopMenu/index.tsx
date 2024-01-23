@@ -1,7 +1,8 @@
+import SubMenu from '../SubMenu';
 import Find from 'components/Find';
 import FindWide from 'components/Find/FindWide';
 import { useOnClickOutside } from 'hooks/useOnClickOutside';
-import React, { useRef, useState } from 'react';
+import React, { memo, useRef, useState } from 'react';
 
 /*
  * @param {string} props.title - title of the menu
@@ -17,6 +18,7 @@ const DesctopMenu: React.FC<DesctopMenuProps> = ({ menu }) => {
   const searchRef = useRef(null);
 
   useOnClickOutside(searchRef, () => setIsShow(false));
+
   return (
     <>
       {isShow ? (
@@ -24,6 +26,7 @@ const DesctopMenu: React.FC<DesctopMenuProps> = ({ menu }) => {
       ) : (
         <div className="menu">
           {menu}
+          <SubMenu />
           <Find setIsShow={setIsShow} />
         </div>
       )}
@@ -31,4 +34,4 @@ const DesctopMenu: React.FC<DesctopMenuProps> = ({ menu }) => {
   );
 };
 
-export default DesctopMenu;
+export default memo(DesctopMenu);
