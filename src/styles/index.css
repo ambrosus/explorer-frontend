@@ -3785,8 +3785,9 @@ main a {
   display: block;
   white-space: nowrap;
   text-align: center;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 500;
+  line-height: 16px;
   --tw-text-opacity: 1;
   color: rgb(81 84 90 / var(--tw-text-opacity));
 }

@@ -71,7 +71,7 @@
 }
 
 .multi-line {
-  @apply block whitespace-nowrap text-center text-sm font-medium text-[#51545a];
+  @apply block whitespace-nowrap text-center text-xs leading-4 font-medium text-[#51545a];
 }
 
 .highcharts-tooltip {

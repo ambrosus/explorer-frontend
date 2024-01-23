@@ -5,7 +5,7 @@ const useGetBlockTime = () => {
 
   useEffect(() => {
     try {
-      fetch('https://explorer-api.ambrosus.io/info/')
+      fetch(`${process.env.REACT_APP_API_ENDPOINT}/info/`)
         .then((response) => response.json())
         .then((data) => setAvgBlockTime(data.avgBlockTime));
     } catch (e) {
