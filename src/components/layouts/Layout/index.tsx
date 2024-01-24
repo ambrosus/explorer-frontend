@@ -2,6 +2,7 @@
 import { NewHeader } from '../NewHeader';
 import { Header } from '@airdao/ui-library';
 import { useWeb3React } from '@web3-react/core';
+import { WalletConnect } from '@web3-react/walletconnect-v2';
 import {
   useAuthorization,
   useAutoLogin,
@@ -28,7 +29,7 @@ const readProvider = new ethers.providers.JsonRpcProvider(
 
 export const Layout: FC<LayoutProps> = ({ children }) => {
   const [balance, setBalance] = useState('0');
-  const { account } = useWeb3React();
+  const { account, connector } = useWeb3React();
 
   const { loginMetamask, loginWalletConnect, logout } = useAuthorization(
     metamaskConnector,
@@ -63,6 +64,9 @@ export const Layout: FC<LayoutProps> = ({ children }) => {
           account={account}
           disconnect={logout}
           balance={balance}
+          connector={
+            connector instanceof WalletConnect ? 'walletconnect' : 'metamask'
+          }
         />
       </div>
       <NewHeader />
