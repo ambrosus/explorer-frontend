@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "@airdao/airdao-node-contracts": "^1.2.7",
-    "@airdao/ui-library": "^1.2.5",
+    "@airdao/ui-library": "^1.2.8",
     "@babel/plugin-transform-react-jsx": "^7.17.12",
     "@babel/plugin-transform-react-jsx-self": "^7.17.12",
     "@headlessui/react": "^1.7.18",
@@ -41,6 +41,7 @@
     "@testing-library/jest-dom": "^5.16.4",
     "@types/react-helmet": "^6.1.6",
     "@web3-react/core": "^8.2.2",
+    "@web3-react/walletconnect-v2": "^8.5.1",
     "airdao-components-and-tools": "https://github.com/ambrosus/airdao-components-and-tools#dev",
     "axios": "^0.26.1",
     "clsx": "^2.1.0",
