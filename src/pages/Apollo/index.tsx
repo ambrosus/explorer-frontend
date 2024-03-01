@@ -7,8 +7,6 @@ import {
   getQueuedApollos,
   getRetiredApollos,
 } from './utils';
-import { AmbErrorProviderWeb3, Contracts } from '@airdao/airdao-node-contracts';
-import { useWeb3React } from '@web3-react/core';
 import { Content } from 'components/Content';
 import HeadInfo from 'components/HeadInfo';
 import { useTypedSelector } from 'hooks/useTypedSelector';

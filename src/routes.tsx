@@ -12,11 +12,13 @@ import { AtlasDetails } from 'pages/Atlas/AtlasDetails';
 import { Blocks } from 'pages/Blocks';
 import BundleDetails from 'pages/Bundles/BundleDetails';
 import { Home } from 'pages/Home';
+import { NodeTracker } from 'pages/NodeTracker';
 import { Transactions } from 'pages/Transactions';
 import { TransactionDetails } from 'pages/Transactions/TransactionsDetails';
 
 interface IAppRoutes {
   routes: IRoute[];
+  subMenuItems: IRoute[];
   addressesRoutes: IRoute[];
   apolloRoutes: IRoute[];
   atlasRoutes: IRoute[];
@@ -24,6 +26,16 @@ interface IAppRoutes {
   blockRoutes: IRoute[];
   transactions: IRoute[];
 }
+
+export const subMenuItems: IRoute[] = [
+  {
+    path: '/node-tracker',
+    key: 'Node Tracker',
+    exact: false,
+    component: () => <NodeTracker />,
+    isClick: true,
+  },
+];
 
 export const routes: IRoute[] = [
   {
@@ -40,13 +52,13 @@ export const routes: IRoute[] = [
     component: () => <Apollo />,
     isClick: true,
   },
-  {
-    path: '/atlas/',
-    key: 'Atlas',
-    exact: true,
-    component: () => <Atlas />,
-    isClick: true,
-  },
+  // {
+  //   path: '/atlas/',
+  //   key: 'Atlas',
+  //   exact: true,
+  //   component: () => <Atlas />,
+  //   isClick: true,
+  // },
   {
     path: '/address/',
     key: 'Addresses',
@@ -159,6 +171,7 @@ export const bundleRoutes: IRoute[] = [
 
 const appRoutes: IAppRoutes = {
   bundleRoutes,
+  subMenuItems,
   routes,
   addressesRoutes,
   apolloRoutes,

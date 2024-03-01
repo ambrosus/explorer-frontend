@@ -1,0 +1,83 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-black-100: 247 247 247;
+    --color-black-200: 230 230 230;
+    --color-black-400: 29 29 29;
+    --color-black-500: 25 25 25;
+    --color-black-600: 14 14 14;
+    --color-black-700: 0 0 0;
+    --color-neutral-100: 103 107 115;
+    --color-neutral-200: 88 102 126;
+    --color-neutral-300: 161 166 178;
+    --color-blue-100: 69 126 255;
+
+    --color-success: 45 186 141;
+    --color-warning: 255 209 98;
+    --color-orange: 255 138 0;
+    --color-danger: 247 75 75;
+    --color-info: 16 160 222;
+    --color-gray: 119 119 119;
+
+    --container-width: 1340px;
+  }
+
+  main {
+    @apply antialiased text-black-700 text-base h-full;
+  }
+
+  main h1,
+  main h2,
+  main h3,
+  main h4,
+  main h5,
+  main h6 {
+    @apply text-black-500 font-bold;
+  }
+
+  main h4 {
+    @apply text-2xl;
+  }
+
+  main h6 {
+    @apply text-xs lg:text-sm;
+  }
+
+  main p,
+  main p a {
+    @apply text-lg font-normal leading-6.5;
+  }
+
+  main a {
+    @apply text-blue-100;
+  }
+
+  #map-container {
+    @apply h-[300px] sm:h-[485px] w-full;
+  }
+}
+
+@layer utilities {
+  .panel {
+    @apply py-6 px-6 md:px-10 bg-white border border-solid border-black-200 rounded-4xl;
+  }
+
+  .round {
+    @apply flex w-[64px] h-[64px] justify-center items-center bg-black-100 border-2 border-solid border-black-200 rounded-circle;
+  }
+}
+
+.multi-line {
+  @apply block whitespace-nowrap text-center text-xs leading-4 font-medium text-[#51545a];
+}
+
+.highcharts-tooltip {
+  @apply font-medium;
+}
+
+.highcharts-text-outline {
+  font-size: inherit;
+}

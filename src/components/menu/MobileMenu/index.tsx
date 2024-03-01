@@ -1,3 +1,4 @@
+import SubMenu from '../SubMenu';
 import close from 'assets/svg/close.svg';
 import FindWideMobile from 'components/Find/FindWideMobile';
 import { useOnClickOutside } from 'hooks/useOnClickOutside';
@@ -38,6 +39,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ menu, setIsShow, isShow }) => {
               <FindWideMobile setIsShow={setIsShow} />
             </span>
             {menu}
+            <SubMenu />
           </div>
         )}
       </div>
