@@ -27,6 +27,19 @@
   }
 }
 
+.header {
+  > header > div {
+    & > a > button > span {
+      line-height: inherit;
+    }
+
+    & > button > span {
+      line-height: inherit;
+      font-size: inherit;
+    }
+  }
+}
+
 .side-menu-container {
   transform: translateX(-340px);
 
