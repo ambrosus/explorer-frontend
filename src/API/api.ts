@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const tokenApiUrl: any = process.env.REACT_APP_TOKEN_API_URL;
 
-const baseApiUrl = process.env.REACT_APP_API_ENDPOINT;
+const baseApiUrl = process.env.REACT_APP_API_ENDPOINT_V2;
 const sourcifyApiUrl = process.env.REACT_APP_SOURCIFY_API_ENDPOINT;
 
 const chainID = process.env.REACT_APP_CHAIN_ID;
