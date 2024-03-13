@@ -56,8 +56,8 @@ export const Layout: FC<LayoutProps> = ({ children }) => {
   };
 
   return (
-    <div className="layout ">
-      <div className="container" style={{ position: 'relative' }}>
+    <div className="layout">
+      <div className="container header" style={{ position: 'relative' }}>
         <Header
           loginMetamask={loginMetamask}
           loginWalletConnect={loginWalletConnect}
