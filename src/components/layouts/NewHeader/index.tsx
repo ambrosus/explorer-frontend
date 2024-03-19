@@ -32,7 +32,7 @@ export const NewHeader = () => {
   });
 
   return (
-    <div className="header">
+    <div className="header subheader">
       <div className="container">
         <nav className="navigation">
           {FOR_LAPTOP ? (
