@@ -20,8 +20,8 @@ const Maintenance = () => {
       <div className={styles.container}>
         <img className={styles.pic} src={maintenanceImage} alt="maintenance" />
         <h4 className={styles.title}>
-          We're down for maintenance — we'll be back soon. You can contact us at
-          support@airdao.io
+          We're down for maintenance — we'll be back soon. You can contact us at{' '}
+          <a href="mailto:support@airdao.io">support@airdao.io</a>
         </h4>
         <Button onClick={() => navigate('/')} type="primary" size="medium">
           Go home

@@ -19,11 +19,11 @@ export const NewHeader = () => {
 
     return (
       <NavLink
-        to={`${menuElement.path}/`}
+        to={`${menuElement.path}`}
         key={menuElement.key}
-        className={({ isActive }) =>
-          `menu_item ${isActive ? 'menu_item_active' : ''}`
-        }
+        className={({ isActive }) => {
+          return `menu_item ${isActive ? 'menu_item_active' : ''}`;
+        }}
         onClick={disableClick}
       >
         {menuElement.key}

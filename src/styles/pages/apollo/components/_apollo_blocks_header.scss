@@ -1,13 +1,13 @@
 .apollo_blocks_header {
   display: grid;
   grid-template-columns:
-    minmax(50px, 1fr)
-    minmax(360px, 6fr)
-    minmax(150px, 3fr)
-    minmax(80px, 2fr)
+    minmax(20px, 1fr)
+    minmax(380px, 6fr)
+    minmax(110px, 3fr)
+    minmax(80px, 1fr)
     minmax(190px, 3fr)
     minmax(150px, 3fr);
-  grid-gap: 32px;
+  grid-gap: 16px;
 
   &_cell {
     display: flex;

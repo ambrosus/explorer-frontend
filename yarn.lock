@@ -19,10 +19,10 @@
   dependencies:
     ethers "^5.7.2"
 
-"@airdao/ui-library@^1.4.6":
-  version "1.4.7"
-  resolved "https://registry.yarnpkg.com/@airdao/ui-library/-/ui-library-1.4.7.tgz#b5472ce6e0aadfede94fca8ee80753a0e02bf570"
-  integrity sha512-XBDEOVOj/FZtwuzO28dv1sAAjg866hh2lfRicZsd0u71G8I7AQ32TufylXuJ7hlEqcMYrbM9ImP6t9GXpcceZA==
+"@airdao/ui-library@^1.4.9":
+  version "1.4.9"
+  resolved "https://registry.yarnpkg.com/@airdao/ui-library/-/ui-library-1.4.9.tgz#d0a5c645070714cf2ea53f3407ce41dc4b28c962"
+  integrity sha512-URr2nea0FO9lIAU9yuctUhDvxDLzUf0xKrh710TjJ05RtYlNoBIpiOR/jbkG2CG+mxyWdpmPThi4L3eu5+wvdQ==
   dependencies:
     "@prismicio/client" "^7.1.1"
     "@prismicio/react" "^2.5.0"
@@ -3842,7 +3842,7 @@
     "@walletconnect/window-getters" "^1.0.1"
     tslib "1.14.1"
 
-"@web3-react/core@^8.2.2":
+"@web3-react/core@^8.2.3":
   version "8.2.3"
   resolved "https://registry.yarnpkg.com/@web3-react/core/-/core-8.2.3.tgz#142899e74401bfd3a481a1b9578b2fd8f9dfde81"
   integrity sha512-0ezmRKhqQpoa9ct2/3erg60zBXfC/f/liYR1mfSGKtIroRkLnPARigZSV6pI+fi8bhfGJ0RKtFWyTCCWZzdq1w==
