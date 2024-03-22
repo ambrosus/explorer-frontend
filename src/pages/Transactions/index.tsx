@@ -44,28 +44,32 @@ export const Transactions = memo(() => {
           tabs={transactionsTabs}
           fetchData={API2.getTransactions}
           fetchParams={fetchParams}
-          render={(txs: any) =>
-            txs.map((tx: any, i: number) => (
-              <AddressBlock
-                isLatest={true}
-                key={i}
-                txhash={tx.hash}
-                method={tx.type}
-                from={tx.from}
-                to={tx.to}
-                date={moment(tx.timestamp * 1000).fromNow()}
-                block={tx.blockNumber}
-                amount={tx.value.ether}
-                txfee={tx.gasCost.ether}
-                token={`${tx?.token ? tx?.token : 'AMB'}`}
-                symbol={`${tx?.symbol ? tx?.symbol : 'AMB'}`}
-                isTableColumn="address_blocks_cells"
-                isIcon={true}
-                inners={tx.inners}
-                status={tx.status}
-              />
-            ))
-          }
+          render={(txs: any) => (
+            <table>
+              <tbody>
+                {txs.map((tx: any, i: number) => (
+                  <AddressBlock
+                    isLatest={true}
+                    key={i}
+                    txhash={tx.hash}
+                    method={tx.type}
+                    from={tx.from}
+                    to={tx.to}
+                    date={moment(tx.timestamp * 1000).fromNow()}
+                    block={tx.blockNumber}
+                    amount={tx.value.ether}
+                    txfee={tx.gasCost.ether}
+                    token={`${tx?.token ? tx?.token : 'AMB'}`}
+                    symbol={`${tx?.symbol ? tx?.symbol : 'AMB'}`}
+                    isTableColumn="address_blocks_cells"
+                    isIcon={true}
+                    inners={tx.inners}
+                    status={tx.status}
+                  />
+                ))}
+              </tbody>
+            </table>
+          )}
         />
       </Content.Body>
     </Content>

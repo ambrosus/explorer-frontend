@@ -36,18 +36,24 @@ const BlocksContent: FC<BlocksContentProps> = ({ data }) => {
 
       <div className="blocks_content_table">
         <div className="blocks_content_heading">Latest Transactions</div>
-        {data?.latestTransactions.map((item) => (
-          <LatestTransactions
-            key={item._id}
-            status={item.status}
-            hash={item.hash}
-            timestamp={item.timestamp}
-            from={item.from}
-            to={item.to}
-            amount={item?.value?.ether}
-            type={item.type}
-          />
-        ))}
+        {data?.latestTransactions.length > 0 && (
+          <table>
+            <tbody>
+              {data?.latestTransactions.map((item) => (
+                <LatestTransactions
+                  key={item._id}
+                  status={item.status}
+                  hash={item.hash}
+                  timestamp={item.timestamp}
+                  from={item.from}
+                  to={item.to}
+                  amount={item?.value?.ether}
+                  type={item.type}
+                />
+              ))}
+            </tbody>
+          </table>
+        )}
       </div>
     </div>
   );

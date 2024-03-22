@@ -158,9 +158,13 @@ const AddressDetails = () => {
                 userAddress: address,
                 tokenAddress: selectedToken.address,
               }}
-              render={(txs: Account[], isTokens: boolean) =>
-                txs.map((tx: any) => renderAddressBlock(tx, isTokens))
-              }
+              render={(txs: Account[], isTokens: boolean) => (
+                <table>
+                  <tbody>
+                    {txs.map((tx: any) => renderAddressBlock(tx, isTokens))}
+                  </tbody>
+                </table>
+              )}
             />
           ) : (
             <TabsNew
@@ -169,9 +173,13 @@ const AddressDetails = () => {
               fetchData={API2.getAccountTxs}
               initTab="all"
               fetchParams={fetchParams}
-              render={(txs: Account[], isTokens: boolean) =>
-                txs.map((tx: any) => renderAddressBlock(tx, isTokens))
-              }
+              render={(txs: Account[], isTokens: boolean) => (
+                <table>
+                  <tbody>
+                    {txs.map((tx: any) => renderAddressBlock(tx, isTokens))}
+                  </tbody>
+                </table>
+              )}
             />
           )}
         </Content.Body>

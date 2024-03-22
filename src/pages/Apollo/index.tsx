@@ -104,11 +104,15 @@ export const Apollo = memo(() => {
           initSortTerm={'totalBundles'}
           fetchParams={{ sort: '', page: '' }}
           label="Nodes"
-          render={(list: any) =>
-            list.map((el: any, index: any) => (
-              <ApolloBlocksBody key={index} index={index + 1} item={el} />
-            ))
-          }
+          render={(list: any) => (
+            <table>
+              <tbody>
+                {list.map((el: any, index: any) => (
+                  <ApolloBlocksBody key={index} index={index + 1} item={el} />
+                ))}
+              </tbody>
+            </table>
+          )}
         />
       </Content.Body>
     </Content>
