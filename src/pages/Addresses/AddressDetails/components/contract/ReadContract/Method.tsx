@@ -95,15 +95,17 @@ const Method = (props: any) => {
         <>
           <div className="method-params">
             {method?.inputs?.map((param: any, index: number) => {
+              const name = param.name + index;
+
               return (
                 <MethodParam
                   key={index}
-                  paramName={param.name}
+                  paramName={name}
                   paramType={param.type}
-                  value={inputValue[param.name]}
+                  value={inputValue[name]}
                   onChange={(e: any) =>
                     setInputValue((prev: any) => {
-                      return { ...prev, [param.name]: e.target.value };
+                      return { ...prev, [name]: e.target.value };
                     })
                   }
                 />
@@ -169,6 +171,7 @@ const Method = (props: any) => {
 
 const MethodParam = (props: any) => {
   const { paramName, paramType, value, onChange } = props;
+  console.log(value);
 
   return (
     <div className="method-params-param">

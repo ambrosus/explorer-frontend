@@ -10,7 +10,7 @@ const ReadContract = (props: any) => {
       method.type === 'function' &&
       (method.stateMutability === 'view' || method.stateMutability === 'pure'),
   );
-
+  console.log(readMethods);
   return (
     <div>
       <h2 className="contract-tab-title">Read Contract Information</h2>
