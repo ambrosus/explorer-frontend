@@ -7,23 +7,31 @@ import React, { FC } from 'react';
 const BlocksContent: FC<BlocksContentProps> = ({ data }) => {
   const { data: appData } = useTypedSelector((state: any) => state.app);
 
+  console.log(data);
+
   return (
     <div className="blocks_content">
       <div className="blocks_content_table">
         <div className="blocks_content_heading">Latest Blocks</div>
-        {data?.latestBlocks.map((item, index: any) => (
-          <LatestBlocks
-            key={item.number}
-            number={item.number}
-            index={index}
-            timestamp={item.timestamp}
-            validator={item?.miner}
-            totalTransactions={item.totalTransactions}
-            blockReward={item?.blockRewards}
-            name="name"
-            lastBlock={appData.netInfo.lastBlock.number}
-          />
-        ))}
+        {data?.latestBlocks.length > 0 && (
+          <table>
+            <tbody>
+              {data?.latestBlocks.map((item, index: any) => (
+                <LatestBlocks
+                  key={item.number}
+                  number={item.number}
+                  index={index}
+                  timestamp={item.timestamp}
+                  validator={item?.miner}
+                  totalTransactions={item.totalTransactions}
+                  blockReward={item?.blockRewards}
+                  name="name"
+                  lastBlock={appData.netInfo.lastBlock.number}
+                />
+              ))}
+            </tbody>
+          </table>
+        )}
       </div>
 
       <div className="blocks_content_table">
