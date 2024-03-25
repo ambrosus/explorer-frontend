@@ -193,11 +193,15 @@ export const BlockDetails = memo(() => {
             <DataTitle title="Transactions" />
             <div className="blocks_main_table">
               <BlockHeader />
-              {block.transactions.length
-                ? block.transactions.map((item: any, index: number) => (
-                    <BlockBody key={index} item={item} />
-                  ))
-                : null}
+              {block.transactions.length ? (
+                <table>
+                  <tbody>
+                    {block.transactions.map((item: any, index: number) => (
+                      <BlockBody key={index} item={item} />
+                    ))}
+                  </tbody>
+                </table>
+              ) : null}
             </div>
           </div>
         </Content.Body>

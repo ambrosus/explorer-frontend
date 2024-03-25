@@ -55,41 +55,53 @@ const BlocksBody: FC<IBlocksBody> = ({ index, item }) => {
   const navigate = useNavigate();
 
   return (
-    <div className="blocks_blocks_body">
-      <NavLink
-        to={`/block/${number}/`}
-        rel="nofollow"
-        className="blocks_blocks_body_cell color-gray universall_link_underline"
-        style={{
-          fontWeight: 600,
-        }}
-      >
-        <span style={{ marginRight: 8 }}>{online(confirmations)}</span> {number}
-      </NavLink>
-
-      <NavLink
-        rel="nofollow"
-        to={`/apollo/${miner}/`}
-        className="universall_light2"
-      >
-        <div
-          className="blocks_blocks_body_cell color-gray"
+    <tr className="blocks_blocks_body">
+      <td>
+        <NavLink
+          to={`/block/${number}/`}
+          rel="nofollow"
+          className="blocks_blocks_body_cell color-gray universall_link_underline"
           style={{
             fontWeight: 600,
           }}
         >
-          {miner}
+          <span style={{ marginRight: 8 }}>{online(confirmations)}</span>{' '}
+          {number}
+        </NavLink>
+      </td>
+      <td>
+        <NavLink
+          rel="nofollow"
+          to={`/apollo/${miner}/`}
+          className="universall_light2"
+        >
+          <div
+            className="blocks_blocks_body_cell color-gray"
+            style={{
+              fontWeight: 600,
+            }}
+          >
+            {miner}
+          </div>
+        </NavLink>
+      </td>
+      <td>
+        <div className="blocks_blocks_body_cell color-gray">
+          {sliceData5(hash)}
         </div>
-      </NavLink>
-      <div className="blocks_blocks_body_cell color-gray">
-        {sliceData5(hash)}
-      </div>
-      <div className="blocks_blocks_body_cell">{totalTransactions}</div>
-      <div className="blocks_blocks_body_cell">
-        {moment(timestamp * 1000).fromNow()}
-      </div>
-      <div className="blocks_blocks_body_cell">{size} bytes</div>
-    </div>
+      </td>
+      <td>
+        <div className="blocks_blocks_body_cell">{totalTransactions}</div>
+      </td>
+      <td>
+        <div className="blocks_blocks_body_cell">
+          {moment(timestamp * 1000).fromNow()}
+        </div>
+      </td>
+      <td>
+        <div className="blocks_blocks_body_cell">{size} bytes</div>
+      </td>
+    </tr>
   );
 };
 

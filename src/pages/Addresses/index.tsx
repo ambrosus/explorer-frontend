@@ -38,24 +38,31 @@ export const Addresses = () => {
       </Content.Header>
       <Content.Body>
         <TabsNew
-          tableHeader={() => <AddressesHeader />}
+          tableHeader={() => <></>}
           sortOptions={sortOptions}
           fetchData={API2.getAddresses}
           initSortTerm={'balance'}
           fetchParams={{ sort: '', page: '' }}
           label="Addresses"
-          render={(accounts: any) =>
-            accounts.map((account: any, index: any) => (
-              <AddressesBody
-                key={account._id}
-                isContract={account.isContract}
-                address={account.address}
-                balance={account.balance}
-                rank={index + 1}
-                txCount={account.totalTx}
-              />
-            ))
-          }
+          render={(accounts: any) => (
+            <table>
+              <thead>
+                <AddressesHeader />
+              </thead>
+              <tbody>
+                {accounts.map((account: any, index: any) => (
+                  <AddressesBody
+                    key={account._id}
+                    isContract={account.isContract}
+                    address={account.address}
+                    balance={account.balance}
+                    rank={index + 1}
+                    txCount={account.totalTx}
+                  />
+                ))}
+              </tbody>
+            </table>
+          )}
         />
       </Content.Body>
     </Content>
