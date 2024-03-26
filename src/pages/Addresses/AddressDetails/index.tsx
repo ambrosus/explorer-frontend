@@ -174,11 +174,9 @@ const AddressDetails = () => {
               initTab="all"
               fetchParams={fetchParams}
               render={(txs: Account[], isTokens: boolean) => (
-                <table>
-                  <tbody>
-                    {txs.map((tx: any) => renderAddressBlock(tx, isTokens))}
-                  </tbody>
-                </table>
+                <tbody>
+                  {txs.map((tx: any) => renderAddressBlock(tx, isTokens))}
+                </tbody>
               )}
             />
           )}
