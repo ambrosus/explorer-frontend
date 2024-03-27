@@ -98,7 +98,7 @@ export const Apollo = memo(() => {
       </Content.Header>
       <Content.Body>
         <TabsNew
-          tableHeader={() => <AtlasBlocksHeader pageTitle="blocks" />}
+          tableHeader={() => <></>}
           sortOptions={tableData}
           fetchData={API2.getApollos}
           initSortTerm={'totalBundles'}
@@ -106,6 +106,9 @@ export const Apollo = memo(() => {
           label="Nodes"
           render={(list: any) => (
             <table>
+              <thead>
+                <AtlasBlocksHeader pageTitle="blocks" />
+              </thead>
               <tbody>
                 {list.map((el: any, index: any) => (
                   <ApolloBlocksBody key={index} index={index + 1} item={el} />

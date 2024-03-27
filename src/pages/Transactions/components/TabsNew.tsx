@@ -249,7 +249,7 @@ const TabsNew: FC<TabsNewProps> = ({
                 </span>
               </div>
             ) : (
-              <>
+              <table>
                 <AddressBlocksHeader
                   txhash="txHash"
                   method="Method"
@@ -269,7 +269,7 @@ const TabsNew: FC<TabsNewProps> = ({
                 />
                 {!!tabData?.data?.length &&
                   render(tabData.data, tab === 'tokens')}
-              </>
+              </table>
             )}
           </div>
         </>
