@@ -9,7 +9,7 @@ const ReadContract = (props: any) => {
     (method: any) =>
       method.type === 'function' &&
       (method.stateMutability === 'view' || method.stateMutability === 'pure'),
-  );
+  ).map((el: any, i: number) => ({...el, name: el.name || 'name' + i}));
 
   return (
     <div>

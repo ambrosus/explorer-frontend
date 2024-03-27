@@ -7,8 +7,6 @@ import React, { FC } from 'react';
 const BlocksContent: FC<BlocksContentProps> = ({ data }) => {
   const { data: appData } = useTypedSelector((state: any) => state.app);
 
-  console.log(data);
-
   return (
     <div className="blocks_content">
       <div className="blocks_content_table">
