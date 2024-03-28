@@ -126,7 +126,7 @@ const NodeSetup: React.FC = () => {
                 This page helps you through the process of launching a validator
                 node. We highly recommend you read our{' '}
                 <a
-                  href="https://blog.airdao.io/airdao-node-setup-guide-f83df0bf4273"
+                  href="https://airdao.io/academy/airdao-node-setup-guide"
                   target="_blank"
                 >
                   step by step guide
@@ -145,7 +145,7 @@ const NodeSetup: React.FC = () => {
               Launch a validator node page allows users to do all settings
               needed before the. We highly recommend to go through{' '}
               <a
-                href="https://blog.airdao.io/airdao-node-setup-guide-f83df0bf4273"
+                href="https://airdao.io/academy/airdao-node-setup-guide"
                 target="_blank"
               >
                 step by step guide
