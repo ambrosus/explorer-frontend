@@ -5,11 +5,14 @@ const ReadContract = (props: any) => {
 
   if (!contractAbi) return <></>;
 
-  const readMethods = contractAbi.filter(
-    (method: any) =>
-      method.type === 'function' &&
-      (method.stateMutability === 'view' || method.stateMutability === 'pure'),
-  ).map((el: any, i: number) => ({...el, name: el.name || 'name' + i}));
+  const readMethods = contractAbi
+    .filter(
+      (method: any) =>
+        method.type === 'function' &&
+        (method.stateMutability === 'view' ||
+          method.stateMutability === 'pure'),
+    )
+    .map((el: any, i: number) => ({ ...el, name: el.name || 'name' + i }));
 
   return (
     <div>

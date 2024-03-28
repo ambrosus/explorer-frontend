@@ -66,7 +66,6 @@ const NodeSetup: React.FC = () => {
 
   useEffect(() => {
     if (step > 2 && formData.nodeAddress) {
-      console.log(step);
       const dataFromStorage = localStorage.getItem('nodeSetup') || '{}';
       const parsedData = JSON.parse(dataFromStorage);
 

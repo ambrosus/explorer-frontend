@@ -54,15 +54,15 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
   //TODO убрать переменные
   return (
     <thead className={isTableColumn}>
-      <th>{isTxHash}</th>
-      <th>{isMethod}</th>
-      <th>{isFrom}</th>
-      <th>{isTo}</th>
-      <th>{isDate}</th>
-      <th>{isBlock}</th>
-      <th>{isAmount}</th>
-      <th>{isTxFee}</th>
-      <th>{isToken}</th>
+      {isTxHash && <th>{isTxHash}</th>}
+      {isMethod && <th>{isMethod}</th>}
+      {isFrom && <th>{isFrom}</th>}
+      {isTo && <th>{isTo}</th>}
+      {isDate && <th>{isDate}</th>}
+      {isBlock && <th>{isBlock}</th>}
+      {isAmount && <th>{isAmount}</th>}
+      {isTxFee && <th>{isTxFee}</th>}
+      {isToken && <th>{isToken}</th>}
     </thead>
   );
 };
