@@ -282,17 +282,17 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
     );
   return (
     <>
-      <div className={isTableColumn} ref={lastCardRef}>
-        {isTxHash}
-        {isMethod}
-        {isFrom}
-        {isTo}
-        {isDate}
-        {isBlock}
-        {isAmount}
-        {isTxFee}
-        {isToken}
-      </div>
+      <tr className={isTableColumn} ref={lastCardRef}>
+        {isTxHash && <td>{isTxHash}</td>}
+        {isMethod && <td>{isMethod}</td>}
+        {isFrom && <td>{isFrom}</td>}
+        {isTo && <td>{isTo}</td>}
+        {isDate && <td>{isDate}</td>}
+        {isBlock && <td>{isBlock}</td>}
+        {isAmount && <td>{isAmount}</td>}
+        {isTxFee && <td>{isTxFee}</td>}
+        {isToken && <td>{isToken}</td>}
+      </tr>
       {isExpanded &&
         inners &&
         !!inners.length &&

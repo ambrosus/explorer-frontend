@@ -7,6 +7,35 @@
   @media (max-width: 1200px) {
     padding-top: 50px;
   }
+
+  &.page-maintenance {
+    padding-top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    min-height: 100vh;
+    background: linear-gradient(
+      to right,
+      #fef6ef 0%,
+      #fcefe2 12%,
+      #fcedde 27%,
+      #fcefe2 43%,
+      #d3e1ff 100%,
+      #fefbf8 100%,
+      #636261 100%,
+      #5b8fff 100%
+    );
+
+    > .page {
+      flex: 1 0 auto;
+    }
+
+    .subheader {
+      display: none;
+    }
+  }
 }
 
 .page {

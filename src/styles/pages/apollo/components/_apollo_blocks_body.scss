@@ -2,24 +2,24 @@
   width: fit-content;
   display: grid;
   grid-template-columns:
-    minmax(50px, 1fr)
-    minmax(360px, 6fr)
-    minmax(150px, 3fr)
-    minmax(80px, 2fr)
+    minmax(20px, 1fr)
+    minmax(380px, 6fr)
+    minmax(110px, 2fr)
+    minmax(80px, 1fr)
     minmax(190px, 3fr)
     minmax(150px, 3fr);
 
   &_retired {
     width: 100%;
     grid-template-columns:
-    minmax(360px, 6fr)
-    minmax(150px, 3fr)
-    minmax(190px, 3fr)
-    minmax(150px, 3fr);
+      minmax(360px, 6fr)
+      minmax(150px, 3fr)
+      minmax(190px, 3fr)
+      minmax(150px, 3fr);
   }
   border-bottom: 1px solid #eff2f5;
 
-  grid-gap: 32px;
+  grid-gap: 16px;
 
   &:hover {
     background-color: #eff2f5;
@@ -49,14 +49,14 @@
     }
 
     &_online {
-      color: #16C784;
+      color: #16c784;
       padding-right: 4px;
     }
     &_offline {
       color: #bfc9e0;
     }
     &_yellow {
-      color: #FFAC23;
+      color: #ffac23;
     }
   }
 }

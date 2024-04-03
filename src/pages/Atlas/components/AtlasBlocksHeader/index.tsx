@@ -10,21 +10,21 @@ const AtlasBlocksHeader: FC<IAtlasBlocksHeader> = ({
   isRetired,
 }) => {
   return isRetired ? (
-    <div className="atlas_blocks_header atlas_blocks_header_retired">
-      <div className="atlas_blocks_header_cell">Address</div>
-      <div className="atlas_blocks_header_cell">Status</div>
-      <div className="atlas_blocks_header_cell">Blocked amount</div>
-      <div className="atlas_blocks_header_cell">Date of unlock</div>
-    </div>
+    <tr className="atlas_blocks_header atlas_blocks_header_retired">
+      <th className="atlas_blocks_header_cell">Address</th>
+      <th className="atlas_blocks_header_cell">Status</th>
+      <th className="atlas_blocks_header_cell">Blocked amount</th>
+      <th className="atlas_blocks_header_cell">Date of unlock</th>
+    </tr>
   ) : (
-    <div className="atlas_blocks_header">
-      <div className="atlas_blocks_header_cell">Rank</div>
-      <div className="atlas_blocks_header_cell">Address</div>
-      <div className="atlas_blocks_header_cell">Status</div>
-      <div className="atlas_blocks_header_cell">Total {pageTitle}</div>
-      <div className="atlas_blocks_header_cell">Balance</div>
-      <div className="atlas_blocks_header_cell">Stake</div>
-    </div>
+    <tr className="atlas_blocks_header">
+      <th className="atlas_blocks_header_cell">Rank</th>
+      <th className="atlas_blocks_header_cell">Address</th>
+      <th className="atlas_blocks_header_cell">Status</th>
+      <th className="atlas_blocks_header_cell">Total {pageTitle}</th>
+      <th className="atlas_blocks_header_cell">Balance</th>
+      <th className="atlas_blocks_header_cell">Stake</th>
+    </tr>
   );
 };
 

@@ -1,5 +1,6 @@
 import Loader from '../Loader';
 import Error404 from 'pages/Error404';
+import Maintenance from 'pages/Maintenance';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
 export const RenderRoutes = (props: any) => {
@@ -85,7 +86,8 @@ export const RenderRoutes = (props: any) => {
           {...route}
         />
       ))}
-      <Route path="*" element={<Navigate to="/notfound" />} />{' '}
+      <Route path="*" element={<Navigate to="/notfound" />} />
+      <Route path="/maintenance" element={<Maintenance />} />
       <Route path="/notfound" element={<Error404 />} />
     </Routes>
   );

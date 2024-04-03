@@ -27,53 +27,65 @@ const BlockBody = ({ lastCardRef, item }: any) => {
   }, [item]);
 
   return (
-    <div className="block_body" ref={lastCardRef}>
-      <div className="block_body_cell color-gray">
-        <NavLink
-          className="universall_light2"
-          rel="nofollow"
-          to={`/tx/${hash}/`}
-        >
-          {sliceData5(hash)}
-        </NavLink>
-      </div>
-      <div className="block_body_cell">{type.split(':')[0]}</div>
-      <div className="block_body_cell color-gray">
-        <NavLink
-          rel="nofollow"
-          className="universall_light2"
-          to={`/address/${from}/`}
-        >
-          {sliceData5(from)}
-        </NavLink>
-      </div>
-      <div className="block_body_cell color-gray">
-        <NavLink
-          rel="nofollow"
-          className="universall_light2"
-          to={`/address/${to}/`}
-        >
-          {sliceData5(to)}
-        </NavLink>
-      </div>
-      <div className="block_body_cell">
-        {moment(timestamp * 1000).fromNow()}
-      </div>
-      <div className="block_body_cell">
-        <span className="block_body_cell_icon">
-          <Icon />{' '}
-          <span
-            className="color-gray"
-            style={{
-              fontWeight: 600,
-            }}
+    <tr className="block_body" ref={lastCardRef}>
+      <td>
+        <div className="block_body_cell color-gray">
+          <NavLink
+            className="universall_light2"
+            rel="nofollow"
+            to={`/tx/${hash}/`}
           >
-            {_symbol || 'AMB'}
+            {sliceData5(hash)}
+          </NavLink>
+        </div>
+      </td>
+      <td>
+        <div className="block_body_cell">{type.split(':')[0]}</div>
+      </td>
+      <td>
+        <div className="block_body_cell color-gray">
+          <NavLink
+            rel="nofollow"
+            className="universall_light2"
+            to={`/address/${from}/`}
+          >
+            {sliceData5(from)}
+          </NavLink>
+        </div>
+      </td>
+      <td>
+        <div className="block_body_cell color-gray">
+          <NavLink
+            rel="nofollow"
+            className="universall_light2"
+            to={`/address/${to}/`}
+          >
+            {sliceData5(to)}
+          </NavLink>
+        </div>
+      </td>
+      <td>
+        <div className="block_body_cell">
+          {moment(timestamp * 1000).fromNow()}
+        </div>
+      </td>
+      <td>
+        <div className="block_body_cell">
+          <span className="block_body_cell_icon">
+            <Icon />{' '}
+            <span
+              className="color-gray"
+              style={{
+                fontWeight: 600,
+              }}
+            >
+              {_symbol || 'AMB'}
+            </span>
           </span>
-        </span>
-        <Number value={amount} fixed={6} />
-      </div>
-    </div>
+          <Number value={amount} fixed={6} />
+        </div>
+      </td>
+    </tr>
   );
 };
 

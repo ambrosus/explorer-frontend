@@ -28,7 +28,6 @@ const Method = (props: any) => {
   const contractCall = async () => {
     setError('');
     setResult(null);
-
     try {
       setIsLoading(true);
 

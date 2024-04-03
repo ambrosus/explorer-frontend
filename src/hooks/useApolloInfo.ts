@@ -21,7 +21,6 @@ export default function useApolloInfo(address = ''): ApolloInfo {
     getApolloInfo(address).then((data) => {
       if (!data) return;
       setApolloInfo(data);
-      console.log('apolloInfo', data);
     });
   };
 

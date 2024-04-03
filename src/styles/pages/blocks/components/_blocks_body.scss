@@ -1,7 +1,7 @@
 .blocks_blocks_body {
   display: grid;
   width: fit-content;
-  grid-template-columns: 120px 640px 123px 76px 103px 103px;
+  grid-template-columns: 120px 600px 123px 76px 103px 103px;
   z-index: 25;
   position: relative;
   .balance {
@@ -25,8 +25,6 @@
     padding-right: 32px;
     padding-left: 5px;
 
-
-
     &_token {
       padding-right: 6px;
     }
@@ -39,6 +37,5 @@
       color: #808a9d;
       font-weight: 600;
     }
-
   }
 }

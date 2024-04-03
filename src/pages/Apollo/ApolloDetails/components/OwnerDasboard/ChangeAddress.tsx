@@ -58,7 +58,6 @@ function AddressBody({
   const [isError, setIsError] = useState(false);
 
   const [layoutState, setLayoutState] = useState('initial');
-  console.log(disabled);
 
   useEffect(() => {
     if (disabled) {

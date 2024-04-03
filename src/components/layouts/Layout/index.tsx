@@ -13,6 +13,7 @@ import {
 } from 'airdao-components-and-tools/utils';
 import { ethers } from 'ethers';
 import React, { FC, useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 export interface LayoutProps {
   children: React.ReactNode;
@@ -28,6 +29,7 @@ const readProvider = new ethers.providers.JsonRpcProvider(
 );
 
 export const Layout: FC<LayoutProps> = ({ children }) => {
+  const { pathname } = useLocation();
   const [balance, setBalance] = useState('0');
   const { account, connector } = useWeb3React();
 
@@ -56,7 +58,11 @@ export const Layout: FC<LayoutProps> = ({ children }) => {
   };
 
   return (
-    <div className="layout">
+    <div
+      className={`layout ${
+        pathname.includes('maintenance') ? 'page-maintenance' : ''
+      }`}
+    >
       <div className="container header" style={{ position: 'relative' }}>
         <Header
           loginMetamask={loginMetamask}
