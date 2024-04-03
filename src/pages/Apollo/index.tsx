@@ -105,7 +105,7 @@ export const Apollo = memo(() => {
           fetchParams={{ sort: '', page: '' }}
           label="Nodes"
           render={(list: any) => (
-            <table>
+            <table className="apollo_table">
               <tbody>
                 {list.map((el: any, index: any) => (
                   <ApolloBlocksBody key={index} index={index + 1} item={el} />
