@@ -12,22 +12,21 @@
   resolved "https://registry.yarnpkg.com/@adobe/css-tools/-/css-tools-4.3.3.tgz#90749bde8b89cd41764224f5aac29cd4138f75ff"
   integrity sha512-rE0Pygv0sEZ4vBWHlAgJLGDU7Pm8xoO6p3wsEceb7GYAjScrOHpEo8KK/eVkAcnSM+slAEtXjA2JpdjLp4fJQQ==
 
-"@airdao/airdao-node-contracts@^1.2.21":
-  version "1.2.23"
-  resolved "https://registry.yarnpkg.com/@airdao/airdao-node-contracts/-/airdao-node-contracts-1.2.23.tgz#33f3584537ad14c6f53d2ed1575e5615cbc70ff9"
-  integrity sha512-ecVX512QQvq60YMQzunNXTrGA4P2t4mjwr+KbnhFr3DfdgNMmenf77QgdQgqFLIt9VE4q3o7SlmstgpbThoOyA==
+"@airdao/airdao-node-contracts@^1.2.25":
+  version "1.2.25"
+  resolved "https://registry.yarnpkg.com/@airdao/airdao-node-contracts/-/airdao-node-contracts-1.2.25.tgz#4756e38ff6e54a07ac9c7753ed71110a9289bc5a"
+  integrity sha512-1elbTpHhK5hU3gdrrmIE7h9zoDGsdRYEN7VjYeqbWgTt00upbwGrtSe0C0gUYu0P739NDt3U0fI6onzqRyzkmg==
   dependencies:
     ethers "^5.7.2"
 
-"@airdao/ui-library@^1.4.9":
-  version "1.4.9"
-  resolved "https://registry.yarnpkg.com/@airdao/ui-library/-/ui-library-1.4.9.tgz#d0a5c645070714cf2ea53f3407ce41dc4b28c962"
-  integrity sha512-URr2nea0FO9lIAU9yuctUhDvxDLzUf0xKrh710TjJ05RtYlNoBIpiOR/jbkG2CG+mxyWdpmPThi4L3eu5+wvdQ==
+"@airdao/ui-library@^1.4.15":
+  version "1.4.15"
+  resolved "https://registry.yarnpkg.com/@airdao/ui-library/-/ui-library-1.4.15.tgz#6123eb393454c4cb131778029035b35805a40696"
+  integrity sha512-SeK9d44E9puxSruZpBag96iV4eKgAuJ+/WD8LNX8rZZT4rkxOrs8emPNuXUQB0GDjOP/tN1LPKltFM6MFYiOzw==
   dependencies:
     "@prismicio/client" "^7.1.1"
     "@prismicio/react" "^2.5.0"
     react-toastify "^9.1.3"
-    rollup-plugin-scss "^4.0.0"
 
 "@alloc/quick-lru@^5.2.0":
   version "5.2.0"
@@ -6848,11 +6847,6 @@ estraverse@^5.1.0, estraverse@^5.2.0, estraverse@^5.3.0:
   resolved "https://registry.yarnpkg.com/estraverse/-/estraverse-5.3.0.tgz#2eea5290702f26ab8fe5370370ff86c965d21123"
   integrity sha512-MMdARuVEQziNTeJD8DgMqmhwR11BRQ/cBP+pLtYdSTnf3MIO8fFeiINEbX36ZdNlfU/7A9f3gUw49B3oQsvwBA==
 
-estree-walker@^0.6.1:
-  version "0.6.1"
-  resolved "https://registry.yarnpkg.com/estree-walker/-/estree-walker-0.6.1.tgz#53049143f40c6eb918b23671d1fe3219f3a1b362"
-  integrity sha512-SqmZANLWS0mnatqbSfRP5g8OXZC12Fgg1IwNtLsyHDzJizORW4khDfjPqJZsemPWBB2uqykUah5YpQ6epsqC/w==
-
 estree-walker@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/estree-walker/-/estree-walker-1.0.1.tgz#31bc5d612c96b704106b477e6dd5d8aa138cb700"
@@ -12683,13 +12677,6 @@ rimraf@3.0.2, rimraf@^3.0.0, rimraf@^3.0.2:
   dependencies:
     glob "^7.1.3"
 
-rollup-plugin-scss@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/rollup-plugin-scss/-/rollup-plugin-scss-4.0.0.tgz#ae36d737fada444dc24c75d107abc7a893a5b7d6"
-  integrity sha512-wxasNXDYC2m+fDxCMgK00WebVWYmeFvShyNABmjvSJZ6D1/SepwqFeaMFMQromveI79gfvb64yJjiZZxSZxEIA==
-  dependencies:
-    rollup-pluginutils "^2.3.3"
-
 rollup-plugin-terser@^7.0.0:
   version "7.0.2"
   resolved "https://registry.yarnpkg.com/rollup-plugin-terser/-/rollup-plugin-terser-7.0.2.tgz#e8fbba4869981b2dc35ae7e8a502d5c6c04d324d"
@@ -12699,13 +12686,6 @@ rollup-plugin-terser@^7.0.0:
     jest-worker "^26.2.1"
     serialize-javascript "^4.0.0"
     terser "^5.0.0"
-
-rollup-pluginutils@^2.3.3:
-  version "2.8.2"
-  resolved "https://registry.yarnpkg.com/rollup-pluginutils/-/rollup-pluginutils-2.8.2.tgz#72f2af0748b592364dbd3389e600e5a9444a351e"
-  integrity sha512-EEp9NhnUkwY8aif6bxgovPHMoMoNr2FulJziTndpt5H9RdwC47GSGuII9XxpSdzVGM0GWrNPHV6ie1LTNJPaLQ==
-  dependencies:
-    estree-walker "^0.6.1"
 
 rollup@^2.43.1:
   version "2.79.1"
