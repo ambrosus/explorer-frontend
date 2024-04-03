@@ -39,7 +39,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ menu, setIsShow, isShow }) => {
               <FindWideMobile setIsShow={setIsShow} />
             </span>
             {menu}
-            <SubMenu />
+            <SubMenu closeMenu={handleClose}/>
           </div>
         )}
       </div>
