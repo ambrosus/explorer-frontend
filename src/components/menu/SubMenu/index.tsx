@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 import { subMenuItems } from 'routes';
 import { IRoute } from 'types';
 
-const SubMenu = () => {
+const SubMenu = ({closeMenu}: any) => {
   const [isSubMenu, setIsSubMenu] = useState<boolean>(false);
   const subMenuRef = useRef(null);
 
@@ -16,6 +16,7 @@ const SubMenu = () => {
     const disableClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
       !menuElement.isClick && e.preventDefault();
       menuElement.isClick && setIsSubMenu(false);
+      closeMenu()
     };
 
     return (
