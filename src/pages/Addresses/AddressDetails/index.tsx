@@ -89,6 +89,12 @@ const AddressDetails = () => {
     [address],
   );
 
+  const tokenFetchParams = useMemo(() => ({
+    page: '',
+    userAddress: address,
+    tokenAddress: selectedToken?.address,
+  }), [address, selectedToken]);
+
   return (
     <Content>
       <Helmet>
@@ -153,11 +159,7 @@ const AddressDetails = () => {
               tabs={[{ title: 'Token', value: 'tokens' }]}
               fetchData={API2.getTokenTxs}
               initTab="tokens"
-              fetchParams={{
-                page: '',
-                userAddress: address,
-                tokenAddress: selectedToken.address,
-              }}
+              fetchParams={tokenFetchParams}
               render={(txs: Account[], isTokens: boolean) => (
                 <table>
                   <tbody>
