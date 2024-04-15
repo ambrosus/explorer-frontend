@@ -30,7 +30,10 @@ const AddressDetails = () => {
       if (response) {
         setAddressData({
           balance: response.account.balance.wei,
-          tokens: response.tokens,
+          tokens: response.tokens.filter(
+            (el: any) =>
+              el.address !== '0xd8dd0273D31c1cd9Dba104DaCA7C1dfEE4f7b805',
+          ),
           isContract: response.account.isContract,
         });
       }
@@ -89,11 +92,14 @@ const AddressDetails = () => {
     [address],
   );
 
-  const tokenFetchParams = useMemo(() => ({
-    page: '',
-    userAddress: address,
-    tokenAddress: selectedToken?.address,
-  }), [address, selectedToken]);
+  const tokenFetchParams = useMemo(
+    () => ({
+      page: '',
+      userAddress: address,
+      tokenAddress: selectedToken?.address,
+    }),
+    [address, selectedToken],
+  );
 
   return (
     <Content>
