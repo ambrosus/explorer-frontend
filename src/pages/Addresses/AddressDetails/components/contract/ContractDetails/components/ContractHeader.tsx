@@ -31,12 +31,14 @@ const ContractHeader = (props: any) => {
           {'Compiler Version: '}
           <span>{metadata?.compiler?.version}</span>
         </p>
-        <p>
-          {'Implementation address: '}
-          <NavLink to={`/address/${props.implementationAddress}`}>
-            {props.implementationAddress}
-          </NavLink>
-        </p>
+        {props.implementationAddress && (
+          <p>
+            {'Implementation address: '}
+            <NavLink to={`/address/${props.implementationAddress}`}>
+              {props.implementationAddress}
+            </NavLink>
+          </p>
+        )}
         <p>
           {'Optimization Enabled: '}
           <span>

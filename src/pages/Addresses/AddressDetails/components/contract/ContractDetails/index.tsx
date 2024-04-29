@@ -132,6 +132,7 @@ const getImplementation = async (address: string) => {
       implStorageSlot,
     );
     const implAddress = '0x' + implAddressBytes32.slice(-40);
+    if (implAddress === ethers.constants.AddressZero) return undefined;
 
     const sourcifyData = await api.getContract(implAddress);
     const { contractAbi: implAbi } = parseSourcifyOutput(sourcifyData?.data);
