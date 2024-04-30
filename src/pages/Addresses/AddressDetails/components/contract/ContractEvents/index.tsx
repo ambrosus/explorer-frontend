@@ -181,19 +181,22 @@ const ContractEvents = ({ abi }: any) => {
 
           <div>{isLoading && <Loader />}</div>
 
-          {!isLoading && (
-            <center style={{marginTop: "20px"}}>
-              <Button
-                size={'large'}
-                type={'tetiary'}
-                onClick={() => loadMoreEvents()}
-              >
-                Load more
-              </Button>
-            </center>
+          {!isLoading && oldestBlock !== 0 && (
+            <>
+              <center style={{ marginTop: "20px" }}>
+                <Button
+                  size={'large'}
+                  type={'tetiary'}
+                  onClick={() => loadMoreEvents()}
+                >
+                  Load more
+                </Button>
+              </center>
+              <div ref={ref} />
+            </>
           )}
 
-          <div ref={ref} />
+
         </div>
       </div>
     </>
@@ -207,12 +210,13 @@ async function fetchEvents(
 ) {
   if (toBlock === undefined) toBlock = await contract.provider.getBlockNumber();
   if (fromBlock === undefined) fromBlock = toBlock - BLOCK_RANGE;
-  if (fromBlock <= 0 || toBlock <= 0)
-    return { events: [], oldestBlock: fromBlock };
 
   // 20 attempts to find at least one event
   // in order to not confuse user with empty table
   for (let i = 0; i < 20; i++) {
+    if (fromBlock <= 0 || toBlock <= 0)
+      return { events: [], oldestBlock: 0 };
+
     console.log(`Loading events from ${fromBlock} to ${toBlock}...`);
     const events = await contract?.queryFilter('*' as any, fromBlock, toBlock);
 

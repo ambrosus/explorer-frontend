@@ -32,11 +32,11 @@ const ContractDetails = (props: any) => {
   if (isLoading) return <Loader />;
 
   const isContractVerified = !!contractAbi;
-  const proxyImplAbi = implementation?.abi || [];
+  const proxyImplAbi = implementation?.abi ?? [];
 
   const allowedTabs = [];
   if (isContractVerified) allowedTabs.push('code', 'read', 'write', 'events');
-  if (!isContractVerified) allowedTabs.push('verify');
+  if (!isContractVerified) allowedTabs.push('verify', 'events');
   if (proxyImplAbi.length) allowedTabs.push('readAsProxy', 'writeAsProxy');
 
   function getTab() {
@@ -87,7 +87,7 @@ const ContractDetails = (props: any) => {
           </div>
         );
       case 'events':
-        return <ContractEvents abi={[...contractAbi, ...proxyImplAbi]} />;
+        return <ContractEvents abi={[...(contractAbi ?? []), ...proxyImplAbi]} />;
     }
   }
 
