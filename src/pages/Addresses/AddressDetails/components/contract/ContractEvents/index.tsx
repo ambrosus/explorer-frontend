@@ -1,8 +1,8 @@
-import EventDetails, { IEvent, IEventParsedData } from './EventDetails';
 import { Button } from '@airdao/ui-library';
 import Discard from 'assets/icons/Discard';
 import NotFoundIcon from 'assets/icons/Errors/NotFoundIcon';
 import Search from 'assets/icons/Search';
+import EventDetails from 'components/EventDetails';
 import Loader from 'components/Loader';
 import { ethers } from 'ethers';
 import { memo } from 'react';
@@ -30,8 +30,7 @@ const ContractEvents = ({ abi }: any) => {
   const provider = new ethers.providers.JsonRpcProvider(
     process.env.REACT_APP_EXPLORER_NETWORK,
   );
-  const contract = new ethers.Contract(address ?? "", abi, provider);
-
+  const contract = new ethers.Contract(address ?? '', abi, provider);
 
   const loadMoreEvents = async () => {
     const newOldestBlock = !oldestBlock
@@ -185,7 +184,7 @@ const ContractEvents = ({ abi }: any) => {
 
           {!isLoading && oldestBlock !== 0 && (
             <>
-              <center style={{ marginTop: "20px" }}>
+              <center style={{ marginTop: '20px' }}>
                 <Button
                   size={'large'}
                   type={'tetiary'}
@@ -197,8 +196,6 @@ const ContractEvents = ({ abi }: any) => {
               <div ref={ref} />
             </>
           )}
-
-
         </div>
       </div>
     </>
@@ -216,8 +213,7 @@ async function fetchEvents(
   // 20 attempts to find at least one event
   // in order to not confuse user with empty table
   for (let i = 0; i < 20; i++) {
-    if (fromBlock <= 0 || toBlock <= 0)
-      return { events: [], oldestBlock: 0 };
+    if (fromBlock <= 0 || toBlock <= 0) return { events: [], oldestBlock: 0 };
 
     console.log(`Loading events from ${fromBlock} to ${toBlock}...`);
     const events = await contract?.queryFilter('*' as any, fromBlock, toBlock);

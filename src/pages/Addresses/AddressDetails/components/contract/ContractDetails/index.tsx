@@ -6,8 +6,8 @@ import WriteContract from '../WriteContract';
 import ContractHeader from './components/ContractHeader';
 import ContractTabs from './components/ContractTabs';
 import Loader from 'components/Loader';
-import React, { memo, useEffect, useState } from 'react';
-import { getContractDataWithProxy } from "services/contract.service";
+import { memo, useEffect, useState } from 'react';
+import { getContractDataWithProxy } from 'services/contract.service';
 
 const ContractDetails = (props: any) => {
   const { address } = props;
@@ -26,9 +26,8 @@ const ContractDetails = (props: any) => {
     updateContract();
   }, [address]);
 
-
   // don't show anything before we get contract data
-  if (contractData === undefined) return <Loader/>;
+  if (contractData === undefined) return <Loader />;
 
   const isContractVerified = !!contractData.contractAbi;
   const allowedTabs = [];
@@ -41,13 +40,19 @@ const ContractDetails = (props: any) => {
       case 'code':
         return (
           <div className="code_contract">
-            <CodeContract files={contractData.sourcifyFiles} contractAbi={contractData.contractAbi}/>
+            <CodeContract
+              files={contractData.sourcifyFiles}
+              contractAbi={contractData.contractAbi}
+            />
           </div>
         );
       case 'read':
         return (
           <div className="read_contract">
-            <ReadContract contractAbi={contractData.contractAbi} contractAddress={address}/>
+            <ReadContract
+              contractAbi={contractData.contractAbi}
+              contractAddress={address}
+            />
           </div>
         );
       case 'readAsProxy':
@@ -80,11 +85,18 @@ const ContractDetails = (props: any) => {
       case 'verify':
         return (
           <div className="verify_contract">
-            <VerifyContract updateContract={updateContract}/>
+            <VerifyContract updateContract={updateContract} />
           </div>
         );
       case 'events':
-        return <ContractEvents abi={[...(contractData.contractAbi ?? []), ...(contractData.implAbi ?? [])]}/>;
+        return (
+          <ContractEvents
+            abi={[
+              ...(contractData.contractAbi ?? []),
+              ...(contractData.implAbi ?? []),
+            ]}
+          />
+        );
     }
   }
 

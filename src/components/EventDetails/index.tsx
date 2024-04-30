@@ -1,12 +1,12 @@
+import { NonParsedEvent } from './components/NonParsedEvent';
+import { ParsedEvent } from './components/ParsedEvent';
+import { Timestamp } from './components/helpers';
 import FilterIcon from 'assets/icons/FilterIcon';
-import React, { memo } from 'react';
+import { ethers } from 'ethers';
+import { memo } from 'react';
 import { useQuery } from 'react-query';
 import { NavLink } from 'react-router-dom';
 import { sliceData5 } from 'utils/helpers';
-import { Timestamp } from "./components/helpers";
-import { ParsedEvent } from "./components/ParsedEvent";
-import { NonParsedEvent } from "./components/NonParsedEvent";
-import { ethers } from "ethers";
 
 export interface IEventParsedData {
   name: string;
@@ -26,10 +26,16 @@ export interface IEvent {
   getBlock: () => any;
 }
 
-const EventDetails = ({ eventRaw, iface, handleFilter }: { eventRaw: ethers.Event, iface: ethers.utils.Interface, handleFilter: any}) => {
-
+const EventDetails = ({
+  eventRaw,
+  iface,
+  handleFilter,
+}: {
+  eventRaw: ethers.Event;
+  iface: ethers.utils.Interface;
+  handleFilter?: any;
+}) => {
   const event = parseEvent(eventRaw, iface);
-
 
   const { data: blockData } = useQuery(
     `block ${event.blockNumber}`,
@@ -59,7 +65,7 @@ const EventDetails = ({ eventRaw, iface, handleFilter }: { eventRaw: ethers.Even
               {sliceData5(event.txHash)}
             </NavLink>
           </div>
-          <Timestamp timestamp={timestamp}/>
+          <Timestamp timestamp={timestamp} />
         </div>
         <div className="contract_events-body-cells">
           <div className="contract_events-body-subcell ">
@@ -70,12 +76,14 @@ const EventDetails = ({ eventRaw, iface, handleFilter }: { eventRaw: ethers.Even
             >
               {event.blockNumber}
             </NavLink>
-            <button
-              className="universall_filter-btn"
-              onClick={(e) => handleFilter(e, event.blockNumber)}
-            >
-              <FilterIcon/>
-            </button>
+            {handleFilter && (
+              <button
+                className="universall_filter-btn"
+                onClick={(e) => handleFilter(e, event.blockNumber)}
+              >
+                <FilterIcon />
+              </button>
+            )}
           </div>
         </div>
 
@@ -87,14 +95,13 @@ const EventDetails = ({ eventRaw, iface, handleFilter }: { eventRaw: ethers.Even
         </div>
 
         <div className="contract_events-body-cells">
-          {event.eventName && <ParsedEvent event={event}/>}
-          <NonParsedEvent event={event} handleFilter={handleFilter}/>
+          {event.eventName && <ParsedEvent event={event} />}
+          <NonParsedEvent event={event} handleFilter={handleFilter} />
         </div>
       </div>
     </>
   );
 };
-
 
 function parseEvent(item: ethers.Event, iface: ethers.utils.Interface) {
   let parsedLog: any;
@@ -113,7 +120,7 @@ function parseEvent(item: ethers.Event, iface: ethers.utils.Interface) {
   }));
 
   const result: IEvent = {
-    eventName: item.event,
+    eventName: parsedLog?.name,
     parsedData: parsedData,
     topics: item.topics,
     data: item.data,
@@ -125,6 +132,5 @@ function parseEvent(item: ethers.Event, iface: ethers.utils.Interface) {
 
   return result;
 }
-
 
 export default memo(EventDetails);

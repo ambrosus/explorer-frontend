@@ -1,6 +1,6 @@
 import SOURCIFYAPI from 'API/api';
 import API from 'API/api';
-import { ethers } from "ethers";
+import { ethers } from 'ethers';
 
 export const getContractData = async (address: string) => {
   const contractInfo = await SOURCIFYAPI.getContract(address);
@@ -11,7 +11,6 @@ export const getAccountData = async (address: string) => {
   return await API.getAccount(address);
 };
 
-
 export async function getContractDataWithProxy(address: string) {
   const contractData = await getContractData(address);
   const result = {
@@ -19,7 +18,6 @@ export async function getContractDataWithProxy(address: string) {
     implAddress: undefined as string | undefined,
     implAbi: undefined as string[] | undefined,
   };
-
 
   try {
     result.implAddress = await getImplementationAddress(address);
@@ -33,7 +31,6 @@ export async function getContractDataWithProxy(address: string) {
 
   return result;
 }
-
 
 const getImplementationAddress = async (address: string) => {
   const readProvider = new ethers.providers.JsonRpcProvider(

@@ -219,7 +219,7 @@ const TabsNew: FC<TabsNewProps> = ({
             className="transactions_wrapper"
           >
             {tab === 'contract' ? (
-                <ContractDetails address={fetchParams.address}/>
+              <ContractDetails address={fetchParams.address} />
             ) : !loading && !tabData?.data?.length ? (
               <div className="tabs_not_found">
                 <NotFoundIcon />
