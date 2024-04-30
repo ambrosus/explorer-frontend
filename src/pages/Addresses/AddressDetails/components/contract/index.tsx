@@ -1,10 +1,10 @@
-import CodeContract from '../CodeContract';
-import ContractEvents from '../ContractEvents';
-import ReadContract from '../ReadContract';
-import VerifyContract from '../VerifyContract';
-import WriteContract from '../WriteContract';
+import CodeContract from './components/ContractCode';
+import ContractEvents from './components/ContractEvents';
 import ContractHeader from './components/ContractHeader';
+import ReadContract from './components/ContractMethods/ReadContract';
+import WriteContract from './components/ContractMethods/WriteContract';
 import ContractTabs from './components/ContractTabs';
+import VerifyContract from './components/ContractVerify';
 import Loader from 'components/Loader';
 import { memo, useEffect, useState } from 'react';
 import { getContractDataWithProxy } from 'services/contract.service';

@@ -1,4 +1,4 @@
-import Method from '../ReadContract/Method';
+import Method from './Method';
 import { useWeb3React } from '@web3-react/core';
 // @ts-ignore
 import { useAuthorization } from 'airdao-components-and-tools/hooks';

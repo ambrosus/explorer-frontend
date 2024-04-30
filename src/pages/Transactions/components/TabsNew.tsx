@@ -4,7 +4,7 @@ import Calendar from '../../../components/Calendar';
 import Loader from '../../../components/Loader';
 import { useOnClickOutside } from '../../../hooks/useOnClickOutside';
 import AddressBlocksHeader from '../../Addresses/AddressDetails/components/AddressBlocksHeader';
-import { ContractDetails } from '../../Addresses/AddressDetails/components/contract';
+import ContractDetails from '../../Addresses/AddressDetails/components/contract';
 import { TabsItemProps, TabsNewProps } from '../transactions.interface';
 import SideMenu from 'assets/icons/SideMenu';
 import ExportCsv from 'components/ExportCsv';

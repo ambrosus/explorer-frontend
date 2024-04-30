@@ -1,9 +1,9 @@
+import CheckCircle from '../../../../../../../assets/icons/CheckCircle';
+import Minus from '../../../../../../../assets/icons/Minus';
+import Plus from '../../../../../../../assets/icons/Plus';
+import WarningError from '../../../../../../../assets/icons/WarningError';
+import Spinner from '../../../../../../../components/Spinner';
 import { useWeb3React } from '@web3-react/core';
-import CheckCircle from 'assets/icons/CheckCircle';
-import Minus from 'assets/icons/Minus';
-import Plus from 'assets/icons/Plus';
-import WarningError from 'assets/icons/WarningError';
-import Spinner from 'components/Spinner';
 import { ethers } from 'ethers';
 import React, { memo, useEffect, useMemo, useState } from 'react';
 

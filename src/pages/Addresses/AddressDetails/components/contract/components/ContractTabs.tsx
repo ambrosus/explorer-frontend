@@ -1,4 +1,4 @@
-import { contractTabs } from '../../../../../../../utils/sidePages';
+import { contractTabs } from '../../../../../../utils/sidePages';
 import React, { memo } from 'react';
 
 const ContractTabs = (props: any) => {

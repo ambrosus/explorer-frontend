@@ -1,9 +1,9 @@
-import FileAdd from 'assets/icons/FileAdd';
-import SandWatch from 'assets/icons/SandWatch';
+import FileAdd from '../../../../../../assets/icons/FileAdd';
+import SandWatch from '../../../../../../assets/icons/SandWatch';
+import ContractErrorMessage from '../../../../../../components/ContractErrorMessage';
+import InputContract from '../../../../../../components/InputContract';
+import Spinner from '../../../../../../components/Spinner';
 import axios from 'axios';
-import ContractErrorMessage from 'components/ContractErrorMessage';
-import InputContract from 'components/InputContract';
-import Spinner from 'components/Spinner';
 import { useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
