@@ -14,9 +14,9 @@ import { sliceData5 } from 'utils/helpers';
 const BLOCK_RANGE = 50_000;
 
 const ContractEvents = ({ abi }: any) => {
-  const { address = '' } = useParams();
+  const { address } = useParams();
 
-  const [eventsToRender, setEventsToRender] = useState<any>([]);
+  const [eventsToRender, setEventsToRender] = useState<ethers.Event[]>([]);
   const [searchValue, setSearchValue] = useState('');
   const [findInputValue, setFindInputValue] = useState('');
   const [isShowFindResult, setIsShowFindResult] = useState(false);
@@ -30,6 +30,8 @@ const ContractEvents = ({ abi }: any) => {
   const provider = new ethers.providers.JsonRpcProvider(
     process.env.REACT_APP_EXPLORER_NETWORK,
   );
+  const contract = new ethers.Contract(address ?? "", abi, provider);
+
 
   const loadMoreEvents = async () => {
     const newOldestBlock = !oldestBlock
@@ -43,7 +45,6 @@ const ContractEvents = ({ abi }: any) => {
     if (isLoading) return;
     setIsLoading(true);
 
-    const contract = new ethers.Contract(address, abi, provider);
     const { events, oldestBlock } = await fetchEvents(
       contract,
       fromBlock,
@@ -162,10 +163,11 @@ const ContractEvents = ({ abi }: any) => {
             <div className="contract_events-heading-cell">Logs</div>
           </div>
 
-          {filteredEvents.map((item: any, index: any) => (
+          {filteredEvents.map((item, index) => (
             <EventDetails
               key={index}
-              event={item}
+              eventRaw={item}
+              iface={contract.interface}
               handleFilter={handleFilter}
             />
           ))}
@@ -220,48 +222,14 @@ async function fetchEvents(
     console.log(`Loading events from ${fromBlock} to ${toBlock}...`);
     const events = await contract?.queryFilter('*' as any, fromBlock, toBlock);
 
-    const parsedEvents = events
-      .sort((a, b) => b.blockNumber - a.blockNumber)
-      .map((item) => parseLog(item, contract));
-
     if (events.length > 0)
-      return { events: parsedEvents, oldestBlock: fromBlock };
+      return { events: events.reverse(), oldestBlock: fromBlock };
 
     fromBlock -= BLOCK_RANGE;
     toBlock -= BLOCK_RANGE;
   }
 
   return { events: [], oldestBlock: fromBlock };
-}
-
-function parseLog(item: ethers.Event, contract: any) {
-  let parsedLog: any;
-  try {
-    parsedLog = contract.interface.parseLog(item);
-  } catch (e) {
-    console.warn(e);
-  }
-
-  const inputs = parsedLog?.eventFragment.inputs || [];
-  const parsedData: IEventParsedData[] = inputs.map((input: any) => ({
-    name: input.name,
-    type: input.type,
-    value: parsedLog?.args[input.name],
-    indexed: input.indexed,
-  }));
-
-  const result: IEvent = {
-    eventName: item.event,
-    parsedData: parsedData,
-    topics: item.topics,
-    data: item.data,
-    txHash: item.transactionHash,
-    getBlock: item.getBlock,
-    getTransaction: item.getTransaction,
-    blockNumber: item.blockNumber,
-  };
-
-  return result;
 }
 
 export default memo(ContractEvents);

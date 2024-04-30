@@ -34,7 +34,7 @@ export function NonParsedEvent({ event, handleFilter }: { event: IEvent, handleF
       {isShow &&
         <div>
           {event.topics.map((topic: any, index: any) =>
-            <Topic topic={topic} name={`[Topic ${index}]`}/>
+            <Topic key={index} topic={topic} name={`[Topic ${index}]`}/>
           )}
           <Topic topic={event.data} name={"[Data]"}/>
 

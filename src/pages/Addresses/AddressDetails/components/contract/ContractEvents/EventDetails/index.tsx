@@ -6,6 +6,7 @@ import { sliceData5 } from 'utils/helpers';
 import { Timestamp } from "./components/helpers";
 import { ParsedEvent } from "./components/ParsedEvent";
 import { NonParsedEvent } from "./components/NonParsedEvent";
+import { ethers } from "ethers";
 
 export interface IEventParsedData {
   name: string;
@@ -25,8 +26,9 @@ export interface IEvent {
   getBlock: () => any;
 }
 
-const EventDetails = ({ event, handleFilter }: any) => {
+const EventDetails = ({ eventRaw, iface, handleFilter }: { eventRaw: ethers.Event, iface: ethers.utils.Interface, handleFilter: any}) => {
 
+  const event = parseEvent(eventRaw, iface);
 
 
   const { data: blockData } = useQuery(
@@ -93,6 +95,36 @@ const EventDetails = ({ event, handleFilter }: any) => {
   );
 };
 
+
+function parseEvent(item: ethers.Event, iface: ethers.utils.Interface) {
+  let parsedLog: any;
+  try {
+    parsedLog = iface.parseLog(item);
+  } catch (e) {
+    console.warn(e);
+  }
+
+  const inputs = parsedLog?.eventFragment.inputs || [];
+  const parsedData: IEventParsedData[] = inputs.map((input: any) => ({
+    name: input.name,
+    type: input.type,
+    value: parsedLog?.args[input.name],
+    indexed: input.indexed,
+  }));
+
+  const result: IEvent = {
+    eventName: item.event,
+    parsedData: parsedData,
+    topics: item.topics,
+    data: item.data,
+    txHash: item.transactionHash,
+    getBlock: item.getBlock,
+    getTransaction: item.getTransaction,
+    blockNumber: item.blockNumber,
+  };
+
+  return result;
+}
 
 
 export default memo(EventDetails);
