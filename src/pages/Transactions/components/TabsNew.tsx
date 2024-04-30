@@ -3,16 +3,14 @@ import BlockSort from '../../../components/BlockSort';
 import Calendar from '../../../components/Calendar';
 import Loader from '../../../components/Loader';
 import { useOnClickOutside } from '../../../hooks/useOnClickOutside';
-import { getContractData } from '../../../services/contract.service';
 import AddressBlocksHeader from '../../Addresses/AddressDetails/components/AddressBlocksHeader';
 import { ContractDetails } from '../../Addresses/AddressDetails/components/contract';
 import { TabsItemProps, TabsNewProps } from '../transactions.interface';
-import API2 from 'API/newApi';
 import SideMenu from 'assets/icons/SideMenu';
 import ExportCsv from 'components/ExportCsv';
 import useDeviceSize from 'hooks/useDeviceSize';
 import { AccountsData } from 'pages/Addresses/addresses.interface';
-import React, { FC, useEffect, useMemo, useRef, useState } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 
 const TabItem: FC<TabsItemProps> = ({ tab, el, handleTab }) => {
@@ -52,7 +50,6 @@ const TabsNew: FC<TabsNewProps> = ({
   const [tab, setTab] = useState(initTab);
   const [isShow, setIsShow] = useState(false);
   const [sortTerm, setSortTerm] = useState(initSortTerm);
-  const [contractInfo, setContractInfo] = useState<any>(null);
   const [tabData, setTabData] = useState<any>({
     data: [],
     pagination: {
@@ -69,18 +66,6 @@ const TabsNew: FC<TabsNewProps> = ({
   useOnClickOutside(mobileCalendarRef, () => setIsShow(false));
 
   const handleShow = () => setIsShow(!isShow);
-
-  useEffect(() => {
-    if (tab === 'contract') {
-      updateContract();
-    }
-  }, [tab, fetchParams]);
-
-  const updateContract = () => {
-    getContractData(fetchParams.address).then((res) => {
-      setContractInfo(res.data);
-    });
-  };
 
   useEffect(() => {
     if (tab === 'contract') return;
@@ -234,13 +219,7 @@ const TabsNew: FC<TabsNewProps> = ({
             className="transactions_wrapper"
           >
             {tab === 'contract' ? (
-              contractInfo && (
-                <ContractDetails
-                  address={fetchParams.address}
-                  contractInfo={contractInfo}
-                  updateContract={updateContract}
-                />
-              )
+                <ContractDetails address={fetchParams.address}/>
             ) : !loading && !tabData?.data?.length ? (
               <div className="tabs_not_found">
                 <NotFoundIcon />
