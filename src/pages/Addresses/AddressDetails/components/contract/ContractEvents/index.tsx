@@ -1,4 +1,5 @@
-import EventDetails from './EventDetails';
+import EventDetails, { IEvent, IEventParsedData } from './EventDetails';
+import { Button } from '@airdao/ui-library';
 import Discard from 'assets/icons/Discard';
 import NotFoundIcon from 'assets/icons/Errors/NotFoundIcon';
 import Search from 'assets/icons/Search';
@@ -10,6 +11,8 @@ import { useInView } from 'react-intersection-observer';
 import { useParams } from 'react-router-dom';
 import { sliceData5 } from 'utils/helpers';
 
+const BLOCK_RANGE = 50_000;
+
 const ContractEvents = ({ abi }: any) => {
   const { address = '' } = useParams();
 
@@ -18,10 +21,9 @@ const ContractEvents = ({ abi }: any) => {
   const [findInputValue, setFindInputValue] = useState('');
   const [isShowFindResult, setIsShowFindResult] = useState(false);
   const [filterBy, setFilterBy] = useState('');
-  const [isLoad, setIsLoad] = useState(false);
-  const [page, setPage] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const [is404, setIs404] = useState(false);
+  const [oldestBlock, setOldestBlock] = useState<number | undefined>(undefined);
 
   const { ref, inView } = useInView();
 
@@ -29,86 +31,54 @@ const ContractEvents = ({ abi }: any) => {
     process.env.REACT_APP_EXPLORER_NETWORK,
   );
 
-  const getEventData = async () => {
+  const loadMoreEvents = async () => {
+    const newOldestBlock = !oldestBlock
+      ? await getEventData()
+      : await getEventData(oldestBlock - BLOCK_RANGE, oldestBlock);
+
+    setOldestBlock(newOldestBlock);
+  };
+
+  const getEventData = async (fromBlock?: number, toBlock?: number) => {
+    if (isLoading) return;
+    setIsLoading(true);
+
     const contract = new ethers.Contract(address, abi, provider);
+    const { events, oldestBlock } = await fetchEvents(
+      contract,
+      fromBlock,
+      toBlock,
+    );
 
-    const eventsArr = await contract?.queryFilter('*' as any);
+    setEventsToRender([...eventsToRender, ...events]);
+    setIsLoading(false);
 
-    const result = eventsArr
-      .sort(
-        (a: { blockNumber: number }, b: { blockNumber: number }) =>
-          b.blockNumber - a.blockNumber,
-      )
-      .map((item: any) => {
-        let parseLog: any;
-        try {
-          parseLog = contract.interface.parseLog(item);
-        } catch (e) {
-          console.log(e);
-        }
-        const inputs = parseLog?.eventFragment.inputs || [];
-        const inputsData = inputs.map((input: any) => {
-          return {
-            name: input.name,
-            type: input.type,
-            value: parseLog?.args[input.name],
-            indexed: input.indexed,
-          };
-        });
-
-        const nonTopics = inputsData.filter((input: any) => !input.indexed);
-
-        const data = {
-          txHash: item.transactionHash || null,
-          blockNumber: item.blockNumber || null,
-          event: item.event || null,
-          topics: item.topics || [],
-          getBlock: item.getBlock,
-          getTransaction: item.getTransaction,
-          inputs,
-          inputsData,
-          nonTopics,
-        };
-
-        return data;
-      });
-
-    setEventsToRender(result);
-    setIsLoad(true);
+    return oldestBlock;
   };
 
   useEffect(() => {
-    getEventData();
-  }, [isLoad]);
+    loadMoreEvents();
+  }, []);
 
   const filteredEvents = useMemo(() => {
-    if (findInputValue === '') {
-      return eventsToRender;
-    }
-    if (ethers.utils.isHexString(findInputValue)) {
-      setIs404(false);
-      setFilterBy('Topic');
+    if (findInputValue === '') return eventsToRender;
 
+    if (ethers.utils.isHexString(findInputValue)) {
+      setFilterBy('Topic');
       return eventsToRender.filter(
         (event: any) => event.topics[0] === findInputValue,
       );
-    } else if (!isNaN(Number(findInputValue))) {
-      setIs404(false);
-      setFilterBy('Block');
+    }
 
+    if (!isNaN(Number(findInputValue))) {
+      setFilterBy('Block');
       return eventsToRender.filter(
         (event: any) => event.blockNumber === +findInputValue,
       );
-    } else {
-      return [];
     }
-  }, [eventsToRender, findInputValue]);
 
-  useEffect(() => {
-    if (!filteredEvents.length && isLoad) {
-      setIs404(true);
-    }
-  }, [filteredEvents]);
+    return [];
+  }, [eventsToRender, findInputValue]);
 
   const handleSearchChange = (e: any) => {
     e.preventDefault();
@@ -119,7 +89,7 @@ const ContractEvents = ({ abi }: any) => {
     setIsShowFindResult(false);
   };
 
-  const handleFindSubmit = (e: any, findValue: any) => {
+  const handleFilter = (e: any, findValue: any) => {
     e.preventDefault();
 
     setSearchValue(findValue);
@@ -134,7 +104,7 @@ const ContractEvents = ({ abi }: any) => {
   };
 
   useEffect(() => {
-    setPage((prev) => prev + 20);
+    loadMoreEvents();
   }, [inView]);
 
   return (
@@ -147,9 +117,7 @@ const ContractEvents = ({ abi }: any) => {
                 {`Filtered by ${filterBy}: `}
                 <span
                   className="contract_events-find-modal"
-                  style={{
-                    fontWeight: '600',
-                  }}
+                  style={{ fontWeight: '600' }}
                 >
                   {sliceData5(findInputValue)}
                 </span>
@@ -164,7 +132,7 @@ const ContractEvents = ({ abi }: any) => {
             )}
 
             <form
-              onSubmit={(e) => handleFindSubmit(e, searchValue)}
+              onSubmit={(e) => handleFilter(e, searchValue)}
               autoComplete="off"
             >
               <label
@@ -174,10 +142,10 @@ const ContractEvents = ({ abi }: any) => {
                 <input
                   type="text"
                   id="find-block"
+                  className="contract_events-find-input"
+                  placeholder="Filter by  Block or Topic"
                   value={searchValue}
                   onChange={handleSearchChange}
-                  placeholder="Filter by  Block or Topic"
-                  className="contract_events-find-input"
                 />
 
                 <button type="submit" className="contract_events-find-btn">
@@ -186,6 +154,7 @@ const ContractEvents = ({ abi }: any) => {
               </label>
             </form>
           </div>
+
           <div className="contract_events-heading">
             <div className="contract_events-heading-cell">Txn Hash</div>
             <div className="contract_events-heading-cell">Block</div>
@@ -193,26 +162,15 @@ const ContractEvents = ({ abi }: any) => {
             <div className="contract_events-heading-cell">Logs</div>
           </div>
 
-          <div>{!isLoad && <Loader />}</div>
-
-          {filteredEvents.slice(0, page).map((item: any, index: any) => (
+          {filteredEvents.map((item: any, index: any) => (
             <EventDetails
               key={index}
-              blockNumber={item.blockNumber}
-              event={item.event}
-              inputs={item.inputs}
-              getTransaction={item.getTransaction}
-              getBlock={item.getBlock}
-              topics={item.topics}
-              txHash={item.txHash}
-              handleFindSubmit={handleFindSubmit}
-              inputsData={item.inputsData}
-              nonTopics={item.nonTopics}
-              i={index}
+              event={item}
+              handleFilter={handleFilter}
             />
           ))}
 
-          {is404 && (
+          {!isLoading && filteredEvents.length === 0 && (
             <div className="tabs_not_found">
               <NotFoundIcon />
               <span className="tabs_not_found_text">
@@ -221,11 +179,85 @@ const ContractEvents = ({ abi }: any) => {
             </div>
           )}
 
+          <div>{isLoading && <Loader />}</div>
+
+          {!isLoading && (
+            <center style={{marginTop: "20px"}}>
+              <Button
+                size={'large'}
+                type={'tetiary'}
+                onClick={() => loadMoreEvents()}
+              >
+                Load more
+              </Button>
+            </center>
+          )}
+
           <div ref={ref} />
         </div>
       </div>
     </>
   );
 };
+
+async function fetchEvents(
+  contract: ethers.Contract,
+  fromBlock?: number,
+  toBlock?: number,
+) {
+  if (toBlock === undefined) toBlock = await contract.provider.getBlockNumber();
+  if (fromBlock === undefined) fromBlock = toBlock - BLOCK_RANGE;
+  if (fromBlock <= 0 || toBlock <= 0)
+    return { events: [], oldestBlock: fromBlock };
+
+  // 20 attempts to find at least one event
+  // in order to not confuse user with empty table
+  for (let i = 0; i < 20; i++) {
+    console.log(`Loading events from ${fromBlock} to ${toBlock}...`);
+    const events = await contract?.queryFilter('*' as any, fromBlock, toBlock);
+
+    const parsedEvents = events
+      .sort((a, b) => b.blockNumber - a.blockNumber)
+      .map((item) => parseLog(item, contract));
+
+    if (events.length > 0)
+      return { events: parsedEvents, oldestBlock: fromBlock };
+
+    fromBlock -= BLOCK_RANGE;
+    toBlock -= BLOCK_RANGE;
+  }
+
+  return { events: [], oldestBlock: fromBlock };
+}
+
+function parseLog(item: ethers.Event, contract: any) {
+  let parsedLog: any;
+  try {
+    parsedLog = contract.interface.parseLog(item);
+  } catch (e) {
+    console.warn(e);
+  }
+
+  const inputs = parsedLog?.eventFragment.inputs || [];
+  const parsedData: IEventParsedData[] = inputs.map((input: any) => ({
+    name: input.name,
+    type: input.type,
+    value: parsedLog?.args[input.name],
+    indexed: input.indexed,
+  }));
+
+  const result: IEvent = {
+    eventName: item.event,
+    parsedData: parsedData,
+    topics: item.topics,
+    data: item.data,
+    txHash: item.transactionHash,
+    getBlock: item.getBlock,
+    getTransaction: item.getTransaction,
+    blockNumber: item.blockNumber,
+  };
+
+  return result;
+}
 
 export default memo(ContractEvents);
