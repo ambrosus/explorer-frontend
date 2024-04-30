@@ -105,10 +105,12 @@ const EventDetails = ({
 
 function parseEvent(item: ethers.Event, iface: ethers.utils.Interface) {
   let parsedLog: any;
-  try {
-    parsedLog = iface.parseLog(item);
-  } catch (e) {
-    console.warn(e);
+  if (iface !== undefined) {
+    try {
+      parsedLog = iface.parseLog(item);
+    } catch (e) {
+      console.warn(e);
+    }
   }
 
   const inputs = parsedLog?.eventFragment.inputs || [];
