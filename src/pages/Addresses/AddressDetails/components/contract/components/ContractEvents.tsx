@@ -11,12 +11,15 @@ import { useInView } from 'react-intersection-observer';
 import { useParams } from 'react-router-dom';
 import { sliceData5 } from 'utils/helpers';
 
-const BLOCK_RANGE = 50_000;
+const BLOCK_RANGE = 1_000;
+const EVENTS_PER_PAGE = 50;
 
 const ContractEvents = ({ abi }: any) => {
   const { address } = useParams();
 
-  const [eventsToRender, setEventsToRender] = useState<ethers.Event[]>([]);
+  const [fetchedEvents, setFetchedEvents] = useState<ethers.Event[]>([]);
+  const [eventsToDisplay, setEventsToDisplay] = useState<number>(0);
+
   const [searchValue, setSearchValue] = useState('');
   const [findInputValue, setFindInputValue] = useState('');
   const [isShowFindResult, setIsShowFindResult] = useState(false);
@@ -33,11 +36,16 @@ const ContractEvents = ({ abi }: any) => {
   const contract = new ethers.Contract(address ?? '', abi, provider);
 
   const loadMoreEvents = async () => {
-    const newOldestBlock = !oldestBlock
-      ? await getEventData()
-      : await getEventData(oldestBlock - BLOCK_RANGE, oldestBlock);
+    setEventsToDisplay((prev) => prev + EVENTS_PER_PAGE);
+    console.log('loadMoreEvents', eventsToDisplay, fetchedEvents.length);
 
-    setOldestBlock(newOldestBlock);
+    if (eventsToDisplay > fetchedEvents.length) {
+      const newOldestBlock = !oldestBlock
+        ? await getEventData()
+        : await getEventData(oldestBlock - BLOCK_RANGE, oldestBlock);
+
+      setOldestBlock(newOldestBlock);
+    }
   };
 
   const getEventData = async (fromBlock?: number, toBlock?: number) => {
@@ -50,7 +58,7 @@ const ContractEvents = ({ abi }: any) => {
       toBlock,
     );
 
-    setEventsToRender([...eventsToRender, ...events]);
+    setFetchedEvents([...fetchedEvents, ...events]);
     setIsLoading(false);
 
     return oldestBlock;
@@ -61,24 +69,26 @@ const ContractEvents = ({ abi }: any) => {
   }, []);
 
   const filteredEvents = useMemo(() => {
-    if (findInputValue === '') return eventsToRender;
+    const eventsClamped = fetchedEvents.slice(0, eventsToDisplay);
+
+    if (findInputValue === '') return eventsClamped;
 
     if (ethers.utils.isHexString(findInputValue)) {
       setFilterBy('Topic');
-      return eventsToRender.filter(
+      return eventsClamped.filter(
         (event: any) => event.topics[0] === findInputValue,
       );
     }
 
     if (!isNaN(Number(findInputValue))) {
       setFilterBy('Block');
-      return eventsToRender.filter(
+      return eventsClamped.filter(
         (event: any) => event.blockNumber === +findInputValue,
       );
     }
 
     return [];
-  }, [eventsToRender, findInputValue]);
+  }, [fetchedEvents, findInputValue, eventsToDisplay]);
 
   const handleSearchChange = (e: any) => {
     e.preventDefault();
@@ -210,9 +220,9 @@ async function fetchEvents(
   if (toBlock === undefined) toBlock = await contract.provider.getBlockNumber();
   if (fromBlock === undefined) fromBlock = toBlock - BLOCK_RANGE;
 
-  // 20 attempts to find at least one event
+  // 1000 attempts to find at least one event
   // in order to not confuse user with empty table
-  for (let i = 0; i < 20; i++) {
+  for (let i = 0; i < 1000; i++) {
     if (fromBlock <= 0 || toBlock <= 0) return { events: [], oldestBlock: 0 };
 
     console.log(`Loading events from ${fromBlock} to ${toBlock}...`);
