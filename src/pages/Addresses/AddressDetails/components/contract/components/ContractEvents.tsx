@@ -223,7 +223,8 @@ async function fetchEvents(
   // 1000 attempts to find at least one event
   // in order to not confuse user with empty table
   for (let i = 0; i < 1000; i++) {
-    if (fromBlock <= 0 || toBlock <= 0) return { events: [], oldestBlock: 0 };
+    if (fromBlock <= 0) fromBlock = 0;
+    if (toBlock <= 0) break;
 
     console.log(`Loading events from ${fromBlock} to ${toBlock}...`);
     const events = await contract?.queryFilter('*' as any, fromBlock, toBlock);
