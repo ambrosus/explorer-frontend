@@ -89,7 +89,7 @@ export const Apollo = memo(() => {
         <title>Apollo Nodes | AirDAO Network Explorer</title>
         <meta
           name="description"
-          content="Explore AirDAO Network Apollo Nodes: total nodes, online, offline, connecting, avg block / prop. time"
+          content="Explore AirDAO Network Apollo Nodes: Address, Status, Total blocks, Balance, Stake"
         />
       </Helmet>
       <Content.Header>
