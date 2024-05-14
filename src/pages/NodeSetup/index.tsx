@@ -15,6 +15,7 @@ import {
 import { useWeb3React } from '@web3-react/core';
 import { utils } from 'ethers';
 import React, { useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet';
 
 const { ethereum }: any = window;
 const ambChainId = process.env.REACT_APP_CHAIN_ID || '';
@@ -112,6 +113,14 @@ const NodeSetup: React.FC = () => {
 
   return (
     <section className="node-setup container">
+      <Helmet>
+        <link rel="canonical" href="https://airdao.io/explorer/tx/" />
+        <title>Node Setup | AirDAO Network Explorer</title>
+        <meta
+          name="description"
+          content="Launch a validator node. This page helps you through the process of launching a validator node."
+        />
+      </Helmet>
       <Breadcrumbs
         lastAvailableStep={lastAvailableStep}
         setStep={setStep}
