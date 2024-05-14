@@ -46,6 +46,8 @@
     grid-template-columns: repeat(3, 1fr);
     height: 73px; */
     border-bottom: 1px solid #eff2f5;
+    display: flex;
+    justify-content: space-between;
   }
 
   &_cell {
