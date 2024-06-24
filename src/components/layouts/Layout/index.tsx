@@ -34,12 +34,10 @@ export const Layout: FC<LayoutProps> = ({ children }) => {
   const [balance, setBalance] = useState('0');
   const { account, connector, chainId, provider } = useWeb3React();
 
-  const { loginMetamask, loginWalletConnect, logout } = useAuthorization(
-    metamaskConnector,
-    walletconnectConnector,
-  );
+  const { loginMetamask, loginWalletConnect, loginSafepal, logout } =
+    useAuthorization(metamaskConnector, walletconnectConnector);
   const isLoaded = useAutoLogin(metamaskConnector);
-
+  console.log(loginSafepal);
   useEffect(() => {
     getBalance();
     readProvider.on('block', () => {
@@ -69,6 +67,7 @@ export const Layout: FC<LayoutProps> = ({ children }) => {
     >
       <div className="container header" style={{ position: 'relative' }}>
         <Header
+          loginSafepal={loginSafepal}
           loginMetamask={loginMetamask}
           loginWalletConnect={loginWalletConnect}
           account={account}
