@@ -8,6 +8,7 @@ import {
   useAutoLogin,
 } from 'airdao-components-and-tools/hooks';
 import {
+  switchToAmb,
   metamaskConnector,
   walletconnectConnector,
 } from 'airdao-components-and-tools/utils';
@@ -31,7 +32,7 @@ const readProvider = new ethers.providers.JsonRpcProvider(
 export const Layout: FC<LayoutProps> = ({ children }) => {
   const { pathname } = useLocation();
   const [balance, setBalance] = useState('0');
-  const { account, connector } = useWeb3React();
+  const { account, connector, chainId, provider } = useWeb3React();
 
   const { loginMetamask, loginWalletConnect, loginSafepal, logout } =
     useAuthorization(metamaskConnector, walletconnectConnector);
@@ -55,6 +56,9 @@ export const Layout: FC<LayoutProps> = ({ children }) => {
     setBalance((+numBalance).toFixed(2));
   };
 
+  const isSupportedChain =
+    process.env.REACT_APP_CHAIN_ID === chainId?.toString() || !account;
+
   return (
     <div
       className={`layout ${
@@ -69,6 +73,8 @@ export const Layout: FC<LayoutProps> = ({ children }) => {
           account={account}
           disconnect={logout}
           balance={balance}
+          isSupportedChain={isSupportedChain}
+          switchToAmb={() => switchToAmb(provider?.provider)}
           connector={
             connector instanceof WalletConnect ? 'walletconnect' : 'metamask'
           }
