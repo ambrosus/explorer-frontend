@@ -13,12 +13,15 @@ const WriteContract = (props: any) => {
   const { account } = web3ReactInstance;
 
   if (!contractAbi) return <></>;
-
-  const writeMethods = contractAbi?.filter(
-    (method: any) =>
-      method.type === 'function' &&
-      !(method.stateMutability === 'view' || method.stateMutability === 'pure'),
-  );
+  const writeMethods = contractAbi
+    ?.filter(
+      (method: any) =>
+        method.type === 'function' &&
+        !(
+          method.stateMutability === 'view' || method.stateMutability === 'pure'
+        ),
+    )
+    .map((el: any, i: number) => ({ ...el, name: el.name || 'name' + i }));
 
   return (
     <>

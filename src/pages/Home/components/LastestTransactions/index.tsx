@@ -15,58 +15,56 @@ const LatestTransactions: React.FC<LatestTransactionsProps> = ({
 }) => {
   const { FOR_SMALL_PHONE } = useDeviceSize();
   return (
-    <>
-      <div className="lastest_transactions_cells">
-        <div className="lastest_transactions_cell">
-          <div className="lastest_transactions_cell_content lastest_transactions_font_big">
-            <span style={{ marginRight: 8 }}>{isOnline(status)}</span>
-            <NavLink rel="nofollow" to={`tx/${hash}/`}>
-              {sliceData5(hash)}
+    <tr className="lastest_transactions_cells">
+      <td className="lastest_transactions_cell">
+        <div className="lastest_transactions_cell_content lastest_transactions_font_big">
+          <span style={{ marginRight: 8 }}>{isOnline(status)}</span>
+          <NavLink rel="nofollow" to={`tx/${hash}/`}>
+            {sliceData5(hash)}
+          </NavLink>
+        </div>
+
+        <div className="lastest_transactions_p lastest_transactions_font_small">
+          <span style={{ marginRight: 16 }}></span>
+          {calcTime(timestamp)}
+        </div>
+      </td>
+
+      <td className="lastest_transactions_cell">
+        <div className="lastest_transactions_cell_content">
+          <div className="lastest_transactions_font_small">From</div>
+          <div className="lastest_transactions_font_big lastest_transactions_margin_left">
+            <NavLink rel="nofollow" to={`/address/${from}/`}>
+              {sliceData5(from)}
             </NavLink>
           </div>
-
-          <div className="lastest_transactions_p lastest_transactions_font_small">
-            <span style={{ marginRight: 16 }}></span>
-            {calcTime(timestamp)}
+        </div>
+        <div className="lastest_transactions_cell_content">
+          <div className="lastest_transactions_font_small">To</div>
+          <div className="lastest_transactions_font_big lastest_transactions_margin_left">
+            <NavLink rel="nofollow" to={`/address/${to}`}>
+              {sliceData5(to)}
+            </NavLink>
           </div>
         </div>
-
-        <div className="lastest_transactions_cell">
-          <div className="lastest_transactions_cell_content">
-            <div className="lastest_transactions_font_small">From</div>
-            <div className="lastest_transactions_font_big lastest_transactions_margin_left">
-              <NavLink rel="nofollow" to={`/address/${from}/`}>
-                {sliceData5(from)}
-              </NavLink>
-            </div>
-          </div>
-          <div className="lastest_transactions_cell_content">
-            <div className="lastest_transactions_font_small">To</div>
-            <div className="lastest_transactions_font_big lastest_transactions_margin_left">
-              <NavLink rel="nofollow" to={`/address/${to}`}>
-                {sliceData5(to)}
-              </NavLink>
-            </div>
-          </div>
+      </td>
+      <td className="lastest_transactions_cell">
+        <div
+          className="lastest_transactions_cell_content lastest_transactions_font_small"
+          style={{
+            flexDirection: 'column',
+            gap: 0,
+            alignItems: 'flex-start',
+            justifyContent: 'center',
+          }}
+        >
+          {FOR_SMALL_PHONE ? type : wrapString(type)}
         </div>
-        <div className="lastest_transactions_cell">
-          <div
-            className="lastest_transactions_cell_content lastest_transactions_font_small"
-            style={{
-              flexDirection: 'column',
-              gap: 0,
-              alignItems: 'flex-start',
-              justifyContent: 'center',
-            }}
-          >
-            {FOR_SMALL_PHONE ? type : wrapString(type)}
-          </div>
-          <div className="lastest_transactions_cell_content lastest_transactions_font_big">{`${amount?.toFixed(
-            5,
-          )} AMB`}</div>
-        </div>
-      </div>
-    </>
+        <div className="lastest_transactions_cell_content lastest_transactions_font_big">{`${amount?.toFixed(
+          5,
+        )} AMB`}</div>
+      </td>
+    </tr>
   );
 };
 

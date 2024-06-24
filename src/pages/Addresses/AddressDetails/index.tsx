@@ -30,7 +30,10 @@ const AddressDetails = () => {
       if (response) {
         setAddressData({
           balance: response.account.balance.wei,
-          tokens: response.tokens,
+          tokens: response.tokens.filter(
+            (el: any) =>
+              el.address !== '0xd8dd0273D31c1cd9Dba104DaCA7C1dfEE4f7b805',
+          ),
           isContract: response.account.isContract,
         });
       }
@@ -87,6 +90,15 @@ const AddressDetails = () => {
       address,
     }),
     [address],
+  );
+
+  const tokenFetchParams = useMemo(
+    () => ({
+      page: '',
+      userAddress: address,
+      tokenAddress: selectedToken?.address,
+    }),
+    [address, selectedToken],
   );
 
   return (
@@ -153,14 +165,14 @@ const AddressDetails = () => {
               tabs={[{ title: 'Token', value: 'tokens' }]}
               fetchData={API2.getTokenTxs}
               initTab="tokens"
-              fetchParams={{
-                page: '',
-                userAddress: address,
-                tokenAddress: selectedToken.address,
-              }}
-              render={(txs: Account[], isTokens: boolean) =>
-                txs.map((tx: any) => renderAddressBlock(tx, isTokens))
-              }
+              fetchParams={tokenFetchParams}
+              render={(txs: Account[], isTokens: boolean) => (
+                <table>
+                  <tbody>
+                    {txs.map((tx: any) => renderAddressBlock(tx, isTokens))}
+                  </tbody>
+                </table>
+              )}
             />
           ) : (
             <TabsNew
@@ -169,9 +181,11 @@ const AddressDetails = () => {
               fetchData={API2.getAccountTxs}
               initTab="all"
               fetchParams={fetchParams}
-              render={(txs: Account[], isTokens: boolean) =>
-                txs.map((tx: any) => renderAddressBlock(tx, isTokens))
-              }
+              render={(txs: Account[], isTokens: boolean) => (
+                <tbody>
+                  {txs.map((tx: any) => renderAddressBlock(tx, isTokens))}
+                </tbody>
+              )}
             />
           )}
         </Content.Body>

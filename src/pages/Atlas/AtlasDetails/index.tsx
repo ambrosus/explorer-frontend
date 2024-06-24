@@ -27,7 +27,7 @@ export const AtlasDetails = () => {
   const { data: addressData } = useTypedSelector((state) => state.addressData);
 
   const atlasData = addressData?.atlasInfo?.data || 0;
-  console.log(addressData);
+
   const ambBalance = atlasData?.balance?.ether || 0;
   const ambStake = atlasData?.stake?.ether || 0;
   const price_usd = appData?.tokenInfo?.price_usd || 0;

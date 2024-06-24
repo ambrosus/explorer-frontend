@@ -218,33 +218,39 @@ export const ApolloDetails = memo(() => {
           tabs={apolloDetailsSorting}
           fetchData={API2.getAccountTxs}
           fetchParams={fetchParams}
-          render={(txs: Account[]) =>
-            txs.map((transaction: any) => (
-              <AddressBlock
-                key={transaction.hash}
-                inners={transaction.inners}
-                isLatest={true}
-                txhash={transaction.hash}
-                method={transaction.type}
-                from={transaction.from}
-                to={transaction.to}
-                date={moment(transaction.timestamp * 1000).fromNow()}
-                block={transaction.blockNumber}
-                amount={transaction.value.ether}
-                txfee={transaction.gasCost.ether}
-                token={`${transaction.token ? transaction.token.name : 'AMB'}`}
-                symbol={`${
-                  transaction.token ? transaction.token.symbol : 'AMB'
-                }`}
-                isTableColumn="address_blocks_cells"
-                isIcon={true}
-                onClick={handleToken}
-                status={transaction.status}
-                tokenData={transaction.token}
-                tokens={tokensData}
-              />
-            ))
-          }
+          render={(txs: Account[]) => (
+            <table>
+              <tbody>
+                {txs.map((transaction: any) => (
+                  <AddressBlock
+                    key={transaction.hash}
+                    inners={transaction.inners}
+                    isLatest={true}
+                    txhash={transaction.hash}
+                    method={transaction.type}
+                    from={transaction.from}
+                    to={transaction.to}
+                    date={moment(transaction.timestamp * 1000).fromNow()}
+                    block={transaction.blockNumber}
+                    amount={transaction.value.ether}
+                    txfee={transaction.gasCost.ether}
+                    token={`${
+                      transaction.token ? transaction.token.name : 'AMB'
+                    }`}
+                    symbol={`${
+                      transaction.token ? transaction.token.symbol : 'AMB'
+                    }`}
+                    isTableColumn="address_blocks_cells"
+                    isIcon={true}
+                    onClick={handleToken}
+                    status={transaction.status}
+                    tokenData={transaction.token}
+                    tokens={tokensData}
+                  />
+                ))}
+              </tbody>
+            </table>
+          )}
         />
       </Content.Body>
     </Content>

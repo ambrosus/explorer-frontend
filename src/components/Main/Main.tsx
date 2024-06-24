@@ -1,4 +1,5 @@
 import { useActions } from '../../hooks/useActions';
+import useGtag from '../../hooks/useGtag';
 import { RemoveTrailingSlash } from '../RemoveTrailingSlash';
 import { Layout } from '../layouts/Layout';
 // @ts-ignore
@@ -14,6 +15,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import routes from 'routes';
 
 const Main: React.FC = () => {
+  useGtag();
   const { pathname } = useLocation();
   const { setAppDataAsync } = useActions();
 

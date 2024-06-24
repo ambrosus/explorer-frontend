@@ -1,11 +1,11 @@
 const AddressesHeader = () => (
-  <div className="addresses_header_cells">
-    <div className="addresses_header_cell">Rank</div>
-    <div className="addresses_header_cell">Address</div>
-    <div className="addresses_header_cell">Tx Count</div>
-    <div className="addresses_header_cell">Balance</div>
-    <div className="addresses_header_cell">Holding</div>
-  </div>
+  <tr className="addresses_header_cells">
+    <td className="addresses_header_cell">Rank</td>
+    <td className="addresses_header_cell">Address</td>
+    <td className="addresses_header_cell">Tx Count</td>
+    <td className="addresses_header_cell">Balance</td>
+    <td className="addresses_header_cell">Holding</td>
+  </tr>
 );
 
 export default AddressesHeader;

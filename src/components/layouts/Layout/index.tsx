@@ -8,11 +8,13 @@ import {
   useAutoLogin,
 } from 'airdao-components-and-tools/hooks';
 import {
+  switchToAmb,
   metamaskConnector,
   walletconnectConnector,
 } from 'airdao-components-and-tools/utils';
 import { ethers } from 'ethers';
 import React, { FC, useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 export interface LayoutProps {
   children: React.ReactNode;
@@ -28,15 +30,14 @@ const readProvider = new ethers.providers.JsonRpcProvider(
 );
 
 export const Layout: FC<LayoutProps> = ({ children }) => {
+  const { pathname } = useLocation();
   const [balance, setBalance] = useState('0');
-  const { account, connector } = useWeb3React();
+  const { account, connector, chainId, provider } = useWeb3React();
 
-  const { loginMetamask, loginWalletConnect, logout } = useAuthorization(
-    metamaskConnector,
-    walletconnectConnector,
-  );
+  const { loginMetamask, loginWalletConnect, loginSafepal, logout } =
+    useAuthorization(metamaskConnector, walletconnectConnector);
   const isLoaded = useAutoLogin(metamaskConnector);
-
+  console.log(loginSafepal);
   useEffect(() => {
     getBalance();
     readProvider.on('block', () => {
@@ -55,15 +56,25 @@ export const Layout: FC<LayoutProps> = ({ children }) => {
     setBalance((+numBalance).toFixed(2));
   };
 
+  const isSupportedChain =
+    process.env.REACT_APP_CHAIN_ID === chainId?.toString() || !account;
+
   return (
-    <div className="layout ">
-      <div className="container" style={{ position: 'relative' }}>
+    <div
+      className={`layout ${
+        pathname.includes('maintenance') ? 'page-maintenance' : ''
+      }`}
+    >
+      <div className="container header" style={{ position: 'relative' }}>
         <Header
+          loginSafepal={loginSafepal}
           loginMetamask={loginMetamask}
           loginWalletConnect={loginWalletConnect}
           account={account}
           disconnect={logout}
           balance={balance}
+          isSupportedChain={isSupportedChain}
+          switchToAmb={() => switchToAmb(provider?.provider)}
           connector={
             connector instanceof WalletConnect ? 'walletconnect' : 'metamask'
           }

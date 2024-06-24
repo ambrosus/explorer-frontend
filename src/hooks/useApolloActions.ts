@@ -66,7 +66,7 @@ export default function useApolloActions(nodeAddress: string) {
   const unstake = useCallback(
     (amount: string) => {
       if (!contracts) return null;
-      console.log(selectedChainId, chainId);
+
       if (provider && selectedChainId !== +chainId) {
         switchToAmb(provider.provider);
         return null;

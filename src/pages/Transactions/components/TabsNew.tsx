@@ -137,12 +137,16 @@ const TabsNew: FC<TabsNewProps> = ({
       tabData.pagination &&
       tabData.pagination.hasNext
     ) {
-      handleFetchData(tabData.pagination.next).then((response: any) => {
-        setTabData((state: AccountsData) => ({
-          data: [...state.data, ...response.data],
-          pagination: response.pagination,
-        }));
-      });
+      handleFetchData(tabData.pagination.next)
+        .then((response: any) => {
+          if (response) {
+            setTabData((state: AccountsData) => ({
+              data: [...state.data, ...response.data],
+              pagination: response.pagination,
+            }));
+          }
+        })
+        .catch((e: any) => console.log(e));
     }
   }, [inView]);
 
@@ -245,7 +249,7 @@ const TabsNew: FC<TabsNewProps> = ({
                 </span>
               </div>
             ) : (
-              <>
+              <table>
                 <AddressBlocksHeader
                   txhash="txHash"
                   method="Method"
@@ -265,7 +269,7 @@ const TabsNew: FC<TabsNewProps> = ({
                 />
                 {!!tabData?.data?.length &&
                   render(tabData.data, tab === 'tokens')}
-              </>
+              </table>
             )}
           </div>
         </>
