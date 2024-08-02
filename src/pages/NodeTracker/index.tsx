@@ -12,10 +12,10 @@ export const NodeTracker: React.FC = () => {
     <Content>
       <Helmet>
         <link rel="canonical" href="https://airdao.io/explorer/" />
-        <title>AirDAO | Node Tracker</title>
+        <title>Node Tracker | AirDAO Network Explorer</title>
         <meta
           name="description"
-          content="Explore AirDAO Network: amb price, total supply, total transactions, market cap, nodes, holders etc."
+          content="Node Tracker shows statistics of active AirDAO network nodes. The statistics include total AMB staked per continent and a map of global node distribution."
         />
       </Helmet>
       <DataProvider>
