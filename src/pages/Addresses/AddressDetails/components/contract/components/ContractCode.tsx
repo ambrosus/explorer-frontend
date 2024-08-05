@@ -1,13 +1,13 @@
-import ConstractSideBtn from 'components/ContractSideBtn';
-import Loader from 'components/Loader';
-import useDeviceSize from 'hooks/useDeviceSize';
+import ConstractSideBtn from '../../../../../../components/ContractSideBtn';
+import Loader from '../../../../../../components/Loader';
+import useDeviceSize from '../../../../../../hooks/useDeviceSize';
+import { getAccountData } from '../../../../../../services/contract.service';
+import { TParams } from '../../../../../../types';
 import React, { memo, useEffect, useRef, useState } from 'react';
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
-import { getAccountData } from 'services/contract.service';
-import { TParams } from 'types';
 
-const Code = (props: any) => {
+const ContractCode = (props: any) => {
   const { files, contractAbi } = props;
 
   const { address = '' }: TParams = useParams();
@@ -145,4 +145,4 @@ const Code = (props: any) => {
   );
 };
 
-export default memo(Code);
+export default memo(ContractCode);

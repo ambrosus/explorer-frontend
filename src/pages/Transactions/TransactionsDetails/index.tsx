@@ -1,4 +1,5 @@
-import api from 'API/api';
+import EventDetails from '../../../components/EventDetails';
+import { getContractDataWithProxy } from '../../../services/contract.service';
 import API2 from 'API/newApi';
 import ContentCopy from 'assets/icons/CopyIcons/ContentCopy';
 import ContentCopyed from 'assets/icons/CopyIcons/ContentCopyed';
@@ -6,7 +7,7 @@ import CopyPopUp from 'assets/icons/CopyIcons/CopyPopUp';
 import Eye from 'assets/icons/Eye';
 import { Content } from 'components/Content';
 import HeadInfo from 'components/HeadInfo';
-import { Currency } from 'components/UI/Currency';
+import { ethers } from 'ethers';
 import useCopyContent from 'hooks/useCopyContent';
 import useDeviceSize from 'hooks/useDeviceSize';
 import { useTypedSelector } from 'hooks/useTypedSelector';
@@ -70,11 +71,11 @@ export const TransactionDetails = () => {
   }, [txData, hash]);
 
   const checkOverflow = (el: any) => {
-    var curOverflow = el.style.overflow;
+    const curOverflow = el.style.overflow;
 
     if (!curOverflow || curOverflow === 'visible') el.style.overflow = 'hidden';
 
-    var isOverflowing =
+    const isOverflowing =
       el.clientWidth < el.scrollWidth || el.clientHeight < el.scrollHeight;
 
     el.style.overflow = curOverflow;
@@ -258,49 +259,129 @@ export const TransactionDetails = () => {
         </Content.Header>
       </section>
 
-      {txData.inners && !!txData.inners.length && (
-        <section className="transactions_details_list">
-          <div className="container" style={{ margin: '0 auto' }}>
-            <p className="transactions_details_list_title">Transactions</p>
-          </div>
-          <div className="transactions_details_list_wrapper container">
-            <AddressBlocksHeader
-              txhash="txHash"
-              method="Method"
-              from="From"
-              to="To"
-              date="Date"
-              block="Block"
-              amount="Amount"
-              txfee="txFee"
-              token={null}
-              methodFilters={null}
-              isTableColumn={'address_blocks_cells no_border'}
-            />
-            {!!txData.inners &&
-              txData.inners.map((tx: any, i) => (
-                <AddressBlock
-                  isLatest={true}
-                  key={i}
-                  txhash={tx.hash}
-                  method={tx.type}
-                  from={tx.from}
-                  to={tx.to}
-                  date={moment(tx.timestamp * 1000).fromNow()}
-                  block={tx.blockNumber}
-                  amount={tx.value.ether}
-                  txfee={tx.gasCost.ether}
-                  token={`${tx?.token ? tx?.token : 'AMB'}`}
-                  symbol={`${tx?.symbol ? tx?.symbol : 'AMB'}`}
-                  isTableColumn="address_blocks_cells"
-                  isIcon={true}
-                  inners={tx.inners}
-                  status={tx.status}
-                />
-              ))}
-          </div>
-        </section>
-      )}
+      <InnerTransactions inners={txData.inners} />
+
+      <TransactionEvents hash={hash!} />
     </Content>
   );
 };
+
+function InnerTransactions({ inners }: { inners: any[] }) {
+  if (!inners || inners.length === 0) return null;
+
+  return (
+    <section className="transactions_details_list">
+      <div className="container" style={{ margin: '0 auto' }}>
+        <p className="transactions_details_list_title">Transactions</p>
+      </div>
+      <div className="transactions_details_list_wrapper container">
+        <AddressBlocksHeader
+          txhash="txHash"
+          method="Method"
+          from="From"
+          to="To"
+          date="Date"
+          block="Block"
+          amount="Amount"
+          txfee="txFee"
+          token={null}
+          methodFilters={null}
+          isTableColumn={'address_blocks_cells no_border'}
+        />
+        {!!inners &&
+          inners.map((tx: any, i) => (
+            <AddressBlock
+              isLatest={true}
+              key={i}
+              txhash={tx.hash}
+              method={tx.type}
+              from={tx.from}
+              to={tx.to}
+              date={moment(tx.timestamp * 1000).fromNow()}
+              block={tx.blockNumber}
+              amount={tx.value.ether}
+              txfee={tx.gasCost.ether}
+              token={`${tx?.token ? tx?.token : 'AMB'}`}
+              symbol={`${tx?.symbol ? tx?.symbol : 'AMB'}`}
+              isTableColumn="address_blocks_cells"
+              isIcon={true}
+              inners={tx.inners}
+              status={tx.status}
+            />
+          ))}
+      </div>
+    </section>
+  );
+}
+
+function TransactionEvents({ hash }: { hash: string }) {
+  const readProvider = new ethers.providers.JsonRpcProvider(
+    process.env.REACT_APP_EXPLORER_NETWORK,
+  );
+
+  const [events, setEvents] = useState<any[]>([]);
+  const [ifaces, setIfaces] = useState<any>({});
+
+  useEffect(() => {
+    (async () => {
+      const receipt = await readProvider.getTransactionReceipt(hash);
+      if (!receipt) return;
+      const events: ethers.Event[] = receipt.logs.map(
+        (log: ethers.providers.Log) => {
+          return {
+            ...log,
+            getTransaction: async () =>
+              await readProvider.getTransaction(receipt.transactionHash),
+            getBlock: async () =>
+              await readProvider.getBlock(receipt.blockNumber),
+            removeListener: () => {},
+            getTransactionReceipt: async () => receipt,
+          };
+        },
+      );
+      setEvents(events);
+    })();
+  }, []);
+
+  useEffect(() => {
+    (async () => {
+      const contractAddresses = new Set(
+        events.map((event: any) => event.address),
+      );
+      const newIfaces: any = {};
+      for (const address of contractAddresses) {
+        const contractData = await getContractDataWithProxy(address);
+        const fullAbi = [
+          ...(contractData?.contractAbi ?? []),
+          ...(contractData.implAbi ?? []),
+        ];
+        const iface = new ethers.utils.Interface(fullAbi);
+        newIfaces[address] = iface;
+      }
+      setIfaces(newIfaces);
+      console.log(newIfaces);
+    })();
+  }, [events]);
+
+  if (!events.length) return null;
+
+  return (
+    <section
+      className="transactions_details_list"
+      style={{ marginTop: '50px' }}
+    >
+      <div className="container" style={{ margin: '0 auto' }}>
+        <p className="transactions_details_list_title">Events</p>
+      </div>
+      <div className="transactions_details_list_wrapper container">
+        {events.map((event: any, i) => (
+          <EventDetails
+            eventRaw={event}
+            iface={ifaces[event.address]}
+            key={i}
+          />
+        ))}
+      </div>
+    </section>
+  );
+}
