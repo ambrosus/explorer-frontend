@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "@airdao/airdao-node-contracts": "^1.2.29",
-    "@airdao/ui-library": "1.5.5",
+    "@airdao/ui-library": "1.6.3",
     "@babel/plugin-transform-react-jsx": "^7.17.12",
     "@babel/plugin-transform-react-jsx-self": "^7.17.12",
     "@headlessui/react": "^1.7.18",
