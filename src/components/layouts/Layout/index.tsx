@@ -2,7 +2,6 @@
 import { NewHeader } from '../NewHeader';
 import { Header } from '@airdao/ui-library';
 import { useWeb3React } from '@web3-react/core';
-import { WalletConnect } from '@web3-react/walletconnect-v2';
 import {
   useAuthorization,
   useAutoLogin,
@@ -11,6 +10,7 @@ import {
   switchToAmb,
   metamaskConnector,
   walletconnectConnector,
+  bitgetWalletConnector,
 } from 'airdao-components-and-tools/utils';
 import { ethers } from 'ethers';
 import React, { FC, useEffect, useState } from 'react';
@@ -34,10 +34,11 @@ export const Layout: FC<LayoutProps> = ({ children }) => {
   const [balance, setBalance] = useState('0');
   const { account, connector, chainId, provider } = useWeb3React();
 
-  const { loginMetamask, loginWalletConnect, loginSafepal, logout } =
-    useAuthorization(metamaskConnector, walletconnectConnector);
-  const isLoaded = useAutoLogin(metamaskConnector);
-  console.log(loginSafepal);
+  const { loginMetamask, loginWalletConnect, loginSafepal, loginBitget, logout } =
+    useAuthorization(metamaskConnector, walletconnectConnector, bitgetWalletConnector);
+
+  const isLoaded = useAutoLogin(metamaskConnector, bitgetWalletConnector);
+
   useEffect(() => {
     getBalance();
     readProvider.on('block', () => {
@@ -70,14 +71,13 @@ export const Layout: FC<LayoutProps> = ({ children }) => {
           loginSafepal={loginSafepal}
           loginMetamask={loginMetamask}
           loginWalletConnect={loginWalletConnect}
+          loginBitget={loginBitget}
           account={account}
           disconnect={logout}
           balance={balance}
           isSupportedChain={isSupportedChain}
           switchToAmb={() => switchToAmb(provider?.provider)}
-          connector={
-            connector instanceof WalletConnect ? 'walletconnect' : 'metamask'
-          }
+          connector={connector}
         />
       </div>
       <NewHeader />

@@ -7,6 +7,8 @@ import {
   metamaskHooks,
   walletconnectConnector,
   walletconnectHooks,
+  bitgetWalletConnector,
+  bitgetHooks,
 } from 'airdao-components-and-tools/utils';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
@@ -19,6 +21,7 @@ import 'styles/index.css';
 const connectors: any = [
   [metamaskConnector, metamaskHooks],
   [walletconnectConnector, walletconnectHooks],
+  [bitgetWalletConnector, bitgetHooks],
 ];
 
 /*
