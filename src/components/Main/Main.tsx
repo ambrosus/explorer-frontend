@@ -4,10 +4,6 @@ import { RemoveTrailingSlash } from '../RemoveTrailingSlash';
 import { Layout } from '../layouts/Layout';
 // @ts-ignore
 import { NotificationContainer } from '@airdao/ui-library';
-// @ts-ignore
-import { useAutoLogin } from 'airdao-components-and-tools/hooks';
-// @ts-ignore
-import { metamaskConnector } from 'airdao-components-and-tools/utils';
 import { RenderRoutes } from 'components/RenderRoutes/RenderRoutes';
 import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
@@ -18,8 +14,6 @@ const Main: React.FC = () => {
   useGtag();
   const { pathname } = useLocation();
   const { setAppDataAsync } = useActions();
-
-  useAutoLogin(metamaskConnector);
 
   useEffect(() => {
     setAppDataAsync();
