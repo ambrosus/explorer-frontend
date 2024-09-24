@@ -1,4 +1,5 @@
 .transactions_wrapper {
+  max-height: 700px;
   overflow: auto;
   transform: translateX(-12px);
 
@@ -14,6 +15,7 @@
 }
 
 .tabs_list {
+  max-height: 700px;
   overflow: auto;
 
   &_empty {

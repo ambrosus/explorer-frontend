@@ -248,6 +248,7 @@ const TabsNew: FC<TabsNewProps> = ({
                 />
                 {!!tabData?.data?.length &&
                   render(tabData.data, tab === 'tokens')}
+                <div ref={ref}/>
               </table>
             )}
           </div>
@@ -261,17 +262,17 @@ const TabsNew: FC<TabsNewProps> = ({
             label={label}
           />
           <div
-            style={{ overflow: loading ? 'hidden' : 'auto' }}
+            style={{overflow: loading ? 'hidden' : 'auto'}}
             className={`tabs_list ${
               !tabData?.data?.length ? 'tabs_list_empty' : ''
             }`}
           >
             {sortTableHeading()}
             {!!tabData?.data?.length && render(tabData.data)}
+            <div ref={ref}/>
           </div>
         </>
       )}
-      <div ref={ref} />
       {loading && <Loader />}
     </>
   );
