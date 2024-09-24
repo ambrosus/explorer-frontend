@@ -153,7 +153,7 @@ const TabsNew: FC<TabsNewProps> = ({
     if (fetchParams.hasOwnProperty('sort')) {
       params.sort = sortTerm;
     }
-    return fetchData({ ...params, limit: 50 }).finally(() => {
+    return fetchData({ ...params, limit: 100 }).finally(() => {
       setLoading(false);
     });
   };
@@ -188,7 +188,7 @@ const TabsNew: FC<TabsNewProps> = ({
                   className="tabs_heading_export_modal"
                 >
                   {FOR_TABLET ? (
-                    <ExportCsv />
+                    <ExportCsv/>
                   ) : (
                     <>
                       <div className="tabs_side_menu">
@@ -196,7 +196,7 @@ const TabsNew: FC<TabsNewProps> = ({
                           className="tabs_side_menu_icon"
                           onClick={handleShow}
                         >
-                          <SideMenu />
+                          <SideMenu/>
                         </button>
                       </div>
                     </>
@@ -210,19 +210,19 @@ const TabsNew: FC<TabsNewProps> = ({
               ref={mobileCalendarRef}
               className="tabs_heading_export_modal_mobile"
             >
-              <Calendar />
+              <Calendar/>
             </div>
           )}
 
           <div
-            style={{ overflow: loading ? 'hidden' : 'auto' }}
+            style={{overflow: loading ? 'hidden' : 'auto'}}
             className="transactions_wrapper"
           >
             {tab === 'contract' ? (
-              <ContractDetails address={fetchParams.address} />
+              <ContractDetails address={fetchParams.address}/>
             ) : !loading && !tabData?.data?.length ? (
               <div className="tabs_not_found">
-                <NotFoundIcon />
+                <NotFoundIcon/>
                 <span className="tabs_not_found_text">
                   No results were found for this query.
                 </span>
@@ -248,7 +248,6 @@ const TabsNew: FC<TabsNewProps> = ({
                 />
                 {!!tabData?.data?.length &&
                   render(tabData.data, tab === 'tokens')}
-                <div ref={ref}/>
               </table>
             )}
           </div>
@@ -269,11 +268,11 @@ const TabsNew: FC<TabsNewProps> = ({
           >
             {sortTableHeading()}
             {!!tabData?.data?.length && render(tabData.data)}
-            <div ref={ref}/>
           </div>
         </>
       )}
-      {loading && <Loader />}
+      <div ref={ref}/>
+      {loading && <Loader/>}
     </>
   );
 };
