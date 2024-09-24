@@ -88,7 +88,7 @@ const getAccountTxs = (params: any = {}) => {
       tokenAddress ? '/' + tokenAddress : ''
     }`,
     {
-      params: { page },
+      params: { page, limit: 100 },
     },
   );
 };
