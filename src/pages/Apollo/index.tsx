@@ -102,7 +102,7 @@ export const Apollo = memo(() => {
           sortOptions={tableData}
           fetchData={API2.getApollos}
           initSortTerm={'totalBundles'}
-          fetchParams={{ sort: '', page: '' }}
+          fetchParams={{ sort: '', page: '', limit: 100 }}
           label="Nodes"
           render={(list: any) => (
             <table className="apollo_table">

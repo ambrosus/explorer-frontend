@@ -188,7 +188,7 @@ const TabsNew: FC<TabsNewProps> = ({
                   className="tabs_heading_export_modal"
                 >
                   {FOR_TABLET ? (
-                    <ExportCsv/>
+                    <ExportCsv />
                   ) : (
                     <>
                       <div className="tabs_side_menu">
@@ -196,7 +196,7 @@ const TabsNew: FC<TabsNewProps> = ({
                           className="tabs_side_menu_icon"
                           onClick={handleShow}
                         >
-                          <SideMenu/>
+                          <SideMenu />
                         </button>
                       </div>
                     </>
@@ -210,19 +210,19 @@ const TabsNew: FC<TabsNewProps> = ({
               ref={mobileCalendarRef}
               className="tabs_heading_export_modal_mobile"
             >
-              <Calendar/>
+              <Calendar />
             </div>
           )}
 
           <div
-            style={{overflow: loading ? 'hidden' : 'auto'}}
+            style={{ overflow: loading ? 'hidden' : 'auto' }}
             className="transactions_wrapper"
           >
             {tab === 'contract' ? (
-              <ContractDetails address={fetchParams.address}/>
+              <ContractDetails address={fetchParams.address} />
             ) : !loading && !tabData?.data?.length ? (
               <div className="tabs_not_found">
-                <NotFoundIcon/>
+                <NotFoundIcon />
                 <span className="tabs_not_found_text">
                   No results were found for this query.
                 </span>
@@ -261,7 +261,7 @@ const TabsNew: FC<TabsNewProps> = ({
             label={label}
           />
           <div
-            style={{overflow: loading ? 'hidden' : 'auto'}}
+            style={{ overflow: loading ? 'hidden' : 'auto' }}
             className={`tabs_list ${
               !tabData?.data?.length ? 'tabs_list_empty' : ''
             }`}
@@ -271,8 +271,8 @@ const TabsNew: FC<TabsNewProps> = ({
           </div>
         </>
       )}
-      <div ref={ref}/>
-      {loading && <Loader/>}
+      <div ref={ref} />
+      {loading && <Loader />}
     </>
   );
 };

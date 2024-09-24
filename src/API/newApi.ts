@@ -103,7 +103,7 @@ const searchItem = (term: any) => {
 
 const getTokenTxs = ({ userAddress, tokenAddress, page }: any) => {
   return API().get(`addresses/${userAddress}/tokens/${tokenAddress}`, {
-    params: { page },
+    params: { page, limit: 100 },
   });
 };
 
