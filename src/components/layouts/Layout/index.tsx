@@ -34,8 +34,17 @@ export const Layout: FC<LayoutProps> = ({ children }) => {
   const [balance, setBalance] = useState('0');
   const { account, connector, chainId, provider } = useWeb3React();
 
-  const { loginMetamask, loginWalletConnect, loginSafepal, loginBitget, logout } =
-    useAuthorization(metamaskConnector, walletconnectConnector, bitgetWalletConnector);
+  const {
+    loginMetamask,
+    loginWalletConnect,
+    loginSafepal,
+    loginBitget,
+    logout,
+  } = useAuthorization(
+    metamaskConnector,
+    walletconnectConnector,
+    bitgetWalletConnector,
+  );
 
   const isLoaded = useAutoLogin(metamaskConnector, bitgetWalletConnector);
 

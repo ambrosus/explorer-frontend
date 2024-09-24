@@ -1,5 +1,7 @@
 import { TransactionProps } from '../pages/Addresses/AddressDetails/address-details.interface';
 import { ENABLE_LOGS, poolsTokens } from './constants';
+import { BigNumber, ethers } from 'ethers';
+import moment from 'moment';
 import Amb from 'assets/icons/Cryptos/Amb';
 import Bnb from 'assets/icons/Cryptos/Bnb';
 import Bond from 'assets/icons/Cryptos/Bond';
@@ -12,8 +14,7 @@ import Usdc from 'assets/icons/Cryptos/Usdc';
 import Usdt from 'assets/icons/Cryptos/Usdt';
 import GreenCircle from 'assets/icons/StatusAction/GreenCircle';
 import OrangeCircle from 'assets/icons/StatusAction/OrangeCircle';
-import { BigNumber, ethers } from 'ethers';
-import moment from 'moment';
+import Airdoge from "../assets/icons/Cryptos/Airdoge";
 
 export const sliceData5 = (item: string | null | undefined) => {
   if (!item) {
@@ -141,6 +142,8 @@ export const getTokenIcon = (
       return Bond;
     case 'BOND':
       return Bond;
+    case 'ADOGE':
+      return Airdoge;
     default:
       return Amb;
   }
