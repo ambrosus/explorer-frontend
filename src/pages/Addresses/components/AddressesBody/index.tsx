@@ -34,12 +34,6 @@ const AddressesBody: FC<AddressesBodyProps> = ({
             to={`/address/${address}/`}
             className="addresses_body_cell universall_light2"
           >
-            <ReactTooltip
-              id="centered-tooltip"
-              effect="solid"
-              place="bottom"
-              backgroundColor="#808A9D"
-            />
             {isContract && (
               <div
                 data-tip="Contract"
