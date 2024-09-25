@@ -5,7 +5,7 @@ import { AddressesBodyProps } from 'pages/Addresses/addresses.interface';
 import IsContract from 'pages/Addresses/components/IsContract';
 import React, { FC } from 'react';
 import { NavLink } from 'react-router-dom';
-import ReactTooltip from 'react-tooltip';
+import Tooltip from "react-simple-tooltip"
 import { displayAmount } from 'utils/helpers';
 
 const AddressesBody: FC<AddressesBodyProps> = ({
@@ -35,12 +35,10 @@ const AddressesBody: FC<AddressesBodyProps> = ({
             className="addresses_body_cell universall_light2"
           >
             {isContract && (
-              <div
-                data-tip="Contract"
-                data-for="centered-tooltip"
-                className="is-contract"
-              >
-                <IsContract />
+              <div className="is-contract">
+                <Tooltip content="Is contract" padding={6} radius={10} fontSize={10} background="#808a9d" color="white" border="none">
+                  <IsContract />
+                </Tooltip>
               </div>
             )}
             {address}
