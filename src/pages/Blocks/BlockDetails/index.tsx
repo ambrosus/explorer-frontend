@@ -157,7 +157,7 @@ export const BlockDetails = memo(() => {
         <title>Blocks | AirDAO Network Explorer</title>
         <meta
           name="description"
-          content="Explore AirDAO Network Blocks: total blocks, avg. block size, avg. block time, avg. gas used etc."
+          content="Explore AirDAO Network Blocks: Block number, Validator, Block hash, TXns, Date, Size."
         />
       </Helmet>
       <Content.Header>

@@ -89,7 +89,7 @@ export const Apollo = memo(() => {
         <title>Apollo Nodes | AirDAO Network Explorer</title>
         <meta
           name="description"
-          content="Explore AirDAO Network Apollo Nodes: total nodes, online, offline, connecting, avg block / prop. time"
+          content="Explore AirDAO Network Apollo Nodes: Address, Status, Total blocks, Balance, Stake"
         />
       </Helmet>
       <Content.Header>
@@ -102,7 +102,7 @@ export const Apollo = memo(() => {
           sortOptions={tableData}
           fetchData={API2.getApollos}
           initSortTerm={'totalBundles'}
-          fetchParams={{ sort: '', page: '' }}
+          fetchParams={{ sort: '', page: '', limit: 100 }}
           label="Nodes"
           render={(list: any) => (
             <table className="apollo_table">

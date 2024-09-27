@@ -109,7 +109,7 @@ const AddressDetails = () => {
         <title>Addresses | AirDAO Network Explorer</title>
         <meta
           name="description"
-          content="Explore AirDAO Network Addresses: Total addresses, Holders, Tx Count, Balance etc."
+          content="Explore AirDAO Network Addresses: Address, Tx Count, Balance, Holding"
         />
       </Helmet>
       <section

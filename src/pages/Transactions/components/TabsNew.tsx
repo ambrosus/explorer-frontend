@@ -153,7 +153,7 @@ const TabsNew: FC<TabsNewProps> = ({
     if (fetchParams.hasOwnProperty('sort')) {
       params.sort = sortTerm;
     }
-    return fetchData({ ...params, limit: 50 }).finally(() => {
+    return fetchData({ ...params, limit: 100 }).finally(() => {
       setLoading(false);
     });
   };
