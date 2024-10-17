@@ -1,4 +1,5 @@
 import Airdoge from '../assets/icons/Cryptos/Airdoge';
+import X3na from '../assets/icons/Cryptos/X3na';
 import { TransactionProps } from '../pages/Addresses/AddressDetails/address-details.interface';
 import { ENABLE_LOGS, poolsTokens } from './constants';
 import Amb from 'assets/icons/Cryptos/Amb';
@@ -11,11 +12,11 @@ import Hpt from 'assets/icons/Cryptos/Hpt';
 import Ppt from 'assets/icons/Cryptos/Ppt';
 import Usdc from 'assets/icons/Cryptos/Usdc';
 import Usdt from 'assets/icons/Cryptos/Usdt';
+// @ts-ignore
 import GreenCircle from 'assets/icons/StatusAction/GreenCircle';
 import OrangeCircle from 'assets/icons/StatusAction/OrangeCircle';
 import { BigNumber, ethers } from 'ethers';
 import moment from 'moment';
-import X3na from "../assets/icons/Cryptos/X3na";
 
 export const sliceData5 = (item: string | null | undefined) => {
   if (!item) {
@@ -147,6 +148,8 @@ export const getTokenIcon = (
       return Airdoge;
     case 'X3NA':
       return X3na;
+    case 'SWINE':
+      return () => <div style={{width: 25, height: 25, background: 'url("token-icons/swine.png")', backgroundSize: 'contain'}}/>
     default:
       return Amb;
   }
