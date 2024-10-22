@@ -1,13 +1,11 @@
 import warning from '../../../assets/svg/warning.svg';
+import { ambChainId } from '../../../utils/network';
 import { Contracts, Methods } from '@airdao/airdao-node-contracts';
-import { useWeb3React } from '@web3-react/core';
-// @ts-ignore
-import { switchToAmb } from 'airdao-components-and-tools/utils';
+import { useSwitchToConfiguredChain } from '@airdao/ui-library';
 import { ethers } from 'ethers';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
-const ambChainId = process.env.REACT_APP_CHAIN_ID || '';
+import { useAccount } from 'wagmi';
 
 interface ConfirmProps {
   formData: any;
@@ -25,7 +23,9 @@ const Confirm = ({
   minStakeAmount,
 }: ConfirmProps) => {
   const navigate = useNavigate();
-  const { chainId } = useWeb3React();
+  const { chainId } = useAccount();
+
+  const switchToAmb = useSwitchToConfiguredChain();
 
   const [connectOwnerError, setConnectOwnerError] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -35,8 +35,8 @@ const Confirm = ({
   }, [account]);
 
   const handleConfirmClick = async () => {
-    if (chainId !== +ambChainId) {
-      switchToAmb(provider.provider);
+    if (chainId !== ambChainId) {
+      switchToAmb();
       return;
     }
 
@@ -164,7 +164,7 @@ const Confirm = ({
           disabled={loading}
         >
           {loading && <div className="node-setup-loader" />}
-          {chainId !== +ambChainId ? 'Switch to AirDAO Network' : 'Confirm'}
+          {chainId !== ambChainId ? 'Switch to AirDAO Network' : 'Confirm'}
         </button>
       )}
     </div>

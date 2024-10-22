@@ -2,11 +2,10 @@
 import { getRetiredApollos } from '../../Apollo/utils';
 import Warning from '../Warning';
 import { Contracts, Methods } from '@airdao/airdao-node-contracts';
-import { useWeb3React } from '@web3-react/core';
-import { useAuthorization } from 'airdao-components-and-tools/hooks';
-import { metamaskConnector } from 'airdao-components-and-tools/utils';
-import { switchToAmb } from 'airdao-components-and-tools/utils';
+import { useSwitchToConfiguredChain } from '@airdao/ui-library';
+import { injected } from '@wagmi/core';
 import React, { useEffect, useState } from 'react';
+import { useAccount, useConnect } from 'wagmi';
 
 interface NodeAddressProps {
   handleNextClick: () => {};
@@ -21,10 +20,12 @@ const NodeAddress = ({
   handleNextClick,
   account,
 }: NodeAddressProps) => {
-  const { isActive } = useWeb3React();
-  const { loginMetamask } = useAuthorization(metamaskConnector);
+  const { isConnected } = useAccount();
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+
+  const switchChain = useSwitchToConfiguredChain();
+  const { connect } = useConnect();
 
   useEffect(() => {
     setError('');
@@ -33,7 +34,7 @@ const NodeAddress = ({
   const handleNodeAddress = async () => {
     setIsLoading(true);
 
-    switchToAmb(provider.provider);
+    switchChain();
     const chainId = (await provider.getNetwork()).chainId;
     const contracts = new Contracts(provider, chainId);
 
@@ -81,14 +82,17 @@ const NodeAddress = ({
         works with MetaMask. We recommend using a new wallet address; you can
         use a separate address for all the transactions required when managing
         the node. You don’t need to store any funds in the node address.{' '}
-        {isActive && (
+        {isConnected && (
           <span className="white-container__text-semi-bold">
             Do you want to continue with this address?
           </span>
         )}
       </p>
-      {!isActive ? (
-        <button className={'white-container__button'} onClick={loginMetamask}>
+      {!isConnected ? (
+        <button
+          className={'white-container__button'}
+          onClick={() => connect({ connector: injected() })}
+        >
           Connect wallet
         </button>
       ) : (

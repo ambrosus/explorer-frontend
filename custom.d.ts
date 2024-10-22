@@ -4,5 +4,4 @@ declare module '*.svg' {
   const src: string;
   export default src;
 }
-declare module 'airdao-components-and-tools/utils';
 declare module 'react-simple-tooltip';

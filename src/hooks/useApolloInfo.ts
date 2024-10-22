@@ -2,12 +2,12 @@
 import { getApolloInfo } from '../services/apollo.service';
 import { BnWeiToUsd } from '../utils/helpers';
 import { useTypedSelector } from './useTypedSelector';
-import { useWeb3React } from '@web3-react/core';
 import { BigNumber } from 'ethers';
 import { useEffect, useState } from 'react';
+import { useAccount } from 'wagmi';
 
 export default function useApolloInfo(address = ''): ApolloInfo {
-  const { account } = useWeb3React();
+  const { address: account } = useAccount();
   const { data } = useTypedSelector((state: any) => state?.app);
   const { price_usd } = data?.tokenInfo || 0;
 

@@ -1,20 +1,18 @@
-// @ts-ignore
-import Api from '../../../API/api';
 import {
-  AmbErrorProvider,
+  readProvider,
+  ambErrorProvider,
+  ambNetwork,
+} from '../../../utils/network';
+import {
   ContractNames,
   Contracts,
   Multisig,
 } from '@airdao/airdao-node-contracts';
 import API2 from 'API/newApi';
-// @ts-ignore
-import { getCurrentAmbNetwork } from 'airdao-components-and-tools/utils';
 import { ethers, utils } from 'ethers';
-import React from 'react';
 
-const readProvider = new ethers.providers.JsonRpcProvider(
-  process.env.REACT_APP_EXPLORER_NETWORK,
-);
+// @ts-ignore
+const contracts = new Contracts(ambErrorProvider, ambNetwork.chainId);
 
 export const getApollosNetworkInfo = (data: any) => {
   let total = 0,
@@ -44,11 +42,6 @@ const timestampToFormattedDate = (timestamp: number) => {
 };
 
 export const getRetiredApollos = async () => {
-  const network = getCurrentAmbNetwork();
-  const provider = new AmbErrorProvider(network.rpcUrl, network.chainId);
-  // @ts-ignore
-  const contracts = new Contracts(provider, network.chainId);
-
   const lockKeeper = contracts.getContractByName(ContractNames.LockKeeper);
   const serverNodes = contracts.getContractByName(
     ContractNames.ServerNodesManager,
@@ -77,10 +70,6 @@ export const getRetiredApollos = async () => {
 };
 
 export const getQueuedApollos = async () => {
-  const network = getCurrentAmbNetwork();
-  const provider = new AmbErrorProvider(network.rpcUrl, network.chainId);
-  // @ts-ignore
-  const contracts = new Contracts(provider, network.chainId);
   const list = await Multisig.validatorSetGetQueuedStakes(contracts);
 
   const apollosInfo = await Promise.all(
@@ -97,10 +86,6 @@ export const getQueuedApollos = async () => {
 };
 
 export const getOnboardingApollos = async () => {
-  const network = getCurrentAmbNetwork();
-  const provider = new AmbErrorProvider(network.rpcUrl, network.chainId);
-  // @ts-ignore
-  const contracts = new Contracts(provider, network.chainId);
   const list = await Multisig.serverNodesManagerGetNodesList(contracts);
   const arr = await Promise.all(
     list.map(async (address) => {

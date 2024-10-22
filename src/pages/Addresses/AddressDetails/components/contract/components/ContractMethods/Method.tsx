@@ -3,7 +3,7 @@ import Minus from '../../../../../../../assets/icons/Minus';
 import Plus from '../../../../../../../assets/icons/Plus';
 import WarningError from '../../../../../../../assets/icons/WarningError';
 import Spinner from '../../../../../../../components/Spinner';
-import { useWeb3React } from '@web3-react/core';
+import { useEthersAdapter } from '@airdao/ui-library';
 import { ethers } from 'ethers';
 import React, { memo, useEffect, useMemo, useState } from 'react';
 
@@ -19,7 +19,7 @@ const Method = (props: any) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const { address, isRead, index, method, buttonName } = props;
-  const { provider }: any = useWeb3React();
+  const { signer } = useEthersAdapter();
 
   const readProvider = new ethers.providers.JsonRpcProvider(
     process.env.REACT_APP_EXPLORER_NETWORK,
@@ -31,8 +31,9 @@ const Method = (props: any) => {
     try {
       setIsLoading(true);
 
-      const providerOrSigner = isRead ? readProvider : provider?.getSigner();
+      const providerOrSigner = isRead ? readProvider : signer;
 
+      // @ts-ignore
       const contract = new ethers.Contract(address, [method], providerOrSigner);
 
       const methodArgs = method.inputs.map(
