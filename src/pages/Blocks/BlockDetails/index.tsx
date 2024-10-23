@@ -7,12 +7,12 @@ import { TParams } from '../../../types';
 import DataTitle from '../components/DataTitle';
 import BlockBody from './components/BlockBody';
 import BlockHeader from './components/BlockHeader';
+import { useQuery } from '@tanstack/react-query';
 import HeadInfo from 'components/HeadInfo';
 import useDeviceSize from 'hooks/useDeviceSize';
 import moment from 'moment';
 import React, { memo, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
-import { useQuery } from 'react-query';
 import { NavLink, useNavigate, useParams } from 'react-router-dom';
 import { sliceData10, sliceData5 } from 'utils/helpers';
 
@@ -34,6 +34,7 @@ interface IBlocksData<T> {
   data: { data: { block: T[] | undefined } } | null;
   isError: boolean;
   isLoading: boolean;
+  isSuccess: boolean;
 }
 
 export const BlockDetails = memo(() => {
@@ -63,19 +64,18 @@ export const BlockDetails = memo(() => {
     return confirmations > 0 ? 'Confirmed' : 'Unconfirmed';
   };
 
-  const { data, isError, isLoading } = useQuery(
-    [`get data for ${address}`, address],
-    () => getBlockData(address),
-    {
-      initialDataUpdatedAt: 0,
-      refetchInterval: 4000,
-      onSuccess: (data: any) => {
-        if (!data) {
-          navigate(`/notfound`);
-        }
-      },
-    },
-  ) as IBlocksData<IBlock>;
+  const { data, isError, isLoading, isSuccess } = useQuery({
+    queryKey: [`get data for ${address}`, address],
+    queryFn: () => getBlockData(address),
+    initialDataUpdatedAt: 0,
+    refetchInterval: 4000,
+  }) as IBlocksData<IBlock>;
+
+  useEffect(() => {
+    if (isSuccess && !data) {
+      navigate(`/notfound`);
+    }
+  }, [isSuccess]);
 
   useEffect(() => {
     setAppDataAsync();

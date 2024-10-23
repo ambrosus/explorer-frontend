@@ -3,8 +3,8 @@ import Loader from '../../../../../../components/Loader';
 import useDeviceSize from '../../../../../../hooks/useDeviceSize';
 import { getAccountData } from '../../../../../../services/contract.service';
 import { TParams } from '../../../../../../types';
+import { useQuery } from '@tanstack/react-query';
 import React, { memo, useEffect, useRef, useState } from 'react';
-import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 
 const ContractCode = (props: any) => {
@@ -23,9 +23,10 @@ const ContractCode = (props: any) => {
   const abiToRender = JSON.stringify(contractAbi, null, ' ');
 
   // todo get from props
-  const { data: accountData } = useQuery(`account data ${address}`, () =>
-    getAccountData(address),
-  );
+  const { data: accountData } = useQuery({
+    queryKey: [`account data ${address}`],
+    queryFn: () => getAccountData(address),
+  });
 
   const fileElement: any = document.getElementById(
     window.location.hash.replace('#', ''),

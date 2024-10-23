@@ -1,9 +1,9 @@
 import Main from './components/Main/Main';
 import { store } from './state';
 import { createAirdaoConfigWithChainId } from '@airdao/ui-library';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import { QueryClient, QueryClientProvider } from 'react-query';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import 'styles/Main.scss';
@@ -41,15 +41,15 @@ const config = createAirdaoConfigWithChainId(+chainId, WC_PARAMS);
 const queryClient = new QueryClient();
 
 export const App = (): JSX.Element => (
-  <QueryClientProvider client={queryClient}>
-    <Provider store={store}>
-      <WagmiProvider config={config}>
+  <WagmiProvider config={config}>
+    <QueryClientProvider client={queryClient}>
+      <Provider store={store}>
         <BrowserRouter basename={process.env.PUBLIC_URL}>
           <Main />
         </BrowserRouter>
-      </WagmiProvider>
-    </Provider>
-  </QueryClientProvider>
+      </Provider>
+    </QueryClientProvider>
+  </WagmiProvider>
 );
 
 const container = document.getElementById('root') as HTMLElement;

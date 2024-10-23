@@ -1,6 +1,6 @@
 import API2 from '../API/newApi';
-import { ChangeEvent, FormEvent, useState } from 'react';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const useSearch = (setIsShow: Function) => {
@@ -9,23 +9,27 @@ const useSearch = (setIsShow: Function) => {
   const [link, setLink] = useState<string>('');
   const navigate = useNavigate();
 
-  const { isLoading } = useQuery(
-    ['search', name],
-    () => (name?.length > 0 ? API2.searchItem(name) : null),
-    {
-      onSuccess: (data: any) => {
-        if (!data) {
-          setErr(true);
-        } else {
-          setErr(false);
-          setLink(data.redirect);
-        }
-      },
-      onError: () => {
+  const { isLoading, isError, isSuccess, data } = useQuery({
+    queryKey: ['search', name],
+    queryFn: () => (name?.length > 0 ? API2.searchItem(name) : null),
+  });
+
+  useEffect(() => {
+    if (isError) {
+      setErr(true);
+      return;
+    }
+
+    if (isSuccess) {
+      if (!data) {
         setErr(true);
-      },
-    },
-  );
+      } else {
+        setErr(false);
+        // @ts-ignore
+        setLink(data.redirect);
+      }
+    }
+  }, [isSuccess, isError]);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
