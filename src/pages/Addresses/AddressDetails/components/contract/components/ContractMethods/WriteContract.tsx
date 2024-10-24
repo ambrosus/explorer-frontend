@@ -1,12 +1,12 @@
 import Method from './Method';
-import { injected } from '@wagmi/core';
-import { useAccount, useConnect } from 'wagmi';
+import { useConnectWalletModal } from '@airdao/ui-library';
+import { useAccount } from 'wagmi';
 
 const WriteContract = (props: any) => {
   const { contractAbi, contractAddress } = props;
 
   const { isConnected } = useAccount();
-  const { connect } = useConnect();
+  const { toggleModal } = useConnectWalletModal();
 
   if (!contractAbi) return <></>;
   const writeMethods = contractAbi
@@ -23,10 +23,7 @@ const WriteContract = (props: any) => {
     <>
       <h2 className="contract-tab-title">
         {'Write Contract'}&nbsp;
-        <ConnectBtn
-          onClick={() => connect({ connector: injected() })}
-          isConnected={isConnected}
-        />
+        <ConnectBtn onClick={toggleModal} isConnected={isConnected} />
       </h2>
 
       <br />

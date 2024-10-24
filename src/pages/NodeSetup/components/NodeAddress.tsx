@@ -3,9 +3,9 @@ import { getRetiredApollos } from '../../Apollo/utils';
 import Warning from '../Warning';
 import { Contracts, Methods } from '@airdao/airdao-node-contracts';
 import { useSwitchToConfiguredChain } from '@airdao/ui-library';
-import { injected } from '@wagmi/core';
+import { useConnectWalletModal } from '@airdao/ui-library';
 import React, { useEffect, useState } from 'react';
-import { useAccount, useConnect } from 'wagmi';
+import { useAccount } from 'wagmi';
 
 interface NodeAddressProps {
   handleNextClick: () => {};
@@ -25,7 +25,7 @@ const NodeAddress = ({
   const [isLoading, setIsLoading] = useState(false);
 
   const switchChain = useSwitchToConfiguredChain();
-  const { connect } = useConnect();
+  const { toggleModal } = useConnectWalletModal();
 
   useEffect(() => {
     setError('');
@@ -89,10 +89,7 @@ const NodeAddress = ({
         )}
       </p>
       {!isConnected ? (
-        <button
-          className={'white-container__button'}
-          onClick={() => connect({ connector: injected() })}
-        >
+        <button className={'white-container__button'} onClick={toggleModal}>
           Connect wallet
         </button>
       ) : (

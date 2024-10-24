@@ -24,10 +24,10 @@
   dependencies:
     ethers "^5.7.2"
 
-"@airdao/ui-library@2.0.0-beta.7":
-  version "2.0.0-beta.7"
-  resolved "https://registry.yarnpkg.com/@airdao/ui-library/-/ui-library-2.0.0-beta.7.tgz#ad48049ca50b626774dc6b31d759c54a08234016"
-  integrity sha512-rA1MESxxd7bAPl+zUrvvb8nNJMXAjdeQA+2bvLoAISfp+oFL+bRQGh9ZxurOEWVIeO5JLxlh7btPg0aqdJKWDw==
+"@airdao/ui-library@2.0.0-beta.13":
+  version "2.0.0-beta.13"
+  resolved "https://registry.yarnpkg.com/@airdao/ui-library/-/ui-library-2.0.0-beta.13.tgz#65089730b8c6269ab8c748a9fa295ea31e58316c"
+  integrity sha512-v3eaCSyWqp+vDWIEIIJFHWe/2WQ/s2k21Zg9IigbvPIjvuP/ScjtlF7GUnMaX4BtADRmJymqxelBsh1aKT6/bQ==
   dependencies:
     "@prismicio/client" "^7.1.1"
     "@prismicio/react" "^2.5.0"
@@ -12318,7 +12318,7 @@ react-native-webview@^11.26.0:
     escape-string-regexp "2.0.0"
     invariant "2.2.4"
 
-react-query@*, react-query@^3.39.1:
+react-query@*:
   version "3.39.3"
   resolved "https://registry.yarnpkg.com/react-query/-/react-query-3.39.3.tgz#4cea7127c6c26bdea2de5fb63e51044330b03f35"
   integrity sha512-nLfLz7GiohKTJDuT4us4X3h/8unOh+00MLb2yJoGTPjxKs2bc1iDhkNx2bd5MKklXnOD3NrVZ+J2UXujA5In4g==
