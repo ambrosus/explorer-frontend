@@ -1,6 +1,9 @@
 import Main from './components/Main/Main';
 import { store } from './state';
-import { createAirdaoConfigWithChainId } from '@airdao/ui-library';
+import {
+  ConnectWalletModalProvider,
+  createAirdaoConfigWithChainId,
+} from '@airdao/ui-library';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
@@ -43,11 +46,13 @@ const queryClient = new QueryClient();
 export const App = (): JSX.Element => (
   <WagmiProvider config={config}>
     <QueryClientProvider client={queryClient}>
-      <Provider store={store}>
-        <BrowserRouter basename={process.env.PUBLIC_URL}>
-          <Main />
-        </BrowserRouter>
-      </Provider>
+      <ConnectWalletModalProvider>
+        <Provider store={store}>
+          <BrowserRouter basename={process.env.PUBLIC_URL}>
+            <Main />
+          </BrowserRouter>
+        </Provider>
+      </ConnectWalletModalProvider>
     </QueryClientProvider>
   </WagmiProvider>
 );
