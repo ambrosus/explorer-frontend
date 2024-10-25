@@ -17,6 +17,9 @@ import GreenCircle from 'assets/icons/StatusAction/GreenCircle';
 import OrangeCircle from 'assets/icons/StatusAction/OrangeCircle';
 import { BigNumber, ethers } from 'ethers';
 import moment from 'moment';
+import Kos from "../assets/icons/Cryptos/Kos";
+import Ast from "../assets/icons/Cryptos/Ast";
+import Hbr from "../assets/icons/Cryptos/Hbr";
 
 export const sliceData5 = (item: string | null | undefined) => {
   if (!item) {
@@ -148,8 +151,23 @@ export const getTokenIcon = (
       return Airdoge;
     case 'X3NA':
       return X3na;
+    case 'KOS':
+      return Kos;
+    case 'AST':
+      return Ast;
+    case 'HBR':
+      return Hbr;
     case 'SWINE':
-      return () => <div style={{width: 25, height: 25, background: 'url("token-icons/swine.png")', backgroundSize: 'contain'}}/>
+      return () => (
+        <div
+          style={{
+            width: 25,
+            height: 25,
+            background: 'url("token-icons/swine.png")',
+            backgroundSize: 'contain',
+          }}
+        />
+      );
     default:
       return Amb;
   }
