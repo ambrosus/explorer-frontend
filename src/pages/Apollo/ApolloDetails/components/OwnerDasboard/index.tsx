@@ -4,11 +4,13 @@ import useApolloInfo from '../../../../../hooks/useApolloInfo';
 import ChangeAddress from './ChangeAddress';
 import StakeSize from './StakeSize';
 import TelegramWidget from './TelegramWidget';
+import { useEthersAdapter } from '@airdao/ui-library';
 import React, { useState } from 'react';
 
 export default function OwnerDashboard({ address }: OwnerDashboardProps) {
   const [retireLoading, setRetireLoading] = useState(false);
   const { isOwner, apolloInfo, stakeUsd, updateInfo } = useApolloInfo(address);
+  const { provider } = useEthersAdapter();
 
   const {
     addStake,
@@ -35,7 +37,7 @@ export default function OwnerDashboard({ address }: OwnerDashboardProps) {
 
   const stakeIsZero = apolloInfo?.stakeAmount.isZero();
 
-  return isOwner ? (
+  return isOwner && provider ? (
     <div className="apollo_details__owner-info-container">
       <div className="apollo_details__owner-info">
         <StakeSize
