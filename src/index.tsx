@@ -44,7 +44,7 @@ const config = createAirdaoConfigWithChainId(+chainId, WC_PARAMS);
 const queryClient = new QueryClient();
 
 export const App = (): JSX.Element => (
-  <WagmiProvider config={config}>
+  <WagmiProvider config={config} reconnectOnMount={false}>
     <QueryClientProvider client={queryClient}>
       <ConnectWalletModalProvider>
         <Provider store={store}>
