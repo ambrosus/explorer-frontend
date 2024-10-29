@@ -38,7 +38,12 @@ const Method = (props: any) => {
 
       const methodArgs = method.inputs.map(
         // in right order
-        (input: any) => inputValue[input.name],
+        (input: any) => {
+          if (input.internalType.includes('[]')) {
+            return inputValue[input.name].split(',');
+          }
+          return inputValue[input.name];
+        },
       );
       if (method?.stateMutability === 'payable')
         methodArgs.push({ value: payableValue });
@@ -175,7 +180,7 @@ const MethodParam = (props: any) => {
       <div className="method-params-param-name">
         <span className="method-params-param-name">{paramName}</span>
         <span className="method-params-param-name" style={{ paddingLeft: 4 }}>
-          ({paramType})
+          ({paramType}) {paramType.includes('[]') && 'coma separated'}
         </span>
       </div>
 
