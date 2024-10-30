@@ -1,17 +1,20 @@
 import { useEffect } from 'react';
-import { useWeb3React } from '@web3-react/core';
+import { useAccount } from 'wagmi';
 
 let isFirstRender = true;
 
 const useGtag = () => {
-  const { account } = useWeb3React();
+  const { address } = useAccount();
 
   useEffect(() => {
-    if (isFirstRender && account) {
-      window.dataLayer.push({ 'event': 'ga4event', 'event_category': 'connect_wallet' });
+    if (isFirstRender && address) {
+      window.dataLayer.push({
+        event: 'ga4event',
+        event_category: 'connect_wallet',
+      });
       isFirstRender = false;
     }
-  }, [account]);
+  }, [address]);
 };
 
 export default useGtag;

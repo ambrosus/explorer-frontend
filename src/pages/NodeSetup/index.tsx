@@ -12,16 +12,16 @@ import {
   Contracts,
   Methods,
 } from '@airdao/airdao-node-contracts';
-import { useWeb3React } from '@web3-react/core';
 import { utils } from 'ethers';
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
+import { useAccount } from 'wagmi';
 
 const { ethereum }: any = window;
 const ambChainId = process.env.REACT_APP_CHAIN_ID || '';
 
 const NodeSetup: React.FC = () => {
-  const { account, chainId } = useWeb3React();
+  const { address: account, chainId } = useAccount();
   const provider = ethereum ? new AmbErrorProviderWeb3(ethereum) : null;
 
   const [formData, setFormData] = useState<{
@@ -137,6 +137,7 @@ const NodeSetup: React.FC = () => {
                 <a
                   href="https://airdao.io/academy/airdao-node-setup-guide"
                   target="_blank"
+                  rel="noreferrer"
                 >
                   step by step guide
                 </a>{' '}
@@ -156,6 +157,7 @@ const NodeSetup: React.FC = () => {
               <a
                 href="https://airdao.io/academy/airdao-node-setup-guide"
                 target="_blank"
+                rel="noreferrer"
               >
                 step by step guide
               </a>{' '}

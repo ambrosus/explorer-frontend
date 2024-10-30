@@ -3,19 +3,23 @@ import {
   Contracts,
   Methods,
 } from '@airdao/airdao-node-contracts';
-// @ts-ignore
-import { Notify } from '@airdao/ui-library';
-import { useWeb3React } from '@web3-react/core';
-// @ts-ignore
-import { switchToAmb } from 'airdao-components-and-tools/utils';
+import {
+  Notify,
+  useEthersAdapter,
+  useSwitchToConfiguredChain,
+} from '@airdao/ui-library';
 import { BigNumber } from 'ethers';
 import { parseEther } from 'ethers/lib/utils';
 import { useCallback, useMemo } from 'react';
+import { useAccount } from 'wagmi';
 
 const { REACT_APP_CHAIN_ID: chainId = '' } = process.env;
 
 export default function useApolloActions(nodeAddress: string) {
-  const { provider, chainId: selectedChainId } = useWeb3React();
+  const { chainId: selectedChainId } = useAccount();
+  const { provider } = useEthersAdapter();
+
+  const switchToAmb = useSwitchToConfiguredChain();
 
   const contracts = useMemo(() => {
     if (!provider || !chainId) return null;
@@ -27,7 +31,7 @@ export default function useApolloActions(nodeAddress: string) {
     (amount: string) => {
       if (!contracts) return null;
       if (provider && selectedChainId !== +chainId) {
-        switchToAmb(provider.provider);
+        switchToAmb();
         return null;
       }
 
@@ -68,7 +72,7 @@ export default function useApolloActions(nodeAddress: string) {
       if (!contracts) return null;
 
       if (provider && selectedChainId !== +chainId) {
-        switchToAmb(provider.provider);
+        switchToAmb();
         return null;
       }
       const bnAmount = parseEther(amount);
@@ -112,7 +116,7 @@ export default function useApolloActions(nodeAddress: string) {
     (stake: BigNumber) => {
       if (!contracts) return null;
       if (provider && selectedChainId !== +chainId) {
-        switchToAmb(provider.provider);
+        switchToAmb();
         return null;
       }
       return Methods.serverNodesUnstake(contracts, nodeAddress, stake).catch(
@@ -130,7 +134,7 @@ export default function useApolloActions(nodeAddress: string) {
   const cancelUnstake = useCallback(() => {
     if (!contracts) return null;
     if (provider && selectedChainId !== +chainId) {
-      switchToAmb(provider.provider);
+      switchToAmb();
       return null;
     }
     return Methods.serverNodesRestake(contracts, nodeAddress).catch((e) => {
@@ -145,7 +149,7 @@ export default function useApolloActions(nodeAddress: string) {
     (newOwner: string) => {
       if (!contracts) return null;
       if (provider && selectedChainId !== +chainId) {
-        switchToAmb(provider.provider);
+        switchToAmb();
         return null;
       }
       return Methods.serverNodesChangeNodeOwner(
@@ -161,7 +165,7 @@ export default function useApolloActions(nodeAddress: string) {
     (newReceiver: string) => {
       if (!contracts) return null;
       if (provider && selectedChainId !== +chainId) {
-        switchToAmb(provider.provider);
+        switchToAmb();
         return;
       }
       return Methods.serverNodesSetRewardsAddress(

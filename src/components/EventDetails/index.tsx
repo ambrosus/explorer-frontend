@@ -1,10 +1,10 @@
 import { NonParsedEvent } from './components/NonParsedEvent';
 import { ParsedEvent } from './components/ParsedEvent';
 import { Timestamp } from './components/helpers';
+import { useQuery } from '@tanstack/react-query';
 import FilterIcon from 'assets/icons/FilterIcon';
 import { ethers } from 'ethers';
 import { memo } from 'react';
-import { useQuery } from 'react-query';
 import { NavLink } from 'react-router-dom';
 import { sliceData5 } from 'utils/helpers';
 
@@ -37,14 +37,15 @@ const EventDetails = ({
 }) => {
   const event = parseEvent(eventRaw, iface);
 
-  const { data: blockData } = useQuery(
-    `block ${event.blockNumber}`,
-    async () => await event.getBlock(),
-  );
-  const { data: resTxData } = useQuery(
-    `tx ${event.txHash}`,
-    async () => await event.getTransaction(),
-  );
+  const { data: blockData } = useQuery({
+    queryKey: [`block ${event.blockNumber}`],
+    queryFn: async () => await event.getBlock(),
+  });
+
+  const { data: resTxData } = useQuery({
+    queryKey: [`tx ${event.txHash}`],
+    queryFn: async () => await event.getTransaction(),
+  });
 
   const methodId = resTxData?.data?.substring(0, 10);
   const timestamp = blockData?.timestamp;

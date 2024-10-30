@@ -3,7 +3,7 @@ import Minus from '../../../../../../../assets/icons/Minus';
 import Plus from '../../../../../../../assets/icons/Plus';
 import WarningError from '../../../../../../../assets/icons/WarningError';
 import Spinner from '../../../../../../../components/Spinner';
-import { useWeb3React } from '@web3-react/core';
+import { useEthersAdapter } from '@airdao/ui-library';
 import { ethers } from 'ethers';
 import React, { memo, useEffect, useMemo, useState } from 'react';
 
@@ -19,7 +19,7 @@ const Method = (props: any) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const { address, isRead, index, method, buttonName } = props;
-  const { provider }: any = useWeb3React();
+  const { signer } = useEthersAdapter();
 
   const readProvider = new ethers.providers.JsonRpcProvider(
     process.env.REACT_APP_EXPLORER_NETWORK,
@@ -31,13 +31,19 @@ const Method = (props: any) => {
     try {
       setIsLoading(true);
 
-      const providerOrSigner = isRead ? readProvider : provider?.getSigner();
+      const providerOrSigner = isRead ? readProvider : signer;
 
+      // @ts-ignore
       const contract = new ethers.Contract(address, [method], providerOrSigner);
 
       const methodArgs = method.inputs.map(
         // in right order
-        (input: any) => inputValue[input.name],
+        (input: any) => {
+          if (input.internalType.includes('[]')) {
+            return inputValue[input.name].split(',');
+          }
+          return inputValue[input.name];
+        },
       );
       if (method?.stateMutability === 'payable')
         methodArgs.push({ value: payableValue });
@@ -174,7 +180,7 @@ const MethodParam = (props: any) => {
       <div className="method-params-param-name">
         <span className="method-params-param-name">{paramName}</span>
         <span className="method-params-param-name" style={{ paddingLeft: 4 }}>
-          ({paramType})
+          ({paramType}) {paramType.includes('[]') && 'coma separated'}
         </span>
       </div>
 

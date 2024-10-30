@@ -1,7 +1,6 @@
 import { useActions } from '../../hooks/useActions';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { LatestTransactionsProps, ResultHomePageData } from './home.interfaces';
-import { useWeb3React } from '@web3-react/core';
 import API2 from 'API/newApi';
 import BlocksContent from 'components/BlocksContent';
 import BlocksContentMobile from 'components/BlocksContentMobile';
@@ -13,16 +12,12 @@ import { useEffect, useMemo, useState } from 'react';
 import { Helmet } from 'react-helmet';
 
 export const Home: React.FC = () => {
-  const { chainId } = useWeb3React();
   const [data, setData] = useState<ResultHomePageData>();
   const { setAppDataAsync } = useActions();
 
   const { FOR_BIG_TABLET } = useDeviceSize();
   const { data: appData } = useTypedSelector((state: any) => state.app);
 
-  useEffect(() => {
-    console.log(chainId);
-  }, [chainId]);
   useEffect(() => {
     setAppDataAsync();
     getHomePageData().then((result: ResultHomePageData) => setData(result));

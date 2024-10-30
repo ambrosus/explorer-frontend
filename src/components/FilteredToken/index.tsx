@@ -1,13 +1,12 @@
 import { ReactComponent as AddIcon } from '../../assets/svg/add.svg';
 import { poolsTokens } from '../../utils/constants';
 import { getTokenIcon } from '../../utils/helpers';
-// @ts-ignore
 import { Button } from '@airdao/ui-library';
-import { useWeb3React } from '@web3-react/core';
 import Discard from 'assets/icons/Discard';
 import { formatEther } from 'ethers/lib/utils';
 import { useActions } from 'hooks/useActions';
 import React, { FC, useMemo } from 'react';
+import { useAccount, useWatchAsset } from 'wagmi';
 
 export type FilteredTokenProps = {
   setSelectedToken: any;
@@ -19,7 +18,8 @@ const FilteredToken: FC<FilteredTokenProps> = ({
   selectedToken,
 }) => {
   const { clearFilters } = useActions();
-  const { provider, isActive } = useWeb3React();
+
+  const { isConnected } = useAccount();
 
   const backClick = () => {
     setSelectedToken(null);
@@ -40,23 +40,18 @@ const FilteredToken: FC<FilteredTokenProps> = ({
     }
   }, [selectedToken]);
 
-  const addToWallet = async () => {
-    if (provider && provider.provider) {
-      provider.provider.request?.({
-        method: 'wallet_watchAsset',
-        params: {
-          // @ts-ignore
-          type: 'ERC20',
-          options: {
-            address: selectedToken.address, // The address of the token.
-            symbol: selectedToken.symbol, // A ticker symbol or shorthand, up to 5 characters.
-            decimals: selectedToken.decimals, // The number of decimals in the token.
-            image: `${window.location.origin}/explorer/token-icons/${selectedToken.symbol}.svg`, // A string URL of the token logo.
-          },
-        },
-      });
-    }
-  };
+  const { watchAsset } = useWatchAsset();
+  async function addToWallet() {
+    return watchAsset({
+      type: 'ERC20',
+      options: {
+        address: selectedToken.address,
+        symbol: selectedToken.symbol,
+        decimals: selectedToken.decimals,
+        image: `${window.location.origin}/explorer/token-icons/${selectedToken.symbol}.svg`,
+      },
+    });
+  }
 
   return (
     <div className="filtered_token">
@@ -72,7 +67,7 @@ const FilteredToken: FC<FilteredTokenProps> = ({
         </div>
         <div className="filtered_token_cells filtered_token_cells_left">
           <div className="filtered_token_cell">
-            {isActive && selectedToken.symbol && (
+            {isConnected && selectedToken.symbol && (
               <Button
                 onClick={addToWallet}
                 type={'tetiary'}

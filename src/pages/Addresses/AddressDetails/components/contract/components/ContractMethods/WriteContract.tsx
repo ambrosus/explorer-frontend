@@ -1,16 +1,12 @@
 import Method from './Method';
-import { useWeb3React } from '@web3-react/core';
-// @ts-ignore
-import { useAuthorization } from 'airdao-components-and-tools/hooks';
-// @ts-ignore
-import { metamaskConnector } from 'airdao-components-and-tools/utils';
+import { useConnectWalletModal } from '@airdao/ui-library';
+import { useAccount } from 'wagmi';
 
 const WriteContract = (props: any) => {
   const { contractAbi, contractAddress } = props;
 
-  const web3ReactInstance = useWeb3React();
-  const { loginMetamask } = useAuthorization(metamaskConnector);
-  const { account } = web3ReactInstance;
+  const { isConnected } = useAccount();
+  const { toggleModal } = useConnectWalletModal();
 
   if (!contractAbi) return <></>;
   const writeMethods = contractAbi
@@ -27,7 +23,7 @@ const WriteContract = (props: any) => {
     <>
       <h2 className="contract-tab-title">
         {'Write Contract'}&nbsp;
-        <ConnectBtn onClick={loginMetamask} isConnected={!!account} />
+        <ConnectBtn onClick={toggleModal} isConnected={isConnected} />
       </h2>
 
       <br />
