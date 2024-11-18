@@ -24,7 +24,7 @@ export const Transactions = memo(() => {
         <title>Transactions | AirDAO Network Explorer</title>
         <meta
           name="description"
-          content="Explore AirDAO Network Transactions: transfers, contacts, fees, validador proxy, block rewards, KYCs, challenges, payouts, roles, heads"
+          content="Explore AirDAO Network Transaction: transfers, contracts, block rewards, internal"
         />
       </Helmet>
       <Content.Header>
