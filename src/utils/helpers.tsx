@@ -1,4 +1,7 @@
 import Airdoge from '../assets/icons/Cryptos/Airdoge';
+import Ast from '../assets/icons/Cryptos/Ast';
+import Hbr from '../assets/icons/Cryptos/Hbr';
+import Kos from '../assets/icons/Cryptos/Kos';
 import X3na from '../assets/icons/Cryptos/X3na';
 import { TransactionProps } from '../pages/Addresses/AddressDetails/address-details.interface';
 import { ENABLE_LOGS, poolsTokens } from './constants';
@@ -17,9 +20,6 @@ import GreenCircle from 'assets/icons/StatusAction/GreenCircle';
 import OrangeCircle from 'assets/icons/StatusAction/OrangeCircle';
 import { BigNumber, ethers } from 'ethers';
 import moment from 'moment';
-import Kos from "../assets/icons/Cryptos/Kos";
-import Ast from "../assets/icons/Cryptos/Ast";
-import Hbr from "../assets/icons/Cryptos/Hbr";
 
 export const sliceData5 = (item: string | null | undefined) => {
   if (!item) {
