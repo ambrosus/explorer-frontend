@@ -1,6 +1,6 @@
-import { Atlas } from './pages/Atlas';
+// import { Atlas } from './pages/Atlas';
 import { BlockDetails } from './pages/Blocks/BlockDetails';
-import { Bundles } from './pages/Bundles';
+// import { Bundles } from './pages/Bundles';
 import NodeSetup from './pages/NodeSetup';
 import Finish from './pages/NodeSetup/components/Finish';
 import { IRoute } from './types';
@@ -12,6 +12,7 @@ import { AtlasDetails } from 'pages/Atlas/AtlasDetails';
 import { Blocks } from 'pages/Blocks';
 import BundleDetails from 'pages/Bundles/BundleDetails';
 import { Home } from 'pages/Home';
+import Metrics from 'pages/Metrics';
 import { NodeTracker } from 'pages/NodeTracker';
 import { Transactions } from 'pages/Transactions';
 import { TransactionDetails } from 'pages/Transactions/TransactionsDetails';
@@ -78,6 +79,13 @@ export const routes: IRoute[] = [
     key: 'Transactions',
     exact: true,
     component: () => <Transactions />,
+    isClick: true,
+  },
+  {
+    path: '/metrics/',
+    key: 'Metrics & Charts',
+    exact: true,
+    component: () => <Metrics />,
     isClick: true,
   },
   {

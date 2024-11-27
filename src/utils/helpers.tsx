@@ -18,8 +18,10 @@ import Usdt from 'assets/icons/Cryptos/Usdt';
 // @ts-ignore
 import GreenCircle from 'assets/icons/StatusAction/GreenCircle';
 import OrangeCircle from 'assets/icons/StatusAction/OrangeCircle';
+import { ClassValue, clsx } from 'clsx';
 import { BigNumber, ethers } from 'ethers';
 import moment from 'moment';
+import { twMerge } from 'tailwind-merge';
 
 export const sliceData5 = (item: string | null | undefined) => {
   if (!item) {
@@ -556,3 +558,20 @@ const isRenderProps = (key: string | undefined) => {
   }
   return data;
 };
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
+
+export function formatNumber(num: number, fractionDigits = 4) {
+  if (num >= 1e9) {
+    return (num / 1e9).toFixed(fractionDigits) + 'B';
+  }
+  if (num >= 1e6) {
+    return (num / 1e6).toFixed(fractionDigits) + 'M';
+  }
+  if (num >= 1e3) {
+    return (num / 1e3).toFixed(fractionDigits) + 'K';
+  }
+  return num.toFixed(fractionDigits);
+}
