@@ -12,7 +12,7 @@ const Transactions = () => {
           <h4 className="leading-8">Transactions</h4>
           <FilterByRange filter={stateFilter} />
         </div>
-        <div className="grid grid-cols-2 gap-5">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-5">
           <ChartTransaction
             title="Harbor Transactions"
             endPoint="stakingTxHarbor"

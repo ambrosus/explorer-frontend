@@ -24,9 +24,12 @@ const ListItem = ({
       <div className="flex items-center mb-2">
         {Icon && <Icon className="mr-2" />}
         <h6
-          className={cn('text-sm uppercase text-neutral-400 font-semibold', {
-            'mr-2': tooltipText,
-          })}
+          className={cn(
+            'text-xs lg:text-sm uppercase text-neutral-400 font-semibold',
+            {
+              'mr-2': tooltipText,
+            },
+          )}
         >
           {title}
         </h6>
@@ -39,7 +42,7 @@ const ListItem = ({
       </div>
       <b
         className={cn(
-          'text-xl leading-7 font-semibold uppercase text-black-400',
+          'text-lg lg:text-xl leading-7 font-semibold uppercase text-black-400',
           valueClassName,
         )}
       >

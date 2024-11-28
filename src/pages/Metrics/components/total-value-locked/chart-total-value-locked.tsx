@@ -35,7 +35,7 @@ const ChartTotalValueLocked = ({
   const { formatNumber } = useFormatter();
 
   return (
-    <div className="flex flex-col p-6 bg-white border border-solid border-black-200 rounded-6">
+    <div className="flex flex-col p-4 md:p-6 bg-white border border-solid border-black-200 rounded-6">
       <Chart
         name={title}
         opts={{

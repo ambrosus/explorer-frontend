@@ -11,7 +11,7 @@ const TotalValueLocked = () => {
         <h4 className="leading-8">Total Value Locked</h4>
         <FilterByRange filter={stateFilter} />
       </div>
-      <div className="grid grid-cols-2 gap-5">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-5">
         <ChartTotalValueLocked
           title="Staking TVL"
           endPoint="tvlStaking"

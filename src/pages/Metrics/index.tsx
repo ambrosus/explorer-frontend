@@ -18,12 +18,12 @@ const Metrics = () => {
         />
       </Helmet>
       <div className="flex flex-col">
-        <main className="mx-auto max-w-screen-xl w-full pb-20">
-          <div className="flex">
-            <aside className="sticky h-full block top-16">
+        <main className="mx-auto max-w-screen-2xl w-full pb-20">
+          <div className="flex flex-col lg:flex-row">
+            <aside className="sticky z-30 border border-solid border-black-200 mb-4 lg:mb-0 mx-4 lg:mx-0 bg-white lg:border-none lg:bg-transparent h-full block top-[85px] rounded-5 lg:top-16">
               <AnchorNavigation />
             </aside>
-            <div className="w-full border-l pl-12 border-neutral-500">
+            <div className="w-full border-l px-4 lg:px-12 border-neutral-500">
               <Statistics />
               <ChartsActiveUsers />
               <ChartsTransactions />

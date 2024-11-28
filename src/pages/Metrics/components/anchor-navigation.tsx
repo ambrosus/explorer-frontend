@@ -42,14 +42,14 @@ export default function AnchorNavigation() {
   };
 
   return (
-    <nav className="py-6 px-4 w-64 flex flex-col">
-      <ul className="flex flex-col gap-y-4">
+    <nav className="lg:py-6 lg:px-4 lg:w-64 flex flex-col">
+      <ul className="flex flex-row lg:flex-col gap-0 md:gap-4">
         {navItems.map((item) => (
           <li key={item.id} className="relative">
             <button
               onClick={() => handleClick(item.id)}
               className={cn(
-                'w-full p-4 text-left leading-6 text-base font-semibold transition-colors flex gap-x-2 items-center',
+                'w-full p-4 text-left leading-6 text-sm lg:text-base font-semibold transition-colors flex gap-x-2 whitespace-nowrap items-center',
                 activeSection === item.id
                   ? '!text-blue-200 fill-blue-200'
                   : '!text-neutral-400 fill-neutral-400',

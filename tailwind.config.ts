@@ -126,6 +126,7 @@ const config: Config = {
       },
       maxWidth: {
         'screen-xl': 'var(--container-width)',
+        'screen-2xl': 'var(--container-with-aside)',
       },
       lineHeight: {
         3: '12px',
