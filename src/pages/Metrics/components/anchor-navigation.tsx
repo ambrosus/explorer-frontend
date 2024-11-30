@@ -1,8 +1,9 @@
-import { cn } from '../../../utils/helpers';
 import CoinIcon from './icons/coin';
 import TransactionsIcon from './icons/transactions';
 import UsersIcon from './icons/users';
+import useDeviceSize from 'hooks/useDeviceSize';
 import { useState, useEffect, useRef } from 'react';
+import { cn } from 'utils/helpers';
 
 const navItems = [
   { id: 'users', label: 'Active Users', icon: UsersIcon },
@@ -13,6 +14,7 @@ const navItems = [
 export default function AnchorNavigation() {
   const [activeSection, setActiveSection] = useState('users');
   const observer = useRef<IntersectionObserver | null>(null);
+  const { FOR_BIG_TABLET } = useDeviceSize();
 
   useEffect(() => {
     observer.current = new IntersectionObserver(
@@ -55,7 +57,7 @@ export default function AnchorNavigation() {
                   : '!text-neutral-400 fill-neutral-400',
               )}
             >
-              <item.icon />
+              {FOR_BIG_TABLET && <item.icon />}
               {item.label}
             </button>
           </li>

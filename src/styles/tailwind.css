@@ -80,6 +80,14 @@
   scroll-margin: 85px;
 }
 
+@media only screen and (max-width: 1280px) {
+  #users,
+  #transactions,
+  #tvl {
+    scroll-margin: 160px;
+  }
+}
+
 .multi-line {
   @apply block whitespace-nowrap text-center text-xs leading-4 font-medium text-[#51545a];
 }
