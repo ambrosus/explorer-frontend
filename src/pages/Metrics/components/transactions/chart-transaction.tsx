@@ -38,18 +38,6 @@ const ChartTransaction = ({
       <Chart
         name={title}
         opts={{
-          chart: {
-            type: 'area',
-            scrollablePlotArea: {
-              minWidth,
-              scrollPositionX: 1,
-            },
-            style: {
-              color: '#9B9CA5',
-              fontSize: '14px',
-              fontFamily: 'Inter, sans-serif',
-            },
-          },
           yAxis: {
             title: {
               text: '',

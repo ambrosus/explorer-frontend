@@ -4,9 +4,10 @@ export const options: Highcharts.Options = {
   chart: {
     type: 'area',
     // scrollablePlotArea: {
-    //   minWidth: 1500,
+    //   minWidth,
     //   scrollPositionX: 1,
     // },
+    height: '200',
     style: {
       color: '#9B9CA5',
       fontSize: '14px',

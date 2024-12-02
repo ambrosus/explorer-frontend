@@ -7,8 +7,8 @@ import { cn } from 'utils/helpers';
 
 const navItems = [
   { id: 'users', label: 'Active Users', icon: UsersIcon },
-  { id: 'transactions', label: 'Transactions', icon: TransactionsIcon },
   { id: 'tvl', label: 'TVL', icon: CoinIcon },
+  { id: 'transactions', label: 'Transactions', icon: TransactionsIcon },
 ];
 
 export default function AnchorNavigation() {

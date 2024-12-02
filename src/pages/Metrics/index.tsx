@@ -26,8 +26,8 @@ const Metrics = () => {
             <div className="w-full border-l px-4 lg:px-12 border-neutral-500">
               <Statistics />
               <ChartsActiveUsers />
-              <ChartsTransactions />
               <ChartsTotalValueLocked />
+              <ChartsTransactions />
             </div>
           </div>
         </main>
