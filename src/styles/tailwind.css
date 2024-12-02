@@ -29,6 +29,11 @@
     --container-with-aside: 1440px;
   }
 
+  h1 {
+    font-size: 2.3rem;
+    font-weight: 700;
+  }
+
   main {
     @apply antialiased text-black-700 text-base h-full;
   }

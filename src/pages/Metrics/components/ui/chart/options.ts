@@ -3,10 +3,10 @@ import Highcharts from 'highcharts';
 export const options: Highcharts.Options = {
   chart: {
     type: 'area',
-    scrollablePlotArea: {
-      minWidth: 600,
-      scrollPositionX: 1,
-    },
+    // scrollablePlotArea: {
+    //   minWidth: 1500,
+    //   scrollPositionX: 1,
+    // },
     style: {
       color: '#9B9CA5',
       fontSize: '14px',

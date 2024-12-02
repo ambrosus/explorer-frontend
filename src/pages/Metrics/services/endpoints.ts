@@ -13,6 +13,7 @@ export enum ChartsEndpoints {
   transactions = '/graph/transactions',
 
   // TVL
+  totalStakeHarbor = '/graph/totalStakeHarbor',
   tvlStaking = '/graph/tvlStaking',
   tvlApollo = '/graph/tvlApollo',
   tvlDex = '/graph/tvlDex',
