@@ -74,20 +74,19 @@ const ChartTotalValueLocked = ({
             shared: true,
             formatter: function () {
               let tooltipContent = `<b>${Highcharts.dateFormat(
-                '%A, %b %e, %Y',
+                '%B %e, %Y',
                 this.x as number,
               )}</b><br/>`;
               if (this.points) {
                 this.points.forEach((point) => {
                   const customPoint = point;
-                  if (endPoint === 'tvlApollo' || endPoint === 'tvlStaking') {
-                    tooltipContent += `<b style="color: ${
-                      customPoint.color
-                    }">AMB</b>: <b>${formatNumber({
-                      input: customPoint.y,
-                      type: NumberType.TokenNonTx,
-                    })}</b><br/>`;
-                  }
+
+                  tooltipContent += `<b style="color: ${
+                    customPoint.color
+                  }">AMB</b>: <b>${formatNumber({
+                    input: customPoint.y,
+                    type: NumberType.TokenNonTx,
+                  })}</b><br/>`;
                   // @ts-ignore
                   const additionalData = customPoint.point?.additionalData;
                   if (additionalData) {

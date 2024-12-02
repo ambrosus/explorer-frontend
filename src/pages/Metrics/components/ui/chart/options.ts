@@ -58,7 +58,7 @@ export const options: Highcharts.Options = {
     shared: true,
     formatter: function () {
       let tooltipContent = `<b>${Highcharts.dateFormat(
-        '%A, %b %e, %Y',
+        '%B %e, %Y',
         this.x as number,
       )}</b><br/>`;
       if (this.points) {
