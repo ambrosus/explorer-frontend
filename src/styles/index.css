@@ -4227,6 +4227,7 @@ main a {
 @media only screen and (max-width: 430px) {
   .tooltip-child > div > div {
     left: 20px !important;
+    right: 20px !important;
   }
 
   .tooltip-child > div > div:after {
