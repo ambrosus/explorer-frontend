@@ -82,6 +82,12 @@
     .tooltip-child > div > div {
       left: 20px !important;
       right: 20px !important;
+      font-size: 11px;
+    }
+    .tooltip-child > div > div .multi-line {
+      white-space: normal;
+      display: inline;
+      font-size: 11px;
     }
     .tooltip-child > div > div:after {
       display: none;
