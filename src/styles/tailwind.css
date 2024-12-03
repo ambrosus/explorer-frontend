@@ -77,6 +77,15 @@
   .round {
     @apply flex w-[64px] h-[64px] justify-center items-center bg-black-100 border-2 border-solid border-black-200 rounded-circle;
   }
+
+  @media only screen and (max-width: 430px) {
+    .tooltip-child > div > div {
+      left: 20px !important;
+    }
+    .tooltip-child > div > div:after {
+      display: none;
+    }
+  }
 }
 
 #users,
@@ -89,7 +98,7 @@
   #users,
   #transactions,
   #tvl {
-    scroll-margin: 160px;
+    scroll-margin: 150px;
   }
 }
 

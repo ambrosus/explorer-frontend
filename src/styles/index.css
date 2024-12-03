@@ -4224,6 +4224,16 @@ main a {
   background-color: rgb(var(--color-black-100) / var(--tw-bg-opacity));
 }
 
+@media only screen and (max-width: 430px) {
+  .tooltip-child > div > div {
+    left: 20px !important;
+  }
+
+  .tooltip-child > div > div:after {
+    display: none;
+  }
+}
+
 #users,
 #transactions,
 #tvl {
@@ -4234,7 +4244,7 @@ main a {
   #users,
   #transactions,
   #tvl {
-    scroll-margin: 160px;
+    scroll-margin: 150px;
   }
 }
 

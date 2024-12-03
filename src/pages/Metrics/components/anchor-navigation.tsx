@@ -14,7 +14,7 @@ const navItems = [
 export default function AnchorNavigation() {
   const [activeSection, setActiveSection] = useState('users');
   const observer = useRef<IntersectionObserver | null>(null);
-  const { FOR_BIG_TABLET } = useDeviceSize();
+  const { FOR_BIG_TABLET, FOR_PHONE } = useDeviceSize();
 
   useEffect(() => {
     observer.current = new IntersectionObserver(
@@ -25,7 +25,7 @@ export default function AnchorNavigation() {
           }
         });
       },
-      { threshold: 0.5 },
+      { threshold: !FOR_PHONE ? 0.2 : 0.5 },
     );
 
     navItems.forEach((item) => {
@@ -34,7 +34,7 @@ export default function AnchorNavigation() {
     });
 
     return () => observer.current?.disconnect();
-  }, []);
+  }, [FOR_PHONE]);
 
   const handleClick = (id: string) => {
     const element = document.getElementById(id);

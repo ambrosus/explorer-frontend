@@ -21,7 +21,7 @@ const ListItem = ({
         className,
       )}
     >
-      <div className="flex items-center mb-2">
+      <div className="relative flex items-center tooltip-child">
         {Icon && <Icon className="mr-2" />}
         <h6
           className={cn(
