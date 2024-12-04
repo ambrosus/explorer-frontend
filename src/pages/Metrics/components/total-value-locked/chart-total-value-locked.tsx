@@ -66,7 +66,7 @@ const ChartTotalValueLocked = ({
                 this.points.forEach((point) => {
                   const customPoint = point;
 
-                  if (endPoint === 'tvlDex') {
+                  if (endPoint === 'tvlDex' || endPoint === 'tvl') {
                     tooltipContent += `<b style="color: ${
                       customPoint.color
                     }">USD</b>: <b>${formatNumber({
