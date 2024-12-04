@@ -1007,6 +1007,10 @@ main a {
   column-gap: 8px;
 }
 
+.gap-y-2 {
+  row-gap: 8px;
+}
+
 .gap-y-6 {
   row-gap: 24px;
 }

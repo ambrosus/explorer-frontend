@@ -17,7 +17,7 @@ const ListItem = ({
   return (
     <div
       className={cn(
-        'flex flex-col w-full p-6 border border-solid border-black-200 bg-white rounded-4',
+        'flex flex-col w-full gap-y-2 p-6 border border-solid border-black-200 bg-white rounded-4',
         className,
       )}
     >

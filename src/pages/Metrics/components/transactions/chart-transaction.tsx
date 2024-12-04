@@ -18,21 +18,6 @@ const ChartTransaction = ({
   const dateRange = filter[0];
   const { data, isLoading } = useGetChartRange(endPoint, dateRange);
 
-  const minWidth = (() => {
-    switch (dateRange) {
-      case '1month':
-        return 500;
-      case '3months':
-        return 900;
-      case '6months':
-        return 1500;
-      case '1year':
-        return 3000;
-      default:
-        return 500;
-    }
-  })();
-
   return (
     <div className="flex flex-col p-4 md:p-6 bg-white border border-solid border-black-200 rounded-6">
       <Chart

@@ -25,7 +25,7 @@ export default function AnchorNavigation() {
           }
         });
       },
-      { threshold: !FOR_PHONE ? 0.2 : 0.5 },
+      { threshold: !FOR_PHONE ? 0.2 : 0.4 },
     );
 
     navItems.forEach((item) => {
