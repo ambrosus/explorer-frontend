@@ -33,11 +33,14 @@ const config: Config = {
       },
       blue: {
         100: 'rgb(var(--color-blue-100) / <alpha-value>)',
+        200: 'rgb(var(--color-blue-200) / <alpha-value>)',
       },
       neutral: {
         100: 'rgb(var(--color-neutral-100) / <alpha-value>)',
         200: 'rgb(var(--color-neutral-200) / <alpha-value>)',
         300: 'rgb(var(--color-neutral-300) / <alpha-value>)',
+        400: 'rgb(var(--color-neutral-400) / <alpha-value>)',
+        500: 'rgb(var(--color-neutral-500) / <alpha-value>)',
       },
       black: {
         100: 'rgb(var(--color-black-100) / <alpha-value>)',
@@ -123,6 +126,7 @@ const config: Config = {
       },
       maxWidth: {
         'screen-xl': 'var(--container-width)',
+        'screen-2xl': 'var(--container-with-aside)',
       },
       lineHeight: {
         3: '12px',

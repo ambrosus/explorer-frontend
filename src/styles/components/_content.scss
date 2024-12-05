@@ -11,6 +11,10 @@
       padding-top: 60px;
     }
 
+    @include for_phone {
+      padding-top: 20px;
+    }
+
     &_expanded {
       height: inherit;
     }
