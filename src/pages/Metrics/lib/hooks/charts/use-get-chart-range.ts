@@ -10,7 +10,9 @@ const useGetChartRange = (endPoint: EndpointProp, dateRange: string) => {
     queryKey: ['chart-range-nodes', endPoint, dateRange],
     queryFn: () => getChartEndpoints(endPoint, dateRange),
     select: (data: any) =>
-      endPoint === 'tvlApollo' || endPoint === 'tvlStaking'
+      endPoint === 'tvlApollo' ||
+      endPoint === 'tvlStaking' ||
+      endPoint === 'totalStakeHarborCombined'
         ? transformDataTVL(data)
         : transformData(data),
   });

@@ -6,7 +6,7 @@ import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import { PropsWithChildren, useEffect, useRef } from 'react';
 
-const Chart: React.FC<PropsWithChildren<ChartProps>> = (props) => {
+const ChartSeries: React.FC<PropsWithChildren<ChartProps>> = (props) => {
   const chartRef = useRef<HighchartsReact.RefObject>(null);
   const { isLoading, className, component, data, opts, name } = props;
 
@@ -57,4 +57,4 @@ const Chart: React.FC<PropsWithChildren<ChartProps>> = (props) => {
   );
 };
 
-export default Chart;
+export default ChartSeries;

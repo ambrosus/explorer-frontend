@@ -1,62 +1,17 @@
 import { NumberType, useFormatter } from '../../../../utils/formatNumbers';
-import { numberWithCommas } from '../../../../utils/helpers';
 import { useGetTotalMetrics } from '../../lib/hooks/use-get-total-metrics';
 import ListItem from './list-item';
 import API2 from 'API/newApi';
 import { useState, useEffect } from 'react';
 
-interface PropsListItems {
-  title: string;
-  value: string;
-  type: NumberType;
-  isMultiline: boolean;
-  tooltipText: string;
-}
-
-const listItems: PropsListItems[] = [
-  {
-    title: 'Total Users',
-    value: 'totalUsers',
-    type: NumberType.WholeNumber,
-    isMultiline: false,
-    tooltipText: 'The total number of wallet addresses created on the network.',
-  },
-  {
-    title: 'Active Users',
-    value: 'activeUsers1Month',
-    type: NumberType.WholeNumber,
-    isMultiline: true,
-    tooltipText:
-      'The number of unique wallet addresses that interacted with the <br/> network in the selected time period.',
-  },
-  {
-    title: 'Total Transactions',
-    value: 'transactions',
-    type: NumberType.WholeNumber,
-    isMultiline: false,
-    tooltipText: 'The total number of transactions recorded on the network.',
-  },
-  {
-    title: 'Total Value Locked',
-    value: 'totalValueLocked',
-    type: NumberType.FiatTokenPrice,
-    isMultiline: true,
-    tooltipText:
-      'The total value of assets currently locked in the <br/> network’s smart contracts.',
-  },
-];
-
 const ActiveList = () => {
   const { data, isLoading } = useGetTotalMetrics();
   const { formatNumber } = useFormatter();
-
   const [txData, setTxData] = useState<any>(null);
 
   useEffect(() => {
     API2.getInfo().then((res) => setTxData(res));
   }, []);
-
-  console.log('txData is', txData?.data.transactions?.total);
 
   return (
     <>
