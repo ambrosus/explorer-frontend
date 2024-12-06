@@ -14,17 +14,17 @@ const TotalValueLocked = () => {
         </div>
         <div className="grid grid-cols-1 gap-4 lg:gap-5">
           <ChartTotalValueLocked
-            title="Harbor TVL"
+            title="LST staking TVL"
             endPoint="totalStakeHarborCombined"
             filter={stateFilter}
           />
           <ChartTotalValueLocked
-            title="Nodes TVL"
+            title="Solo stakers TVL"
             endPoint="tvlApollo"
             filter={stateFilter}
           />
           <ChartTotalValueLocked
-            title="ASTRA TVL"
+            title="Dex TVL"
             endPoint="tvlDex"
             filter={stateFilter}
           />

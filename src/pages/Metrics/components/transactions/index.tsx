@@ -13,17 +13,17 @@ const Transactions = () => {
       </div>
       <div className="grid grid-cols-1 gap-4 lg:gap-5">
         <ChartTransaction
-          title="Harbor Transactions"
+          title="LST staking transactions"
           endPoint="stakingTxHarbor"
           filter={stateFilter}
         />
         <ChartTransaction
-          title="Astra Transactions"
+          title="Dex transactions"
           endPoint="txNumberDex"
           filter={stateFilter}
         />
         <ChartTransaction
-          title="Overall Chain Transactions"
+          title="Overall chain transactions"
           endPoint="transactions"
           filter={stateFilter}
         />
