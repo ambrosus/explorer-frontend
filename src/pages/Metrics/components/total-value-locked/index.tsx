@@ -28,11 +28,11 @@ const TotalValueLocked = () => {
             endPoint="tvlDex"
             filter={stateFilter}
           />
-          {/* <ChartTotalValueLocked
+          <ChartTotalValueLocked
             title="Overall TVL"
             endPoint="tvl"
             filter={stateFilter}
-          /> */}
+          />
         </div>
       </div>
       <hr className="my-6 border-neutral-500" />
