@@ -41,6 +41,11 @@
       align-items: center;
       justify-self: center;
       padding-right: 6px;
+
+      svg {
+        width: 24px;
+        height: 24px;
+      }
     }
   }
 }
