@@ -24,10 +24,10 @@
   dependencies:
     ethers "^5.7.2"
 
-"@airdao/ui-library@2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@airdao/ui-library/-/ui-library-2.0.0.tgz#c58eb4f4487d4e8cbda42a602cdc3b1eb60adc99"
-  integrity sha512-XKHE1UxUFp2IL463RxqC1Gn71F6lEJkruG8BbKbITH0EH6I8680chRM1tBInTvDrN2qa1w5cPuwh6iC8Gk5gxQ==
+"@airdao/ui-library@2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@airdao/ui-library/-/ui-library-2.1.0.tgz#80212314fb68048c1513d329059b98be5dd0b945"
+  integrity sha512-/pjkA/8dnlg+6HxTXno02YeXJx6zGD/WJ9KJ1ph0AJ/L8iry2ODSitpfSEUzWbzM7u1E+LjFR2cye6p4xaXtIg==
   dependencies:
     "@prismicio/client" "^7.1.1"
     "@prismicio/react" "^2.5.0"
@@ -8166,6 +8166,16 @@ hey-listen@^1.0.8:
   resolved "https://registry.yarnpkg.com/hey-listen/-/hey-listen-1.0.8.tgz#8e59561ff724908de1aa924ed6ecc84a56a9aa68"
   integrity sha512-COpmrF2NOg4TBWUJ5UVyaCU2A88wEMkUPK4hNqyCkqHbxT92BbvfjoSozkAIIm6XhicGlJHhFdullInrdhwU8Q==
 
+highcharts-react-official@^3.2.1:
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/highcharts-react-official/-/highcharts-react-official-3.2.1.tgz#4b62a7af2969bdebde6b338d36f6b9bf1f1029bc"
+  integrity sha512-hyQTX7ezCxl7JqumaWiGsroGWalzh24GedQIgO3vJbkGOZ6ySRAltIYjfxhrq4HszJOySZegotEF7v+haQ75UA==
+
+highcharts@^11.4.8:
+  version "11.4.8"
+  resolved "https://registry.yarnpkg.com/highcharts/-/highcharts-11.4.8.tgz#252e71b81c24ec9f99e756b76dbebd7546e18dda"
+  integrity sha512-5Tke9LuzZszC4osaFisxLIcw7xgNGz4Sy3Jc9pRMV+ydm6sYqsPYdU8ELOgpzGNrbrRNDRBtveoR5xS3SzneEA==
+
 history@^5.2.0:
   version "5.3.0"
   resolved "https://registry.yarnpkg.com/history/-/history-5.3.0.tgz#1548abaa245ba47992f063a0783db91ef201c73b"
@@ -13854,6 +13864,11 @@ table@^5.2.3:
     lodash "^4.17.14"
     slice-ansi "^2.1.0"
     string-width "^3.0.0"
+
+tailwind-merge@^2.5.5:
+  version "2.5.5"
+  resolved "https://registry.yarnpkg.com/tailwind-merge/-/tailwind-merge-2.5.5.tgz#98167859b856a2a6b8d2baf038ee171b9d814e39"
+  integrity sha512-0LXunzzAZzo0tEPxV3I297ffKZPlKDrjj7NXphC8V5ak9yHC5zRmxnOe2m/Rd/7ivsOMJe3JZ2JVocoDdQTRBA==
 
 tailwindcss@^3.0.2, tailwindcss@^3.4.1:
   version "3.4.10"

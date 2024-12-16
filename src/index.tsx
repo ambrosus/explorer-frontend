@@ -2,7 +2,7 @@ import Main from './components/Main/Main';
 import { store } from './state';
 import {
   ConnectWalletModalProvider,
-  createAirdaoConfigWithChainId,
+  createAirdaoConfig,
 } from '@airdao/ui-library';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import React from 'react';
@@ -33,7 +33,7 @@ const WC_PARAMS = {
   },
 };
 
-const config = createAirdaoConfigWithChainId(+chainId, WC_PARAMS);
+const config = createAirdaoConfig(WC_PARAMS, +chainId);
 
 /*
  * @param {Provider} store - redux store
@@ -44,7 +44,7 @@ const config = createAirdaoConfigWithChainId(+chainId, WC_PARAMS);
 const queryClient = new QueryClient();
 
 export const App = (): JSX.Element => (
-  <WagmiProvider config={config} reconnectOnMount={false}>
+  <WagmiProvider config={config}>
     <QueryClientProvider client={queryClient}>
       <ConnectWalletModalProvider>
         <Provider store={store}>
