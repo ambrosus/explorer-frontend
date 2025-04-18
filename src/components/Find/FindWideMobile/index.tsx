@@ -18,7 +18,7 @@ const FindWideMobile: React.FC<FindWideMobileProps> = ({
       >
         <input
           className="find_wide_mobile_input"
-          placeholder="Search by Node, Address, Tx, Block, Toke..."
+          placeholder="Node, Address, Tx, Block, Token..."
           type="text"
           style={{
             fontSize: 16,

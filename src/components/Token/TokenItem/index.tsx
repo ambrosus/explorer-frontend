@@ -1,9 +1,27 @@
+import { poolsTokens } from '../../../utils/constants';
 import { ITokenItemProps } from 'pages/Addresses/AddressDetails/address-details.interface';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { getTokenIcon } from 'utils/helpers';
 
 const TokenItem = ({ token, selectedToken, setToken }: ITokenItemProps) => {
-  const Icon = getTokenIcon(token.symbol);
+  const Icon = getTokenIcon(token.symbol, token.name, token.address);
+
+  const tokenData = useMemo(() => {
+    if (poolsTokens[token.address]) {
+      return poolsTokens[token.address];
+    } else {
+      return {
+        symbol: token.symbol,
+        name:
+          token.name ||
+          `${token.address.substring(0, 4)}...${token.address.substring(
+            token.address.length - 4,
+            token.address.length,
+          )}`,
+      };
+    }
+  }, [token]);
+
   return (
     <div
       className={
@@ -11,22 +29,16 @@ const TokenItem = ({ token, selectedToken, setToken }: ITokenItemProps) => {
           ? 'token_item token_item_active'
           : 'token_item'
       }
-      onClick={() => {
-        setToken(token);
-      }}
+      onClick={() => setToken(token)}
     >
       <div className="token_item_icon">
         <Icon />
       </div>
 
       <div className="token_item_tokens">
-        <div>
-          {token?.name?.length > 40
-            ? `${token?.name.slice(0, 40)}...`
-            : token?.name}
-        </div>
+        <div>{tokenData.name}</div>
         <div className="universall_light2">
-          {token?.balance} {token?.symbol}
+          {(+token?.balance.ether).toFixed(2)} {tokenData.symbol}
         </div>
       </div>
       <div className="token_item_amount" />

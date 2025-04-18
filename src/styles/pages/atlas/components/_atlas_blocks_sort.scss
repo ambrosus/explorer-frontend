@@ -20,8 +20,11 @@
     display: flex;
     flex: 3;
     gap: 12px;
-    @include for_small_phone {
-      justify-content: center;
+
+    @media screen and (max-width: 470px) {
+      gap: 0 12px;
+      flex-wrap: wrap;
+      justify-content: flex-start;
     }
   }
 
@@ -44,5 +47,12 @@
 
   &_active {
     color: #05060f;
+  }
+
+  @media screen and (max-width: 470px) {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 0;
+    height: auto;
   }
 }

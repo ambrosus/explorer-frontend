@@ -1,10 +1,27 @@
+import Airdoge from '../assets/icons/Cryptos/Airdoge';
+import Ast from '../assets/icons/Cryptos/Ast';
+import Hbr from '../assets/icons/Cryptos/Hbr';
+import Kos from '../assets/icons/Cryptos/Kos';
+import X3na from '../assets/icons/Cryptos/X3na';
 import { TransactionProps } from '../pages/Addresses/AddressDetails/address-details.interface';
-import { ENABLE_LOGS } from './constants';
+import { ENABLE_LOGS, poolsTokens } from './constants';
 import Amb from 'assets/icons/Cryptos/Amb';
+import Bnb from 'assets/icons/Cryptos/Bnb';
+import Bond from 'assets/icons/Cryptos/Bond';
+import Busd from 'assets/icons/Cryptos/Busd';
 import Eth from 'assets/icons/Cryptos/Eth';
+import Gpt from 'assets/icons/Cryptos/Gpt';
+import Hpt from 'assets/icons/Cryptos/Hpt';
+import Ppt from 'assets/icons/Cryptos/Ppt';
+import Usdc from 'assets/icons/Cryptos/Usdc';
+import Usdt from 'assets/icons/Cryptos/Usdt';
+// @ts-ignore
 import GreenCircle from 'assets/icons/StatusAction/GreenCircle';
 import OrangeCircle from 'assets/icons/StatusAction/OrangeCircle';
+import { ClassValue, clsx } from 'clsx';
+import { BigNumber, ethers } from 'ethers';
 import moment from 'moment';
+import { twMerge } from 'tailwind-merge';
 
 export const sliceData5 = (item: string | null | undefined) => {
   if (!item) {
@@ -89,18 +106,70 @@ export const toUniqueValueByBlock = (arr: any) => {
   }
 };
 
-export const getTokenIcon = (symbol: string) => {
-  /*
-   * @param {string} symbol
-   * @returns {Component}
-   */
+export const getTokenIcon = (
+  symbol: string,
+  name?: string,
+  address?: string,
+) => {
+  if (address && poolsTokens[address]) {
+    return poolsTokens[address].icon;
+  }
+
+  if (name) {
+    switch (name) {
+      case 'Hera pool token':
+        return Hpt;
+      case 'Plutus pool token':
+        return Ppt;
+      case 'Ganymede pool token':
+        return Gpt;
+    }
+  }
+  console.log(symbol);
   switch (symbol) {
     case 'SAMB':
       return Amb;
     case 'WETH':
       return Eth;
+    case 'ETH':
+      return Eth;
     case 'AMB':
       return Amb;
+    case 'BNB':
+      return Bnb;
+    case 'WBNB':
+      return Bnb;
+    case 'USDT':
+      return Usdt;
+    case 'USDC':
+      return Usdc;
+    case 'BUSD':
+      return Busd;
+    case 'AmbB':
+      return Bond;
+    case 'BOND':
+      return Bond;
+    case 'ADOGE':
+      return Airdoge;
+    case 'X3NA':
+      return X3na;
+    case 'KOS':
+      return Kos;
+    case 'AST':
+      return Ast;
+    case 'HBR':
+      return Hbr;
+    case 'SWINE':
+      return () => (
+        <div
+          style={{
+            width: 25,
+            height: 25,
+            background: 'url("token-icons/swine.png")',
+            backgroundSize: 'contain',
+          }}
+        />
+      );
     default:
       return Amb;
   }
@@ -149,7 +218,7 @@ export const displayAmount = (n: number | string) => {
    * @param {number | string} n - Number to check
    * @returns {string}
    */
-  return isFloat(n) ? Number(n).toFixed(8) : Number(n).toFixed(2);
+  return isFloat(n) ? Number(n).toFixed(6) : Number(n).toFixed(2);
 };
 
 export const calckBlocks = (blockReward: any) =>
@@ -241,11 +310,7 @@ export const nameCurrency = (name: string) => {
 };
 
 export const wrapString = (string: string) => {
-  return string.split('::').map((item, index) => (
-    <span key={index + 1} style={{ fontSize: 'inherit' }}>
-      {item}
-    </span>
-  ));
+  return <span style={{ fontSize: 'inherit' }}>{string}</span>;
 };
 const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 const months = [
@@ -315,6 +380,30 @@ export function timeSince(date: any) {
   return Math.floor(seconds) + ' second' + (seconds !== 1 ? 's' : '');
 }
 
+export function convertSecondsToTime(seconds: number) {
+  const days = Math.floor(seconds / 86400); // 86400 seconds in a day
+  const hours = Math.floor((seconds % 86400) / 3600); // 3600 seconds in an hour
+
+  let result = '';
+
+  if (days > 0) {
+    result += `${days}-day${days > 1 ? 's' : ''}`;
+  }
+
+  if (hours > 0) {
+    if (result !== '') {
+      result += 'and ';
+    }
+    result += `${hours}-hour${hours > 1 ? 's' : ''}`;
+  }
+
+  if (result === '') {
+    result = '0 hours'; // If there are no days or hours
+  }
+
+  return result;
+}
+
 export const statusMessage = (node: any = {}, nodeName: string) => {
   if (node.state === 'RETIRED') {
     return 'Retired';
@@ -340,6 +429,10 @@ export const statusMessage = (node: any = {}, nodeName: string) => {
             {timeSince(node?.onboardingDate ? node.onboardingDate : '')}
           </>
         );
+      case 'QUEUE':
+        return <div className="apollo_blocks_body_cell_yellow">In queue</div>;
+      case 'ONBOARDING':
+        return <div className="apollo_blocks_body_cell_yellow">Onboarding</div>;
       case 'CONNECTING':
         return 'Connecting...';
       default:
@@ -363,6 +456,12 @@ export const statusMessage = (node: any = {}, nodeName: string) => {
 export const ambToUSD = (amb: any = 0, usd_price: any = 0) => {
   let result = amb * parseFloat(usd_price);
 
+  return result.toFixed(2);
+};
+
+export const BnWeiToUsd = (bnWei: BigNumber, usd_price: any = 0) => {
+  const ambAmount = parseInt(ethers.utils.formatEther(bnWei));
+  let result = ambAmount * parseFloat(usd_price);
   return result.toFixed(2);
 };
 
@@ -439,6 +538,17 @@ export const diffStyleToCell = (
   );
 };
 
+export const isValidEthereumAddress = (address: any) => {
+  try {
+    // This function throws an error if the address is not valid
+    ethers.utils.getAddress(address);
+    return true;
+  } catch (error) {
+    // If an error is caught, the address is not valid
+    return false;
+  }
+};
+
 const isRenderProps = (key: string | undefined) => {
   let data: any = {};
   if (!!key) {
@@ -448,3 +558,20 @@ const isRenderProps = (key: string | undefined) => {
   }
   return data;
 };
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
+
+export function formatNumber(num: number, fractionDigits = 4) {
+  if (num >= 1e9) {
+    return (num / 1e9).toFixed(fractionDigits) + 'B';
+  }
+  if (num >= 1e6) {
+    return (num / 1e6).toFixed(fractionDigits) + 'M';
+  }
+  if (num >= 1e3) {
+    return (num / 1e3).toFixed(fractionDigits) + 'K';
+  }
+  return num.toFixed(fractionDigits);
+}

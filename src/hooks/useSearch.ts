@@ -1,6 +1,6 @@
-import API from '../API/api';
-import { ChangeEvent, FormEvent, useState } from 'react';
-import { useQuery } from 'react-query';
+import API2 from '../API/newApi';
+import { useQuery } from '@tanstack/react-query';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const useSearch = (setIsShow: Function) => {
@@ -9,61 +9,41 @@ const useSearch = (setIsShow: Function) => {
   const [link, setLink] = useState<string>('');
   const navigate = useNavigate();
 
-  const { isLoading } = useQuery(
-    ['search', name],
-    () => (name?.length > 0 ? API.searchItem(name) : null),
-    {
-      onSuccess: (data: any) => {
-        if (!data) {
-          setErr(true);
-        } else {
-          if (
-            name.trim() === '0x0000000000000000000000000000000000000000' ||
-            Number(name.trim()) === 0 ||
-            !name.length
-          ) {
-            setErr(true);
-            return;
-          }
-          let searchTerm = data.data;
-          setErr(false);
-          if (searchTerm && searchTerm.term !== undefined) {
-            const urlParts = data?.meta.search.trim().split('/');
-            urlParts[urlParts.length - 1] = searchTerm.term;
-            searchTerm = urlParts.join('/');
-          } else {
-            searchTerm = data?.meta.search;
-          }
-          if (data.meta.search && !searchTerm.trim().includes(['hermes'])) {
-            const searchValue = searchTerm
-              .trim()
-              .replace('addresses', 'address')
-              .replace('transactions', 'tx');
-            setLink(`/${searchValue}/`);
-          } else {
-            setErr(true);
-          }
-        }
-      },
-      onError: () => {
-        setErr(true);
-      },
-    },
-  );
+  const { isLoading, isError, isSuccess, data } = useQuery({
+    queryKey: ['search', name],
+    queryFn: () => (name?.length > 0 ? API2.searchItem(name) : null),
+  });
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (
-      name.trim() === '0x0000000000000000000000000000000000000000' ||
-      Number(name.trim()) === 0 ||
-      !name.length
-    ) {
+  useEffect(() => {
+    if (isError) {
       setErr(true);
       return;
     }
-    if (!name) {
-      return;
+
+    if (isSuccess) {
+      if (!data) {
+        setErr(true);
+      } else {
+        setErr(false);
+        // @ts-ignore
+        setLink(data.redirect);
+      }
     }
+  }, [isSuccess, isError]);
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    // if (
+    //   name.trim() === '0x0000000000000000000000000000000000000000' ||
+    //   Number(name.trim()) === 0 ||
+    //   !name.length
+    // ) {
+    //   setErr(true);
+    //   return;
+    // }
+    // if (!name) {
+    //   return;
+    // }
     if (!isLoading && !err) {
       navigate(link);
       if (!!setIsShow) {

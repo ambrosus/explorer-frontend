@@ -82,6 +82,9 @@ export interface AddressBlockProps {
   inners?: any[];
   innerLevel?: number;
   status?: string;
+  type?: string;
+  tokenData?: any;
+  tokens?: any;
 }
 
 export interface TokenProps {

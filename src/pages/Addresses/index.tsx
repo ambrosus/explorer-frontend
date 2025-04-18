@@ -1,10 +1,11 @@
-import API from '../../API/api';
+import API2 from '../../API/newApi';
 import TabsNew from '../Transactions/components/TabsNew';
 import AddressesBody from './components/AddressesBody';
 import AddressesHeader from './components/AddressesHeader';
 import MainInfoAddresses from './components/MainInfoAddresses';
 import { Content } from 'components/Content';
 import React from 'react';
+import { Helmet } from 'react-helmet';
 
 const sortOptions = [
   {
@@ -24,21 +25,32 @@ const sortOptions = [
 export const Addresses = () => {
   return (
     <Content>
+      <Helmet>
+        <link rel="canonical" href="https://airdao.io/explorer/address/" />
+        <title>Addresses | AirDAO Network Explorer</title>
+        <meta
+          name="description"
+          content="Explore AirDAO Network Addresses: Address, Tx Count, Balance, Holding"
+        />
+      </Helmet>
       <Content.Header>
         <MainInfoAddresses />
       </Content.Header>
       <Content.Body>
-        <div className="addresses_main_table">
-          <div className="addresses_table">
-            <TabsNew
-              tableHeader={() => <AddressesHeader />}
-              sortOptions={sortOptions}
-              fetchData={API.getAddresses}
-              initSortTerm={'balance'}
-              fetchParams={{ sort: '', page: '' }}
-              label="Addresses"
-              render={(accounts: any) =>
-                accounts.map((account: any, index: any) => (
+        <TabsNew
+          tableHeader={() => <></>}
+          sortOptions={sortOptions}
+          fetchData={API2.getAddresses}
+          initSortTerm={'balance'}
+          fetchParams={{ sort: '', page: '' }}
+          label="Addresses"
+          render={(accounts: any) => (
+            <table>
+              <thead>
+                <AddressesHeader />
+              </thead>
+              <tbody>
+                {accounts.map((account: any, index: any) => (
                   <AddressesBody
                     key={account._id}
                     isContract={account.isContract}
@@ -47,11 +59,11 @@ export const Addresses = () => {
                     rank={index + 1}
                     txCount={account.totalTx}
                   />
-                ))
-              }
-            />
-          </div>
-        </div>
+                ))}
+              </tbody>
+            </table>
+          )}
+        />
       </Content.Body>
     </Content>
   );

@@ -10,25 +10,22 @@ const FindWide: React.FC<FindWideProps> = ({
   const { handleSubmit, err, name, handleChange } = useSearch(setIsShow);
 
   return (
-    <>
-      <form ref={searchRef} className="find_wide" onSubmit={handleSubmit}>
-        <input
-          role="search"
-          className="find_wide_input"
-          style={{
-            color: err ? 'red' : '#808A9D',
-          }}
-          placeholder="Search by Node, Address, Tx, Block, Token, Bundle"
-          type="text"
-          value={name}
-          onChange={handleChange}
-        />
-
-        <button role="find" className="find_wide_btn" type="submit">
-          <Search fill={'#808A9D'} />
-        </button>
-      </form>
-    </>
+    <form ref={searchRef} className="find_wide" onSubmit={handleSubmit}>
+      <input
+        role="search"
+        className="find_wide_input"
+        style={{
+          color: err ? '#ff4747' : '#808A9D',
+        }}
+        placeholder="Search by Node, Address, Tx, Block, Token"
+        type="text"
+        value={name}
+        onChange={handleChange}
+      />
+      <button role="find" className="find_wide_btn" type="submit">
+        <Search />
+      </button>
+    </form>
   );
 };
 

@@ -5,7 +5,8 @@ import NodeHeader from 'components/NodeHeader';
 import { useActions } from 'hooks/useActions';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import BundleDetailsMain from 'pages/Bundles/BundleDetails/components/BundleDetailsMain';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { Helmet } from 'react-helmet';
 import { useParams } from 'react-router-dom';
 import { getBundleData } from 'services/bundle.service';
 
@@ -21,6 +22,15 @@ const BundleDetails = () => {
 
   return (
     <Content>
+      <Helmet>
+        <meta name="robots" content="noindex" />
+        <link rel="canonical" href="https://airdao.io/explorer/bundles/" />
+        <title>Bundles | AirDAO Network Explorer</title>
+        <meta
+          name="description"
+          content="Explore AirDAO Network Bundles: average bundle load, aprox bundle, bundle cost, entries total etc."
+        />
+      </Helmet>
       <Content.Header>
         <BundleDetailsMain />
         <NodeHeader getNodeData={getBundleData}>

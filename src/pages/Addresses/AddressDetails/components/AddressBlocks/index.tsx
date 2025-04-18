@@ -4,15 +4,10 @@ import Plus from 'assets/icons/Plus';
 import GreenCircle from 'assets/icons/StatusAction/GreenCircle';
 import IncomeTrasaction from 'assets/icons/StatusAction/IncomeTrasaction';
 import OutgoingTransaction from 'assets/icons/StatusAction/OutgoingTransaction';
-import { useActions } from 'hooks/useActions';
-import { useTypedSelector } from 'hooks/useTypedSelector';
 import moment from 'moment';
-import {
-  AddressBlockProps,
-  TokenType,
-} from 'pages/Addresses/AddressDetails/address-details.interface';
-import React, { useState } from 'react';
-import { NavLink, useNavigate, useParams } from 'react-router-dom';
+import { AddressBlockProps } from 'pages/Addresses/AddressDetails/address-details.interface';
+import React, { useMemo, useState } from 'react';
+import { NavLink, useParams } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
 import { TParams } from 'types';
 import {
@@ -42,7 +37,6 @@ export const Tooltip = React.memo(({ val }: any) => {
 const AddressBlock: React.FC<AddressBlockProps> = ({
   onClick,
   lastCardRef,
-  isLatest,
   txhash,
   method,
   from,
@@ -54,21 +48,15 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
   token,
   symbol,
   isTableColumn,
-  isIcon,
   inners,
   status,
+  type,
+  tokenData,
+  tokens,
 }) => {
-  const { addFilter } = useActions();
-  const { address, type }: TParams = useParams();
-
-  const navigate = useNavigate();
-
+  const { address }: TParams = useParams();
   const [isExpanded, setIsExpanded] = useState(false);
   const handleExpand = () => setIsExpanded((state: boolean) => !state);
-
-  const { data: addressData } = useTypedSelector(
-    (state: any) => state.position,
-  );
 
   const isTxHash: JSX.Element | null = (
     <>
@@ -78,7 +66,8 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
         </button>
       )}
       <NavLink
-        to={`/tx/${txhash}`}
+        rel="nofollow"
+        to={`/tx/${txhash}/`}
         className="address_blocks_cell address_blocks_cell-hash universall_light2"
         style={{ fontWeight: '600' }}
       >
@@ -106,6 +95,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
     ) : //TODO ?
     address !== from && String(from).trim().length ? (
       <NavLink
+        rel="nofollow"
         to={`/address/${from}/`}
         className="address_blocks_cell universall_light2"
       >
@@ -123,6 +113,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
     ) : //TODO ?
     address !== to && String(to).trim().length ? (
       <NavLink
+        rel="nofollow"
         to={`/address/${to}/`}
         style={{ display: 'content' }}
         className="address_blocks_cell universall_light2"
@@ -144,33 +135,65 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
           style={{
             fontWeight: 400,
           }}
-          to={`/blocks/${block}`}
+          to={`/block/${block}/`}
+          rel="nofollow"
         >
           {block}
         </NavLink>
       </div>
     );
 
-  const Icon = getTokenIcon(symbol as string);
+  const Icon = getTokenIcon(symbol as string, token, tokenData?.address);
+
   //TODO ?
   const handleBlock = () => {
-    addressData?.tokens?.forEach((item: TokenType) => {
-      if (
-        (item.name === token && symbol !== 'AMB') ||
-        (token.includes('token') && item.name === token)
-      ) {
-        onClick(item);
-        addFilter(item);
-        navigate(`/address/${address}/ERC-20_Tx/${item.contract}`);
-      } else {
-        return '';
-      }
-    });
+    if (tokenData) {
+      const currentToken = tokens.find(
+        (el: any) => el.address === tokenData.address,
+      );
+      onClick(currentToken);
+    }
   };
 
   const isSymbolERC =
     (symbol !== ('AMB' || 'null' || null) && type !== 'ERC-20_Tx') ||
     token.includes('token');
+
+  const _symbol = useMemo(() => {
+    if (tokenData?.address === '0x322269e52800e5094c008f3b01A3FD97BB3C8f5D') {
+      return 'HPT';
+    } else if (
+      tokenData?.address === '0x7240d2444151d9A8c72F77306Fa10f19FE7C9182'
+    ) {
+      return 'TPT';
+    } else if (
+      tokenData?.address === '0xEB8386a50Edd613cc43f061E9C5A915b0443C5d4'
+    ) {
+      return 'PPT';
+    } else if (
+      tokenData?.address === '0xE984ACe36F2B6f10Fec8dd6fc1bB19c7b1D2F2c6'
+    ) {
+      return 'GPT';
+    } else return symbol;
+  }, [tokenData]);
+
+  const tokenName = useMemo(() => {
+    if (tokenData?.address === '0x322269e52800e5094c008f3b01A3FD97BB3C8f5D') {
+      return 'Hera Pool Token';
+    } else if (
+      tokenData?.address === '0x7240d2444151d9A8c72F77306Fa10f19FE7C9182'
+    ) {
+      return 'Test1 Pool Token';
+    } else if (
+      tokenData?.address === '0xEB8386a50Edd613cc43f061E9C5A915b0443C5d4'
+    ) {
+      return 'Plutus Pool Token';
+    } else if (
+      tokenData?.address === '0xE984ACe36F2B6f10Fec8dd6fc1bB19c7b1D2F2c6'
+    ) {
+      return 'Ganymede Pool Token';
+    } else return token;
+  }, [tokenData]);
 
   const isAmount =
     amount === null ? (
@@ -194,9 +217,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
             }}
             onClick={handleBlock}
           >
-            {type !== 'ERC-20_Tx' && token.includes('token')
-              ? getAmbTokenSymbol(token)
-              : symbol}
+            {_symbol}
           </span>
         )}
         <span className="flex_row">
@@ -226,57 +247,52 @@ const AddressBlock: React.FC<AddressBlockProps> = ({
   const isToken =
     type === 'ERC-20_Tx' ? (
       <div
-        className="address_blocks_cell_last universall_light2"
-        style={{ fontWeight: '600', cursor: isLatest ? 'pointer' : 'default' }}
+        className="address_blocks_cell_last universall_light2 address_blocks_cell_token"
+        style={{ fontWeight: '600', cursor: 'pointer' }}
       >
         {type === 'ERC-20_Tx' && (
-          <span className="universall_indent_icon">
+          <span className="universall_indent_icon token_icon">
             <Icon />
           </span>
         )}
-        {!isLatest ? (
-          <>
-            <div className="address_blocks_icon universall_light2">
-              {token ? token : ''}{' '}
-              {token.includes('token')
-                ? `(${getAmbTokenSymbol(token)})`
-                : !symbol || symbol.trim() === 'null'
-                ? '(AMB)'
-                : `(${symbol})`}
-            </div>
-          </>
-        ) : (
-          <span
-            className="address_blocks_cell_token  universall_light2"
-            onClick={handleBlock}
-          >
-            <NavLink className="address_blocks_icon universall_light2" to={``}>
-              {token ? token : ''}{' '}
-              {token.includes('token')
-                ? `(${getAmbTokenSymbol(token)})`
-                : !symbol || symbol.trim() === 'null'
-                ? '(AMB)'
-                : `(${symbol})`}
-            </NavLink>
-          </span>
-        )}
+        <span
+          className="address_blocks_cell_token  universall_light2"
+          onClick={handleBlock}
+        >
+          <NavLink className={`address_blocks_icon universall_light2`} to={``}>
+            {tokenName
+              ? tokenName
+              : `${tokenData.address.substring(
+                  0,
+                  4,
+                )}...${tokenData.address.substring(
+                  tokenData.address.length - 4,
+                  tokenData.address.length,
+                )}`}{' '}
+            {token.includes('token')
+              ? `(${getAmbTokenSymbol(token)})`
+              : !_symbol || _symbol.trim() === 'null'
+              ? '(AMB)'
+              : `(${_symbol})`}
+          </NavLink>
+        </span>
       </div>
     ) : (
       <></>
     );
   return (
     <>
-      <div className={isTableColumn} ref={lastCardRef}>
-        {isTxHash}
-        {isMethod}
-        {isFrom}
-        {isTo}
-        {isDate}
-        {isBlock}
-        {isAmount}
-        {isTxFee}
-        {isToken}
-      </div>
+      <tr className={isTableColumn} ref={lastCardRef}>
+        {isTxHash && <td>{isTxHash}</td>}
+        {isMethod && <td>{isMethod}</td>}
+        {isFrom && <td>{isFrom}</td>}
+        {isTo && <td>{isTo}</td>}
+        {isDate && <td>{isDate}</td>}
+        {isBlock && <td>{isBlock}</td>}
+        {isAmount && <td>{isAmount}</td>}
+        {isTxFee && <td>{isTxFee}</td>}
+        {isToken && <td>{isToken}</td>}
+      </tr>
       {isExpanded &&
         inners &&
         !!inners.length &&

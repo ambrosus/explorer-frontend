@@ -9,7 +9,7 @@ const OrangeCircle = (props: SVGProps<SVGSVGElement>) => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <rect width={8} height={8} rx={4} fill="#FFD36E" />
+    <rect width={8} height={8} rx={4} fill="#F2C037" />
   </svg>
 );
 

@@ -1,6 +1,5 @@
-import API from 'API/api';
+import API2 from 'API/newApi';
 import ExportCsv from 'components/ExportCsv';
-import HeadInfo from 'components/HeadInfo';
 import { Number } from 'components/Number';
 import { Currency } from 'components/UI/Currency';
 import { useTypedSelector } from 'hooks/useTypedSelector';
@@ -51,7 +50,7 @@ const ApolloDetailsMiningStats = ({ apollo }: any) => {
     const date = filterDate.split('-');
     const fromDate = date[0];
     const toDate = date[1];
-    const { data } = await API.getApolloRewards(apollo?.address, {
+    const { data } = await API2.getApolloRewards(apollo?.address, {
       from: fromDate,
       to: toDate !== undefined ? toDate : null,
     });
@@ -104,7 +103,7 @@ const ApolloDetailsMiningStats = ({ apollo }: any) => {
       )}`,
     },
     {
-      name: 'TRANSACTIONS REWARDS',
+      name: 'TRANSACTION REWARDS',
       value: `${(rewards.transactionsRewards || 0).toFixed(
         2,
       )} AMB / $ ${ambToUSD(rewards.transactionsRewards, price_usd)}`,
@@ -164,7 +163,7 @@ const ApolloDetailsMiningStats = ({ apollo }: any) => {
       </div>
       <div className="apollo_details_mining_stats_cells">
         <div className="apollo_details_mining_stats_fonts_normal universall_light1">
-          TRANSACTIONS REWARDS
+          TRANSACTION REWARDS
         </div>
         <div className="">
           <span className="apollo_details_mining_stats_fonts_bold">

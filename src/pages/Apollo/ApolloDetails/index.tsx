@@ -1,5 +1,5 @@
 import { Account } from '../apollo.interface';
-import API from 'API/api';
+import OwnerDashboard from './components/OwnerDasboard';
 import API2 from 'API/newApi';
 import { Content } from 'components/Content';
 import CopyBtn from 'components/CopyBtn';
@@ -10,8 +10,9 @@ import { useTypedSelector } from 'hooks/useTypedSelector';
 import moment from 'moment';
 import AddressBlock from 'pages/Addresses/AddressDetails/components/AddressBlocks';
 import TabsNew from 'pages/Transactions/components/TabsNew';
-import React, { memo, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { memo, useEffect, useMemo, useState } from 'react';
+import { Helmet } from 'react-helmet';
+import { useNavigate, useParams } from 'react-router-dom';
 import { TParams } from 'types';
 import {
   ambToUSD,
@@ -24,13 +25,19 @@ import { apolloDetailsSorting } from 'utils/sidePages';
 export const ApolloDetails = memo(() => {
   const { getAddressData } = useActions();
   const { address = '' }: TParams = useParams();
+  const navigate = useNavigate();
 
   const { data: addressData } = useTypedSelector((state) => state?.addressData);
 
   const { data: appData } = useTypedSelector((state: any) => state?.app);
+  const [tokensData, setTokensData] = useState([]);
+
   useEffect(() => {
+    API2.getAccountTxs({ address, type: 'all' }).then((res: any) => {
+      setTokensData(res.tokens);
+    });
     getAddressData(address);
-  }, []);
+  }, [address]);
 
   const { balance, stake, version } = addressData?.apolloInfo?.data || 0;
   const apolloData = addressData?.apolloInfo?.data;
@@ -77,7 +84,7 @@ export const ApolloDetails = memo(() => {
     const date = filterDate.split('-');
     const fromDate = date[0];
     const toDate = date[1];
-    const { data } = await API.getApolloRewards(apolloData?.address, {
+    const { data } = await API2.getApolloRewards(address, {
       from: fromDate,
       to: toDate !== undefined ? toDate : null,
     });
@@ -95,19 +102,17 @@ export const ApolloDetails = memo(() => {
         clearTimeout(timer);
       };
     }
-  }, [filterDate, isLoad]);
+  }, [filterDate, isLoad, address]);
   const itemFirst: any = [
     {
       name: 'BALANCE',
       value: diffStyleToCell(ambBalance, usdBalance),
-
-      // `${ambBalance.toFixed(2)} AMB / $ ${usdBalance.toFixed(2)}`,
     },
     {
       name: 'UPTIME',
       value: statusMessage(apolloData, 'ApolloDetails'),
       style: {
-        color: '#1acd8c',
+        color: '#16C784',
       },
     },
     {
@@ -143,7 +148,7 @@ export const ApolloDetails = memo(() => {
       ),
     },
     {
-      name: 'TRANSACTIONS REWARDS',
+      name: 'TRANSACTION REWARDS',
       value: (
         <>
           {`${(rewards?.transactionsRewards || 0).toFixed(5)} AMB / `}
@@ -159,8 +164,29 @@ export const ApolloDetails = memo(() => {
     },
   ];
 
+  const handleToken = (token: any) => {
+    if (token) {
+      navigate(`/address/${address}/token/${token.address}`);
+    } else {
+      navigate(`/address/${address}`);
+    }
+  };
+
+  const fetchParams = useMemo(() => {
+    return { address, type: '', page: '' };
+  }, [address]);
+
   return (
     <Content>
+      <Helmet>
+        <link rel="canonical" href="https://airdao.io/explorer/apollo/" />
+        <meta name="robots" content="noindex" />
+        <title>Apollo Nodes | AirDAO Network Explorer</title>
+        <meta
+          name="description"
+          content="Explore AirDAO Network Apollo Nodes: total nodes, online, offline, connecting, avg block / prop. time"
+        />
+      </Helmet>
       <Content.Header>
         <div className="apollo_details_main">
           <div className="apollo_details_main_nd">
@@ -184,35 +210,47 @@ export const ApolloDetails = memo(() => {
         </div>
         <HeadInfo data={itemFirst} className="head_info" />
         <HeadInfo data={itemSecond} className="head_info" />
+        <OwnerDashboard address={address} />
       </Content.Header>
       <Content.Body>
         <TabsNew
+          initTab="all"
           tabs={apolloDetailsSorting}
-          fetchData={API2.getApollo}
-          renderKey="transactions"
-          fetchParams={{ address, type: '', page: '' }}
-          render={(txs: Account[]) =>
-            txs.map((transaction: any) => (
-              <AddressBlock
-                key={transaction.hash}
-                inners={transaction.inners}
-                isLatest={true}
-                txhash={transaction.hash}
-                method={transaction.type}
-                from={transaction.from}
-                to={transaction.to}
-                date={moment(transaction.timestamp * 1000).fromNow()}
-                block={transaction.blockNumber}
-                amount={transaction.value.ether}
-                txfee={transaction.gasCost.ether}
-                token={`${transaction?.token ? transaction?.token : 'AMB'}`}
-                symbol={`${transaction?.symbol ? transaction?.symbol : 'AMB'}`}
-                isTableColumn="address_blocks_cells"
-                isIcon={true}
-                status={transaction.status}
-              />
-            ))
-          }
+          fetchData={API2.getAccountTxs}
+          fetchParams={fetchParams}
+          render={(txs: Account[]) => (
+            <table>
+              <tbody>
+                {txs.map((transaction: any) => (
+                  <AddressBlock
+                    key={transaction.hash}
+                    inners={transaction.inners}
+                    isLatest={true}
+                    txhash={transaction.hash}
+                    method={transaction.type}
+                    from={transaction.from}
+                    to={transaction.to}
+                    date={moment(transaction.timestamp * 1000).fromNow()}
+                    block={transaction.blockNumber}
+                    amount={transaction.value.ether}
+                    txfee={transaction.gasCost.ether}
+                    token={`${
+                      transaction.token ? transaction.token.name : 'AMB'
+                    }`}
+                    symbol={`${
+                      transaction.token ? transaction.token.symbol : 'AMB'
+                    }`}
+                    isTableColumn="address_blocks_cells"
+                    isIcon={true}
+                    onClick={handleToken}
+                    status={transaction.status}
+                    tokenData={transaction.token}
+                    tokens={tokensData}
+                  />
+                ))}
+              </tbody>
+            </table>
+          )}
         />
       </Content.Body>
     </Content>

@@ -1,5 +1,5 @@
-import AtlasDetailsHead from './components/AtlasDetailsHead';
 import API from 'API/api';
+import axios from 'axios';
 import { Content } from 'components/Content';
 import CopyBtn from 'components/CopyBtn';
 import HeadInfo from 'components/HeadInfo';
@@ -8,7 +8,8 @@ import { useTypedSelector } from 'hooks/useTypedSelector';
 import moment from 'moment';
 import AddressBlock from 'pages/Addresses/AddressDetails/components/AddressBlocks';
 import TabsNew from 'pages/Transactions/components/TabsNew';
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
+import { Helmet } from 'react-helmet';
 import { useParams } from 'react-router-dom';
 import { TParams } from 'types';
 import { ambToUSD, diffStyleToCell } from 'utils/helpers';
@@ -20,7 +21,7 @@ export const AtlasDetails = () => {
 
   useEffect(() => {
     getAddressData(address);
-  }, []);
+  }, [address]);
 
   const { data: appData } = useTypedSelector((state: any) => state.app);
   const { data: addressData } = useTypedSelector((state) => state.addressData);
@@ -96,8 +97,21 @@ export const AtlasDetails = () => {
     },
   ];
 
+  const fetchParams = useMemo(() => {
+    return { address, type: '', page: '' };
+  }, [address]);
+
   return (
     <Content>
+      <Helmet>
+        <link rel="canonical" href="https://airdao.io/explorer/atlas/" />
+        <meta name="robots" content="noindex" />
+        <title>Atlas Nodes | AirDAO Network Explorer</title>
+        <meta
+          name="description"
+          content="Explore AirDAO Network Atlas Nodes: total nodes, avg block / prop. time"
+        />
+      </Helmet>
       <Content.Header>
         <div className="atlas_details_main">
           <div className="atlas_details_main_nd">
@@ -123,7 +137,7 @@ export const AtlasDetails = () => {
         <TabsNew
           tabs={atlasDetailsSorting}
           fetchData={API.getAccountTx}
-          fetchParams={{ address, page: '', type: '' }}
+          fetchParams={fetchParams}
           render={(txs: any) =>
             txs.map((transaction: any) => (
               <AddressBlock

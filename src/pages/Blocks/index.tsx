@@ -1,4 +1,3 @@
-import { useActions } from '../../hooks/useActions';
 import { numberWithCommas } from '../../utils/helpers';
 import TabsNew from '../Transactions/components/TabsNew';
 import BlocksBody from './components/BlocksBody';
@@ -7,6 +6,9 @@ import API2 from 'API/newApi';
 import { Content } from 'components/Content';
 import HeadInfo from 'components/HeadInfo';
 import React, { memo, useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet';
+
+const fetchParams = { page: '' };
 
 export const Blocks = memo(() => {
   const [blockData, setBlockData] = useState<any>(null);
@@ -24,7 +26,7 @@ export const Blocks = memo(() => {
 
   const itemFirst: any = [
     {
-      name: 'TOTAL NODES',
+      name: 'TOTAL BLOCKS',
       value: numberWithCommas(blockData?.lastBlock.number),
     },
     {
@@ -36,7 +38,7 @@ export const Blocks = memo(() => {
       value: `${blockData?.avgBlockTime.toFixed(1)} sec`,
     },
     {
-      name: 'AVG. NECTAR USED',
+      name: 'AVG. GAS USED',
       value: `${numberWithCommas(
         blockData?.avgBlockGasUsed.toFixed(1),
       )} ${avgNectarPerc}`,
@@ -45,6 +47,14 @@ export const Blocks = memo(() => {
 
   return (
     <Content>
+      <Helmet>
+        <link rel="canonical" href="https://airdao.io/explorer/blocks/" />
+        <title>Blocks | AirDAO Network Explorer</title>
+        <meta
+          name="description"
+          content="Explore AirDAO Network Blocks: Block number, Validator, Block hash, TXns, Date, Size."
+        />
+      </Helmet>
       <Content.Header>
         <div className="block_main_title">
           <h1 className="main_info_blocks_heading">Blocks</h1>
@@ -52,19 +62,24 @@ export const Blocks = memo(() => {
         <HeadInfo data={itemFirst} className="head_info" />
       </Content.Header>
       <Content.Body>
-        <div className="blocks_main">
-          <TabsNew
-            tableHeader={() => <BlocksHeader />}
-            fetchData={API2.getBlocks}
-            fetchParams={{ page: '' }}
-            label="Blocks"
-            render={(list: any) =>
-              list.map((el: any, index: any) => (
-                <BlocksBody key={index} index={index + 1} item={el} />
-              ))
-            }
-          />
-        </div>
+        <TabsNew
+          tableHeader={() => <></>}
+          fetchData={API2.getBlocks}
+          fetchParams={fetchParams}
+          label="Blocks"
+          render={(list: any) => (
+            <table>
+              <thead>
+                <BlocksHeader />
+              </thead>
+              <tbody>
+                {list.map((el: any, index: any) => (
+                  <BlocksBody key={index} index={index + 1} item={el} />
+                ))}
+              </tbody>
+            </table>
+          )}
+        />
       </Content.Body>
     </Content>
   );

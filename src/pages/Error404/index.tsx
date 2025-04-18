@@ -1,25 +1,22 @@
-import Error404Icon from 'assets/icons/Errors/Error404Icon';
-import { Content } from 'components/Content';
-import ViewMoreBtn from 'components/ViewMoreBtn';
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 
 const Error404 = () => {
-  const navigate = useNavigate();
-
   return (
-    <Content>
-      <Content.Header>
-        <></>
-      </Content.Header>
-      <Content.Body>
-        <div className="error_page">
-          <Error404Icon />
-          <ViewMoreBtn onclick={() => navigate(`/`)} nameBtn="Back to Home" />
-          <h1>Oops! Page not found!</h1>
+    <div className="not-found-bg">
+      <div className="">
+        <div className="not-found">
+          <span className="not-found__num">404</span>
+          <p className="not-found__title">Page not found</p>
+          <p className="not-found__text">
+            The page you are looking for may have been moved, deleted, or
+            possibly never existed
+          </p>
+          <a className="not-found__home" href="/">
+            Back to Home
+          </a>
         </div>
-      </Content.Body>
-    </Content>
+      </div>
+    </div>
   );
 };
 

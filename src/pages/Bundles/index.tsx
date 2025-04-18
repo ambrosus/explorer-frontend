@@ -2,11 +2,11 @@ import API from '../../API/api';
 import TabsNew from '../Transactions/components/TabsNew';
 import { Content } from 'components/Content';
 import HeadInfo from 'components/HeadInfo';
-import useAsyncStoreData from 'hooks/useAsyncStoreData';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 import BundleBlocksBody from 'pages/Bundles/components/BundleBlocksBody';
 import BundleBlocksHeader from 'pages/Bundles/components/BundleBlocksHeader';
 import React from 'react';
+import { Helmet } from 'react-helmet';
 import { ambMonthUSD, numberWithCommas } from 'utils/helpers';
 
 export const Bundles = () => {
@@ -61,6 +61,14 @@ export const Bundles = () => {
 
   return (
     <Content>
+      <Helmet>
+        <link rel="canonical" href="https://airdao.io/explorer/bundles/" />
+        <title>Bundles | AirDAO Network Explorer</title>
+        <meta
+          name="description"
+          content="Explore AirDAO Network Bundles: average bundle load, aprox bundle, bundle cost, entries total etc."
+        />
+      </Helmet>
       <Content.Header>
         <h1 style={{ margin: '32px 0' }}>Bundles</h1>
         <HeadInfo data={itemFirst} className="head_info head_bundle" />

@@ -42,35 +42,63 @@
   }
 
   &_cells {
-    display: grid;
+    /* display: grid;
     grid-template-columns: repeat(3, 1fr);
-    height: 73px;
+    height: 73px; */
     border-bottom: 1px solid #eff2f5;
+    display: flex;
+    justify-content: space-between;
   }
 
   &_cell {
-    display: grid;
-    align-items: center;
+    /* display: grid;
+    align-items: center; */
     white-space: nowrap;
-    padding: 12px 0;
+    padding: 14px 0;
+
+    @include for_small_phone {
+      padding: 14px 5px;
+    }
 
     &_content {
       display: flex;
+      align-items: flex-start;
+
+      &:not(:last-child) {
+        margin-bottom: 7px;
+      }
+    }
+  }
+
+  /* &_cell:nth-child(2) { */
+  /* margin: 0px auto; */
+  /* justify-content: flex-start;
+  } */
+
+  &_cell:nth-child(1) {
+    .latest_blocks_cell_content {
       align-items: center;
     }
   }
 
   &_cell:nth-child(2) {
-    margin: 0px auto;
-    justify-content: flex-start;
-  }
+    /* margin: 0px auto; */
+    > * {
+      justify-content: center;
+    }
 
-  &_cell:nth-child(2) {
-    margin: 0px auto;
+    .latest_blocks_font_big {
+      > a {
+        display: inline-flex;
+        margin-bottom: 7px;
+      }
+    }
   }
 
   &_cell:nth-child(3) {
-    justify-items: end;
+    > * {
+      justify-content: flex-end;
+    }
   }
 
   &_circle {
@@ -81,8 +109,9 @@
     min-width: 50px;
 
     &_big {
-      line-height: 1.33em;
+      /* line-height: 1.33em; */
       font-weight: 600;
+
       @include for_small_phone {
         font-size: 13px;
       }
@@ -90,7 +119,7 @@
 
     &_small {
       font-size: 0.86em;
-      line-height: 0.88em;
+      /* line-height: 0.88em; */
       font-weight: 400;
       color: #58667e;
       @include for_small_phone {
@@ -118,4 +147,8 @@
       border-radius: 16px;
     }
   }
+}
+
+.latest_blocks_cell a {
+  text-decoration: underline;
 }

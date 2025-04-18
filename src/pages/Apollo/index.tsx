@@ -1,21 +1,20 @@
-import API from '../../API/api';
-import { apollosSorting } from '../../utils/sidePages';
+import API2 from '../../API/newApi';
 import AtlasBlocksHeader from '../Atlas/components/AtlasBlocksHeader';
 import TabsNew from '../Transactions/components/TabsNew';
 import ApolloBlocksBody from './components/ApolloBlocksBody';
-import API2 from 'API/newApi';
+import {
+  getOnboardingApollos,
+  getQueuedApollos,
+  getRetiredApollos,
+} from './utils';
 import { Content } from 'components/Content';
 import HeadInfo from 'components/HeadInfo';
 import { useTypedSelector } from 'hooks/useTypedSelector';
-import React, { memo, useEffect, useState } from 'react';
+import React, { memo, useEffect, useMemo } from 'react';
+import { Helmet } from 'react-helmet';
 
 export const Apollo = memo(() => {
-  // const [apolloData, setApolloData] = useState<any>(null);
   const { data: appData } = useTypedSelector((state: any) => state.app);
-
-  // useEffect(() => {
-  //   API2.getInfo().then((res) => setApolloData(res.data));
-  // }, []);
 
   const {
     total = 0,
@@ -35,7 +34,7 @@ export const Apollo = memo(() => {
       name: 'ONLINE',
       value: online,
       style: {
-        color: '#1acd8c',
+        color: '#16C784',
       },
     },
     {
@@ -52,8 +51,47 @@ export const Apollo = memo(() => {
     },
   ];
 
+  useEffect(() => {
+    getRetiredApollos();
+  }, []);
+
+  const tableData = useMemo(
+    () => [
+      { title: 'Address', value: 'address' },
+      { title: 'Total blocks', value: 'totalBundles' },
+      { title: 'Balance', value: 'balance' },
+      { title: 'Stake', value: 'stake' },
+      {
+        title: 'Retired',
+        value: 'retired',
+        heading: <AtlasBlocksHeader pageTitle="blocks" isRetired />,
+        listData: getRetiredApollos,
+      },
+      {
+        title: 'In queue',
+        value: 'queue',
+        listData: getQueuedApollos,
+      },
+      {
+        title: 'Onboarding',
+        value: 'onboarding',
+        listData: getOnboardingApollos,
+      },
+    ],
+    [],
+  );
+
   return (
     <Content>
+      <Helmet>
+        <link rel="canonical" href="https://airdao.io/explorer/apollo/" />
+        <meta name="robots" content="noindex" />
+        <title>Apollo Nodes | AirDAO Network Explorer</title>
+        <meta
+          name="description"
+          content="Explore AirDAO Network Apollo Nodes: Address, Status, Total blocks, Balance, Stake"
+        />
+      </Helmet>
       <Content.Header>
         <h1 className="main_info_apollo_heading">Apollo Nodes</h1>
         <HeadInfo data={itemFirst} className="head_info" />
@@ -61,16 +99,20 @@ export const Apollo = memo(() => {
       <Content.Body>
         <TabsNew
           tableHeader={() => <AtlasBlocksHeader pageTitle="blocks" />}
-          sortOptions={apollosSorting}
+          sortOptions={tableData}
           fetchData={API2.getApollos}
           initSortTerm={'totalBundles'}
-          fetchParams={{ sort: '', next: '' }}
+          fetchParams={{ sort: '', page: '', limit: 100 }}
           label="Nodes"
-          render={(list: any) =>
-            list.map((el: any, index: any) => (
-              <ApolloBlocksBody key={index} index={index + 1} item={el} />
-            ))
-          }
+          render={(list: any) => (
+            <table className="apollo_table">
+              <tbody>
+                {list.map((el: any, index: any) => (
+                  <ApolloBlocksBody key={index} index={index + 1} item={el} />
+                ))}
+              </tbody>
+            </table>
+          )}
         />
       </Content.Body>
     </Content>

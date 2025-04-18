@@ -28,10 +28,6 @@
   &_tokens {
     padding-left: 10px;
     line-height: 1.33em;
-
-    &:hover {
-      background-color: $secondary;
-    }
   }
 
   &_amount {
@@ -41,5 +37,10 @@
 
   &_icon {
     margin-right: 2px;
+
+    svg {
+      width: 24px;
+      height: 24px;
+    }
   }
 }

@@ -15,4 +15,8 @@
 
 .tabs_list {
   overflow: auto;
+
+  &_empty {
+    overflow: hidden!important;
+  }
 }

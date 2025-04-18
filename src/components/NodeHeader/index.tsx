@@ -1,6 +1,6 @@
 import { TParams } from '../../types';
-import React, { useEffect, useState } from 'react';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
+import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 const NodeHeader = ({ children, getNodeData }: any) => {
@@ -8,10 +8,11 @@ const NodeHeader = ({ children, getNodeData }: any) => {
   const [node, setNode] = useState(null);
   const navigate = useNavigate();
 
-  const { data, isError, isLoading } = useQuery(
-    [`get data for ${address}`, address],
-    () => getNodeData(address),
-  );
+  const { data, isError, isLoading } = useQuery({
+    queryKey: [`get data for ${address}`, address],
+    queryFn: () => getNodeData(address),
+    enabled: !!address,
+  });
 
   useEffect(() => {
     if (!isLoading)
@@ -19,13 +20,13 @@ const NodeHeader = ({ children, getNodeData }: any) => {
         if (data?.data) {
           return data.data;
         } else {
-          navigate(`/notfound`);
+          navigate(`/notfound/`);
           return null;
         }
       });
   }, [isLoading]);
 
-  if (isError) navigate(`/notfound`);
+  if (isError) navigate(`/notfound/`);
 
   const res = node && children({ node });
   return res;

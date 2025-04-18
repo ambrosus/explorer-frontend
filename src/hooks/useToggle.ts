@@ -5,9 +5,9 @@ const useToggle = (initialState: boolean = false) => {
 
   return {
     toggled,
-    setToggle: (e: any) => {
+    setToggle: (isOpen?: any) => {
       //   e.stopPropagation();
-      setToggled((state) => !state);
+      setToggled((state) => (typeof isOpen === 'boolean' ? isOpen : !state));
     },
   };
 };

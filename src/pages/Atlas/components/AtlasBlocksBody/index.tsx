@@ -15,6 +15,7 @@ const AtlasBlocksBody = ({ index, item }: any) => {
           color: '#808A9D',
           fontWeight: 600,
         }}
+        rel="nofollow"
         className="atlas_blocks_body_cell"
         to={`${item.address}/`}
       >
@@ -35,7 +36,7 @@ const AtlasBlocksBody = ({ index, item }: any) => {
         <Currency
           value={balance ? `${balance.ether}` : '0'}
           symbol="AMB"
-          fixed={8}
+          fixed={6}
           side="left"
         />
       </div>
@@ -43,7 +44,7 @@ const AtlasBlocksBody = ({ index, item }: any) => {
         <Currency
           value={stake ? `${stake.ether}` : '0'}
           symbol="AMB"
-          fixed={8}
+          fixed={6}
         />
       </div>
     </div>

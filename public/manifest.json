@@ -8,17 +8,23 @@
       "type": "image/png"
     },
     {
-      "src": "favicon.png",
+      "src": "logo192.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "favicon.png",
+      "src": "logo256.png",
+      "type": "image/png",
+      "sizes": "256x256"
+    },
+    {
+      "src": "logo512.png",
       "type": "image/png",
       "sizes": "512x512"
     }
   ],
   "start_url": ".",
   "display": "standalone",
-  "background_color": "#ffffff"
+  "theme_color": "#3568DD",
+  "background_color": "#EDF3FF"
 }

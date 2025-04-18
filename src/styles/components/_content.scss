@@ -3,11 +3,16 @@
   width: 100%;
   display: flex;
   flex-direction: column;
+
   &_backgorund {
     background-color: rgb(238, 243, 254);
 
     @include for_laptop {
       padding-top: 60px;
+    }
+
+    @include for_phone {
+      padding-top: 20px;
     }
 
     &_expanded {
@@ -33,7 +38,7 @@
     background-color: $white;
     border-top-left-radius: 32px;
     border-top-right-radius: 32px;
-    padding-bottom: 90px;
+    padding-bottom: 120px;
 
     @include for_phone {
       padding-bottom: 60px;

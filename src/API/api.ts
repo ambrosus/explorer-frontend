@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const tokenApiUrl: any = process.env.REACT_APP_TOKEN_API_URL;
 
-const baseApiUrl = process.env.REACT_APP_API_ENDPOINT;
+const baseApiUrl = process.env.REACT_APP_API_ENDPOINT_V2;
 const sourcifyApiUrl = process.env.REACT_APP_SOURCIFY_API_ENDPOINT;
 
 const chainID = process.env.REACT_APP_CHAIN_ID;
@@ -59,132 +59,43 @@ const SOURCIFYAPI = () => {
   return api;
 };
 
-const getBlocks = async (params = {}) => {
-  return await API().get('blocks', {
-    params,
-  });
-};
-
-const getBlock = (hashOrNumber: any) => {
-  return API().get(`blocks/${hashOrNumber}`);
-};
-
-const getBlockTransactions = (hashOrNumber: any, params = {}) => {
-  return API().get(`v2/blocks/${hashOrNumber}/transactions`, {
-    params,
-  });
-};
-
 const getAccount = (address: any) => {
   return API().get(`accounts/${address}`);
 };
 
-const getAtlas = (address: any) => {
-  return API().get(`atlases/${address}`);
-};
-
-const getAtlasBundles = (address: any, params: any) => {
-  return API().get(`atlases/${address}/bundles`, {
-    params,
-  });
-};
-
-const getApolloRewards = (address: any, params: any) => {
-  const url = `apollos/${address}/rewards`;
-  const parameterFrom = params?.from?.split('/') || null;
-  const parameterTo = params?.to?.split('/') || null;
-  const newParams =
-    parameterTo !== null
-      ? {
-          from: `${parameterFrom[1]}/${parameterFrom[0]}/${parameterFrom[2]}`,
-          to: `${parameterTo[1]}/${parameterTo[0]}/${parameterTo[2]}`,
-        }
-      : {
-          from: `${parameterFrom[1]}/${parameterFrom[0]}/${parameterFrom[2]}`,
-        };
-  return API().get(url, { params: newParams });
-};
-
-const getTransaction = (hash: any) => {
-  return API().get(`transactions/${hash}`);
-};
-
-const getTransactions = (params: any = {}) => {
-  const { type } = params;
-  if (type) {
-    delete params?.type;
-  }
-  const url = `transactions${type ? `/types/${type}` : ''}`;
-  return API().get(url, {
-    params,
-  });
-};
-
-const getTransactionEvent = (hash: any) => {
-  return API().get(`transactions/${hash}/event`);
-};
-
-const getSupTransaction = (address: any) => {
-  return API().get(`transactions/?parent=${address}`);
-};
-
-const getAccounts = (params = {}) => {
-  return API().get(`accounts`, {
-    params,
-  });
-};
-
-const getApollos = (params = {}) => {
-  return API().get(`apollos`, {
-    params,
-  });
-};
-
-const getAddresses = (params = {}) => {
-  return API().get('v2/addresses', { params });
-};
-
-const getAccountTxs = (params: any = {}) => {
-  const { address, type, page, tokenAddress } = params;
-
-  return API().get(
-    `addresses/${address}/${tokenAddress ? 'tokens' : type}${
-      tokenAddress ? '/' + tokenAddress : ''
-    }`,
-    {
-      params: { page },
-    },
-  );
-};
-
+//TODO remove atlases
 const getAtlases = (params = {}) => {
   return API().get(`atlases`, {
     params,
   });
 };
 
+const getAtlas = (address: string) => {
+  return API().get(`atlases/${address}`);
+};
+//TODO remove atlases
 export const getAccountTx = (params: any = {}) => {
   return API().get(`accounts/${params.address}/transactions`, {
     params,
   });
 };
-
+//TODO remove bundles
 const getBundle = (bundleId: any) => {
   return API().get(`bundles/${bundleId}`);
 };
-
+//TODO remove bundles
 const getBundleAssets = (bundleId: any, params = {}) => {
   return API().get(`bundles/${bundleId}/assets`, {
     params,
   });
 };
-
+//TODO remove bundles
 const getBundleEvents = (bundleId: any, params = {}) => {
   return API().get(`bundles/${bundleId}/events`, {
     params,
   });
 };
-
+//TODO remove bundles
 const getBundleWithEntries = (bundleId: any) => {
   return axios
     .all([
@@ -202,86 +113,49 @@ const getBundleWithEntries = (bundleId: any) => {
       }),
     );
 };
-
-const searchItem = (term: any) => {
-  return API().get(`search/${term}`);
-};
-
+//TODO remove bundles
 const getBundles = (params = {}) => {
   return API().get(`bundles?cursor`, {
     params,
   });
-};
-const getInfo = () => {
-  return API().get(`info/`);
 };
 
 const getContract = (address: any) => {
   return SOURCIFYAPI().get(`files/any/${chainID}/${address}`);
 };
 
-const getToken = () => {
-  return axios.get(tokenApiUrl).then(({ data }) => data.data);
-};
-
-const getTokenHistory = () => {
-  return axios.get(tokenApiUrl + '/history').then(({ data }) => data.data);
-};
-
 const getTokenMountPrice = () => {
   return axios.get(tokenApiUrl + '/price').then(({ data }) => data.data);
 };
 
-const getTokenTotalSupply = () => {
-  return axios
-    .get(`${process.env.REACT_APP_API_ENDPOINT}/blocks/total_supply`)
-    .then((response) => {
-      return response.data;
-    });
-};
-
 const followTheLinkRange = async (fromDate: any, toDate: any, address: any) => {
-  const link = `${baseApiUrl}/transactions/csv/address/${address}`;
+  const link = `${process.env.REACT_APP_API_ENDPOINT_V2}/addresses/${address}/export/csv`;
   const from = fromDate / 1000;
   const to = toDate / 1000;
-  window.open(`${link}/dateFrom/${from}/dateTo/${to}`, '_self');
-  const data = await fetch(`${link}/dateFrom/${from}/dateTo/${to}`);
-  return data;
+  window.open(
+    `${link}?from=${from}&to=${to + (from === to ? 86400 : 0)}`,
+    '_self',
+  );
+  return await fetch(
+    `${link}?from=${from}&to=${to + (from === to ? 86400 : 0)}`,
+  );
 };
 
 const api = {
   API: API(),
   SOURCIFYAPI: SOURCIFYAPI(),
-  getBlocks,
-  getBlockTransactions,
-  getTransactions,
-  getSupTransaction,
-  getAccounts,
-  getApollos,
-  getAtlas,
   getAtlases,
-  getApolloRewards,
-  getInfo,
+  getAtlas,
   getContract,
-  getToken,
   getAccountTx,
-  getBlock,
   getAccount,
-  getTransaction,
-  getTransactionEvent,
   getBundles,
   getBundle,
   getBundleAssets,
   getBundleEvents,
   getBundleWithEntries,
-  searchItem,
-  getTokenHistory,
   getTokenMountPrice,
-  getTokenTotalSupply,
-  getAtlasBundles,
   followTheLinkRange,
-  getAddresses,
-  getAccountTxs,
 };
 
 export default api;

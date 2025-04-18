@@ -102,6 +102,9 @@
         grid-template-columns: minmax(120px, 1fr) minmax(500px, 6fr);
         grid-gap: 8px;
       }
+      &-item {
+        margin-top: 4px;
+      }
       &-heading {
         display: flex;
         align-items: center;
@@ -110,7 +113,6 @@
       &-address {
         overflow: hidden;
         text-overflow: ellipsis;
-        font-weight: 600;
         font-size: 14px;
         line-height: 24px;
       }
@@ -187,5 +189,8 @@
 
       margin-right: 10px;
     }
+  }
+  & .loader {
+    position: unset;
   }
 }

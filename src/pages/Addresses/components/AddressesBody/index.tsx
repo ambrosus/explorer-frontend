@@ -5,7 +5,7 @@ import { AddressesBodyProps } from 'pages/Addresses/addresses.interface';
 import IsContract from 'pages/Addresses/components/IsContract';
 import React, { FC } from 'react';
 import { NavLink } from 'react-router-dom';
-import ReactTooltip from 'react-tooltip';
+import Tooltip from 'react-simple-tooltip';
 import { displayAmount } from 'utils/helpers';
 
 const AddressesBody: FC<AddressesBodyProps> = ({
@@ -24,41 +24,50 @@ const AddressesBody: FC<AddressesBodyProps> = ({
   return (
     appData &&
     address && (
-      <div className="addresses_body_cells" ref={lastCardRef}>
-        <div className="addresses_body_cell">{rank}</div>
-
-        <NavLink
-          to={`/address/${address}/`}
-          className="addresses_body_cell universall_light2"
-        >
-          <ReactTooltip
-            id="centered-tooltip"
-            effect="solid"
-            place="bottom"
-            backgroundColor="#808A9D"
-          />
-          {isContract && (
-            <div
-              data-tip="Contract"
-              data-for="centered-tooltip"
-              className="is-contract"
-            >
-              <IsContract />
-            </div>
-          )}
-          {address}
-        </NavLink>
-        <div className="addresses_body_cell">{txCount || 0}</div>
-        <div className="addresses_body_cell">
-          <Amb />
-          <span className="addresses_body_cell_icon">AMB</span>
-          <Currency value={displayAmount(ambBalance) || 0} symbol=" " />
-        </div>
-
-        <div className="addresses_body_cell">
-          {(holdingPercentage || 0).toFixed(2)} %
-        </div>
-      </div>
+      <tr className="addresses_body_cells" ref={lastCardRef}>
+        <td>
+          <div className="addresses_body_cell">{rank}</div>
+        </td>
+        <td>
+          <NavLink
+            rel="nofollow"
+            to={`/address/${address}/`}
+            className="addresses_body_cell universall_light2"
+          >
+            {isContract && (
+              <div className="is-contract">
+                <Tooltip
+                  content="Is contract"
+                  padding={6}
+                  radius={10}
+                  fontSize={10}
+                  background="#808a9d"
+                  color="white"
+                  border="none"
+                >
+                  <IsContract />
+                </Tooltip>
+              </div>
+            )}
+            {address}
+          </NavLink>
+        </td>
+        <td>
+          <div className="addresses_body_cell">{txCount || 0}</div>
+        </td>
+        <td>
+          <div className="addresses_body_cell">
+            <Amb />
+            <span className="addresses_body_cell_icon">AMB</span>
+            <Currency value={displayAmount(ambBalance) || 0} symbol=" " />
+          </div>
+        </td>
+        <td>
+          <div className="addresses_body_cell">
+            {(holdingPercentage || 0).toFixed(2)} %
+          </div>
+        </td>
+      </tr>
     )
   );
 };
