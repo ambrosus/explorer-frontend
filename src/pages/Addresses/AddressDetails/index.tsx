@@ -181,11 +181,16 @@ const AddressDetails = () => {
               fetchData={API2.getAccountTxs}
               initTab="all"
               fetchParams={fetchParams}
-              render={(txs: Account[], isTokens: boolean) => (
-                <tbody>
-                  {txs.map((tx: any) => renderAddressBlock(tx, isTokens))}
-                </tbody>
-              )}
+              render={(txs: any[], isTokens: boolean) => {
+                const uniqueTxs = Array.from(
+                  new Map(txs.map(tx => [tx.hash, tx])).values()
+                );
+                return (
+                  <tbody>
+                  {uniqueTxs.map((tx: any) => renderAddressBlock(tx, isTokens))}
+                  </tbody>
+                )
+              }}
             />
           )}
         </Content.Body>
