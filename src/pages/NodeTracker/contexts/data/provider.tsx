@@ -347,10 +347,11 @@ const DataProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
     if (incomeNodes.length) {
       const currentBestBlock = incomeNodes.find((el) => {
         return (
-          el.info.name.includes('atlas') &&
+          el.info.name.includes('apollo') &&
           el.info.node.includes('OpenEthereum')
         );
       })?.stats?.block?.number;
+
       if (currentBestBlock && currentBestBlock !== bestBlock) {
         setBestBlock(currentBestBlock);
         const data = _.max(incomeNodes, (node) => {

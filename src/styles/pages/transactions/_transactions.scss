@@ -26,6 +26,12 @@
   margin: 0 auto;
   padding-bottom: 50px;
 
+  &.container {
+    @include for_phone {
+      padding: 0;
+    }
+  }
+
   &_hash {
     font-size: 18px;
     font-weight: 700;
@@ -68,6 +74,10 @@
   @include for_phone {
     flex-direction: column;
     align-items: flex-start;
+
+    h1 {
+      font-size: 2rem !important;
+    }
   }
 }
 
