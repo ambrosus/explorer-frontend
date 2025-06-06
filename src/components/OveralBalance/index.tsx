@@ -23,7 +23,8 @@ const OverallBalance: React.FC<OverallBalanceProps> = ({
     if (
       //TODO !addressBalance
       addressBalance !== undefined &&
-      addressBalance !== null
+      addressBalance !== null &&
+      appData?.tokenInfo?.price_usd
     ) {
       addressBuffer = address;
       buffer = addressBalance;
