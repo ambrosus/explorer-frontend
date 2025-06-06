@@ -12,8 +12,8 @@ import { formatEther } from 'ethers/lib/utils';
 import useDeviceSize from 'hooks/useDeviceSize';
 import moment from 'moment';
 import React, { useEffect, useMemo, useState } from 'react';
-import { Helmet } from 'react-helmet';
 import { useNavigate, useParams } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 const AddressDetails = () => {
   const { address, tokenAddress } = useParams();
