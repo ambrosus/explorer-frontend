@@ -183,13 +183,15 @@ const AddressDetails = () => {
               fetchParams={fetchParams}
               render={(txs: any[], isTokens: boolean) => {
                 const uniqueTxs = Array.from(
-                  new Map(txs.map(tx => [tx.hash, tx])).values()
+                  new Map(txs.map((tx) => [tx.hash, tx])).values(),
                 );
                 return (
                   <tbody>
-                  {uniqueTxs.map((tx: any) => renderAddressBlock(tx, isTokens))}
+                    {uniqueTxs.map((tx: any) =>
+                      renderAddressBlock(tx, isTokens),
+                    )}
                   </tbody>
-                )
+                );
               }}
             />
           )}
