@@ -2,10 +2,8 @@ import { AmbErrorProvider } from '@airdao/airdao-node-contracts';
 import { ChainIdValues, networkById } from '@airdao/ui-library';
 import { ethers } from 'ethers';
 
-if (process.env.REACT_APP_CHAIN_ID === undefined) {
-  throw new Error('REACT_APP_CHAIN_ID is not defined');
-}
-
+console.log(process.env);
+//@ts-ignore
 export const ambChainId = +process.env.REACT_APP_CHAIN_ID as ChainIdValues;
 
 export const ambNetwork = {
